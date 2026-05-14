@@ -1,0 +1,475 @@
+// ============================================================
+// AUTO-GENERATED — do not edit manually.
+// Run `bun run prisma:combine` to regenerate from prisma/schema/*.prisma
+// ============================================================
+
+// --- base.prisma ---
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma/client"
+}
+
+// --- agent-run.prisma ---
+// ── Evidence Agent runs (per-control, per-tenant) ────────────────
+//
+// Each AgentRun represents one execution of the Evidence Agent for a
+// specific control in a specific organization. The collector owns
+// agent state because the agent runs inside the collector (it needs
+// IntegrationConnection credentials and the provider tool registry).
+//
+// `instructions` and `toolConnectionIds` are snapshotted at run-creation
+// time so a run record always reflects the configuration that was
+// actually executed, even if the user later edits the control's
+// evidence-collection config in the API.
+
+enum AgentRunStatus {
+  pending
+  running
+  succeeded
+  failed
+  cancelled
+}
+
+enum AgentRunTrigger {
+  manual
+  scheduled
+  api
+}
+
+model AgentRun {
+  id                 String          @id @default(cuid())
+  tenantId           String
+  controlId          String
+  controlTitle       String?
+  trigger            AgentRunTrigger @default(api)
+  status             AgentRunStatus  @default(pending)
+
+  // Snapshot of the agent config at the moment the run was queued.
+  instructions       String          @db.Text
+  toolConnectionIds  String[]        @default([])
+
+  // AI provider/model + credentials passed in by the API caller (so
+  // the per-org/per-feature AI precedence chain stays in the API).
+  // Credentials are cleared when the run terminates; we keep
+  // provider/model for audit.
+  aiProvider         String?
+  aiModel            String?
+  aiCredentialsEncrypted String?     @db.Text
+
+  // Outputs.
+  evidenceCount      Int             @default(0)
+  errorCount         Int             @default(0)
+  errorMessage       String?         @db.Text
+  // Compact transcript of (toolCall, args, result) records and final
+  // agent summary. Stored as JSON so the UI can render it.
+  transcript         Json?
+  summary            String?         @db.Text
+  // Per-tool call counts surfaced to the UI dashboard.
+  toolCallSummary    Json?
+
+  startedAt          DateTime?
+  completedAt        DateTime?
+  durationMs         Int?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([tenantId])
+  @@index([tenantId, controlId])
+  @@index([status, createdAt])
+  @@index([tenantId, status])
+}
+
+// --- connection.prisma ---
+enum ConnectionStatus {
+  connected
+  disconnected
+  error
+  syncing
+  pending_auth
+}
+
+// A tenant's binding to a specific Integration. Credentials live in
+// `SecretVault` and are referenced via `secretId`; this row only carries
+// metadata + non-secret config.
+model IntegrationConnection {
+  id                   String           @id @default(cuid())
+  tenantId             String
+  integrationId        String
+  name                 String
+  status               ConnectionStatus @default(pending_auth)
+  // Reference to a `SecretVault` row that holds the AES-GCM ciphertext
+  // for the connection's credentials. Null only while a connection is
+  // in `pending_auth` and no secret has been issued yet.
+  secretId             String?
+  config               Json?
+  lastSyncAt           DateTime?
+  lastErrorMessage     String?
+  syncFrequencyMinutes Int              @default(1440)
+  isActive             Boolean          @default(true)
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  integration Integration              @relation(fields: [integrationId], references: [id])
+  jobs        CollectionJob[]
+  syncLogs    SyncLog[]
+  checks      IntegrationCheck[]
+  checkControls IntegrationCheckControl[]
+  checkResults IntegrationCheckResult[]
+
+  @@unique([tenantId, integrationId, name])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([secretId])
+}
+
+// --- integration-check.prisma ---
+// Integration checks live in the collector because the runtime that
+// evaluates them (manifest, HTTP probe, Playwright runner) is owned by
+// the collector. The API queries this over HTTP when it needs to show
+// check status next to a control.
+//
+// `controlId` is a loose string reference to `Control` in the API DB —
+// no Prisma relation, since the two services have independent
+// datasources. Integrity is enforced at the application layer when
+// checks are linked to controls via the connector manifest.
+
+enum IntegrationCheckStatus {
+  pass
+  fail
+  error
+  skipped
+  pending
+}
+
+enum IntegrationCheckSeverity {
+  low
+  medium
+  high
+  critical
+}
+
+model IntegrationCheck {
+  id            String                   @id @default(cuid())
+  tenantId      String
+  // The `IntegrationConnection` row this check belongs to. A connection
+  // is always linked to exactly one `Integration` (catalog row), so we
+  // do not duplicate `integrationId` here — join through `connection`
+  // when needed.
+  connectionId  String
+  integrationId String
+  // Stable manifest identifier, e.g. "aws.iam.root_mfa_enabled".
+  // For prompt-derived custom checks this is "custom.<cuid>".
+  manifestKey   String
+  title         String
+  description   String?                  @db.Text
+  severity      IntegrationCheckSeverity @default(medium)
+  // Cron-style schedule honoured by the worker. Defaults to daily.
+  schedule      String                   @default("0 6 * * *")
+  isEnabled     Boolean                  @default(true)
+  // Which runtime evaluates this check:
+  //  * "manifest" — connector-bundled check, executed via the connector's
+  //    own logic (see @trustalo/integration-manifests).
+  //  * "http"     — universal HTTP/TLS probe (runs inline in collector).
+  //  * "browser"  — Playwright-driven assertion.
+  runner        String                   @default("manifest")
+  spec          Json?
+  aiPrompt      String?                  @db.Text
+  aiModel       String?
+  lastStatus    IntegrationCheckStatus   @default(pending)
+  lastRunAt     DateTime?
+  lastEvidenceId String?
+  createdAt     DateTime                 @default(now())
+  updatedAt     DateTime                 @updatedAt
+
+  connection  IntegrationConnection     @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  integration Integration               @relation(fields: [integrationId], references: [id])
+  controls    IntegrationCheckControl[]
+  results     IntegrationCheckResult[]
+
+  @@unique([connectionId, manifestKey])
+  @@index([tenantId])
+  @@index([lastStatus])
+}
+
+// Many-to-many: one check can satisfy multiple controls. `controlId` is
+// an opaque string id from the API service (no FK).
+model IntegrationCheckControl {
+  id                 String   @id @default(cuid())
+  tenantId           String
+  integrationCheckId String
+  connectionId       String
+  controlId          String
+  createdAt          DateTime @default(now())
+
+  integrationCheck IntegrationCheck      @relation(fields: [integrationCheckId], references: [id], onDelete: Cascade)
+  connection       IntegrationConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+
+  @@unique([integrationCheckId, controlId])
+  @@index([tenantId])
+  @@index([controlId])
+}
+
+model IntegrationCheckResult {
+  id                 String                 @id @default(cuid())
+  tenantId           String
+  integrationCheckId String
+  connectionId       String
+  status             IntegrationCheckStatus
+  payload            Json?
+  errorMessage       String?                @db.Text
+  durationMs         Int?
+  // Opaque id from the API service when this run produced an Evidence
+  // record. Pure string ref — no FK.
+  evidenceId         String?
+  createdAt          DateTime               @default(now())
+
+  integrationCheck IntegrationCheck      @relation(fields: [integrationCheckId], references: [id], onDelete: Cascade)
+  connection       IntegrationConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, createdAt])
+  @@index([integrationCheckId, createdAt])
+  @@index([status])
+}
+
+// --- integration.prisma ---
+// Catalog of supported integration connectors.
+//
+// One row per integration that Trustalo supports. The `id` is the
+// connector slug ("github", "aws", "azure", "google", "okta",
+// "openai", "anthropic", ...) — human-readable and stable, so callers
+// can reference `Integration` records by name without an extra lookup.
+//
+// Tenant-specific bindings live in `IntegrationConnection`.
+
+enum AuthType {
+  oauth2
+  api_key
+  iam_role
+}
+
+enum IntegrationCategory {
+  cloud
+  identity
+  code_repository
+  productivity
+  security
+  hr
+  ai
+  custom
+}
+
+model Integration {
+  // Slug-as-PK, e.g. "github", "aws", "openai". Lower-case ASCII, no
+  // hyphens that conflict with HTTP path segments. Treated as opaque
+  // by anything outside the integration manifest layer.
+  id           String              @id
+  name         String
+  description  String?
+  authType     AuthType
+  category     IntegrationCategory
+  configSchema Json?
+  capabilities String[]
+  isActive     Boolean             @default(true)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  connections IntegrationConnection[]
+  checks      IntegrationCheck[]
+
+  @@index([category])
+}
+
+// --- job.prisma ---
+enum JobType {
+  scheduled
+  manual
+  triggered
+}
+
+enum JobStatus {
+  pending
+  queued
+  running
+  completed
+  failed
+  cancelled
+}
+
+enum RunStatus {
+  running
+  completed
+  failed
+  cancelled
+}
+
+enum RetryStatus {
+  pending
+  retrying
+  succeeded
+  failed
+  exhausted
+}
+
+model CollectionJob {
+  id           String    @id @default(cuid())
+  tenantId     String
+  connectionId String
+  type         JobType
+  status       JobStatus @default(pending)
+  priority     Int       @default(0)
+  scheduledAt  DateTime  @default(now())
+  startedAt    DateTime?
+  completedAt  DateTime?
+  nextRunAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  connection IntegrationConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  runs       CollectionJobRun[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([connectionId])
+  @@index([status, scheduledAt])
+}
+
+model CollectionJobRun {
+  id            String    @id @default(cuid())
+  jobId         String
+  tenantId      String
+  runNumber     Int
+  status        RunStatus @default(running)
+  startedAt     DateTime  @default(now())
+  completedAt   DateTime?
+  durationMs    Int?
+  evidenceCount Int       @default(0)
+  errorCount    Int       @default(0)
+  resultSummary Json?
+  errorDetails  String?   @db.Text
+  createdAt     DateTime  @default(now())
+
+  job     CollectionJob     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  retries CollectionRetry[]
+
+  @@index([tenantId])
+  @@index([jobId, runNumber])
+  @@index([jobId, createdAt])
+}
+
+model CollectionRetry {
+  id            String      @id @default(cuid())
+  jobRunId      String
+  tenantId      String
+  attemptNumber Int
+  status        RetryStatus @default(pending)
+  errorMessage  String?
+  scheduledAt   DateTime    @default(now())
+  attemptedAt   DateTime?
+  nextRetryAt   DateTime?
+  maxAttempts   Int         @default(3)
+  backoffMs     Int         @default(1000)
+  createdAt     DateTime    @default(now())
+
+  jobRun CollectionJobRun @relation(fields: [jobRunId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([jobRunId])
+  @@index([status, scheduledAt])
+}
+
+// --- secret-vault.prisma ---
+// Encrypted secret store, tenant-scoped.
+//
+// Holds AES-256-GCM ciphertext for credentials that other collector
+// entities reference by id (currently `IntegrationConnection.secretId`,
+// future: agent-run credentials, third-party webhook signing keys, etc.).
+//
+// Design rules:
+//  * No plaintext is ever persisted; the encrypted blob is opaque and
+//    is decrypted only at use time by `secret-vault.service.ts`.
+//  * Rotation is append-only: a new row is created and the referrer
+//    flips its `secretId` to the new row atomically. Old rows can be
+//    soft-deleted via `rotatedAt` so the audit trail survives.
+//  * `scope` makes it easy to add per-scope policies later (e.g.
+//    integration-connection secrets vs ad-hoc API keys) without a
+//    schema change.
+
+enum SecretScope {
+  integration_connection
+  // Reserved for future expansion. Add new scopes here when adding new
+  // SecretVault consumers. Do not store unrelated payloads in an
+  // existing scope.
+  webhook
+  ad_hoc
+}
+
+model SecretVault {
+  id               String      @id @default(cuid())
+  tenantId         String
+  scope            SecretScope @default(integration_connection)
+  // Soft pointer back to whichever record this secret belongs to.
+  // `ownerType` keeps this loose so we can grow scopes without
+  // adding columns; `ownerId` is the foreign id (e.g. an
+  // `IntegrationConnection.id`).
+  ownerType        String
+  ownerId          String
+  // AES-256-GCM ciphertext including IV + auth tag. Layout is owned by
+  // `secret-vault.service.ts` so we can rotate the wire format without
+  // a schema migration.
+  encryptedPayload String      @db.Text
+  // KMS key id used for envelope encryption when applicable. Null for
+  // dev-mode keys derived from `SECRET_VAULT_DEV_SEED`.
+  kmsKeyId         String?
+  rotatedAt        DateTime?
+  expiresAt        DateTime?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  @@index([tenantId])
+  @@index([tenantId, scope])
+  @@index([ownerType, ownerId])
+}
+
+// --- sync-log.prisma ---
+enum SyncAction {
+  full_sync
+  incremental_sync
+  test_connection
+  credential_refresh
+}
+
+enum SyncStatus {
+  started
+  completed
+  failed
+  partial
+}
+
+model SyncLog {
+  id               String     @id @default(cuid())
+  tenantId         String
+  connectionId     String
+  // Plain string slug of the Integration this log row belongs to.
+  // Denormalised so log queries can filter by connector without joining
+  // through `IntegrationConnection`.
+  integrationId    String
+  action           SyncAction
+  status           SyncStatus @default(started)
+  recordsProcessed Int        @default(0)
+  recordsFailed    Int        @default(0)
+  startedAt        DateTime   @default(now())
+  completedAt      DateTime?
+  details          Json?
+  createdAt        DateTime   @default(now())
+
+  connection IntegrationConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([connectionId, createdAt])
+  @@index([tenantId, action])
+}
+

@@ -1,0 +1,261 @@
+{
+  "$comment": "GDPR (EU 2016/679) → SOC 2 Type II Trust Service Criteria mappings. We map principally against the AICPA Privacy criteria (P1–P8) — these were specifically designed to align with GDPR-era privacy regulation — and reach into the Common Criteria (CC*) for security-of-processing (Art. 32) and breach (Art. 33/34). Vendor-management criteria CC9.2 carries the Article 28 processor work.",
+  "source": "AICPA Trust Services Criteria (2017) — Privacy criteria GDPR-aligned cross-walk; OneTrust + Drata published GDPR↔SOC 2 mapping",
+  "sourceFramework": "gdpr",
+  "targetFramework": "soc2",
+  "mappings": [
+    {
+      "source": "Art.5(1)(a)",
+      "target": "P1.1",
+      "relationship": "equivalent",
+      "rationale": "Privacy notice provided at or before collection — direct expression of lawful, fair and transparent processing."
+    },
+
+    {
+      "source": "Art.5(1)(b)",
+      "target": "P4.1",
+      "relationship": "equivalent",
+      "rationale": "Personal information used only for identified purposes — the operationalisation of purpose limitation."
+    },
+    {
+      "source": "Art.5(1)(b)",
+      "target": "P4.2",
+      "relationship": "partial",
+      "rationale": "Retention bound to stated purposes."
+    },
+
+    {
+      "source": "Art.5(1)(c)",
+      "target": "P2.1",
+      "relationship": "equivalent",
+      "rationale": "Collection consistent with stated objectives — data minimisation in TSC form."
+    },
+
+    {
+      "source": "Art.5(1)(d)",
+      "target": "P5.1",
+      "relationship": "partial",
+      "rationale": "Access and correction requests handled — supports the accuracy principle."
+    },
+
+    {
+      "source": "Art.5(1)(e)",
+      "target": "P3.1",
+      "relationship": "equivalent",
+      "rationale": "Personal information retained and then disposed as defined — storage limitation."
+    },
+    {
+      "source": "Art.5(1)(e)",
+      "target": "P3.2",
+      "relationship": "equivalent",
+      "rationale": "Retained no longer than needed."
+    },
+
+    {
+      "source": "Art.5(1)(f)",
+      "target": "C1.1",
+      "relationship": "partial",
+      "rationale": "Confidentiality of personal data during collection, creation and processing."
+    },
+    {
+      "source": "Art.5(1)(f)",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "Logical access security architecture protects integrity and confidentiality."
+    },
+
+    {
+      "source": "Art.5(2)",
+      "target": "CC1.5",
+      "relationship": "informs",
+      "rationale": "Accountability — COSO Principle 5 enforces accountability for internal control."
+    },
+
+    {
+      "source": "Art.6",
+      "target": "P4.1",
+      "relationship": "informs",
+      "rationale": "Purpose-bound use implies a defined lawful basis."
+    },
+
+    {
+      "source": "Art.7",
+      "target": "P1.1",
+      "relationship": "partial",
+      "rationale": "Notice precedes consent capture; supports demonstrable consent."
+    },
+
+    {
+      "source": "Art.13",
+      "target": "P1.1",
+      "relationship": "equivalent",
+      "rationale": "Notice at or before collection — directly expresses Art. 13 transparency."
+    },
+    {
+      "source": "Art.14",
+      "target": "P1.1",
+      "relationship": "partial",
+      "rationale": "Notice obligations extended to third-party-sourced data."
+    },
+
+    {
+      "source": "Art.15",
+      "target": "P5.1",
+      "relationship": "equivalent",
+      "rationale": "Access requests handled — Art. 15 right of access."
+    },
+    {
+      "source": "Art.15",
+      "target": "P5.2",
+      "relationship": "equivalent",
+      "rationale": "Requests addressed in a timely manner — DSAR SLA."
+    },
+    {
+      "source": "Art.16",
+      "target": "P5.1",
+      "relationship": "equivalent",
+      "rationale": "Corrections handled — Art. 16 right to rectification."
+    },
+    {
+      "source": "Art.17",
+      "target": "P5.1",
+      "relationship": "partial",
+      "rationale": "Erasure handled within the access/correction request workflow."
+    },
+    {
+      "source": "Art.21",
+      "target": "P8.1",
+      "relationship": "partial",
+      "rationale": "Privacy complaints / objections addressed in a timely manner."
+    },
+
+    {
+      "source": "Art.24",
+      "target": "CC1.3",
+      "relationship": "informs",
+      "rationale": "Management establishes structures, reporting lines and authority — controller accountability framework."
+    },
+    {
+      "source": "Art.25",
+      "target": "CC8.1",
+      "relationship": "partial",
+      "rationale": "Change-management controls embed data-protection-by-design into product changes."
+    },
+
+    {
+      "source": "Art.28",
+      "target": "CC9.2",
+      "relationship": "equivalent",
+      "rationale": "Vendor and business-partner risks managed — processor due diligence and DPAs."
+    },
+    {
+      "source": "Art.28",
+      "target": "P6.4",
+      "relationship": "partial",
+      "rationale": "Third parties assessed for compliance with privacy commitments."
+    },
+
+    {
+      "source": "Art.30",
+      "target": "P7.1",
+      "relationship": "partial",
+      "rationale": "Inventory of personal-information types and collection methods — analogous to RoPA."
+    },
+
+    {
+      "source": "Art.32",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "Logical-access security architecture."
+    },
+    {
+      "source": "Art.32",
+      "target": "CC6.6",
+      "relationship": "partial",
+      "rationale": "External-threat protection."
+    },
+    {
+      "source": "Art.32",
+      "target": "CC6.7",
+      "relationship": "partial",
+      "rationale": "Transmission and removal of information restricted (encryption in transit / at rest)."
+    },
+    {
+      "source": "Art.32",
+      "target": "CC7.1",
+      "relationship": "partial",
+      "rationale": "Detection and monitoring procedures."
+    },
+    {
+      "source": "Art.32",
+      "target": "A1.2",
+      "relationship": "informs",
+      "rationale": "Backup and recovery infrastructure supports availability of personal data."
+    },
+
+    {
+      "source": "Art.33",
+      "target": "CC7.2",
+      "relationship": "partial",
+      "rationale": "Procedures to identify security incidents include personal-data breaches."
+    },
+    {
+      "source": "Art.33",
+      "target": "CC7.3",
+      "relationship": "partial",
+      "rationale": "Incidents evaluated for impact — required to decide on SA notification."
+    },
+    {
+      "source": "Art.33",
+      "target": "CC7.4",
+      "relationship": "equivalent",
+      "rationale": "Affected parties (incl. supervisory authority) notified of security incidents."
+    },
+    {
+      "source": "Art.34",
+      "target": "CC7.4",
+      "relationship": "equivalent",
+      "rationale": "Affected parties (data subjects) notified of security incidents."
+    },
+    {
+      "source": "Art.34",
+      "target": "P6.3",
+      "relationship": "partial",
+      "rationale": "Unauthorized disclosures identified and communicated."
+    },
+
+    {
+      "source": "Art.35",
+      "target": "CC3.2",
+      "relationship": "partial",
+      "rationale": "DPIA is the privacy-specific risk identification and analysis activity."
+    },
+
+    {
+      "source": "Art.37",
+      "target": "CC1.3",
+      "relationship": "informs",
+      "rationale": "Reporting lines and authority — DPO as a designated organisational role."
+    },
+
+    {
+      "source": "Art.46",
+      "target": "P6.1",
+      "relationship": "partial",
+      "rationale": "Disclosures to third parties only with consent or stated purposes (covers cross-border transfer commitments)."
+    },
+    {
+      "source": "Art.46",
+      "target": "P6.2",
+      "relationship": "partial",
+      "rationale": "Records of third-party disclosures supports transfer-mechanism evidence."
+    },
+
+    {
+      "source": "Art.31",
+      "target": "CC2.3",
+      "relationship": "informs",
+      "rationale": "Communication with external parties — supervisory-authority cooperation."
+    }
+  ]
+}

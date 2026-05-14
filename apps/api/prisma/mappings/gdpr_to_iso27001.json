@@ -1,0 +1,254 @@
+{
+  "$comment": "GDPR (EU 2016/679) → ISO/IEC 27001:2022 Annex A control mappings. Drawn from BSI / ENISA guidance and the widely-published ISO 27701 ↔ GDPR appendix; encoded here directly against ISO 27001 Annex A 2022 IDs because we don't yet ship 27701 in the catalog. Relationships: 'equivalent' for true 1:1 control intent (rare for GDPR — most GDPR articles are organisational and bigger than any single Annex A control), 'partial' for substantive overlap, 'informs' for tangential/supporting alignment.",
+  "source": "ENISA GDPR-ISO 27001/27701 mapping + BSI 27701 implementation guide cross-walk",
+  "sourceFramework": "gdpr",
+  "targetFramework": "iso27001",
+  "mappings": [
+    {
+      "source": "Art.5(1)(a)",
+      "target": "A.5.34",
+      "relationship": "partial",
+      "rationale": "Privacy and protection of PII — transparency-of-processing notices align with the lawfulness/fairness/transparency principle."
+    },
+
+    {
+      "source": "Art.5(1)(c)",
+      "target": "A.5.34",
+      "relationship": "partial",
+      "rationale": "Data-minimisation by design supports the privacy / PII-protection control."
+    },
+
+    {
+      "source": "Art.5(1)(e)",
+      "target": "A.5.33",
+      "relationship": "partial",
+      "rationale": "Records protection / retention requirements align with storage-limitation evidence."
+    },
+
+    {
+      "source": "Art.5(1)(f)",
+      "target": "A.5.10",
+      "relationship": "partial",
+      "rationale": "Information classification and acceptable use enforce integrity and confidentiality of personal data."
+    },
+    {
+      "source": "Art.5(1)(f)",
+      "target": "A.8.24",
+      "relationship": "partial",
+      "rationale": "Use of cryptography to protect personal data confidentiality."
+    },
+
+    {
+      "source": "Art.5(2)",
+      "target": "A.5.36",
+      "relationship": "partial",
+      "rationale": "Compliance-with-policies/standards reviews demonstrate accountability."
+    },
+
+    {
+      "source": "Art.6",
+      "target": "A.5.31",
+      "relationship": "informs",
+      "rationale": "Legal, statutory, regulatory and contractual requirements register documents the lawful basis."
+    },
+
+    {
+      "source": "Art.13",
+      "target": "A.5.34",
+      "relationship": "partial",
+      "rationale": "Provision of information to data subjects at collection time aligns with PII privacy controls."
+    },
+    {
+      "source": "Art.14",
+      "target": "A.5.34",
+      "relationship": "partial",
+      "rationale": "Provision of information when data is obtained from third parties."
+    },
+
+    {
+      "source": "Art.15",
+      "target": "A.5.34",
+      "relationship": "partial",
+      "rationale": "DSAR-Access workflow operationalises PII-subject rights."
+    },
+    {
+      "source": "Art.17",
+      "target": "A.5.34",
+      "relationship": "partial",
+      "rationale": "Right-to-erasure operationalised within PII privacy controls."
+    },
+
+    {
+      "source": "Art.24",
+      "target": "A.5.1",
+      "relationship": "informs",
+      "rationale": "Information-security policies represent the controller's accountability framework."
+    },
+
+    {
+      "source": "Art.25",
+      "target": "A.8.25",
+      "relationship": "partial",
+      "rationale": "Secure development life-cycle embeds data-protection-by-design."
+    },
+    {
+      "source": "Art.25",
+      "target": "A.8.27",
+      "relationship": "partial",
+      "rationale": "Secure system architecture and engineering principles operationalise privacy-by-default."
+    },
+
+    {
+      "source": "Art.28",
+      "target": "A.5.19",
+      "relationship": "partial",
+      "rationale": "Information security in supplier relationships covers processor due-diligence."
+    },
+    {
+      "source": "Art.28",
+      "target": "A.5.20",
+      "relationship": "partial",
+      "rationale": "Addressing information security within supplier agreements covers DPA contractual flow-down."
+    },
+    {
+      "source": "Art.28",
+      "target": "A.5.21",
+      "relationship": "partial",
+      "rationale": "Managing information security in the ICT supply chain covers sub-processor management."
+    },
+    {
+      "source": "Art.28",
+      "target": "A.5.22",
+      "relationship": "partial",
+      "rationale": "Monitoring, review and change management of supplier services maps to processor monitoring."
+    },
+
+    {
+      "source": "Art.30",
+      "target": "A.5.9",
+      "relationship": "partial",
+      "rationale": "Inventory of information and other associated assets is the closest analogue to RoPA."
+    },
+
+    {
+      "source": "Art.32",
+      "target": "A.5.10",
+      "relationship": "partial",
+      "rationale": "Acceptable-use and classification controls protect personal data."
+    },
+    {
+      "source": "Art.32",
+      "target": "A.5.23",
+      "relationship": "partial",
+      "rationale": "Information security for use of cloud services protects personal data in cloud processing."
+    },
+    {
+      "source": "Art.32",
+      "target": "A.5.24",
+      "relationship": "partial",
+      "rationale": "Information security incident-management planning underpins integrity/availability of personal data."
+    },
+    {
+      "source": "Art.32",
+      "target": "A.8.2",
+      "relationship": "partial",
+      "rationale": "Privileged-access rights protect personal data confidentiality."
+    },
+    {
+      "source": "Art.32",
+      "target": "A.8.5",
+      "relationship": "partial",
+      "rationale": "Secure authentication protects access to personal data."
+    },
+    {
+      "source": "Art.32",
+      "target": "A.8.13",
+      "relationship": "partial",
+      "rationale": "Information backup ensures availability of personal data."
+    },
+    {
+      "source": "Art.32",
+      "target": "A.8.24",
+      "relationship": "partial",
+      "rationale": "Use of cryptography ensures confidentiality of personal data in transit and at rest."
+    },
+    {
+      "source": "Art.32",
+      "target": "A.5.30",
+      "relationship": "informs",
+      "rationale": "ICT readiness for business continuity supports availability of personal data."
+    },
+
+    {
+      "source": "Art.33",
+      "target": "A.5.24",
+      "relationship": "partial",
+      "rationale": "Incident-management planning includes breach-notification timelines."
+    },
+    {
+      "source": "Art.33",
+      "target": "A.5.25",
+      "relationship": "partial",
+      "rationale": "Assessment and decision on information-security events covers breach categorisation."
+    },
+    {
+      "source": "Art.33",
+      "target": "A.5.26",
+      "relationship": "partial",
+      "rationale": "Response to information-security incidents covers SA notification."
+    },
+    {
+      "source": "Art.33",
+      "target": "A.6.8",
+      "relationship": "informs",
+      "rationale": "Information-security event reporting is the first link in the breach chain."
+    },
+
+    {
+      "source": "Art.34",
+      "target": "A.5.26",
+      "relationship": "partial",
+      "rationale": "Response to information-security incidents — communication to data subjects."
+    },
+
+    {
+      "source": "Art.35",
+      "target": "A.5.7",
+      "relationship": "informs",
+      "rationale": "Threat-intelligence input informs DPIA risk identification."
+    },
+
+    {
+      "source": "Art.37",
+      "target": "A.5.2",
+      "relationship": "informs",
+      "rationale": "Information-security roles and responsibilities — DPO is one such role."
+    },
+    {
+      "source": "Art.39",
+      "target": "A.5.36",
+      "relationship": "informs",
+      "rationale": "Compliance reviews — DPO monitors compliance."
+    },
+
+    {
+      "source": "Art.46",
+      "target": "A.5.14",
+      "relationship": "partial",
+      "rationale": "Information transfer (SCCs, BCRs) is captured as transfer-control agreements."
+    },
+    {
+      "source": "Art.46",
+      "target": "A.5.20",
+      "relationship": "informs",
+      "rationale": "Supplier agreements with appropriate transfer safeguards."
+    },
+
+    {
+      "source": "Art.31",
+      "target": "A.5.5",
+      "relationship": "informs",
+      "rationale": "Contact with authorities — covers cooperation obligation with the SA."
+    }
+  ]
+}

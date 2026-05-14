@@ -1,0 +1,183 @@
+name: No vendored AGPL or SaaS-hostile code
+
+# Constraint C1: Trustalo ships only original code or code from
+# dependencies declared in package.json whose licenses are compatible
+# with hosting Trustalo as a SaaS. Vendoring AGPL/SSPL/BUSL/Elastic/
+# RSAL/FSL/PolyForm-licensed source — by paste, fork, or git submodule
+# — would either relicense Trustalo itself or directly violate the
+# upstream's anti-SaaS clause.
+#
+# This workflow runs two scans:
+#   1. Source-file scan: looks for hostile license markers (e.g. AGPL
+#      headers) pasted into committed source code.
+#   2. Vendored-license scan: looks for LICENSE/COPYING/NOTICE files
+#      anywhere in the tree (excluding node_modules) whose contents
+#      identify a hostile license — catches submodules, vendor/ dirs,
+#      and copy-pasted upstream trees that the source scan misses.
+#
+# These are defense-in-depth. The developer attestation in the PR
+# template (C1), the dependency-license check (license-check.yml), and
+# code review remain the primary defenses.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan source files for hostile license headers
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Files allowed to mention hostile-license strings:
+          #   - this workflow itself
+          #   - the rule that documents the policy
+          #   - the license-check script, which lists every denied
+          #     variant in its deny-list to refuse such dependencies
+          #     at install time
+          ALLOW_LIST=(
+            ".github/workflows/no-vendored-agpl.yml"
+            ".cursor/rules/ai-features.mdc"
+            "scripts/license-check.ts"
+          )
+          # Build an alternation regex anchored to `^\./` because `grep -RIn .`
+          # emits paths like `./scripts/license-check.ts:...`. Dots in each
+          # path are escaped so they match literally, not "any char".
+          escaped=()
+          for path in "${ALLOW_LIST[@]}"; do
+            escaped+=("${path//./\\.}")
+          done
+          allow_pattern=$(printf "|%s" "${escaped[@]}")
+          allow_pattern="^\\./(${allow_pattern:1}):"
+
+          # Patterns that indicate a hostile-license header was pasted
+          # verbatim into the repo. We scan only source files — package
+          # manifests can legitimately reference such deps when reviewed.
+          # SPDX-License-Identifier covers the modern annotated form;
+          # the long-form license names cover headers copy-pasted from
+          # upstream files.
+          PATTERNS=(
+            'GNU AFFERO GENERAL PUBLIC LICENSE'
+            'GNU Affero General Public License'
+            'AGPL-3\.0'
+            'License: AGPL'
+            'Server Side Public License'
+            'Business Source License'
+            'Elastic License 2\.0'
+            'Redis Source Available License'
+            'Functional Source License'
+            'PolyForm (Noncommercial|Shield|Strict)'
+            'Commons Clause'
+            'SPDX-License-Identifier:[[:space:]]*(AGPL|SSPL|BUSL|BSL-1\.1|Elastic-2\.0|RSAL|FSL-|PolyForm)'
+          )
+
+          combined=$(printf "|%s" "${PATTERNS[@]}")
+          combined=${combined:1}
+
+          # Exclude dependency / build dirs so the scan only inspects
+          # committed source. node_modules is normally absent in CI but
+          # could appear if a future step installs deps before this one.
+          if hits=$(grep -RInE "$combined" \
+                --exclude-dir='node_modules' \
+                --exclude-dir='.git' \
+                --exclude-dir='.next' \
+                --exclude-dir='dist' \
+                --exclude-dir='build' \
+                --exclude-dir='coverage' \
+                --include='*.ts' --include='*.tsx' \
+                --include='*.js' --include='*.jsx' \
+                --include='*.mjs' --include='*.cjs' \
+                --include='*.go' --include='*.py' \
+                --include='*.rs' --include='*.java' \
+                --include='*.sql' --include='*.prisma' \
+                --include='*.css' --include='*.scss' \
+                . 2>/dev/null | grep -Ev "$allow_pattern"); then
+            echo "::error::Found hostile-license markers in committed source."
+            echo "$hits"
+            echo ""
+            echo "Trustalo ships only original code or code from dependencies"
+            echo "declared in package.json with SaaS-compatible licenses."
+            echo "See .cursor/rules/ai-features.mdc § 6."
+            exit 1
+          fi
+
+          echo "OK — no hostile-license markers in tracked source files."
+
+      - name: Scan vendored LICENSE/COPYING/NOTICE files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Catches the case where someone vendors an upstream tree (via
+          # submodule, vendor/ copy, or `git clone` into the repo) that
+          # carries its own LICENSE/COPYING/NOTICE file. The source-file
+          # scan above misses this because the license text doesn't
+          # appear inside .ts/.js/etc.
+          #
+          # Allowed roots for license texts:
+          #   - the repo's own LICENSE at the top level
+          #   - any LICENSE-* / NOTICE-* files at the top level (e.g.
+          #     LICENSE-THIRD-PARTY)
+          # Anything deeper in the tree is treated as vendored content
+          # and is checked.
+
+          # Hostile-license fingerprints inside a LICENSE-style file.
+          PATTERNS=(
+            'GNU AFFERO GENERAL PUBLIC LICENSE'
+            'GNU GENERAL PUBLIC LICENSE'
+            'GNU LESSER GENERAL PUBLIC LICENSE'
+            'Server Side Public License'
+            'Business Source License'
+            'Elastic License 2\.0'
+            'Redis Source Available License'
+            'Functional Source License'
+            'PolyForm (Noncommercial|Shield|Strict)'
+            'Commons Clause'
+          )
+          combined=$(printf "|%s" "${PATTERNS[@]}")
+          combined=${combined:1}
+
+          # Find candidate license files, excluding the repo's own root
+          # LICENSE/NOTICE and dependency / build dirs. Stream through a
+          # while-read loop instead of mapfile so this works on bash 3
+          # (macOS) for local testing too.
+          violations=0
+          checked=0
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            checked=$((checked + 1))
+            if grep -InE "$combined" "$f" >/dev/null 2>&1; then
+              echo "::error file=$f::Vendored hostile-licensed content detected"
+              grep -InE "$combined" "$f" | head -5
+              violations=$((violations + 1))
+            fi
+          done < <(
+            find . \
+              -type d \( -name node_modules -o -name .git -o -name .next \
+                       -o -name dist -o -name build -o -name coverage \) -prune \
+              -o -type f \( -iname 'LICENSE'   -o -iname 'LICENSE.*' \
+                          -o -iname 'LICENCE'  -o -iname 'LICENCE.*' \
+                          -o -iname 'COPYING'  -o -iname 'COPYING.*' \
+                          -o -iname 'NOTICE'   -o -iname 'NOTICE.*' \) -print \
+              | grep -Ev '^\./(LICENSE|LICENCE|NOTICE)(\.[A-Za-z0-9._-]+)?$' || true
+          )
+
+          if [ "$violations" -gt 0 ]; then
+            echo ""
+            echo "Found $violations vendored license file(s) carrying a hostile"
+            echo "license. Remove the vendored tree (or replace with a permissive"
+            echo "alternative) before merging."
+            exit 1
+          fi
+
+          echo "OK — vendored license files ($checked) carry no hostile licenses."

@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+dist/
+.next/
+.turbo/
+coverage/
+*.tsbuildinfo
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+.cache/
+
+# Environment and local config (keep examples)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Keys, certificates, and secrets
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+id_rsa
+id_ed25519
+credentials.json
+secrets.json
+
+# Cloud/local tooling state
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# OS/editor files
+.DS_Store
+Thumbs.db

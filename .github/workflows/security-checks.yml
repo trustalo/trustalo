@@ -1,0 +1,104 @@
+name: Security checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  coverage-gate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.11
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Run coverage suite
+        run: bun run test:coverage | tee coverage.log
+      - name: Enforce minimum 75% line coverage
+        run: |
+          node <<'EOF'
+          const fs = require("node:fs");
+          const text = fs.readFileSync("coverage.log", "utf8");
+          const re = /All files\s*\|\s*([0-9.]+)\s*\|\s*([0-9.]+)\s*\|/g;
+          const rows = [];
+          let m;
+          while ((m = re.exec(text)) !== null) {
+            rows.push({
+              funcs: Number.parseFloat(m[1]),
+              lines: Number.parseFloat(m[2]),
+            });
+          }
+
+          if (rows.length === 0) {
+            console.error("Coverage gate: no `All files` rows found in coverage output.");
+            process.exit(1);
+          }
+
+          const minLines = Math.min(...rows.map((r) => r.lines));
+          console.log(`Coverage gate: found ${rows.length} package-level coverage row(s).`);
+          rows.forEach((row, i) => {
+            console.log(`  row ${i + 1}: lines=${row.lines.toFixed(2)}% funcs=${row.funcs.toFixed(2)}%`);
+          });
+
+          if (minLines < 75) {
+            console.error(`Coverage gate failed: minimum line coverage is ${minLines.toFixed(2)}%, required >= 75.00%.`);
+            process.exit(1);
+          }
+
+          console.log(`Coverage gate passed: minimum line coverage is ${minLines.toFixed(2)}% (>= 75.00%).`);
+          EOF
+
+  dependency-review:
+    # The action requires both Dependency Graph and GitHub Advanced Security.
+    # GHAS is free on public repos and a paid add-on on private repos, so we
+    # skip the job on private repos that don't have it (would otherwise fail
+    # with "Dependency review is not supported on this repository").
+    # `bun audit` already provides equivalent CVE coverage for every push/PR.
+    if: github.event_name == 'pull_request' && github.event.repository.private == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Dependency review
+        uses: actions/dependency-review-action@v4
+
+  secrets-scan:
+    runs-on: ubuntu-latest
+    # The action diffs the PR head against the base, so it needs full history
+    # and read access to issues/PRs to post its summary comment.
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          # Required since gitleaks-action v2.3.x for any PR-triggered run —
+          # the action uses the token to fetch the PR diff and post comments.
+          # No license key is needed for individual accounts / public repos.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  bun-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.11
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Audit dependencies
+        run: bun audit

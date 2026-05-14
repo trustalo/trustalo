@@ -1,0 +1,162 @@
+enum BCPStatus {
+  draft
+  approved
+  active
+  under_review
+  archived
+}
+
+enum CriticalityLevel {
+  mission_critical
+  business_critical
+  business_operational
+  administrative
+}
+
+enum BCPExerciseType {
+  tabletop
+  walkthrough
+  simulation
+  full_scale
+}
+
+enum BCPExerciseStatus {
+  planned
+  scheduled
+  in_progress
+  conducted
+  reviewed
+  cancelled
+}
+
+enum BCPExerciseOutcome {
+  not_met
+  partially_met
+  met
+  exceeded
+}
+
+enum BIAStatus {
+  draft
+  under_review
+  approved
+  archived
+}
+
+model BusinessContinuityPlan {
+  id             String    @id @default(cuid())
+  tenantId String
+  title          String
+  description    String?
+  version        String?
+  status         BCPStatus @default(draft)
+  ownerId        String
+  approvedAt     DateTime?
+  lastReviewedAt DateTime?
+  nextReviewDate DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  tenant       Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner              User                    @relation("BCPOwner", fields: [ownerId], references: [id])
+  impactAnalyses     BusinessImpactAnalysis[]
+  exercises          BCPExercise[]
+
+  @@index([tenantId])
+}
+
+model BusinessImpactAnalysis {
+  id                         String           @id @default(cuid())
+  tenantId             String
+  bcpId                      String
+  processName                String
+  description                String?
+  criticalityLevel           CriticalityLevel
+  rtoHours                   Int
+  rpoHours                   Int
+  maxTolerableDowntimeHours  Int
+  // MTPD (Maximum Tolerable Period of Disruption) is the regulatory ceiling for
+  // how long the process can be unavailable before unacceptable harm occurs.
+  // RTO must be <= MTPD; the UI surfaces violations as a gap.
+  mtpdHours                  Int?
+  financialImpactPerHour     Decimal?
+  dependencies               String?
+
+  // Qualitative impact narratives — covered by ISO 22301 §8.2.2 alongside
+  // financial impact. Free-text so each org can describe in their own terms.
+  operationalImpact          String?
+  regulatoryImpact           String?
+  reputationalImpact         String?
+
+  // Lifecycle / governance — ISO 22301 requires BIAs to be approved, owned,
+  // and periodically reviewed.
+  status                     BIAStatus        @default(draft)
+  ownerId                    String?
+  approvedAt                 DateTime?
+  lastReviewedAt             DateTime?
+  nextReviewDate             DateTime?
+
+  createdAt                  DateTime         @default(now())
+  updatedAt                  DateTime         @updatedAt
+
+  tenant Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bcp          BusinessContinuityPlan @relation(fields: [bcpId], references: [id], onDelete: Cascade)
+  owner        User?                  @relation("BIAOwner", fields: [ownerId], references: [id])
+
+  @@index([tenantId])
+  @@index([bcpId])
+  @@index([status])
+  @@index([criticalityLevel])
+  @@index([nextReviewDate])
+}
+
+model BCPExercise {
+  id             String            @id @default(cuid())
+  tenantId String
+  bcpId          String
+  title          String
+  type           BCPExerciseType
+  scheduledDate  DateTime?
+  conductedDate  DateTime?
+  status         BCPExerciseStatus @default(planned)
+
+  // ── Pre-exercise design (ISO 22301 §8.5 — exercise programme) ──
+  // Free-text by design: a structured scenario library is a clean follow-up
+  // and would otherwise force migrations on every template change.
+  scenario       String?
+  objectives     String?
+  // Which plans/processes/locations/systems were in scope.
+  scope          String?
+  facilitatorId  String?
+  // Comma- or newline-separated names. Promote to a join table once the
+  // user base needs RACI assignment per participant.
+  participants   String?
+
+  // ── Outcome / after-action review ──
+  outcomeRating  BCPExerciseOutcome?
+  // Actual recovery achieved during the exercise — closes the loop back to
+  // the BIA targets so the team can spot when stated RTO/RPO is unrealistic.
+  actualRtoHours Int?
+  actualRpoHours Int?
+  findings       String?
+  lessonsLearned String?
+  // One action per line (free-text). Future work: link to Tasks for tracking.
+  actionItems    String?
+
+  // ── Cadence ──
+  nextExerciseDate DateTime?
+  reviewedAt       DateTime?
+
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  tenant Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bcp          BusinessContinuityPlan @relation(fields: [bcpId], references: [id], onDelete: Cascade)
+  facilitator  User?                  @relation("BCPExerciseFacilitator", fields: [facilitatorId], references: [id])
+
+  @@index([tenantId])
+  @@index([bcpId])
+  @@index([status])
+  @@index([scheduledDate])
+  @@index([conductedDate])
+}

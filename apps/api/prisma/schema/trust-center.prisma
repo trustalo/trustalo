@@ -1,0 +1,148 @@
+enum TrustResourceType {
+  certificate
+  report
+  policy
+  attestation
+}
+
+enum TrustResourceGating {
+  public
+  contact_required
+  nda_required
+}
+
+enum AccessRequestStatus {
+  pending
+  approved
+  rejected
+}
+
+// Phase 2 (AI accelerators): controls how the public payload is built.
+// - `live`  — query the latest data on every (cached) request.
+// - `snapshot` — serve the most recent admin-published TrustCenterSnapshot.
+//   Useful for orgs that want a stable view between formal updates.
+enum TrustCenterPublicMode {
+  live
+  snapshot
+}
+
+model TrustCenterConfig {
+  id             String  @id @default(cuid())
+  tenantId String  @unique
+  isEnabled      Boolean @default(false)
+  customDomain   String?
+  brandColor     String?
+  logoUrl        String?
+  description    String?
+  faqs           Json?
+  publicMode     TrustCenterPublicMode @default(live)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  tenant Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  resources    TrustResource[]
+  snapshots    TrustCenterSnapshot[]
+  events       TrustCenterEvent[]
+
+  @@index([tenantId])
+}
+
+// A frozen copy of the public payload, captured by an admin via
+// "Publish snapshot". Only the most recent row per org is read by the
+// public surface when publicMode = 'snapshot'.
+model TrustCenterSnapshot {
+  id                  String   @id @default(cuid())
+  tenantId      String
+  trustCenterConfigId String
+  payload             Json
+  publishedById       String
+  createdAt           DateTime @default(now())
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  trustCenterConfig TrustCenterConfig @relation(fields: [trustCenterConfigId], references: [id], onDelete: Cascade)
+  publishedBy       User              @relation("TrustCenterSnapshotPublisher", fields: [publishedById], references: [id])
+
+  @@index([tenantId, createdAt])
+  @@index([trustCenterConfigId])
+}
+
+// Lightweight visitor audit so admins can see what each prospect viewed.
+// Recorded by the public router on view + on resource interaction;
+// retained 90 days by a future cleanup job.
+enum TrustCenterEventType {
+  view
+  resource_view
+  resource_download
+  access_request
+}
+
+model TrustCenterEvent {
+  id                  String              @id @default(cuid())
+  tenantId      String
+  trustCenterConfigId String
+  type                TrustCenterEventType
+  resourceId          String?
+  visitorIp           String?
+  visitorUa           String?
+  visitorEmail        String?
+  metadata            Json?
+  createdAt           DateTime            @default(now())
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  trustCenterConfig TrustCenterConfig @relation(fields: [trustCenterConfigId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, createdAt])
+  @@index([trustCenterConfigId, createdAt])
+  @@index([type, createdAt])
+}
+
+model TrustResource {
+  id                  String               @id @default(cuid())
+  tenantId      String
+  trustCenterConfigId String
+  title               String
+  description         String?
+  frameworkType       String?
+  resourceType        TrustResourceType
+  fileUrl             String
+  isPublic            Boolean              @default(false)
+  accessGating        TrustResourceGating  @default(public)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+
+  tenant      Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  trustCenterConfig TrustCenterConfig             @relation(fields: [trustCenterConfigId], references: [id], onDelete: Cascade)
+  accessRequests    TrustCenterAccessRequest[]
+
+  @@index([tenantId])
+  @@index([trustCenterConfigId])
+}
+
+model TrustCenterAccessRequest {
+  id               String              @id @default(cuid())
+  tenantId   String
+  resourceId       String
+  requesterName    String
+  requesterEmail   String
+  requesterCompany String
+  requesterTitle   String?
+  reason           String?
+  status           AccessRequestStatus @default(pending)
+  ndaAccepted      Boolean             @default(false)
+  approvedById     String?
+  approvedAt       DateTime?
+  rejectedReason   String?
+  accessToken      String              @unique @default(cuid())
+  expiresAt        DateTime?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  tenant Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  resource     TrustResource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  approvedBy   User?         @relation("AccessRequestApprover", fields: [approvedById], references: [id])
+
+  @@index([tenantId])
+  @@index([accessToken])
+  @@index([requesterEmail, tenantId])
+  @@index([resourceId])
+}

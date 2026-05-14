@@ -1,0 +1,37 @@
+# Fingerprints listed here are silenced by the Gitleaks CI scan.
+#
+# Format (one per line, blank lines and `#` comments OK):
+#   <commit-sha>:<path>:<rule-id>:<line>
+#
+# Only add entries that are confirmed false positives — values that LOOK like
+# secrets but are not (deterministic dev fallbacks, fixture data, hash test
+# vectors, etc.). Real secrets must be rotated, not ignored.
+#
+# When adding an entry, leave a short comment above it explaining WHY the
+# match is safe so reviewers don't have to re-derive that on every audit.
+
+# Historical-only false positive: line 18 of crypto-envelope.ts contained
+# a deterministic 64-char hex dev-fallback used when
+# AI_PROVIDER_CONFIG_ENCRYPTION_KEY is unset in development. The literal
+# was removed in a follow-up commit (the dev key is now derived at runtime
+# via SHA-256 of a non-secret seed string), but the two historical commits
+# (1eb6f03 introduced it, 32d2e81 reformatted it via prettier) still exist
+# in the PR's diff range so gitleaks-action flags both.
+1eb6f031575593a37fb267ccefb8711bc44ad423:apps/api/src/lib/crypto-envelope.ts:generic-api-key:18
+32d2e81720abcc8bdd83f6a389e22976bffbfb19:apps/api/src/lib/crypto-envelope.ts:generic-api-key:18
+
+# Historical-only false positive: lines 41 + 56 of .env.example in commit
+# 1eb6f03 used a `0123456789abcdef…` 64-char hex placeholder for the
+# AES-256-GCM encryption keys. Those placeholders were replaced with empty
+# values + a generation hint (`openssl rand -hex 32`) in the follow-up
+# commit; the originals are no longer in source. The bad commit still
+# lives in the PR's diff range, hence the explicit ignores below.
+1eb6f031575593a37fb267ccefb8711bc44ad423:.env.example:generic-api-key:41
+1eb6f031575593a37fb267ccefb8711bc44ad423:.env.example:generic-api-key:56
+1eb6f031575593a37fb267ccefb8711bc44ad423:apps/api/.env.example:generic-api-key:46
+
+# Historical-only false positive: commit dad21b1 introduced a 64-char hex
+# literal in `crypto-envelope.test.ts` as a deterministic test fixture.
+# This was replaced with `"a".repeat(64)` so the test still validates
+# the 64-hex requirement without embedding secret-like entropy in source.
+dad21b151ab003e88ca39c21f773abb905343c39:apps/api/src/lib/crypto-envelope.test.ts:generic-api-key:14

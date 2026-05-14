@@ -1,0 +1,70 @@
+enum AIProvider {
+  openai
+  anthropic
+  bedrock
+  openrouter
+}
+
+enum AIFeature {
+  quiz_generation
+  risk_analysis
+  policy_drafting
+  policy_generation
+  vendor_assessment
+  incident_summary
+  control_suggestion
+  automated_check_generation
+  risk_scoring
+  vendor_scoring
+  questionnaire_answering
+  trust_center_summary
+  // Phase 1 of "ongoing AI context": LLM extracts structured fact
+  // proposals from a paragraph of pasted text (or any other text
+  // source). Always advisory — output lands in
+  // TenantContextProposal until a human accepts.
+  context_extraction
+  // Phase 2 of "ongoing AI context": general compliance assistant
+  // chat. Streams grounded answers using TenantContext +
+  // policies/risks/vendors/controls/frameworks; passively extracts
+  // new context proposals in parallel via context_extraction.
+  chat_assistant
+  // Per-control evidence agent: an LLM-driven loop in the collector
+  // that follows natural-language instructions and calls integration
+  // provider capabilities as tools to gather audit-grade evidence.
+  evidence_agent
+}
+
+model AIProviderConfig {
+  id             String     @id @default(cuid())
+  tenantId String
+  provider       AIProvider
+  apiKey         String?
+  region         String?
+  accessKeyId    String?
+  secretAccessKey String?
+  baseUrl        String?
+  isEnabled      Boolean    @default(true)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, provider])
+  @@index([tenantId])
+}
+
+model AIFeatureConfig {
+  id             String     @id @default(cuid())
+  tenantId String
+  feature        AIFeature
+  provider       AIProvider
+  model          String
+  isEnabled      Boolean    @default(true)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, feature])
+  @@index([tenantId])
+}

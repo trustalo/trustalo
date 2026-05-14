@@ -1,0 +1,85 @@
+// ============================================================
+// Chat — general compliance assistant.
+//
+// Phase 2 of the "ongoing AI context" plan. A `Conversation` is a
+// chat thread between a user and the assistant. Each `Message` is
+// one turn (user prompt or assistant reply).
+//
+// Design notes
+// ────────────
+// • The assistant is grounded against TenantContext + the
+//   tenant's policies/risks/vendors/controls/frameworks. Each reply
+//   stores `groundingHash` so audit reviewers can prove the assistant
+//   was given exactly the same evidence on a re-run.
+// • In parallel with the reply, an extraction worker scans the user's
+//   turn for new facts and writes TenantContextProposal rows.
+//   The ids of any proposals tied to a given assistant turn live in
+//   `Message.proposalIds` so the UI can deep-link.
+// • No tool-calling — the assistant cannot mutate tenant data. All
+//   "context updates" go through the proposal review surface.
+// • Conversations are tenant-scoped; the prismaWithTenant extension
+//   injects `tenantId` automatically.
+// ============================================================
+
+enum MessageRole {
+  user
+  assistant
+  system
+}
+
+model Conversation {
+  id             String       @id @default(cuid())
+  tenantId String
+  /// Auto-derived from the first user turn when null. Editable by the
+  /// user from the conversation list.
+  title          String?
+  createdBy      String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  /// Soft-archive — hides from the list without deleting transcript.
+  archivedAt     DateTime?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  messages     Message[]
+
+  @@index([tenantId])
+  @@index([tenantId, archivedAt, updatedAt])
+  @@index([createdBy])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  tenantId String
+  conversationId String
+  role           MessageRole
+  content        String       @db.Text
+  /// Provider/model used to produce this assistant message — null for
+  /// user/system messages. Surfaced in the UI footer for transparency.
+  modelUsed      String?
+  /// Source of the resolved provider (operator default / org provider /
+  /// per-feature override). Mirrors the AdvisoryBanner pattern.
+  providerSource String?
+  /// Deterministic hash of the grounding bundle (context ids + policy
+  /// ids + risk ids + vendor ids + recent message ids + truncation
+  /// caps). Same hash means same evidence → reproducible answers in
+  /// audits.
+  groundingHash  String?
+  /// Structured citations: array of { kind, id, label } objects the
+  /// model emitted to back claims in `content`. Validated against the
+  /// grounding bundle before persistence — citations to ids that
+  /// weren't in the bundle are dropped to prevent hallucinated
+  /// references.
+  citations      Json         @default("[]")
+  /// TenantContextProposal ids that the parallel extractor
+  /// produced from the *user* turn paired with this assistant turn.
+  /// Used by the right-side proposal panel to highlight which turn a
+  /// given proposal came from.
+  proposalIds    String[]     @default([])
+  createdAt      DateTime     @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([conversationId, createdAt])
+}

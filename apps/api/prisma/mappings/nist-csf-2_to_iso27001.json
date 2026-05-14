@@ -1,0 +1,513 @@
+{
+  "$comment": "NIST CSF 2.0 Subcategories → ISO/IEC 27001:2022 Annex A. Derived from NIST's official Informative References (OLIR) for CSF 2.0. Most relationships are 'partial' because CSF subcategories are outcome-statements while ISO Annex A controls are practice-specific. Where NIST OLIR explicitly marks an entry as a high-confidence equivalent we use 'equivalent'. The mapping covers all 106 subcategories at least once (some have multiple targets).",
+  "source": "NIST CSF 2.0 Informative References (OLIR catalog, v1.0.0 — Feb 2024)",
+  "sourceFramework": "nist_csf_2",
+  "targetFramework": "iso27001",
+  "mappings": [
+    {
+      "source": "GV.OC-01",
+      "target": "A.5.1",
+      "relationship": "informs",
+      "rationale": "Mission alignment underpins the security policy framework."
+    },
+    {
+      "source": "GV.OC-02",
+      "target": "A.5.4",
+      "relationship": "partial",
+      "rationale": "Stakeholder expectations are reflected in management responsibilities."
+    },
+    {
+      "source": "GV.OC-03",
+      "target": "A.5.31",
+      "relationship": "equivalent",
+      "rationale": "Legal, statutory, regulatory and contractual requirements."
+    },
+    {
+      "source": "GV.OC-04",
+      "target": "A.5.30",
+      "relationship": "partial",
+      "rationale": "Critical services that stakeholders depend on align with ICT readiness for business continuity."
+    },
+    {
+      "source": "GV.OC-05",
+      "target": "A.5.21",
+      "relationship": "partial",
+      "rationale": "Dependencies on suppliers/third parties relate to managing information security in the ICT supply chain."
+    },
+
+    { "source": "GV.RM-01", "target": "A.5.1", "relationship": "informs" },
+    {
+      "source": "GV.RM-02",
+      "target": "A.5.1",
+      "relationship": "informs",
+      "rationale": "Risk appetite is captured in the security policy."
+    },
+    {
+      "source": "GV.RM-03",
+      "target": "A.5.4",
+      "relationship": "partial",
+      "rationale": "Integration with enterprise risk via management responsibilities and ISMS Clause 6."
+    },
+    { "source": "GV.RM-04", "target": "A.5.1", "relationship": "informs" },
+    {
+      "source": "GV.RM-05",
+      "target": "A.5.5",
+      "relationship": "partial",
+      "rationale": "Lines of communication with authorities + interested parties."
+    },
+    { "source": "GV.RM-06", "target": "A.5.1", "relationship": "informs" },
+    {
+      "source": "GV.RM-07",
+      "target": "A.5.7",
+      "relationship": "informs",
+      "rationale": "Threat intelligence supports characterisation of opportunities and risks."
+    },
+
+    {
+      "source": "GV.RR-01",
+      "target": "A.5.4",
+      "relationship": "equivalent",
+      "rationale": "Management responsibilities for information security."
+    },
+    {
+      "source": "GV.RR-02",
+      "target": "A.5.2",
+      "relationship": "equivalent",
+      "rationale": "Information security roles and responsibilities."
+    },
+    { "source": "GV.RR-03", "target": "A.5.4", "relationship": "partial" },
+    {
+      "source": "GV.RR-04",
+      "target": "A.6.1",
+      "relationship": "equivalent",
+      "rationale": "Screening and HR-related security controls."
+    },
+    {
+      "source": "GV.RR-04",
+      "target": "A.6.2",
+      "relationship": "partial",
+      "rationale": "Terms and conditions of employment."
+    },
+
+    {
+      "source": "GV.PO-01",
+      "target": "A.5.1",
+      "relationship": "equivalent",
+      "rationale": "Policies for information security."
+    },
+    {
+      "source": "GV.PO-02",
+      "target": "A.5.1",
+      "relationship": "equivalent",
+      "rationale": "Periodic policy review."
+    },
+
+    {
+      "source": "GV.OV-01",
+      "target": "A.5.35",
+      "relationship": "partial",
+      "rationale": "Independent review of information security."
+    },
+    {
+      "source": "GV.OV-02",
+      "target": "A.5.36",
+      "relationship": "partial",
+      "rationale": "Compliance with policies, rules and standards."
+    },
+    { "source": "GV.OV-03", "target": "A.5.35", "relationship": "partial" },
+
+    {
+      "source": "GV.SC-01",
+      "target": "A.5.19",
+      "relationship": "equivalent",
+      "rationale": "Information security in supplier relationships."
+    },
+    { "source": "GV.SC-02", "target": "A.5.19", "relationship": "partial" },
+    { "source": "GV.SC-03", "target": "A.5.19", "relationship": "partial" },
+    { "source": "GV.SC-04", "target": "A.5.19", "relationship": "partial" },
+    {
+      "source": "GV.SC-05",
+      "target": "A.5.20",
+      "relationship": "equivalent",
+      "rationale": "Addressing information security within supplier agreements."
+    },
+    {
+      "source": "GV.SC-06",
+      "target": "A.5.19",
+      "relationship": "partial",
+      "rationale": "Pre-engagement due diligence."
+    },
+    {
+      "source": "GV.SC-07",
+      "target": "A.5.22",
+      "relationship": "equivalent",
+      "rationale": "Monitoring, review and change management of supplier services."
+    },
+    {
+      "source": "GV.SC-08",
+      "target": "A.5.24",
+      "relationship": "partial",
+      "rationale": "Information security incident management planning and preparation extends to suppliers."
+    },
+    {
+      "source": "GV.SC-09",
+      "target": "A.5.21",
+      "relationship": "equivalent",
+      "rationale": "Managing information security in the ICT supply chain."
+    },
+    {
+      "source": "GV.SC-10",
+      "target": "A.5.20",
+      "relationship": "partial",
+      "rationale": "Termination provisions in supplier agreements."
+    },
+
+    {
+      "source": "ID.AM-01",
+      "target": "A.5.9",
+      "relationship": "equivalent",
+      "rationale": "Inventory of information and other associated assets."
+    },
+    { "source": "ID.AM-02", "target": "A.5.9", "relationship": "equivalent" },
+    {
+      "source": "ID.AM-03",
+      "target": "A.8.20",
+      "relationship": "partial",
+      "rationale": "Network security and authorised data flows."
+    },
+    { "source": "ID.AM-04", "target": "A.5.19", "relationship": "partial" },
+    {
+      "source": "ID.AM-05",
+      "target": "A.5.12",
+      "relationship": "equivalent",
+      "rationale": "Classification of information."
+    },
+    { "source": "ID.AM-07", "target": "A.5.9", "relationship": "partial" },
+    {
+      "source": "ID.AM-08",
+      "target": "A.5.10",
+      "relationship": "partial",
+      "rationale": "Acceptable use of information and associated assets."
+    },
+    {
+      "source": "ID.AM-08",
+      "target": "A.7.10",
+      "relationship": "partial",
+      "rationale": "Storage media + secure disposal supports lifecycle management."
+    },
+
+    {
+      "source": "ID.RA-01",
+      "target": "A.8.8",
+      "relationship": "equivalent",
+      "rationale": "Management of technical vulnerabilities."
+    },
+    {
+      "source": "ID.RA-02",
+      "target": "A.5.7",
+      "relationship": "equivalent",
+      "rationale": "Threat intelligence."
+    },
+    { "source": "ID.RA-03", "target": "A.5.7", "relationship": "partial" },
+    { "source": "ID.RA-04", "target": "A.5.7", "relationship": "informs" },
+    { "source": "ID.RA-05", "target": "A.5.7", "relationship": "partial" },
+    {
+      "source": "ID.RA-06",
+      "target": "A.5.27",
+      "relationship": "partial",
+      "rationale": "Learning from information security incidents informs risk responses."
+    },
+    {
+      "source": "ID.RA-07",
+      "target": "A.8.32",
+      "relationship": "equivalent",
+      "rationale": "Change management."
+    },
+    {
+      "source": "ID.RA-08",
+      "target": "A.6.8",
+      "relationship": "equivalent",
+      "rationale": "Information security event reporting + vulnerability disclosure."
+    },
+    {
+      "source": "ID.RA-09",
+      "target": "A.8.30",
+      "relationship": "partial",
+      "rationale": "Outsourced development authenticity considerations."
+    },
+    { "source": "ID.RA-10", "target": "A.5.19", "relationship": "partial" },
+
+    {
+      "source": "ID.IM-01",
+      "target": "A.5.35",
+      "relationship": "partial",
+      "rationale": "Independent review identifies improvements."
+    },
+    {
+      "source": "ID.IM-02",
+      "target": "A.5.30",
+      "relationship": "partial",
+      "rationale": "Continuity exercises drive improvements."
+    },
+    { "source": "ID.IM-03", "target": "A.5.36", "relationship": "partial" },
+    {
+      "source": "ID.IM-04",
+      "target": "A.5.24",
+      "relationship": "equivalent",
+      "rationale": "Incident management planning and preparation."
+    },
+
+    {
+      "source": "PR.AA-01",
+      "target": "A.5.16",
+      "relationship": "equivalent",
+      "rationale": "Identity management."
+    },
+    {
+      "source": "PR.AA-02",
+      "target": "A.5.17",
+      "relationship": "equivalent",
+      "rationale": "Authentication information."
+    },
+    {
+      "source": "PR.AA-03",
+      "target": "A.8.5",
+      "relationship": "equivalent",
+      "rationale": "Secure authentication."
+    },
+    { "source": "PR.AA-04", "target": "A.8.5", "relationship": "partial" },
+    {
+      "source": "PR.AA-05",
+      "target": "A.5.15",
+      "relationship": "equivalent",
+      "rationale": "Access control."
+    },
+    {
+      "source": "PR.AA-05",
+      "target": "A.5.18",
+      "relationship": "equivalent",
+      "rationale": "Access rights."
+    },
+    {
+      "source": "PR.AA-05",
+      "target": "A.5.3",
+      "relationship": "partial",
+      "rationale": "Segregation of duties."
+    },
+    {
+      "source": "PR.AA-06",
+      "target": "A.7.2",
+      "relationship": "equivalent",
+      "rationale": "Physical entry."
+    },
+
+    {
+      "source": "PR.AT-01",
+      "target": "A.6.3",
+      "relationship": "equivalent",
+      "rationale": "Information security awareness, education and training."
+    },
+    { "source": "PR.AT-02", "target": "A.6.3", "relationship": "equivalent" },
+
+    {
+      "source": "PR.DS-01",
+      "target": "A.8.24",
+      "relationship": "equivalent",
+      "rationale": "Use of cryptography for data at rest."
+    },
+    { "source": "PR.DS-02", "target": "A.8.24", "relationship": "equivalent" },
+    {
+      "source": "PR.DS-02",
+      "target": "A.8.20",
+      "relationship": "partial",
+      "rationale": "Network security for data in transit."
+    },
+    {
+      "source": "PR.DS-10",
+      "target": "A.8.11",
+      "relationship": "partial",
+      "rationale": "Data masking + protection of data in use."
+    },
+    {
+      "source": "PR.DS-11",
+      "target": "A.8.13",
+      "relationship": "equivalent",
+      "rationale": "Information backup."
+    },
+
+    {
+      "source": "PR.PS-01",
+      "target": "A.8.9",
+      "relationship": "equivalent",
+      "rationale": "Configuration management."
+    },
+    { "source": "PR.PS-02", "target": "A.8.8", "relationship": "partial" },
+    {
+      "source": "PR.PS-03",
+      "target": "A.7.13",
+      "relationship": "partial",
+      "rationale": "Equipment maintenance."
+    },
+    {
+      "source": "PR.PS-04",
+      "target": "A.8.15",
+      "relationship": "equivalent",
+      "rationale": "Logging."
+    },
+    {
+      "source": "PR.PS-05",
+      "target": "A.8.19",
+      "relationship": "equivalent",
+      "rationale": "Installation of software on operational systems."
+    },
+    {
+      "source": "PR.PS-05",
+      "target": "A.8.7",
+      "relationship": "partial",
+      "rationale": "Protection against malware."
+    },
+    {
+      "source": "PR.PS-06",
+      "target": "A.8.25",
+      "relationship": "equivalent",
+      "rationale": "Secure development life cycle."
+    },
+    {
+      "source": "PR.PS-06",
+      "target": "A.8.28",
+      "relationship": "partial",
+      "rationale": "Secure coding."
+    },
+
+    {
+      "source": "PR.IR-01",
+      "target": "A.8.20",
+      "relationship": "equivalent",
+      "rationale": "Networks security."
+    },
+    {
+      "source": "PR.IR-01",
+      "target": "A.8.22",
+      "relationship": "partial",
+      "rationale": "Segregation of networks."
+    },
+    {
+      "source": "PR.IR-02",
+      "target": "A.7.5",
+      "relationship": "equivalent",
+      "rationale": "Protection against physical and environmental threats."
+    },
+    {
+      "source": "PR.IR-03",
+      "target": "A.5.30",
+      "relationship": "equivalent",
+      "rationale": "ICT readiness for business continuity."
+    },
+    {
+      "source": "PR.IR-04",
+      "target": "A.8.6",
+      "relationship": "equivalent",
+      "rationale": "Capacity management."
+    },
+
+    {
+      "source": "DE.CM-01",
+      "target": "A.8.16",
+      "relationship": "equivalent",
+      "rationale": "Monitoring activities."
+    },
+    {
+      "source": "DE.CM-02",
+      "target": "A.7.4",
+      "relationship": "equivalent",
+      "rationale": "Physical security monitoring."
+    },
+    { "source": "DE.CM-03", "target": "A.8.16", "relationship": "partial" },
+    { "source": "DE.CM-06", "target": "A.5.22", "relationship": "partial" },
+    { "source": "DE.CM-09", "target": "A.8.16", "relationship": "partial" },
+
+    {
+      "source": "DE.AE-02",
+      "target": "A.5.25",
+      "relationship": "equivalent",
+      "rationale": "Assessment and decision on information security events."
+    },
+    {
+      "source": "DE.AE-03",
+      "target": "A.8.15",
+      "relationship": "partial",
+      "rationale": "Correlation across multiple log sources."
+    },
+    { "source": "DE.AE-04", "target": "A.5.25", "relationship": "partial" },
+    {
+      "source": "DE.AE-06",
+      "target": "A.6.8",
+      "relationship": "partial",
+      "rationale": "Reporting to authorised staff."
+    },
+    { "source": "DE.AE-07", "target": "A.5.7", "relationship": "informs" },
+    { "source": "DE.AE-08", "target": "A.5.25", "relationship": "equivalent" },
+
+    {
+      "source": "RS.MA-01",
+      "target": "A.5.26",
+      "relationship": "equivalent",
+      "rationale": "Response to information security incidents."
+    },
+    { "source": "RS.MA-02", "target": "A.5.25", "relationship": "partial" },
+    { "source": "RS.MA-03", "target": "A.5.25", "relationship": "partial" },
+    { "source": "RS.MA-04", "target": "A.5.26", "relationship": "partial" },
+    { "source": "RS.MA-05", "target": "A.5.30", "relationship": "partial" },
+
+    {
+      "source": "RS.AN-03",
+      "target": "A.5.27",
+      "relationship": "equivalent",
+      "rationale": "Learning from information security incidents."
+    },
+    {
+      "source": "RS.AN-06",
+      "target": "A.5.28",
+      "relationship": "equivalent",
+      "rationale": "Collection of evidence."
+    },
+    { "source": "RS.AN-07", "target": "A.5.28", "relationship": "equivalent" },
+    { "source": "RS.AN-08", "target": "A.5.27", "relationship": "partial" },
+
+    {
+      "source": "RS.CO-02",
+      "target": "A.6.8",
+      "relationship": "partial",
+      "rationale": "Reporting information security events."
+    },
+    {
+      "source": "RS.CO-03",
+      "target": "A.5.5",
+      "relationship": "partial",
+      "rationale": "Contact with authorities + special interest groups."
+    },
+
+    { "source": "RS.MI-01", "target": "A.5.26", "relationship": "partial" },
+    { "source": "RS.MI-02", "target": "A.5.26", "relationship": "partial" },
+
+    { "source": "RC.RP-01", "target": "A.5.30", "relationship": "equivalent" },
+    { "source": "RC.RP-02", "target": "A.5.30", "relationship": "partial" },
+    {
+      "source": "RC.RP-03",
+      "target": "A.8.13",
+      "relationship": "partial",
+      "rationale": "Backup integrity verification before restore."
+    },
+    {
+      "source": "RC.RP-04",
+      "target": "A.5.29",
+      "relationship": "partial",
+      "rationale": "Information security during disruption."
+    },
+    { "source": "RC.RP-05", "target": "A.5.30", "relationship": "partial" },
+    { "source": "RC.RP-06", "target": "A.5.27", "relationship": "partial" },
+
+    { "source": "RC.CO-03", "target": "A.5.5", "relationship": "partial" },
+    { "source": "RC.CO-04", "target": "A.5.5", "relationship": "partial" }
+  ]
+}

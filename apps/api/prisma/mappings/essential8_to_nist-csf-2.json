@@ -1,0 +1,153 @@
+{
+  "$comment": "Essential Eight → NIST CSF 2.0 mappings. Derived via the E8→ISO→CSF chain and manually verified against NIST OLIR. Most are 'partial' since CSF subcategories are outcome-statements while E8 is technique-specific.",
+  "source": "Derived from ACSC E8→ISO mapping + NIST CSF 2.0 OLIR (manually verified)",
+  "sourceFramework": "essential8",
+  "targetFramework": "nist_csf_2",
+  "mappings": [
+    {
+      "source": "E8-APP_CONTROL-ML1",
+      "target": "PR.PS-05",
+      "relationship": "equivalent",
+      "rationale": "Prevent installation/execution of unauthorized software."
+    },
+    {
+      "source": "E8-APP_CONTROL-ML2",
+      "target": "PR.PS-04",
+      "relationship": "partial",
+      "rationale": "Centralised logging of allowed/blocked execution events."
+    },
+    {
+      "source": "E8-APP_CONTROL-ML2",
+      "target": "DE.CM-09",
+      "relationship": "partial",
+      "rationale": "Runtime monitoring of execution events."
+    },
+    {
+      "source": "E8-APP_CONTROL-ML3",
+      "target": "DE.AE-02",
+      "relationship": "partial",
+      "rationale": "Analysis of allowed/blocked execution events to identify incidents."
+    },
+
+    {
+      "source": "E8-PATCH_APPS-ML1",
+      "target": "ID.RA-01",
+      "relationship": "equivalent",
+      "rationale": "Vulnerability identification and remediation SLA."
+    },
+    {
+      "source": "E8-PATCH_APPS-ML1",
+      "target": "PR.PS-02",
+      "relationship": "equivalent",
+      "rationale": "Software maintained commensurate with risk."
+    },
+    { "source": "E8-PATCH_APPS-ML2", "target": "PR.PS-02", "relationship": "equivalent" },
+    {
+      "source": "E8-PATCH_APPS-ML3",
+      "target": "ID.RA-08",
+      "relationship": "partial",
+      "rationale": "Published vulnerability disclosure policy."
+    },
+
+    {
+      "source": "E8-MACROS-ML1",
+      "target": "PR.PS-05",
+      "relationship": "partial",
+      "rationale": "Disabled-by-default macros prevent unauthorized code execution."
+    },
+    {
+      "source": "E8-MACROS-ML2",
+      "target": "PR.PS-04",
+      "relationship": "partial",
+      "rationale": "Centralised macro execution logging."
+    },
+
+    {
+      "source": "E8-APP_HARDENING-ML1",
+      "target": "PR.PS-01",
+      "relationship": "partial",
+      "rationale": "Browser/Office hardening is configuration management."
+    },
+    {
+      "source": "E8-APP_HARDENING-ML2",
+      "target": "PR.PS-01",
+      "relationship": "partial",
+      "rationale": "ASR + Constrained Language Mode are configuration baselines."
+    },
+    {
+      "source": "E8-APP_HARDENING-ML2",
+      "target": "PR.PS-04",
+      "relationship": "partial",
+      "rationale": "PowerShell script-block logging."
+    },
+
+    {
+      "source": "E8-PRIV_ACCESS-ML1",
+      "target": "PR.AA-05",
+      "relationship": "equivalent",
+      "rationale": "Least privilege + segregation of admin/standard accounts."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML2",
+      "target": "PR.AA-01",
+      "relationship": "partial",
+      "rationale": "Identity lifecycle (12-month revalidation, 45-day inactivity disable)."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML2",
+      "target": "PR.PS-04",
+      "relationship": "partial",
+      "rationale": "Centrally logged + retained privileged access events."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML3",
+      "target": "PR.AA-03",
+      "relationship": "partial",
+      "rationale": "JIT admin + Credential Guard strengthens authentication."
+    },
+
+    {
+      "source": "E8-PATCH_OS-ML1",
+      "target": "ID.RA-01",
+      "relationship": "equivalent",
+      "rationale": "OS vulnerability detection + remediation SLA."
+    },
+    { "source": "E8-PATCH_OS-ML1", "target": "PR.PS-02", "relationship": "equivalent" },
+    { "source": "E8-PATCH_OS-ML2", "target": "PR.PS-02", "relationship": "equivalent" },
+    {
+      "source": "E8-PATCH_OS-ML3",
+      "target": "PR.PS-03",
+      "relationship": "partial",
+      "rationale": "Driver/firmware patching covers hardware lifecycle."
+    },
+
+    {
+      "source": "E8-MFA-ML1",
+      "target": "PR.AA-03",
+      "relationship": "equivalent",
+      "rationale": "MFA on internet-facing services satisfies authentication outcomes."
+    },
+    { "source": "E8-MFA-ML2", "target": "PR.AA-03", "relationship": "equivalent" },
+    {
+      "source": "E8-MFA-ML3",
+      "target": "PR.AA-03",
+      "relationship": "equivalent",
+      "rationale": "Phishing-resistant MFA for important data accesses."
+    },
+
+    {
+      "source": "E8-BACKUPS-ML1",
+      "target": "PR.DS-11",
+      "relationship": "equivalent",
+      "rationale": "Backups created, protected, maintained, tested."
+    },
+    { "source": "E8-BACKUPS-ML2", "target": "PR.DS-11", "relationship": "equivalent" },
+    { "source": "E8-BACKUPS-ML3", "target": "PR.DS-11", "relationship": "equivalent" },
+    {
+      "source": "E8-BACKUPS-ML1",
+      "target": "RC.RP-03",
+      "relationship": "partial",
+      "rationale": "Restoration testing supports recovery validation."
+    }
+  ]
+}

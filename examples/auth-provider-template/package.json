@@ -1,0 +1,14 @@
+{
+  "name": "trustalo-auth-provider-template",
+  "version": "0.0.1",
+  "description": "Starter template for writing a Trustalo authentication plugin.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "peerDependencies": {
+    "@trustalo/auth": "*"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  }
+}

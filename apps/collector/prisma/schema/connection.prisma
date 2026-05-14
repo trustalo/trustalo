@@ -1,0 +1,41 @@
+enum ConnectionStatus {
+  connected
+  disconnected
+  error
+  syncing
+  pending_auth
+}
+
+// A tenant's binding to a specific Integration. Credentials live in
+// `SecretVault` and are referenced via `secretId`; this row only carries
+// metadata + non-secret config.
+model IntegrationConnection {
+  id                   String           @id @default(cuid())
+  tenantId             String
+  integrationId        String
+  name                 String
+  status               ConnectionStatus @default(pending_auth)
+  // Reference to a `SecretVault` row that holds the AES-GCM ciphertext
+  // for the connection's credentials. Null only while a connection is
+  // in `pending_auth` and no secret has been issued yet.
+  secretId             String?
+  config               Json?
+  lastSyncAt           DateTime?
+  lastErrorMessage     String?
+  syncFrequencyMinutes Int              @default(1440)
+  isActive             Boolean          @default(true)
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  integration Integration              @relation(fields: [integrationId], references: [id])
+  jobs        CollectionJob[]
+  syncLogs    SyncLog[]
+  checks      IntegrationCheck[]
+  checkControls IntegrationCheckControl[]
+  checkResults IntegrationCheckResult[]
+
+  @@unique([tenantId, integrationId, name])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([secretId])
+}

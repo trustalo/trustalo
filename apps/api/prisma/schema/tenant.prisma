@@ -1,0 +1,104 @@
+// A `Tenant` represents a paying customer organisation. Was previously
+// called `Organization`; the rename moved every domain table's foreign
+// key column from `organizationId` to `tenantId` so the multi-tenant
+// concept is consistent across the whole stack. The product UI may
+// still surface the word "Organisation" — that is purely a label.
+
+enum TenantPlan {
+  free
+  starter
+  professional
+  enterprise
+}
+
+enum TenantStatus {
+  active
+  suspended
+  cancelled
+}
+
+model Tenant {
+  id        String       @id @default(cuid())
+  name      String
+  slug      String       @unique
+  plan      TenantPlan   @default(free)
+  status    TenantStatus @default(active)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  settings                      TenantSettings?
+  memberships                   Membership[]
+  frameworkInstances            FrameworkInstance[]
+  controls                      Control[]
+  policies                      Policy[]
+  policyAcks                    PolicyAcknowledgment[]
+  risks                         Risk[]
+  riskAssessments               RiskAssessment[]
+  riskTreatments                RiskTreatment[]
+  riskRegisterConfig            RiskRegisterConfig?
+  riskMatrixChanges             RiskMatrixChange[]
+  vendors                       Vendor[]
+  vendorAssessments             VendorAssessment[]
+  vendorResearches              VendorResearch[]
+  vendorDocuments               VendorDocument[]
+  assets                        Asset[]
+  incidents                     Incident[]
+  incidentTimelines             IncidentTimeline[]
+  audits                        Audit[]
+  auditDocuments                AuditDocument[]
+  auditFindings                 AuditFinding[]
+  bcps                          BusinessContinuityPlan[]
+  bias                          BusinessImpactAnalysis[]
+  bcpExercises                  BCPExercise[]
+  aiSystems                     AISystem[]
+  aiRiskAssessments             AIRiskAssessment[]
+  aiImpactAssessments           AIImpactAssessment[]
+  aiIncidents                   AIIncident[]
+  tasks                         Task[]
+  taskEvidence                  TaskEvidence[]
+  trainingPrograms              TrainingProgram[]
+  trainingCompletions           TrainingCompletion[]
+  trainingQuizzes               TrainingQuiz[]
+  quizAttempts                  QuizAttempt[]
+  aiProviderConfigs             AIProviderConfig[]
+  aiFeatureConfigs              AIFeatureConfig[]
+  trustCenterConfig             TrustCenterConfig?
+  trustResources                TrustResource[]
+  accessRequests                TrustCenterAccessRequest[]
+  trustCenterSnapshots          TrustCenterSnapshot[]
+  trustCenterEvents             TrustCenterEvent[]
+  controlRequirementAssignments ControlRequirementAssignment[]
+  evidence                      Evidence[]
+  policyControls                PolicyControl[]
+  policyComments                PolicyComment[]
+  vulnerabilities               Vulnerability[]
+  processingActivities          ProcessingActivity[]
+  dpias                         DPIA[]
+  dataBreaches                  DataBreach[]
+  dsarRequests                  DSARRequest[]
+  contextEntries                TenantContext[]
+  contextProposals              TenantContextProposal[]
+  conversations                 Conversation[]
+  conversationMessages          Message[]
+  questionnaires                Questionnaire[]
+  questions                     Question[]
+  answers                       Answer[]
+  questionnaireImportJobs       QuestionnaireImportJob[]
+}
+
+model TenantSettings {
+  id          String   @id @default(cuid())
+  tenantId    String   @unique
+  companySize String?
+  industry    String?
+  country     String?
+  timezone    String?
+  logoUrl     String?
+  defaults    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+}

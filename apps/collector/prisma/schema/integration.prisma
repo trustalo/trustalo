@@ -1,0 +1,46 @@
+// Catalog of supported integration connectors.
+//
+// One row per integration that Trustalo supports. The `id` is the
+// connector slug ("github", "aws", "azure", "google", "okta",
+// "openai", "anthropic", ...) — human-readable and stable, so callers
+// can reference `Integration` records by name without an extra lookup.
+//
+// Tenant-specific bindings live in `IntegrationConnection`.
+
+enum AuthType {
+  oauth2
+  api_key
+  iam_role
+}
+
+enum IntegrationCategory {
+  cloud
+  identity
+  code_repository
+  productivity
+  security
+  hr
+  ai
+  custom
+}
+
+model Integration {
+  // Slug-as-PK, e.g. "github", "aws", "openai". Lower-case ASCII, no
+  // hyphens that conflict with HTTP path segments. Treated as opaque
+  // by anything outside the integration manifest layer.
+  id           String              @id
+  name         String
+  description  String?
+  authType     AuthType
+  category     IntegrationCategory
+  configSchema Json?
+  capabilities String[]
+  isActive     Boolean             @default(true)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  connections IntegrationConnection[]
+  checks      IntegrationCheck[]
+
+  @@index([category])
+}

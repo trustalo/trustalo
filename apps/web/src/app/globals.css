@@ -1,0 +1,443 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* TipTap editor styles */
+.tiptap {
+  outline: none;
+}
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9ca3af;
+  pointer-events: none;
+  height: 0;
+}
+.tiptap table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+.tiptap table td,
+.tiptap table th {
+  border: 1px solid #d1d5db;
+  padding: 0.5rem 0.75rem;
+  min-width: 100px;
+}
+.tiptap table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+.tiptap mark {
+  background-color: #fef08a;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+.tiptap img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.375rem;
+}
+.tiptap hr {
+  border: none;
+  border-top: 2px solid #e5e7eb;
+  margin: 1.5rem 0;
+}
+.comment-highlight-active {
+  background-color: rgba(251, 191, 36, 0.3);
+  border-bottom: 2px solid rgb(245, 158, 11);
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+/* ─── Google Docs–style document pages ──────────────────────── */
+
+.doc-canvas {
+  background-color: #e8eaed;
+  max-height: 75vh;
+  padding: 20px 40px;
+}
+.dark .doc-canvas {
+  background-color: #1a1a1a;
+}
+
+.doc-paper-wrap {
+  width: 816px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Page paper stays white in both light and dark mode — matches Google Docs.
+   The dark canvas around it (.dark .doc-canvas) provides the contrasting frame,
+   and prose typography is force-light below so text stays readable on white. */
+.page-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1056px;
+  background: #ffffff;
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.15),
+    0 0 1px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
+.dark .page-sheet {
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.5),
+    0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.page-gap-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+.page-gap-label span {
+  font-size: 10px;
+  font-weight: 500;
+  color: #9ca3af;
+  letter-spacing: 0.03em;
+}
+
+.doc-page {
+  padding: 96px;
+  position: relative;
+  z-index: 1;
+  min-height: 1056px;
+  color: #1f2937;
+}
+
+/* Force light-mode typography inside the editor since pages are always white */
+.dark .doc-page,
+.dark .doc-page.prose {
+  --tw-prose-body: #374151;
+  --tw-prose-headings: #111827;
+  --tw-prose-links: #2563eb;
+  --tw-prose-bold: #111827;
+  --tw-prose-counters: #6b7280;
+  --tw-prose-bullets: #9ca3af;
+  --tw-prose-hr: #e5e7eb;
+  --tw-prose-quotes: #374151;
+  --tw-prose-quote-borders: #e5e7eb;
+  --tw-prose-captions: #6b7280;
+  --tw-prose-code: #111827;
+  --tw-prose-th-borders: #d1d5db;
+  --tw-prose-td-borders: #e5e7eb;
+  color: #374151;
+}
+.dark .doc-page h1,
+.dark .doc-page h2,
+.dark .doc-page h3,
+.dark .doc-page h4,
+.dark .doc-page strong {
+  color: #111827;
+}
+.dark .doc-page a {
+  color: #2563eb;
+}
+.dark .doc-page code {
+  color: #111827;
+}
+.dark .doc-page blockquote {
+  color: #374151;
+  border-color: #e5e7eb;
+}
+.dark .doc-page table th {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+.dark .doc-page table td,
+.dark .doc-page table th {
+  border-color: #d1d5db;
+}
+.dark .doc-page hr {
+  border-color: #e5e7eb;
+}
+.dark .doc-page mark {
+  background-color: #fef08a;
+  color: #111827;
+}
+.dark .doc-page ul > li::marker {
+  color: #9ca3af;
+}
+.dark .doc-page ol > li::marker {
+  color: #6b7280;
+}
+
+/* ─── Page break node ──────────────────────────────────────── */
+
+.page-break-node {
+  position: relative;
+  margin: 2rem 0;
+  border: none;
+  break-after: page;
+  page-break-after: always;
+}
+.page-break-node::before {
+  content: "";
+  display: block;
+  border-top: 2px dashed #d1d5db;
+}
+.page-break-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f3f4f6;
+  color: #9ca3af;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1px 10px;
+  border-radius: 4px;
+}
+.dark .page-break-node::before {
+  border-color: #525252;
+}
+.dark .page-break-label {
+  background: #262626;
+  color: #737373;
+}
+
+/* ─── Auth marketing panel animations ──────────────────────── */
+/* Subtle motion for the login/register marketing pane. Each orb drifts
+   on its own offset cycle so the blended gradient breathes without ever
+   feeling synchronized or distracting. */
+
+@keyframes auth-orb-drift-1 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(40px, 30px, 0) scale(1.08);
+  }
+}
+@keyframes auth-orb-drift-2 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-35px, -40px, 0) scale(0.94);
+  }
+}
+@keyframes auth-orb-drift-3 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(25px, -35px, 0) scale(1.06);
+  }
+}
+
+.auth-orb-1 {
+  animation: auth-orb-drift-1 18s ease-in-out infinite;
+}
+.auth-orb-2 {
+  animation: auth-orb-drift-2 22s ease-in-out infinite;
+}
+.auth-orb-3 {
+  animation: auth-orb-drift-3 26s ease-in-out infinite;
+}
+
+@keyframes auth-pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 6px rgba(125, 211, 252, 0.7);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(125, 211, 252, 1);
+    opacity: 0.85;
+  }
+}
+.auth-pulse-dot {
+  animation: auth-pulse-glow 2.4s ease-in-out infinite;
+}
+
+@keyframes auth-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+.auth-shimmer-text {
+  background-size: 200% 100%;
+  animation: auth-shimmer 6s linear infinite;
+}
+
+@keyframes auth-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+.auth-fade-up {
+  animation: auth-fade-up 0.5s ease-out both;
+}
+
+/* Floating UI fragments — drift with slight rotation so the cards feel
+   alive but never circle predictably. Each variant uses a different period
+   and offset so the three fragments never land in sync. */
+
+@keyframes auth-float-1 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translate3d(-10px, -14px, 0) rotate(0.5deg);
+  }
+}
+@keyframes auth-float-2 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(1.5deg);
+  }
+  50% {
+    transform: translate3d(12px, -10px, 0) rotate(-1deg);
+  }
+}
+@keyframes auth-float-3 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.8deg);
+  }
+  50% {
+    transform: translate3d(-8px, 12px, 0) rotate(1.2deg);
+  }
+}
+
+.auth-float-1 {
+  animation: auth-float-1 9s ease-in-out infinite;
+}
+.auth-float-2 {
+  animation: auth-float-2 11s ease-in-out infinite;
+}
+.auth-float-3 {
+  animation: auth-float-3 13s ease-in-out infinite;
+}
+
+/* Sliding framework marquee — duplicates its content in JSX so a 50%
+   translate produces a seamless loop. The mask softens both edges so
+   chips don't pop in/out abruptly. */
+
+@keyframes auth-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.auth-marquee {
+  animation: auth-marquee 28s linear infinite;
+}
+
+.auth-marquee-mask {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-orb-1,
+  .auth-orb-2,
+  .auth-orb-3,
+  .auth-pulse-dot,
+  .auth-shimmer-text,
+  .auth-fade-up,
+  .auth-float-1,
+  .auth-float-2,
+  .auth-float-3,
+  .auth-marquee {
+    animation: none !important;
+  }
+}
+
+/* ─── Print / PDF export ───────────────────────────────────── */
+
+@page {
+  size: letter;
+  margin: 1in;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .doc-paper-wrap,
+  .doc-paper-wrap * {
+    visibility: visible;
+  }
+  .doc-paper-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  .page-sheet {
+    display: none;
+  }
+  .page-gap-label {
+    display: none;
+  }
+  .doc-page {
+    padding: 0;
+    min-height: auto;
+  }
+  .doc-editor-root {
+    border: none !important;
+    background: transparent !important;
+  }
+  .doc-canvas {
+    background: transparent;
+    padding: 0;
+    max-height: none;
+    overflow: visible;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+  table,
+  figure,
+  blockquote {
+    break-inside: avoid;
+  }
+
+  .page-break-node {
+    border: none;
+    margin: 0;
+  }
+  .page-break-node::before {
+    display: none;
+  }
+  .page-break-label {
+    display: none;
+  }
+}

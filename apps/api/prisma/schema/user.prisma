@@ -1,0 +1,120 @@
+enum MembershipRole {
+  owner
+  admin
+  compliance_manager
+  auditor
+  viewer
+  integration_admin
+  // Data Protection Officer (GDPR Art. 37). Privacy-program-scoped role with
+  // read access across the platform and write access to privacy resources
+  // (RoPA, DPIAs, data-breach register, DSARs).
+  dpo
+}
+
+enum MembershipStatus {
+  active
+  invited
+  suspended
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String
+  // Password hash is only populated when the active auth provider is a
+  // credential provider (e.g. local). It is null for users that authenticate
+  // via redirect providers (Cognito, OIDC, SAML, ...).
+  passwordHash  String?
+  // Identifier of the auth provider that owns this account. Must match the
+  // `id` returned by the provider plugin (e.g. "local", "cognito", or any
+  // third-party plugin id). Null only for users that have not yet completed
+  // first login (e.g. invited users on a redirect provider).
+  authProvider  String?
+  // Stable, opaque user identifier returned by the auth provider:
+  //   - local    : the user's email address
+  //   - cognito  : the user pool's `sub` claim
+  //   - <plugin> : provider-specific stable id
+  // Together with `authProvider`, this uniquely identifies the account.
+  externalId    String?
+  avatarUrl     String?
+  emailVerified Boolean   @default(false)
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@unique([authProvider, externalId])
+  @@index([authProvider])
+
+  memberships          Membership[]
+  ownedControls        Control[]        @relation("ControlOwner")
+  ownedPolicies        Policy[]         @relation("PolicyOwner")
+  createdPolicyVersions PolicyVersion[] @relation("PolicyVersionCreator")
+  approvedPolicyVersions PolicyVersion[] @relation("PolicyVersionApprover")
+  policyAcknowledgments PolicyAcknowledgment[]
+  ownedRisks           Risk[]           @relation("RiskOwner")
+  actionOwnedRisks     Risk[]           @relation("RiskActionOwner")
+  riskAssessments      RiskAssessment[] @relation("RiskAssessor")
+  riskTreatments       RiskTreatment[]  @relation("RiskTreatmentResponsible")
+  riskMatrixChanges    RiskMatrixChange[] @relation("RiskMatrixChangeAuthor")
+  vendorAssessments    VendorAssessment[] @relation("VendorAssessor")
+  vendorDocuments      VendorDocument[]    @relation("VendorDocUploader")
+  ownedAssets          Asset[]          @relation("AssetOwner")
+  deletedAssets        Asset[]          @relation("AssetDeletedBy")
+  reportedIncidents    Incident[]       @relation("IncidentReporter")
+  assignedIncidents    Incident[]       @relation("IncidentAssignee")
+  incidentTimelineActions IncidentTimeline[]
+  assignedAuditFindings AuditFinding[]  @relation("AuditFindingAssignee")
+  uploadedAuditDocuments AuditDocument[] @relation("AuditDocumentUploader")
+  ownedBcps            BusinessContinuityPlan[] @relation("BCPOwner")
+  ownedBias            BusinessImpactAnalysis[] @relation("BIAOwner")
+  facilitatedBcpExercises BCPExercise[]         @relation("BCPExerciseFacilitator")
+  ownedAiSystems       AISystem[]       @relation("AISystemOwner")
+  aiRiskAssessments    AIRiskAssessment[] @relation("AIRiskAssessor")
+  aiRiskApprovals      AIRiskAssessment[] @relation("AIRiskApprover")
+  aiImpactAssessments  AIImpactAssessment[] @relation("AIImpactAssessor")
+  aiImpactApprovals    AIImpactAssessment[] @relation("AIImpactApprover")
+  reportedAiIncidents  AIIncident[]     @relation("AIIncidentReporter")
+  assignedAiIncidents  AIIncident[]     @relation("AIIncidentAssignee")
+  assignedTasks        Task[]           @relation("TaskAssignee")
+  submittedEvidence    TaskEvidence[]   @relation("EvidenceSubmitter")
+  approvedEvidence     TaskEvidence[]   @relation("EvidenceApprover")
+  submittedControlEvidence Evidence[]   @relation("EvidenceSubmittedBy")
+  reviewedControlEvidence  Evidence[]   @relation("EvidenceReviewedBy")
+  trainingCompletions  TrainingCompletion[]
+  quizAttempts         QuizAttempt[]
+  policyComments       PolicyComment[] @relation("PolicyCommentAuthor")
+  resolvedComments     PolicyComment[] @relation("PolicyCommentResolver")
+  approvedAccessRequests TrustCenterAccessRequest[] @relation("AccessRequestApprover")
+  publishedTrustSnapshots TrustCenterSnapshot[]    @relation("TrustCenterSnapshotPublisher")
+  reportedVulnerabilities Vulnerability[] @relation("VulnReporter")
+  assignedVulnerabilities Vulnerability[] @relation("VulnAssignee")
+  ownedProcessingActivities ProcessingActivity[] @relation("ProcessingActivityOwner")
+  dpiaAssessments       DPIA[]               @relation("DPIAAssessor")
+  dpiaApprovals         DPIA[]               @relation("DPIAApprover")
+  reportedDataBreaches  DataBreach[]         @relation("DataBreachReporter")
+  assignedDataBreaches  DataBreach[]         @relation("DataBreachAssignee")
+  assignedDsarRequests  DSARRequest[]        @relation("DSARAssignee")
+  importedQuestionnaires Questionnaire[]     @relation("QuestionnaireImporter")
+  reviewedAnswers        Answer[]            @relation("AnswerReviewer")
+  questionnaireImportJobs QuestionnaireImportJob[] @relation("QuestionnaireImportJobCreator")
+}
+
+model Membership {
+  id          String           @id @default(cuid())
+  userId      String
+  tenantId    String
+  role        MembershipRole   @default(viewer)
+  permissions String[]
+  status      MembershipStatus @default(invited)
+  invitedAt   DateTime?
+  joinedAt    DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tenantId])
+  @@index([tenantId])
+  @@index([userId])
+}

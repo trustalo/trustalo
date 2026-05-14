@@ -1,0 +1,271 @@
+{
+  "$comment": "SOC 2 Trust Services Criteria → ISO/IEC 27001:2022 Annex A. Derived from AICPA's TSC 2017 (rev. 2022) + ISO 27001 cross-reference and Drata's published mapping. SOC 2 criteria are predominantly Common Criteria (CC1–CC9) plus optional categories (A1, C1, PI1, P1–P8). This mapping covers the full Common Criteria set plus Availability (A1) and Confidentiality (C1).",
+  "source": "AICPA TSC 2017 (rev. 2022) + ISO 27001:2022 Annex A cross-reference",
+  "sourceFramework": "soc2",
+  "targetFramework": "iso27001",
+  "mappings": [
+    {
+      "source": "CC1.1",
+      "target": "A.5.1",
+      "relationship": "partial",
+      "rationale": "Control environment + integrity values reflected in the security policy."
+    },
+    {
+      "source": "CC1.2",
+      "target": "A.5.4",
+      "relationship": "partial",
+      "rationale": "Board oversight of security."
+    },
+    {
+      "source": "CC1.3",
+      "target": "A.5.2",
+      "relationship": "equivalent",
+      "rationale": "Reporting structures, authorities, responsibilities."
+    },
+    {
+      "source": "CC1.4",
+      "target": "A.6.3",
+      "relationship": "equivalent",
+      "rationale": "Competence + ongoing development of personnel."
+    },
+    {
+      "source": "CC1.5",
+      "target": "A.6.4",
+      "relationship": "partial",
+      "rationale": "Disciplinary process to enforce accountability."
+    },
+
+    { "source": "CC2.1", "target": "A.5.1", "relationship": "partial" },
+    {
+      "source": "CC2.2",
+      "target": "A.6.3",
+      "relationship": "partial",
+      "rationale": "Internal communication of security responsibilities."
+    },
+    {
+      "source": "CC2.3",
+      "target": "A.5.5",
+      "relationship": "partial",
+      "rationale": "Communication with external parties."
+    },
+
+    {
+      "source": "CC3.1",
+      "target": "A.5.1",
+      "relationship": "partial",
+      "rationale": "Risk assessment objectives align with policy."
+    },
+    {
+      "source": "CC3.2",
+      "target": "A.5.7",
+      "relationship": "partial",
+      "rationale": "Threat identification."
+    },
+    {
+      "source": "CC3.3",
+      "target": "A.5.7",
+      "relationship": "partial",
+      "rationale": "Risk identification including fraud risks."
+    },
+    {
+      "source": "CC3.4",
+      "target": "A.8.32",
+      "relationship": "partial",
+      "rationale": "Identifying and responding to changes."
+    },
+
+    {
+      "source": "CC4.1",
+      "target": "A.5.35",
+      "relationship": "equivalent",
+      "rationale": "Independent review of information security."
+    },
+    {
+      "source": "CC4.2",
+      "target": "A.5.36",
+      "relationship": "equivalent",
+      "rationale": "Compliance evaluations + remediation tracking."
+    },
+
+    { "source": "CC5.1", "target": "A.5.1", "relationship": "partial" },
+    { "source": "CC5.2", "target": "A.5.1", "relationship": "partial" },
+    { "source": "CC5.3", "target": "A.5.36", "relationship": "partial" },
+
+    {
+      "source": "CC6.1",
+      "target": "A.5.15",
+      "relationship": "equivalent",
+      "rationale": "Logical access security software / controls."
+    },
+    {
+      "source": "CC6.1",
+      "target": "A.5.16",
+      "relationship": "equivalent",
+      "rationale": "Identity management."
+    },
+    {
+      "source": "CC6.1",
+      "target": "A.8.5",
+      "relationship": "equivalent",
+      "rationale": "Secure authentication."
+    },
+    {
+      "source": "CC6.2",
+      "target": "A.5.18",
+      "relationship": "equivalent",
+      "rationale": "Access provisioning + periodic review of access rights."
+    },
+    { "source": "CC6.3", "target": "A.5.18", "relationship": "equivalent" },
+    {
+      "source": "CC6.3",
+      "target": "A.5.3",
+      "relationship": "partial",
+      "rationale": "Segregation of duties."
+    },
+    {
+      "source": "CC6.4",
+      "target": "A.7.2",
+      "relationship": "equivalent",
+      "rationale": "Physical entry controls."
+    },
+    {
+      "source": "CC6.5",
+      "target": "A.7.10",
+      "relationship": "equivalent",
+      "rationale": "Storage media handling + secure disposal."
+    },
+    {
+      "source": "CC6.6",
+      "target": "A.8.20",
+      "relationship": "equivalent",
+      "rationale": "Network security controls for boundary defence."
+    },
+    {
+      "source": "CC6.6",
+      "target": "A.8.22",
+      "relationship": "partial",
+      "rationale": "Segregation of networks."
+    },
+    {
+      "source": "CC6.7",
+      "target": "A.8.24",
+      "relationship": "equivalent",
+      "rationale": "Use of cryptography."
+    },
+    {
+      "source": "CC6.7",
+      "target": "A.8.10",
+      "relationship": "partial",
+      "rationale": "Information deletion."
+    },
+    {
+      "source": "CC6.8",
+      "target": "A.8.7",
+      "relationship": "equivalent",
+      "rationale": "Protection against malware."
+    },
+    {
+      "source": "CC6.8",
+      "target": "A.8.19",
+      "relationship": "partial",
+      "rationale": "Installation of software on operational systems."
+    },
+
+    {
+      "source": "CC7.1",
+      "target": "A.8.8",
+      "relationship": "equivalent",
+      "rationale": "Vulnerability management."
+    },
+    {
+      "source": "CC7.2",
+      "target": "A.8.16",
+      "relationship": "equivalent",
+      "rationale": "Monitoring activities."
+    },
+    { "source": "CC7.2", "target": "A.8.15", "relationship": "partial", "rationale": "Logging." },
+    {
+      "source": "CC7.3",
+      "target": "A.5.25",
+      "relationship": "equivalent",
+      "rationale": "Assessment + decision on information security events."
+    },
+    {
+      "source": "CC7.4",
+      "target": "A.5.26",
+      "relationship": "equivalent",
+      "rationale": "Response to incidents."
+    },
+    {
+      "source": "CC7.5",
+      "target": "A.5.27",
+      "relationship": "equivalent",
+      "rationale": "Learning from incidents."
+    },
+
+    {
+      "source": "CC8.1",
+      "target": "A.8.32",
+      "relationship": "equivalent",
+      "rationale": "Change management."
+    },
+
+    {
+      "source": "CC9.1",
+      "target": "A.5.30",
+      "relationship": "partial",
+      "rationale": "Business continuity for ICT."
+    },
+    {
+      "source": "CC9.2",
+      "target": "A.5.19",
+      "relationship": "equivalent",
+      "rationale": "Information security in supplier relationships."
+    },
+    {
+      "source": "CC9.2",
+      "target": "A.5.20",
+      "relationship": "equivalent",
+      "rationale": "Addressing security in supplier agreements."
+    },
+
+    {
+      "source": "A1.1",
+      "target": "A.8.6",
+      "relationship": "equivalent",
+      "rationale": "Capacity management."
+    },
+    { "source": "A1.2", "target": "A.8.13", "relationship": "equivalent", "rationale": "Backups." },
+    {
+      "source": "A1.2",
+      "target": "A.5.30",
+      "relationship": "partial",
+      "rationale": "Recovery + ICT readiness for business continuity."
+    },
+    {
+      "source": "A1.3",
+      "target": "A.5.29",
+      "relationship": "partial",
+      "rationale": "Information security during disruption (testing of recovery procedures)."
+    },
+
+    {
+      "source": "C1.1",
+      "target": "A.5.12",
+      "relationship": "equivalent",
+      "rationale": "Classification of information."
+    },
+    {
+      "source": "C1.1",
+      "target": "A.5.13",
+      "relationship": "partial",
+      "rationale": "Labelling of information."
+    },
+    {
+      "source": "C1.2",
+      "target": "A.8.10",
+      "relationship": "equivalent",
+      "rationale": "Information deletion + return on contract end."
+    }
+  ]
+}

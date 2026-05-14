@@ -1,0 +1,304 @@
+// ============================================================
+// Questionnaires — Phase 6 (AI accelerators).
+//
+// Customers regularly receive long security questionnaires (CAIQ,
+// SIG, Whistic, custom CSVs). The questionnaire workspace lets a
+// reviewer:
+//
+//   1. Import a questionnaire from CSV / CAIQ / SIG (we model this as
+//      a file-format hint plus the raw row data).
+//   2. Bulk-generate AI answers grounded in the org's existing policies,
+//      controls and TenantContext (the "facts wallet").
+//   3. Review, edit, approve and export the answered file in the
+//      original format so it can be returned to the requester.
+//
+// Each Answer carries provenance — generatedByAi flag, model used,
+// confidence, sources — so audit teams can prove which answers a human
+// reviewed vs accepted as-is.
+// ============================================================
+
+enum QuestionnaireSourceFormat {
+  csv
+  caiq
+  sig
+  xlsx
+  docx
+  custom
+}
+
+enum QuestionnaireStatus {
+  draft
+  in_progress
+  completed
+  exported
+}
+
+enum QuestionType {
+  yes_no
+  short_text
+  long_text
+  multiple_choice
+}
+
+enum AnswerStatus {
+  pending
+  draft
+  approved
+  rejected
+}
+
+/// Lifecycle of an asynchronous questionnaire import job.
+///
+///   pending   — row created, file uploaded to S3, runner not started yet
+///   running   — runner is parsing and/or calling the structure agent
+///   completed — all sheets understood; Questionnaire row + Questions persisted
+///   partial   — one or more sheets failed (agent timeout, schema rejection)
+///               but at least one question_table sheet succeeded; the user can
+///               accept the partial import or retry from the UI
+///   failed    — terminal failure (no usable sheets, AI unavailable, etc.)
+enum QuestionnaireImportJobStatus {
+  pending
+  running
+  completed
+  partial
+  failed
+}
+
+/// Async import job — owns the long-running work that POST /questionnaires
+/// used to do synchronously.
+///
+/// Why it exists:
+///   • Structure-agent calls on a 5-sheet workbook take 30–180 s. Holding an
+///     HTTP request open that long causes proxy timeouts (ALB 60 s default),
+///     duplicate submissions on browser retry, and a horrible "stare at a
+///     spinner" UX with no visibility into what's happening.
+///   • Per-sheet progress is what users actually want to see — a list of
+///     sheet names with ticks / spinners / failure markers is dramatically
+///     better than a three-minute opaque spinner.
+///
+/// Lifecycle:
+///   1. POST /questionnaires uploads the file to S3, creates this row with
+///      status=pending, kicks off the runner, and returns 202 + jobId.
+///   2. Runner sets status=running, parses sheets, and for each sheet calls
+///      the LLM mapper in parallel (`Promise.allSettled`). Each settle
+///      updates `progress.sheets[i]` so the UI poll can render per-sheet
+///      ticks/spinners.
+///   3. On success: creates the Questionnaire + Question rows, sets
+///      `questionnaireId` on this job, status=completed (or =partial if some
+///      sheets failed but at least one succeeded).
+///   4. On terminal failure: status=failed, errorMessage carries the public-
+///      safe copy.
+///
+/// We keep finished jobs in the table for audit/debug. A periodic janitor can
+/// purge rows older than N days; not in scope for the first cut.
+model QuestionnaireImportJob {
+  id             String                       @id @default(cuid())
+  tenantId String
+  /// Final questionnaire name (carried so the UI can show the title even
+  /// while the job is still running).
+  name           String
+  requester      String?
+  vendorId       String?
+  dueDate        DateTime?
+  /// User-supplied format hint (csv | xlsx | docx | …). Optional; the runner
+  /// re-detects from file extension.
+  formatHint     QuestionnaireSourceFormat?
+  /// Detected source format once the runner has looked at the file.
+  sourceFormat   QuestionnaireSourceFormat?
+  /// S3 key of the uploaded original. Always set for xlsx/docx; null for
+  /// CSV-string imports (the CSV body is captured in `csvBody` instead).
+  originalFileKey  String?
+  originalFilename String?
+  originalMimeType String?
+  /// Verbatim CSV body for paste-CSV imports. We persist it on the job so
+  /// the runner can re-parse without round-tripping through S3.
+  csvBody          String?                    @db.Text
+  status           QuestionnaireImportJobStatus @default(pending)
+  /// Free-shape progress descriptor consumed by the polling UI:
+  ///   {
+  ///     phase: "uploading" | "parsing" | "mapping" | "persisting",
+  ///     totalSheets: number,
+  ///     completedSheets: number,
+  ///     sheets: [
+  ///       { name: string, status: "pending"|"running"|"completed"|"failed",
+  ///         kind?: "instructions"|"metadata"|"question_table"|"matrix",
+  ///         questionCount?: number, error?: string }
+  ///     ]
+  ///   }
+  /// Updated incrementally by the runner. The UI re-renders on every poll.
+  progress         Json                        @default("{}")
+  /// Public-safe error message for status=failed/partial. NEVER contains
+  /// upstream secrets — the central error scrubber + AIProviderError public
+  /// messages enforce that.
+  errorMessage     String?                     @db.Text
+  errorCode        String?
+  /// Set when status transitions to completed/partial — points at the new
+  /// Questionnaire row so the UI can navigate to it.
+  questionnaireId  String?
+  createdById      String
+  createdAt        DateTime                    @default(now())
+  updatedAt        DateTime                    @updatedAt
+  startedAt        DateTime?
+  completedAt      DateTime?
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy     User           @relation("QuestionnaireImportJobCreator", fields: [createdById], references: [id])
+  questionnaire Questionnaire? @relation(fields: [questionnaireId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, createdAt])
+}
+
+model Questionnaire {
+  id             String                    @id @default(cuid())
+  tenantId String
+  name           String
+  sourceFormat   QuestionnaireSourceFormat @default(csv)
+  /// Free-form name of the requesting party (a customer, prospect, regulator).
+  requester      String?
+  vendorId       String?
+  dueDate        DateTime?
+  status         QuestionnaireStatus       @default(draft)
+  /// Headers from the *primary* sheet (the first sheet successfully
+  /// parsed), kept for backwards-compat display + CSV export. Multi-
+  /// sheet workbooks attach per-sheet headers to each `Question`.
+  headers        Json                      @default("[]")
+  /// Storage key + metadata for the uploaded original file. We keep
+  /// the raw .xlsx / .docx blob in object storage so we can write
+  /// answers back into the customer's original workbook (preserving
+  /// styles, merged cells, branding, multi-sheet structure) instead
+  /// of reconstructing a fresh file.
+  originalFileKey  String?
+  originalFilename String?
+  originalMimeType String?
+  /// LLM-produced structural map of the uploaded workbook/document.
+  /// Describes each sheet/page (kind: metadata | instructions |
+  /// question_table | matrix), its column roles, header row, sub-
+  /// question relationships, and — critically — the exact A1 cell
+  /// coordinates where each answer must be written on export. Stored
+  /// verbatim so re-export is deterministic and we never re-run the
+  /// agent. Null for CSV imports (structure is implicit).
+  structureMap     Json?
+  /// Cover-page / metadata facts extracted by the structure agent —
+  /// e.g. {"Company Name": "Acme", "Service Provided": "..."}. Used
+  /// (a) as additional grounding for the answering agent and (b)
+  /// re-emitted to their original cells on export. Null for CSV.
+  metadataFacts    Json?
+  importedById   String
+  createdAt      DateTime                  @default(now())
+  updatedAt      DateTime                  @updatedAt
+
+  tenant Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  importedBy   User                        @relation("QuestionnaireImporter", fields: [importedById], references: [id])
+  vendor       Vendor?                     @relation(fields: [vendorId], references: [id])
+  questions    Question[]
+  answers      Answer[]
+  importJobs   QuestionnaireImportJob[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+}
+
+model Question {
+  id              String       @id @default(cuid())
+  tenantId  String
+  questionnaireId String
+  /// 1-based position in the source file. Used to preserve ordering on export.
+  sequenceNumber  Int
+  sectionTitle    String?
+  questionText    String       @db.Text
+  questionType    QuestionType @default(short_text)
+  /// JSON array of choice strings for multiple_choice / yes_no.
+  choices         Json         @default("[]")
+  /// Verbatim row from the source file as parsed object — used to
+  /// rehydrate columns we don't model explicitly (control IDs, weights).
+  originalRow     Json         @default("{}")
+  /// 0-based row index inside this question's source sheet (xlsx),
+  /// table (docx), or line in the file (csv). Used by the exporter
+  /// to drop the answer into the right cell.
+  sourceRowIndex  Int?
+  /// For xlsx round-trip: which sheet inside the workbook this row
+  /// belongs to. A workbook can have many sheets, each with its own
+  /// header row and answer column, so this is recorded per-question.
+  sourceSheetName String?
+  /// For xlsx (and docx tables): 0-based index of the header row
+  /// inside this question's source sheet/table. Different sheets in
+  /// the same workbook can have headers at different rows.
+  sourceHeaderRowIndex Int?
+  /// Header text of the column that takes the answer on export, for
+  /// THIS question's source sheet/table. Stored per-question because
+  /// different sheets/tables in the same workbook may use different
+  /// answer column names ("Response", "Answer", "Yes/No"). Null when
+  /// no answer column was detected — the writer appends one.
+  answerColumnHeader String?
+  /// For docx round-trip: 0-based index of the <w:tbl> inside
+  /// `word/document.xml` this row belongs to. A document can hold
+  /// many question tables; each question knows its own. Null for
+  /// xlsx/csv.
+  sourceTableIndex Int?
+  /// Exact A1-style cell reference (e.g. "F12") inside the source
+  /// sheet/table where this question's answer must be written on
+  /// export. Produced by the structure agent at import time — the
+  /// writer just sets this cell, no header lookup needed. Supersedes
+  /// the legacy (sourceRowIndex + answerColumnHeader) lookup; old
+  /// fields are retained for backward compatibility with imports
+  /// that pre-date the structure agent.
+  answerCellA1    String?
+  /// Self-reference to the parent question for nested sub-questions
+  /// like "a) Has this policy been communicated?" under a top-level
+  /// control question. The UI nests sub-questions under their parent;
+  /// the answering agent gets the parent text as additional context.
+  parentQuestionId String?
+  /// Structured contextual labels that frame this question — domain,
+  /// sub-domain, control id, evidence requirement, matrix column
+  /// label (the entity / system / process this cell asks about), etc.
+  /// The UI renders these as chips above the question; the answering
+  /// agent uses them as context.
+  /// Shape is intentionally open: { domain?: string; subDomain?:
+  /// string; controlId?: string; evidence?: string; column?: string;
+  /// [k: string]: string | undefined }.
+  contextLabels   Json?
+  createdAt       DateTime     @default(now())
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  questionnaire Questionnaire  @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  answers       Answer[]
+  parent        Question?      @relation("QuestionChildren", fields: [parentQuestionId], references: [id], onDelete: SetNull)
+  children      Question[]     @relation("QuestionChildren")
+
+  @@index([tenantId])
+  @@index([questionnaireId])
+  @@index([questionnaireId, sequenceNumber])
+  @@index([parentQuestionId])
+}
+
+model Answer {
+  id              String       @id @default(cuid())
+  tenantId  String
+  questionnaireId String
+  questionId      String       @unique
+  content         String       @db.Text
+  status          AnswerStatus @default(pending)
+  generatedByAi   Boolean      @default(false)
+  /// Bounded [0,1]; absent for human-authored answers.
+  aiConfidence    Float?
+  /// Free-form citations: which policy IDs / control IDs / context rows
+  /// the AI cited as evidence. Helps reviewers verify quickly.
+  aiSources       Json         @default("[]")
+  aiModel         String?
+  aiPrompt        String?      @db.Text
+  reviewedById    String?
+  reviewedAt      DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  questionnaire Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  question      Question      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  reviewedBy    User?         @relation("AnswerReviewer", fields: [reviewedById], references: [id])
+
+  @@index([tenantId])
+  @@index([questionnaireId])
+  @@index([questionnaireId, status])
+}

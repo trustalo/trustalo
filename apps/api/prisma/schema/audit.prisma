@@ -1,0 +1,96 @@
+enum AuditType {
+  internal
+  external
+  certification
+}
+
+enum AuditStatus {
+  planned
+  in_progress
+  completed
+  cancelled
+}
+
+enum AuditFindingSeverity {
+  critical
+  major
+  minor
+  observation
+  opportunity
+}
+
+enum AuditFindingStatus {
+  open
+  in_progress
+  remediated
+  verified
+  closed
+}
+
+model Audit {
+  id                   String      @id @default(cuid())
+  tenantId       String
+  title                String
+  description          String?
+  type                 AuditType
+  frameworkInstanceId   String?
+  status               AuditStatus @default(planned)
+  auditorName          String?
+  auditorOrganization  String?
+  scheduledStartDate   DateTime?
+  scheduledEndDate     DateTime?
+  actualStartDate      DateTime?
+  actualEndDate        DateTime?
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  frameworkInstance  FrameworkInstance? @relation(fields: [frameworkInstanceId], references: [id])
+  findings          AuditFinding[]
+  documents         AuditDocument[]
+
+  @@index([tenantId])
+}
+
+model AuditFinding {
+  id             String               @id @default(cuid())
+  auditId        String
+  tenantId String
+  title          String
+  description    String?
+  severity       AuditFindingSeverity
+  status         AuditFindingStatus   @default(open)
+  controlId      String?
+  assignedToId   String?
+  dueDate        DateTime?
+  resolvedAt     DateTime?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  audit        Audit        @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  control      Control?     @relation(fields: [controlId], references: [id])
+  assignedTo   User?        @relation("AuditFindingAssignee", fields: [assignedToId], references: [id])
+
+  @@index([tenantId])
+  @@index([auditId])
+}
+
+model AuditDocument {
+  id             String   @id @default(cuid())
+  auditId        String
+  tenantId String
+  fileName       String?
+  fileKey        String
+  fileSize       Int?
+  mimeType       String?
+  uploadedById   String
+  createdAt      DateTime @default(now())
+
+  audit        Audit        @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  uploadedBy   User         @relation("AuditDocumentUploader", fields: [uploadedById], references: [id])
+
+  @@index([tenantId])
+  @@index([auditId])
+}

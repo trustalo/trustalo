@@ -1,0 +1,147 @@
+{
+  "$comment": "Essential Eight → SOC 2 Trust Services Criteria mappings. Derived from AICPA TSC 2017 (rev. 2022) and Drata's published cross-walk. Mappings are 'partial' because TSC criteria are outcome-based while E8 is technique-specific.",
+  "source": "AICPA TSC 2017 (rev. 2022) + Drata cross-framework table",
+  "sourceFramework": "essential8",
+  "targetFramework": "soc2",
+  "mappings": [
+    {
+      "source": "E8-APP_CONTROL-ML1",
+      "target": "CC6.8",
+      "relationship": "partial",
+      "rationale": "Restricting unauthorised software is a logical access control to prevent malicious software."
+    },
+    {
+      "source": "E8-APP_CONTROL-ML2",
+      "target": "CC7.2",
+      "relationship": "partial",
+      "rationale": "Centralised log monitoring of execution events."
+    },
+    {
+      "source": "E8-APP_CONTROL-ML3",
+      "target": "CC7.3",
+      "relationship": "partial",
+      "rationale": "Timely analysis of events to identify incidents."
+    },
+
+    {
+      "source": "E8-PATCH_APPS-ML1",
+      "target": "CC7.1",
+      "relationship": "equivalent",
+      "rationale": "Vulnerability detection + remediation SLA."
+    },
+    {
+      "source": "E8-PATCH_APPS-ML2",
+      "target": "CC7.1",
+      "relationship": "equivalent",
+      "rationale": "Vulnerability detection + remediation SLA across the application catalogue."
+    },
+    {
+      "source": "E8-PATCH_APPS-ML3",
+      "target": "CC4.1",
+      "relationship": "informs",
+      "rationale": "Annual penetration testing supports ongoing evaluations."
+    },
+
+    {
+      "source": "E8-MACROS-ML1",
+      "target": "CC6.8",
+      "relationship": "partial",
+      "rationale": "Disabled-by-default macros prevent malicious software execution."
+    },
+    {
+      "source": "E8-MACROS-ML2",
+      "target": "CC7.2",
+      "relationship": "partial",
+      "rationale": "Centralised macro execution event logging."
+    },
+
+    {
+      "source": "E8-APP_HARDENING-ML1",
+      "target": "CC6.8",
+      "relationship": "partial",
+      "rationale": "Browser hardening / locked settings."
+    },
+    {
+      "source": "E8-APP_HARDENING-ML2",
+      "target": "CC6.8",
+      "relationship": "partial",
+      "rationale": "ASR + Constrained Language Mode."
+    },
+
+    {
+      "source": "E8-PRIV_ACCESS-ML1",
+      "target": "CC6.1",
+      "relationship": "equivalent",
+      "rationale": "Logical access controls restricting administrative privileges."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML1",
+      "target": "CC6.3",
+      "relationship": "partial",
+      "rationale": "Validated requests + segregation of admin and standard accounts."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML2",
+      "target": "CC6.2",
+      "relationship": "partial",
+      "rationale": "Periodic revalidation of access (12-month / 45-day inactivity)."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML3",
+      "target": "CC6.6",
+      "relationship": "partial",
+      "rationale": "JIT admin reduces standing access; Memory Integrity / Credential Guard reduce credential theft risk."
+    },
+
+    {
+      "source": "E8-PATCH_OS-ML1",
+      "target": "CC7.1",
+      "relationship": "equivalent",
+      "rationale": "OS vulnerability detection + remediation SLA."
+    },
+    {
+      "source": "E8-PATCH_OS-ML2",
+      "target": "CC7.1",
+      "relationship": "equivalent",
+      "rationale": "Tightened OS patch SLA."
+    },
+
+    {
+      "source": "E8-MFA-ML1",
+      "target": "CC6.1",
+      "relationship": "equivalent",
+      "rationale": "MFA is a logical access control."
+    },
+    {
+      "source": "E8-MFA-ML2",
+      "target": "CC6.1",
+      "relationship": "equivalent",
+      "rationale": "Phishing-resistant MFA for privileged users."
+    },
+    {
+      "source": "E8-MFA-ML3",
+      "target": "CC6.1",
+      "relationship": "equivalent",
+      "rationale": "MFA for accessing important data repositories."
+    },
+
+    {
+      "source": "E8-BACKUPS-ML1",
+      "target": "A1.2",
+      "relationship": "equivalent",
+      "rationale": "Backups + restoration testing supports availability."
+    },
+    {
+      "source": "E8-BACKUPS-ML2",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "Privileged accounts cannot tamper with backups during retention."
+    },
+    {
+      "source": "E8-BACKUPS-ML3",
+      "target": "A1.2",
+      "relationship": "equivalent",
+      "rationale": "Immutable, segmented backups."
+    }
+  ]
+}

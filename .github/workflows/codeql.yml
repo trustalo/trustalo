@@ -1,0 +1,59 @@
+name: CodeQL SAST
+
+# CodeQL analysis ALWAYS runs (so the job catches real issues at build time).
+# The SARIF upload to the GitHub Security tab only happens when:
+#   * The repo is public  (GHAS code scanning is free), OR
+#   * The repo is private AND GHAS is on the org plan.
+# When neither condition holds, the upload step would otherwise fail with
+# "Code scanning is not enabled for this repository" — we skip it instead.
+# To re-enable the upload, either flip the repo to public or enable GHAS
+# under Settings → Code security and analysis → Code scanning.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Weekly run catches advisories that land between PRs.
+    - cron: "21 4 * * 1"
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["javascript-typescript"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # `security-extended` enables more checks than the default
+          # `security-and-quality` set; tune down if false positives spike.
+          queries: security-extended
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
+          # Skip the SARIF upload when:
+          #   1. The PR is from a fork (read-only token; upload would 403), OR
+          #   2. The repo is private and GHAS isn't enabled (the GitHub API
+          #      will respond "Code scanning is not enabled").
+          # The analysis itself still runs and reports findings to the job log.
+          upload: ${{ (github.event.repository.private == false && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)) && 'always' || 'never' }}

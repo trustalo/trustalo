@@ -1,0 +1,47 @@
+# ---- Dependencies & lockfiles ----
+node_modules/
+bun.lockb
+bun.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ---- Build output ----
+dist/
+build/
+.next/
+.turbo/
+.output/
+coverage/
+*.tsbuildinfo
+
+# ---- Generated code (machine-managed; do not reformat) ----
+**/generated/
+**/prisma/migrations/
+**/*.generated.ts
+**/*.generated.tsx
+**/*.generated.js
+
+# ---- Static / vendored assets ----
+public/
+*.min.js
+*.min.css
+
+# ---- Env & secrets ----
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+
+# ---- Tool caches ----
+.cache/
+.eslintcache
+.husky/
+.vscode/
+
+# ---- Plain-text config without a Prettier parser ----
+.gitleaksignore
+.gitignore
+.dockerignore

@@ -1,0 +1,241 @@
+enum RiskCategory {
+  operational
+  technical
+  compliance
+  strategic
+  financial
+  reputational
+  security
+  privacy
+  third_party
+  environmental
+}
+
+enum RiskStatus {
+  not_started
+  in_progress
+  done
+  archived
+}
+
+enum TreatmentStrategy {
+  mitigate
+  accept
+  transfer
+  avoid
+  control
+}
+
+enum TreatmentStatus {
+  planned
+  in_progress
+  completed
+  overdue
+  cancelled
+}
+
+enum ControlEffectiveness {
+  no_control
+  need_improvement
+  adequate
+  effective
+}
+
+enum ApprovalStatus {
+  yes
+  no
+  na
+  pending
+}
+
+enum ProbabilityLevel {
+  rare
+  unlikely
+  possible
+  likely
+  almost_certain
+}
+
+enum ImpactLevel {
+  negligible
+  low
+  moderate
+  high
+  catastrophic
+}
+
+enum RiskDepartment {
+  engineering
+  product
+  operations
+  finance
+  legal
+  human_resources
+  sales
+  marketing
+  customer_support
+  it
+  security
+  compliance
+  executive
+  other
+}
+
+model Risk {
+  id             String       @id @default(cuid())
+  tenantId String
+  riskIdentifier String?
+
+  // Core fields
+  title              String
+  description        String?
+  riskImpactDescription String?
+  category           RiskCategory @default(operational)
+  businessProcess    String?
+  department         RiskDepartment?
+  status             RiskStatus   @default(not_started)
+
+  // Inherent risk — qualitative + numeric
+  probability        ProbabilityLevel?
+  probabilityScore   Int          @default(1)
+  impact             ImpactLevel?
+  impactScore        Int          @default(1)
+  riskScore          Int          @default(1)
+
+  // Residual risk — qualitative + numeric
+  residualLikelihood   ProbabilityLevel?
+  residualLikelihoodScore Int?
+  residualImpact       ImpactLevel?
+  residualImpactScore  Int?
+  residualRiskScore    Int?
+
+  // Controls
+  controlDescription      String?
+  controlEffectiveness    ControlEffectiveness?
+  treatmentStrategy       TreatmentStrategy?
+  treatmentRationale      String?
+
+  // Action plan
+  actionPlan         String?
+  actionOwnerId      String?
+  actionOwnerName    String?
+  estStartDate       DateTime?
+  estEndDate         DateTime?
+
+  // Approvals
+  budgetApproval     ApprovalStatus?
+  managementApproval ApprovalStatus?
+
+  // Ownership
+  ownerId            String?
+  riskProperty       String?
+  remarks            String?
+  tags               String[]     @default([])
+
+  // Optional link to a Processing Activity (RoPA) — set when this risk
+  // arises from a specific GDPR processing activity, enabling cross-link
+  // navigation from the Privacy workspace.
+  processingActivityId String?
+
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  tenant Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner        User?            @relation("RiskOwner", fields: [ownerId], references: [id])
+  actionOwner  User?            @relation("RiskActionOwner", fields: [actionOwnerId], references: [id])
+  processingActivity ProcessingActivity? @relation(fields: [processingActivityId], references: [id])
+  assessments   RiskAssessment[]
+  treatments    RiskTreatment[]
+  matrixChanges RiskMatrixChange[]
+
+  @@unique([tenantId, riskIdentifier])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, category])
+}
+
+model RiskAssessment {
+  id                  String   @id @default(cuid())
+  riskId              String
+  tenantId      String
+  assessedById        String
+  inherentLikelihood  Int
+  inherentImpact      Int
+  residualLikelihood  Int
+  residualImpact      Int
+  notes               String?
+  assessedAt          DateTime @default(now())
+  createdAt           DateTime @default(now())
+
+  risk         Risk         @relation(fields: [riskId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assessedBy   User         @relation("RiskAssessor", fields: [assessedById], references: [id])
+
+  @@index([tenantId])
+  @@index([riskId])
+}
+
+model RiskTreatment {
+  id             String            @id @default(cuid())
+  riskId         String
+  tenantId String
+  strategy       TreatmentStrategy
+  title          String            @default("")
+  description    String?
+  responsibleId  String
+  dueDate        DateTime?
+  completedAt    DateTime?
+  status         TreatmentStatus   @default(planned)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  risk         Risk         @relation(fields: [riskId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  responsible  User         @relation("RiskTreatmentResponsible", fields: [responsibleId], references: [id])
+
+  @@index([tenantId])
+  @@index([riskId])
+}
+
+/// Per-tenant configuration for which risk register fields are visible.
+/// Stored as a JSON array of field config objects.
+model RiskRegisterConfig {
+  id             String   @id @default(cuid())
+  tenantId String   @unique
+  fields         Json
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+enum RiskMatrixChangeKind {
+  inherent
+  residual
+}
+
+/// Audit trail for inherent / residual likelihood×impact matrix updates.
+model RiskMatrixChange {
+  id             String               @id @default(cuid())
+  riskId         String
+  tenantId String
+  kind           RiskMatrixChangeKind
+  /// matrix | overview | assessment
+  source         String               @default("matrix")
+  changedById    String
+  prevLikelihood Int?
+  prevImpact     Int?
+  prevScore      Int?
+  newLikelihood  Int
+  newImpact      Int
+  newScore       Int
+  createdAt      DateTime             @default(now())
+
+  risk         Risk         @relation(fields: [riskId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  changedBy    User         @relation("RiskMatrixChangeAuthor", fields: [changedById], references: [id])
+
+  @@index([tenantId])
+  @@index([riskId])
+  @@index([riskId, createdAt])
+}

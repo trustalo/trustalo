@@ -1,0 +1,73 @@
+Trustalo Source-Available Commercial License v1.0
+
+Copyright (c) Trustalo Project Contributors
+All rights reserved.
+
+1. Definitions
+
+"Licensed Work" means the Trustalo software project and all source code,
+build artifacts, configuration, and documentation in this repository.
+
+"Production Use" means use of the Licensed Work in any live environment that
+serves internal or external users, customers, or business operations.
+
+"Qualified Organization" means an organization that has BOTH:
+  a) annual gross revenue below USD 1,000,000; and
+  b) total external funding raised below USD 1,000,000.
+
+"Commercial License" means a separate written license agreement granted by the
+Licensor that explicitly permits Production Use by organizations that are not
+Qualified Organizations.
+
+2. License Grant
+
+Subject to this License, you may use, copy, modify, and create derivative
+works of the Licensed Work for development, testing, evaluation, and other
+non-production purposes.
+
+Production Use is permitted only for Qualified Organizations.
+
+3. Commercial Trigger
+
+If an organization meets or exceeds either threshold below, it is not a
+Qualified Organization and must obtain a Commercial License before any
+Production Use:
+  a) annual gross revenue of USD 1,000,000 or more; or
+  b) total external funding raised of USD 1,000,000 or more.
+
+4. Redistribution
+
+You may redistribute source copies of the Licensed Work, with or without
+modification, provided that:
+  a) this License is included in full; and
+  b) all copyright and attribution notices are preserved.
+
+Redistribution does not grant recipients any rights beyond those stated in
+this License.
+
+5. Restrictions
+
+Except as expressly permitted by this License, you may not:
+  a) use the Licensed Work in Production Use if you are not a Qualified
+     Organization and do not hold a Commercial License;
+  b) represent this License as an open source license approved by OSI;
+  c) use Licensor names, logos, or trademarks except for factual attribution.
+
+6. Termination
+
+Any use of the Licensed Work in violation of this License automatically
+terminates your rights under this License.
+
+7. No Warranty
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE LICENSED WORK IS PROVIDED "AS IS"
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+WITHOUT LIMITATION WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE, NON-INFRINGEMENT, AND TITLE.
+
+8. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL THE LICENSOR OR
+CONTRIBUTORS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM OR IN CONNECTION WITH
+THE LICENSED WORK OR THE USE OR OTHER DEALINGS IN THE LICENSED WORK.

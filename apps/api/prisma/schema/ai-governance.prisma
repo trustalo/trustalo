@@ -1,0 +1,216 @@
+enum AISystemType {
+  machine_learning
+  deep_learning
+  nlp
+  computer_vision
+  generative_ai
+  other
+}
+
+enum AILifecycleStage {
+  design
+  development
+  testing
+  deployment
+  monitoring
+  decommissioned
+}
+
+enum AIRiskLevel {
+  minimal
+  limited
+  high
+  unacceptable
+}
+
+enum RiskRating {
+  low
+  medium
+  high
+}
+
+enum AIImpactStatus {
+  pending
+  in_review
+  approved
+  rejected
+}
+
+// Lifecycle for a structured risk assessment. Mirrors the BIA / policy
+// approval flow so reviewers see a familiar pattern across the app.
+enum AIRiskAssessmentStatus {
+  draft
+  in_progress
+  completed
+  approved
+}
+
+// Operational AI incidents. Categories follow EU AI Act Art. 73 reporting
+// taxonomy + NIST AI RMF MANAGE-4 incident types.
+enum AIIncidentSeverity {
+  low
+  medium
+  high
+  critical
+}
+
+enum AIIncidentCategory {
+  bias
+  drift
+  hallucination
+  accuracy
+  privacy
+  security
+  safety
+  misuse
+  availability
+  other
+}
+
+enum AIIncidentStatus {
+  open
+  investigating
+  mitigated
+  resolved
+  closed
+}
+
+model AISystem {
+  id             String           @id @default(cuid())
+  tenantId String
+  name           String
+  description    String?
+  purpose        String?
+  type           AISystemType
+  lifecycleStage AILifecycleStage @default(design)
+  riskLevel      AIRiskLevel      @default(minimal)
+  dataTypes      String[]
+  ownerId        String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  tenant      Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner             User?                @relation("AISystemOwner", fields: [ownerId], references: [id])
+  riskAssessments   AIRiskAssessment[]
+  impactAssessments AIImpactAssessment[]
+  incidents         AIIncident[]
+
+  @@index([tenantId])
+}
+
+model AIRiskAssessment {
+  id             String                  @id @default(cuid())
+  aiSystemId     String
+  tenantId String
+  assessedById   String
+
+  // Optional human-readable title — useful when an AI system has multiple
+  // concurrent assessments (e.g. quarterly re-assessment cycles).
+  title          String?
+  // Methodology / framework used. Free-form so orgs can plug their own,
+  // with EU AI Act / NIST / ISO as the well-known starters.
+  methodology    String?
+
+  biasRisk       RiskRating
+  privacyRisk    RiskRating
+  safetyRisk     RiskRating
+  securityRisk   RiskRating
+  misuseRisk     RiskRating
+  // Computed-or-overridden overall rating. Defaults to the max of the
+  // component ratings on the API side; explicit field lets reviewers override.
+  overallRisk    RiskRating?
+
+  mitigationPlan String?
+  // Residual risk after mitigations are applied — what regulators ask for.
+  residualRisk   RiskRating?
+
+  status         AIRiskAssessmentStatus  @default(draft)
+  approvedById   String?
+  approvedAt     DateTime?
+
+  assessedAt     DateTime                @default(now())
+  nextReviewDate DateTime?
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+
+  aiSystem     AISystem     @relation(fields: [aiSystemId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assessedBy   User         @relation("AIRiskAssessor", fields: [assessedById], references: [id])
+  approvedBy   User?        @relation("AIRiskApprover", fields: [approvedById], references: [id])
+
+  @@index([tenantId])
+  @@index([aiSystemId])
+  @@index([status])
+  @@index([nextReviewDate])
+}
+
+model AIIncident {
+  id             String              @id @default(cuid())
+  tenantId String
+
+  // An incident is always rooted in a specific AI system. Use cases live
+  // on the system itself (per the consolidation decision: AISystem is the
+  // unit of governance in this MVP).
+  aiSystemId     String
+
+  title          String
+  description    String?
+  category       AIIncidentCategory
+  severity       AIIncidentSeverity
+  status         AIIncidentStatus    @default(open)
+
+  // Timeline.
+  detectedAt     DateTime            @default(now())
+  reportedAt     DateTime            @default(now())
+  resolvedAt     DateTime?
+
+  // Investigation.
+  rootCause      String?
+  remediation    String?
+  // For incidents that require external (regulator / customer) notification,
+  // capture that we did so. Enough granularity for v1; a structured
+  // notification log is a clean follow-up.
+  externalNotificationRequired Boolean @default(false)
+  externalNotificationSentAt   DateTime?
+
+  reportedById   String?
+  assigneeId     String?
+
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  aiSystem     AISystem     @relation(fields: [aiSystemId], references: [id], onDelete: Cascade)
+  reportedBy   User?        @relation("AIIncidentReporter", fields: [reportedById], references: [id])
+  assignee     User?        @relation("AIIncidentAssignee", fields: [assigneeId], references: [id])
+
+  @@index([tenantId])
+  @@index([aiSystemId])
+  @@index([status])
+  @@index([severity])
+  @@index([detectedAt])
+}
+
+model AIImpactAssessment {
+  id                     String         @id @default(cuid())
+  aiSystemId             String
+  tenantId         String
+  assessedById           String
+  societalImpact         String?
+  ethicalConsiderations  String?
+  environmentalImpact    String?
+  humanOversightMeasures String?
+  transparencyMeasures   String?
+  status                 AIImpactStatus @default(pending)
+  approvedById           String?
+  approvedAt             DateTime?
+  createdAt              DateTime       @default(now())
+
+  aiSystem     AISystem     @relation(fields: [aiSystemId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assessedBy   User         @relation("AIImpactAssessor", fields: [assessedById], references: [id])
+  approvedBy   User?        @relation("AIImpactApprover", fields: [approvedById], references: [id])
+
+  @@index([tenantId])
+  @@index([aiSystemId])
+}

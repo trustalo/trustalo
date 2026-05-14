@@ -1,0 +1,68 @@
+// ── Evidence Agent runs (per-control, per-tenant) ────────────────
+//
+// Each AgentRun represents one execution of the Evidence Agent for a
+// specific control in a specific organization. The collector owns
+// agent state because the agent runs inside the collector (it needs
+// IntegrationConnection credentials and the provider tool registry).
+//
+// `instructions` and `toolConnectionIds` are snapshotted at run-creation
+// time so a run record always reflects the configuration that was
+// actually executed, even if the user later edits the control's
+// evidence-collection config in the API.
+
+enum AgentRunStatus {
+  pending
+  running
+  succeeded
+  failed
+  cancelled
+}
+
+enum AgentRunTrigger {
+  manual
+  scheduled
+  api
+}
+
+model AgentRun {
+  id                 String          @id @default(cuid())
+  tenantId           String
+  controlId          String
+  controlTitle       String?
+  trigger            AgentRunTrigger @default(api)
+  status             AgentRunStatus  @default(pending)
+
+  // Snapshot of the agent config at the moment the run was queued.
+  instructions       String          @db.Text
+  toolConnectionIds  String[]        @default([])
+
+  // AI provider/model + credentials passed in by the API caller (so
+  // the per-org/per-feature AI precedence chain stays in the API).
+  // Credentials are cleared when the run terminates; we keep
+  // provider/model for audit.
+  aiProvider         String?
+  aiModel            String?
+  aiCredentialsEncrypted String?     @db.Text
+
+  // Outputs.
+  evidenceCount      Int             @default(0)
+  errorCount         Int             @default(0)
+  errorMessage       String?         @db.Text
+  // Compact transcript of (toolCall, args, result) records and final
+  // agent summary. Stored as JSON so the UI can render it.
+  transcript         Json?
+  summary            String?         @db.Text
+  // Per-tool call counts surfaced to the UI dashboard.
+  toolCallSummary    Json?
+
+  startedAt          DateTime?
+  completedAt        DateTime?
+  durationMs         Int?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([tenantId])
+  @@index([tenantId, controlId])
+  @@index([status, createdAt])
+  @@index([tenantId, status])
+}

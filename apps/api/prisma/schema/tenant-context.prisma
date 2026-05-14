@@ -1,0 +1,148 @@
+// ============================================================
+// Tenant Context — long-form Q&A captured from a tenant so AI features
+// (policy drafting, questionnaire answering, risk scoring, chat
+// assistant) can produce content that reads like the customer wrote it.
+//
+// Each row is a single fact about the tenant: company size, hosting
+// region, deployment process, data-handling commitment, etc. AI prompts
+// assemble the relevant subset by `category` rather than dumping the
+// full table — keeps token usage bounded.
+//
+// Was previously called `OrganizationContext`. The model was renamed
+// when the tenancy concept was made first-class; the product UI may
+// still call this "Organisation Context" — that is purely a label.
+//
+// Lifecycle additions (Phase 0 of the "ongoing AI context" plan):
+//   • `status` lifecycle so superseded facts stay queryable for
+//     history without polluting AI grounding.
+//   • `supersedesId` self-relation to chain "we used to say X; now Y."
+//   • `provenance` JSON to capture where a row came from (wizard,
+//     pasted text, chat turn, integration event).
+//   • `confirmedAt`/`confirmedBy` so AI-inferred rows can be promoted
+//     by a human accept and the audit trail records who.
+//
+// `TenantContextProposal` is a staging table written by the extraction
+// pipeline. AI features NEVER read from it — only the review UI does.
+// Promotion from proposal to active context happens transactionally on
+// user accept.
+// ============================================================
+
+enum TenantContextCategory {
+  company
+  tech_stack
+  processes
+  data_handling
+  risk_appetite
+  team
+}
+
+enum TenantContextSource {
+  onboarding
+  inferred
+  manual
+}
+
+/// Lifecycle for a TenantContext row.
+///   • `active`     — eligible for AI grounding.
+///   • `superseded` — replaced by a newer row; preserved for history.
+///   • `archived`   — manually retired by the user.
+enum TenantContextStatus {
+  active
+  superseded
+  archived
+}
+
+/// Lifecycle for an extraction-pipeline proposal awaiting user review.
+enum TenantContextProposalStatus {
+  pending
+  accepted
+  rejected
+}
+
+model TenantContext {
+  id           String                @id @default(cuid())
+  tenantId     String
+  category     TenantContextCategory
+  question     String
+  answer       String                @db.Text
+  source       TenantContextSource   @default(manual)
+  /// 0..1; AI-inferred answers carry a confidence; user-supplied = 1.
+  confidence   Float                 @default(1.0)
+  /// Lifecycle status. Only `active` rows are read by AI features.
+  status       TenantContextStatus   @default(active)
+  /// When this row replaced an older one, the old row's id. Builds the
+  /// history chain — the wizard can render "we used to be on us-east-1"
+  /// under each current answer.
+  supersedesId String?
+  supersedes   TenantContext?        @relation("TenantContextHistory", fields: [supersedesId], references: [id])
+  supersededBy TenantContext[]       @relation("TenantContextHistory")
+  /// Free-form provenance about where this row came from. Shape:
+  ///   { kind: "wizard"|"paste"|"chat"|"integration", ref?: string,
+  ///     proposalId?: string, conversationId?: string }
+  provenance   Json?
+  /// User confirmed an AI-inferred row is correct. NULL for rows that
+  /// didn't go through review (manual wizard answers default to
+  /// confirmed at creation time via the API).
+  confirmedAt  DateTime?
+  confirmedBy  String?
+  /// Bumped by AI features when this row is included in a prompt — lets
+  /// us prune stale facts from the wizard view ("you haven't reviewed
+  /// these in 6 months").
+  lastUsedAt   DateTime?
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, category, status])
+  @@index([lastUsedAt])
+}
+
+/// Staging row for an AI-extracted context proposal. Written by the
+/// extraction pipeline (paste-to-extract, chat turns, future integrations)
+/// and reviewed via /settings/ai-context. Acceptance creates a
+/// `TenantContext` row in the same transaction; rejection just updates
+/// `status`. Never read by AI feature handlers.
+///
+/// `paste` covers the textarea-based extraction; `chat` covers passive
+/// capture during a /chat turn; future kinds (e.g. integration sync)
+/// plug in here.
+enum TenantContextProposalKind {
+  paste
+  chat
+  inferred
+}
+
+model TenantContextProposal {
+  id                  String                     @id @default(cuid())
+  tenantId            String
+  kind                TenantContextProposalKind  @default(paste)
+  category            TenantContextCategory
+  question            String
+  answer              String                     @db.Text
+  /// 0..1 confidence the extractor assigned to this proposal.
+  confidence          Float                      @default(0.5)
+  /// One-sentence rationale shown in the review card so reviewers
+  /// understand WHY the model proposed this.
+  rationale           String?                    @db.Text
+  /// Same shape as TenantContext.provenance.
+  provenance          Json?
+  /// When the model believes this proposal updates an existing row
+  /// (e.g. "we moved AWS regions"), the id of that row. On accept,
+  /// the linked row is marked `superseded` and the new row links
+  /// back via `supersedesId`.
+  supersedesContextId String?
+  status              TenantContextProposalStatus @default(pending)
+  decidedAt           DateTime?
+  decidedBy           String?
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, createdAt])
+}

@@ -1,0 +1,231 @@
+{
+  "$comment": "Essential Eight → ISO/IEC 27001:2022 Annex A control mappings. Derived from the ACSC mapping appendix to ISO/IEC 27002:2022 (which shares Annex A IDs with ISO 27001:2022) and Drata's published cross-walk. Each E8 maturity level inherits the lower level's mappings; we only encode the *new* relationships introduced at each level so the seed is idempotent and the related-controls UI doesn't double-count.",
+  "source": "ACSC Essential Eight to ISO/IEC 27002:2022 mapping (Apr 2024) + Drata cross-framework table",
+  "sourceFramework": "essential8",
+  "targetFramework": "iso27001",
+  "mappings": [
+    {
+      "source": "E8-APP_CONTROL-ML1",
+      "target": "A.8.7",
+      "relationship": "partial",
+      "rationale": "Application control prevents unauthorised software execution — directly satisfies ISO A.8.7 protection against malware in user-profile/temp paths."
+    },
+    {
+      "source": "E8-APP_CONTROL-ML1",
+      "target": "A.8.19",
+      "relationship": "partial",
+      "rationale": "Allowlisting governs installation of software on operational systems."
+    },
+    {
+      "source": "E8-APP_CONTROL-ML2",
+      "target": "A.8.15",
+      "relationship": "partial",
+      "rationale": "Centralised logging of allowed/blocked execution events satisfies the logging control."
+    },
+    {
+      "source": "E8-APP_CONTROL-ML2",
+      "target": "A.8.17",
+      "relationship": "informs",
+      "rationale": "Log retention with tamper protection aligns with clock-synchronised, integrity-protected logs."
+    },
+    {
+      "source": "E8-APP_CONTROL-ML3",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "Monitoring + timely analysis of allowed/blocked execution maps to monitoring activities."
+    },
+
+    {
+      "source": "E8-PATCH_APPS-ML1",
+      "target": "A.8.8",
+      "relationship": "equivalent",
+      "rationale": "Vulnerability management of applications with vendor-aligned SLAs."
+    },
+    {
+      "source": "E8-PATCH_APPS-ML2",
+      "target": "A.8.8",
+      "relationship": "equivalent",
+      "rationale": "Extended scope of vulnerability management."
+    },
+    {
+      "source": "E8-PATCH_APPS-ML3",
+      "target": "A.8.29",
+      "relationship": "informs",
+      "rationale": "Annual penetration testing supports security testing in development and acceptance."
+    },
+    {
+      "source": "E8-PATCH_APPS-ML3",
+      "target": "A.5.7",
+      "relationship": "informs",
+      "rationale": "Published vulnerability disclosure policy aligns with threat intelligence sharing."
+    },
+
+    {
+      "source": "E8-MACROS-ML1",
+      "target": "A.8.7",
+      "relationship": "partial",
+      "rationale": "Disabling macros for users without business need is a malware mitigation."
+    },
+    {
+      "source": "E8-MACROS-ML1",
+      "target": "A.8.19",
+      "relationship": "partial",
+      "rationale": "Locked macro security settings constrain installed-software configuration."
+    },
+    {
+      "source": "E8-MACROS-ML2",
+      "target": "A.8.15",
+      "relationship": "partial",
+      "rationale": "Central logging of macro execution events is a logging control."
+    },
+    {
+      "source": "E8-MACROS-ML3",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "Monitoring of macro execution events is part of monitoring activities."
+    },
+
+    {
+      "source": "E8-APP_HARDENING-ML1",
+      "target": "A.8.9",
+      "relationship": "partial",
+      "rationale": "Browser hardening + locked settings is configuration management."
+    },
+    {
+      "source": "E8-APP_HARDENING-ML2",
+      "target": "A.8.9",
+      "relationship": "partial",
+      "rationale": "ASR + Office hardening + Constrained Language Mode are configuration baseline controls."
+    },
+    {
+      "source": "E8-APP_HARDENING-ML2",
+      "target": "A.8.15",
+      "relationship": "partial",
+      "rationale": "PowerShell script-block logging is logging."
+    },
+    {
+      "source": "E8-APP_HARDENING-ML3",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "Monitored PowerShell logs satisfies monitoring activities."
+    },
+
+    {
+      "source": "E8-PRIV_ACCESS-ML1",
+      "target": "A.8.2",
+      "relationship": "equivalent",
+      "rationale": "Validated requests + segregation of admin/standard accounts is privileged access management."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML1",
+      "target": "A.5.18",
+      "relationship": "partial",
+      "rationale": "Access provisioning workflow."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML2",
+      "target": "A.8.2",
+      "relationship": "equivalent",
+      "rationale": "Periodic revalidation, jump server, PAM-managed credentials are PAM controls."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML2",
+      "target": "A.5.16",
+      "relationship": "partial",
+      "rationale": "Identity lifecycle (12-month revalidation, 45-day inactivity disable)."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML2",
+      "target": "A.8.15",
+      "relationship": "partial",
+      "rationale": "Centrally logged + retained privileged access events."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML3",
+      "target": "A.8.5",
+      "relationship": "informs",
+      "rationale": "Just-in-time admin and Credential Guard support secure authentication."
+    },
+    {
+      "source": "E8-PRIV_ACCESS-ML3",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "Monitoring + analysis of privileged access for malicious activity."
+    },
+
+    {
+      "source": "E8-PATCH_OS-ML1",
+      "target": "A.8.8",
+      "relationship": "equivalent",
+      "rationale": "Vulnerability management of operating systems and network devices with vendor-aligned SLAs."
+    },
+    {
+      "source": "E8-PATCH_OS-ML2",
+      "target": "A.8.8",
+      "relationship": "equivalent",
+      "rationale": "Tightened patch SLA + supported OS versions."
+    },
+    {
+      "source": "E8-PATCH_OS-ML3",
+      "target": "A.8.8",
+      "relationship": "equivalent",
+      "rationale": "Patching of drivers/firmware extends vulnerability management scope."
+    },
+
+    {
+      "source": "E8-MFA-ML1",
+      "target": "A.8.5",
+      "relationship": "equivalent",
+      "rationale": "MFA on internet-facing services is a secure authentication control."
+    },
+    {
+      "source": "E8-MFA-ML2",
+      "target": "A.8.5",
+      "relationship": "equivalent",
+      "rationale": "Phishing-resistant MFA for privileged users + central logging."
+    },
+    {
+      "source": "E8-MFA-ML2",
+      "target": "A.8.15",
+      "relationship": "partial",
+      "rationale": "Central logging of MFA success/failure events."
+    },
+    {
+      "source": "E8-MFA-ML3",
+      "target": "A.8.5",
+      "relationship": "equivalent",
+      "rationale": "Verifier impersonation-resistant MFA for important data accesses."
+    },
+    {
+      "source": "E8-MFA-ML3",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "Monitoring + timely analysis of MFA events."
+    },
+
+    {
+      "source": "E8-BACKUPS-ML1",
+      "target": "A.8.13",
+      "relationship": "equivalent",
+      "rationale": "Backups aligned to BC requirements with restoration tests."
+    },
+    {
+      "source": "E8-BACKUPS-ML1",
+      "target": "A.5.30",
+      "relationship": "informs",
+      "rationale": "Restoration tested as part of DR exercises supports ICT readiness for business continuity."
+    },
+    {
+      "source": "E8-BACKUPS-ML2",
+      "target": "A.8.13",
+      "relationship": "equivalent",
+      "rationale": "Privileged accounts cannot tamper with backups during retention."
+    },
+    {
+      "source": "E8-BACKUPS-ML3",
+      "target": "A.8.13",
+      "relationship": "equivalent",
+      "rationale": "Immutable, segmented backups."
+    }
+  ]
+}

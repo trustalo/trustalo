@@ -1,0 +1,96 @@
+enum JobType {
+  scheduled
+  manual
+  triggered
+}
+
+enum JobStatus {
+  pending
+  queued
+  running
+  completed
+  failed
+  cancelled
+}
+
+enum RunStatus {
+  running
+  completed
+  failed
+  cancelled
+}
+
+enum RetryStatus {
+  pending
+  retrying
+  succeeded
+  failed
+  exhausted
+}
+
+model CollectionJob {
+  id           String    @id @default(cuid())
+  tenantId     String
+  connectionId String
+  type         JobType
+  status       JobStatus @default(pending)
+  priority     Int       @default(0)
+  scheduledAt  DateTime  @default(now())
+  startedAt    DateTime?
+  completedAt  DateTime?
+  nextRunAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  connection IntegrationConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  runs       CollectionJobRun[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([connectionId])
+  @@index([status, scheduledAt])
+}
+
+model CollectionJobRun {
+  id            String    @id @default(cuid())
+  jobId         String
+  tenantId      String
+  runNumber     Int
+  status        RunStatus @default(running)
+  startedAt     DateTime  @default(now())
+  completedAt   DateTime?
+  durationMs    Int?
+  evidenceCount Int       @default(0)
+  errorCount    Int       @default(0)
+  resultSummary Json?
+  errorDetails  String?   @db.Text
+  createdAt     DateTime  @default(now())
+
+  job     CollectionJob     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  retries CollectionRetry[]
+
+  @@index([tenantId])
+  @@index([jobId, runNumber])
+  @@index([jobId, createdAt])
+}
+
+model CollectionRetry {
+  id            String      @id @default(cuid())
+  jobRunId      String
+  tenantId      String
+  attemptNumber Int
+  status        RetryStatus @default(pending)
+  errorMessage  String?
+  scheduledAt   DateTime    @default(now())
+  attemptedAt   DateTime?
+  nextRetryAt   DateTime?
+  maxAttempts   Int         @default(3)
+  backoffMs     Int         @default(1000)
+  createdAt     DateTime    @default(now())
+
+  jobRun CollectionJobRun @relation(fields: [jobRunId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([jobRunId])
+  @@index([status, scheduledAt])
+}

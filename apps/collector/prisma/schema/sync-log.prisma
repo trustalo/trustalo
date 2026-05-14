@@ -1,0 +1,37 @@
+enum SyncAction {
+  full_sync
+  incremental_sync
+  test_connection
+  credential_refresh
+}
+
+enum SyncStatus {
+  started
+  completed
+  failed
+  partial
+}
+
+model SyncLog {
+  id               String     @id @default(cuid())
+  tenantId         String
+  connectionId     String
+  // Plain string slug of the Integration this log row belongs to.
+  // Denormalised so log queries can filter by connector without joining
+  // through `IntegrationConnection`.
+  integrationId    String
+  action           SyncAction
+  status           SyncStatus @default(started)
+  recordsProcessed Int        @default(0)
+  recordsFailed    Int        @default(0)
+  startedAt        DateTime   @default(now())
+  completedAt      DateTime?
+  details          Json?
+  createdAt        DateTime   @default(now())
+
+  connection IntegrationConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([connectionId, createdAt])
+  @@index([tenantId, action])
+}

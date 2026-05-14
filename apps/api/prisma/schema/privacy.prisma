@@ -1,0 +1,376 @@
+// ============================================================
+// GDPR / Privacy program models
+//
+// The privacy module is built around four registers, each parallel to a
+// concrete GDPR obligation:
+//
+//   1. ProcessingActivity  — Article 30 Records of Processing Activities (RoPA)
+//   2. DPIA                — Article 35 Data Protection Impact Assessments
+//   3. DataBreach          — Articles 33/34 Personal-data breach notifications
+//   4. DSARRequest         — Articles 12–22 Data-Subject Access Requests
+//
+// The shape mirrors the patterns established by AI Governance (similar
+// `*Status` lifecycle enums, approver fields, indexes) so the API and UI
+// layers can reuse the same conventions.
+// ============================================================
+
+// ── Lawful basis under Art. 6(1) ───────────────────────────────────────
+enum LawfulBasis {
+  consent
+  contract
+  legal_obligation
+  vital_interests
+  public_task
+  legitimate_interests
+}
+
+// ── Categories of personal data on a processing activity ───────────────
+// Distinct from "sensitive" — special_category and criminal trigger Art. 9/10.
+enum DataCategory {
+  identity
+  contact
+  financial
+  health
+  location
+  online_identifier
+  demographic
+  employment
+  usage
+  special_category
+  criminal
+  other
+}
+
+// ── Categories of data subject ─────────────────────────────────────────
+enum SubjectCategory {
+  customer
+  employee
+  prospect
+  supplier_contact
+  minor
+  website_visitor
+  patient
+  other
+}
+
+// ── Cross-border transfer safeguard (Chapter V) ────────────────────────
+enum TransferMechanism {
+  none_eu_eea
+  adequacy_decision
+  scc
+  bcr
+  derogation_art_49
+}
+
+// ── Role of the organisation in the processing activity ────────────────
+enum ProcessingRole {
+  controller
+  processor
+  joint_controller
+}
+
+enum ProcessingActivityStatus {
+  draft
+  active
+  under_review
+  retired
+}
+
+// ── DPIA lifecycle. Mirrors AIImpactStatus by intent so reviewers see a
+//    familiar approve/reject pattern across modules. ───────────────────
+enum DPIAStatus {
+  draft
+  in_review
+  approved
+  rejected
+}
+
+// ── Article 35(3) DPIA-necessity outcome ───────────────────────────────
+enum DPIANecessity {
+  required
+  recommended
+  not_required
+}
+
+// ── Personal-data breach taxonomy ──────────────────────────────────────
+// Severity mirrors AIIncidentSeverity so the dashboard treatment is the same.
+enum DataBreachSeverity {
+  low
+  medium
+  high
+  critical
+}
+
+// CIA-style taxonomy used in WP29 / EDPB guidance for breach categorisation.
+enum DataBreachCategory {
+  confidentiality
+  integrity
+  availability
+  combined
+}
+
+enum DataBreachStatus {
+  open
+  investigating
+  contained
+  notified
+  closed
+}
+
+// ── DSAR taxonomy ──────────────────────────────────────────────────────
+enum DSARType {
+  access
+  rectification
+  erasure
+  restriction
+  portability
+  objection
+  automated_decision
+  withdraw_consent
+}
+
+enum DSARStatus {
+  received
+  identity_pending
+  in_progress
+  extended
+  fulfilled
+  refused
+  closed
+}
+
+enum DSARChannel {
+  email
+  web_form
+  post
+  phone
+  in_person
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Models
+// ─────────────────────────────────────────────────────────────────────────
+
+// Article 30 — Records of Processing Activities (RoPA)
+//
+// Each row describes one distinct purpose of personal-data processing carried
+// out by the organisation. This is THE defining GDPR artifact: every other
+// privacy resource (DPIA, breach scope, DSAR scope, sub-processor link) is
+// expressed in terms of one or more processing activities.
+model ProcessingActivity {
+  id             String                   @id @default(cuid())
+  tenantId String
+
+  // Human-readable name (e.g. "Customer billing", "Employee performance reviews").
+  name           String
+  // Specified, explicit, legitimate purpose under Art. 5(1)(b).
+  purpose        String
+  // Whether the organisation acts as controller, processor or joint controller
+  // for THIS processing activity (an org can be controller in one and processor
+  // in another).
+  role           ProcessingRole           @default(controller)
+
+  // Lawful basis under Art. 6(1) and the textual justification supporting it
+  // (e.g. for legitimate_interests the LIA outcome).
+  lawfulBasis              LawfulBasis
+  lawfulBasisJustification String?
+
+  // Inventory of what's processed and about whom.
+  dataCategories     DataCategory[]
+  subjectCategories  SubjectCategory[]
+  // Free-form additional data-element list ("first name, email, IP, etc.").
+  dataElements       String[]
+  // Recipients to whom data is disclosed (categories or named entities).
+  recipients         String[]
+
+  // Cross-border transfers (Chapter V).
+  crossBorderTransfer  Boolean              @default(false)
+  transferMechanism    TransferMechanism?
+  transferDestinations String[]
+
+  // Retention & security narrative.
+  retentionPeriod    String?
+  securityMeasures   String?
+
+  // Ownership.
+  ownerId        String?
+  status         ProcessingActivityStatus @default(draft)
+
+  // Review cadence — used by the dashboard "due for review" KPI.
+  lastReviewedAt DateTime?
+  nextReviewAt   DateTime?
+
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner        User?        @relation("ProcessingActivityOwner", fields: [ownerId], references: [id])
+
+  dpias        DPIA[]
+  breaches     DataBreach[]
+  dsars        DSARRequest[]    @relation("DSARProcessingActivities")
+  vendors      Vendor[]         @relation("VendorProcessingActivities")
+  risks        Risk[]
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([nextReviewAt])
+}
+
+// Article 35 — Data Protection Impact Assessment
+//
+// A DPIA is rooted to a single ProcessingActivity (the activity that triggered
+// the DPIA obligation). Multiple DPIAs are allowed per activity to support
+// re-assessment cycles.
+model DPIA {
+  id             String         @id @default(cuid())
+  tenantId String
+
+  processingActivityId String
+  assessedById         String
+
+  title          String
+  // Article 35(3) DPIA-necessity outcome. `required` means the DPIA was
+  // mandatory; `recommended` means the org chose to do one for prudence.
+  necessity      DPIANecessity  @default(required)
+
+  // Narrative fields modelled on the EDPB DPIA template.
+  necessityProportionality String?
+  riskToRights             String?
+  mitigations              String?
+  consultedDpo             Boolean        @default(false)
+  consultedDataSubjects    Boolean        @default(false)
+
+  // Residual risk after mitigations — what triggers Art. 36 prior consultation.
+  residualRisk   RiskRating?
+
+  status         DPIAStatus     @default(draft)
+  approvedById   String?
+  approvedAt     DateTime?
+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  tenant       Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  processingActivity ProcessingActivity @relation(fields: [processingActivityId], references: [id], onDelete: Cascade)
+  assessedBy         User               @relation("DPIAAssessor", fields: [assessedById], references: [id])
+  approvedBy         User?              @relation("DPIAApprover", fields: [approvedById], references: [id])
+
+  @@index([tenantId])
+  @@index([processingActivityId])
+  @@index([status])
+}
+
+// Articles 33/34 — Personal-data breach register
+//
+// `notificationDeadlineAt` is auto-computed as `discoveredAt + 72h` by the
+// API on create; the UI surfaces a countdown badge to the deadline. This
+// mirrors the AIIncident pattern with breach-specific fields layered on top.
+model DataBreach {
+  id             String              @id @default(cuid())
+  tenantId String
+
+  // Optional link to the processing activity in scope. Null when the breach
+  // affects systems not yet captured in the RoPA.
+  processingActivityId String?
+
+  title          String
+  description    String?
+  category       DataBreachCategory
+  severity       DataBreachSeverity
+  status         DataBreachStatus    @default(open)
+
+  // Timeline.
+  occurredAt     DateTime?
+  discoveredAt   DateTime            @default(now())
+  // Auto = discoveredAt + 72h. Stored explicitly so reviewers can override
+  // when discovery itself was uncertain (e.g. forensic investigation reveals
+  // an earlier discovery point).
+  notificationDeadlineAt DateTime
+  containedAt    DateTime?
+  resolvedAt     DateTime?
+
+  // Scope.
+  affectedRecordsEstimate    Int?
+  affectedSubjectCategories  SubjectCategory[]
+  dataCategoriesInvolved     DataCategory[]
+
+  // Investigation.
+  rootCause      String?
+  containment    String?
+  remediation    String?
+
+  // Notification (Art. 33 + Art. 34).
+  supervisoryAuthorityNotificationRequired Boolean   @default(false)
+  supervisoryAuthorityNotifiedAt           DateTime?
+  supervisoryAuthorityReference            String?
+  dataSubjectsNotificationRequired         Boolean   @default(false)
+  dataSubjectsNotifiedAt                   DateTime?
+
+  reportedById   String?
+  assigneeId     String?
+
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  tenant       Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  processingActivity ProcessingActivity? @relation(fields: [processingActivityId], references: [id])
+  reportedBy         User?               @relation("DataBreachReporter", fields: [reportedById], references: [id])
+  assignee           User?               @relation("DataBreachAssignee", fields: [assigneeId], references: [id])
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([severity])
+  @@index([notificationDeadlineAt])
+  @@index([discoveredAt])
+}
+
+// Articles 12–22 — Data-Subject Access Requests (DSAR / DSR)
+//
+// `dueAt` is auto-computed as `receivedAt + 1 month`. `extendedDueAt` extends
+// by up to two further months under Art. 12(3). Both are surfaced as SLA
+// badges in the UI.
+model DSARRequest {
+  id             String       @id @default(cuid())
+  tenantId String
+
+  // Identifies the data subject. We collect the minimum necessary; identity
+  // verification is captured separately (`identityVerifiedAt`).
+  subjectName    String
+  subjectEmail   String?
+  subjectIdentifier String?
+
+  requestType    DSARType
+  channel        DSARChannel
+  status         DSARStatus   @default(received)
+
+  // Timeline & SLA.
+  receivedAt     DateTime     @default(now())
+  dueAt          DateTime
+  extendedAt     DateTime?
+  extendedDueAt  DateTime?
+  identityVerifiedAt DateTime?
+  fulfilledAt    DateTime?
+  closedAt       DateTime?
+
+  // Outcome.
+  refusalReason  String?
+  responseNotes  String?
+  // Optional storage key for any response artefact (export ZIP, etc.).
+  responseFileKey String?
+
+  // Free-form notes and an optional assignment.
+  assigneeId     String?
+
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  tenant Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assignee     User?                @relation("DSARAssignee", fields: [assigneeId], references: [id])
+  processingActivities ProcessingActivity[] @relation("DSARProcessingActivities")
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([requestType])
+  @@index([dueAt])
+}

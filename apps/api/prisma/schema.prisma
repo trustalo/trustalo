@@ -1,0 +1,3181 @@
+// ============================================================
+// AUTO-GENERATED — do not edit manually.
+// Run `bun run prisma:combine` to regenerate from prisma/schema/*.prisma
+// ============================================================
+
+// --- base.prisma ---
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma/client"
+}
+
+// --- ai-config.prisma ---
+enum AIProvider {
+  openai
+  anthropic
+  bedrock
+  openrouter
+}
+
+enum AIFeature {
+  quiz_generation
+  risk_analysis
+  policy_drafting
+  policy_generation
+  vendor_assessment
+  incident_summary
+  control_suggestion
+  automated_check_generation
+  risk_scoring
+  vendor_scoring
+  questionnaire_answering
+  trust_center_summary
+  // Phase 1 of "ongoing AI context": LLM extracts structured fact
+  // proposals from a paragraph of pasted text (or any other text
+  // source). Always advisory — output lands in
+  // TenantContextProposal until a human accepts.
+  context_extraction
+  // Phase 2 of "ongoing AI context": general compliance assistant
+  // chat. Streams grounded answers using TenantContext +
+  // policies/risks/vendors/controls/frameworks; passively extracts
+  // new context proposals in parallel via context_extraction.
+  chat_assistant
+  // Per-control evidence agent: an LLM-driven loop in the collector
+  // that follows natural-language instructions and calls integration
+  // provider capabilities as tools to gather audit-grade evidence.
+  evidence_agent
+}
+
+model AIProviderConfig {
+  id             String     @id @default(cuid())
+  tenantId String
+  provider       AIProvider
+  apiKey         String?
+  region         String?
+  accessKeyId    String?
+  secretAccessKey String?
+  baseUrl        String?
+  isEnabled      Boolean    @default(true)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, provider])
+  @@index([tenantId])
+}
+
+model AIFeatureConfig {
+  id             String     @id @default(cuid())
+  tenantId String
+  feature        AIFeature
+  provider       AIProvider
+  model          String
+  isEnabled      Boolean    @default(true)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, feature])
+  @@index([tenantId])
+}
+
+// --- ai-governance.prisma ---
+enum AISystemType {
+  machine_learning
+  deep_learning
+  nlp
+  computer_vision
+  generative_ai
+  other
+}
+
+enum AILifecycleStage {
+  design
+  development
+  testing
+  deployment
+  monitoring
+  decommissioned
+}
+
+enum AIRiskLevel {
+  minimal
+  limited
+  high
+  unacceptable
+}
+
+enum RiskRating {
+  low
+  medium
+  high
+}
+
+enum AIImpactStatus {
+  pending
+  in_review
+  approved
+  rejected
+}
+
+// Lifecycle for a structured risk assessment. Mirrors the BIA / policy
+// approval flow so reviewers see a familiar pattern across the app.
+enum AIRiskAssessmentStatus {
+  draft
+  in_progress
+  completed
+  approved
+}
+
+// Operational AI incidents. Categories follow EU AI Act Art. 73 reporting
+// taxonomy + NIST AI RMF MANAGE-4 incident types.
+enum AIIncidentSeverity {
+  low
+  medium
+  high
+  critical
+}
+
+enum AIIncidentCategory {
+  bias
+  drift
+  hallucination
+  accuracy
+  privacy
+  security
+  safety
+  misuse
+  availability
+  other
+}
+
+enum AIIncidentStatus {
+  open
+  investigating
+  mitigated
+  resolved
+  closed
+}
+
+model AISystem {
+  id             String           @id @default(cuid())
+  tenantId String
+  name           String
+  description    String?
+  purpose        String?
+  type           AISystemType
+  lifecycleStage AILifecycleStage @default(design)
+  riskLevel      AIRiskLevel      @default(minimal)
+  dataTypes      String[]
+  ownerId        String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  tenant      Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner             User?                @relation("AISystemOwner", fields: [ownerId], references: [id])
+  riskAssessments   AIRiskAssessment[]
+  impactAssessments AIImpactAssessment[]
+  incidents         AIIncident[]
+
+  @@index([tenantId])
+}
+
+model AIRiskAssessment {
+  id             String                  @id @default(cuid())
+  aiSystemId     String
+  tenantId String
+  assessedById   String
+
+  // Optional human-readable title — useful when an AI system has multiple
+  // concurrent assessments (e.g. quarterly re-assessment cycles).
+  title          String?
+  // Methodology / framework used. Free-form so orgs can plug their own,
+  // with EU AI Act / NIST / ISO as the well-known starters.
+  methodology    String?
+
+  biasRisk       RiskRating
+  privacyRisk    RiskRating
+  safetyRisk     RiskRating
+  securityRisk   RiskRating
+  misuseRisk     RiskRating
+  // Computed-or-overridden overall rating. Defaults to the max of the
+  // component ratings on the API side; explicit field lets reviewers override.
+  overallRisk    RiskRating?
+
+  mitigationPlan String?
+  // Residual risk after mitigations are applied — what regulators ask for.
+  residualRisk   RiskRating?
+
+  status         AIRiskAssessmentStatus  @default(draft)
+  approvedById   String?
+  approvedAt     DateTime?
+
+  assessedAt     DateTime                @default(now())
+  nextReviewDate DateTime?
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+
+  aiSystem     AISystem     @relation(fields: [aiSystemId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assessedBy   User         @relation("AIRiskAssessor", fields: [assessedById], references: [id])
+  approvedBy   User?        @relation("AIRiskApprover", fields: [approvedById], references: [id])
+
+  @@index([tenantId])
+  @@index([aiSystemId])
+  @@index([status])
+  @@index([nextReviewDate])
+}
+
+model AIIncident {
+  id             String              @id @default(cuid())
+  tenantId String
+
+  // An incident is always rooted in a specific AI system. Use cases live
+  // on the system itself (per the consolidation decision: AISystem is the
+  // unit of governance in this MVP).
+  aiSystemId     String
+
+  title          String
+  description    String?
+  category       AIIncidentCategory
+  severity       AIIncidentSeverity
+  status         AIIncidentStatus    @default(open)
+
+  // Timeline.
+  detectedAt     DateTime            @default(now())
+  reportedAt     DateTime            @default(now())
+  resolvedAt     DateTime?
+
+  // Investigation.
+  rootCause      String?
+  remediation    String?
+  // For incidents that require external (regulator / customer) notification,
+  // capture that we did so. Enough granularity for v1; a structured
+  // notification log is a clean follow-up.
+  externalNotificationRequired Boolean @default(false)
+  externalNotificationSentAt   DateTime?
+
+  reportedById   String?
+  assigneeId     String?
+
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  aiSystem     AISystem     @relation(fields: [aiSystemId], references: [id], onDelete: Cascade)
+  reportedBy   User?        @relation("AIIncidentReporter", fields: [reportedById], references: [id])
+  assignee     User?        @relation("AIIncidentAssignee", fields: [assigneeId], references: [id])
+
+  @@index([tenantId])
+  @@index([aiSystemId])
+  @@index([status])
+  @@index([severity])
+  @@index([detectedAt])
+}
+
+model AIImpactAssessment {
+  id                     String         @id @default(cuid())
+  aiSystemId             String
+  tenantId         String
+  assessedById           String
+  societalImpact         String?
+  ethicalConsiderations  String?
+  environmentalImpact    String?
+  humanOversightMeasures String?
+  transparencyMeasures   String?
+  status                 AIImpactStatus @default(pending)
+  approvedById           String?
+  approvedAt             DateTime?
+  createdAt              DateTime       @default(now())
+
+  aiSystem     AISystem     @relation(fields: [aiSystemId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assessedBy   User         @relation("AIImpactAssessor", fields: [assessedById], references: [id])
+  approvedBy   User?        @relation("AIImpactApprover", fields: [approvedById], references: [id])
+
+  @@index([tenantId])
+  @@index([aiSystemId])
+}
+
+// --- asset.prisma ---
+enum AssetType {
+  hardware
+  software
+  data
+  service
+  personnel
+  facility
+  cloud_resource
+}
+
+enum AssetClassification {
+  public
+  internal
+  confidential
+  restricted
+}
+
+enum AssetStatus {
+  active
+  decommissioned
+  under_review
+}
+
+model Asset {
+  id             String              @id @default(cuid())
+  tenantId String
+  name           String
+  description    String?
+  type           AssetType
+  classification AssetClassification @default(internal)
+  ownerId        String?
+  deletedById    String?
+  deletedAt      DateTime?
+  location       String?
+  status         AssetStatus         @default(active)
+  metadata       Json?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner        User?        @relation("AssetOwner", fields: [ownerId], references: [id])
+  deletedBy    User?        @relation("AssetDeletedBy", fields: [deletedById], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, deletedAt, createdAt])
+  @@index([tenantId, status, deletedAt])
+}
+
+// --- audit.prisma ---
+enum AuditType {
+  internal
+  external
+  certification
+}
+
+enum AuditStatus {
+  planned
+  in_progress
+  completed
+  cancelled
+}
+
+enum AuditFindingSeverity {
+  critical
+  major
+  minor
+  observation
+  opportunity
+}
+
+enum AuditFindingStatus {
+  open
+  in_progress
+  remediated
+  verified
+  closed
+}
+
+model Audit {
+  id                   String      @id @default(cuid())
+  tenantId       String
+  title                String
+  description          String?
+  type                 AuditType
+  frameworkInstanceId   String?
+  status               AuditStatus @default(planned)
+  auditorName          String?
+  auditorOrganization  String?
+  scheduledStartDate   DateTime?
+  scheduledEndDate     DateTime?
+  actualStartDate      DateTime?
+  actualEndDate        DateTime?
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  frameworkInstance  FrameworkInstance? @relation(fields: [frameworkInstanceId], references: [id])
+  findings          AuditFinding[]
+  documents         AuditDocument[]
+
+  @@index([tenantId])
+}
+
+model AuditFinding {
+  id             String               @id @default(cuid())
+  auditId        String
+  tenantId String
+  title          String
+  description    String?
+  severity       AuditFindingSeverity
+  status         AuditFindingStatus   @default(open)
+  controlId      String?
+  assignedToId   String?
+  dueDate        DateTime?
+  resolvedAt     DateTime?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  audit        Audit        @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  control      Control?     @relation(fields: [controlId], references: [id])
+  assignedTo   User?        @relation("AuditFindingAssignee", fields: [assignedToId], references: [id])
+
+  @@index([tenantId])
+  @@index([auditId])
+}
+
+model AuditDocument {
+  id             String   @id @default(cuid())
+  auditId        String
+  tenantId String
+  fileName       String?
+  fileKey        String
+  fileSize       Int?
+  mimeType       String?
+  uploadedById   String
+  createdAt      DateTime @default(now())
+
+  audit        Audit        @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  uploadedBy   User         @relation("AuditDocumentUploader", fields: [uploadedById], references: [id])
+
+  @@index([tenantId])
+  @@index([auditId])
+}
+
+// --- bcp.prisma ---
+enum BCPStatus {
+  draft
+  approved
+  active
+  under_review
+  archived
+}
+
+enum CriticalityLevel {
+  mission_critical
+  business_critical
+  business_operational
+  administrative
+}
+
+enum BCPExerciseType {
+  tabletop
+  walkthrough
+  simulation
+  full_scale
+}
+
+enum BCPExerciseStatus {
+  planned
+  scheduled
+  in_progress
+  conducted
+  reviewed
+  cancelled
+}
+
+enum BCPExerciseOutcome {
+  not_met
+  partially_met
+  met
+  exceeded
+}
+
+enum BIAStatus {
+  draft
+  under_review
+  approved
+  archived
+}
+
+model BusinessContinuityPlan {
+  id             String    @id @default(cuid())
+  tenantId String
+  title          String
+  description    String?
+  version        String?
+  status         BCPStatus @default(draft)
+  ownerId        String
+  approvedAt     DateTime?
+  lastReviewedAt DateTime?
+  nextReviewDate DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  tenant       Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner              User                    @relation("BCPOwner", fields: [ownerId], references: [id])
+  impactAnalyses     BusinessImpactAnalysis[]
+  exercises          BCPExercise[]
+
+  @@index([tenantId])
+}
+
+model BusinessImpactAnalysis {
+  id                         String           @id @default(cuid())
+  tenantId             String
+  bcpId                      String
+  processName                String
+  description                String?
+  criticalityLevel           CriticalityLevel
+  rtoHours                   Int
+  rpoHours                   Int
+  maxTolerableDowntimeHours  Int
+  // MTPD (Maximum Tolerable Period of Disruption) is the regulatory ceiling for
+  // how long the process can be unavailable before unacceptable harm occurs.
+  // RTO must be <= MTPD; the UI surfaces violations as a gap.
+  mtpdHours                  Int?
+  financialImpactPerHour     Decimal?
+  dependencies               String?
+
+  // Qualitative impact narratives — covered by ISO 22301 §8.2.2 alongside
+  // financial impact. Free-text so each org can describe in their own terms.
+  operationalImpact          String?
+  regulatoryImpact           String?
+  reputationalImpact         String?
+
+  // Lifecycle / governance — ISO 22301 requires BIAs to be approved, owned,
+  // and periodically reviewed.
+  status                     BIAStatus        @default(draft)
+  ownerId                    String?
+  approvedAt                 DateTime?
+  lastReviewedAt             DateTime?
+  nextReviewDate             DateTime?
+
+  createdAt                  DateTime         @default(now())
+  updatedAt                  DateTime         @updatedAt
+
+  tenant Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bcp          BusinessContinuityPlan @relation(fields: [bcpId], references: [id], onDelete: Cascade)
+  owner        User?                  @relation("BIAOwner", fields: [ownerId], references: [id])
+
+  @@index([tenantId])
+  @@index([bcpId])
+  @@index([status])
+  @@index([criticalityLevel])
+  @@index([nextReviewDate])
+}
+
+model BCPExercise {
+  id             String            @id @default(cuid())
+  tenantId String
+  bcpId          String
+  title          String
+  type           BCPExerciseType
+  scheduledDate  DateTime?
+  conductedDate  DateTime?
+  status         BCPExerciseStatus @default(planned)
+
+  // ── Pre-exercise design (ISO 22301 §8.5 — exercise programme) ──
+  // Free-text by design: a structured scenario library is a clean follow-up
+  // and would otherwise force migrations on every template change.
+  scenario       String?
+  objectives     String?
+  // Which plans/processes/locations/systems were in scope.
+  scope          String?
+  facilitatorId  String?
+  // Comma- or newline-separated names. Promote to a join table once the
+  // user base needs RACI assignment per participant.
+  participants   String?
+
+  // ── Outcome / after-action review ──
+  outcomeRating  BCPExerciseOutcome?
+  // Actual recovery achieved during the exercise — closes the loop back to
+  // the BIA targets so the team can spot when stated RTO/RPO is unrealistic.
+  actualRtoHours Int?
+  actualRpoHours Int?
+  findings       String?
+  lessonsLearned String?
+  // One action per line (free-text). Future work: link to Tasks for tracking.
+  actionItems    String?
+
+  // ── Cadence ──
+  nextExerciseDate DateTime?
+  reviewedAt       DateTime?
+
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  tenant Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  bcp          BusinessContinuityPlan @relation(fields: [bcpId], references: [id], onDelete: Cascade)
+  facilitator  User?                  @relation("BCPExerciseFacilitator", fields: [facilitatorId], references: [id])
+
+  @@index([tenantId])
+  @@index([bcpId])
+  @@index([status])
+  @@index([scheduledDate])
+  @@index([conductedDate])
+}
+
+// --- chat.prisma ---
+// ============================================================
+// Chat — general compliance assistant.
+//
+// Phase 2 of the "ongoing AI context" plan. A `Conversation` is a
+// chat thread between a user and the assistant. Each `Message` is
+// one turn (user prompt or assistant reply).
+//
+// Design notes
+// ────────────
+// • The assistant is grounded against TenantContext + the
+//   tenant's policies/risks/vendors/controls/frameworks. Each reply
+//   stores `groundingHash` so audit reviewers can prove the assistant
+//   was given exactly the same evidence on a re-run.
+// • In parallel with the reply, an extraction worker scans the user's
+//   turn for new facts and writes TenantContextProposal rows.
+//   The ids of any proposals tied to a given assistant turn live in
+//   `Message.proposalIds` so the UI can deep-link.
+// • No tool-calling — the assistant cannot mutate tenant data. All
+//   "context updates" go through the proposal review surface.
+// • Conversations are tenant-scoped; the prismaWithTenant extension
+//   injects `tenantId` automatically.
+// ============================================================
+
+enum MessageRole {
+  user
+  assistant
+  system
+}
+
+model Conversation {
+  id             String       @id @default(cuid())
+  tenantId String
+  /// Auto-derived from the first user turn when null. Editable by the
+  /// user from the conversation list.
+  title          String?
+  createdBy      String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  /// Soft-archive — hides from the list without deleting transcript.
+  archivedAt     DateTime?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  messages     Message[]
+
+  @@index([tenantId])
+  @@index([tenantId, archivedAt, updatedAt])
+  @@index([createdBy])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  tenantId String
+  conversationId String
+  role           MessageRole
+  content        String       @db.Text
+  /// Provider/model used to produce this assistant message — null for
+  /// user/system messages. Surfaced in the UI footer for transparency.
+  modelUsed      String?
+  /// Source of the resolved provider (operator default / org provider /
+  /// per-feature override). Mirrors the AdvisoryBanner pattern.
+  providerSource String?
+  /// Deterministic hash of the grounding bundle (context ids + policy
+  /// ids + risk ids + vendor ids + recent message ids + truncation
+  /// caps). Same hash means same evidence → reproducible answers in
+  /// audits.
+  groundingHash  String?
+  /// Structured citations: array of { kind, id, label } objects the
+  /// model emitted to back claims in `content`. Validated against the
+  /// grounding bundle before persistence — citations to ids that
+  /// weren't in the bundle are dropped to prevent hallucinated
+  /// references.
+  citations      Json         @default("[]")
+  /// TenantContextProposal ids that the parallel extractor
+  /// produced from the *user* turn paired with this assistant turn.
+  /// Used by the right-side proposal panel to highlight which turn a
+  /// given proposal came from.
+  proposalIds    String[]     @default([])
+  createdAt      DateTime     @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([conversationId, createdAt])
+}
+
+// --- control.prisma ---
+enum ControlStatus {
+  not_implemented
+  partially_implemented
+  implemented
+  not_applicable
+}
+
+model Control {
+  id                    String        @id @default(cuid())
+  tenantId              String
+  title                 String
+  description           String?
+  implementationDetails String?       @db.Text
+  status                ControlStatus @default(not_implemented)
+  category              String?
+  ownerId               String?
+  reviewDate            DateTime?
+  lastReviewedAt        DateTime?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  tenant                        Tenant                           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner                         User?                            @relation("ControlOwner", fields: [ownerId], references: [id])
+  controlRequirementAssignments ControlRequirementAssignment[]
+  auditFindings                 AuditFinding[]
+  tasks                         Task[]
+  evidence                      Evidence[]
+  policyControls                PolicyControl[]
+  evidenceCollectionConfig      ControlEvidenceCollectionConfig?
+
+  @@index([tenantId])
+}
+
+// ── Evidence collection mode (per-control, per-tenant) ────────
+//
+// Lets a user choose whether evidence for a control is gathered
+// manually (existing behaviour) or by the Evidence Agent. In agent
+// mode, `agentInstructions` is the natural-language directive the
+// LLM receives, and `agentToolConnectionIds` are the collector
+// IntegrationConnection IDs the agent is allowed to call as tools.
+enum EvidenceCollectionMode {
+  manual
+  agent
+}
+
+enum EvidenceAgentLastStatus {
+  idle
+  queued
+  running
+  succeeded
+  failed
+}
+
+model ControlEvidenceCollectionConfig {
+  id                     String                  @id @default(cuid())
+  tenantId               String
+  controlId              String                  @unique
+  mode                   EvidenceCollectionMode  @default(manual)
+  agentInstructions      String?                 @db.Text
+  agentToolConnectionIds String[]                @default([])
+  agentScheduleMinutes   Int?
+  agentLastRunAt         DateTime?
+  agentLastStatus        EvidenceAgentLastStatus @default(idle)
+  agentLastRunId         String?
+  agentLastSummary       String?                 @db.Text
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
+
+  control Control @relation(fields: [controlId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, mode])
+}
+
+// --- evidence.prisma ---
+enum EvidenceType {
+  document
+  screenshot
+  link
+  automated
+  attestation
+}
+
+enum EvidenceApprovalStatus {
+  draft
+  pending_review
+  approved
+  rejected
+  expired
+  stale
+}
+
+enum RenewalFrequency {
+  once
+  monthly
+  quarterly
+  semi_annually
+  annually
+}
+
+model Evidence {
+  id             String                 @id @default(cuid())
+  tenantId String
+  controlId      String
+  title          String
+  description    String?
+  type           EvidenceType           @default(document)
+  status         EvidenceApprovalStatus @default(draft)
+
+  fileKey   String?
+  fileName  String?
+  fileSize  Int?
+  mimeType  String?
+
+  externalUrl String?
+
+  sourceType String?
+  sourceId   String?
+
+  collectedAt DateTime @default(now())
+  validFrom   DateTime @default(now())
+  expiresAt   DateTime?
+
+  renewalFrequency   RenewalFrequency?
+  nextRenewalDate    DateTime?
+  reminderDaysBefore Int               @default(30)
+  lastReminderSentAt DateTime?
+
+  // Nullable to support automated submitters such as the per-control
+  // Evidence Agent, which has no associated user identity. Manual
+  // submissions from the UI continue to populate this with the
+  // signed-in user's id.
+  submittedById String?
+  reviewedById  String?
+  reviewedAt    DateTime?
+  reviewNotes   String?
+
+  tags     String[]
+  metadata Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  control      Control      @relation(fields: [controlId], references: [id], onDelete: Cascade)
+  submittedBy  User?        @relation("EvidenceSubmittedBy", fields: [submittedById], references: [id])
+  reviewedBy   User?        @relation("EvidenceReviewedBy", fields: [reviewedById], references: [id])
+
+  @@index([tenantId])
+  @@index([controlId])
+  @@index([expiresAt])
+  @@index([status])
+}
+
+// --- framework.prisma ---
+enum FrameworkType {
+  iso27001
+  iso27017
+  iso27018
+  iso22301
+  iso42001
+  soc2
+  essential8
+  nist_csf_2
+  gdpr
+}
+
+enum FrameworkInstanceStatus {
+  not_started
+  in_progress
+  ready_for_audit
+  certified
+}
+
+enum MappingRelationship {
+  equivalent // 1:1 same control intent
+  partial    // overlapping but not identical
+  informs    // referenced as supporting guidance
+}
+
+model Framework {
+  id            String        @id @default(cuid())
+  name          String
+  version       String
+  description   String?
+  frameworkType  FrameworkType
+  totalControls Int
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  instances    FrameworkInstance[]
+  requirements Requirement[]
+}
+
+model FrameworkInstance {
+  id                   String                  @id @default(cuid())
+  tenantId       String
+  frameworkId          String
+  status               FrameworkInstanceStatus @default(not_started)
+  isEnabled            Boolean                 @default(true)
+  targetDate           DateTime?
+  certifiedAt          DateTime?
+  // Optional target maturity/tier for tiered frameworks
+  // (e.g. Essential Eight: "ml1"/"ml2"/"ml3"; NIST CSF: "tier1"–"tier4").
+  // Null for non-tiered frameworks.
+  targetMaturityLevel  String?
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @updatedAt
+
+  tenant    Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  framework       Framework        @relation(fields: [frameworkId], references: [id])
+  controlRequirementAssignments ControlRequirementAssignment[]
+  audits          Audit[]
+
+  @@unique([tenantId, frameworkId])
+  @@index([tenantId])
+}
+
+model Requirement {
+  id               String  @id @default(cuid())
+  frameworkId      String
+  identifier       String
+  title            String
+  description      String?
+  evidenceGuidance String?
+  category         String?
+  // Optional maturity/tier marker for tiered frameworks
+  // (e.g. Essential Eight: "ml1"/"ml2"/"ml3"; NIST CSF tiers if used per-requirement).
+  // Allows the UI to dim/highlight requirements based on the org's targetMaturityLevel.
+  maturityLevel    String?
+  sortOrder        Int
+
+  framework         Framework                     @relation(fields: [frameworkId], references: [id], onDelete: Cascade)
+  controlRequirementAssignments ControlRequirementAssignment[]
+  mappingsAsSource  FrameworkRequirementMapping[] @relation("MappingSource")
+  mappingsAsTarget  FrameworkRequirementMapping[] @relation("MappingTarget")
+
+  @@index([frameworkId])
+}
+
+// Catalog-level cross-framework requirement mapping (org-agnostic).
+// Pre-seeded from authoritative sources (NIST CSF Informative References,
+// ACSC Essential Eight mapping appendix, AICPA SOC 2 mappings, etc.) so
+// evidence collected for one framework can satisfy mapped requirements
+// in others. Distinct from ControlRequirementAssignment which is org-scoped.
+model FrameworkRequirementMapping {
+  id                  String              @id @default(cuid())
+  sourceRequirementId String
+  targetRequirementId String
+  relationship        MappingRelationship @default(partial)
+  rationale           String?
+  source              String // e.g. "NIST CSF 2.0 Informative References v1.0"
+  createdAt           DateTime            @default(now())
+
+  sourceRequirement Requirement @relation("MappingSource", fields: [sourceRequirementId], references: [id], onDelete: Cascade)
+  targetRequirement Requirement @relation("MappingTarget", fields: [targetRequirementId], references: [id], onDelete: Cascade)
+
+  @@unique([sourceRequirementId, targetRequirementId, relationship])
+  @@index([sourceRequirementId])
+  @@index([targetRequirementId])
+}
+
+model ControlRequirementAssignment {
+  id                  String @id @default(cuid())
+  tenantId      String
+  requirementId       String
+  controlId           String
+  frameworkInstanceId  String
+  status              String?
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  requirement       Requirement       @relation(fields: [requirementId], references: [id])
+  control           Control           @relation(fields: [controlId], references: [id])
+  frameworkInstance  FrameworkInstance  @relation(fields: [frameworkInstanceId], references: [id])
+
+  @@unique([controlId, frameworkInstanceId, requirementId])
+  @@index([tenantId])
+}
+
+// --- incident.prisma ---
+enum IncidentSeverity {
+  critical
+  high
+  medium
+  low
+  informational
+}
+
+enum IncidentStatus {
+  reported
+  investigating
+  contained
+  resolved
+  closed
+  lessons_learned
+}
+
+model Incident {
+  id                              String           @id @default(cuid())
+  tenantId                  String
+  title                           String
+  description                     String?
+  severity                        IncidentSeverity
+  status                          IncidentStatus   @default(reported)
+  reportedById                    String
+  assignedToId                    String?
+  detectedAt                      DateTime?
+  resolvedAt                      DateTime?
+  rootCause                       String?
+  regulatoryNotificationRequired  Boolean          @default(false)
+  regulatoryNotifiedAt            DateTime?
+  createdAt                       DateTime         @default(now())
+  updatedAt                       DateTime         @updatedAt
+
+  tenant Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  reportedBy   User               @relation("IncidentReporter", fields: [reportedById], references: [id])
+  assignedTo   User?              @relation("IncidentAssignee", fields: [assignedToId], references: [id])
+  timeline     IncidentTimeline[]
+
+  @@index([tenantId])
+}
+
+model IncidentTimeline {
+  id             String   @id @default(cuid())
+  incidentId     String
+  tenantId String
+  action         String
+  description    String?
+  performedById  String
+  createdAt      DateTime @default(now())
+
+  incident     Incident     @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  performedBy  User         @relation(fields: [performedById], references: [id])
+
+  @@index([tenantId])
+  @@index([incidentId])
+}
+
+// --- policy.prisma ---
+enum PolicyStatus {
+  draft
+  pending_approval
+  approved
+  published
+  archived
+}
+
+model Policy {
+  id               String       @id @default(cuid())
+  tenantId   String
+  title            String
+  description      String?
+  status           PolicyStatus @default(draft)
+  category         String?
+  ownerId          String
+  currentVersionId String?
+  renewalDate      DateTime?
+  // Phase 2 (AI accelerators): short Markdown summary surfaced on the
+  // public Trust Center for published policies. Generated once via the
+  // AI provider on first publish; admins can override manually.
+  publicSummary    String?      @db.Text
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  tenant     Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner            User                  @relation("PolicyOwner", fields: [ownerId], references: [id])
+  versions         PolicyVersion[]
+  acknowledgments  PolicyAcknowledgment[]
+  policyControls   PolicyControl[]
+  comments         PolicyComment[]
+
+  @@index([tenantId])
+}
+
+model PolicyVersion {
+  id            String    @id @default(cuid())
+  policyId      String
+  versionNumber Int
+  content       String    @db.Text
+  changeNotes   String?
+  createdById   String
+  approvedById  String?
+  approvedAt    DateTime?
+  createdAt     DateTime  @default(now())
+
+  policy          Policy                @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  createdBy       User                  @relation("PolicyVersionCreator", fields: [createdById], references: [id])
+  approvedBy      User?                 @relation("PolicyVersionApprover", fields: [approvedById], references: [id])
+  acknowledgments PolicyAcknowledgment[]
+  comments        PolicyComment[]
+
+  @@index([policyId])
+}
+
+model PolicyAcknowledgment {
+  id              String   @id @default(cuid())
+  policyId        String
+  policyVersionId String
+  userId          String
+  tenantId  String
+  acknowledgedAt  DateTime @default(now())
+  createdAt       DateTime @default(now())
+
+  policy        Policy        @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  policyVersion PolicyVersion @relation(fields: [policyVersionId], references: [id])
+  user          User          @relation(fields: [userId], references: [id])
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([policyId])
+}
+
+model PolicyComment {
+  id               String   @id @default(cuid())
+  policyId         String
+  policyVersionId  String?
+  userId           String
+  tenantId   String
+  content          String   @db.Text
+  highlightedText  String?  @db.Text
+  fromPos          Int?
+  toPos            Int?
+  resolved         Boolean  @default(false)
+  resolvedById     String?
+  resolvedAt       DateTime?
+  parentId         String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  policy        Policy         @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  policyVersion PolicyVersion? @relation(fields: [policyVersionId], references: [id])
+  user          User           @relation("PolicyCommentAuthor", fields: [userId], references: [id])
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  resolvedBy    User?          @relation("PolicyCommentResolver", fields: [resolvedById], references: [id])
+  parent        PolicyComment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies       PolicyComment[] @relation("CommentReplies")
+
+  @@index([policyId])
+  @@index([policyVersionId])
+  @@index([tenantId])
+  @@index([parentId])
+}
+
+model PolicyControl {
+  id             String   @id @default(cuid())
+  policyId       String
+  controlId      String
+  tenantId String
+  createdAt      DateTime @default(now())
+
+  policy       Policy       @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  control      Control      @relation(fields: [controlId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([policyId, controlId])
+  @@index([tenantId])
+  @@index([policyId])
+  @@index([controlId])
+}
+
+/// System-wide policy library (not tenant-scoped). Seeded on install; extend FrameworkType in schema for new frameworks.
+model PolicyTemplate {
+  id               String          @id @default(cuid())
+  slug             String          @unique
+  title            String
+  shortDescription String?
+  /// Suggested category for the new policy record
+  category         String?
+  /// Empty array = applies to all current frameworks; otherwise filter by overlap
+  frameworkTypes   FrameworkType[]
+  /// Future-proof labels (e.g. "hipaa", "pci") without enum migration — informational / filter
+  tags             String[]        @default([])
+  contentHtml      String          @db.Text
+  sortOrder        Int             @default(0)
+  isActive         Boolean         @default(true)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  @@index([isActive, sortOrder])
+}
+
+// --- privacy.prisma ---
+// ============================================================
+// GDPR / Privacy program models
+//
+// The privacy module is built around four registers, each parallel to a
+// concrete GDPR obligation:
+//
+//   1. ProcessingActivity  — Article 30 Records of Processing Activities (RoPA)
+//   2. DPIA                — Article 35 Data Protection Impact Assessments
+//   3. DataBreach          — Articles 33/34 Personal-data breach notifications
+//   4. DSARRequest         — Articles 12–22 Data-Subject Access Requests
+//
+// The shape mirrors the patterns established by AI Governance (similar
+// `*Status` lifecycle enums, approver fields, indexes) so the API and UI
+// layers can reuse the same conventions.
+// ============================================================
+
+// ── Lawful basis under Art. 6(1) ───────────────────────────────────────
+enum LawfulBasis {
+  consent
+  contract
+  legal_obligation
+  vital_interests
+  public_task
+  legitimate_interests
+}
+
+// ── Categories of personal data on a processing activity ───────────────
+// Distinct from "sensitive" — special_category and criminal trigger Art. 9/10.
+enum DataCategory {
+  identity
+  contact
+  financial
+  health
+  location
+  online_identifier
+  demographic
+  employment
+  usage
+  special_category
+  criminal
+  other
+}
+
+// ── Categories of data subject ─────────────────────────────────────────
+enum SubjectCategory {
+  customer
+  employee
+  prospect
+  supplier_contact
+  minor
+  website_visitor
+  patient
+  other
+}
+
+// ── Cross-border transfer safeguard (Chapter V) ────────────────────────
+enum TransferMechanism {
+  none_eu_eea
+  adequacy_decision
+  scc
+  bcr
+  derogation_art_49
+}
+
+// ── Role of the organisation in the processing activity ────────────────
+enum ProcessingRole {
+  controller
+  processor
+  joint_controller
+}
+
+enum ProcessingActivityStatus {
+  draft
+  active
+  under_review
+  retired
+}
+
+// ── DPIA lifecycle. Mirrors AIImpactStatus by intent so reviewers see a
+//    familiar approve/reject pattern across modules. ───────────────────
+enum DPIAStatus {
+  draft
+  in_review
+  approved
+  rejected
+}
+
+// ── Article 35(3) DPIA-necessity outcome ───────────────────────────────
+enum DPIANecessity {
+  required
+  recommended
+  not_required
+}
+
+// ── Personal-data breach taxonomy ──────────────────────────────────────
+// Severity mirrors AIIncidentSeverity so the dashboard treatment is the same.
+enum DataBreachSeverity {
+  low
+  medium
+  high
+  critical
+}
+
+// CIA-style taxonomy used in WP29 / EDPB guidance for breach categorisation.
+enum DataBreachCategory {
+  confidentiality
+  integrity
+  availability
+  combined
+}
+
+enum DataBreachStatus {
+  open
+  investigating
+  contained
+  notified
+  closed
+}
+
+// ── DSAR taxonomy ──────────────────────────────────────────────────────
+enum DSARType {
+  access
+  rectification
+  erasure
+  restriction
+  portability
+  objection
+  automated_decision
+  withdraw_consent
+}
+
+enum DSARStatus {
+  received
+  identity_pending
+  in_progress
+  extended
+  fulfilled
+  refused
+  closed
+}
+
+enum DSARChannel {
+  email
+  web_form
+  post
+  phone
+  in_person
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Models
+// ─────────────────────────────────────────────────────────────────────────
+
+// Article 30 — Records of Processing Activities (RoPA)
+//
+// Each row describes one distinct purpose of personal-data processing carried
+// out by the organisation. This is THE defining GDPR artifact: every other
+// privacy resource (DPIA, breach scope, DSAR scope, sub-processor link) is
+// expressed in terms of one or more processing activities.
+model ProcessingActivity {
+  id             String                   @id @default(cuid())
+  tenantId String
+
+  // Human-readable name (e.g. "Customer billing", "Employee performance reviews").
+  name           String
+  // Specified, explicit, legitimate purpose under Art. 5(1)(b).
+  purpose        String
+  // Whether the organisation acts as controller, processor or joint controller
+  // for THIS processing activity (an org can be controller in one and processor
+  // in another).
+  role           ProcessingRole           @default(controller)
+
+  // Lawful basis under Art. 6(1) and the textual justification supporting it
+  // (e.g. for legitimate_interests the LIA outcome).
+  lawfulBasis              LawfulBasis
+  lawfulBasisJustification String?
+
+  // Inventory of what's processed and about whom.
+  dataCategories     DataCategory[]
+  subjectCategories  SubjectCategory[]
+  // Free-form additional data-element list ("first name, email, IP, etc.").
+  dataElements       String[]
+  // Recipients to whom data is disclosed (categories or named entities).
+  recipients         String[]
+
+  // Cross-border transfers (Chapter V).
+  crossBorderTransfer  Boolean              @default(false)
+  transferMechanism    TransferMechanism?
+  transferDestinations String[]
+
+  // Retention & security narrative.
+  retentionPeriod    String?
+  securityMeasures   String?
+
+  // Ownership.
+  ownerId        String?
+  status         ProcessingActivityStatus @default(draft)
+
+  // Review cadence — used by the dashboard "due for review" KPI.
+  lastReviewedAt DateTime?
+  nextReviewAt   DateTime?
+
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner        User?        @relation("ProcessingActivityOwner", fields: [ownerId], references: [id])
+
+  dpias        DPIA[]
+  breaches     DataBreach[]
+  dsars        DSARRequest[]    @relation("DSARProcessingActivities")
+  vendors      Vendor[]         @relation("VendorProcessingActivities")
+  risks        Risk[]
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([nextReviewAt])
+}
+
+// Article 35 — Data Protection Impact Assessment
+//
+// A DPIA is rooted to a single ProcessingActivity (the activity that triggered
+// the DPIA obligation). Multiple DPIAs are allowed per activity to support
+// re-assessment cycles.
+model DPIA {
+  id             String         @id @default(cuid())
+  tenantId String
+
+  processingActivityId String
+  assessedById         String
+
+  title          String
+  // Article 35(3) DPIA-necessity outcome. `required` means the DPIA was
+  // mandatory; `recommended` means the org chose to do one for prudence.
+  necessity      DPIANecessity  @default(required)
+
+  // Narrative fields modelled on the EDPB DPIA template.
+  necessityProportionality String?
+  riskToRights             String?
+  mitigations              String?
+  consultedDpo             Boolean        @default(false)
+  consultedDataSubjects    Boolean        @default(false)
+
+  // Residual risk after mitigations — what triggers Art. 36 prior consultation.
+  residualRisk   RiskRating?
+
+  status         DPIAStatus     @default(draft)
+  approvedById   String?
+  approvedAt     DateTime?
+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  tenant       Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  processingActivity ProcessingActivity @relation(fields: [processingActivityId], references: [id], onDelete: Cascade)
+  assessedBy         User               @relation("DPIAAssessor", fields: [assessedById], references: [id])
+  approvedBy         User?              @relation("DPIAApprover", fields: [approvedById], references: [id])
+
+  @@index([tenantId])
+  @@index([processingActivityId])
+  @@index([status])
+}
+
+// Articles 33/34 — Personal-data breach register
+//
+// `notificationDeadlineAt` is auto-computed as `discoveredAt + 72h` by the
+// API on create; the UI surfaces a countdown badge to the deadline. This
+// mirrors the AIIncident pattern with breach-specific fields layered on top.
+model DataBreach {
+  id             String              @id @default(cuid())
+  tenantId String
+
+  // Optional link to the processing activity in scope. Null when the breach
+  // affects systems not yet captured in the RoPA.
+  processingActivityId String?
+
+  title          String
+  description    String?
+  category       DataBreachCategory
+  severity       DataBreachSeverity
+  status         DataBreachStatus    @default(open)
+
+  // Timeline.
+  occurredAt     DateTime?
+  discoveredAt   DateTime            @default(now())
+  // Auto = discoveredAt + 72h. Stored explicitly so reviewers can override
+  // when discovery itself was uncertain (e.g. forensic investigation reveals
+  // an earlier discovery point).
+  notificationDeadlineAt DateTime
+  containedAt    DateTime?
+  resolvedAt     DateTime?
+
+  // Scope.
+  affectedRecordsEstimate    Int?
+  affectedSubjectCategories  SubjectCategory[]
+  dataCategoriesInvolved     DataCategory[]
+
+  // Investigation.
+  rootCause      String?
+  containment    String?
+  remediation    String?
+
+  // Notification (Art. 33 + Art. 34).
+  supervisoryAuthorityNotificationRequired Boolean   @default(false)
+  supervisoryAuthorityNotifiedAt           DateTime?
+  supervisoryAuthorityReference            String?
+  dataSubjectsNotificationRequired         Boolean   @default(false)
+  dataSubjectsNotifiedAt                   DateTime?
+
+  reportedById   String?
+  assigneeId     String?
+
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  tenant       Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  processingActivity ProcessingActivity? @relation(fields: [processingActivityId], references: [id])
+  reportedBy         User?               @relation("DataBreachReporter", fields: [reportedById], references: [id])
+  assignee           User?               @relation("DataBreachAssignee", fields: [assigneeId], references: [id])
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([severity])
+  @@index([notificationDeadlineAt])
+  @@index([discoveredAt])
+}
+
+// Articles 12–22 — Data-Subject Access Requests (DSAR / DSR)
+//
+// `dueAt` is auto-computed as `receivedAt + 1 month`. `extendedDueAt` extends
+// by up to two further months under Art. 12(3). Both are surfaced as SLA
+// badges in the UI.
+model DSARRequest {
+  id             String       @id @default(cuid())
+  tenantId String
+
+  // Identifies the data subject. We collect the minimum necessary; identity
+  // verification is captured separately (`identityVerifiedAt`).
+  subjectName    String
+  subjectEmail   String?
+  subjectIdentifier String?
+
+  requestType    DSARType
+  channel        DSARChannel
+  status         DSARStatus   @default(received)
+
+  // Timeline & SLA.
+  receivedAt     DateTime     @default(now())
+  dueAt          DateTime
+  extendedAt     DateTime?
+  extendedDueAt  DateTime?
+  identityVerifiedAt DateTime?
+  fulfilledAt    DateTime?
+  closedAt       DateTime?
+
+  // Outcome.
+  refusalReason  String?
+  responseNotes  String?
+  // Optional storage key for any response artefact (export ZIP, etc.).
+  responseFileKey String?
+
+  // Free-form notes and an optional assignment.
+  assigneeId     String?
+
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  tenant Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assignee     User?                @relation("DSARAssignee", fields: [assigneeId], references: [id])
+  processingActivities ProcessingActivity[] @relation("DSARProcessingActivities")
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([requestType])
+  @@index([dueAt])
+}
+
+// --- questionnaires.prisma ---
+// ============================================================
+// Questionnaires — Phase 6 (AI accelerators).
+//
+// Customers regularly receive long security questionnaires (CAIQ,
+// SIG, Whistic, custom CSVs). The questionnaire workspace lets a
+// reviewer:
+//
+//   1. Import a questionnaire from CSV / CAIQ / SIG (we model this as
+//      a file-format hint plus the raw row data).
+//   2. Bulk-generate AI answers grounded in the org's existing policies,
+//      controls and TenantContext (the "facts wallet").
+//   3. Review, edit, approve and export the answered file in the
+//      original format so it can be returned to the requester.
+//
+// Each Answer carries provenance — generatedByAi flag, model used,
+// confidence, sources — so audit teams can prove which answers a human
+// reviewed vs accepted as-is.
+// ============================================================
+
+enum QuestionnaireSourceFormat {
+  csv
+  caiq
+  sig
+  xlsx
+  docx
+  custom
+}
+
+enum QuestionnaireStatus {
+  draft
+  in_progress
+  completed
+  exported
+}
+
+enum QuestionType {
+  yes_no
+  short_text
+  long_text
+  multiple_choice
+}
+
+enum AnswerStatus {
+  pending
+  draft
+  approved
+  rejected
+}
+
+/// Lifecycle of an asynchronous questionnaire import job.
+///
+///   pending   — row created, file uploaded to S3, runner not started yet
+///   running   — runner is parsing and/or calling the structure agent
+///   completed — all sheets understood; Questionnaire row + Questions persisted
+///   partial   — one or more sheets failed (agent timeout, schema rejection)
+///               but at least one question_table sheet succeeded; the user can
+///               accept the partial import or retry from the UI
+///   failed    — terminal failure (no usable sheets, AI unavailable, etc.)
+enum QuestionnaireImportJobStatus {
+  pending
+  running
+  completed
+  partial
+  failed
+}
+
+/// Async import job — owns the long-running work that POST /questionnaires
+/// used to do synchronously.
+///
+/// Why it exists:
+///   • Structure-agent calls on a 5-sheet workbook take 30–180 s. Holding an
+///     HTTP request open that long causes proxy timeouts (ALB 60 s default),
+///     duplicate submissions on browser retry, and a horrible "stare at a
+///     spinner" UX with no visibility into what's happening.
+///   • Per-sheet progress is what users actually want to see — a list of
+///     sheet names with ticks / spinners / failure markers is dramatically
+///     better than a three-minute opaque spinner.
+///
+/// Lifecycle:
+///   1. POST /questionnaires uploads the file to S3, creates this row with
+///      status=pending, kicks off the runner, and returns 202 + jobId.
+///   2. Runner sets status=running, parses sheets, and for each sheet calls
+///      the LLM mapper in parallel (`Promise.allSettled`). Each settle
+///      updates `progress.sheets[i]` so the UI poll can render per-sheet
+///      ticks/spinners.
+///   3. On success: creates the Questionnaire + Question rows, sets
+///      `questionnaireId` on this job, status=completed (or =partial if some
+///      sheets failed but at least one succeeded).
+///   4. On terminal failure: status=failed, errorMessage carries the public-
+///      safe copy.
+///
+/// We keep finished jobs in the table for audit/debug. A periodic janitor can
+/// purge rows older than N days; not in scope for the first cut.
+model QuestionnaireImportJob {
+  id             String                       @id @default(cuid())
+  tenantId String
+  /// Final questionnaire name (carried so the UI can show the title even
+  /// while the job is still running).
+  name           String
+  requester      String?
+  vendorId       String?
+  dueDate        DateTime?
+  /// User-supplied format hint (csv | xlsx | docx | …). Optional; the runner
+  /// re-detects from file extension.
+  formatHint     QuestionnaireSourceFormat?
+  /// Detected source format once the runner has looked at the file.
+  sourceFormat   QuestionnaireSourceFormat?
+  /// S3 key of the uploaded original. Always set for xlsx/docx; null for
+  /// CSV-string imports (the CSV body is captured in `csvBody` instead).
+  originalFileKey  String?
+  originalFilename String?
+  originalMimeType String?
+  /// Verbatim CSV body for paste-CSV imports. We persist it on the job so
+  /// the runner can re-parse without round-tripping through S3.
+  csvBody          String?                    @db.Text
+  status           QuestionnaireImportJobStatus @default(pending)
+  /// Free-shape progress descriptor consumed by the polling UI:
+  ///   {
+  ///     phase: "uploading" | "parsing" | "mapping" | "persisting",
+  ///     totalSheets: number,
+  ///     completedSheets: number,
+  ///     sheets: [
+  ///       { name: string, status: "pending"|"running"|"completed"|"failed",
+  ///         kind?: "instructions"|"metadata"|"question_table"|"matrix",
+  ///         questionCount?: number, error?: string }
+  ///     ]
+  ///   }
+  /// Updated incrementally by the runner. The UI re-renders on every poll.
+  progress         Json                        @default("{}")
+  /// Public-safe error message for status=failed/partial. NEVER contains
+  /// upstream secrets — the central error scrubber + AIProviderError public
+  /// messages enforce that.
+  errorMessage     String?                     @db.Text
+  errorCode        String?
+  /// Set when status transitions to completed/partial — points at the new
+  /// Questionnaire row so the UI can navigate to it.
+  questionnaireId  String?
+  createdById      String
+  createdAt        DateTime                    @default(now())
+  updatedAt        DateTime                    @updatedAt
+  startedAt        DateTime?
+  completedAt      DateTime?
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy     User           @relation("QuestionnaireImportJobCreator", fields: [createdById], references: [id])
+  questionnaire Questionnaire? @relation(fields: [questionnaireId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, createdAt])
+}
+
+model Questionnaire {
+  id             String                    @id @default(cuid())
+  tenantId String
+  name           String
+  sourceFormat   QuestionnaireSourceFormat @default(csv)
+  /// Free-form name of the requesting party (a customer, prospect, regulator).
+  requester      String?
+  vendorId       String?
+  dueDate        DateTime?
+  status         QuestionnaireStatus       @default(draft)
+  /// Headers from the *primary* sheet (the first sheet successfully
+  /// parsed), kept for backwards-compat display + CSV export. Multi-
+  /// sheet workbooks attach per-sheet headers to each `Question`.
+  headers        Json                      @default("[]")
+  /// Storage key + metadata for the uploaded original file. We keep
+  /// the raw .xlsx / .docx blob in object storage so we can write
+  /// answers back into the customer's original workbook (preserving
+  /// styles, merged cells, branding, multi-sheet structure) instead
+  /// of reconstructing a fresh file.
+  originalFileKey  String?
+  originalFilename String?
+  originalMimeType String?
+  /// LLM-produced structural map of the uploaded workbook/document.
+  /// Describes each sheet/page (kind: metadata | instructions |
+  /// question_table | matrix), its column roles, header row, sub-
+  /// question relationships, and — critically — the exact A1 cell
+  /// coordinates where each answer must be written on export. Stored
+  /// verbatim so re-export is deterministic and we never re-run the
+  /// agent. Null for CSV imports (structure is implicit).
+  structureMap     Json?
+  /// Cover-page / metadata facts extracted by the structure agent —
+  /// e.g. {"Company Name": "Acme", "Service Provided": "..."}. Used
+  /// (a) as additional grounding for the answering agent and (b)
+  /// re-emitted to their original cells on export. Null for CSV.
+  metadataFacts    Json?
+  importedById   String
+  createdAt      DateTime                  @default(now())
+  updatedAt      DateTime                  @updatedAt
+
+  tenant Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  importedBy   User                        @relation("QuestionnaireImporter", fields: [importedById], references: [id])
+  vendor       Vendor?                     @relation(fields: [vendorId], references: [id])
+  questions    Question[]
+  answers      Answer[]
+  importJobs   QuestionnaireImportJob[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+}
+
+model Question {
+  id              String       @id @default(cuid())
+  tenantId  String
+  questionnaireId String
+  /// 1-based position in the source file. Used to preserve ordering on export.
+  sequenceNumber  Int
+  sectionTitle    String?
+  questionText    String       @db.Text
+  questionType    QuestionType @default(short_text)
+  /// JSON array of choice strings for multiple_choice / yes_no.
+  choices         Json         @default("[]")
+  /// Verbatim row from the source file as parsed object — used to
+  /// rehydrate columns we don't model explicitly (control IDs, weights).
+  originalRow     Json         @default("{}")
+  /// 0-based row index inside this question's source sheet (xlsx),
+  /// table (docx), or line in the file (csv). Used by the exporter
+  /// to drop the answer into the right cell.
+  sourceRowIndex  Int?
+  /// For xlsx round-trip: which sheet inside the workbook this row
+  /// belongs to. A workbook can have many sheets, each with its own
+  /// header row and answer column, so this is recorded per-question.
+  sourceSheetName String?
+  /// For xlsx (and docx tables): 0-based index of the header row
+  /// inside this question's source sheet/table. Different sheets in
+  /// the same workbook can have headers at different rows.
+  sourceHeaderRowIndex Int?
+  /// Header text of the column that takes the answer on export, for
+  /// THIS question's source sheet/table. Stored per-question because
+  /// different sheets/tables in the same workbook may use different
+  /// answer column names ("Response", "Answer", "Yes/No"). Null when
+  /// no answer column was detected — the writer appends one.
+  answerColumnHeader String?
+  /// For docx round-trip: 0-based index of the <w:tbl> inside
+  /// `word/document.xml` this row belongs to. A document can hold
+  /// many question tables; each question knows its own. Null for
+  /// xlsx/csv.
+  sourceTableIndex Int?
+  /// Exact A1-style cell reference (e.g. "F12") inside the source
+  /// sheet/table where this question's answer must be written on
+  /// export. Produced by the structure agent at import time — the
+  /// writer just sets this cell, no header lookup needed. Supersedes
+  /// the legacy (sourceRowIndex + answerColumnHeader) lookup; old
+  /// fields are retained for backward compatibility with imports
+  /// that pre-date the structure agent.
+  answerCellA1    String?
+  /// Self-reference to the parent question for nested sub-questions
+  /// like "a) Has this policy been communicated?" under a top-level
+  /// control question. The UI nests sub-questions under their parent;
+  /// the answering agent gets the parent text as additional context.
+  parentQuestionId String?
+  /// Structured contextual labels that frame this question — domain,
+  /// sub-domain, control id, evidence requirement, matrix column
+  /// label (the entity / system / process this cell asks about), etc.
+  /// The UI renders these as chips above the question; the answering
+  /// agent uses them as context.
+  /// Shape is intentionally open: { domain?: string; subDomain?:
+  /// string; controlId?: string; evidence?: string; column?: string;
+  /// [k: string]: string | undefined }.
+  contextLabels   Json?
+  createdAt       DateTime     @default(now())
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  questionnaire Questionnaire  @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  answers       Answer[]
+  parent        Question?      @relation("QuestionChildren", fields: [parentQuestionId], references: [id], onDelete: SetNull)
+  children      Question[]     @relation("QuestionChildren")
+
+  @@index([tenantId])
+  @@index([questionnaireId])
+  @@index([questionnaireId, sequenceNumber])
+  @@index([parentQuestionId])
+}
+
+model Answer {
+  id              String       @id @default(cuid())
+  tenantId  String
+  questionnaireId String
+  questionId      String       @unique
+  content         String       @db.Text
+  status          AnswerStatus @default(pending)
+  generatedByAi   Boolean      @default(false)
+  /// Bounded [0,1]; absent for human-authored answers.
+  aiConfidence    Float?
+  /// Free-form citations: which policy IDs / control IDs / context rows
+  /// the AI cited as evidence. Helps reviewers verify quickly.
+  aiSources       Json         @default("[]")
+  aiModel         String?
+  aiPrompt        String?      @db.Text
+  reviewedById    String?
+  reviewedAt      DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  tenant  Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  questionnaire Questionnaire @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
+  question      Question      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  reviewedBy    User?         @relation("AnswerReviewer", fields: [reviewedById], references: [id])
+
+  @@index([tenantId])
+  @@index([questionnaireId])
+  @@index([questionnaireId, status])
+}
+
+// --- risk.prisma ---
+enum RiskCategory {
+  operational
+  technical
+  compliance
+  strategic
+  financial
+  reputational
+  security
+  privacy
+  third_party
+  environmental
+}
+
+enum RiskStatus {
+  not_started
+  in_progress
+  done
+  archived
+}
+
+enum TreatmentStrategy {
+  mitigate
+  accept
+  transfer
+  avoid
+  control
+}
+
+enum TreatmentStatus {
+  planned
+  in_progress
+  completed
+  overdue
+  cancelled
+}
+
+enum ControlEffectiveness {
+  no_control
+  need_improvement
+  adequate
+  effective
+}
+
+enum ApprovalStatus {
+  yes
+  no
+  na
+  pending
+}
+
+enum ProbabilityLevel {
+  rare
+  unlikely
+  possible
+  likely
+  almost_certain
+}
+
+enum ImpactLevel {
+  negligible
+  low
+  moderate
+  high
+  catastrophic
+}
+
+enum RiskDepartment {
+  engineering
+  product
+  operations
+  finance
+  legal
+  human_resources
+  sales
+  marketing
+  customer_support
+  it
+  security
+  compliance
+  executive
+  other
+}
+
+model Risk {
+  id             String       @id @default(cuid())
+  tenantId String
+  riskIdentifier String?
+
+  // Core fields
+  title              String
+  description        String?
+  riskImpactDescription String?
+  category           RiskCategory @default(operational)
+  businessProcess    String?
+  department         RiskDepartment?
+  status             RiskStatus   @default(not_started)
+
+  // Inherent risk — qualitative + numeric
+  probability        ProbabilityLevel?
+  probabilityScore   Int          @default(1)
+  impact             ImpactLevel?
+  impactScore        Int          @default(1)
+  riskScore          Int          @default(1)
+
+  // Residual risk — qualitative + numeric
+  residualLikelihood   ProbabilityLevel?
+  residualLikelihoodScore Int?
+  residualImpact       ImpactLevel?
+  residualImpactScore  Int?
+  residualRiskScore    Int?
+
+  // Controls
+  controlDescription      String?
+  controlEffectiveness    ControlEffectiveness?
+  treatmentStrategy       TreatmentStrategy?
+  treatmentRationale      String?
+
+  // Action plan
+  actionPlan         String?
+  actionOwnerId      String?
+  actionOwnerName    String?
+  estStartDate       DateTime?
+  estEndDate         DateTime?
+
+  // Approvals
+  budgetApproval     ApprovalStatus?
+  managementApproval ApprovalStatus?
+
+  // Ownership
+  ownerId            String?
+  riskProperty       String?
+  remarks            String?
+  tags               String[]     @default([])
+
+  // Optional link to a Processing Activity (RoPA) — set when this risk
+  // arises from a specific GDPR processing activity, enabling cross-link
+  // navigation from the Privacy workspace.
+  processingActivityId String?
+
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  tenant Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner        User?            @relation("RiskOwner", fields: [ownerId], references: [id])
+  actionOwner  User?            @relation("RiskActionOwner", fields: [actionOwnerId], references: [id])
+  processingActivity ProcessingActivity? @relation(fields: [processingActivityId], references: [id])
+  assessments   RiskAssessment[]
+  treatments    RiskTreatment[]
+  matrixChanges RiskMatrixChange[]
+
+  @@unique([tenantId, riskIdentifier])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, category])
+}
+
+model RiskAssessment {
+  id                  String   @id @default(cuid())
+  riskId              String
+  tenantId      String
+  assessedById        String
+  inherentLikelihood  Int
+  inherentImpact      Int
+  residualLikelihood  Int
+  residualImpact      Int
+  notes               String?
+  assessedAt          DateTime @default(now())
+  createdAt           DateTime @default(now())
+
+  risk         Risk         @relation(fields: [riskId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assessedBy   User         @relation("RiskAssessor", fields: [assessedById], references: [id])
+
+  @@index([tenantId])
+  @@index([riskId])
+}
+
+model RiskTreatment {
+  id             String            @id @default(cuid())
+  riskId         String
+  tenantId String
+  strategy       TreatmentStrategy
+  title          String            @default("")
+  description    String?
+  responsibleId  String
+  dueDate        DateTime?
+  completedAt    DateTime?
+  status         TreatmentStatus   @default(planned)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  risk         Risk         @relation(fields: [riskId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  responsible  User         @relation("RiskTreatmentResponsible", fields: [responsibleId], references: [id])
+
+  @@index([tenantId])
+  @@index([riskId])
+}
+
+/// Per-tenant configuration for which risk register fields are visible.
+/// Stored as a JSON array of field config objects.
+model RiskRegisterConfig {
+  id             String   @id @default(cuid())
+  tenantId String   @unique
+  fields         Json
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+enum RiskMatrixChangeKind {
+  inherent
+  residual
+}
+
+/// Audit trail for inherent / residual likelihood×impact matrix updates.
+model RiskMatrixChange {
+  id             String               @id @default(cuid())
+  riskId         String
+  tenantId String
+  kind           RiskMatrixChangeKind
+  /// matrix | overview | assessment
+  source         String               @default("matrix")
+  changedById    String
+  prevLikelihood Int?
+  prevImpact     Int?
+  prevScore      Int?
+  newLikelihood  Int
+  newImpact      Int
+  newScore       Int
+  createdAt      DateTime             @default(now())
+
+  risk         Risk         @relation(fields: [riskId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  changedBy    User         @relation("RiskMatrixChangeAuthor", fields: [changedById], references: [id])
+
+  @@index([tenantId])
+  @@index([riskId])
+  @@index([riskId, createdAt])
+}
+
+// --- task.prisma ---
+enum TaskType {
+  manual
+  automated
+  recurring
+}
+
+enum TaskStatus {
+  pending
+  in_progress
+  completed
+  overdue
+  cancelled
+}
+
+enum TaskPriority {
+  critical
+  high
+  medium
+  low
+}
+
+enum TaskFrequency {
+  once
+  daily
+  weekly
+  monthly
+  quarterly
+  annually
+}
+
+enum TaskSourceModule {
+  training
+  control
+  risk
+  evidence
+  vendor
+  asset
+  audit
+  policy
+  bcp
+  incident
+  // Privacy / GDPR program task sources.
+  dsar
+  data_breach
+  dpia
+  processing_activity
+}
+
+enum EvidenceStatus {
+  draft
+  pending_review
+  approved
+  rejected
+}
+
+model Task {
+  id             String            @id @default(cuid())
+  tenantId String
+  title          String
+  description    String?
+  type           TaskType          @default(manual)
+  status         TaskStatus        @default(pending)
+  priority       TaskPriority      @default(medium)
+  assigneeId     String?
+  controlId      String?
+  sourceModule   TaskSourceModule?
+  sourceId       String?
+  dueDate        DateTime?
+  completedAt    DateTime?
+  frequency      TaskFrequency?
+  nextDueDate    DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  tenant Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assignee     User?          @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  control      Control?       @relation(fields: [controlId], references: [id])
+  evidence     TaskEvidence[]
+
+  @@index([tenantId])
+  @@index([assigneeId])
+  @@index([sourceModule, sourceId])
+  @@index([status])
+  @@index([dueDate])
+}
+
+model TaskEvidence {
+  id             String         @id @default(cuid())
+  taskId         String
+  tenantId String
+  title          String
+  description    String?
+  fileUrl        String?
+  sourceType     String
+  sourceId       String?
+  status         EvidenceStatus @default(draft)
+  submittedById  String
+  approvedById   String?
+  approvedAt     DateTime?
+  expiresAt      DateTime?
+  createdAt      DateTime       @default(now())
+
+  task         Task         @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  submittedBy  User         @relation("EvidenceSubmitter", fields: [submittedById], references: [id])
+  approvedBy   User?        @relation("EvidenceApprover", fields: [approvedById], references: [id])
+
+  @@index([tenantId])
+  @@index([taskId])
+}
+
+// --- tenant-context.prisma ---
+// ============================================================
+// Tenant Context — long-form Q&A captured from a tenant so AI features
+// (policy drafting, questionnaire answering, risk scoring, chat
+// assistant) can produce content that reads like the customer wrote it.
+//
+// Each row is a single fact about the tenant: company size, hosting
+// region, deployment process, data-handling commitment, etc. AI prompts
+// assemble the relevant subset by `category` rather than dumping the
+// full table — keeps token usage bounded.
+//
+// Was previously called `OrganizationContext`. The model was renamed
+// when the tenancy concept was made first-class; the product UI may
+// still call this "Organisation Context" — that is purely a label.
+//
+// Lifecycle additions (Phase 0 of the "ongoing AI context" plan):
+//   • `status` lifecycle so superseded facts stay queryable for
+//     history without polluting AI grounding.
+//   • `supersedesId` self-relation to chain "we used to say X; now Y."
+//   • `provenance` JSON to capture where a row came from (wizard,
+//     pasted text, chat turn, integration event).
+//   • `confirmedAt`/`confirmedBy` so AI-inferred rows can be promoted
+//     by a human accept and the audit trail records who.
+//
+// `TenantContextProposal` is a staging table written by the extraction
+// pipeline. AI features NEVER read from it — only the review UI does.
+// Promotion from proposal to active context happens transactionally on
+// user accept.
+// ============================================================
+
+enum TenantContextCategory {
+  company
+  tech_stack
+  processes
+  data_handling
+  risk_appetite
+  team
+}
+
+enum TenantContextSource {
+  onboarding
+  inferred
+  manual
+}
+
+/// Lifecycle for a TenantContext row.
+///   • `active`     — eligible for AI grounding.
+///   • `superseded` — replaced by a newer row; preserved for history.
+///   • `archived`   — manually retired by the user.
+enum TenantContextStatus {
+  active
+  superseded
+  archived
+}
+
+/// Lifecycle for an extraction-pipeline proposal awaiting user review.
+enum TenantContextProposalStatus {
+  pending
+  accepted
+  rejected
+}
+
+model TenantContext {
+  id           String                @id @default(cuid())
+  tenantId     String
+  category     TenantContextCategory
+  question     String
+  answer       String                @db.Text
+  source       TenantContextSource   @default(manual)
+  /// 0..1; AI-inferred answers carry a confidence; user-supplied = 1.
+  confidence   Float                 @default(1.0)
+  /// Lifecycle status. Only `active` rows are read by AI features.
+  status       TenantContextStatus   @default(active)
+  /// When this row replaced an older one, the old row's id. Builds the
+  /// history chain — the wizard can render "we used to be on us-east-1"
+  /// under each current answer.
+  supersedesId String?
+  supersedes   TenantContext?        @relation("TenantContextHistory", fields: [supersedesId], references: [id])
+  supersededBy TenantContext[]       @relation("TenantContextHistory")
+  /// Free-form provenance about where this row came from. Shape:
+  ///   { kind: "wizard"|"paste"|"chat"|"integration", ref?: string,
+  ///     proposalId?: string, conversationId?: string }
+  provenance   Json?
+  /// User confirmed an AI-inferred row is correct. NULL for rows that
+  /// didn't go through review (manual wizard answers default to
+  /// confirmed at creation time via the API).
+  confirmedAt  DateTime?
+  confirmedBy  String?
+  /// Bumped by AI features when this row is included in a prompt — lets
+  /// us prune stale facts from the wizard view ("you haven't reviewed
+  /// these in 6 months").
+  lastUsedAt   DateTime?
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, category, status])
+  @@index([lastUsedAt])
+}
+
+/// Staging row for an AI-extracted context proposal. Written by the
+/// extraction pipeline (paste-to-extract, chat turns, future integrations)
+/// and reviewed via /settings/ai-context. Acceptance creates a
+/// `TenantContext` row in the same transaction; rejection just updates
+/// `status`. Never read by AI feature handlers.
+///
+/// `paste` covers the textarea-based extraction; `chat` covers passive
+/// capture during a /chat turn; future kinds (e.g. integration sync)
+/// plug in here.
+enum TenantContextProposalKind {
+  paste
+  chat
+  inferred
+}
+
+model TenantContextProposal {
+  id                  String                     @id @default(cuid())
+  tenantId            String
+  kind                TenantContextProposalKind  @default(paste)
+  category            TenantContextCategory
+  question            String
+  answer              String                     @db.Text
+  /// 0..1 confidence the extractor assigned to this proposal.
+  confidence          Float                      @default(0.5)
+  /// One-sentence rationale shown in the review card so reviewers
+  /// understand WHY the model proposed this.
+  rationale           String?                    @db.Text
+  /// Same shape as TenantContext.provenance.
+  provenance          Json?
+  /// When the model believes this proposal updates an existing row
+  /// (e.g. "we moved AWS regions"), the id of that row. On accept,
+  /// the linked row is marked `superseded` and the new row links
+  /// back via `supersedesId`.
+  supersedesContextId String?
+  status              TenantContextProposalStatus @default(pending)
+  decidedAt           DateTime?
+  decidedBy           String?
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, createdAt])
+}
+
+// --- tenant.prisma ---
+// A `Tenant` represents a paying customer organisation. Was previously
+// called `Organization`; the rename moved every domain table's foreign
+// key column from `organizationId` to `tenantId` so the multi-tenant
+// concept is consistent across the whole stack. The product UI may
+// still surface the word "Organisation" — that is purely a label.
+
+enum TenantPlan {
+  free
+  starter
+  professional
+  enterprise
+}
+
+enum TenantStatus {
+  active
+  suspended
+  cancelled
+}
+
+model Tenant {
+  id        String       @id @default(cuid())
+  name      String
+  slug      String       @unique
+  plan      TenantPlan   @default(free)
+  status    TenantStatus @default(active)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  settings                      TenantSettings?
+  memberships                   Membership[]
+  frameworkInstances            FrameworkInstance[]
+  controls                      Control[]
+  policies                      Policy[]
+  policyAcks                    PolicyAcknowledgment[]
+  risks                         Risk[]
+  riskAssessments               RiskAssessment[]
+  riskTreatments                RiskTreatment[]
+  riskRegisterConfig            RiskRegisterConfig?
+  riskMatrixChanges             RiskMatrixChange[]
+  vendors                       Vendor[]
+  vendorAssessments             VendorAssessment[]
+  vendorResearches              VendorResearch[]
+  vendorDocuments               VendorDocument[]
+  assets                        Asset[]
+  incidents                     Incident[]
+  incidentTimelines             IncidentTimeline[]
+  audits                        Audit[]
+  auditDocuments                AuditDocument[]
+  auditFindings                 AuditFinding[]
+  bcps                          BusinessContinuityPlan[]
+  bias                          BusinessImpactAnalysis[]
+  bcpExercises                  BCPExercise[]
+  aiSystems                     AISystem[]
+  aiRiskAssessments             AIRiskAssessment[]
+  aiImpactAssessments           AIImpactAssessment[]
+  aiIncidents                   AIIncident[]
+  tasks                         Task[]
+  taskEvidence                  TaskEvidence[]
+  trainingPrograms              TrainingProgram[]
+  trainingCompletions           TrainingCompletion[]
+  trainingQuizzes               TrainingQuiz[]
+  quizAttempts                  QuizAttempt[]
+  aiProviderConfigs             AIProviderConfig[]
+  aiFeatureConfigs              AIFeatureConfig[]
+  trustCenterConfig             TrustCenterConfig?
+  trustResources                TrustResource[]
+  accessRequests                TrustCenterAccessRequest[]
+  trustCenterSnapshots          TrustCenterSnapshot[]
+  trustCenterEvents             TrustCenterEvent[]
+  controlRequirementAssignments ControlRequirementAssignment[]
+  evidence                      Evidence[]
+  policyControls                PolicyControl[]
+  policyComments                PolicyComment[]
+  vulnerabilities               Vulnerability[]
+  processingActivities          ProcessingActivity[]
+  dpias                         DPIA[]
+  dataBreaches                  DataBreach[]
+  dsarRequests                  DSARRequest[]
+  contextEntries                TenantContext[]
+  contextProposals              TenantContextProposal[]
+  conversations                 Conversation[]
+  conversationMessages          Message[]
+  questionnaires                Questionnaire[]
+  questions                     Question[]
+  answers                       Answer[]
+  questionnaireImportJobs       QuestionnaireImportJob[]
+}
+
+model TenantSettings {
+  id          String   @id @default(cuid())
+  tenantId    String   @unique
+  companySize String?
+  industry    String?
+  country     String?
+  timezone    String?
+  logoUrl     String?
+  defaults    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+}
+
+// --- training.prisma ---
+enum TrainingType {
+  security_awareness
+  compliance
+  phishing_simulation
+  custom
+}
+
+enum TrainingFrequency {
+  once
+  monthly
+  quarterly
+  annually
+}
+
+enum TrainingCompletionStatus {
+  assigned
+  in_progress
+  completed
+  overdue
+}
+
+enum QuizQuestionType {
+  multiple_choice
+  true_false
+  multi_select
+}
+
+model TrainingProgram {
+  id             String            @id @default(cuid())
+  tenantId String
+  title          String
+  description    String?
+  type           TrainingType
+  frequency      TrainingFrequency @default(annually)
+  isRequired     Boolean           @default(true)
+  content        String?
+  dueDate        DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  tenant Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  completions  TrainingCompletion[]
+  quizzes      TrainingQuiz[]
+
+  @@index([tenantId])
+}
+
+model TrainingCompletion {
+  id                String                   @id @default(cuid())
+  trainingProgramId String
+  userId            String
+  tenantId    String
+  status            TrainingCompletionStatus @default(assigned)
+  score             Int?
+  completedAt       DateTime?
+  assignedAt        DateTime                 @default(now())
+  createdAt         DateTime                 @default(now())
+
+  trainingProgram TrainingProgram @relation(fields: [trainingProgramId], references: [id], onDelete: Cascade)
+  user            User            @relation(fields: [userId], references: [id])
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([trainingProgramId])
+}
+
+model TrainingQuiz {
+  id                String   @id @default(cuid())
+  trainingProgramId String
+  tenantId    String
+  title             String
+  description       String?
+  passingScore      Int      @default(70)
+  timeLimitMinutes  Int?
+  shuffleQuestions  Boolean  @default(false)
+  isPublished       Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  trainingProgram TrainingProgram @relation(fields: [trainingProgramId], references: [id], onDelete: Cascade)
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  questions       QuizQuestion[]
+  attempts        QuizAttempt[]
+
+  @@index([tenantId])
+  @@index([trainingProgramId])
+}
+
+model QuizQuestion {
+  id        String           @id @default(cuid())
+  quizId    String
+  text      String
+  type      QuizQuestionType @default(multiple_choice)
+  sortOrder Int              @default(0)
+  points    Int              @default(1)
+  createdAt DateTime         @default(now())
+
+  quiz    TrainingQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  options QuizOption[]
+  answers QuizAnswer[]
+
+  @@index([quizId])
+}
+
+model QuizOption {
+  id         String  @id @default(cuid())
+  questionId String
+  text       String
+  isCorrect  Boolean @default(false)
+  sortOrder  Int     @default(0)
+
+  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answers  QuizAnswer[]
+
+  @@index([questionId])
+}
+
+model QuizAttempt {
+  id             String    @id @default(cuid())
+  quizId         String
+  userId         String
+  tenantId String
+  score          Int?
+  totalPoints    Int?
+  percentage     Int?
+  passed         Boolean?
+  startedAt      DateTime  @default(now())
+  completedAt    DateTime?
+
+  quiz         TrainingQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  answers      QuizAnswer[]
+
+  @@index([tenantId])
+  @@index([quizId])
+  @@index([userId])
+}
+
+model QuizAnswer {
+  id         String  @id @default(cuid())
+  attemptId  String
+  questionId String
+  optionId   String?
+  isCorrect  Boolean @default(false)
+
+  attempt  QuizAttempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  option   QuizOption?  @relation(fields: [optionId], references: [id])
+
+  @@index([attemptId])
+}
+
+// --- trust-center.prisma ---
+enum TrustResourceType {
+  certificate
+  report
+  policy
+  attestation
+}
+
+enum TrustResourceGating {
+  public
+  contact_required
+  nda_required
+}
+
+enum AccessRequestStatus {
+  pending
+  approved
+  rejected
+}
+
+// Phase 2 (AI accelerators): controls how the public payload is built.
+// - `live`  — query the latest data on every (cached) request.
+// - `snapshot` — serve the most recent admin-published TrustCenterSnapshot.
+//   Useful for orgs that want a stable view between formal updates.
+enum TrustCenterPublicMode {
+  live
+  snapshot
+}
+
+model TrustCenterConfig {
+  id             String  @id @default(cuid())
+  tenantId String  @unique
+  isEnabled      Boolean @default(false)
+  customDomain   String?
+  brandColor     String?
+  logoUrl        String?
+  description    String?
+  faqs           Json?
+  publicMode     TrustCenterPublicMode @default(live)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  tenant Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  resources    TrustResource[]
+  snapshots    TrustCenterSnapshot[]
+  events       TrustCenterEvent[]
+
+  @@index([tenantId])
+}
+
+// A frozen copy of the public payload, captured by an admin via
+// "Publish snapshot". Only the most recent row per org is read by the
+// public surface when publicMode = 'snapshot'.
+model TrustCenterSnapshot {
+  id                  String   @id @default(cuid())
+  tenantId      String
+  trustCenterConfigId String
+  payload             Json
+  publishedById       String
+  createdAt           DateTime @default(now())
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  trustCenterConfig TrustCenterConfig @relation(fields: [trustCenterConfigId], references: [id], onDelete: Cascade)
+  publishedBy       User              @relation("TrustCenterSnapshotPublisher", fields: [publishedById], references: [id])
+
+  @@index([tenantId, createdAt])
+  @@index([trustCenterConfigId])
+}
+
+// Lightweight visitor audit so admins can see what each prospect viewed.
+// Recorded by the public router on view + on resource interaction;
+// retained 90 days by a future cleanup job.
+enum TrustCenterEventType {
+  view
+  resource_view
+  resource_download
+  access_request
+}
+
+model TrustCenterEvent {
+  id                  String              @id @default(cuid())
+  tenantId      String
+  trustCenterConfigId String
+  type                TrustCenterEventType
+  resourceId          String?
+  visitorIp           String?
+  visitorUa           String?
+  visitorEmail        String?
+  metadata            Json?
+  createdAt           DateTime            @default(now())
+
+  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  trustCenterConfig TrustCenterConfig @relation(fields: [trustCenterConfigId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, createdAt])
+  @@index([trustCenterConfigId, createdAt])
+  @@index([type, createdAt])
+}
+
+model TrustResource {
+  id                  String               @id @default(cuid())
+  tenantId      String
+  trustCenterConfigId String
+  title               String
+  description         String?
+  frameworkType       String?
+  resourceType        TrustResourceType
+  fileUrl             String
+  isPublic            Boolean              @default(false)
+  accessGating        TrustResourceGating  @default(public)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+
+  tenant      Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  trustCenterConfig TrustCenterConfig             @relation(fields: [trustCenterConfigId], references: [id], onDelete: Cascade)
+  accessRequests    TrustCenterAccessRequest[]
+
+  @@index([tenantId])
+  @@index([trustCenterConfigId])
+}
+
+model TrustCenterAccessRequest {
+  id               String              @id @default(cuid())
+  tenantId   String
+  resourceId       String
+  requesterName    String
+  requesterEmail   String
+  requesterCompany String
+  requesterTitle   String?
+  reason           String?
+  status           AccessRequestStatus @default(pending)
+  ndaAccepted      Boolean             @default(false)
+  approvedById     String?
+  approvedAt       DateTime?
+  rejectedReason   String?
+  accessToken      String              @unique @default(cuid())
+  expiresAt        DateTime?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  tenant Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  resource     TrustResource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  approvedBy   User?         @relation("AccessRequestApprover", fields: [approvedById], references: [id])
+
+  @@index([tenantId])
+  @@index([accessToken])
+  @@index([requesterEmail, tenantId])
+  @@index([resourceId])
+}
+
+// --- user.prisma ---
+enum MembershipRole {
+  owner
+  admin
+  compliance_manager
+  auditor
+  viewer
+  integration_admin
+  // Data Protection Officer (GDPR Art. 37). Privacy-program-scoped role with
+  // read access across the platform and write access to privacy resources
+  // (RoPA, DPIAs, data-breach register, DSARs).
+  dpo
+}
+
+enum MembershipStatus {
+  active
+  invited
+  suspended
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String
+  // Password hash is only populated when the active auth provider is a
+  // credential provider (e.g. local). It is null for users that authenticate
+  // via redirect providers (Cognito, OIDC, SAML, ...).
+  passwordHash  String?
+  // Identifier of the auth provider that owns this account. Must match the
+  // `id` returned by the provider plugin (e.g. "local", "cognito", or any
+  // third-party plugin id). Null only for users that have not yet completed
+  // first login (e.g. invited users on a redirect provider).
+  authProvider  String?
+  // Stable, opaque user identifier returned by the auth provider:
+  //   - local    : the user's email address
+  //   - cognito  : the user pool's `sub` claim
+  //   - <plugin> : provider-specific stable id
+  // Together with `authProvider`, this uniquely identifies the account.
+  externalId    String?
+  avatarUrl     String?
+  emailVerified Boolean   @default(false)
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@unique([authProvider, externalId])
+  @@index([authProvider])
+
+  memberships          Membership[]
+  ownedControls        Control[]        @relation("ControlOwner")
+  ownedPolicies        Policy[]         @relation("PolicyOwner")
+  createdPolicyVersions PolicyVersion[] @relation("PolicyVersionCreator")
+  approvedPolicyVersions PolicyVersion[] @relation("PolicyVersionApprover")
+  policyAcknowledgments PolicyAcknowledgment[]
+  ownedRisks           Risk[]           @relation("RiskOwner")
+  actionOwnedRisks     Risk[]           @relation("RiskActionOwner")
+  riskAssessments      RiskAssessment[] @relation("RiskAssessor")
+  riskTreatments       RiskTreatment[]  @relation("RiskTreatmentResponsible")
+  riskMatrixChanges    RiskMatrixChange[] @relation("RiskMatrixChangeAuthor")
+  vendorAssessments    VendorAssessment[] @relation("VendorAssessor")
+  vendorDocuments      VendorDocument[]    @relation("VendorDocUploader")
+  ownedAssets          Asset[]          @relation("AssetOwner")
+  deletedAssets        Asset[]          @relation("AssetDeletedBy")
+  reportedIncidents    Incident[]       @relation("IncidentReporter")
+  assignedIncidents    Incident[]       @relation("IncidentAssignee")
+  incidentTimelineActions IncidentTimeline[]
+  assignedAuditFindings AuditFinding[]  @relation("AuditFindingAssignee")
+  uploadedAuditDocuments AuditDocument[] @relation("AuditDocumentUploader")
+  ownedBcps            BusinessContinuityPlan[] @relation("BCPOwner")
+  ownedBias            BusinessImpactAnalysis[] @relation("BIAOwner")
+  facilitatedBcpExercises BCPExercise[]         @relation("BCPExerciseFacilitator")
+  ownedAiSystems       AISystem[]       @relation("AISystemOwner")
+  aiRiskAssessments    AIRiskAssessment[] @relation("AIRiskAssessor")
+  aiRiskApprovals      AIRiskAssessment[] @relation("AIRiskApprover")
+  aiImpactAssessments  AIImpactAssessment[] @relation("AIImpactAssessor")
+  aiImpactApprovals    AIImpactAssessment[] @relation("AIImpactApprover")
+  reportedAiIncidents  AIIncident[]     @relation("AIIncidentReporter")
+  assignedAiIncidents  AIIncident[]     @relation("AIIncidentAssignee")
+  assignedTasks        Task[]           @relation("TaskAssignee")
+  submittedEvidence    TaskEvidence[]   @relation("EvidenceSubmitter")
+  approvedEvidence     TaskEvidence[]   @relation("EvidenceApprover")
+  submittedControlEvidence Evidence[]   @relation("EvidenceSubmittedBy")
+  reviewedControlEvidence  Evidence[]   @relation("EvidenceReviewedBy")
+  trainingCompletions  TrainingCompletion[]
+  quizAttempts         QuizAttempt[]
+  policyComments       PolicyComment[] @relation("PolicyCommentAuthor")
+  resolvedComments     PolicyComment[] @relation("PolicyCommentResolver")
+  approvedAccessRequests TrustCenterAccessRequest[] @relation("AccessRequestApprover")
+  publishedTrustSnapshots TrustCenterSnapshot[]    @relation("TrustCenterSnapshotPublisher")
+  reportedVulnerabilities Vulnerability[] @relation("VulnReporter")
+  assignedVulnerabilities Vulnerability[] @relation("VulnAssignee")
+  ownedProcessingActivities ProcessingActivity[] @relation("ProcessingActivityOwner")
+  dpiaAssessments       DPIA[]               @relation("DPIAAssessor")
+  dpiaApprovals         DPIA[]               @relation("DPIAApprover")
+  reportedDataBreaches  DataBreach[]         @relation("DataBreachReporter")
+  assignedDataBreaches  DataBreach[]         @relation("DataBreachAssignee")
+  assignedDsarRequests  DSARRequest[]        @relation("DSARAssignee")
+  importedQuestionnaires Questionnaire[]     @relation("QuestionnaireImporter")
+  reviewedAnswers        Answer[]            @relation("AnswerReviewer")
+  questionnaireImportJobs QuestionnaireImportJob[] @relation("QuestionnaireImportJobCreator")
+}
+
+model Membership {
+  id          String           @id @default(cuid())
+  userId      String
+  tenantId    String
+  role        MembershipRole   @default(viewer)
+  permissions String[]
+  status      MembershipStatus @default(invited)
+  invitedAt   DateTime?
+  joinedAt    DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tenantId])
+  @@index([tenantId])
+  @@index([userId])
+}
+
+// --- vendor.prisma ---
+enum VendorRiskTier {
+  critical
+  high
+  medium
+  low
+}
+
+enum VendorStatus {
+  active
+  under_review
+  approved
+  rejected
+  offboarded
+}
+
+enum ResearchFrequency {
+  weekly
+  biweekly
+  monthly
+  yearly
+  none
+}
+
+enum ResearchStatus {
+  pending
+  in_progress
+  completed
+  failed
+}
+
+enum DpaStatus {
+  not_required
+  not_started
+  requested
+  received
+  approved
+  expired
+}
+
+// Global vendor catalog shared across all tenancies to avoid duplicate research
+model KnownVendor {
+  id               String    @id @default(cuid())
+  name             String
+  normalizedName   String    @unique
+  website          String?
+  description      String?
+  category         String?
+  logoUrl          String?
+  headquarters     String?
+  employeeRange    String?
+  foundedYear      Int?
+  industries       String[]
+  certifications   String[]
+  lastResearchedAt DateTime?
+  researchData     Json?
+  riskSummary      String?   @db.Text
+  overallScore     Int?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  vendors    Vendor[]
+  researches VendorResearch[]
+
+  @@index([normalizedName])
+}
+
+model Vendor {
+  id                 String            @id @default(cuid())
+  tenantId     String
+  name               String
+  description        String?
+  website            String?
+  category           String?
+  riskTier           VendorRiskTier    @default(medium)
+  status             VendorStatus      @default(active)
+  dataProcessing      Boolean           @default(false)
+  isSubprocessor      Boolean           @default(false)
+  subprocessorPurpose String?
+  dataTypesShared     String[]
+  dataLocations       String[]
+  dpaStatus           DpaStatus         @default(not_required)
+  dpaExpiresAt        DateTime?
+  contractStartDate   DateTime?
+  contractEndDate     DateTime?
+  knownVendorId       String?
+  researchFrequency   ResearchFrequency @default(none)
+  lastResearchedAt   DateTime?
+  nextResearchAt     DateTime?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  tenant Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  knownVendor  KnownVendor?       @relation(fields: [knownVendorId], references: [id])
+  assessments  VendorAssessment[]
+  contacts     VendorContact[]
+  researches   VendorResearch[]
+  documents    VendorDocument[]
+  // M:M link to GDPR Processing Activities for which this vendor processes
+  // personal data on the controller's behalf (Art. 28 sub-processor view).
+  processingActivities ProcessingActivity[] @relation("VendorProcessingActivities")
+  questionnaires       Questionnaire[]
+
+  @@index([tenantId])
+  @@index([knownVendorId])
+  @@index([nextResearchAt])
+}
+
+model VendorAssessment {
+  id             String   @id @default(cuid())
+  vendorId       String
+  tenantId String
+  assessedById   String
+  score          Int?
+  findings       String?
+  nextReviewDate DateTime?
+  researchId     String?
+  createdAt      DateTime @default(now())
+
+  vendor       Vendor          @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  tenant Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assessedBy   User            @relation("VendorAssessor", fields: [assessedById], references: [id])
+  research     VendorResearch? @relation(fields: [researchId], references: [id])
+
+  @@index([tenantId])
+  @@index([vendorId])
+  @@index([researchId])
+}
+
+model VendorResearch {
+  id              String         @id @default(cuid())
+  vendorId        String?
+  knownVendorId   String?
+  tenantId  String?
+  status          ResearchStatus @default(pending)
+  researchType    String         @default("deep_research")
+
+  overallScore    Int?
+  securityScore   Int?
+  complianceScore Int?
+  reputationScore Int?
+  financialScore  Int?
+
+  findings        Json?
+  summary         String?        @db.Text
+  recommendations String?        @db.Text
+  dataBreaches    Json?
+  certifications  Json?
+  rawData         Json?
+
+  startedAt       DateTime?
+  completedAt     DateTime?
+  errorMessage    String?
+
+  createdAt       DateTime       @default(now())
+
+  vendor       Vendor?          @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  knownVendor  KnownVendor?     @relation(fields: [knownVendorId], references: [id])
+  tenant Tenant?    @relation(fields: [tenantId], references: [id])
+  assessments  VendorAssessment[]
+
+  @@index([vendorId])
+  @@index([knownVendorId])
+  @@index([tenantId])
+  @@index([status])
+}
+
+model VendorContact {
+  id        String  @id @default(cuid())
+  vendorId  String
+  name      String
+  email     String?
+  role      String?
+  phone     String?
+  isPrimary Boolean @default(false)
+
+  vendor Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@index([vendorId])
+}
+
+enum VendorDocumentType {
+  agreement
+  nda
+  sla
+  dpa
+  sow
+  msa
+  insurance_certificate
+  security_assessment
+  compliance_report
+  other
+}
+
+model VendorDocument {
+  id             String             @id @default(cuid())
+  vendorId       String
+  tenantId String
+  documentType   VendorDocumentType @default(other)
+  title          String
+  description    String?
+  fileKey        String
+  fileName       String
+  fileSize       Int
+  mimeType       String
+  expiresAt      DateTime?
+  uploadedById   String
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  vendor       Vendor       @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  uploadedBy   User         @relation("VendorDocUploader", fields: [uploadedById], references: [id])
+
+  @@index([vendorId])
+  @@index([tenantId])
+}
+
+// --- vulnerability.prisma ---
+enum VulnerabilitySeverity {
+  critical
+  high
+  medium
+  low
+  informational
+}
+
+enum VulnerabilityStatus {
+  open
+  confirmed
+  in_progress
+  remediated
+  accepted
+  false_positive
+}
+
+enum VulnerabilitySource {
+  scan
+  pentest
+  bug_bounty
+  manual
+  vendor_advisory
+}
+
+model Vulnerability {
+  id                 String                @id @default(cuid())
+  tenantId     String
+  title              String
+  description        String?
+  severity           VulnerabilitySeverity
+  status             VulnerabilityStatus   @default(open)
+  source             VulnerabilitySource   @default(manual)
+  cvssScore          Float?
+  cveId              String?
+  cweId              String?
+  affectedComponent  String?
+  productionImpact   Boolean               @default(false)
+  reportedById       String
+  assignedToId       String?
+  detectedAt         DateTime?
+  remediatedAt       DateTime?
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  reportedBy   User         @relation("VulnReporter", fields: [reportedById], references: [id])
+  assignedTo   User?        @relation("VulnAssignee", fields: [assignedToId], references: [id])
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, severity])
+}
+

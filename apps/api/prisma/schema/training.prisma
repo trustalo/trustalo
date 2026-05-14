@@ -1,0 +1,152 @@
+enum TrainingType {
+  security_awareness
+  compliance
+  phishing_simulation
+  custom
+}
+
+enum TrainingFrequency {
+  once
+  monthly
+  quarterly
+  annually
+}
+
+enum TrainingCompletionStatus {
+  assigned
+  in_progress
+  completed
+  overdue
+}
+
+enum QuizQuestionType {
+  multiple_choice
+  true_false
+  multi_select
+}
+
+model TrainingProgram {
+  id             String            @id @default(cuid())
+  tenantId String
+  title          String
+  description    String?
+  type           TrainingType
+  frequency      TrainingFrequency @default(annually)
+  isRequired     Boolean           @default(true)
+  content        String?
+  dueDate        DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  tenant Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  completions  TrainingCompletion[]
+  quizzes      TrainingQuiz[]
+
+  @@index([tenantId])
+}
+
+model TrainingCompletion {
+  id                String                   @id @default(cuid())
+  trainingProgramId String
+  userId            String
+  tenantId    String
+  status            TrainingCompletionStatus @default(assigned)
+  score             Int?
+  completedAt       DateTime?
+  assignedAt        DateTime                 @default(now())
+  createdAt         DateTime                 @default(now())
+
+  trainingProgram TrainingProgram @relation(fields: [trainingProgramId], references: [id], onDelete: Cascade)
+  user            User            @relation(fields: [userId], references: [id])
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([trainingProgramId])
+}
+
+model TrainingQuiz {
+  id                String   @id @default(cuid())
+  trainingProgramId String
+  tenantId    String
+  title             String
+  description       String?
+  passingScore      Int      @default(70)
+  timeLimitMinutes  Int?
+  shuffleQuestions  Boolean  @default(false)
+  isPublished       Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  trainingProgram TrainingProgram @relation(fields: [trainingProgramId], references: [id], onDelete: Cascade)
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  questions       QuizQuestion[]
+  attempts        QuizAttempt[]
+
+  @@index([tenantId])
+  @@index([trainingProgramId])
+}
+
+model QuizQuestion {
+  id        String           @id @default(cuid())
+  quizId    String
+  text      String
+  type      QuizQuestionType @default(multiple_choice)
+  sortOrder Int              @default(0)
+  points    Int              @default(1)
+  createdAt DateTime         @default(now())
+
+  quiz    TrainingQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  options QuizOption[]
+  answers QuizAnswer[]
+
+  @@index([quizId])
+}
+
+model QuizOption {
+  id         String  @id @default(cuid())
+  questionId String
+  text       String
+  isCorrect  Boolean @default(false)
+  sortOrder  Int     @default(0)
+
+  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answers  QuizAnswer[]
+
+  @@index([questionId])
+}
+
+model QuizAttempt {
+  id             String    @id @default(cuid())
+  quizId         String
+  userId         String
+  tenantId String
+  score          Int?
+  totalPoints    Int?
+  percentage     Int?
+  passed         Boolean?
+  startedAt      DateTime  @default(now())
+  completedAt    DateTime?
+
+  quiz         TrainingQuiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id])
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  answers      QuizAnswer[]
+
+  @@index([tenantId])
+  @@index([quizId])
+  @@index([userId])
+}
+
+model QuizAnswer {
+  id         String  @id @default(cuid())
+  attemptId  String
+  questionId String
+  optionId   String?
+  isCorrect  Boolean @default(false)
+
+  attempt  QuizAttempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  option   QuizOption?  @relation(fields: [optionId], references: [id])
+
+  @@index([attemptId])
+}

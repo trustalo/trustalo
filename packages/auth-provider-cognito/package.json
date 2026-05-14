@@ -1,0 +1,20 @@
+{
+  "name": "@trustalo/auth-provider-cognito",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@trustalo/auth": "workspace:*",
+    "@aws-sdk/client-cognito-identity-provider": "^3.700.0",
+    "jose": "^5.9.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

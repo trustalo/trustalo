@@ -1,0 +1,216 @@
+enum VendorRiskTier {
+  critical
+  high
+  medium
+  low
+}
+
+enum VendorStatus {
+  active
+  under_review
+  approved
+  rejected
+  offboarded
+}
+
+enum ResearchFrequency {
+  weekly
+  biweekly
+  monthly
+  yearly
+  none
+}
+
+enum ResearchStatus {
+  pending
+  in_progress
+  completed
+  failed
+}
+
+enum DpaStatus {
+  not_required
+  not_started
+  requested
+  received
+  approved
+  expired
+}
+
+// Global vendor catalog shared across all tenancies to avoid duplicate research
+model KnownVendor {
+  id               String    @id @default(cuid())
+  name             String
+  normalizedName   String    @unique
+  website          String?
+  description      String?
+  category         String?
+  logoUrl          String?
+  headquarters     String?
+  employeeRange    String?
+  foundedYear      Int?
+  industries       String[]
+  certifications   String[]
+  lastResearchedAt DateTime?
+  researchData     Json?
+  riskSummary      String?   @db.Text
+  overallScore     Int?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  vendors    Vendor[]
+  researches VendorResearch[]
+
+  @@index([normalizedName])
+}
+
+model Vendor {
+  id                 String            @id @default(cuid())
+  tenantId     String
+  name               String
+  description        String?
+  website            String?
+  category           String?
+  riskTier           VendorRiskTier    @default(medium)
+  status             VendorStatus      @default(active)
+  dataProcessing      Boolean           @default(false)
+  isSubprocessor      Boolean           @default(false)
+  subprocessorPurpose String?
+  dataTypesShared     String[]
+  dataLocations       String[]
+  dpaStatus           DpaStatus         @default(not_required)
+  dpaExpiresAt        DateTime?
+  contractStartDate   DateTime?
+  contractEndDate     DateTime?
+  knownVendorId       String?
+  researchFrequency   ResearchFrequency @default(none)
+  lastResearchedAt   DateTime?
+  nextResearchAt     DateTime?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+
+  tenant Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  knownVendor  KnownVendor?       @relation(fields: [knownVendorId], references: [id])
+  assessments  VendorAssessment[]
+  contacts     VendorContact[]
+  researches   VendorResearch[]
+  documents    VendorDocument[]
+  // M:M link to GDPR Processing Activities for which this vendor processes
+  // personal data on the controller's behalf (Art. 28 sub-processor view).
+  processingActivities ProcessingActivity[] @relation("VendorProcessingActivities")
+  questionnaires       Questionnaire[]
+
+  @@index([tenantId])
+  @@index([knownVendorId])
+  @@index([nextResearchAt])
+}
+
+model VendorAssessment {
+  id             String   @id @default(cuid())
+  vendorId       String
+  tenantId String
+  assessedById   String
+  score          Int?
+  findings       String?
+  nextReviewDate DateTime?
+  researchId     String?
+  createdAt      DateTime @default(now())
+
+  vendor       Vendor          @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  tenant Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assessedBy   User            @relation("VendorAssessor", fields: [assessedById], references: [id])
+  research     VendorResearch? @relation(fields: [researchId], references: [id])
+
+  @@index([tenantId])
+  @@index([vendorId])
+  @@index([researchId])
+}
+
+model VendorResearch {
+  id              String         @id @default(cuid())
+  vendorId        String?
+  knownVendorId   String?
+  tenantId  String?
+  status          ResearchStatus @default(pending)
+  researchType    String         @default("deep_research")
+
+  overallScore    Int?
+  securityScore   Int?
+  complianceScore Int?
+  reputationScore Int?
+  financialScore  Int?
+
+  findings        Json?
+  summary         String?        @db.Text
+  recommendations String?        @db.Text
+  dataBreaches    Json?
+  certifications  Json?
+  rawData         Json?
+
+  startedAt       DateTime?
+  completedAt     DateTime?
+  errorMessage    String?
+
+  createdAt       DateTime       @default(now())
+
+  vendor       Vendor?          @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  knownVendor  KnownVendor?     @relation(fields: [knownVendorId], references: [id])
+  tenant Tenant?    @relation(fields: [tenantId], references: [id])
+  assessments  VendorAssessment[]
+
+  @@index([vendorId])
+  @@index([knownVendorId])
+  @@index([tenantId])
+  @@index([status])
+}
+
+model VendorContact {
+  id        String  @id @default(cuid())
+  vendorId  String
+  name      String
+  email     String?
+  role      String?
+  phone     String?
+  isPrimary Boolean @default(false)
+
+  vendor Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  @@index([vendorId])
+}
+
+enum VendorDocumentType {
+  agreement
+  nda
+  sla
+  dpa
+  sow
+  msa
+  insurance_certificate
+  security_assessment
+  compliance_report
+  other
+}
+
+model VendorDocument {
+  id             String             @id @default(cuid())
+  vendorId       String
+  tenantId String
+  documentType   VendorDocumentType @default(other)
+  title          String
+  description    String?
+  fileKey        String
+  fileName       String
+  fileSize       Int
+  mimeType       String
+  expiresAt      DateTime?
+  uploadedById   String
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  vendor       Vendor       @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  uploadedBy   User         @relation("VendorDocUploader", fields: [uploadedById], references: [id])
+
+  @@index([vendorId])
+  @@index([tenantId])
+}

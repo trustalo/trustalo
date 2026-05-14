@@ -1,0 +1,57 @@
+{
+  "name": "trustalo",
+  "private": true,
+  "packageManager": "bun@1.3.11",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --filter=@trustalo/api --filter=@trustalo/web",
+    "dev:all": "turbo run dev",
+    "dev:api": "turbo run dev --filter=@trustalo/api",
+    "dev:web": "turbo run dev --filter=@trustalo/web",
+    "dev:collector": "turbo run dev --filter=@trustalo/collector",
+    "build": "turbo run build",
+    "test": "turbo run test --filter=@trustalo/api --filter=@trustalo/auth --filter=@trustalo/ai",
+    "test:coverage": "bun run --filter @trustalo/api test:security:coverage && bun run --filter @trustalo/auth test:coverage && bun run --filter @trustalo/ai test:coverage",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write --cache .",
+    "format:check": "prettier --check --cache .",
+    "license:check": "bun scripts/license-check.ts",
+    "license:report": "bun scripts/license-check.ts --report",
+    "db:migrate:api": "bun run --filter @trustalo/api db:migrate",
+    "db:migrate:collector": "bun run --filter @trustalo/collector db:migrate",
+    "db:generate:api": "bun run --filter @trustalo/api db:generate",
+    "db:generate:collector": "bun run --filter @trustalo/collector db:generate",
+    "db:seed:api": "bun run --filter @trustalo/api db:seed",
+    "db:seed:demo:api": "bun run --filter @trustalo/api db:seed:demo",
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "dotenv": "^17.4.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.4",
+    "prettier": "3.8.3",
+    "turbo": "^2.9.12",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "//": "Pin transitive deps surfaced by `bun audit`. Each entry maps directly to a GHSA advisory; remove the entry once the upstream package (prisma, @aws-sdk/*, next, @tailwindcss/postcss) ships a release that no longer pulls the vulnerable version.",
+    "fast-xml-builder": ">=1.1.7",
+    "fast-xml-parser": ">=5.7.0",
+    "fast-uri": ">=3.1.2",
+    "@hono/node-server": "^1.19.13",
+    "postcss": ">=8.5.10",
+    "hono": ">=4.12.18"
+  },
+  "dependencies": {
+    "next": "^16.2.6"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}

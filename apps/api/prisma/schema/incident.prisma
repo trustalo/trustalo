@@ -1,0 +1,58 @@
+enum IncidentSeverity {
+  critical
+  high
+  medium
+  low
+  informational
+}
+
+enum IncidentStatus {
+  reported
+  investigating
+  contained
+  resolved
+  closed
+  lessons_learned
+}
+
+model Incident {
+  id                              String           @id @default(cuid())
+  tenantId                  String
+  title                           String
+  description                     String?
+  severity                        IncidentSeverity
+  status                          IncidentStatus   @default(reported)
+  reportedById                    String
+  assignedToId                    String?
+  detectedAt                      DateTime?
+  resolvedAt                      DateTime?
+  rootCause                       String?
+  regulatoryNotificationRequired  Boolean          @default(false)
+  regulatoryNotifiedAt            DateTime?
+  createdAt                       DateTime         @default(now())
+  updatedAt                       DateTime         @updatedAt
+
+  tenant Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  reportedBy   User               @relation("IncidentReporter", fields: [reportedById], references: [id])
+  assignedTo   User?              @relation("IncidentAssignee", fields: [assignedToId], references: [id])
+  timeline     IncidentTimeline[]
+
+  @@index([tenantId])
+}
+
+model IncidentTimeline {
+  id             String   @id @default(cuid())
+  incidentId     String
+  tenantId String
+  action         String
+  description    String?
+  performedById  String
+  createdAt      DateTime @default(now())
+
+  incident     Incident     @relation(fields: [incidentId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  performedBy  User         @relation(fields: [performedById], references: [id])
+
+  @@index([tenantId])
+  @@index([incidentId])
+}

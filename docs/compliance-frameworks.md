@@ -4,16 +4,16 @@ Trustalo supports eight compliance frameworks. Each framework is modeled as a se
 
 ## Framework Overview
 
-| Framework       | Focus                       | Controls/Requirements            | Standard Body |
-| --------------- | --------------------------- | -------------------------------- | ------------- |
-| ISO 27001:2022  | Information security (ISMS) | 93 controls                      | ISO/IEC       |
-| ISO 27017:2015  | Cloud security              | 37 + 7 cloud-specific            | ISO/IEC       |
-| ISO 27018:2019  | Cloud PII protection        | 25 PII controls                  | ISO/IEC       |
-| ISO 22301:2019  | Business continuity         | BIA, BCP, DRP                    | ISO           |
-| ISO 42001:2023  | AI management systems       | AI risk + governance             | ISO/IEC       |
-| SOC 2           | Trust service criteria      | 5 TSC categories                 | AICPA         |
-| Essential Eight | Cyber mitigation strategies | 8 strategies × 3 maturity levels | ACSC (AU)     |
-| NIST CSF 2.0    | Cybersecurity outcomes      | 106 subcategories × 4 tiers      | NIST (US)     |
+| Framework | Focus | Controls/Requirements | Standard Body | Status |
+| --- | --- | --- | --- | --- |
+| ISO 27001:2022 | Information security (ISMS) | 93 controls | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| ISO 27017:2015 | Cloud security | 37 + 7 cloud-specific | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| ISO 27018:2019 | Cloud PII protection | 25 PII controls | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| ISO 22301:2019 | Business continuity | BIA, BCP, DRP | ISO | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| ISO 42001:2023 | AI management systems | AI risk + governance | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| SOC 2 | Trust service criteria | 5 TSC categories | AICPA | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| Essential Eight | Cyber mitigation strategies | 8 strategies × 3 maturity levels | ACSC (AU) | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| NIST CSF 2.0 | Cybersecurity outcomes | 106 subcategories × 4 tiers | NIST (US) | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
 
 ---
 

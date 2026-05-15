@@ -27,23 +27,20 @@ just trust the box.
 
 ## Framework changes (skip if N/A)
 
-If this PR adds or modifies a compliance framework, walk every checkbox in
-[`.cursor/rules/adding-frameworks.mdc`](../.cursor/rules/adding-frameworks.mdc)
-and confirm each is addressed (or marked N/A with a reason).
+If this PR adds or modifies a compliance framework, review [`docs/compliance-frameworks.md`](../docs/compliance-frameworks.md) and confirm the change is consistent with the documented structure, status conventions, and mappings (or note any deviation in the Summary above).
 
-- [ ] Walked the framework checklist; all items addressed or N/A.
+- [ ] Reviewed the framework documentation; change is consistent or deviation is documented.
 
 ## AI feature changes (skip if N/A)
 
-If this PR adds or modifies any LLM-using code path, walk every checkbox in
-[`.cursor/rules/ai-features.mdc`](../.cursor/rules/ai-features.mdc).
+If this PR adds or modifies any LLM-using code path, review [`docs/ai-features.md`](../docs/ai-features.md) and confirm each item below.
 
 - [ ] Provider resolved exclusively via `resolveOrgAI` / `resolveAIProvider`
 - [ ] Every AI call audit-logged with `feature`, `provider`, `model`, `outcome`
 - [ ] Endpoint is rate-limited per tenant + feature
 - [ ] No record is mutated without explicit user acceptance (advisory only)
 - [ ] LLM responses parsed via Zod schema (no raw `JSON.parse`)
-- [ ] AI features table in `ai-features.mdc` updated if a new feature was added
+- [ ] AI features table in `docs/ai-features.md` updated if a new feature was added
 
 ## Required attestations
 

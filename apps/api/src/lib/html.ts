@@ -1,11 +1,5 @@
 import DOMPurify from "isomorphic-dompurify";
 
-export function sanitizeHtml(input: string): string {
-  return DOMPurify.sanitize(input, {
-    USE_PROFILES: { html: true },
-  });
-}
-
 /**
  * Strip every HTML tag and return only the text content. Built on
  * DOMPurify so we use a real HTML parser instead of regex (regex-based
@@ -14,7 +8,8 @@ export function sanitizeHtml(input: string): string {
  * smuggle `<sty<style>le>` past a single regex pass).
  *
  * Output is a single line of whitespace-collapsed text, suitable for
- * driving a textual diff or feeding into a length budget.
+ * length budgets and AI prompt construction (which is the only caller
+ * today).
  */
 export function stripHtml(input: string): string {
   const text = DOMPurify.sanitize(input, {

@@ -299,13 +299,35 @@ function extractDocxCellText(cellXml: string): string {
   return out.join(" ").replace(/\s+/g, " ").trim();
 }
 
+/**
+ * Single-pass XML entity decoder. The previous sequential `.replace()`
+ * chain double-decoded inputs like `&amp;lt;` (first pass `&amp;`→`&`,
+ * second pass `&lt;`→`<`, producing the literal `<` from a value that
+ * the producer escaped to mean the literal text "&lt;"). CodeQL flagged
+ * this as `js/double-escaping`. A single regex with a callback resolves
+ * each entity exactly once. Numeric entities (`&#60;`, `&#x3c;`) are
+ * supported too, which the chain version silently ignored.
+ */
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  apos: "'",
+};
+
 function decodeXmlEntities(s: string): string {
-  return s
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&apos;/g, "'");
+  return s.replace(/&(amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);/g, (match, entity: string) => {
+    if (entity.startsWith("#x")) {
+      const code = Number.parseInt(entity.slice(2), 16);
+      return Number.isFinite(code) ? String.fromCodePoint(code) : match;
+    }
+    if (entity.startsWith("#")) {
+      const code = Number.parseInt(entity.slice(1), 10);
+      return Number.isFinite(code) ? String.fromCodePoint(code) : match;
+    }
+    return NAMED_ENTITIES[entity] ?? match;
+  });
 }
 
 // ─── Shared: matrix → headers + ParsedRow[] (with header-row detection) ───

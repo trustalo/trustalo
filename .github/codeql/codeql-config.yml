@@ -1,0 +1,31 @@
+# CodeQL configuration for Trustalo.
+#
+# Scope-excludes paths that are intentionally outside the security
+# perimeter:
+#   * Prisma seed scripts log a hard-coded DEMO_PASSWORD constant for
+#     local-dev quick-start. Those logs trip `js/clear-text-logging`
+#     even though the literal is a documented public dev fixture, not a
+#     credential. The script is never bundled into a deployed image.
+#   * Generated Prisma client code (`apps/*/generated/`) is fully
+#     auto-generated from `schema.prisma`; flagging it would force us
+#     to amend code that gets regenerated on every `db:generate`.
+#   * Test fixtures sometimes use deliberately-bad inputs (long inputs
+#     for ReDoS tests, plaintext "passwords" for round-trip checks).
+#     We scan production code instead.
+#
+# Reviewer note: keep this list short. Each entry is a security
+# tradeoff; document why before adding more.
+
+name: "Trustalo CodeQL config"
+
+queries:
+  - uses: security-extended
+
+paths-ignore:
+  - "**/prisma/seed-demo.ts"
+  - "**/prisma/seed.ts"
+  - "**/generated/**"
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"

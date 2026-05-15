@@ -266,7 +266,12 @@ function buildProvider(config: CognitoProviderConfig): AuthProvider {
 // ──────────────────────────────────────────────────────────────────────────
 
 function normalizeDomain(domain: string): string {
-  const trimmed = domain.replace(/\/+$/, "");
+  // Hand-rolled trailing-slash trim instead of `/\/+$/` because the
+  // unbounded `+` near `$` is flagged by CodeQL's
+  // `js/polynomial-redos` query for adversarial trailing-slash input.
+  let end = domain.length;
+  while (end > 0 && domain.charCodeAt(end - 1) === 0x2f /* "/" */) end--;
+  const trimmed = domain.slice(0, end);
   if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) return trimmed;
   return `https://${trimmed}`;
 }

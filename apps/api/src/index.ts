@@ -7,6 +7,8 @@ import { prisma } from "./db/prisma.js";
 import { requestLogger } from "./middleware/request-logger.js";
 import { errorHandler } from "./middleware/error-handler.js";
 import { authenticate } from "./middleware/authenticate.js";
+import { globalRateLimiter } from "./middleware/rate-limit.js";
+import { csrfProtection } from "./middleware/csrf.js";
 import { frameworksRouter } from "./modules/frameworks/router.js";
 import { authRouter } from "./modules/auth/router.js";
 import { organizationsRouter } from "./modules/organizations/router.js";
@@ -58,6 +60,14 @@ app.use(
     },
   }),
 );
+// Baseline rate limit for every route (auth router still adds a stricter
+// per-IP login limit on top). Mounted before the request logger so a
+// flooded IP doesn't fill the log file.
+app.use(globalRateLimiter);
+// CSRF protection for cookie-authenticated, state-changing requests.
+// No-ops for safe methods, Bearer-token requests, and `/internal/*` /
+// `/health` (see middleware/csrf.ts for the full rationale).
+app.use(csrfProtection);
 app.use(requestLogger);
 
 app.get("/health", (_req, res) => {

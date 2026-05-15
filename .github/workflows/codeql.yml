@@ -40,9 +40,11 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          # `security-extended` enables more checks than the default
-          # `security-and-quality` set; tune down if false positives spike.
-          queries: security-extended
+          # Per-repo config carries the `security-extended` query pack
+          # plus our `paths-ignore` list (Prisma seed scripts, generated
+          # client code, test fixtures). See `.github/codeql/codeql-config.yml`
+          # for the rationale behind each excluded path.
+          config-file: ./.github/codeql/codeql-config.yml
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3

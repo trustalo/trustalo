@@ -162,7 +162,11 @@ function validateConfig(config: KeycloakProviderConfig): void {
 }
 
 function buildProvider(config: KeycloakProviderConfig): AuthProvider {
-  const baseUrl = config.baseUrl.replace(/\/+$/, "");
+  // Hand-rolled trailing-slash trim; see `auth-provider-cognito` for
+  // the `js/polynomial-redos` rationale.
+  let baseEnd = config.baseUrl.length;
+  while (baseEnd > 0 && config.baseUrl.charCodeAt(baseEnd - 1) === 0x2f /* "/" */) baseEnd--;
+  const baseUrl = config.baseUrl.slice(0, baseEnd);
   const realmUrl = `${baseUrl}/realms/${encodeURIComponent(config.realm)}`;
   const expectedIssuer = realmUrl;
   const scopes = config.scopes ?? DEFAULT_SCOPES;

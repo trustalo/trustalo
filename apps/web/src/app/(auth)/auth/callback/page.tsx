@@ -14,13 +14,30 @@ export default function AuthCallbackPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Whitelist the OAuth/OIDC callback parameters we forward to the
+    // API. Anything else from window.location.search is dropped so an
+    // attacker who controls the URL can't poison the `all` object with
+    // arbitrary keys (CodeQL `js/remote-property-injection`).
+    const ALLOWED_CALLBACK_PARAMS = [
+      "code",
+      "state",
+      "error",
+      "error_description",
+      "error_uri",
+      "session_state",
+      "iss",
+      "scope",
+      "id_token",
+      "access_token",
+      "expires_in",
+      "token_type",
+    ] as const;
     const params = new URLSearchParams(window.location.search);
-    const all: Record<string, string> = {};
-    params.forEach((value, key) => {
-      // Skip our own redirectUri echoes; the API rebuilds redirect_uri from
-      // the explicit param we pass.
-      if (key !== "redirectUri") all[key] = value;
-    });
+    const all: Record<string, string> = Object.create(null);
+    for (const key of ALLOWED_CALLBACK_PARAMS) {
+      const value = params.get(key);
+      if (value !== null) all[key] = value;
+    }
 
     if (all.error) {
       setError(`${all.error}: ${all.error_description ?? "no description"}`);

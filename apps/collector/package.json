@@ -41,7 +41,7 @@
     "openai": "^4.77.0",
     "pg": "^8.13.0",
     "prisma": "^7.0.0",
-    "zod": "latest"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "typescript": "^5.8.0",

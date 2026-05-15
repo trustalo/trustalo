@@ -5,6 +5,8 @@ import helmet from "helmet";
 import { authenticate, extractTenantContext } from "@trustalo/auth";
 import { prisma } from "./db/prisma.js";
 import { errorHandler } from "./middleware/error-handler.js";
+import { globalRateLimiter } from "./middleware/rate-limit.js";
+import { csrfProtection } from "./middleware/csrf.js";
 import { providersRouter } from "./routes/providers.js";
 import { connectionsRouter } from "./routes/connections.js";
 import { jobsRouter } from "./routes/jobs.js";
@@ -41,6 +43,11 @@ app.use(
     },
   }),
 );
+// Baseline rate limit + CSRF protection. CSRF is no-op'd for safe
+// methods, Bearer-token requests, and the public catalog/health/research
+// paths (see middleware/csrf.ts for the full rationale).
+app.use(globalRateLimiter);
+app.use(csrfProtection);
 
 app.get("/health", (_req, res) => {
   res.json({

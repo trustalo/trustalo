@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import { connectMongo, disconnectMongo } from "./db/mongoose.js";
 import { prisma } from "./db/prisma.js";
@@ -49,7 +48,6 @@ const PORT = parseInt(process.env.API_PORT || "4000", 10);
 
 app.use(helmet());
 app.use(cors(getCorsOptions()));
-app.use(cookieParser());
 // Capture raw body so HMAC-signed service requests (internal cross-service
 // traffic) can recompute the signature server-side.
 app.use(

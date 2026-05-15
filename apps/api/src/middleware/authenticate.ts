@@ -3,4 +3,4 @@ import { getJwtSecret } from "../config/security.js";
 
 const JWT_SECRET = getJwtSecret();
 
-export const authenticate = createAuthMiddleware(JWT_SECRET);
+export const authenticate = createAuthMiddleware(JWT_SECRET, { allowCookie: false });

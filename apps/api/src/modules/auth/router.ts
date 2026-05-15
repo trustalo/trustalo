@@ -5,16 +5,6 @@ import { z } from "zod";
 import { AuthError, authService } from "./service.js";
 import { authenticate } from "../../middleware/authenticate.js";
 import { getJwtSecret, getOauthStateSecret } from "../../config/security.js";
-import { SESSION_COOKIE_NAME, sessionCookieOptions } from "@trustalo/auth";
-
-const SESSION_COOKIE_MAX_AGE_MS = 8 * 60 * 60 * 1000; // 8 hours
-
-function setSessionCookieFromResult(res: Response, result: unknown): void {
-  if (!result || typeof result !== "object") return;
-  const token = (result as { token?: unknown }).token;
-  if (typeof token !== "string" || token.length === 0) return;
-  res.cookie(SESSION_COOKIE_NAME, token, sessionCookieOptions(SESSION_COOKIE_MAX_AGE_MS));
-}
 
 export const authRouter: Router = Router();
 
@@ -125,7 +115,6 @@ authRouter.post("/login", authRateLimit, async (req, res, next) => {
   try {
     const body = loginBody.parse(req.body);
     const result = await authService.login(body);
-    setSessionCookieFromResult(res, result);
     res.json({ success: true, data: result });
   } catch (err) {
     next(err);
@@ -137,7 +126,6 @@ authRouter.post("/register", authRateLimit, async (req, res, next) => {
   try {
     const body = registerBody.parse(req.body);
     const result = await authService.register(body);
-    setSessionCookieFromResult(res, result);
     res.status(201).json({ success: true, data: result });
   } catch (err) {
     next(err);
@@ -212,7 +200,6 @@ authRouter.get("/oauth/callback", authRateLimit, async (req, res, next) => {
       callbackContext: providerContext,
       redirectUri: parsed.redirectUri,
     });
-    setSessionCookieFromResult(res, result);
     res.json({ success: true, data: result });
   } catch (err) {
     next(err);
@@ -242,7 +229,6 @@ authRouter.post("/logout", authenticate, async (req, res, next) => {
       payload: auth,
       postLogoutRedirectUri: body.postLogoutRedirectUri ?? fallback,
     });
-    res.clearCookie(SESSION_COOKIE_NAME, sessionCookieOptions());
     res.json({ success: true, data: { logoutUrl: url } });
   } catch (err) {
     next(err);

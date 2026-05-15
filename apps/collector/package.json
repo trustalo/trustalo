@@ -32,7 +32,6 @@
     "@trustalo/auth": "workspace:*",
     "@trustalo/queue": "workspace:*",
     "@trustalo/shared": "workspace:*",
-    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "cron": "^3.3.0",
     "express": "^5.1.0",
@@ -47,7 +46,6 @@
   "devDependencies": {
     "typescript": "^5.8.0",
     "@types/express": "^5.0.0",
-    "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.0",
     "@types/pg": "^8.0.0",
     "@types/cron": "^2.4.0"

@@ -173,19 +173,9 @@ const DOMAIN_ITEMS: DomainNavItem[] = [
   },
 ];
 
-// ── Section: Marketplace ───────────────────────────────────────────────
-// Curated, app-wide directory surfaces. Visible to every authenticated user
-// (no permission gate) since the listings themselves are read-only and don't
-// expose tenant data. Sponsored listings are pinned/badged inside the page.
-const MARKETPLACE_ITEMS: NavItem[] = [
-  {
-    label: "Partners",
-    href: "/partners",
-    icon: (
-      <Icon d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-2a4 4 0 100-8 4 4 0 000 8zm6 0a3 3 0 100-6 3 3 0 000 6zM5 14a3 3 0 100-6 3 3 0 000 6z" />
-    ),
-  },
-];
+// MARKETPLACE_ITEMS was scaffolded for a Partners directory entry but is
+// not currently rendered by the sidebar. Removed to keep noUnusedLocals
+// happy; reintroduce when the Partners page is wired up to navigation.
 
 // ── Section: Program ───────────────────────────────────────────────────
 const PROGRAM_ITEMS: NavItem[] = [

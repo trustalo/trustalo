@@ -812,7 +812,7 @@ function SettingsModal({
       open={open}
       onClose={onClose}
       title={`Settings: ${connection.name}`}
-      description={`Provider: ${connection.provider.name}`}
+      description={`Provider: ${connection.integration.name}`}
     >
       <form onSubmit={handleSave} className="space-y-4">
         {error && (

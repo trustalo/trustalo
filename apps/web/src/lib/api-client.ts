@@ -386,10 +386,6 @@ export interface Tenant {
   updatedAt: string;
 }
 
-/** @deprecated use `TenantPlan`. Kept as a transitional alias for the web UI. */
-export type TenantPlan = TenantPlan;
-/** @deprecated use `TenantStatus`. Kept as a transitional alias for the web UI. */
-export type TenantStatus = TenantStatus;
 /** @deprecated use `Tenant`. Kept as a transitional alias for the web UI. */
 export type Organization = Tenant;
 
@@ -5843,8 +5839,6 @@ export interface RiskScoreDecisionInput {
   appliedImpact?: number;
   refineNotes?: string;
 }
-
-export type VendorRiskTier = "critical" | "high" | "medium" | "low";
 
 export interface VendorTierSuggestion {
   suggestionId: string;

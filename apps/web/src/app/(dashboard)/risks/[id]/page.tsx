@@ -174,28 +174,10 @@ const CATEGORY_LABEL: Record<RiskCategoryType, string> = {
   environmental: "Environmental",
 };
 
-const PROBABILITY_LABEL: Record<string, string> = {
-  rare: "Rare",
-  unlikely: "Unlikely",
-  possible: "Possible",
-  likely: "Likely",
-  almost_certain: "Almost Certain",
-};
-
-const IMPACT_LABEL: Record<string, string> = {
-  negligible: "Negligible",
-  low: "Low",
-  moderate: "Moderate",
-  high: "High",
-  catastrophic: "Catastrophic",
-};
-
-const CONTROL_EFF_LABEL: Record<string, string> = {
-  no_control: "No Control",
-  need_improvement: "Need Improvement",
-  adequate: "Adequate",
-  effective: "Effective",
-};
+// PROBABILITY_LABEL / IMPACT_LABEL / CONTROL_EFF_LABEL / APPROVAL_LABEL
+// were defined here but never referenced. They moved to per-tab badge
+// helpers when the page was split into multiple tabs; the constants
+// were left behind. Removed to silence noUnusedLocals.
 
 const TREATMENT_LABEL: Record<string, string> = {
   mitigate: "Mitigate",
@@ -203,13 +185,6 @@ const TREATMENT_LABEL: Record<string, string> = {
   transfer: "Transfer",
   avoid: "Avoid",
   control: "Control",
-};
-
-const APPROVAL_LABEL: Record<string, string> = {
-  yes: "YES",
-  no: "NO",
-  na: "N/A",
-  pending: "Pending",
 };
 
 function scoreSeverity(score: number): { label: string; variant: BadgeVariant } {
@@ -528,7 +503,7 @@ function OverviewTab({
       await apiClient.updateRisk(risk.id, {
         title: title.trim(),
         description: description.trim() || undefined,
-        riskImpactDescription: riskImpactDescription.trim() || null,
+        riskImpactDescription: riskImpactDescription.trim() || undefined,
         category: category as RiskCategoryType,
         businessProcess: businessProcess.trim() || null,
         department: (department as RiskDepartmentType) || null,
@@ -1347,7 +1322,7 @@ function RiskMatrix({
 
 function AssessmentsTab({
   risk,
-  members,
+  members: _members,
   onSaved,
 }: {
   risk: RiskDetail;

@@ -22,8 +22,6 @@ import {
   apiClient,
   type BCPPlanDetail,
   type BCPStatus,
-  type BusinessImpactAnalysis,
-  type BCPExerciseItem,
   type CriticalityLevel,
   type BCPExerciseType,
   type BCPExerciseStatus,
@@ -71,12 +69,6 @@ const EXERCISE_TYPE_OPTIONS = [
   { value: "full_scale", label: "Full Scale" },
 ];
 
-const EXERCISE_STATUS_OPTIONS = [
-  { value: "planned", label: "Planned" },
-  { value: "conducted", label: "Conducted" },
-  { value: "reviewed", label: "Reviewed" },
-];
-
 const EXERCISE_TYPE_LABEL: Record<BCPExerciseType, string> = {
   tabletop: "Tabletop",
   walkthrough: "Walkthrough",
@@ -84,10 +76,19 @@ const EXERCISE_TYPE_LABEL: Record<BCPExerciseType, string> = {
   full_scale: "Full Scale",
 };
 
+// Mirrors the `BCPExerciseStatus` Prisma enum
+// (apps/api/prisma/schema/bcp.prisma): planned | scheduled | in_progress
+// | conducted | reviewed | cancelled. The page previously only mapped
+// 3 of the 6 values, which made TypeScript complain and would have
+// rendered no badge at all once an exercise transitioned to the
+// scheduled / in_progress / cancelled states.
 const EXERCISE_STATUS_BADGE: Record<BCPExerciseStatus, { variant: BadgeVariant; label: string }> = {
   planned: { variant: "info", label: "Planned" },
+  scheduled: { variant: "info", label: "Scheduled" },
+  in_progress: { variant: "warning", label: "In Progress" },
   conducted: { variant: "warning", label: "Conducted" },
   reviewed: { variant: "success", label: "Reviewed" },
+  cancelled: { variant: "neutral", label: "Cancelled" },
 };
 
 function formatDate(dateStr: string | null | undefined): string {

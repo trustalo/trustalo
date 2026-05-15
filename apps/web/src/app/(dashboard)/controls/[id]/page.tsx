@@ -24,7 +24,6 @@ import {
   EVIDENCE_STATUS_BADGE,
   EVIDENCE_TYPE_LABELS,
   formatDate,
-  formatFileSize,
   daysUntilExpiry,
   expiryBadge as expiryIndicator,
   TypeIcon,
@@ -147,6 +146,10 @@ export default function ControlDetailPage() {
   }
 
   async function handleToggleApplicability() {
+    // The early-return above handles the loading / not-found case, but
+    // TS can't narrow `control` inside this closure (state setter
+    // could in theory race), so re-check explicitly.
+    if (!control) return;
     const newStatus = control.status === "not_applicable" ? "not_implemented" : "not_applicable";
     try {
       await apiClient.updateControl(control.id, { status: newStatus });

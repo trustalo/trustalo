@@ -3,10 +3,11 @@
  * policy versions / drafts.
  *
  * Notes:
- *  - We compute the diff against the *text* (with HTML tags stripped via
- *    a single regex) so the visual diff isn't polluted by structural
- *    markup the user doesn't care about. The original HTML is still
- *    rendered into each pane for readability.
+ *  - We compute the diff against the *text* (with HTML tags stripped
+ *    via the shared DOMPurify-based `stripHtml` helper) so the visual
+ *    diff isn't polluted by structural markup the user doesn't care
+ *    about. The original HTML is still rendered into each pane for
+ *    readability.
  *  - For inline mode we wrap added/removed runs in <ins>/<del> at the
  *    text level via diff_main + a tiny `applyDiffsToHtml` walker, so
  *    headings/lists keep their styling.
@@ -30,7 +31,7 @@ import {
   DIFF_EQUAL,
   type Diff,
 } from "diff-match-patch";
-import { sanitizeHtml } from "@/lib/sanitize-html";
+import { sanitizeHtml, stripHtml } from "@/lib/sanitize-html";
 
 type DiffMode = "side-by-side" | "inline";
 
@@ -41,16 +42,6 @@ interface PolicyDiffProps {
   afterLabel?: string;
   /** Initial mode; user can flip via the toggle. Defaults to side-by-side. */
   initialMode?: DiffMode;
-}
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .replace(/<script[\s\S]*?<\/script>/gi, "")
-    .replace(/<\/?[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
 }
 
 interface DiffStats {

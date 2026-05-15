@@ -19,6 +19,7 @@
 import { z } from "zod";
 import { resolveOrgAI } from "../../config/ai.js";
 import { prisma, prismaWithTenant } from "../../db/prisma.js";
+import { stripHtml } from "../../lib/html.js";
 
 const SOURCES_PER_PROMPT = 12;
 const POLICIES_PER_PROMPT = 25;
@@ -180,15 +181,6 @@ async function loadGrounding(tenantId: string): Promise<GroundingBundle> {
     controls,
     pastAnswers,
   };
-}
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .replace(/<script[\s\S]*?<\/script>/gi, "")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
 }
 
 export async function answerOne(args: {

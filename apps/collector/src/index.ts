@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import { authenticate, extractTenantContext } from "@trustalo/auth";
 import { prisma } from "./db/prisma.js";
@@ -34,7 +33,6 @@ const JWT_SECRET = getJwtSecret();
 
 app.use(helmet());
 app.use(cors(getCorsOptions()));
-app.use(cookieParser());
 app.use(
   express.json({
     limit: "2mb",
@@ -69,7 +67,7 @@ app.use("/research", researchRouter);
 // internal key + `X-Organization-Id` header instead of user tokens.
 app.use("/internal", internalRouter);
 
-app.use(authenticate(JWT_SECRET));
+app.use(authenticate(JWT_SECRET, { allowCookie: false }));
 app.use(extractTenantContext());
 
 app.use("/connections", connectionsRouter);

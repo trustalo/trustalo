@@ -1,4 +1,4 @@
-import { randomBytes, createCipheriv, createDecipheriv, createHash, hkdfSync } from "node:crypto";
+import { randomBytes, createCipheriv, createDecipheriv, hkdfSync } from "node:crypto";
 
 const ALGORITHM = "aes-256-gcm";
 const IV_LENGTH = 16;
@@ -89,7 +89,9 @@ function deriveKeyV2(passphrase: string): Buffer {
  * called for encryption.
  */
 function deriveKeyV1(passphrase: string): Buffer {
-  return createHash("sha256").update(passphrase).digest();
+  const hasher = new Bun.CryptoHasher("sha256");
+  hasher.update(passphrase);
+  return hasher.digest();
 }
 
 /**

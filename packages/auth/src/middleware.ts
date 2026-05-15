@@ -33,15 +33,24 @@ export function sessionCookieOptions(maxAgeMs?: number): CookieOptions {
   };
 }
 
-/** Read the session JWT from either the cookie or the Authorization header. */
-function extractToken(req: Request): { token: string | null; source: "cookie" | "header" | null } {
-  const cookies = (req as Request & { cookies?: Record<string, string> }).cookies;
-  if (
-    cookies &&
-    typeof cookies[SESSION_COOKIE_NAME] === "string" &&
-    cookies[SESSION_COOKIE_NAME].length > 0
-  ) {
-    return { token: cookies[SESSION_COOKIE_NAME], source: "cookie" };
+type AuthenticateOptions = {
+  allowCookie?: boolean;
+};
+
+/** Read the session JWT from cookie (optional) or Authorization header. */
+function extractToken(
+  req: Request,
+  allowCookie: boolean,
+): { token: string | null; source: "cookie" | "header" | null } {
+  if (allowCookie) {
+    const cookies = (req as Request & { cookies?: Record<string, string> }).cookies;
+    if (
+      cookies &&
+      typeof cookies[SESSION_COOKIE_NAME] === "string" &&
+      cookies[SESSION_COOKIE_NAME].length > 0
+    ) {
+      return { token: cookies[SESSION_COOKIE_NAME], source: "cookie" };
+    }
   }
   const header = req.headers.authorization;
   if (!header) return { token: null, source: null };
@@ -59,9 +68,10 @@ function extractToken(req: Request): { token: string | null; source: "cookie" | 
  * so a successful cookie auth doesn't get downgraded by stale Bearer
  * fallbacks in the browser.
  */
-export function authenticate(jwtSecret: string) {
+export function authenticate(jwtSecret: string, options: AuthenticateOptions = {}) {
+  const allowCookie = options.allowCookie ?? true;
   return (req: Request, res: Response, next: NextFunction): void => {
-    const { token, source } = extractToken(req);
+    const { token, source } = extractToken(req, allowCookie);
 
     if (!token) {
       authError(

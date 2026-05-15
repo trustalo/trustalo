@@ -164,6 +164,26 @@ describe("authenticate", () => {
     expect(ctx.statusCode()).toBe(200);
   });
 
+  test("ignores cookie when allowCookie=false", () => {
+    const secret = "very-long-secret-value-for-tests-123456789";
+    const token = makeToken(secret);
+    const middleware = authenticate(secret, { allowCookie: false });
+    const ctx = createMockReqRes({
+      cookies: { [SESSION_COOKIE_NAME]: token },
+    });
+    middleware(ctx.req, ctx.res, ctx.next);
+
+    expect(ctx.nextCalled()).toBe(false);
+    expect(ctx.statusCode()).toBe(401);
+    expect(ctx.body()).toEqual({
+      success: false,
+      error: {
+        code: "MISSING_TOKEN",
+        message: "Session cookie or Authorization header is required",
+      },
+    });
+  });
+
   test("returns INVALID_TOKEN for invalid signature", () => {
     const middleware = authenticate("secret-a");
     const token = makeToken("secret-b");

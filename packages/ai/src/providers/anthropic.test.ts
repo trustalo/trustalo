@@ -52,7 +52,8 @@ describe("createAnthropicProvider", () => {
   });
 
   test("throws AIProviderError for non-ok auth responses", async () => {
-    globalThis.fetch = (async () => new Response("forbidden", { status: 401 })) as typeof fetch;
+    globalThis.fetch = (async () =>
+      new Response("forbidden", { status: 401 })) as unknown as typeof fetch;
     const provider = createAnthropicProvider({ provider: "anthropic", apiKey: "bad-key" }, "model");
 
     await expect(
@@ -65,8 +66,11 @@ describe("createAnthropicProvider", () => {
   test("wraps network errors", async () => {
     globalThis.fetch = (async () => {
       throw Object.assign(new Error("ECONNREFUSED"), { code: "ECONNREFUSED" });
-    }) as typeof fetch;
-    const provider = createAnthropicProvider({ provider: "anthropic", apiKey: "test-key" }, "model");
+    }) as unknown as typeof fetch;
+    const provider = createAnthropicProvider(
+      { provider: "anthropic", apiKey: "test-key" },
+      "model",
+    );
 
     await expect(
       provider.chat({

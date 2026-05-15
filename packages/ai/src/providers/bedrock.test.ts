@@ -16,7 +16,9 @@ describe("createBedrockProvider", () => {
     globalThis.fetch = (async (input, init) => {
       capturedUrl = String(input);
       capturedAuth = String((init?.headers as Record<string, string>)?.Authorization ?? "");
-      capturedToken = String((init?.headers as Record<string, string>)?.["X-Amz-Security-Token"] ?? "");
+      capturedToken = String(
+        (init?.headers as Record<string, string>)?.["X-Amz-Security-Token"] ?? "",
+      );
       return new Response(
         JSON.stringify({
           output: {
@@ -61,7 +63,8 @@ describe("createBedrockProvider", () => {
   });
 
   test("throws AIProviderError when upstream returns non-ok", async () => {
-    globalThis.fetch = (async () => new Response("throttle", { status: 429 })) as typeof fetch;
+    globalThis.fetch = (async () =>
+      new Response("throttle", { status: 429 })) as unknown as typeof fetch;
     const provider = createBedrockProvider(
       {
         provider: "bedrock",

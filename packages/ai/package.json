@@ -14,7 +14,7 @@
   "dependencies": {
     "@aws-sdk/credential-providers": "^3.700.0",
     "openai": "^5.8.2",
-    "zod": "latest"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "typescript": "^5.8.0"

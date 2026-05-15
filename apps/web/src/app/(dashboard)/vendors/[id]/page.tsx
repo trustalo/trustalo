@@ -25,12 +25,9 @@ import {
   type VendorStatus,
   type DpaStatus,
   type VendorContact,
-  type VendorAssessmentItem,
-  type VendorResearchItem,
   type VendorDocumentItem,
   type VendorDocumentType,
   type ResearchFrequency,
-  type UpdateVendorInput,
   type CreateVendorContactInput,
 } from "@/lib/api-client";
 import { VendorTierSuggestionBanner } from "@/components/ai/vendor-tier-suggestion-banner";
@@ -417,7 +414,11 @@ export default function VendorDetailPage() {
           </div>
           {(vendor.contacts?.length ?? 0) > 0 ? (
             (() => {
-              const primary = vendor.contacts!.find((c) => c.isPrimary) || vendor.contacts![0];
+              // Outer guard ensures `vendor.contacts` has at least one
+              // entry, so `find(isPrimary) ?? contacts[0]` is always
+              // defined. The trailing `!` lets TS see that under
+              // `noUncheckedIndexedAccess`.
+              const primary = (vendor.contacts!.find((c) => c.isPrimary) ?? vendor.contacts![0])!;
               return (
                 <dl className="space-y-2 text-sm">
                   <div className="flex justify-between">
@@ -719,15 +720,19 @@ function EditVendorModal({
       setDataLocations((vendor.dataLocations ?? []).join(", "));
       setVendorDpaStatus(vendor.dpaStatus ?? "not_required");
       setDpaExpiresAt(
-        vendor.dpaExpiresAt ? new Date(vendor.dpaExpiresAt).toISOString().split("T")[0] : "",
+        vendor.dpaExpiresAt
+          ? (new Date(vendor.dpaExpiresAt).toISOString().split("T")[0] ?? "")
+          : "",
       );
       setContractStartDate(
         vendor.contractStartDate
-          ? new Date(vendor.contractStartDate).toISOString().split("T")[0]
+          ? (new Date(vendor.contractStartDate).toISOString().split("T")[0] ?? "")
           : "",
       );
       setContractEndDate(
-        vendor.contractEndDate ? new Date(vendor.contractEndDate).toISOString().split("T")[0] : "",
+        vendor.contractEndDate
+          ? (new Date(vendor.contractEndDate).toISOString().split("T")[0] ?? "")
+          : "",
       );
       setError(null);
     }
@@ -1443,7 +1448,7 @@ function UploadDocumentModal({
 
 function ResearchSection({ vendor, onRefresh }: { vendor: VendorDetail; onRefresh: () => void }) {
   const [triggering, setTriggering] = useState(false);
-  const [updatingFreq, setUpdatingFreq] = useState(false);
+  const [_updatingFreq, setUpdatingFreq] = useState(false);
   const [expandedResearch, setExpandedResearch] = useState<string | null>(null);
 
   const latestResearch = vendor.researches?.find((r) => r.status === "completed") ?? null;
@@ -1475,9 +1480,9 @@ function ResearchSection({ vendor, onRefresh }: { vendor: VendorDetail; onRefres
     }
   }
 
-  const freqLabel =
-    RESEARCH_FREQUENCY_OPTIONS.find((o) => o.value === vendor.researchFrequency)?.label ??
-    "Not set";
+  // The "Current frequency" caption that consumed `freqLabel` was
+  // removed during a recent UI tidy; reintroduce the lookup along with
+  // the caption if needed.
 
   return (
     <>

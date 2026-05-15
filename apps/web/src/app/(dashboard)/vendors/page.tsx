@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import type { BadgeVariant } from "@/components/ui/badge";
@@ -26,8 +26,6 @@ import {
   type VendorStatus,
   type ResearchFrequency,
   type KnownVendorItem,
-  type CreateVendorInput,
-  type OrgMember,
 } from "@/lib/api-client";
 
 // ──────────────────────────────────────────────
@@ -679,11 +677,13 @@ function VendorFormModal({
       setResearchFrequency(vendor?.researchFrequency ?? "monthly");
       setContractStartDate(
         vendor?.contractStartDate
-          ? new Date(vendor.contractStartDate).toISOString().split("T")[0]
+          ? (new Date(vendor.contractStartDate).toISOString().split("T")[0] ?? "")
           : "",
       );
       setContractEndDate(
-        vendor?.contractEndDate ? new Date(vendor.contractEndDate).toISOString().split("T")[0] : "",
+        vendor?.contractEndDate
+          ? (new Date(vendor.contractEndDate).toISOString().split("T")[0] ?? "")
+          : "",
       );
       setError(null);
     }

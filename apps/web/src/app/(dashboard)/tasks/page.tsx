@@ -20,6 +20,7 @@ import {
   apiClient,
   type TaskItem,
   type TaskStats,
+  type TaskStatus,
   type TaskPriority,
   type TaskSourceModule,
   type TaskFrequency,
@@ -118,8 +119,11 @@ function statusBadgeVariant(status: TaskStatus): BadgeVariant {
     case "overdue":
       return "danger";
     case "pending":
-      return "neutral";
     case "cancelled":
+      return "neutral";
+    // Defensive default keeps TS' control-flow analysis happy if a new
+    // status is added to the API enum before this map is updated.
+    default:
       return "neutral";
   }
 }

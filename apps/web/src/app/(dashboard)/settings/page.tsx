@@ -1140,7 +1140,7 @@ export default function SettingsPage() {
   const [org, setOrg] = useState<Organization | null>(null);
   const [settings, setSettings] = useState<OrganizationSettings | null>(null);
   const [members, setMembers] = useState<OrgMember[]>([]);
-  const [loadingOrg, setLoadingOrg] = useState(true);
+  const [_loadingOrg, setLoadingOrg] = useState(true);
   const [loadingMembers, setLoadingMembers] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { hasPermission } = usePermissions();

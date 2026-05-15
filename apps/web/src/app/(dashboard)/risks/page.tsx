@@ -11,14 +11,6 @@ import { Modal } from "@/components/ui/modal";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableHeader,
-  TableCell,
-} from "@/components/ui/table";
-import {
   apiClient,
   type RiskItem,
   type RiskStats,
@@ -871,7 +863,7 @@ export default function RisksPage() {
 // ──────────────────────────────────────────────
 
 function ResizableHeader({
-  colKey,
+  colKey: _colKey,
   width,
   minWidth,
   onResize,
@@ -1076,8 +1068,10 @@ function FieldConfigModal({
       if (!g[group]) g[group] = [];
       g[group].push(f);
     }
-    for (const key of Object.keys(g)) {
-      g[key].sort((a, b) => a.order - b.order);
+    // Iterate values directly so TS doesn't have to prove the
+    // `g[key]` lookup is defined under noUncheckedIndexedAccess.
+    for (const arr of Object.values(g)) {
+      arr.sort((a, b) => a.order - b.order);
     }
     return g;
   }, [localFields]);

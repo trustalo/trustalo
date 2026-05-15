@@ -80,16 +80,9 @@ export function AuthLayout({ title, subtitle, children, footer }: AuthLayoutProp
 // Marketing pane
 // ─────────────────────────────────────────────────────────────────────────────
 
-const FRAMEWORK_BADGES = [
-  "ISO 27001",
-  "SOC 2",
-  "GDPR",
-  "HIPAA",
-  "NIST 800-53",
-  "PCI DSS",
-  "ISO 27701",
-  "CCPA",
-];
+// FRAMEWORK_BADGES + the FrameworkMarquee that consumed them were
+// removed when the static badge row was dropped from MarketingPanel.
+// Reintroduce together if the marquee is revived.
 
 // ─── Forti-inspired palette ──────────────────────────────────────────────────
 // Near-black neutral base with a warm orange glow as the primary brand accent
@@ -288,34 +281,10 @@ function AiBubbleCard({ className, style }: FragmentProps) {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Sliding framework marquee — replaces the static badge row.
-// Two copies of the list slide in tandem to give a seamless infinite loop.
-// ─────────────────────────────────────────────────────────────────────────────
-
-function FrameworkMarquee() {
-  const items = [...FRAMEWORK_BADGES, ...FRAMEWORK_BADGES];
-
-  return (
-    <div className="relative z-10 border-t border-white/[0.06] bg-black/40 py-5 backdrop-blur">
-      <p className="mb-3 px-12 text-xs font-medium uppercase tracking-wider text-orange-300/80 xl:px-16">
-        Built for the frameworks you need
-      </p>
-      <div className="auth-marquee-mask">
-        <div className="auth-marquee flex w-max gap-3 px-12 xl:px-16">
-          {items.map((badge, i) => (
-            <span
-              key={`${badge}-${i}`}
-              className="rounded-md border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-white/90"
-            >
-              {badge}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+// FrameworkMarquee + its FRAMEWORK_BADGES source list were prototyped
+// here but never wired into the auth layout. Both removed to silence
+// noUnusedLocals; the CSS classes `auth-marquee` and `auth-marquee-mask`
+// are still defined in globals.css if the animation is revived later.
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Decorative + icon SVGs (kept inline to avoid an icon-library dependency)

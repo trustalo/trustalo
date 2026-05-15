@@ -86,10 +86,10 @@ function getMaturityChip(ctrl: Control): string | null {
   if (levels.length === 0) return null;
   // Lexicographic ordering works for "ml1" < "ml2" < "ml3" and "tier1"…"tier4".
   const max = levels.sort().pop()!;
-  return max
-    .replace(/^(ml|tier)/i, (m) => m.toUpperCase())
-    .replace(/^ML/, "ML")
-    .replace(/^TIER/, "Tier ");
+  // First uppercase the prefix ("ml1" -> "ML1", "tier1" -> "TIER1"),
+  // then expand the verbose "Tier" form for readability ("TIER1" ->
+  // "Tier 1"). Essential Eight's "ML1/2/3" stays compact by convention.
+  return max.replace(/^(ml|tier)/i, (m) => m.toUpperCase()).replace(/^TIER/, "Tier ");
 }
 
 function getEvidenceHealthBadge(ctrl: Control): { label: string; variant: BadgeVariant } {

@@ -182,11 +182,29 @@ authRouter.get("/oauth/callback", authRateLimit, async (req, res, next) => {
     const { __csrf, ...providerContext } = callbackContext;
     void __csrf;
 
-    // Pass through ALL query parameters to the provider so it can read code,
-    // error, error_description, etc.
-    const params: Record<string, string> = {};
-    for (const [k, v] of Object.entries(req.query)) {
-      if (typeof v === "string") params[k] = v;
+    // Pass through OAuth/OIDC callback parameters to the provider. The
+    // key set is whitelisted so we never copy attacker-supplied keys
+    // onto the params object (CodeQL `js/prototype-pollution-utility`
+    // / remote-property-injection). Anything else from `req.query`
+    // is silently dropped.
+    const ALLOWED_CALLBACK_PARAMS = new Set([
+      "code",
+      "state",
+      "error",
+      "error_description",
+      "error_uri",
+      "session_state",
+      "iss",
+      "scope",
+      "id_token",
+      "access_token",
+      "expires_in",
+      "token_type",
+    ]);
+    const params: Record<string, string> = Object.create(null);
+    for (const key of ALLOWED_CALLBACK_PARAMS) {
+      const value = req.query[key];
+      if (typeof value === "string") params[key] = value;
     }
 
     const result = await authService.completeRedirectFlow({

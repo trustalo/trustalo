@@ -115,8 +115,8 @@ For brevity, the remaining tables omit the `/api/v1` prefix — every endpoint i
 
 // Response 200
 {
-  "accessToken": "eyJhbGciOiJIUzI1NiIs...",
-  "refreshToken": "eyJhbGciOiJIUzI1NiIs...",
+  "accessToken": "<JWT_ACCESS_TOKEN>",
+  "refreshToken": "<JWT_REFRESH_TOKEN>",
   "user": {
     "id": "uuid",
     "email": "user@company.com",

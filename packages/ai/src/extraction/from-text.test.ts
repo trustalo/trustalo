@@ -138,7 +138,9 @@ describe("extractContextProposals", () => {
         }) +
         "\n```",
     );
-    const out = await extractContextProposals(provider, { text: "Incidents are owned by security." });
+    const out = await extractContextProposals(provider, {
+      text: "Incidents are owned by security.",
+    });
     expect(out.proposals).toHaveLength(1);
   });
 });

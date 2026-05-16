@@ -2,7 +2,10 @@ import { describe, expect, test } from "bun:test";
 import type { AIProvider, ChatCompletionOptions } from "../types.js";
 import { generateQuizQuestions } from "./quiz.js";
 
-function makeProvider(content: string, capture?: (opts: ChatCompletionOptions) => void): AIProvider {
+function makeProvider(
+  content: string,
+  capture?: (opts: ChatCompletionOptions) => void,
+): AIProvider {
   return {
     async chat(options) {
       capture?.(options);

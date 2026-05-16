@@ -8,6 +8,8 @@ import { loadAuthProvider, type AuthProvider, type ProviderFactory } from "@trus
 import { createLocalProvider, type LocalUserRepository } from "@trustalo/auth-provider-local";
 import { createProvider as createCognitoProvider } from "@trustalo/auth-provider-cognito";
 import { createProvider as createKeycloakProvider } from "@trustalo/auth-provider-keycloak";
+import { createProvider as createGoogleProvider } from "@trustalo/auth-provider-google";
+import { createProvider as createMicrosoftProvider } from "@trustalo/auth-provider-microsoft";
 import { prisma } from "../../db/prisma.js";
 
 /**
@@ -46,6 +48,8 @@ const builtins: Record<string, ProviderFactory> = {
     }),
   cognito: (env) => createCognitoProvider(env),
   keycloak: (env) => createKeycloakProvider(env),
+  google: (env) => createGoogleProvider(env),
+  microsoft: (env) => createMicrosoftProvider(env),
 };
 
 let cached: AuthProvider | null = null;

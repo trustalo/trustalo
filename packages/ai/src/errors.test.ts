@@ -52,7 +52,9 @@ describe("wrapProviderError", () => {
   });
 
   test("maps timeout by code/name/message", () => {
-    expect(wrapProviderError("OpenAI", { code: "ETIMEDOUT", message: "network" }).kind).toBe("timeout");
+    expect(wrapProviderError("OpenAI", { code: "ETIMEDOUT", message: "network" }).kind).toBe(
+      "timeout",
+    );
     expect(wrapProviderError("OpenAI", { name: "TimeoutError", message: "network" }).kind).toBe(
       "timeout",
     );

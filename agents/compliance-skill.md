@@ -283,15 +283,15 @@ Trustalo maps controls across frameworks to reduce duplication. A single impleme
 
 ### Evidence categories
 
-| Category      | Description                             | Examples                                          |
-| ------------- | --------------------------------------- | ------------------------------------------------- |
-| Technical     | Automated system configuration evidence | IAM policies, firewall rules, encryption settings |
-| Document      | Policies, procedures, plans             | ISMS policy, BCP document, AI ethics policy       |
-| Screenshot    | Point-in-time visual proof              | Dashboard screenshots, config screens             |
-| Log           | System-generated audit trails           | Access logs, change logs, deployment logs         |
-| Assessment    | Evaluation results                      | Risk assessments, BIA, pen test reports           |
-| Certification | External attestations                   | Vendor SOC 2 reports, ISO certificates            |
-| Training      | Awareness and competency proof          | Training completion records, quiz scores          |
+| Category | Description | Examples |
+| --- | --- | --- |
+| Technical | Automated system configuration evidence | IAM policies, firewall rules, encryption settings |
+| Document | Policies, procedures, plans | ISMS policy, BCP document, AI ethics policy |
+| Screenshot | Point-in-time visual proof | Dashboard screenshots, config screens |
+| Log | System-generated audit trails | Access logs, change logs, deployment logs |
+| Assessment | Evaluation results | Risk assessments, BIA, pen test reports |
+| Certification | External attestations | Vendor SOC 2 reports, ISO certificates |
+| Training | Awareness and competency proof | Training completion records, quiz scores |
 
 ### Collection strategies
 
@@ -312,23 +312,23 @@ Trustalo maps controls across frameworks to reduce duplication. A single impleme
 
 ## Module Responsibilities
 
-| Module        | Service   | Frameworks Served         | Responsibility                                    |
-| ------------- | --------- | ------------------------- | ------------------------------------------------- |
-| frameworks    | API       | All                       | Framework lifecycle, requirement definitions      |
-| controls      | API       | All                       | Control definitions, cross-framework mapping      |
-| policies      | API       | 27001, SOC 2              | Policy CRUD, versioning, approval workflow        |
-| risks         | API       | 27001, 22301, 42001       | Risk register, assessment, treatment plans        |
-| evidence      | API       | All                       | Evidence storage, approval, control linkage       |
-| vendors       | API       | 27001, 27018, SOC 2       | Third-party assessment, sub-processor tracking    |
-| assets        | API       | 27001, 27017              | Information asset inventory, classification       |
-| incidents     | API       | 27001, 22301, SOC 2       | Security incident lifecycle                       |
-| audits        | API       | All                       | Internal/external audit planning and findings     |
-| bcp           | API       | 22301                     | BIA, BCP, RTO/RPO, exercises, recovery evidence   |
-| ai-governance | API       | 42001                     | AI system inventory, impact assessment, lifecycle |
-| training      | API       | 27001, SOC 2              | Awareness campaigns, completion tracking          |
-| trust-center  | API       | SOC 2                     | Public compliance status page                     |
-| dashboards    | API       | All                       | Metrics, posture scores, gap analysis             |
-| connections   | Collector | All (evidence collection) | Integration connection CRUD                       |
-| jobs          | Collector | All (evidence collection) | Collection job trigger and management             |
-| providers     | Collector | All (evidence collection) | Available integration provider listing            |
-| sync-logs     | Collector | All (evidence collection) | Collection run history and status                 |
+| Module | Service | Frameworks Served | Responsibility |
+| --- | --- | --- | --- |
+| frameworks | API | All | Framework lifecycle, requirement definitions |
+| controls | API | All | Control definitions, cross-framework mapping |
+| policies | API | 27001, SOC 2 | Policy CRUD, versioning, approval workflow |
+| risks | API | 27001, 22301, 42001 | Risk register, assessment, treatment plans |
+| evidence | API | All | Evidence storage, approval, control linkage |
+| vendors | API | 27001, 27018, SOC 2 | Third-party assessment, sub-processor tracking |
+| assets | API | 27001, 27017 | Information asset inventory, classification |
+| incidents | API | 27001, 22301, SOC 2 | Security incident lifecycle |
+| audits | API | All | Internal/external audit planning and findings |
+| bcp | API | 22301 | BIA, BCP, RTO/RPO, exercises, recovery evidence |
+| ai-governance | API | 42001 | AI system inventory, impact assessment, lifecycle |
+| training | API | 27001, SOC 2 | Awareness campaigns, completion tracking |
+| trust-center | API | SOC 2 | Public compliance status page |
+| dashboards | API | All | Metrics, posture scores, gap analysis |
+| connections | Collector | All (evidence collection) | Integration connection CRUD |
+| jobs | Collector | All (evidence collection) | Collection job trigger and management |
+| providers | Collector | All (evidence collection) | Available integration provider listing |
+| sync-logs | Collector | All (evidence collection) | Collection run history and status |

@@ -2,6 +2,25 @@
 
 > Scope: `/Users/nuwan/workspace/workhub24/trustalo`. Generated from a code-grounded review of `packages/ai`, `apps/api/src/modules/*`, `apps/collector/src/*`, and `apps/web/src/*`. Every feature below is wired to a real route/file; deprecated or planned items are called out.
 
+## Licensing tier (free vs Enterprise Edition)
+
+From v1.0 onward the AI surface is **tiered**, in lock-step with the EE strategy in [`docs/enterprise.md`](enterprise.md). Tier C "split" applies — defence-in-depth utilities are free, the actual user-facing accelerators require an Enterprise License with the `ai` feature entitlement.
+
+| Component | Tier | Path | License gate |
+| --- | --- | --- | --- |
+| AI provider factory + resolver chain (`resolveAIProvider`, `createAIProvider`, `AINotConfiguredError`, `AIProviderError`) | Free (core) | `packages/ai/src/{factory,resolve,errors,types}.ts`, `packages/ai/src/providers/` | none — but the EE features it powers are gated |
+| PII scrubber (defence-in-depth) | Free (core) | `packages/ai/src/extraction/scrub.ts` | none |
+| CPS 234 asset-classification bootstrap | Free (core) | `packages/ai/src/extraction/asset-classification.ts` | none |
+| Operator + per-org AI provider configuration UI/API | Free (core) | `apps/api/src/config/ai.ts`, `apps/api/src/modules/ai-config/router.ts` (admin endpoints) | core — but `POST /generate-quiz` on the same router is EE-gated |
+| Compliance-assistant chat (`chat_assistant`) | **EE** | `apps/api/src/modules/chat/{router,grounding,system-prompt}.ee.ts` | router-level `assertEnterpriseLicense('ai')` plus per-export gates |
+| Long-form context extraction (`context_extraction`) | **EE** | `packages/ai/src/extraction/from-text.ee.ts`; `apps/api/src/modules/organization-context/router.ts` (`POST /from-text` only) | inside `extractContextProposals`; handler-level gate |
+| Questionnaire AI answering (`questionnaire_answering`, single + bulk) | **EE** | `apps/api/src/modules/questionnaires/answer.ee.ts` | inside `answerOne` and `answerAll`; handler-level on `POST /:id/answer-all` and `POST /:id/questions/:qid/answer` |
+| Questionnaire structure agent (XLSX/DOCX import, `questionnaire_answering`) | **EE** | `apps/api/src/modules/questionnaires/structure-agent.ee.ts` | inside `mapXlsxStructure` and `mapDocxStructure`; handler-level on `POST /` (file upload) |
+| Training-quiz generation (`quiz_generation`) | **EE** | `packages/ai/src/prompts/quiz.ee.ts`; `apps/api/src/modules/ai-config/router.ts` (`POST /generate-quiz` handler only) | inside `generateQuizQuestions`; handler-level gate |
+| Policy AI Write, Policy draft-from-context, Risk score suggestion, Vendor tier suggestion, Integration NL→spec, Evidence agent, Vendor research | **EE** _(implicitly — they all call `resolveOrgAI`, which is core, but every one of these features is a paywalled accelerator and the next pass will move them to `.ee.ts` files with explicit gates)_ | `apps/api/src/modules/{policies,risks,vendors,integrations,controls}/...` and `apps/collector/src/{agent,research}/...` | gates pending in a follow-up PR; today they remain runnable in unlicensed deployments |
+
+`assertEnterpriseLicense("ai")` failures map to **HTTP 402 Payment Required** with a stable error code `ENTERPRISE_LICENSE_<reason>` (see [`apps/api/src/middleware/error-handler.ts`](../apps/api/src/middleware/error-handler.ts)). Local dev should set `TRUSTALO_LICENSE_DEV_BYPASS=1` rather than minting real keys; the bypass is hard-rejected when `NODE_ENV=production`. See [`docs/enterprise.md`](enterprise.md) for the full design.
+
 ## Table of Contents
 
 1. [Architecture overview](#1-architecture-overview)
@@ -57,10 +76,10 @@ Re-exports from:
 - `factory.ts` — `createAIProvider(credentials, model)`.
 - `resolve.ts` — `resolveAIProvider`, `AINotConfiguredError`, `OperatorAIDefaults`, `OrgProviderRow`, `OrgFeatureRow`, `ResolveContext`, `ResolvedAI`.
 - `errors.ts` — `AIProviderError`, `AIProviderErrorKind`, `wrapProviderError`.
-- `extraction/from-text.ts` — `extractContextProposals`, `CONTEXT_CATEGORIES`, related types.
-- `extraction/asset-classification.ts` — `extractAssetClassifications`, `ASSET_SENSITIVITY_TIERS`, `ASSET_CRITICALITY_TIERS`, related types. CPS 234 Para 23 bootstrap helper.
-- `extraction/scrub.ts` — `scrubPii`, `ScrubResult`.
-- `prompts/quiz.ts` — `generateQuizQuestions`.
+- `extraction/from-text.ee.ts` — `extractContextProposals`, `CONTEXT_CATEGORIES`, related types. **EE — gated on the `ai` feature.**
+- `extraction/asset-classification.ts` — `extractAssetClassifications`, `ASSET_SENSITIVITY_TIERS`, `ASSET_CRITICALITY_TIERS`, related types. CPS 234 Para 23 bootstrap helper. (Free.)
+- `extraction/scrub.ts` — `scrubPii`, `ScrubResult`. (Free.)
+- `prompts/quiz.ee.ts` — `generateQuizQuestions`. **EE — gated on the `ai` feature.**
 
 ### 2.2 Provider contract
 
@@ -214,7 +233,7 @@ Caveat: the route's Zod `featureEnum` does **not** include `chat_assistant`, `co
 
 ### 5.1 Compliance Assistant chat (`chat_assistant`)
 
-- **Module:** `apps/api/src/modules/chat/` (`router.ts`, `grounding.ts`, `system-prompt.ts`).
+- **Module:** `apps/api/src/modules/chat/` (`router.ee.ts`, `grounding.ee.ts`, `system-prompt.ee.ts`). **EE — every endpoint gated by `assertEnterpriseLicense("ai")` at router-mount time.**
 - **UI:** `apps/web/src/components/chat/{chat-provider,chat-drawer,chat-fab}.tsx` mounted from `(dashboard)/layout.tsx`.
 - **Auth:** `authorizeResource("settings:read", "settings:write")` on the router.
 
@@ -293,7 +312,7 @@ Not vector RAG — there is no embedding search. It is **structured retrieval + 
 
 Two entry points, same engine.
 
-- **Module:** `apps/api/src/modules/organization-context/router.ts`; engine `packages/ai/src/extraction/from-text.ts`.
+- **Module:** `apps/api/src/modules/organization-context/router.ts` (CRUD core; `POST /from-text` handler is EE-gated); engine `packages/ai/src/extraction/from-text.ee.ts` (EE).
 - **UI:** `apps/web/src/app/(dashboard)/settings/ai-context/page.tsx` (paste-to-extract); chat drawer "Suggestions" tab also shows the same proposals.
 - **Auth:** organization context permissions on the router.
 
@@ -334,7 +353,7 @@ Turn pasted prose (e.g. a Word doc, security summary) — or a chat message — 
 
 ### 5.3 Questionnaire structure agent (`questionnaire_answering`)
 
-- **Module:** `apps/api/src/modules/questionnaires/structure-agent.ts` (~1 400 lines), driven by `import-job.ts` after `POST /api/v1/questionnaires`.
+- **Module:** `apps/api/src/modules/questionnaires/structure-agent.ee.ts` (~1 400 lines), driven by `import-job.ts` after `POST /api/v1/questionnaires`. **EE** — `mapXlsxStructure` / `mapDocxStructure` self-gate, and the file-upload handler also calls `assertEnterpriseLicense("ai")` so a 402 fires before the file is accepted.
 - **UI:** `apps/web/src/app/(dashboard)/questionnaires/new/page.tsx` (file picker + job polling).
 - **Auth:** `authorizeResource("vendors:read", "vendors:write")` on the router.
 
@@ -401,7 +420,7 @@ Currently in-process via `setImmediate(runImportJob)`. There is **no questionnai
 
 ### 5.4 Questionnaire AI answering (`questionnaire_answering`)
 
-- **Module:** `apps/api/src/modules/questionnaires/answer.ts`. Note: there is **no** separate `answer-agent.ts`.
+- **Module:** `apps/api/src/modules/questionnaires/answer.ee.ts`. Note: there is **no** separate `answer-agent.ts`. **EE** — `answerOne` and `answerAll` self-gate, and the `POST /:id/answer-all` and `POST /:id/questions/:qid/answer` handlers also call `assertEnterpriseLicense("ai")`.
 
 #### Purpose
 
@@ -632,7 +651,7 @@ For a control, run a **multi-turn LLM loop** that the collector executes. Each t
 
 ### 5.11 Training quiz generator (`quiz_generation`)
 
-- **Module:** `apps/api/src/modules/ai-config/router.ts` (`POST /generate-quiz`); engine `packages/ai/src/prompts/quiz.ts`.
+- **Module:** `apps/api/src/modules/ai-config/router.ts` (`POST /generate-quiz` handler — EE-gated); engine `packages/ai/src/prompts/quiz.ee.ts` (EE).
 
 #### Route
 
@@ -720,6 +739,7 @@ The legacy route `/dashboard/ai-usage/page.tsx` redirects to `/settings`.
 
 | Error                                     | HTTP |
 | ----------------------------------------- | ---- |
+| `EnterpriseLicenseError`                  | 402  |
 | `AINotConfiguredError`                    | 503  |
 | `AIProviderError.kind === "auth"`         | 401  |
 | `AIProviderError.kind === "rate_limit"`   | 429  |
@@ -728,6 +748,8 @@ The legacy route `/dashboard/ai-usage/page.tsx` redirects to `/settings`.
 | `AIProviderError.kind === "unavailable"`  | 502  |
 | `AIProviderError.kind === "server_error"` | 502  |
 | Unknown                                   | 500  |
+
+The `EnterpriseLicenseError` body carries the failing `featureId` and a stable `code` of the form `ENTERPRISE_LICENSE_<reason>` (`NO_LICENSE_KEY`, `EXPIRED`, `NOT_YET_VALID`, `FEATURE_NOT_ENTITLED`, `INVALID_SIGNATURE`, etc.) so the SPA can render a "Contact sales for Enterprise" panel without parsing strings.
 
 In SaaS mode, messages also pass through `scrubSecrets` before being returned to the client.
 

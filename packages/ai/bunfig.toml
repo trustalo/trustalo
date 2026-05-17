@@ -1,0 +1,10 @@
+[test]
+# `bun test --coverage` instruments every file Bun loads, including
+# workspace deps. Tests in this package import `@trustalo/license`
+# (e.g. `assertEnterpriseLicense` and the dev-bypass env hook), which
+# would otherwise show up in our coverage report as `../license/src/*`
+# at very low percentages — those files have their own dedicated
+# coverage suite under `packages/license/src/index.test.ts`. Excluding
+# them here prevents cross-package pollution from breaking the 75 %
+# minimum-line-coverage gate enforced by `.github/workflows/security-checks.yml`.
+coveragePathIgnorePatterns = ["**/packages/license/**", "**/license/src/**"]

@@ -1,13 +1,16 @@
-# Fingerprints listed here are silenced by the Gitleaks CI scan.
+# Allowlist for false positives surfaced by `gitleaks detect --no-git`
+# in `.github/workflows/security-checks.yml` (job: secrets-scan).
 #
-# The CI scan runs in working-tree mode (`gitleaks detect --no-git`),
-# so fingerprints DO NOT include a commit SHA. Format:
+# Each entry is a fingerprint emitted by gitleaks in the form
+#   <file>:<rule-id>:<line>
 #
-#   <path>:<rule-id>:<line>
+# Re-evaluate every time the affected line is edited, since gitleaks
+# matches on file+rule+line and a content change makes the suppression
+# stale (and noisy in security reviews).
 #
-# Only add entries that are confirmed false positives -- values that LOOK
-# like secrets but are not (deterministic dev fallbacks, fixture data,
-# hash test vectors, etc.). Real secrets must be rotated, not ignored.
-#
-# When adding an entry, leave a short comment above it explaining WHY the
-# match is safe so reviewers don't have to re-derive that on every audit.
+# Generic-API-Key heuristic flags the literal phrase "Ed25519-signed"
+# in the doc comment that explains what a Trustalo Enterprise License
+# token is. Entropy 3.52 — purely the hyphenated cryptography term, no
+# secret material. Surrounding code references this exact wording, so
+# rewording the comment would degrade docs without buying any safety.
+packages/license/src/types.ts:generic-api-key:3

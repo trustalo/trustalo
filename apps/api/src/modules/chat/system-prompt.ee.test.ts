@@ -3,8 +3,8 @@ import {
   buildChatSystemPrompt,
   buildFrameworkPersonas,
   parseAssistantEnvelope,
-} from "./system-prompt.js";
-import type { GroundingBundle, FrameworkSummary } from "./grounding.js";
+} from "./system-prompt.ee.js";
+import type { GroundingBundle, FrameworkSummary } from "./grounding.ee.js";
 
 function makeFramework(overrides: Partial<FrameworkSummary> = {}): FrameworkSummary {
   return {

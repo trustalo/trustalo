@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { __test, type XlsxSheetSample } from "./structure-agent.js";
+import { __test, type XlsxSheetSample } from "./structure-agent.ee.js";
 
 describe("lite-mode fallback (xlsx)", () => {
   const sampleSheet: XlsxSheetSample = {

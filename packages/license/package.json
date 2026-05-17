@@ -1,5 +1,5 @@
 {
-  "name": "@trustalo/ai",
+  "name": "@trustalo/license",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -9,12 +9,12 @@
     "test": "bun test",
     "test:coverage": "bun test --coverage",
     "typecheck": "tsc --noEmit",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "license:generate-keypair": "bun scripts/generate-keypair.ts",
+    "license:issue": "bun scripts/issue-key.ts",
+    "license:issue-dev": "bun scripts/issue-dev-key.ts"
   },
   "dependencies": {
-    "@aws-sdk/credential-providers": "^3.700.0",
-    "@trustalo/license": "workspace:*",
-    "openai": "^5.8.2",
     "zod": "^4.4.3"
   },
   "devDependencies": {

@@ -2,6 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
 import { Prisma } from "../../generated/prisma/client/index.js";
 import { AINotConfiguredError, AIProviderError } from "@trustalo/ai";
+import { EnterpriseLicenseError } from "@trustalo/license";
 import { isSaaSMode, scrubSecrets } from "../config/deployment.js";
 
 interface ErrorResponse {
@@ -98,6 +99,23 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
     res.status(503).json({
       success: false,
       error: { code: "AI_NOT_CONFIGURED", message: err.message },
+    } satisfies ErrorResponse);
+    return;
+  }
+
+  // Enterprise License gate hit on an EE-only feature. 402 Payment
+  // Required is the right semantic — the request is well-formed and
+  // the user is authenticated, but the deployment lacks (or has an
+  // expired/revoked/feature-mismatched) license. The response carries
+  // the failing feature id and a stable error code so the SPA can show
+  // a "Contact sales for Enterprise" panel without parsing strings.
+  if (err instanceof EnterpriseLicenseError) {
+    res.status(402).json({
+      success: false,
+      error: {
+        code: `ENTERPRISE_LICENSE_${err.code.toUpperCase()}`,
+        message: `Trustalo Enterprise License required for "${err.featureId}" feature.`,
+      },
     } satisfies ErrorResponse);
     return;
   }

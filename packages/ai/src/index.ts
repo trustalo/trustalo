@@ -17,17 +17,17 @@ export {
 } from "./types.js";
 
 export { createAIProvider } from "./factory.js";
-export { generateQuizQuestions } from "./prompts/quiz.js";
+export { generateQuizQuestions } from "./prompts/quiz.ee.js";
 
 // Phase 1 of "ongoing AI context"
-export { extractContextProposals, CONTEXT_CATEGORIES } from "./extraction/from-text.js";
+export { extractContextProposals, CONTEXT_CATEGORIES } from "./extraction/from-text.ee.js";
 export type {
   ContextCategory,
   FactProposal,
   ExistingContextRef,
   ExtractContextProposalsInput,
   ExtractContextProposalsResult,
-} from "./extraction/from-text.js";
+} from "./extraction/from-text.ee.js";
 export { scrubPii } from "./extraction/scrub.js";
 export type { ScrubResult } from "./extraction/scrub.js";
 

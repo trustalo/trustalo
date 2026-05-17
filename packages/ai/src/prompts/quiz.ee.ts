@@ -1,3 +1,10 @@
+// SPDX-License-Identifier: LicenseRef-Trustalo-Enterprise-1.0
+//
+// EE FILE — governed by LICENSE_EE at the repo root. Production use of
+// any export from this file requires a valid Trustalo Enterprise License
+// token in TRUSTALO_LICENSE_KEY that includes the "ai" feature.
+
+import { assertEnterpriseLicense } from "@trustalo/license";
 import type { AIProvider, ChatMessage } from "../types.js";
 
 export interface QuizGenerationInput {
@@ -35,6 +42,7 @@ export async function generateQuizQuestions(
   provider: AIProvider,
   input: QuizGenerationInput,
 ): Promise<GeneratedQuiz> {
+  await assertEnterpriseLicense("ai");
   const userPrompt = `Generate a cybersecurity awareness quiz with the following requirements:
 
 Topic: ${input.topic}

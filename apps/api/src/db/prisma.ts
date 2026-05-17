@@ -110,6 +110,12 @@ export function prismaWithTenant(tenantId: string) {
           // Strictly per-tenant: leaking another org's instructions or tool
           // wiring would be a confidentiality and security bug.
           "ControlEvidenceCollectionConfig",
+          // CPS 234 Para 35 control-weakness register. Carries the
+          // 10-business-day notification clock and remediability decision.
+          // Strictly per-tenant — leaking another entity's weakness
+          // disclosures would be a confidentiality bug and a regulator-
+          // reportable incident in its own right.
+          "ControlWeakness",
         ];
 
         if (!model || !tenantScoped.includes(model)) {

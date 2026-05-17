@@ -1,6 +1,6 @@
 # Trustalo - Compliance Domain Knowledge
 
-Reference for AI agents working on Trustalo compliance features. Covers all eight supported frameworks (six ISO/AICPA + ACSC Essential Eight + NIST CSF 2.0), cross-framework mapping, evidence strategies, and module responsibilities.
+Reference for AI agents working on Trustalo compliance features. Covers all ten supported frameworks (six ISO/AICPA + ACSC Essential Eight + NIST CSF 2.0 + GDPR + APRA CPS 234), cross-framework mapping, evidence strategies, and module responsibilities.
 
 ---
 
@@ -247,6 +247,49 @@ NIST's outcome-based cybersecurity framework. CSF 2.0 (Feb 2024) added the `Gove
   - `nist-csf-2_to_iso27001.json` — derived from NIST OLIR Informative References for CSF 2.0
   - `essential8_to_nist-csf-2.json` — manually verified via E8 → ISO → CSF
   - `soc2_to_iso27001.json` — AICPA TSC → ISO 27001:2022 (full coverage of CC1–CC9, A1, C1)
+
+---
+
+### 9. GDPR — EU General Data Protection Regulation
+
+EU Regulation 2016/679. Applies to controllers and processors handling personal data of EU/EEA data subjects. Modelled at the granularity of the practically-auditable Articles (Chapters II-V), not every recital.
+
+**Structure:**
+
+- ~35 requirements grouped by Chapter: Principles (Art. 5), Lawful basis (Art. 6, 9), Rights (Art. 12-22), Controller/Processor (Art. 24-30), Security (Art. 32-34), DPIA / DPO (Art. 35-39), Transfers (Art. 44-49)
+- Identifier scheme: `Art.<n>` or `Art.<n>(<sub>)` (e.g. `Art.5(1)(a)`, `Art.32`)
+
+**What Trustalo manages:**
+
+- Privacy workspace with RoPA, DSAR, breach register (72-hour clock), DPIA, and Sub-processors / international transfers
+- Nine GDPR-specific policy templates (privacy program, RoPA, DSAR, breach, DPIA, international transfers, cookies, consent, DPO)
+- Cross-framework mappings: `gdpr_to_iso27001.json`, `gdpr_to_soc2.json`
+
+---
+
+### 10. APRA CPS 234 — Information Security (Australia)
+
+APRA Prudential Standard CPS 234 (effective 1 July 2019). Applies to APRA-regulated entities: ADIs, general insurers, life insurers, private health insurers, RSE licensees, and authorised non-operating holding companies. Binary compliance (no maturity tiers).
+
+**Structure:**
+
+- 24 requirements modelled from operational paragraphs 13-36 of the standard
+- Identifier scheme: `CPS234-<paragraph>` (e.g. `CPS234-30`)
+- Categories: Roles and responsibilities · Information security capability · Policy framework · Information asset identification and classification · Implementation of controls · Incident management · Testing control effectiveness · Internal audit · APRA notification
+
+**Distinctive obligations (no good ISO equivalent):**
+
+- Para 33 — 72-hour APRA notification of material information-security incidents
+- Para 35 — 10-business-day APRA notification of material control weaknesses unlikely to be remediated in a timely manner
+- Para 17-19 — Capability assessment of related parties / third parties (independent objective assessment)
+
+**What Trustalo manages:**
+
+- 24 requirements seeded from the standard
+- Three CPS 234-specific policy templates: Information Security Capability (paras 15-19), Information Asset Classification (paras 23-24), and APRA Notification Procedure (paras 33-36)
+- Existing ISMS / IR / Vendor / Risk / Change / Logging / Asset / SDLC / Access policy templates tagged with `cps234`
+- Cross-framework mapping: `cps234_to_iso27001.json` (derived from APRA CPG 234 + AustCyber + published industry cross-walks)
+- Notification clocks (72-hour and 10-business-day) leveraged from the Incident Response and Privacy breach-clock infrastructure
 
 ---
 

@@ -22,7 +22,8 @@ export interface FrameworkDef {
     | "soc2"
     | "essential8"
     | "nist_csf_2"
-    | "gdpr";
+    | "gdpr"
+    | "cps234";
   requirements: RequirementDef[];
 }
 
@@ -35,3 +36,4 @@ export { SOC2_FRAMEWORK } from "./soc2.js";
 export { ESSENTIAL8_FRAMEWORK } from "./essential8.js";
 export { NIST_CSF_2_FRAMEWORK } from "./nist-csf-2.js";
 export { GDPR_FRAMEWORK } from "./gdpr.js";
+export { CPS234_FRAMEWORK } from "./cps234.js";

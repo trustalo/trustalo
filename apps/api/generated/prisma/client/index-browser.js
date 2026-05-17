@@ -406,6 +406,30 @@ exports.Prisma.ControlEvidenceCollectionConfigScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ControlWeaknessScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  controlId: 'controlId',
+  title: 'title',
+  description: 'description',
+  severity: 'severity',
+  status: 'status',
+  discoveredAt: 'discoveredAt',
+  notificationDeadlineAt: 'notificationDeadlineAt',
+  expectedRemediationAt: 'expectedRemediationAt',
+  remediatedAt: 'remediatedAt',
+  remediability: 'remediability',
+  rootCause: 'rootCause',
+  remediationPlan: 'remediationPlan',
+  apraNotificationRequired: 'apraNotificationRequired',
+  apraNotifiedAt: 'apraNotifiedAt',
+  apraReference: 'apraReference',
+  reportedById: 'reportedById',
+  assigneeId: 'assigneeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.EvidenceScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -1532,6 +1556,27 @@ exports.EvidenceAgentLastStatus = exports.$Enums.EvidenceAgentLastStatus = {
   failed: 'failed'
 };
 
+exports.ControlWeaknessSeverity = exports.$Enums.ControlWeaknessSeverity = {
+  low: 'low',
+  medium: 'medium',
+  high: 'high',
+  critical: 'critical'
+};
+
+exports.ControlWeaknessStatus = exports.$Enums.ControlWeaknessStatus = {
+  open: 'open',
+  triaging: 'triaging',
+  notified: 'notified',
+  remediating: 'remediating',
+  closed: 'closed'
+};
+
+exports.ControlWeaknessRemediabilityDecision = exports.$Enums.ControlWeaknessRemediabilityDecision = {
+  pending: 'pending',
+  remediable_in_time: 'remediable_in_time',
+  not_remediable_in_time: 'not_remediable_in_time'
+};
+
 exports.EvidenceType = exports.$Enums.EvidenceType = {
   document: 'document',
   screenshot: 'screenshot',
@@ -1566,7 +1611,8 @@ exports.FrameworkType = exports.$Enums.FrameworkType = {
   soc2: 'soc2',
   essential8: 'essential8',
   nist_csf_2: 'nist_csf_2',
-  gdpr: 'gdpr'
+  gdpr: 'gdpr',
+  cps234: 'cps234'
 };
 
 exports.FrameworkInstanceStatus = exports.$Enums.FrameworkInstanceStatus = {
@@ -2122,6 +2168,7 @@ exports.Prisma.ModelName = {
   Message: 'Message',
   Control: 'Control',
   ControlEvidenceCollectionConfig: 'ControlEvidenceCollectionConfig',
+  ControlWeakness: 'ControlWeakness',
   Evidence: 'Evidence',
   Framework: 'Framework',
   FrameworkInstance: 'FrameworkInstance',

@@ -8,6 +8,7 @@ enum FrameworkType {
   essential8
   nist_csf_2
   gdpr
+  cps234
 }
 
 enum FrameworkInstanceStatus {

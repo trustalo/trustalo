@@ -4,6 +4,11 @@ import { prisma, prismaWithTenant } from "../../db/prisma.js";
 import { authorizeResource } from "../../middleware/authorize.js";
 import { resolveOrgAI, AINotConfiguredError } from "../../config/ai.js";
 import {
+  CPS234_EVIDENCE_AGENT_PRESETS,
+  applyEvidenceAgentPreset,
+  findEvidenceAgentPreset,
+} from "./evidence-agent-presets.js";
+import {
   createAgentRun,
   getAgentRun,
   listAgentRuns,
@@ -453,6 +458,84 @@ async function ensureControl(
     select: { id: true, title: true },
   });
 }
+
+// ─── Evidence-agent presets ─────────────────────────────────────────
+//
+// Read-only catalogue of curated `(agentInstructions,
+// suggestedToolKinds, suggestedScheduleMinutes)` tuples so a regulated
+// tenant can stand up an evidence agent against (for example) APRA
+// CPS 234 Para 28 in one click. Presets live in
+// `evidence-agent-presets.ts` and are surfaced here verbatim — no
+// per-tenant state.
+//
+// Mounted BEFORE the `/:id/...` routes so the static path is not
+// swallowed by Express' param matching.
+
+const presetsListQuery = z.object({
+  frameworkType: z.string().min(1).optional(),
+});
+
+controlsRouter.get("/evidence-config/presets", async (req, res, next) => {
+  try {
+    const query = presetsListQuery.parse(req.query);
+    const presets = query.frameworkType
+      ? CPS234_EVIDENCE_AGENT_PRESETS.filter((p) => p.frameworkType === query.frameworkType)
+      : CPS234_EVIDENCE_AGENT_PRESETS;
+    res.json({ success: true, data: { items: presets, total: presets.length } });
+  } catch (err) {
+    next(err);
+  }
+});
+
+const applyPresetBody = z.object({
+  presetId: z.string().min(1),
+});
+
+controlsRouter.post("/:id/evidence-config/apply-preset", async (req, res, next) => {
+  try {
+    const tenantId = (req as any).auth.tenantId as string;
+    const { id } = idParams.parse(req.params);
+    const { presetId } = applyPresetBody.parse(req.body);
+
+    const control = await ensureControl(tenantId, id);
+    if (!control) {
+      res.status(404).json({
+        success: false,
+        error: { code: "NOT_FOUND", message: "Control not found" },
+      });
+      return;
+    }
+
+    const preset = findEvidenceAgentPreset(presetId);
+    if (!preset) {
+      res.status(404).json({
+        success: false,
+        error: { code: "PRESET_NOT_FOUND", message: `Unknown preset id: ${presetId}` },
+      });
+      return;
+    }
+
+    // Apply is idempotent: we don't write to the DB here — we return
+    // the payload the UI should POST back via PUT /evidence-config.
+    // This keeps preset application a pure client-side composition
+    // step and avoids accidentally clobbering user customisation on a
+    // stale "apply" click.
+    res.json({
+      success: true,
+      data: {
+        controlId: id,
+        preset: {
+          id: preset.id,
+          label: preset.label,
+          citations: preset.citations,
+        },
+        payload: applyEvidenceAgentPreset(preset),
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 
 // Mounted before the dynamic `/:id/evidence-config` routes so it does
 // not get swallowed by the `:id` param.

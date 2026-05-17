@@ -38,7 +38,12 @@ import { prisma } from "../../db/prisma.js";
 // Bumping this string invalidates every prior `groundingHash` recorded
 // on `Message`. Bump it any time the bundle shape, ordering, or
 // truncation rules change so audit reproducibility stays meaningful.
-export const GROUNDING_BUNDLE_VERSION = "v1.0";
+//
+// v1.1 — added `frameworkType` to FrameworkSummary so the system prompt
+//        can append regulated-framework personas (e.g. CPS 234 clocks).
+//        The bundle still includes the same set of citations, but the
+//        rendered prompt is materially different when CPS 234 is adopted.
+export const GROUNDING_BUNDLE_VERSION = "v1.1";
 
 // Truncation knobs — kept generous for context but bounded so a single
 // turn cannot blow the model context budget.
@@ -131,6 +136,13 @@ export interface FrameworkSummary {
   name: string;
   version: string;
   status: string;
+  /**
+   * Stable framework key (matches the `FrameworkType` enum). Used by the
+   * system prompt to detect regulated frameworks (CPS 234, GDPR, etc.)
+   * and append framework-specific personas without string-matching on
+   * `name`.
+   */
+  frameworkType: string;
 }
 
 export interface RecentMessage {
@@ -261,7 +273,7 @@ export async function buildGroundingBundle(input: BuildGroundingInput): Promise<
       select: {
         id: true,
         status: true,
-        framework: { select: { name: true, version: true } },
+        framework: { select: { name: true, version: true, frameworkType: true } },
       },
     }),
     conversationId
@@ -330,6 +342,7 @@ export async function buildGroundingBundle(input: BuildGroundingInput): Promise<
     name: f.framework.name,
     version: f.framework.version,
     status: f.status as string,
+    frameworkType: f.framework.frameworkType as unknown as string,
   }));
 
   // Reverse so the recent messages are in chronological order — easier
@@ -501,7 +514,7 @@ async function mergeFocusRecord(args: {
         select: {
           id: true,
           status: true,
-          framework: { select: { name: true, version: true } },
+          framework: { select: { name: true, version: true, frameworkType: true } },
         },
       });
       if (!row) return null;
@@ -510,6 +523,7 @@ async function mergeFocusRecord(args: {
         name: row.framework.name,
         version: row.framework.version,
         status: row.status as string,
+        frameworkType: row.framework.frameworkType as unknown as string,
       };
       replaceInPlace(args.frameworks, summary, (f) => f.id);
       return {
@@ -622,7 +636,9 @@ export function renderBundleAsPrompt(bundle: GroundingBundle): string {
     lines.push("_No frameworks enabled._");
   } else {
     for (const f of bundle.frameworks) {
-      lines.push(`- [framework:${f.id}] **${f.name} ${f.version}** (${f.status})`);
+      lines.push(
+        `- [framework:${f.id}] **${f.name} ${f.version}** (${f.status}, type \`${f.frameworkType}\`)`,
+      );
     }
   }
 

@@ -19,6 +19,7 @@ import e8ToCsf from "./essential8_to_nist-csf-2.json" with { type: "json" };
 import soc2ToIso from "./soc2_to_iso27001.json" with { type: "json" };
 import gdprToIso from "./gdpr_to_iso27001.json" with { type: "json" };
 import gdprToSoc2 from "./gdpr_to_soc2.json" with { type: "json" };
+import cps234ToIso from "./cps234_to_iso27001.json" with { type: "json" };
 
 export type MappingRelationship = "equivalent" | "partial" | "informs";
 
@@ -44,4 +45,5 @@ export const MAPPINGS: FrameworkMappingSet[] = [
   soc2ToIso as FrameworkMappingSet,
   gdprToIso as FrameworkMappingSet,
   gdprToSoc2 as FrameworkMappingSet,
+  cps234ToIso as FrameworkMappingSet,
 ];

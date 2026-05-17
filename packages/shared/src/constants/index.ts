@@ -51,6 +51,12 @@ export const FRAMEWORK_TYPES = {
     description:
       "EU General Data Protection Regulation (Regulation 2016/679) — privacy and personal-data protection",
   },
+  cps234: {
+    key: "cps234",
+    name: "APRA CPS 234",
+    description:
+      "APRA Prudential Standard CPS 234 Information Security — obligations on APRA-regulated entities (banks, insurers, super funds) for information security capability and notification (Australia)",
+  },
 } as const;
 
 export type FrameworkTypeKey = keyof typeof FRAMEWORK_TYPES;

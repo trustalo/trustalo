@@ -99,6 +99,11 @@ export type Control = $Result.DefaultSelection<Prisma.$ControlPayload>
  */
 export type ControlEvidenceCollectionConfig = $Result.DefaultSelection<Prisma.$ControlEvidenceCollectionConfigPayload>
 /**
+ * Model ControlWeakness
+ * 
+ */
+export type ControlWeakness = $Result.DefaultSelection<Prisma.$ControlWeaknessPayload>
+/**
  * Model Evidence
  * 
  */
@@ -705,6 +710,36 @@ export const EvidenceAgentLastStatus: {
 export type EvidenceAgentLastStatus = (typeof EvidenceAgentLastStatus)[keyof typeof EvidenceAgentLastStatus]
 
 
+export const ControlWeaknessSeverity: {
+  low: 'low',
+  medium: 'medium',
+  high: 'high',
+  critical: 'critical'
+};
+
+export type ControlWeaknessSeverity = (typeof ControlWeaknessSeverity)[keyof typeof ControlWeaknessSeverity]
+
+
+export const ControlWeaknessStatus: {
+  open: 'open',
+  triaging: 'triaging',
+  notified: 'notified',
+  remediating: 'remediating',
+  closed: 'closed'
+};
+
+export type ControlWeaknessStatus = (typeof ControlWeaknessStatus)[keyof typeof ControlWeaknessStatus]
+
+
+export const ControlWeaknessRemediabilityDecision: {
+  pending: 'pending',
+  remediable_in_time: 'remediable_in_time',
+  not_remediable_in_time: 'not_remediable_in_time'
+};
+
+export type ControlWeaknessRemediabilityDecision = (typeof ControlWeaknessRemediabilityDecision)[keyof typeof ControlWeaknessRemediabilityDecision]
+
+
 export const EvidenceType: {
   document: 'document',
   screenshot: 'screenshot',
@@ -748,7 +783,8 @@ export const FrameworkType: {
   soc2: 'soc2',
   essential8: 'essential8',
   nist_csf_2: 'nist_csf_2',
-  gdpr: 'gdpr'
+  gdpr: 'gdpr',
+  cps234: 'cps234'
 };
 
 export type FrameworkType = (typeof FrameworkType)[keyof typeof FrameworkType]
@@ -1603,6 +1639,18 @@ export type EvidenceAgentLastStatus = $Enums.EvidenceAgentLastStatus
 
 export const EvidenceAgentLastStatus: typeof $Enums.EvidenceAgentLastStatus
 
+export type ControlWeaknessSeverity = $Enums.ControlWeaknessSeverity
+
+export const ControlWeaknessSeverity: typeof $Enums.ControlWeaknessSeverity
+
+export type ControlWeaknessStatus = $Enums.ControlWeaknessStatus
+
+export const ControlWeaknessStatus: typeof $Enums.ControlWeaknessStatus
+
+export type ControlWeaknessRemediabilityDecision = $Enums.ControlWeaknessRemediabilityDecision
+
+export const ControlWeaknessRemediabilityDecision: typeof $Enums.ControlWeaknessRemediabilityDecision
+
 export type EvidenceType = $Enums.EvidenceType
 
 export const EvidenceType: typeof $Enums.EvidenceType
@@ -2177,6 +2225,16 @@ export class PrismaClient<
     * ```
     */
   get controlEvidenceCollectionConfig(): Prisma.ControlEvidenceCollectionConfigDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.controlWeakness`: Exposes CRUD operations for the **ControlWeakness** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ControlWeaknesses
+    * const controlWeaknesses = await prisma.controlWeakness.findMany()
+    * ```
+    */
+  get controlWeakness(): Prisma.ControlWeaknessDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.evidence`: Exposes CRUD operations for the **Evidence** model.
@@ -3168,6 +3226,7 @@ export namespace Prisma {
     Message: 'Message',
     Control: 'Control',
     ControlEvidenceCollectionConfig: 'ControlEvidenceCollectionConfig',
+    ControlWeakness: 'ControlWeakness',
     Evidence: 'Evidence',
     Framework: 'Framework',
     FrameworkInstance: 'FrameworkInstance',
@@ -3237,7 +3296,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
+      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4496,6 +4555,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ControlEvidenceCollectionConfigCountArgs<ExtArgs>
             result: $Utils.Optional<ControlEvidenceCollectionConfigCountAggregateOutputType> | number
+          }
+        }
+      }
+      ControlWeakness: {
+        payload: Prisma.$ControlWeaknessPayload<ExtArgs>
+        fields: Prisma.ControlWeaknessFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ControlWeaknessFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ControlWeaknessFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload>
+          }
+          findFirst: {
+            args: Prisma.ControlWeaknessFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ControlWeaknessFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload>
+          }
+          findMany: {
+            args: Prisma.ControlWeaknessFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload>[]
+          }
+          create: {
+            args: Prisma.ControlWeaknessCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload>
+          }
+          createMany: {
+            args: Prisma.ControlWeaknessCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ControlWeaknessCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload>[]
+          }
+          delete: {
+            args: Prisma.ControlWeaknessDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload>
+          }
+          update: {
+            args: Prisma.ControlWeaknessUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload>
+          }
+          deleteMany: {
+            args: Prisma.ControlWeaknessDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ControlWeaknessUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ControlWeaknessUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload>[]
+          }
+          upsert: {
+            args: Prisma.ControlWeaknessUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ControlWeaknessPayload>
+          }
+          aggregate: {
+            args: Prisma.ControlWeaknessAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateControlWeakness>
+          }
+          groupBy: {
+            args: Prisma.ControlWeaknessGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ControlWeaknessGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ControlWeaknessCountArgs<ExtArgs>
+            result: $Utils.Optional<ControlWeaknessCountAggregateOutputType> | number
           }
         }
       }
@@ -8620,6 +8753,7 @@ export namespace Prisma {
     message?: MessageOmit
     control?: ControlOmit
     controlEvidenceCollectionConfig?: ControlEvidenceCollectionConfigOmit
+    controlWeakness?: ControlWeaknessOmit
     evidence?: EvidenceOmit
     framework?: FrameworkOmit
     frameworkInstance?: FrameworkInstanceOmit
@@ -8919,6 +9053,7 @@ export namespace Prisma {
     tasks: number
     evidence: number
     policyControls: number
+    weaknesses: number
   }
 
   export type ControlCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8927,6 +9062,7 @@ export namespace Prisma {
     tasks?: boolean | ControlCountOutputTypeCountTasksArgs
     evidence?: boolean | ControlCountOutputTypeCountEvidenceArgs
     policyControls?: boolean | ControlCountOutputTypeCountPolicyControlsArgs
+    weaknesses?: boolean | ControlCountOutputTypeCountWeaknessesArgs
   }
 
   // Custom InputTypes
@@ -8973,6 +9109,13 @@ export namespace Prisma {
    */
   export type ControlCountOutputTypeCountPolicyControlsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PolicyControlWhereInput
+  }
+
+  /**
+   * ControlCountOutputType without action
+   */
+  export type ControlCountOutputTypeCountWeaknessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ControlWeaknessWhereInput
   }
 
 
@@ -9623,6 +9766,7 @@ export namespace Prisma {
     questions: number
     answers: number
     questionnaireImportJobs: number
+    controlWeaknesses: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9681,6 +9825,7 @@ export namespace Prisma {
     questions?: boolean | TenantCountOutputTypeCountQuestionsArgs
     answers?: boolean | TenantCountOutputTypeCountAnswersArgs
     questionnaireImportJobs?: boolean | TenantCountOutputTypeCountQuestionnaireImportJobsArgs
+    controlWeaknesses?: boolean | TenantCountOutputTypeCountControlWeaknessesArgs
   }
 
   // Custom InputTypes
@@ -10079,6 +10224,13 @@ export namespace Prisma {
     where?: QuestionnaireImportJobWhereInput
   }
 
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountControlWeaknessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ControlWeaknessWhereInput
+  }
+
 
   /**
    * Count Type TrainingProgramCountOutputType
@@ -10395,6 +10547,8 @@ export namespace Prisma {
     dpiaApprovals: number
     reportedDataBreaches: number
     assignedDataBreaches: number
+    reportedControlWeaknesses: number
+    assignedControlWeaknesses: number
     assignedDsarRequests: number
     importedQuestionnaires: number
     reviewedAnswers: number
@@ -10450,6 +10604,8 @@ export namespace Prisma {
     dpiaApprovals?: boolean | UserCountOutputTypeCountDpiaApprovalsArgs
     reportedDataBreaches?: boolean | UserCountOutputTypeCountReportedDataBreachesArgs
     assignedDataBreaches?: boolean | UserCountOutputTypeCountAssignedDataBreachesArgs
+    reportedControlWeaknesses?: boolean | UserCountOutputTypeCountReportedControlWeaknessesArgs
+    assignedControlWeaknesses?: boolean | UserCountOutputTypeCountAssignedControlWeaknessesArgs
     assignedDsarRequests?: boolean | UserCountOutputTypeCountAssignedDsarRequestsArgs
     importedQuestionnaires?: boolean | UserCountOutputTypeCountImportedQuestionnairesArgs
     reviewedAnswers?: boolean | UserCountOutputTypeCountReviewedAnswersArgs
@@ -10801,6 +10957,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAssignedDataBreachesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DataBreachWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountReportedControlWeaknessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ControlWeaknessWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAssignedControlWeaknessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ControlWeaknessWhereInput
   }
 
   /**
@@ -29703,6 +29873,7 @@ export namespace Prisma {
     evidence?: boolean | Control$evidenceArgs<ExtArgs>
     policyControls?: boolean | Control$policyControlsArgs<ExtArgs>
     evidenceCollectionConfig?: boolean | Control$evidenceCollectionConfigArgs<ExtArgs>
+    weaknesses?: boolean | Control$weaknessesArgs<ExtArgs>
     _count?: boolean | ControlCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["control"]>
 
@@ -29765,6 +29936,7 @@ export namespace Prisma {
     evidence?: boolean | Control$evidenceArgs<ExtArgs>
     policyControls?: boolean | Control$policyControlsArgs<ExtArgs>
     evidenceCollectionConfig?: boolean | Control$evidenceCollectionConfigArgs<ExtArgs>
+    weaknesses?: boolean | Control$weaknessesArgs<ExtArgs>
     _count?: boolean | ControlCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ControlIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29787,6 +29959,7 @@ export namespace Prisma {
       evidence: Prisma.$EvidencePayload<ExtArgs>[]
       policyControls: Prisma.$PolicyControlPayload<ExtArgs>[]
       evidenceCollectionConfig: Prisma.$ControlEvidenceCollectionConfigPayload<ExtArgs> | null
+      weaknesses: Prisma.$ControlWeaknessPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -30203,6 +30376,7 @@ export namespace Prisma {
     evidence<T extends Control$evidenceArgs<ExtArgs> = {}>(args?: Subset<T, Control$evidenceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EvidencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     policyControls<T extends Control$policyControlsArgs<ExtArgs> = {}>(args?: Subset<T, Control$policyControlsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PolicyControlPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     evidenceCollectionConfig<T extends Control$evidenceCollectionConfigArgs<ExtArgs> = {}>(args?: Subset<T, Control$evidenceCollectionConfigArgs<ExtArgs>>): Prisma__ControlEvidenceCollectionConfigClient<$Result.GetResult<Prisma.$ControlEvidenceCollectionConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    weaknesses<T extends Control$weaknessesArgs<ExtArgs> = {}>(args?: Subset<T, Control$weaknessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -30800,6 +30974,30 @@ export namespace Prisma {
      */
     include?: ControlEvidenceCollectionConfigInclude<ExtArgs> | null
     where?: ControlEvidenceCollectionConfigWhereInput
+  }
+
+  /**
+   * Control.weaknesses
+   */
+  export type Control$weaknessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    where?: ControlWeaknessWhereInput
+    orderBy?: ControlWeaknessOrderByWithRelationInput | ControlWeaknessOrderByWithRelationInput[]
+    cursor?: ControlWeaknessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ControlWeaknessScalarFieldEnum | ControlWeaknessScalarFieldEnum[]
   }
 
   /**
@@ -32015,6 +32213,1384 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ControlEvidenceCollectionConfigInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ControlWeakness
+   */
+
+  export type AggregateControlWeakness = {
+    _count: ControlWeaknessCountAggregateOutputType | null
+    _min: ControlWeaknessMinAggregateOutputType | null
+    _max: ControlWeaknessMaxAggregateOutputType | null
+  }
+
+  export type ControlWeaknessMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    controlId: string | null
+    title: string | null
+    description: string | null
+    severity: $Enums.ControlWeaknessSeverity | null
+    status: $Enums.ControlWeaknessStatus | null
+    discoveredAt: Date | null
+    notificationDeadlineAt: Date | null
+    expectedRemediationAt: Date | null
+    remediatedAt: Date | null
+    remediability: $Enums.ControlWeaknessRemediabilityDecision | null
+    rootCause: string | null
+    remediationPlan: string | null
+    apraNotificationRequired: boolean | null
+    apraNotifiedAt: Date | null
+    apraReference: string | null
+    reportedById: string | null
+    assigneeId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ControlWeaknessMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    controlId: string | null
+    title: string | null
+    description: string | null
+    severity: $Enums.ControlWeaknessSeverity | null
+    status: $Enums.ControlWeaknessStatus | null
+    discoveredAt: Date | null
+    notificationDeadlineAt: Date | null
+    expectedRemediationAt: Date | null
+    remediatedAt: Date | null
+    remediability: $Enums.ControlWeaknessRemediabilityDecision | null
+    rootCause: string | null
+    remediationPlan: string | null
+    apraNotificationRequired: boolean | null
+    apraNotifiedAt: Date | null
+    apraReference: string | null
+    reportedById: string | null
+    assigneeId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ControlWeaknessCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    controlId: number
+    title: number
+    description: number
+    severity: number
+    status: number
+    discoveredAt: number
+    notificationDeadlineAt: number
+    expectedRemediationAt: number
+    remediatedAt: number
+    remediability: number
+    rootCause: number
+    remediationPlan: number
+    apraNotificationRequired: number
+    apraNotifiedAt: number
+    apraReference: number
+    reportedById: number
+    assigneeId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ControlWeaknessMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    controlId?: true
+    title?: true
+    description?: true
+    severity?: true
+    status?: true
+    discoveredAt?: true
+    notificationDeadlineAt?: true
+    expectedRemediationAt?: true
+    remediatedAt?: true
+    remediability?: true
+    rootCause?: true
+    remediationPlan?: true
+    apraNotificationRequired?: true
+    apraNotifiedAt?: true
+    apraReference?: true
+    reportedById?: true
+    assigneeId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ControlWeaknessMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    controlId?: true
+    title?: true
+    description?: true
+    severity?: true
+    status?: true
+    discoveredAt?: true
+    notificationDeadlineAt?: true
+    expectedRemediationAt?: true
+    remediatedAt?: true
+    remediability?: true
+    rootCause?: true
+    remediationPlan?: true
+    apraNotificationRequired?: true
+    apraNotifiedAt?: true
+    apraReference?: true
+    reportedById?: true
+    assigneeId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ControlWeaknessCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    controlId?: true
+    title?: true
+    description?: true
+    severity?: true
+    status?: true
+    discoveredAt?: true
+    notificationDeadlineAt?: true
+    expectedRemediationAt?: true
+    remediatedAt?: true
+    remediability?: true
+    rootCause?: true
+    remediationPlan?: true
+    apraNotificationRequired?: true
+    apraNotifiedAt?: true
+    apraReference?: true
+    reportedById?: true
+    assigneeId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ControlWeaknessAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ControlWeakness to aggregate.
+     */
+    where?: ControlWeaknessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ControlWeaknesses to fetch.
+     */
+    orderBy?: ControlWeaknessOrderByWithRelationInput | ControlWeaknessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ControlWeaknessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ControlWeaknesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ControlWeaknesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ControlWeaknesses
+    **/
+    _count?: true | ControlWeaknessCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ControlWeaknessMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ControlWeaknessMaxAggregateInputType
+  }
+
+  export type GetControlWeaknessAggregateType<T extends ControlWeaknessAggregateArgs> = {
+        [P in keyof T & keyof AggregateControlWeakness]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateControlWeakness[P]>
+      : GetScalarType<T[P], AggregateControlWeakness[P]>
+  }
+
+
+
+
+  export type ControlWeaknessGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ControlWeaknessWhereInput
+    orderBy?: ControlWeaknessOrderByWithAggregationInput | ControlWeaknessOrderByWithAggregationInput[]
+    by: ControlWeaknessScalarFieldEnum[] | ControlWeaknessScalarFieldEnum
+    having?: ControlWeaknessScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ControlWeaknessCountAggregateInputType | true
+    _min?: ControlWeaknessMinAggregateInputType
+    _max?: ControlWeaknessMaxAggregateInputType
+  }
+
+  export type ControlWeaknessGroupByOutputType = {
+    id: string
+    tenantId: string
+    controlId: string | null
+    title: string
+    description: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status: $Enums.ControlWeaknessStatus
+    discoveredAt: Date
+    notificationDeadlineAt: Date
+    expectedRemediationAt: Date | null
+    remediatedAt: Date | null
+    remediability: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause: string | null
+    remediationPlan: string | null
+    apraNotificationRequired: boolean
+    apraNotifiedAt: Date | null
+    apraReference: string | null
+    reportedById: string | null
+    assigneeId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ControlWeaknessCountAggregateOutputType | null
+    _min: ControlWeaknessMinAggregateOutputType | null
+    _max: ControlWeaknessMaxAggregateOutputType | null
+  }
+
+  type GetControlWeaknessGroupByPayload<T extends ControlWeaknessGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ControlWeaknessGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ControlWeaknessGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ControlWeaknessGroupByOutputType[P]>
+            : GetScalarType<T[P], ControlWeaknessGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ControlWeaknessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    controlId?: boolean
+    title?: boolean
+    description?: boolean
+    severity?: boolean
+    status?: boolean
+    discoveredAt?: boolean
+    notificationDeadlineAt?: boolean
+    expectedRemediationAt?: boolean
+    remediatedAt?: boolean
+    remediability?: boolean
+    rootCause?: boolean
+    remediationPlan?: boolean
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: boolean
+    apraReference?: boolean
+    reportedById?: boolean
+    assigneeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    control?: boolean | ControlWeakness$controlArgs<ExtArgs>
+    reportedBy?: boolean | ControlWeakness$reportedByArgs<ExtArgs>
+    assignee?: boolean | ControlWeakness$assigneeArgs<ExtArgs>
+  }, ExtArgs["result"]["controlWeakness"]>
+
+  export type ControlWeaknessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    controlId?: boolean
+    title?: boolean
+    description?: boolean
+    severity?: boolean
+    status?: boolean
+    discoveredAt?: boolean
+    notificationDeadlineAt?: boolean
+    expectedRemediationAt?: boolean
+    remediatedAt?: boolean
+    remediability?: boolean
+    rootCause?: boolean
+    remediationPlan?: boolean
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: boolean
+    apraReference?: boolean
+    reportedById?: boolean
+    assigneeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    control?: boolean | ControlWeakness$controlArgs<ExtArgs>
+    reportedBy?: boolean | ControlWeakness$reportedByArgs<ExtArgs>
+    assignee?: boolean | ControlWeakness$assigneeArgs<ExtArgs>
+  }, ExtArgs["result"]["controlWeakness"]>
+
+  export type ControlWeaknessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    controlId?: boolean
+    title?: boolean
+    description?: boolean
+    severity?: boolean
+    status?: boolean
+    discoveredAt?: boolean
+    notificationDeadlineAt?: boolean
+    expectedRemediationAt?: boolean
+    remediatedAt?: boolean
+    remediability?: boolean
+    rootCause?: boolean
+    remediationPlan?: boolean
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: boolean
+    apraReference?: boolean
+    reportedById?: boolean
+    assigneeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    control?: boolean | ControlWeakness$controlArgs<ExtArgs>
+    reportedBy?: boolean | ControlWeakness$reportedByArgs<ExtArgs>
+    assignee?: boolean | ControlWeakness$assigneeArgs<ExtArgs>
+  }, ExtArgs["result"]["controlWeakness"]>
+
+  export type ControlWeaknessSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    controlId?: boolean
+    title?: boolean
+    description?: boolean
+    severity?: boolean
+    status?: boolean
+    discoveredAt?: boolean
+    notificationDeadlineAt?: boolean
+    expectedRemediationAt?: boolean
+    remediatedAt?: boolean
+    remediability?: boolean
+    rootCause?: boolean
+    remediationPlan?: boolean
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: boolean
+    apraReference?: boolean
+    reportedById?: boolean
+    assigneeId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ControlWeaknessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "controlId" | "title" | "description" | "severity" | "status" | "discoveredAt" | "notificationDeadlineAt" | "expectedRemediationAt" | "remediatedAt" | "remediability" | "rootCause" | "remediationPlan" | "apraNotificationRequired" | "apraNotifiedAt" | "apraReference" | "reportedById" | "assigneeId" | "createdAt" | "updatedAt", ExtArgs["result"]["controlWeakness"]>
+  export type ControlWeaknessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    control?: boolean | ControlWeakness$controlArgs<ExtArgs>
+    reportedBy?: boolean | ControlWeakness$reportedByArgs<ExtArgs>
+    assignee?: boolean | ControlWeakness$assigneeArgs<ExtArgs>
+  }
+  export type ControlWeaknessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    control?: boolean | ControlWeakness$controlArgs<ExtArgs>
+    reportedBy?: boolean | ControlWeakness$reportedByArgs<ExtArgs>
+    assignee?: boolean | ControlWeakness$assigneeArgs<ExtArgs>
+  }
+  export type ControlWeaknessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    control?: boolean | ControlWeakness$controlArgs<ExtArgs>
+    reportedBy?: boolean | ControlWeakness$reportedByArgs<ExtArgs>
+    assignee?: boolean | ControlWeakness$assigneeArgs<ExtArgs>
+  }
+
+  export type $ControlWeaknessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ControlWeakness"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      control: Prisma.$ControlPayload<ExtArgs> | null
+      reportedBy: Prisma.$UserPayload<ExtArgs> | null
+      assignee: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      /**
+       * Optional link to the control whose weakness this records. Nullable
+       * because a weakness may surface before the control is catalogued
+       * (e.g. from a pen-test finding or third-party attestation gap).
+       */
+      controlId: string | null
+      title: string
+      description: string | null
+      severity: $Enums.ControlWeaknessSeverity
+      status: $Enums.ControlWeaknessStatus
+      discoveredAt: Date
+      /**
+       * Snapshot of `discoveredAt + 10 business days` at create-time per
+       * CPS 234 Para 35. Stored explicitly so reviewers can override the
+       * computed value when the discovery point itself is uncertain.
+       */
+      notificationDeadlineAt: Date
+      /**
+       * Date by which the entity expects to remediate. Used by the
+       * router/UI to surface "remediation will overrun the 10-BD clock".
+       */
+      expectedRemediationAt: Date | null
+      remediatedAt: Date | null
+      /**
+       * Materiality + remediability decision (Para 35 trigger).
+       * `pending`              — entity still assessing.
+       * `remediable_in_time`   — material, but expected to be remediated
+       * within an entity-defined timely window
+       * (no notification required).
+       * `not_remediable_in_time` — APRA notification required within 10
+       * business days of becoming aware.
+       */
+      remediability: $Enums.ControlWeaknessRemediabilityDecision
+      rootCause: string | null
+      remediationPlan: string | null
+      /**
+       * APRA notification (Para 35).
+       */
+      apraNotificationRequired: boolean
+      apraNotifiedAt: Date | null
+      apraReference: string | null
+      reportedById: string | null
+      assigneeId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["controlWeakness"]>
+    composites: {}
+  }
+
+  type ControlWeaknessGetPayload<S extends boolean | null | undefined | ControlWeaknessDefaultArgs> = $Result.GetResult<Prisma.$ControlWeaknessPayload, S>
+
+  type ControlWeaknessCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ControlWeaknessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ControlWeaknessCountAggregateInputType | true
+    }
+
+  export interface ControlWeaknessDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ControlWeakness'], meta: { name: 'ControlWeakness' } }
+    /**
+     * Find zero or one ControlWeakness that matches the filter.
+     * @param {ControlWeaknessFindUniqueArgs} args - Arguments to find a ControlWeakness
+     * @example
+     * // Get one ControlWeakness
+     * const controlWeakness = await prisma.controlWeakness.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ControlWeaknessFindUniqueArgs>(args: SelectSubset<T, ControlWeaknessFindUniqueArgs<ExtArgs>>): Prisma__ControlWeaknessClient<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ControlWeakness that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ControlWeaknessFindUniqueOrThrowArgs} args - Arguments to find a ControlWeakness
+     * @example
+     * // Get one ControlWeakness
+     * const controlWeakness = await prisma.controlWeakness.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ControlWeaknessFindUniqueOrThrowArgs>(args: SelectSubset<T, ControlWeaknessFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ControlWeaknessClient<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ControlWeakness that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ControlWeaknessFindFirstArgs} args - Arguments to find a ControlWeakness
+     * @example
+     * // Get one ControlWeakness
+     * const controlWeakness = await prisma.controlWeakness.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ControlWeaknessFindFirstArgs>(args?: SelectSubset<T, ControlWeaknessFindFirstArgs<ExtArgs>>): Prisma__ControlWeaknessClient<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ControlWeakness that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ControlWeaknessFindFirstOrThrowArgs} args - Arguments to find a ControlWeakness
+     * @example
+     * // Get one ControlWeakness
+     * const controlWeakness = await prisma.controlWeakness.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ControlWeaknessFindFirstOrThrowArgs>(args?: SelectSubset<T, ControlWeaknessFindFirstOrThrowArgs<ExtArgs>>): Prisma__ControlWeaknessClient<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ControlWeaknesses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ControlWeaknessFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ControlWeaknesses
+     * const controlWeaknesses = await prisma.controlWeakness.findMany()
+     * 
+     * // Get first 10 ControlWeaknesses
+     * const controlWeaknesses = await prisma.controlWeakness.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const controlWeaknessWithIdOnly = await prisma.controlWeakness.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ControlWeaknessFindManyArgs>(args?: SelectSubset<T, ControlWeaknessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ControlWeakness.
+     * @param {ControlWeaknessCreateArgs} args - Arguments to create a ControlWeakness.
+     * @example
+     * // Create one ControlWeakness
+     * const ControlWeakness = await prisma.controlWeakness.create({
+     *   data: {
+     *     // ... data to create a ControlWeakness
+     *   }
+     * })
+     * 
+     */
+    create<T extends ControlWeaknessCreateArgs>(args: SelectSubset<T, ControlWeaknessCreateArgs<ExtArgs>>): Prisma__ControlWeaknessClient<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ControlWeaknesses.
+     * @param {ControlWeaknessCreateManyArgs} args - Arguments to create many ControlWeaknesses.
+     * @example
+     * // Create many ControlWeaknesses
+     * const controlWeakness = await prisma.controlWeakness.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ControlWeaknessCreateManyArgs>(args?: SelectSubset<T, ControlWeaknessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ControlWeaknesses and returns the data saved in the database.
+     * @param {ControlWeaknessCreateManyAndReturnArgs} args - Arguments to create many ControlWeaknesses.
+     * @example
+     * // Create many ControlWeaknesses
+     * const controlWeakness = await prisma.controlWeakness.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ControlWeaknesses and only return the `id`
+     * const controlWeaknessWithIdOnly = await prisma.controlWeakness.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ControlWeaknessCreateManyAndReturnArgs>(args?: SelectSubset<T, ControlWeaknessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ControlWeakness.
+     * @param {ControlWeaknessDeleteArgs} args - Arguments to delete one ControlWeakness.
+     * @example
+     * // Delete one ControlWeakness
+     * const ControlWeakness = await prisma.controlWeakness.delete({
+     *   where: {
+     *     // ... filter to delete one ControlWeakness
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ControlWeaknessDeleteArgs>(args: SelectSubset<T, ControlWeaknessDeleteArgs<ExtArgs>>): Prisma__ControlWeaknessClient<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ControlWeakness.
+     * @param {ControlWeaknessUpdateArgs} args - Arguments to update one ControlWeakness.
+     * @example
+     * // Update one ControlWeakness
+     * const controlWeakness = await prisma.controlWeakness.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ControlWeaknessUpdateArgs>(args: SelectSubset<T, ControlWeaknessUpdateArgs<ExtArgs>>): Prisma__ControlWeaknessClient<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ControlWeaknesses.
+     * @param {ControlWeaknessDeleteManyArgs} args - Arguments to filter ControlWeaknesses to delete.
+     * @example
+     * // Delete a few ControlWeaknesses
+     * const { count } = await prisma.controlWeakness.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ControlWeaknessDeleteManyArgs>(args?: SelectSubset<T, ControlWeaknessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ControlWeaknesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ControlWeaknessUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ControlWeaknesses
+     * const controlWeakness = await prisma.controlWeakness.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ControlWeaknessUpdateManyArgs>(args: SelectSubset<T, ControlWeaknessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ControlWeaknesses and returns the data updated in the database.
+     * @param {ControlWeaknessUpdateManyAndReturnArgs} args - Arguments to update many ControlWeaknesses.
+     * @example
+     * // Update many ControlWeaknesses
+     * const controlWeakness = await prisma.controlWeakness.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ControlWeaknesses and only return the `id`
+     * const controlWeaknessWithIdOnly = await prisma.controlWeakness.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ControlWeaknessUpdateManyAndReturnArgs>(args: SelectSubset<T, ControlWeaknessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ControlWeakness.
+     * @param {ControlWeaknessUpsertArgs} args - Arguments to update or create a ControlWeakness.
+     * @example
+     * // Update or create a ControlWeakness
+     * const controlWeakness = await prisma.controlWeakness.upsert({
+     *   create: {
+     *     // ... data to create a ControlWeakness
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ControlWeakness we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ControlWeaknessUpsertArgs>(args: SelectSubset<T, ControlWeaknessUpsertArgs<ExtArgs>>): Prisma__ControlWeaknessClient<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ControlWeaknesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ControlWeaknessCountArgs} args - Arguments to filter ControlWeaknesses to count.
+     * @example
+     * // Count the number of ControlWeaknesses
+     * const count = await prisma.controlWeakness.count({
+     *   where: {
+     *     // ... the filter for the ControlWeaknesses we want to count
+     *   }
+     * })
+    **/
+    count<T extends ControlWeaknessCountArgs>(
+      args?: Subset<T, ControlWeaknessCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ControlWeaknessCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ControlWeakness.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ControlWeaknessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ControlWeaknessAggregateArgs>(args: Subset<T, ControlWeaknessAggregateArgs>): Prisma.PrismaPromise<GetControlWeaknessAggregateType<T>>
+
+    /**
+     * Group by ControlWeakness.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ControlWeaknessGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ControlWeaknessGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ControlWeaknessGroupByArgs['orderBy'] }
+        : { orderBy?: ControlWeaknessGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ControlWeaknessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetControlWeaknessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ControlWeakness model
+   */
+  readonly fields: ControlWeaknessFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ControlWeakness.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ControlWeaknessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    control<T extends ControlWeakness$controlArgs<ExtArgs> = {}>(args?: Subset<T, ControlWeakness$controlArgs<ExtArgs>>): Prisma__ControlClient<$Result.GetResult<Prisma.$ControlPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    reportedBy<T extends ControlWeakness$reportedByArgs<ExtArgs> = {}>(args?: Subset<T, ControlWeakness$reportedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    assignee<T extends ControlWeakness$assigneeArgs<ExtArgs> = {}>(args?: Subset<T, ControlWeakness$assigneeArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ControlWeakness model
+   */
+  interface ControlWeaknessFieldRefs {
+    readonly id: FieldRef<"ControlWeakness", 'String'>
+    readonly tenantId: FieldRef<"ControlWeakness", 'String'>
+    readonly controlId: FieldRef<"ControlWeakness", 'String'>
+    readonly title: FieldRef<"ControlWeakness", 'String'>
+    readonly description: FieldRef<"ControlWeakness", 'String'>
+    readonly severity: FieldRef<"ControlWeakness", 'ControlWeaknessSeverity'>
+    readonly status: FieldRef<"ControlWeakness", 'ControlWeaknessStatus'>
+    readonly discoveredAt: FieldRef<"ControlWeakness", 'DateTime'>
+    readonly notificationDeadlineAt: FieldRef<"ControlWeakness", 'DateTime'>
+    readonly expectedRemediationAt: FieldRef<"ControlWeakness", 'DateTime'>
+    readonly remediatedAt: FieldRef<"ControlWeakness", 'DateTime'>
+    readonly remediability: FieldRef<"ControlWeakness", 'ControlWeaknessRemediabilityDecision'>
+    readonly rootCause: FieldRef<"ControlWeakness", 'String'>
+    readonly remediationPlan: FieldRef<"ControlWeakness", 'String'>
+    readonly apraNotificationRequired: FieldRef<"ControlWeakness", 'Boolean'>
+    readonly apraNotifiedAt: FieldRef<"ControlWeakness", 'DateTime'>
+    readonly apraReference: FieldRef<"ControlWeakness", 'String'>
+    readonly reportedById: FieldRef<"ControlWeakness", 'String'>
+    readonly assigneeId: FieldRef<"ControlWeakness", 'String'>
+    readonly createdAt: FieldRef<"ControlWeakness", 'DateTime'>
+    readonly updatedAt: FieldRef<"ControlWeakness", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ControlWeakness findUnique
+   */
+  export type ControlWeaknessFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    /**
+     * Filter, which ControlWeakness to fetch.
+     */
+    where: ControlWeaknessWhereUniqueInput
+  }
+
+  /**
+   * ControlWeakness findUniqueOrThrow
+   */
+  export type ControlWeaknessFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    /**
+     * Filter, which ControlWeakness to fetch.
+     */
+    where: ControlWeaknessWhereUniqueInput
+  }
+
+  /**
+   * ControlWeakness findFirst
+   */
+  export type ControlWeaknessFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    /**
+     * Filter, which ControlWeakness to fetch.
+     */
+    where?: ControlWeaknessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ControlWeaknesses to fetch.
+     */
+    orderBy?: ControlWeaknessOrderByWithRelationInput | ControlWeaknessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ControlWeaknesses.
+     */
+    cursor?: ControlWeaknessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ControlWeaknesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ControlWeaknesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ControlWeaknesses.
+     */
+    distinct?: ControlWeaknessScalarFieldEnum | ControlWeaknessScalarFieldEnum[]
+  }
+
+  /**
+   * ControlWeakness findFirstOrThrow
+   */
+  export type ControlWeaknessFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    /**
+     * Filter, which ControlWeakness to fetch.
+     */
+    where?: ControlWeaknessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ControlWeaknesses to fetch.
+     */
+    orderBy?: ControlWeaknessOrderByWithRelationInput | ControlWeaknessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ControlWeaknesses.
+     */
+    cursor?: ControlWeaknessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ControlWeaknesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ControlWeaknesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ControlWeaknesses.
+     */
+    distinct?: ControlWeaknessScalarFieldEnum | ControlWeaknessScalarFieldEnum[]
+  }
+
+  /**
+   * ControlWeakness findMany
+   */
+  export type ControlWeaknessFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    /**
+     * Filter, which ControlWeaknesses to fetch.
+     */
+    where?: ControlWeaknessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ControlWeaknesses to fetch.
+     */
+    orderBy?: ControlWeaknessOrderByWithRelationInput | ControlWeaknessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ControlWeaknesses.
+     */
+    cursor?: ControlWeaknessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ControlWeaknesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ControlWeaknesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ControlWeaknesses.
+     */
+    distinct?: ControlWeaknessScalarFieldEnum | ControlWeaknessScalarFieldEnum[]
+  }
+
+  /**
+   * ControlWeakness create
+   */
+  export type ControlWeaknessCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ControlWeakness.
+     */
+    data: XOR<ControlWeaknessCreateInput, ControlWeaknessUncheckedCreateInput>
+  }
+
+  /**
+   * ControlWeakness createMany
+   */
+  export type ControlWeaknessCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ControlWeaknesses.
+     */
+    data: ControlWeaknessCreateManyInput | ControlWeaknessCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ControlWeakness createManyAndReturn
+   */
+  export type ControlWeaknessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * The data used to create many ControlWeaknesses.
+     */
+    data: ControlWeaknessCreateManyInput | ControlWeaknessCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ControlWeakness update
+   */
+  export type ControlWeaknessUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ControlWeakness.
+     */
+    data: XOR<ControlWeaknessUpdateInput, ControlWeaknessUncheckedUpdateInput>
+    /**
+     * Choose, which ControlWeakness to update.
+     */
+    where: ControlWeaknessWhereUniqueInput
+  }
+
+  /**
+   * ControlWeakness updateMany
+   */
+  export type ControlWeaknessUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ControlWeaknesses.
+     */
+    data: XOR<ControlWeaknessUpdateManyMutationInput, ControlWeaknessUncheckedUpdateManyInput>
+    /**
+     * Filter which ControlWeaknesses to update
+     */
+    where?: ControlWeaknessWhereInput
+    /**
+     * Limit how many ControlWeaknesses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ControlWeakness updateManyAndReturn
+   */
+  export type ControlWeaknessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * The data used to update ControlWeaknesses.
+     */
+    data: XOR<ControlWeaknessUpdateManyMutationInput, ControlWeaknessUncheckedUpdateManyInput>
+    /**
+     * Filter which ControlWeaknesses to update
+     */
+    where?: ControlWeaknessWhereInput
+    /**
+     * Limit how many ControlWeaknesses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ControlWeakness upsert
+   */
+  export type ControlWeaknessUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ControlWeakness to update in case it exists.
+     */
+    where: ControlWeaknessWhereUniqueInput
+    /**
+     * In case the ControlWeakness found by the `where` argument doesn't exist, create a new ControlWeakness with this data.
+     */
+    create: XOR<ControlWeaknessCreateInput, ControlWeaknessUncheckedCreateInput>
+    /**
+     * In case the ControlWeakness was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ControlWeaknessUpdateInput, ControlWeaknessUncheckedUpdateInput>
+  }
+
+  /**
+   * ControlWeakness delete
+   */
+  export type ControlWeaknessDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    /**
+     * Filter which ControlWeakness to delete.
+     */
+    where: ControlWeaknessWhereUniqueInput
+  }
+
+  /**
+   * ControlWeakness deleteMany
+   */
+  export type ControlWeaknessDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ControlWeaknesses to delete
+     */
+    where?: ControlWeaknessWhereInput
+    /**
+     * Limit how many ControlWeaknesses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ControlWeakness.control
+   */
+  export type ControlWeakness$controlArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Control
+     */
+    select?: ControlSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Control
+     */
+    omit?: ControlOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlInclude<ExtArgs> | null
+    where?: ControlWhereInput
+  }
+
+  /**
+   * ControlWeakness.reportedBy
+   */
+  export type ControlWeakness$reportedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * ControlWeakness.assignee
+   */
+  export type ControlWeakness$assigneeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * ControlWeakness without action
+   */
+  export type ControlWeaknessDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
   }
 
 
@@ -71449,6 +73025,7 @@ export namespace Prisma {
     questions?: boolean | Tenant$questionsArgs<ExtArgs>
     answers?: boolean | Tenant$answersArgs<ExtArgs>
     questionnaireImportJobs?: boolean | Tenant$questionnaireImportJobsArgs<ExtArgs>
+    controlWeaknesses?: boolean | Tenant$controlWeaknessesArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -71542,6 +73119,7 @@ export namespace Prisma {
     questions?: boolean | Tenant$questionsArgs<ExtArgs>
     answers?: boolean | Tenant$answersArgs<ExtArgs>
     questionnaireImportJobs?: boolean | Tenant$questionnaireImportJobsArgs<ExtArgs>
+    controlWeaknesses?: boolean | Tenant$controlWeaknessesArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -71608,6 +73186,7 @@ export namespace Prisma {
       questions: Prisma.$QuestionPayload<ExtArgs>[]
       answers: Prisma.$AnswerPayload<ExtArgs>[]
       questionnaireImportJobs: Prisma.$QuestionnaireImportJobPayload<ExtArgs>[]
+      controlWeaknesses: Prisma.$ControlWeaknessPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -72069,6 +73648,7 @@ export namespace Prisma {
     questions<T extends Tenant$questionsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     answers<T extends Tenant$answersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     questionnaireImportJobs<T extends Tenant$questionnaireImportJobsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$questionnaireImportJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionnaireImportJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    controlWeaknesses<T extends Tenant$controlWeaknessesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$controlWeaknessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -73872,6 +75452,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: QuestionnaireImportJobScalarFieldEnum | QuestionnaireImportJobScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.controlWeaknesses
+   */
+  export type Tenant$controlWeaknessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    where?: ControlWeaknessWhereInput
+    orderBy?: ControlWeaknessOrderByWithRelationInput | ControlWeaknessOrderByWithRelationInput[]
+    cursor?: ControlWeaknessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ControlWeaknessScalarFieldEnum | ControlWeaknessScalarFieldEnum[]
   }
 
   /**
@@ -89401,6 +91005,8 @@ export namespace Prisma {
     dpiaApprovals?: boolean | User$dpiaApprovalsArgs<ExtArgs>
     reportedDataBreaches?: boolean | User$reportedDataBreachesArgs<ExtArgs>
     assignedDataBreaches?: boolean | User$assignedDataBreachesArgs<ExtArgs>
+    reportedControlWeaknesses?: boolean | User$reportedControlWeaknessesArgs<ExtArgs>
+    assignedControlWeaknesses?: boolean | User$assignedControlWeaknessesArgs<ExtArgs>
     assignedDsarRequests?: boolean | User$assignedDsarRequestsArgs<ExtArgs>
     importedQuestionnaires?: boolean | User$importedQuestionnairesArgs<ExtArgs>
     reviewedAnswers?: boolean | User$reviewedAnswersArgs<ExtArgs>
@@ -89500,6 +91106,8 @@ export namespace Prisma {
     dpiaApprovals?: boolean | User$dpiaApprovalsArgs<ExtArgs>
     reportedDataBreaches?: boolean | User$reportedDataBreachesArgs<ExtArgs>
     assignedDataBreaches?: boolean | User$assignedDataBreachesArgs<ExtArgs>
+    reportedControlWeaknesses?: boolean | User$reportedControlWeaknessesArgs<ExtArgs>
+    assignedControlWeaknesses?: boolean | User$assignedControlWeaknessesArgs<ExtArgs>
     assignedDsarRequests?: boolean | User$assignedDsarRequestsArgs<ExtArgs>
     importedQuestionnaires?: boolean | User$importedQuestionnairesArgs<ExtArgs>
     reviewedAnswers?: boolean | User$reviewedAnswersArgs<ExtArgs>
@@ -89560,6 +91168,8 @@ export namespace Prisma {
       dpiaApprovals: Prisma.$DPIAPayload<ExtArgs>[]
       reportedDataBreaches: Prisma.$DataBreachPayload<ExtArgs>[]
       assignedDataBreaches: Prisma.$DataBreachPayload<ExtArgs>[]
+      reportedControlWeaknesses: Prisma.$ControlWeaknessPayload<ExtArgs>[]
+      assignedControlWeaknesses: Prisma.$ControlWeaknessPayload<ExtArgs>[]
       assignedDsarRequests: Prisma.$DSARRequestPayload<ExtArgs>[]
       importedQuestionnaires: Prisma.$QuestionnairePayload<ExtArgs>[]
       reviewedAnswers: Prisma.$AnswerPayload<ExtArgs>[]
@@ -90019,6 +91629,8 @@ export namespace Prisma {
     dpiaApprovals<T extends User$dpiaApprovalsArgs<ExtArgs> = {}>(args?: Subset<T, User$dpiaApprovalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DPIAPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reportedDataBreaches<T extends User$reportedDataBreachesArgs<ExtArgs> = {}>(args?: Subset<T, User$reportedDataBreachesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataBreachPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     assignedDataBreaches<T extends User$assignedDataBreachesArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedDataBreachesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DataBreachPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    reportedControlWeaknesses<T extends User$reportedControlWeaknessesArgs<ExtArgs> = {}>(args?: Subset<T, User$reportedControlWeaknessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assignedControlWeaknesses<T extends User$assignedControlWeaknessesArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedControlWeaknessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     assignedDsarRequests<T extends User$assignedDsarRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedDsarRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DSARRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     importedQuestionnaires<T extends User$importedQuestionnairesArgs<ExtArgs> = {}>(args?: Subset<T, User$importedQuestionnairesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionnairePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviewedAnswers<T extends User$reviewedAnswersArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewedAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -91605,6 +93217,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DataBreachScalarFieldEnum | DataBreachScalarFieldEnum[]
+  }
+
+  /**
+   * User.reportedControlWeaknesses
+   */
+  export type User$reportedControlWeaknessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    where?: ControlWeaknessWhereInput
+    orderBy?: ControlWeaknessOrderByWithRelationInput | ControlWeaknessOrderByWithRelationInput[]
+    cursor?: ControlWeaknessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ControlWeaknessScalarFieldEnum | ControlWeaknessScalarFieldEnum[]
+  }
+
+  /**
+   * User.assignedControlWeaknesses
+   */
+  export type User$assignedControlWeaknessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ControlWeakness
+     */
+    select?: ControlWeaknessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ControlWeakness
+     */
+    omit?: ControlWeaknessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ControlWeaknessInclude<ExtArgs> | null
+    where?: ControlWeaknessWhereInput
+    orderBy?: ControlWeaknessOrderByWithRelationInput | ControlWeaknessOrderByWithRelationInput[]
+    cursor?: ControlWeaknessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ControlWeaknessScalarFieldEnum | ControlWeaknessScalarFieldEnum[]
   }
 
   /**
@@ -102209,6 +103869,33 @@ export namespace Prisma {
   export type ControlEvidenceCollectionConfigScalarFieldEnum = (typeof ControlEvidenceCollectionConfigScalarFieldEnum)[keyof typeof ControlEvidenceCollectionConfigScalarFieldEnum]
 
 
+  export const ControlWeaknessScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    controlId: 'controlId',
+    title: 'title',
+    description: 'description',
+    severity: 'severity',
+    status: 'status',
+    discoveredAt: 'discoveredAt',
+    notificationDeadlineAt: 'notificationDeadlineAt',
+    expectedRemediationAt: 'expectedRemediationAt',
+    remediatedAt: 'remediatedAt',
+    remediability: 'remediability',
+    rootCause: 'rootCause',
+    remediationPlan: 'remediationPlan',
+    apraNotificationRequired: 'apraNotificationRequired',
+    apraNotifiedAt: 'apraNotifiedAt',
+    apraReference: 'apraReference',
+    reportedById: 'reportedById',
+    assigneeId: 'assigneeId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ControlWeaknessScalarFieldEnum = (typeof ControlWeaknessScalarFieldEnum)[keyof typeof ControlWeaknessScalarFieldEnum]
+
+
   export const EvidenceScalarFieldEnum: {
     id: 'id',
     tenantId: 'tenantId',
@@ -103766,6 +105453,48 @@ export namespace Prisma {
    * Reference to a field of type 'EvidenceAgentLastStatus[]'
    */
   export type ListEnumEvidenceAgentLastStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EvidenceAgentLastStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ControlWeaknessSeverity'
+   */
+  export type EnumControlWeaknessSeverityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ControlWeaknessSeverity'>
+    
+
+
+  /**
+   * Reference to a field of type 'ControlWeaknessSeverity[]'
+   */
+  export type ListEnumControlWeaknessSeverityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ControlWeaknessSeverity[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ControlWeaknessStatus'
+   */
+  export type EnumControlWeaknessStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ControlWeaknessStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ControlWeaknessStatus[]'
+   */
+  export type ListEnumControlWeaknessStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ControlWeaknessStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ControlWeaknessRemediabilityDecision'
+   */
+  export type EnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ControlWeaknessRemediabilityDecision'>
+    
+
+
+  /**
+   * Reference to a field of type 'ControlWeaknessRemediabilityDecision[]'
+   */
+  export type ListEnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ControlWeaknessRemediabilityDecision[]'>
     
 
 
@@ -106408,6 +108137,7 @@ export namespace Prisma {
     evidence?: EvidenceListRelationFilter
     policyControls?: PolicyControlListRelationFilter
     evidenceCollectionConfig?: XOR<ControlEvidenceCollectionConfigNullableScalarRelationFilter, ControlEvidenceCollectionConfigWhereInput> | null
+    weaknesses?: ControlWeaknessListRelationFilter
   }
 
   export type ControlOrderByWithRelationInput = {
@@ -106431,6 +108161,7 @@ export namespace Prisma {
     evidence?: EvidenceOrderByRelationAggregateInput
     policyControls?: PolicyControlOrderByRelationAggregateInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigOrderByWithRelationInput
+    weaknesses?: ControlWeaknessOrderByRelationAggregateInput
   }
 
   export type ControlWhereUniqueInput = Prisma.AtLeast<{
@@ -106457,6 +108188,7 @@ export namespace Prisma {
     evidence?: EvidenceListRelationFilter
     policyControls?: PolicyControlListRelationFilter
     evidenceCollectionConfig?: XOR<ControlEvidenceCollectionConfigNullableScalarRelationFilter, ControlEvidenceCollectionConfigWhereInput> | null
+    weaknesses?: ControlWeaknessListRelationFilter
   }, "id">
 
   export type ControlOrderByWithAggregationInput = {
@@ -106590,6 +108322,150 @@ export namespace Prisma {
     agentLastSummary?: StringNullableWithAggregatesFilter<"ControlEvidenceCollectionConfig"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"ControlEvidenceCollectionConfig"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ControlEvidenceCollectionConfig"> | Date | string
+  }
+
+  export type ControlWeaknessWhereInput = {
+    AND?: ControlWeaknessWhereInput | ControlWeaknessWhereInput[]
+    OR?: ControlWeaknessWhereInput[]
+    NOT?: ControlWeaknessWhereInput | ControlWeaknessWhereInput[]
+    id?: StringFilter<"ControlWeakness"> | string
+    tenantId?: StringFilter<"ControlWeakness"> | string
+    controlId?: StringNullableFilter<"ControlWeakness"> | string | null
+    title?: StringFilter<"ControlWeakness"> | string
+    description?: StringNullableFilter<"ControlWeakness"> | string | null
+    severity?: EnumControlWeaknessSeverityFilter<"ControlWeakness"> | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFilter<"ControlWeakness"> | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    notificationDeadlineAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    expectedRemediationAt?: DateTimeNullableFilter<"ControlWeakness"> | Date | string | null
+    remediatedAt?: DateTimeNullableFilter<"ControlWeakness"> | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFilter<"ControlWeakness"> | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: StringNullableFilter<"ControlWeakness"> | string | null
+    remediationPlan?: StringNullableFilter<"ControlWeakness"> | string | null
+    apraNotificationRequired?: BoolFilter<"ControlWeakness"> | boolean
+    apraNotifiedAt?: DateTimeNullableFilter<"ControlWeakness"> | Date | string | null
+    apraReference?: StringNullableFilter<"ControlWeakness"> | string | null
+    reportedById?: StringNullableFilter<"ControlWeakness"> | string | null
+    assigneeId?: StringNullableFilter<"ControlWeakness"> | string | null
+    createdAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    updatedAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    control?: XOR<ControlNullableScalarRelationFilter, ControlWhereInput> | null
+    reportedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    assignee?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type ControlWeaknessOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    controlId?: SortOrderInput | SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    severity?: SortOrder
+    status?: SortOrder
+    discoveredAt?: SortOrder
+    notificationDeadlineAt?: SortOrder
+    expectedRemediationAt?: SortOrderInput | SortOrder
+    remediatedAt?: SortOrderInput | SortOrder
+    remediability?: SortOrder
+    rootCause?: SortOrderInput | SortOrder
+    remediationPlan?: SortOrderInput | SortOrder
+    apraNotificationRequired?: SortOrder
+    apraNotifiedAt?: SortOrderInput | SortOrder
+    apraReference?: SortOrderInput | SortOrder
+    reportedById?: SortOrderInput | SortOrder
+    assigneeId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    control?: ControlOrderByWithRelationInput
+    reportedBy?: UserOrderByWithRelationInput
+    assignee?: UserOrderByWithRelationInput
+  }
+
+  export type ControlWeaknessWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ControlWeaknessWhereInput | ControlWeaknessWhereInput[]
+    OR?: ControlWeaknessWhereInput[]
+    NOT?: ControlWeaknessWhereInput | ControlWeaknessWhereInput[]
+    tenantId?: StringFilter<"ControlWeakness"> | string
+    controlId?: StringNullableFilter<"ControlWeakness"> | string | null
+    title?: StringFilter<"ControlWeakness"> | string
+    description?: StringNullableFilter<"ControlWeakness"> | string | null
+    severity?: EnumControlWeaknessSeverityFilter<"ControlWeakness"> | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFilter<"ControlWeakness"> | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    notificationDeadlineAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    expectedRemediationAt?: DateTimeNullableFilter<"ControlWeakness"> | Date | string | null
+    remediatedAt?: DateTimeNullableFilter<"ControlWeakness"> | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFilter<"ControlWeakness"> | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: StringNullableFilter<"ControlWeakness"> | string | null
+    remediationPlan?: StringNullableFilter<"ControlWeakness"> | string | null
+    apraNotificationRequired?: BoolFilter<"ControlWeakness"> | boolean
+    apraNotifiedAt?: DateTimeNullableFilter<"ControlWeakness"> | Date | string | null
+    apraReference?: StringNullableFilter<"ControlWeakness"> | string | null
+    reportedById?: StringNullableFilter<"ControlWeakness"> | string | null
+    assigneeId?: StringNullableFilter<"ControlWeakness"> | string | null
+    createdAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    updatedAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    control?: XOR<ControlNullableScalarRelationFilter, ControlWhereInput> | null
+    reportedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    assignee?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type ControlWeaknessOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    controlId?: SortOrderInput | SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    severity?: SortOrder
+    status?: SortOrder
+    discoveredAt?: SortOrder
+    notificationDeadlineAt?: SortOrder
+    expectedRemediationAt?: SortOrderInput | SortOrder
+    remediatedAt?: SortOrderInput | SortOrder
+    remediability?: SortOrder
+    rootCause?: SortOrderInput | SortOrder
+    remediationPlan?: SortOrderInput | SortOrder
+    apraNotificationRequired?: SortOrder
+    apraNotifiedAt?: SortOrderInput | SortOrder
+    apraReference?: SortOrderInput | SortOrder
+    reportedById?: SortOrderInput | SortOrder
+    assigneeId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ControlWeaknessCountOrderByAggregateInput
+    _max?: ControlWeaknessMaxOrderByAggregateInput
+    _min?: ControlWeaknessMinOrderByAggregateInput
+  }
+
+  export type ControlWeaknessScalarWhereWithAggregatesInput = {
+    AND?: ControlWeaknessScalarWhereWithAggregatesInput | ControlWeaknessScalarWhereWithAggregatesInput[]
+    OR?: ControlWeaknessScalarWhereWithAggregatesInput[]
+    NOT?: ControlWeaknessScalarWhereWithAggregatesInput | ControlWeaknessScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ControlWeakness"> | string
+    tenantId?: StringWithAggregatesFilter<"ControlWeakness"> | string
+    controlId?: StringNullableWithAggregatesFilter<"ControlWeakness"> | string | null
+    title?: StringWithAggregatesFilter<"ControlWeakness"> | string
+    description?: StringNullableWithAggregatesFilter<"ControlWeakness"> | string | null
+    severity?: EnumControlWeaknessSeverityWithAggregatesFilter<"ControlWeakness"> | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusWithAggregatesFilter<"ControlWeakness"> | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeWithAggregatesFilter<"ControlWeakness"> | Date | string
+    notificationDeadlineAt?: DateTimeWithAggregatesFilter<"ControlWeakness"> | Date | string
+    expectedRemediationAt?: DateTimeNullableWithAggregatesFilter<"ControlWeakness"> | Date | string | null
+    remediatedAt?: DateTimeNullableWithAggregatesFilter<"ControlWeakness"> | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionWithAggregatesFilter<"ControlWeakness"> | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: StringNullableWithAggregatesFilter<"ControlWeakness"> | string | null
+    remediationPlan?: StringNullableWithAggregatesFilter<"ControlWeakness"> | string | null
+    apraNotificationRequired?: BoolWithAggregatesFilter<"ControlWeakness"> | boolean
+    apraNotifiedAt?: DateTimeNullableWithAggregatesFilter<"ControlWeakness"> | Date | string | null
+    apraReference?: StringNullableWithAggregatesFilter<"ControlWeakness"> | string | null
+    reportedById?: StringNullableWithAggregatesFilter<"ControlWeakness"> | string | null
+    assigneeId?: StringNullableWithAggregatesFilter<"ControlWeakness"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ControlWeakness"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ControlWeakness"> | Date | string
   }
 
   export type EvidenceWhereInput = {
@@ -110142,6 +112018,7 @@ export namespace Prisma {
     questions?: QuestionListRelationFilter
     answers?: AnswerListRelationFilter
     questionnaireImportJobs?: QuestionnaireImportJobListRelationFilter
+    controlWeaknesses?: ControlWeaknessListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -110210,6 +112087,7 @@ export namespace Prisma {
     questions?: QuestionOrderByRelationAggregateInput
     answers?: AnswerOrderByRelationAggregateInput
     questionnaireImportJobs?: QuestionnaireImportJobOrderByRelationAggregateInput
+    controlWeaknesses?: ControlWeaknessOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -110281,6 +112159,7 @@ export namespace Prisma {
     questions?: QuestionListRelationFilter
     answers?: AnswerListRelationFilter
     questionnaireImportJobs?: QuestionnaireImportJobListRelationFilter
+    controlWeaknesses?: ControlWeaknessListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -111467,6 +113346,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAListRelationFilter
     reportedDataBreaches?: DataBreachListRelationFilter
     assignedDataBreaches?: DataBreachListRelationFilter
+    reportedControlWeaknesses?: ControlWeaknessListRelationFilter
+    assignedControlWeaknesses?: ControlWeaknessListRelationFilter
     assignedDsarRequests?: DSARRequestListRelationFilter
     importedQuestionnaires?: QuestionnaireListRelationFilter
     reviewedAnswers?: AnswerListRelationFilter
@@ -111533,6 +113414,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAOrderByRelationAggregateInput
     reportedDataBreaches?: DataBreachOrderByRelationAggregateInput
     assignedDataBreaches?: DataBreachOrderByRelationAggregateInput
+    reportedControlWeaknesses?: ControlWeaknessOrderByRelationAggregateInput
+    assignedControlWeaknesses?: ControlWeaknessOrderByRelationAggregateInput
     assignedDsarRequests?: DSARRequestOrderByRelationAggregateInput
     importedQuestionnaires?: QuestionnaireOrderByRelationAggregateInput
     reviewedAnswers?: AnswerOrderByRelationAggregateInput
@@ -111603,6 +113486,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAListRelationFilter
     reportedDataBreaches?: DataBreachListRelationFilter
     assignedDataBreaches?: DataBreachListRelationFilter
+    reportedControlWeaknesses?: ControlWeaknessListRelationFilter
+    assignedControlWeaknesses?: ControlWeaknessListRelationFilter
     assignedDsarRequests?: DSARRequestListRelationFilter
     importedQuestionnaires?: QuestionnaireListRelationFilter
     reviewedAnswers?: AnswerListRelationFilter
@@ -114348,6 +116233,7 @@ export namespace Prisma {
     evidence?: EvidenceCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessCreateNestedManyWithoutControlInput
   }
 
   export type ControlUncheckedCreateInput = {
@@ -114369,6 +116255,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlUncheckedCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutControlInput
   }
 
   export type ControlUpdateInput = {
@@ -114390,6 +116277,7 @@ export namespace Prisma {
     evidence?: EvidenceUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateInput = {
@@ -114411,6 +116299,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUncheckedUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUncheckedUpdateManyWithoutControlNestedInput
   }
 
   export type ControlCreateManyInput = {
@@ -114563,6 +116452,170 @@ export namespace Prisma {
     agentLastStatus?: EnumEvidenceAgentLastStatusFieldUpdateOperationsInput | $Enums.EvidenceAgentLastStatus
     agentLastRunId?: NullableStringFieldUpdateOperationsInput | string | null
     agentLastSummary?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ControlWeaknessCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutControlWeaknessesInput
+    control?: ControlCreateNestedOneWithoutWeaknessesInput
+    reportedBy?: UserCreateNestedOneWithoutReportedControlWeaknessesInput
+    assignee?: UserCreateNestedOneWithoutAssignedControlWeaknessesInput
+  }
+
+  export type ControlWeaknessUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    controlId?: string | null
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    reportedById?: string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ControlWeaknessUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutControlWeaknessesNestedInput
+    control?: ControlUpdateOneWithoutWeaknessesNestedInput
+    reportedBy?: UserUpdateOneWithoutReportedControlWeaknessesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedControlWeaknessesNestedInput
+  }
+
+  export type ControlWeaknessUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    controlId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ControlWeaknessCreateManyInput = {
+    id?: string
+    tenantId: string
+    controlId?: string | null
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    reportedById?: string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ControlWeaknessUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ControlWeaknessUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    controlId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -118486,6 +120539,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -118554,6 +120608,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -118622,6 +120677,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -118690,6 +120746,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -119945,6 +122002,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -120011,6 +122070,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -120077,6 +122138,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -120143,6 +122206,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -122942,6 +125007,12 @@ export namespace Prisma {
     isNot?: ControlEvidenceCollectionConfigWhereInput | null
   }
 
+  export type ControlWeaknessListRelationFilter = {
+    every?: ControlWeaknessWhereInput
+    some?: ControlWeaknessWhereInput
+    none?: ControlWeaknessWhereInput
+  }
+
   export type ControlRequirementAssignmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -122955,6 +125026,10 @@ export namespace Prisma {
   }
 
   export type PolicyControlOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ControlWeaknessOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -123104,6 +125179,129 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumEvidenceAgentLastStatusFilter<$PrismaModel>
     _max?: NestedEnumEvidenceAgentLastStatusFilter<$PrismaModel>
+  }
+
+  export type EnumControlWeaknessSeverityFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessSeverity | EnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessSeverity[] | ListEnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessSeverity[] | ListEnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessSeverityFilter<$PrismaModel> | $Enums.ControlWeaknessSeverity
+  }
+
+  export type EnumControlWeaknessStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessStatus | EnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessStatus[] | ListEnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessStatus[] | ListEnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessStatusFilter<$PrismaModel> | $Enums.ControlWeaknessStatus
+  }
+
+  export type EnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessRemediabilityDecision | EnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessRemediabilityDecision[] | ListEnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessRemediabilityDecision[] | ListEnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel> | $Enums.ControlWeaknessRemediabilityDecision
+  }
+
+  export type ControlWeaknessCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    controlId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    severity?: SortOrder
+    status?: SortOrder
+    discoveredAt?: SortOrder
+    notificationDeadlineAt?: SortOrder
+    expectedRemediationAt?: SortOrder
+    remediatedAt?: SortOrder
+    remediability?: SortOrder
+    rootCause?: SortOrder
+    remediationPlan?: SortOrder
+    apraNotificationRequired?: SortOrder
+    apraNotifiedAt?: SortOrder
+    apraReference?: SortOrder
+    reportedById?: SortOrder
+    assigneeId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ControlWeaknessMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    controlId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    severity?: SortOrder
+    status?: SortOrder
+    discoveredAt?: SortOrder
+    notificationDeadlineAt?: SortOrder
+    expectedRemediationAt?: SortOrder
+    remediatedAt?: SortOrder
+    remediability?: SortOrder
+    rootCause?: SortOrder
+    remediationPlan?: SortOrder
+    apraNotificationRequired?: SortOrder
+    apraNotifiedAt?: SortOrder
+    apraReference?: SortOrder
+    reportedById?: SortOrder
+    assigneeId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ControlWeaknessMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    controlId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    severity?: SortOrder
+    status?: SortOrder
+    discoveredAt?: SortOrder
+    notificationDeadlineAt?: SortOrder
+    expectedRemediationAt?: SortOrder
+    remediatedAt?: SortOrder
+    remediability?: SortOrder
+    rootCause?: SortOrder
+    remediationPlan?: SortOrder
+    apraNotificationRequired?: SortOrder
+    apraNotifiedAt?: SortOrder
+    apraReference?: SortOrder
+    reportedById?: SortOrder
+    assigneeId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumControlWeaknessSeverityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessSeverity | EnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessSeverity[] | ListEnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessSeverity[] | ListEnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessSeverityWithAggregatesFilter<$PrismaModel> | $Enums.ControlWeaknessSeverity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumControlWeaknessSeverityFilter<$PrismaModel>
+    _max?: NestedEnumControlWeaknessSeverityFilter<$PrismaModel>
+  }
+
+  export type EnumControlWeaknessStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessStatus | EnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessStatus[] | ListEnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessStatus[] | ListEnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessStatusWithAggregatesFilter<$PrismaModel> | $Enums.ControlWeaknessStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumControlWeaknessStatusFilter<$PrismaModel>
+    _max?: NestedEnumControlWeaknessStatusFilter<$PrismaModel>
+  }
+
+  export type EnumControlWeaknessRemediabilityDecisionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessRemediabilityDecision | EnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessRemediabilityDecision[] | ListEnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessRemediabilityDecision[] | ListEnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessRemediabilityDecisionWithAggregatesFilter<$PrismaModel> | $Enums.ControlWeaknessRemediabilityDecision
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel>
+    _max?: NestedEnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel>
   }
 
   export type EnumEvidenceTypeFilter<$PrismaModel = never> = {
@@ -129026,6 +131224,13 @@ export namespace Prisma {
     connect?: ControlEvidenceCollectionConfigWhereUniqueInput
   }
 
+  export type ControlWeaknessCreateNestedManyWithoutControlInput = {
+    create?: XOR<ControlWeaknessCreateWithoutControlInput, ControlWeaknessUncheckedCreateWithoutControlInput> | ControlWeaknessCreateWithoutControlInput[] | ControlWeaknessUncheckedCreateWithoutControlInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutControlInput | ControlWeaknessCreateOrConnectWithoutControlInput[]
+    createMany?: ControlWeaknessCreateManyControlInputEnvelope
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+  }
+
   export type ControlRequirementAssignmentUncheckedCreateNestedManyWithoutControlInput = {
     create?: XOR<ControlRequirementAssignmentCreateWithoutControlInput, ControlRequirementAssignmentUncheckedCreateWithoutControlInput> | ControlRequirementAssignmentCreateWithoutControlInput[] | ControlRequirementAssignmentUncheckedCreateWithoutControlInput[]
     connectOrCreate?: ControlRequirementAssignmentCreateOrConnectWithoutControlInput | ControlRequirementAssignmentCreateOrConnectWithoutControlInput[]
@@ -129065,6 +131270,13 @@ export namespace Prisma {
     create?: XOR<ControlEvidenceCollectionConfigCreateWithoutControlInput, ControlEvidenceCollectionConfigUncheckedCreateWithoutControlInput>
     connectOrCreate?: ControlEvidenceCollectionConfigCreateOrConnectWithoutControlInput
     connect?: ControlEvidenceCollectionConfigWhereUniqueInput
+  }
+
+  export type ControlWeaknessUncheckedCreateNestedManyWithoutControlInput = {
+    create?: XOR<ControlWeaknessCreateWithoutControlInput, ControlWeaknessUncheckedCreateWithoutControlInput> | ControlWeaknessCreateWithoutControlInput[] | ControlWeaknessUncheckedCreateWithoutControlInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutControlInput | ControlWeaknessCreateOrConnectWithoutControlInput[]
+    createMany?: ControlWeaknessCreateManyControlInputEnvelope
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
   }
 
   export type EnumControlStatusFieldUpdateOperationsInput = {
@@ -129169,6 +131381,20 @@ export namespace Prisma {
     update?: XOR<XOR<ControlEvidenceCollectionConfigUpdateToOneWithWhereWithoutControlInput, ControlEvidenceCollectionConfigUpdateWithoutControlInput>, ControlEvidenceCollectionConfigUncheckedUpdateWithoutControlInput>
   }
 
+  export type ControlWeaknessUpdateManyWithoutControlNestedInput = {
+    create?: XOR<ControlWeaknessCreateWithoutControlInput, ControlWeaknessUncheckedCreateWithoutControlInput> | ControlWeaknessCreateWithoutControlInput[] | ControlWeaknessUncheckedCreateWithoutControlInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutControlInput | ControlWeaknessCreateOrConnectWithoutControlInput[]
+    upsert?: ControlWeaknessUpsertWithWhereUniqueWithoutControlInput | ControlWeaknessUpsertWithWhereUniqueWithoutControlInput[]
+    createMany?: ControlWeaknessCreateManyControlInputEnvelope
+    set?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    disconnect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    delete?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    update?: ControlWeaknessUpdateWithWhereUniqueWithoutControlInput | ControlWeaknessUpdateWithWhereUniqueWithoutControlInput[]
+    updateMany?: ControlWeaknessUpdateManyWithWhereWithoutControlInput | ControlWeaknessUpdateManyWithWhereWithoutControlInput[]
+    deleteMany?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
+  }
+
   export type ControlRequirementAssignmentUncheckedUpdateManyWithoutControlNestedInput = {
     create?: XOR<ControlRequirementAssignmentCreateWithoutControlInput, ControlRequirementAssignmentUncheckedCreateWithoutControlInput> | ControlRequirementAssignmentCreateWithoutControlInput[] | ControlRequirementAssignmentUncheckedCreateWithoutControlInput[]
     connectOrCreate?: ControlRequirementAssignmentCreateOrConnectWithoutControlInput | ControlRequirementAssignmentCreateOrConnectWithoutControlInput[]
@@ -129249,6 +131475,20 @@ export namespace Prisma {
     update?: XOR<XOR<ControlEvidenceCollectionConfigUpdateToOneWithWhereWithoutControlInput, ControlEvidenceCollectionConfigUpdateWithoutControlInput>, ControlEvidenceCollectionConfigUncheckedUpdateWithoutControlInput>
   }
 
+  export type ControlWeaknessUncheckedUpdateManyWithoutControlNestedInput = {
+    create?: XOR<ControlWeaknessCreateWithoutControlInput, ControlWeaknessUncheckedCreateWithoutControlInput> | ControlWeaknessCreateWithoutControlInput[] | ControlWeaknessUncheckedCreateWithoutControlInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutControlInput | ControlWeaknessCreateOrConnectWithoutControlInput[]
+    upsert?: ControlWeaknessUpsertWithWhereUniqueWithoutControlInput | ControlWeaknessUpsertWithWhereUniqueWithoutControlInput[]
+    createMany?: ControlWeaknessCreateManyControlInputEnvelope
+    set?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    disconnect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    delete?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    update?: ControlWeaknessUpdateWithWhereUniqueWithoutControlInput | ControlWeaknessUpdateWithWhereUniqueWithoutControlInput[]
+    updateMany?: ControlWeaknessUpdateManyWithWhereWithoutControlInput | ControlWeaknessUpdateManyWithWhereWithoutControlInput[]
+    deleteMany?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
+  }
+
   export type ControlEvidenceCollectionConfigCreateagentToolConnectionIdsInput = {
     set: string[]
   }
@@ -129278,6 +131518,80 @@ export namespace Prisma {
     upsert?: ControlUpsertWithoutEvidenceCollectionConfigInput
     connect?: ControlWhereUniqueInput
     update?: XOR<XOR<ControlUpdateToOneWithWhereWithoutEvidenceCollectionConfigInput, ControlUpdateWithoutEvidenceCollectionConfigInput>, ControlUncheckedUpdateWithoutEvidenceCollectionConfigInput>
+  }
+
+  export type TenantCreateNestedOneWithoutControlWeaknessesInput = {
+    create?: XOR<TenantCreateWithoutControlWeaknessesInput, TenantUncheckedCreateWithoutControlWeaknessesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutControlWeaknessesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type ControlCreateNestedOneWithoutWeaknessesInput = {
+    create?: XOR<ControlCreateWithoutWeaknessesInput, ControlUncheckedCreateWithoutWeaknessesInput>
+    connectOrCreate?: ControlCreateOrConnectWithoutWeaknessesInput
+    connect?: ControlWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutReportedControlWeaknessesInput = {
+    create?: XOR<UserCreateWithoutReportedControlWeaknessesInput, UserUncheckedCreateWithoutReportedControlWeaknessesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReportedControlWeaknessesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAssignedControlWeaknessesInput = {
+    create?: XOR<UserCreateWithoutAssignedControlWeaknessesInput, UserUncheckedCreateWithoutAssignedControlWeaknessesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedControlWeaknessesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumControlWeaknessSeverityFieldUpdateOperationsInput = {
+    set?: $Enums.ControlWeaknessSeverity
+  }
+
+  export type EnumControlWeaknessStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ControlWeaknessStatus
+  }
+
+  export type EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput = {
+    set?: $Enums.ControlWeaknessRemediabilityDecision
+  }
+
+  export type TenantUpdateOneRequiredWithoutControlWeaknessesNestedInput = {
+    create?: XOR<TenantCreateWithoutControlWeaknessesInput, TenantUncheckedCreateWithoutControlWeaknessesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutControlWeaknessesInput
+    upsert?: TenantUpsertWithoutControlWeaknessesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutControlWeaknessesInput, TenantUpdateWithoutControlWeaknessesInput>, TenantUncheckedUpdateWithoutControlWeaknessesInput>
+  }
+
+  export type ControlUpdateOneWithoutWeaknessesNestedInput = {
+    create?: XOR<ControlCreateWithoutWeaknessesInput, ControlUncheckedCreateWithoutWeaknessesInput>
+    connectOrCreate?: ControlCreateOrConnectWithoutWeaknessesInput
+    upsert?: ControlUpsertWithoutWeaknessesInput
+    disconnect?: ControlWhereInput | boolean
+    delete?: ControlWhereInput | boolean
+    connect?: ControlWhereUniqueInput
+    update?: XOR<XOR<ControlUpdateToOneWithWhereWithoutWeaknessesInput, ControlUpdateWithoutWeaknessesInput>, ControlUncheckedUpdateWithoutWeaknessesInput>
+  }
+
+  export type UserUpdateOneWithoutReportedControlWeaknessesNestedInput = {
+    create?: XOR<UserCreateWithoutReportedControlWeaknessesInput, UserUncheckedCreateWithoutReportedControlWeaknessesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutReportedControlWeaknessesInput
+    upsert?: UserUpsertWithoutReportedControlWeaknessesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReportedControlWeaknessesInput, UserUpdateWithoutReportedControlWeaknessesInput>, UserUncheckedUpdateWithoutReportedControlWeaknessesInput>
+  }
+
+  export type UserUpdateOneWithoutAssignedControlWeaknessesNestedInput = {
+    create?: XOR<UserCreateWithoutAssignedControlWeaknessesInput, UserUncheckedCreateWithoutAssignedControlWeaknessesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedControlWeaknessesInput
+    upsert?: UserUpsertWithoutAssignedControlWeaknessesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedControlWeaknessesInput, UserUpdateWithoutAssignedControlWeaknessesInput>, UserUncheckedUpdateWithoutAssignedControlWeaknessesInput>
   }
 
   export type EvidenceCreatetagsInput = {
@@ -132536,6 +134850,13 @@ export namespace Prisma {
     connect?: QuestionnaireImportJobWhereUniqueInput | QuestionnaireImportJobWhereUniqueInput[]
   }
 
+  export type ControlWeaknessCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ControlWeaknessCreateWithoutTenantInput, ControlWeaknessUncheckedCreateWithoutTenantInput> | ControlWeaknessCreateWithoutTenantInput[] | ControlWeaknessUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutTenantInput | ControlWeaknessCreateOrConnectWithoutTenantInput[]
+    createMany?: ControlWeaknessCreateManyTenantInputEnvelope
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+  }
+
   export type TenantSettingsUncheckedCreateNestedOneWithoutTenantInput = {
     create?: XOR<TenantSettingsCreateWithoutTenantInput, TenantSettingsUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantSettingsCreateOrConnectWithoutTenantInput
@@ -132937,6 +135258,13 @@ export namespace Prisma {
     connectOrCreate?: QuestionnaireImportJobCreateOrConnectWithoutTenantInput | QuestionnaireImportJobCreateOrConnectWithoutTenantInput[]
     createMany?: QuestionnaireImportJobCreateManyTenantInputEnvelope
     connect?: QuestionnaireImportJobWhereUniqueInput | QuestionnaireImportJobWhereUniqueInput[]
+  }
+
+  export type ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ControlWeaknessCreateWithoutTenantInput, ControlWeaknessUncheckedCreateWithoutTenantInput> | ControlWeaknessCreateWithoutTenantInput[] | ControlWeaknessUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutTenantInput | ControlWeaknessCreateOrConnectWithoutTenantInput[]
+    createMany?: ControlWeaknessCreateManyTenantInputEnvelope
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
   }
 
   export type EnumTenantPlanFieldUpdateOperationsInput = {
@@ -133747,6 +136075,20 @@ export namespace Prisma {
     deleteMany?: QuestionnaireImportJobScalarWhereInput | QuestionnaireImportJobScalarWhereInput[]
   }
 
+  export type ControlWeaknessUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ControlWeaknessCreateWithoutTenantInput, ControlWeaknessUncheckedCreateWithoutTenantInput> | ControlWeaknessCreateWithoutTenantInput[] | ControlWeaknessUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutTenantInput | ControlWeaknessCreateOrConnectWithoutTenantInput[]
+    upsert?: ControlWeaknessUpsertWithWhereUniqueWithoutTenantInput | ControlWeaknessUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ControlWeaknessCreateManyTenantInputEnvelope
+    set?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    disconnect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    delete?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    update?: ControlWeaknessUpdateWithWhereUniqueWithoutTenantInput | ControlWeaknessUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ControlWeaknessUpdateManyWithWhereWithoutTenantInput | ControlWeaknessUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
+  }
+
   export type TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput = {
     create?: XOR<TenantSettingsCreateWithoutTenantInput, TenantSettingsUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantSettingsCreateOrConnectWithoutTenantInput
@@ -134545,6 +136887,20 @@ export namespace Prisma {
     update?: QuestionnaireImportJobUpdateWithWhereUniqueWithoutTenantInput | QuestionnaireImportJobUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: QuestionnaireImportJobUpdateManyWithWhereWithoutTenantInput | QuestionnaireImportJobUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: QuestionnaireImportJobScalarWhereInput | QuestionnaireImportJobScalarWhereInput[]
+  }
+
+  export type ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ControlWeaknessCreateWithoutTenantInput, ControlWeaknessUncheckedCreateWithoutTenantInput> | ControlWeaknessCreateWithoutTenantInput[] | ControlWeaknessUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutTenantInput | ControlWeaknessCreateOrConnectWithoutTenantInput[]
+    upsert?: ControlWeaknessUpsertWithWhereUniqueWithoutTenantInput | ControlWeaknessUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ControlWeaknessCreateManyTenantInputEnvelope
+    set?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    disconnect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    delete?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    update?: ControlWeaknessUpdateWithWhereUniqueWithoutTenantInput | ControlWeaknessUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ControlWeaknessUpdateManyWithWhereWithoutTenantInput | ControlWeaknessUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutSettingsInput = {
@@ -135795,6 +138151,20 @@ export namespace Prisma {
     connect?: DataBreachWhereUniqueInput | DataBreachWhereUniqueInput[]
   }
 
+  export type ControlWeaknessCreateNestedManyWithoutReportedByInput = {
+    create?: XOR<ControlWeaknessCreateWithoutReportedByInput, ControlWeaknessUncheckedCreateWithoutReportedByInput> | ControlWeaknessCreateWithoutReportedByInput[] | ControlWeaknessUncheckedCreateWithoutReportedByInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutReportedByInput | ControlWeaknessCreateOrConnectWithoutReportedByInput[]
+    createMany?: ControlWeaknessCreateManyReportedByInputEnvelope
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+  }
+
+  export type ControlWeaknessCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<ControlWeaknessCreateWithoutAssigneeInput, ControlWeaknessUncheckedCreateWithoutAssigneeInput> | ControlWeaknessCreateWithoutAssigneeInput[] | ControlWeaknessUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutAssigneeInput | ControlWeaknessCreateOrConnectWithoutAssigneeInput[]
+    createMany?: ControlWeaknessCreateManyAssigneeInputEnvelope
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+  }
+
   export type DSARRequestCreateNestedManyWithoutAssigneeInput = {
     create?: XOR<DSARRequestCreateWithoutAssigneeInput, DSARRequestUncheckedCreateWithoutAssigneeInput> | DSARRequestCreateWithoutAssigneeInput[] | DSARRequestUncheckedCreateWithoutAssigneeInput[]
     connectOrCreate?: DSARRequestCreateOrConnectWithoutAssigneeInput | DSARRequestCreateOrConnectWithoutAssigneeInput[]
@@ -136157,6 +138527,20 @@ export namespace Prisma {
     connectOrCreate?: DataBreachCreateOrConnectWithoutAssigneeInput | DataBreachCreateOrConnectWithoutAssigneeInput[]
     createMany?: DataBreachCreateManyAssigneeInputEnvelope
     connect?: DataBreachWhereUniqueInput | DataBreachWhereUniqueInput[]
+  }
+
+  export type ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput = {
+    create?: XOR<ControlWeaknessCreateWithoutReportedByInput, ControlWeaknessUncheckedCreateWithoutReportedByInput> | ControlWeaknessCreateWithoutReportedByInput[] | ControlWeaknessUncheckedCreateWithoutReportedByInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutReportedByInput | ControlWeaknessCreateOrConnectWithoutReportedByInput[]
+    createMany?: ControlWeaknessCreateManyReportedByInputEnvelope
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+  }
+
+  export type ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<ControlWeaknessCreateWithoutAssigneeInput, ControlWeaknessUncheckedCreateWithoutAssigneeInput> | ControlWeaknessCreateWithoutAssigneeInput[] | ControlWeaknessUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutAssigneeInput | ControlWeaknessCreateOrConnectWithoutAssigneeInput[]
+    createMany?: ControlWeaknessCreateManyAssigneeInputEnvelope
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
   }
 
   export type DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput = {
@@ -136857,6 +139241,34 @@ export namespace Prisma {
     update?: DataBreachUpdateWithWhereUniqueWithoutAssigneeInput | DataBreachUpdateWithWhereUniqueWithoutAssigneeInput[]
     updateMany?: DataBreachUpdateManyWithWhereWithoutAssigneeInput | DataBreachUpdateManyWithWhereWithoutAssigneeInput[]
     deleteMany?: DataBreachScalarWhereInput | DataBreachScalarWhereInput[]
+  }
+
+  export type ControlWeaknessUpdateManyWithoutReportedByNestedInput = {
+    create?: XOR<ControlWeaknessCreateWithoutReportedByInput, ControlWeaknessUncheckedCreateWithoutReportedByInput> | ControlWeaknessCreateWithoutReportedByInput[] | ControlWeaknessUncheckedCreateWithoutReportedByInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutReportedByInput | ControlWeaknessCreateOrConnectWithoutReportedByInput[]
+    upsert?: ControlWeaknessUpsertWithWhereUniqueWithoutReportedByInput | ControlWeaknessUpsertWithWhereUniqueWithoutReportedByInput[]
+    createMany?: ControlWeaknessCreateManyReportedByInputEnvelope
+    set?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    disconnect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    delete?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    update?: ControlWeaknessUpdateWithWhereUniqueWithoutReportedByInput | ControlWeaknessUpdateWithWhereUniqueWithoutReportedByInput[]
+    updateMany?: ControlWeaknessUpdateManyWithWhereWithoutReportedByInput | ControlWeaknessUpdateManyWithWhereWithoutReportedByInput[]
+    deleteMany?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
+  }
+
+  export type ControlWeaknessUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<ControlWeaknessCreateWithoutAssigneeInput, ControlWeaknessUncheckedCreateWithoutAssigneeInput> | ControlWeaknessCreateWithoutAssigneeInput[] | ControlWeaknessUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutAssigneeInput | ControlWeaknessCreateOrConnectWithoutAssigneeInput[]
+    upsert?: ControlWeaknessUpsertWithWhereUniqueWithoutAssigneeInput | ControlWeaknessUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: ControlWeaknessCreateManyAssigneeInputEnvelope
+    set?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    disconnect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    delete?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    update?: ControlWeaknessUpdateWithWhereUniqueWithoutAssigneeInput | ControlWeaknessUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: ControlWeaknessUpdateManyWithWhereWithoutAssigneeInput | ControlWeaknessUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
   }
 
   export type DSARRequestUpdateManyWithoutAssigneeNestedInput = {
@@ -137585,6 +139997,34 @@ export namespace Prisma {
     update?: DataBreachUpdateWithWhereUniqueWithoutAssigneeInput | DataBreachUpdateWithWhereUniqueWithoutAssigneeInput[]
     updateMany?: DataBreachUpdateManyWithWhereWithoutAssigneeInput | DataBreachUpdateManyWithWhereWithoutAssigneeInput[]
     deleteMany?: DataBreachScalarWhereInput | DataBreachScalarWhereInput[]
+  }
+
+  export type ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput = {
+    create?: XOR<ControlWeaknessCreateWithoutReportedByInput, ControlWeaknessUncheckedCreateWithoutReportedByInput> | ControlWeaknessCreateWithoutReportedByInput[] | ControlWeaknessUncheckedCreateWithoutReportedByInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutReportedByInput | ControlWeaknessCreateOrConnectWithoutReportedByInput[]
+    upsert?: ControlWeaknessUpsertWithWhereUniqueWithoutReportedByInput | ControlWeaknessUpsertWithWhereUniqueWithoutReportedByInput[]
+    createMany?: ControlWeaknessCreateManyReportedByInputEnvelope
+    set?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    disconnect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    delete?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    update?: ControlWeaknessUpdateWithWhereUniqueWithoutReportedByInput | ControlWeaknessUpdateWithWhereUniqueWithoutReportedByInput[]
+    updateMany?: ControlWeaknessUpdateManyWithWhereWithoutReportedByInput | ControlWeaknessUpdateManyWithWhereWithoutReportedByInput[]
+    deleteMany?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
+  }
+
+  export type ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<ControlWeaknessCreateWithoutAssigneeInput, ControlWeaknessUncheckedCreateWithoutAssigneeInput> | ControlWeaknessCreateWithoutAssigneeInput[] | ControlWeaknessUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: ControlWeaknessCreateOrConnectWithoutAssigneeInput | ControlWeaknessCreateOrConnectWithoutAssigneeInput[]
+    upsert?: ControlWeaknessUpsertWithWhereUniqueWithoutAssigneeInput | ControlWeaknessUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: ControlWeaknessCreateManyAssigneeInputEnvelope
+    set?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    disconnect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    delete?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+    update?: ControlWeaknessUpdateWithWhereUniqueWithoutAssigneeInput | ControlWeaknessUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: ControlWeaknessUpdateManyWithWhereWithoutAssigneeInput | ControlWeaknessUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
   }
 
   export type DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput = {
@@ -139137,6 +141577,57 @@ export namespace Prisma {
     _max?: NestedEnumEvidenceAgentLastStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumControlWeaknessSeverityFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessSeverity | EnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessSeverity[] | ListEnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessSeverity[] | ListEnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessSeverityFilter<$PrismaModel> | $Enums.ControlWeaknessSeverity
+  }
+
+  export type NestedEnumControlWeaknessStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessStatus | EnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessStatus[] | ListEnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessStatus[] | ListEnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessStatusFilter<$PrismaModel> | $Enums.ControlWeaknessStatus
+  }
+
+  export type NestedEnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessRemediabilityDecision | EnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessRemediabilityDecision[] | ListEnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessRemediabilityDecision[] | ListEnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel> | $Enums.ControlWeaknessRemediabilityDecision
+  }
+
+  export type NestedEnumControlWeaknessSeverityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessSeverity | EnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessSeverity[] | ListEnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessSeverity[] | ListEnumControlWeaknessSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessSeverityWithAggregatesFilter<$PrismaModel> | $Enums.ControlWeaknessSeverity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumControlWeaknessSeverityFilter<$PrismaModel>
+    _max?: NestedEnumControlWeaknessSeverityFilter<$PrismaModel>
+  }
+
+  export type NestedEnumControlWeaknessStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessStatus | EnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessStatus[] | ListEnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessStatus[] | ListEnumControlWeaknessStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessStatusWithAggregatesFilter<$PrismaModel> | $Enums.ControlWeaknessStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumControlWeaknessStatusFilter<$PrismaModel>
+    _max?: NestedEnumControlWeaknessStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumControlWeaknessRemediabilityDecisionWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ControlWeaknessRemediabilityDecision | EnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    in?: $Enums.ControlWeaknessRemediabilityDecision[] | ListEnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ControlWeaknessRemediabilityDecision[] | ListEnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel>
+    not?: NestedEnumControlWeaknessRemediabilityDecisionWithAggregatesFilter<$PrismaModel> | $Enums.ControlWeaknessRemediabilityDecision
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel>
+    _max?: NestedEnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel>
+  }
+
   export type NestedEnumEvidenceTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.EvidenceType | EnumEvidenceTypeFieldRefInput<$PrismaModel>
     in?: $Enums.EvidenceType[] | ListEnumEvidenceTypeFieldRefInput<$PrismaModel>
@@ -140454,6 +142945,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiProviderConfigsInput = {
@@ -140521,6 +143013,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiProviderConfigsInput = {
@@ -140604,6 +143097,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiProviderConfigsInput = {
@@ -140671,6 +143165,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiFeatureConfigsInput = {
@@ -140738,6 +143233,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiFeatureConfigsInput = {
@@ -140805,6 +143301,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiFeatureConfigsInput = {
@@ -140888,6 +143385,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiFeatureConfigsInput = {
@@ -140955,6 +143453,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiSystemsInput = {
@@ -141022,6 +143521,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiSystemsInput = {
@@ -141089,6 +143589,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiSystemsInput = {
@@ -141155,6 +143656,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -141220,6 +143723,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -141455,6 +143960,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiSystemsInput = {
@@ -141522,6 +144028,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedAiSystemsInput = {
@@ -141594,6 +144101,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -141659,6 +144168,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -141888,6 +144399,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiRiskAssessmentsInput = {
@@ -141955,6 +144467,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiRiskAssessmentsInput = {
@@ -142021,6 +144534,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -142086,6 +144601,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -142156,6 +144673,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -142221,6 +144740,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -142353,6 +144874,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiRiskAssessmentsInput = {
@@ -142420,6 +144942,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAiRiskAssessmentsInput = {
@@ -142492,6 +145015,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -142557,6 +145082,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -142633,6 +145160,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -142698,6 +145227,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -142769,6 +145300,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiIncidentsInput = {
@@ -142836,6 +145368,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiIncidentsInput = {
@@ -142941,6 +145474,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -143006,6 +145541,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -143076,6 +145613,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -143141,6 +145680,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -143228,6 +145769,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiIncidentsInput = {
@@ -143295,6 +145837,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AISystemUpsertWithoutIncidentsInput = {
@@ -143412,6 +145955,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -143477,6 +146022,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -143553,6 +146100,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -143618,6 +146167,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -143728,6 +146279,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiImpactAssessmentsInput = {
@@ -143795,6 +146347,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiImpactAssessmentsInput = {
@@ -143861,6 +146414,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -143926,6 +146481,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -143996,6 +146553,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -144061,6 +146620,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -144193,6 +146754,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiImpactAssessmentsInput = {
@@ -144260,6 +146822,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAiImpactAssessmentsInput = {
@@ -144332,6 +146895,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -144397,6 +146962,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -144473,6 +147040,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -144538,6 +147107,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -144609,6 +147180,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAssetsInput = {
@@ -144676,6 +147248,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAssetsInput = {
@@ -144742,6 +147315,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -144807,6 +147382,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -144877,6 +147454,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -144942,6 +147521,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -145029,6 +147610,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAssetsInput = {
@@ -145096,6 +147678,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedAssetsInput = {
@@ -145168,6 +147751,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -145233,6 +147818,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -145309,6 +147896,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -145374,6 +147963,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -145445,6 +148036,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditsInput = {
@@ -145512,6 +148104,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditsInput = {
@@ -145700,6 +148293,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditsInput = {
@@ -145767,6 +148361,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FrameworkInstanceUpsertWithoutAuditsInput = {
@@ -145982,6 +148577,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditFindingsInput = {
@@ -146049,6 +148645,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditFindingsInput = {
@@ -146074,6 +148671,7 @@ export namespace Prisma {
     evidence?: EvidenceCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessCreateNestedManyWithoutControlInput
   }
 
   export type ControlUncheckedCreateWithoutAuditFindingsInput = {
@@ -146094,6 +148692,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlUncheckedCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutControlInput
   }
 
   export type ControlCreateOrConnectWithoutAuditFindingsInput = {
@@ -146160,6 +148759,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -146225,6 +148826,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -146361,6 +148964,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditFindingsInput = {
@@ -146428,6 +149032,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ControlUpsertWithoutAuditFindingsInput = {
@@ -146459,6 +149064,7 @@ export namespace Prisma {
     evidence?: EvidenceUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateWithoutAuditFindingsInput = {
@@ -146479,6 +149085,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUncheckedUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUncheckedUpdateManyWithoutControlNestedInput
   }
 
   export type UserUpsertWithoutAssignedAuditFindingsInput = {
@@ -146551,6 +149158,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -146616,6 +149225,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -146730,6 +149341,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditDocumentsInput = {
@@ -146797,6 +149409,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditDocumentsInput = {
@@ -146863,6 +149476,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -146928,6 +149543,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -147064,6 +149681,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditDocumentsInput = {
@@ -147131,6 +149749,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutUploadedAuditDocumentsInput = {
@@ -147203,6 +149822,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -147268,6 +149889,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -147339,6 +149962,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBcpsInput = {
@@ -147406,6 +150030,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBcpsInput = {
@@ -147472,6 +150097,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -147537,6 +150164,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -147742,6 +150371,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBcpsInput = {
@@ -147809,6 +150439,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedBcpsInput = {
@@ -147881,6 +150512,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -147946,6 +150579,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -148106,6 +150741,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBiasInput = {
@@ -148173,6 +150809,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBiasInput = {
@@ -148276,6 +150913,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -148341,6 +150980,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -148428,6 +151069,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBiasInput = {
@@ -148495,6 +151137,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BusinessContinuityPlanUpsertWithoutImpactAnalysesInput = {
@@ -148610,6 +151253,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -148675,6 +151320,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -148746,6 +151393,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBcpExercisesInput = {
@@ -148813,6 +151461,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBcpExercisesInput = {
@@ -148916,6 +151565,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -148981,6 +151632,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -149068,6 +151721,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBcpExercisesInput = {
@@ -149135,6 +151789,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BusinessContinuityPlanUpsertWithoutExercisesInput = {
@@ -149250,6 +151905,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -149315,6 +151972,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -149386,6 +152045,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutConversationsInput = {
@@ -149453,6 +152113,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutConversationsInput = {
@@ -149572,6 +152233,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutConversationsInput = {
@@ -149639,6 +152301,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type MessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -149739,6 +152402,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutConversationMessagesInput = {
@@ -149806,6 +152470,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutConversationMessagesInput = {
@@ -149914,6 +152579,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutConversationMessagesInput = {
@@ -149981,6 +152647,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ConversationUpsertWithoutMessagesInput = {
@@ -150079,6 +152746,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutControlsInput = {
@@ -150146,6 +152814,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutControlsInput = {
@@ -150212,6 +152881,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -150277,6 +152948,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -150535,6 +153208,62 @@ export namespace Prisma {
     create: XOR<ControlEvidenceCollectionConfigCreateWithoutControlInput, ControlEvidenceCollectionConfigUncheckedCreateWithoutControlInput>
   }
 
+  export type ControlWeaknessCreateWithoutControlInput = {
+    id?: string
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutControlWeaknessesInput
+    reportedBy?: UserCreateNestedOneWithoutReportedControlWeaknessesInput
+    assignee?: UserCreateNestedOneWithoutAssignedControlWeaknessesInput
+  }
+
+  export type ControlWeaknessUncheckedCreateWithoutControlInput = {
+    id?: string
+    tenantId: string
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    reportedById?: string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ControlWeaknessCreateOrConnectWithoutControlInput = {
+    where: ControlWeaknessWhereUniqueInput
+    create: XOR<ControlWeaknessCreateWithoutControlInput, ControlWeaknessUncheckedCreateWithoutControlInput>
+  }
+
+  export type ControlWeaknessCreateManyControlInputEnvelope = {
+    data: ControlWeaknessCreateManyControlInput | ControlWeaknessCreateManyControlInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantUpsertWithoutControlsInput = {
     update: XOR<TenantUpdateWithoutControlsInput, TenantUncheckedUpdateWithoutControlsInput>
     create: XOR<TenantCreateWithoutControlsInput, TenantUncheckedCreateWithoutControlsInput>
@@ -150611,6 +153340,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutControlsInput = {
@@ -150678,6 +153408,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedControlsInput = {
@@ -150750,6 +153481,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -150815,6 +153548,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -151023,6 +153758,49 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ControlWeaknessUpsertWithWhereUniqueWithoutControlInput = {
+    where: ControlWeaknessWhereUniqueInput
+    update: XOR<ControlWeaknessUpdateWithoutControlInput, ControlWeaknessUncheckedUpdateWithoutControlInput>
+    create: XOR<ControlWeaknessCreateWithoutControlInput, ControlWeaknessUncheckedCreateWithoutControlInput>
+  }
+
+  export type ControlWeaknessUpdateWithWhereUniqueWithoutControlInput = {
+    where: ControlWeaknessWhereUniqueInput
+    data: XOR<ControlWeaknessUpdateWithoutControlInput, ControlWeaknessUncheckedUpdateWithoutControlInput>
+  }
+
+  export type ControlWeaknessUpdateManyWithWhereWithoutControlInput = {
+    where: ControlWeaknessScalarWhereInput
+    data: XOR<ControlWeaknessUpdateManyMutationInput, ControlWeaknessUncheckedUpdateManyWithoutControlInput>
+  }
+
+  export type ControlWeaknessScalarWhereInput = {
+    AND?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
+    OR?: ControlWeaknessScalarWhereInput[]
+    NOT?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
+    id?: StringFilter<"ControlWeakness"> | string
+    tenantId?: StringFilter<"ControlWeakness"> | string
+    controlId?: StringNullableFilter<"ControlWeakness"> | string | null
+    title?: StringFilter<"ControlWeakness"> | string
+    description?: StringNullableFilter<"ControlWeakness"> | string | null
+    severity?: EnumControlWeaknessSeverityFilter<"ControlWeakness"> | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFilter<"ControlWeakness"> | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    notificationDeadlineAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    expectedRemediationAt?: DateTimeNullableFilter<"ControlWeakness"> | Date | string | null
+    remediatedAt?: DateTimeNullableFilter<"ControlWeakness"> | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFilter<"ControlWeakness"> | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: StringNullableFilter<"ControlWeakness"> | string | null
+    remediationPlan?: StringNullableFilter<"ControlWeakness"> | string | null
+    apraNotificationRequired?: BoolFilter<"ControlWeakness"> | boolean
+    apraNotifiedAt?: DateTimeNullableFilter<"ControlWeakness"> | Date | string | null
+    apraReference?: StringNullableFilter<"ControlWeakness"> | string | null
+    reportedById?: StringNullableFilter<"ControlWeakness"> | string | null
+    assigneeId?: StringNullableFilter<"ControlWeakness"> | string | null
+    createdAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+    updatedAt?: DateTimeFilter<"ControlWeakness"> | Date | string
+  }
+
   export type ControlCreateWithoutEvidenceCollectionConfigInput = {
     id?: string
     title: string
@@ -151041,6 +153819,7 @@ export namespace Prisma {
     tasks?: TaskCreateNestedManyWithoutControlInput
     evidence?: EvidenceCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlCreateNestedManyWithoutControlInput
+    weaknesses?: ControlWeaknessCreateNestedManyWithoutControlInput
   }
 
   export type ControlUncheckedCreateWithoutEvidenceCollectionConfigInput = {
@@ -151061,6 +153840,7 @@ export namespace Prisma {
     tasks?: TaskUncheckedCreateNestedManyWithoutControlInput
     evidence?: EvidenceUncheckedCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlUncheckedCreateNestedManyWithoutControlInput
+    weaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutControlInput
   }
 
   export type ControlCreateOrConnectWithoutEvidenceCollectionConfigInput = {
@@ -151097,6 +153877,7 @@ export namespace Prisma {
     tasks?: TaskUpdateManyWithoutControlNestedInput
     evidence?: EvidenceUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUpdateManyWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateWithoutEvidenceCollectionConfigInput = {
@@ -151117,6 +153898,963 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutControlNestedInput
     evidence?: EvidenceUncheckedUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUncheckedUpdateManyWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUncheckedUpdateManyWithoutControlNestedInput
+  }
+
+  export type TenantCreateWithoutControlWeaknessesInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutControlWeaknessesInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutControlWeaknessesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutControlWeaknessesInput, TenantUncheckedCreateWithoutControlWeaknessesInput>
+  }
+
+  export type ControlCreateWithoutWeaknessesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    implementationDetails?: string | null
+    status?: $Enums.ControlStatus
+    category?: string | null
+    reviewDate?: Date | string | null
+    lastReviewedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutControlsInput
+    owner?: UserCreateNestedOneWithoutOwnedControlsInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutControlInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutControlInput
+    tasks?: TaskCreateNestedManyWithoutControlInput
+    evidence?: EvidenceCreateNestedManyWithoutControlInput
+    policyControls?: PolicyControlCreateNestedManyWithoutControlInput
+    evidenceCollectionConfig?: ControlEvidenceCollectionConfigCreateNestedOneWithoutControlInput
+  }
+
+  export type ControlUncheckedCreateWithoutWeaknessesInput = {
+    id?: string
+    tenantId: string
+    title: string
+    description?: string | null
+    implementationDetails?: string | null
+    status?: $Enums.ControlStatus
+    category?: string | null
+    ownerId?: string | null
+    reviewDate?: Date | string | null
+    lastReviewedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutControlInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutControlInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutControlInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutControlInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutControlInput
+    evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedCreateNestedOneWithoutControlInput
+  }
+
+  export type ControlCreateOrConnectWithoutWeaknessesInput = {
+    where: ControlWhereUniqueInput
+    create: XOR<ControlCreateWithoutWeaknessesInput, ControlUncheckedCreateWithoutWeaknessesInput>
+  }
+
+  export type UserCreateWithoutReportedControlWeaknessesInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipCreateNestedManyWithoutUserInput
+    ownedControls?: ControlCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIACreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
+    assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutReportedControlWeaknessesInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
+    ownedControls?: ControlUncheckedCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyUncheckedCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskUncheckedCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskUncheckedCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetUncheckedCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetUncheckedCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentUncheckedCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineUncheckedCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingUncheckedCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemUncheckedCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentUncheckedCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIAUncheckedCreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutReportedControlWeaknessesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutReportedControlWeaknessesInput, UserUncheckedCreateWithoutReportedControlWeaknessesInput>
+  }
+
+  export type UserCreateWithoutAssignedControlWeaknessesInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipCreateNestedManyWithoutUserInput
+    ownedControls?: ControlCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIACreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutAssignedControlWeaknessesInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
+    ownedControls?: ControlUncheckedCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyUncheckedCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskUncheckedCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskUncheckedCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetUncheckedCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetUncheckedCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentUncheckedCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineUncheckedCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingUncheckedCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemUncheckedCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentUncheckedCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIAUncheckedCreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutAssignedControlWeaknessesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAssignedControlWeaknessesInput, UserUncheckedCreateWithoutAssignedControlWeaknessesInput>
+  }
+
+  export type TenantUpsertWithoutControlWeaknessesInput = {
+    update: XOR<TenantUpdateWithoutControlWeaknessesInput, TenantUncheckedUpdateWithoutControlWeaknessesInput>
+    create: XOR<TenantCreateWithoutControlWeaknessesInput, TenantUncheckedCreateWithoutControlWeaknessesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutControlWeaknessesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutControlWeaknessesInput, TenantUncheckedUpdateWithoutControlWeaknessesInput>
+  }
+
+  export type TenantUpdateWithoutControlWeaknessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutControlWeaknessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type ControlUpsertWithoutWeaknessesInput = {
+    update: XOR<ControlUpdateWithoutWeaknessesInput, ControlUncheckedUpdateWithoutWeaknessesInput>
+    create: XOR<ControlCreateWithoutWeaknessesInput, ControlUncheckedCreateWithoutWeaknessesInput>
+    where?: ControlWhereInput
+  }
+
+  export type ControlUpdateToOneWithWhereWithoutWeaknessesInput = {
+    where?: ControlWhereInput
+    data: XOR<ControlUpdateWithoutWeaknessesInput, ControlUncheckedUpdateWithoutWeaknessesInput>
+  }
+
+  export type ControlUpdateWithoutWeaknessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    implementationDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutControlsNestedInput
+    owner?: UserUpdateOneWithoutOwnedControlsNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutControlNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutControlNestedInput
+    tasks?: TaskUpdateManyWithoutControlNestedInput
+    evidence?: EvidenceUpdateManyWithoutControlNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutControlNestedInput
+    evidenceCollectionConfig?: ControlEvidenceCollectionConfigUpdateOneWithoutControlNestedInput
+  }
+
+  export type ControlUncheckedUpdateWithoutWeaknessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    implementationDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumControlStatusFieldUpdateOperationsInput | $Enums.ControlStatus
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    reviewDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutControlNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutControlNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutControlNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutControlNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutControlNestedInput
+    evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedUpdateOneWithoutControlNestedInput
+  }
+
+  export type UserUpsertWithoutReportedControlWeaknessesInput = {
+    update: XOR<UserUpdateWithoutReportedControlWeaknessesInput, UserUncheckedUpdateWithoutReportedControlWeaknessesInput>
+    create: XOR<UserCreateWithoutReportedControlWeaknessesInput, UserUncheckedCreateWithoutReportedControlWeaknessesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutReportedControlWeaknessesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutReportedControlWeaknessesInput, UserUncheckedUpdateWithoutReportedControlWeaknessesInput>
+  }
+
+  export type UserUpdateWithoutReportedControlWeaknessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
+    assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutReportedControlWeaknessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUncheckedUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUncheckedUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUncheckedUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUncheckedUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUncheckedUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUncheckedUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUncheckedUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUncheckedUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUncheckedUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUncheckedUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUpsertWithoutAssignedControlWeaknessesInput = {
+    update: XOR<UserUpdateWithoutAssignedControlWeaknessesInput, UserUncheckedUpdateWithoutAssignedControlWeaknessesInput>
+    create: XOR<UserCreateWithoutAssignedControlWeaknessesInput, UserUncheckedCreateWithoutAssignedControlWeaknessesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAssignedControlWeaknessesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAssignedControlWeaknessesInput, UserUncheckedUpdateWithoutAssignedControlWeaknessesInput>
+  }
+
+  export type UserUpdateWithoutAssignedControlWeaknessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAssignedControlWeaknessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUncheckedUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUncheckedUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUncheckedUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUncheckedUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUncheckedUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUncheckedUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUncheckedUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUncheckedUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUncheckedUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUncheckedUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type TenantCreateWithoutEvidenceInput = {
@@ -151184,6 +154922,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutEvidenceInput = {
@@ -151251,6 +154990,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutEvidenceInput = {
@@ -151276,6 +155016,7 @@ export namespace Prisma {
     tasks?: TaskCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessCreateNestedManyWithoutControlInput
   }
 
   export type ControlUncheckedCreateWithoutEvidenceInput = {
@@ -151296,6 +155037,7 @@ export namespace Prisma {
     tasks?: TaskUncheckedCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlUncheckedCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutControlInput
   }
 
   export type ControlCreateOrConnectWithoutEvidenceInput = {
@@ -151362,6 +155104,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -151427,6 +155171,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -151497,6 +155243,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -151562,6 +155310,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -151649,6 +155399,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutEvidenceInput = {
@@ -151716,6 +155467,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ControlUpsertWithoutEvidenceInput = {
@@ -151747,6 +155499,7 @@ export namespace Prisma {
     tasks?: TaskUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateWithoutEvidenceInput = {
@@ -151767,6 +155520,7 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUncheckedUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUncheckedUpdateManyWithoutControlNestedInput
   }
 
   export type UserUpsertWithoutSubmittedControlEvidenceInput = {
@@ -151839,6 +155593,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -151904,6 +155660,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -151980,6 +155738,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -152045,6 +155805,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -152255,6 +156017,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFrameworkInstancesInput = {
@@ -152322,6 +156085,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFrameworkInstancesInput = {
@@ -152510,6 +156274,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFrameworkInstancesInput = {
@@ -152577,6 +156342,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FrameworkUpsertWithoutInstancesInput = {
@@ -153089,6 +156855,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutControlRequirementAssignmentsInput = {
@@ -153156,6 +156923,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutControlRequirementAssignmentsInput = {
@@ -153214,6 +156982,7 @@ export namespace Prisma {
     evidence?: EvidenceCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessCreateNestedManyWithoutControlInput
   }
 
   export type ControlUncheckedCreateWithoutControlRequirementAssignmentsInput = {
@@ -153234,6 +157003,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlUncheckedCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutControlInput
   }
 
   export type ControlCreateOrConnectWithoutControlRequirementAssignmentsInput = {
@@ -153350,6 +157120,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutControlRequirementAssignmentsInput = {
@@ -153417,6 +157188,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type RequirementUpsertWithoutControlRequirementAssignmentsInput = {
@@ -153487,6 +157259,7 @@ export namespace Prisma {
     evidence?: EvidenceUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateWithoutControlRequirementAssignmentsInput = {
@@ -153507,6 +157280,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUncheckedUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUncheckedUpdateManyWithoutControlNestedInput
   }
 
   export type FrameworkInstanceUpsertWithoutControlRequirementAssignmentsInput = {
@@ -153613,6 +157387,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentsInput = {
@@ -153680,6 +157455,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentsInput = {
@@ -153746,6 +157522,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -153811,6 +157589,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -153881,6 +157661,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -153946,6 +157728,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -154061,6 +157845,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentsInput = {
@@ -154128,6 +157913,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutReportedIncidentsInput = {
@@ -154200,6 +157986,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -154265,6 +158053,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -154341,6 +158131,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -154406,6 +158198,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -154547,6 +158341,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentTimelinesInput = {
@@ -154614,6 +158409,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentTimelinesInput = {
@@ -154680,6 +158476,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -154745,6 +158543,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -154879,6 +158679,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentTimelinesInput = {
@@ -154946,6 +158747,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutIncidentTimelineActionsInput = {
@@ -155018,6 +158820,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -155083,6 +158887,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -155154,6 +158960,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPoliciesInput = {
@@ -155221,6 +159028,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPoliciesInput = {
@@ -155287,6 +159095,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -155352,6 +159162,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -155573,6 +159385,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPoliciesInput = {
@@ -155640,6 +159453,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedPoliciesInput = {
@@ -155712,6 +159526,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -155777,6 +159593,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -155996,6 +159814,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -156061,6 +159881,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -156131,6 +159953,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -156196,6 +160020,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -156398,6 +160224,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -156463,6 +160291,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -156539,6 +160369,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -156604,6 +160436,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -156773,6 +160607,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -156838,6 +160674,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -156914,6 +160752,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPolicyAcksInput = {
@@ -156981,6 +160820,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPolicyAcksInput = {
@@ -157142,6 +160982,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -157207,6 +161049,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -157289,6 +161133,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPolicyAcksInput = {
@@ -157356,6 +161201,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PolicyCreateWithoutCommentsInput = {
@@ -157489,6 +161335,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -157554,6 +161402,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -157630,6 +161480,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPolicyCommentsInput = {
@@ -157697,6 +161548,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPolicyCommentsInput = {
@@ -157763,6 +161615,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -157828,6 +161682,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -158080,6 +161936,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -158145,6 +162003,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -158227,6 +162087,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPolicyCommentsInput = {
@@ -158294,6 +162155,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutResolvedCommentsInput = {
@@ -158366,6 +162228,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -158431,6 +162295,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -158559,6 +162425,7 @@ export namespace Prisma {
     tasks?: TaskCreateNestedManyWithoutControlInput
     evidence?: EvidenceCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessCreateNestedManyWithoutControlInput
   }
 
   export type ControlUncheckedCreateWithoutPolicyControlsInput = {
@@ -158579,6 +162446,7 @@ export namespace Prisma {
     tasks?: TaskUncheckedCreateNestedManyWithoutControlInput
     evidence?: EvidenceUncheckedCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutControlInput
   }
 
   export type ControlCreateOrConnectWithoutPolicyControlsInput = {
@@ -158651,6 +162519,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPolicyControlsInput = {
@@ -158718,6 +162587,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPolicyControlsInput = {
@@ -158801,6 +162671,7 @@ export namespace Prisma {
     tasks?: TaskUpdateManyWithoutControlNestedInput
     evidence?: EvidenceUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateWithoutPolicyControlsInput = {
@@ -158821,6 +162692,7 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutControlNestedInput
     evidence?: EvidenceUncheckedUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUncheckedUpdateManyWithoutControlNestedInput
   }
 
   export type TenantUpsertWithoutPolicyControlsInput = {
@@ -158899,6 +162771,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPolicyControlsInput = {
@@ -158966,6 +162839,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutProcessingActivitiesInput = {
@@ -159033,6 +162907,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutProcessingActivitiesInput = {
@@ -159100,6 +162975,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutProcessingActivitiesInput = {
@@ -159166,6 +163042,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -159231,6 +163109,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -159652,6 +163532,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutProcessingActivitiesInput = {
@@ -159719,6 +163600,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedProcessingActivitiesInput = {
@@ -159791,6 +163673,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -159856,6 +163740,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -160164,6 +164050,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDpiasInput = {
@@ -160231,6 +164118,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDpiasInput = {
@@ -160360,6 +164248,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -160425,6 +164315,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -160495,6 +164387,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIACreateNestedManyWithoutAssessedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -160560,6 +164454,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIAUncheckedCreateNestedManyWithoutAssessedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -160647,6 +164543,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDpiasInput = {
@@ -160714,6 +164611,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProcessingActivityUpsertWithoutDpiasInput = {
@@ -160855,6 +164753,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -160920,6 +164820,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -160996,6 +164898,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIAUpdateManyWithoutAssessedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -161061,6 +164965,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIAUncheckedUpdateManyWithoutAssessedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -161132,6 +165038,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDataBreachesInput = {
@@ -161199,6 +165106,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDataBreachesInput = {
@@ -161328,6 +165236,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIACreateNestedManyWithoutAssessedByInput
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -161393,6 +165303,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIAUncheckedCreateNestedManyWithoutAssessedByInput
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -161463,6 +165375,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIACreateNestedManyWithoutAssessedByInput
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -161528,6 +165442,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIAUncheckedCreateNestedManyWithoutAssessedByInput
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -161615,6 +165531,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDataBreachesInput = {
@@ -161682,6 +165599,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProcessingActivityUpsertWithoutBreachesInput = {
@@ -161823,6 +165741,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIAUpdateManyWithoutAssessedByNestedInput
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -161888,6 +165808,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIAUncheckedUpdateManyWithoutAssessedByNestedInput
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -161964,6 +165886,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIAUpdateManyWithoutAssessedByNestedInput
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -162029,6 +165953,8 @@ export namespace Prisma {
     dpiaAssessments?: DPIAUncheckedUpdateManyWithoutAssessedByNestedInput
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -162100,6 +166026,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDsarRequestsInput = {
@@ -162167,6 +166094,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDsarRequestsInput = {
@@ -162234,6 +166162,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
@@ -162299,6 +166229,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
@@ -162448,6 +166380,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDsarRequestsInput = {
@@ -162515,6 +166448,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAssignedDsarRequestsInput = {
@@ -162588,6 +166522,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
@@ -162653,6 +166589,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -162767,6 +166705,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuestionnaireImportJobsInput = {
@@ -162834,6 +166773,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuestionnaireImportJobsInput = {
@@ -162901,6 +166841,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -162966,6 +166908,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -163101,6 +167045,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuestionnaireImportJobsInput = {
@@ -163168,6 +167113,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutQuestionnaireImportJobsInput = {
@@ -163241,6 +167187,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -163306,6 +167254,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -163431,6 +167381,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuestionnairesInput = {
@@ -163498,6 +167449,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuestionnairesInput = {
@@ -163565,6 +167517,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
@@ -163630,6 +167584,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
@@ -163939,6 +167895,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuestionnairesInput = {
@@ -164006,6 +167963,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutImportedQuestionnairesInput = {
@@ -164079,6 +168037,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
@@ -164144,6 +168104,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -164408,6 +168370,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuestionsInput = {
@@ -164475,6 +168438,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuestionsInput = {
@@ -164754,6 +168718,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuestionsInput = {
@@ -164821,6 +168786,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type QuestionnaireUpsertWithoutQuestionsInput = {
@@ -165030,6 +168996,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
     questions?: QuestionCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAnswersInput = {
@@ -165097,6 +169064,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAnswersInput = {
@@ -165262,6 +169230,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
@@ -165327,6 +169297,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
@@ -165413,6 +169385,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAnswersInput = {
@@ -165480,6 +169453,7 @@ export namespace Prisma {
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type QuestionnaireUpsertWithoutAnswersInput = {
@@ -165663,6 +169637,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
@@ -165728,6 +169704,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -165798,6 +169776,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRisksInput = {
@@ -165865,6 +169844,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRisksInput = {
@@ -165931,6 +169911,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -165996,6 +169978,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -166066,6 +170050,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -166131,6 +170117,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -166395,6 +170383,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRisksInput = {
@@ -166462,6 +170451,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedRisksInput = {
@@ -166534,6 +170524,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -166599,6 +170591,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -166675,6 +170669,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -166740,6 +170736,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -167073,6 +171071,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskAssessmentsInput = {
@@ -167140,6 +171139,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskAssessmentsInput = {
@@ -167206,6 +171206,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -167271,6 +171273,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -167455,6 +171459,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskAssessmentsInput = {
@@ -167522,6 +171527,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutRiskAssessmentsInput = {
@@ -167594,6 +171600,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -167659,6 +171667,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -167821,6 +171831,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskTreatmentsInput = {
@@ -167888,6 +171899,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskTreatmentsInput = {
@@ -167954,6 +171966,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -168019,6 +172033,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -168203,6 +172219,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskTreatmentsInput = {
@@ -168270,6 +172287,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutRiskTreatmentsInput = {
@@ -168342,6 +172360,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -168407,6 +172427,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -168478,6 +172500,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskRegisterConfigInput = {
@@ -168545,6 +172568,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskRegisterConfigInput = {
@@ -168628,6 +172652,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskRegisterConfigInput = {
@@ -168695,6 +172720,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type RiskCreateWithoutMatrixChangesInput = {
@@ -168853,6 +172879,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskMatrixChangesInput = {
@@ -168920,6 +172947,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskMatrixChangesInput = {
@@ -168986,6 +173014,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -169051,6 +173081,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -169235,6 +173267,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskMatrixChangesInput = {
@@ -169302,6 +173335,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutRiskMatrixChangesInput = {
@@ -169374,6 +173408,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -169439,6 +173475,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -169510,6 +173548,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTasksInput = {
@@ -169577,6 +173616,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTasksInput = {
@@ -169643,6 +173683,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -169708,6 +173750,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -169737,6 +173781,7 @@ export namespace Prisma {
     evidence?: EvidenceCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessCreateNestedManyWithoutControlInput
   }
 
   export type ControlUncheckedCreateWithoutTasksInput = {
@@ -169757,6 +173802,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlUncheckedCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutControlInput
   }
 
   export type ControlCreateOrConnectWithoutTasksInput = {
@@ -169882,6 +173928,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTasksInput = {
@@ -169949,6 +173996,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAssignedTasksInput = {
@@ -170021,6 +174069,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -170086,6 +174136,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -170121,6 +174173,7 @@ export namespace Prisma {
     evidence?: EvidenceUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateWithoutTasksInput = {
@@ -170141,6 +174194,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUncheckedUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUncheckedUpdateManyWithoutControlNestedInput
   }
 
   export type TaskEvidenceUpsertWithWhereUniqueWithoutTaskInput = {
@@ -170289,6 +174343,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTaskEvidenceInput = {
@@ -170356,6 +174411,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTaskEvidenceInput = {
@@ -170422,6 +174478,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -170487,6 +174545,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -170557,6 +174617,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -170622,6 +174684,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -170760,6 +174824,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTaskEvidenceInput = {
@@ -170827,6 +174892,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutSubmittedEvidenceInput = {
@@ -170899,6 +174965,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -170964,6 +175032,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -171040,6 +175110,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -171105,6 +175177,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -171263,6 +175337,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutContextEntriesInput = {
@@ -171330,6 +175405,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutContextEntriesInput = {
@@ -171497,6 +175573,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutContextEntriesInput = {
@@ -171564,6 +175641,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutContextProposalsInput = {
@@ -171631,6 +175709,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutContextProposalsInput = {
@@ -171698,6 +175777,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutContextProposalsInput = {
@@ -171781,6 +175861,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutContextProposalsInput = {
@@ -171848,6 +175929,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantSettingsCreateWithoutTenantInput = {
@@ -171969,6 +176051,7 @@ export namespace Prisma {
     evidence?: EvidenceCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessCreateNestedManyWithoutControlInput
   }
 
   export type ControlUncheckedCreateWithoutTenantInput = {
@@ -171989,6 +176072,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlUncheckedCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutControlInput
   }
 
   export type ControlCreateOrConnectWithoutTenantInput = {
@@ -174415,6 +178499,62 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ControlWeaknessCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    control?: ControlCreateNestedOneWithoutWeaknessesInput
+    reportedBy?: UserCreateNestedOneWithoutReportedControlWeaknessesInput
+    assignee?: UserCreateNestedOneWithoutAssignedControlWeaknessesInput
+  }
+
+  export type ControlWeaknessUncheckedCreateWithoutTenantInput = {
+    id?: string
+    controlId?: string | null
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    reportedById?: string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ControlWeaknessCreateOrConnectWithoutTenantInput = {
+    where: ControlWeaknessWhereUniqueInput
+    create: XOR<ControlWeaknessCreateWithoutTenantInput, ControlWeaknessUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ControlWeaknessCreateManyTenantInputEnvelope = {
+    data: ControlWeaknessCreateManyTenantInput | ControlWeaknessCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantSettingsUpsertWithoutTenantInput = {
     update: XOR<TenantSettingsUpdateWithoutTenantInput, TenantSettingsUncheckedUpdateWithoutTenantInput>
     create: XOR<TenantSettingsCreateWithoutTenantInput, TenantSettingsUncheckedCreateWithoutTenantInput>
@@ -175835,6 +179975,22 @@ export namespace Prisma {
     data: XOR<QuestionnaireImportJobUpdateManyMutationInput, QuestionnaireImportJobUncheckedUpdateManyWithoutTenantInput>
   }
 
+  export type ControlWeaknessUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ControlWeaknessWhereUniqueInput
+    update: XOR<ControlWeaknessUpdateWithoutTenantInput, ControlWeaknessUncheckedUpdateWithoutTenantInput>
+    create: XOR<ControlWeaknessCreateWithoutTenantInput, ControlWeaknessUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ControlWeaknessUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ControlWeaknessWhereUniqueInput
+    data: XOR<ControlWeaknessUpdateWithoutTenantInput, ControlWeaknessUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ControlWeaknessUpdateManyWithWhereWithoutTenantInput = {
+    where: ControlWeaknessScalarWhereInput
+    data: XOR<ControlWeaknessUpdateManyMutationInput, ControlWeaknessUncheckedUpdateManyWithoutTenantInput>
+  }
+
   export type TenantCreateWithoutSettingsInput = {
     id?: string
     name: string
@@ -175900,6 +180056,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSettingsInput = {
@@ -175967,6 +180124,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSettingsInput = {
@@ -176050,6 +180208,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSettingsInput = {
@@ -176117,6 +180276,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutTrainingProgramsInput = {
@@ -176184,6 +180344,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingProgramsInput = {
@@ -176251,6 +180412,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingProgramsInput = {
@@ -176406,6 +180568,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingProgramsInput = {
@@ -176473,6 +180636,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrainingCompletionUpsertWithWhereUniqueWithoutTrainingProgramInput = {
@@ -176601,6 +180765,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -176666,6 +180832,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -176742,6 +180910,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingCompletionsInput = {
@@ -176809,6 +180978,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingCompletionsInput = {
@@ -176927,6 +181097,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -176992,6 +181164,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -177074,6 +181248,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingCompletionsInput = {
@@ -177141,6 +181316,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrainingProgramCreateWithoutQuizzesInput = {
@@ -177243,6 +181419,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingQuizzesInput = {
@@ -177310,6 +181487,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingQuizzesInput = {
@@ -177502,6 +181680,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingQuizzesInput = {
@@ -177569,6 +181748,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type QuizQuestionUpsertWithWhereUniqueWithoutQuizInput = {
@@ -177990,6 +182170,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -178055,6 +182237,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -178131,6 +182315,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
@@ -178198,6 +182383,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuizAttemptsInput = {
@@ -178340,6 +182526,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -178405,6 +182593,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -178487,6 +182677,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -178554,6 +182745,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type QuizAnswerUpsertWithWhereUniqueWithoutAttemptInput = {
@@ -178813,6 +183005,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustCenterConfigInput = {
@@ -178880,6 +183073,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustCenterConfigInput = {
@@ -179063,6 +183257,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustCenterConfigInput = {
@@ -179130,6 +183325,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrustResourceUpsertWithWhereUniqueWithoutTrustCenterConfigInput = {
@@ -179245,6 +183441,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustCenterSnapshotsInput = {
@@ -179312,6 +183509,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustCenterSnapshotsInput = {
@@ -179415,6 +183613,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -179480,6 +183680,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -179567,6 +183769,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustCenterSnapshotsInput = {
@@ -179634,6 +183837,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrustCenterConfigUpsertWithoutSnapshotsInput = {
@@ -179749,6 +183953,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -179814,6 +184020,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -179885,6 +184093,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustCenterEventsInput = {
@@ -179952,6 +184161,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustCenterEventsInput = {
@@ -180072,6 +184282,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustCenterEventsInput = {
@@ -180139,6 +184350,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrustCenterConfigUpsertWithoutEventsInput = {
@@ -180249,6 +184461,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustResourcesInput = {
@@ -180316,6 +184529,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustResourcesInput = {
@@ -180484,6 +184698,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustResourcesInput = {
@@ -180551,6 +184766,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrustCenterConfigUpsertWithoutResourcesInput = {
@@ -180677,6 +184893,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAccessRequestsInput = {
@@ -180744,6 +184961,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAccessRequestsInput = {
@@ -180845,6 +185063,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -180910,6 +185130,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -180997,6 +185219,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAccessRequestsInput = {
@@ -181064,6 +185287,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrustResourceUpsertWithoutAccessRequestsInput = {
@@ -181177,6 +185401,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -181242,6 +185468,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -181300,6 +185528,7 @@ export namespace Prisma {
     evidence?: EvidenceCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessCreateNestedManyWithoutControlInput
   }
 
   export type ControlUncheckedCreateWithoutOwnerInput = {
@@ -181320,6 +185549,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedCreateNestedManyWithoutControlInput
     policyControls?: PolicyControlUncheckedCreateNestedManyWithoutControlInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedCreateNestedOneWithoutControlInput
+    weaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutControlInput
   }
 
   export type ControlCreateOrConnectWithoutOwnerInput = {
@@ -183550,6 +187780,118 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ControlWeaknessCreateWithoutReportedByInput = {
+    id?: string
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutControlWeaknessesInput
+    control?: ControlCreateNestedOneWithoutWeaknessesInput
+    assignee?: UserCreateNestedOneWithoutAssignedControlWeaknessesInput
+  }
+
+  export type ControlWeaknessUncheckedCreateWithoutReportedByInput = {
+    id?: string
+    tenantId: string
+    controlId?: string | null
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ControlWeaknessCreateOrConnectWithoutReportedByInput = {
+    where: ControlWeaknessWhereUniqueInput
+    create: XOR<ControlWeaknessCreateWithoutReportedByInput, ControlWeaknessUncheckedCreateWithoutReportedByInput>
+  }
+
+  export type ControlWeaknessCreateManyReportedByInputEnvelope = {
+    data: ControlWeaknessCreateManyReportedByInput | ControlWeaknessCreateManyReportedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ControlWeaknessCreateWithoutAssigneeInput = {
+    id?: string
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutControlWeaknessesInput
+    control?: ControlCreateNestedOneWithoutWeaknessesInput
+    reportedBy?: UserCreateNestedOneWithoutReportedControlWeaknessesInput
+  }
+
+  export type ControlWeaknessUncheckedCreateWithoutAssigneeInput = {
+    id?: string
+    tenantId: string
+    controlId?: string | null
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    reportedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ControlWeaknessCreateOrConnectWithoutAssigneeInput = {
+    where: ControlWeaknessWhereUniqueInput
+    create: XOR<ControlWeaknessCreateWithoutAssigneeInput, ControlWeaknessUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type ControlWeaknessCreateManyAssigneeInputEnvelope = {
+    data: ControlWeaknessCreateManyAssigneeInput | ControlWeaknessCreateManyAssigneeInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DSARRequestCreateWithoutAssigneeInput = {
     id?: string
     subjectName: string
@@ -184532,6 +188874,38 @@ export namespace Prisma {
     data: XOR<DataBreachUpdateManyMutationInput, DataBreachUncheckedUpdateManyWithoutAssigneeInput>
   }
 
+  export type ControlWeaknessUpsertWithWhereUniqueWithoutReportedByInput = {
+    where: ControlWeaknessWhereUniqueInput
+    update: XOR<ControlWeaknessUpdateWithoutReportedByInput, ControlWeaknessUncheckedUpdateWithoutReportedByInput>
+    create: XOR<ControlWeaknessCreateWithoutReportedByInput, ControlWeaknessUncheckedCreateWithoutReportedByInput>
+  }
+
+  export type ControlWeaknessUpdateWithWhereUniqueWithoutReportedByInput = {
+    where: ControlWeaknessWhereUniqueInput
+    data: XOR<ControlWeaknessUpdateWithoutReportedByInput, ControlWeaknessUncheckedUpdateWithoutReportedByInput>
+  }
+
+  export type ControlWeaknessUpdateManyWithWhereWithoutReportedByInput = {
+    where: ControlWeaknessScalarWhereInput
+    data: XOR<ControlWeaknessUpdateManyMutationInput, ControlWeaknessUncheckedUpdateManyWithoutReportedByInput>
+  }
+
+  export type ControlWeaknessUpsertWithWhereUniqueWithoutAssigneeInput = {
+    where: ControlWeaknessWhereUniqueInput
+    update: XOR<ControlWeaknessUpdateWithoutAssigneeInput, ControlWeaknessUncheckedUpdateWithoutAssigneeInput>
+    create: XOR<ControlWeaknessCreateWithoutAssigneeInput, ControlWeaknessUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type ControlWeaknessUpdateWithWhereUniqueWithoutAssigneeInput = {
+    where: ControlWeaknessWhereUniqueInput
+    data: XOR<ControlWeaknessUpdateWithoutAssigneeInput, ControlWeaknessUncheckedUpdateWithoutAssigneeInput>
+  }
+
+  export type ControlWeaknessUpdateManyWithWhereWithoutAssigneeInput = {
+    where: ControlWeaknessScalarWhereInput
+    data: XOR<ControlWeaknessUpdateManyMutationInput, ControlWeaknessUncheckedUpdateManyWithoutAssigneeInput>
+  }
+
   export type DSARRequestUpsertWithWhereUniqueWithoutAssigneeInput = {
     where: DSARRequestWhereUniqueInput
     update: XOR<DSARRequestUpdateWithoutAssigneeInput, DSARRequestUncheckedUpdateWithoutAssigneeInput>
@@ -184655,6 +189029,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -184720,6 +189096,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -184796,6 +189174,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMembershipsInput = {
@@ -184863,6 +189242,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMembershipsInput = {
@@ -184940,6 +189320,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -185005,6 +189387,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -185087,6 +189471,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMembershipsInput = {
@@ -185154,6 +189539,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VendorCreateWithoutKnownVendorInput = {
@@ -185383,6 +189769,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorsInput = {
@@ -185450,6 +189837,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorsInput = {
@@ -185859,6 +190247,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorsInput = {
@@ -185926,6 +190315,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type KnownVendorUpsertWithoutVendorsInput = {
@@ -186224,6 +190614,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorAssessmentsInput = {
@@ -186291,6 +190682,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorAssessmentsInput = {
@@ -186357,6 +190749,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -186422,6 +190816,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -186635,6 +191031,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorAssessmentsInput = {
@@ -186702,6 +191099,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutVendorAssessmentsInput = {
@@ -186774,6 +191172,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -186839,6 +191239,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -187085,6 +191487,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorResearchesInput = {
@@ -187152,6 +191555,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorResearchesInput = {
@@ -187395,6 +191799,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorResearchesInput = {
@@ -187462,6 +191867,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VendorAssessmentUpsertWithWhereUniqueWithoutResearchInput = {
@@ -187752,6 +192158,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorDocumentsInput = {
@@ -187819,6 +192226,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorDocumentsInput = {
@@ -187885,6 +192293,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -187950,6 +192360,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -188110,6 +192522,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorDocumentsInput = {
@@ -188177,6 +192590,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutVendorDocumentsInput = {
@@ -188249,6 +192663,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -188314,6 +192730,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -188385,6 +192803,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVulnerabilitiesInput = {
@@ -188452,6 +192871,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVulnerabilitiesInput = {
@@ -188518,6 +192938,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -188583,6 +193005,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -188653,6 +193077,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
@@ -188718,6 +193144,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
     reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
     assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
@@ -188805,6 +193233,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVulnerabilitiesInput = {
@@ -188872,6 +193301,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutReportedVulnerabilitiesInput = {
@@ -188944,6 +193374,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -189009,6 +193441,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -189085,6 +193519,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
@@ -189150,6 +193586,8 @@ export namespace Prisma {
     dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
     reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
     assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
@@ -189824,6 +194262,29 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type ControlWeaknessCreateManyControlInput = {
+    id?: string
+    tenantId: string
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    reportedById?: string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ControlRequirementAssignmentUpdateWithoutControlInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
@@ -190064,6 +194525,75 @@ export namespace Prisma {
     policyId?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ControlWeaknessUpdateWithoutControlInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutControlWeaknessesNestedInput
+    reportedBy?: UserUpdateOneWithoutReportedControlWeaknessesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedControlWeaknessesNestedInput
+  }
+
+  export type ControlWeaknessUncheckedUpdateWithoutControlInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ControlWeaknessUncheckedUpdateManyWithoutControlInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FrameworkInstanceCreateManyFrameworkInput = {
@@ -192991,6 +197521,29 @@ export namespace Prisma {
     completedAt?: Date | string | null
   }
 
+  export type ControlWeaknessCreateManyTenantInput = {
+    id?: string
+    controlId?: string | null
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    reportedById?: string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type MembershipUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
@@ -193085,6 +197638,7 @@ export namespace Prisma {
     evidence?: EvidenceUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateWithoutTenantInput = {
@@ -193105,6 +197659,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUncheckedUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUncheckedUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateManyWithoutTenantInput = {
@@ -195835,6 +200390,75 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type ControlWeaknessUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    control?: ControlUpdateOneWithoutWeaknessesNestedInput
+    reportedBy?: UserUpdateOneWithoutReportedControlWeaknessesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedControlWeaknessesNestedInput
+  }
+
+  export type ControlWeaknessUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    controlId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ControlWeaknessUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    controlId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TrainingCompletionCreateManyTrainingProgramInput = {
     id?: string
     userId: string
@@ -197228,6 +201852,52 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type ControlWeaknessCreateManyReportedByInput = {
+    id?: string
+    tenantId: string
+    controlId?: string | null
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    assigneeId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ControlWeaknessCreateManyAssigneeInput = {
+    id?: string
+    tenantId: string
+    controlId?: string | null
+    title: string
+    description?: string | null
+    severity: $Enums.ControlWeaknessSeverity
+    status?: $Enums.ControlWeaknessStatus
+    discoveredAt?: Date | string
+    notificationDeadlineAt: Date | string
+    expectedRemediationAt?: Date | string | null
+    remediatedAt?: Date | string | null
+    remediability?: $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: string | null
+    remediationPlan?: string | null
+    apraNotificationRequired?: boolean
+    apraNotifiedAt?: Date | string | null
+    apraReference?: string | null
+    reportedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type DSARRequestCreateManyAssigneeInput = {
     id?: string
     tenantId: string
@@ -197365,6 +202035,7 @@ export namespace Prisma {
     evidence?: EvidenceUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateWithoutOwnerInput = {
@@ -197385,6 +202056,7 @@ export namespace Prisma {
     evidence?: EvidenceUncheckedUpdateManyWithoutControlNestedInput
     policyControls?: PolicyControlUncheckedUpdateManyWithoutControlNestedInput
     evidenceCollectionConfig?: ControlEvidenceCollectionConfigUncheckedUpdateOneWithoutControlNestedInput
+    weaknesses?: ControlWeaknessUncheckedUpdateManyWithoutControlNestedInput
   }
 
   export type ControlUncheckedUpdateManyWithoutOwnerInput = {
@@ -200003,6 +204675,144 @@ export namespace Prisma {
     supervisoryAuthorityReference?: NullableStringFieldUpdateOperationsInput | string | null
     dataSubjectsNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
     dataSubjectsNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ControlWeaknessUpdateWithoutReportedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutControlWeaknessesNestedInput
+    control?: ControlUpdateOneWithoutWeaknessesNestedInput
+    assignee?: UserUpdateOneWithoutAssignedControlWeaknessesNestedInput
+  }
+
+  export type ControlWeaknessUncheckedUpdateWithoutReportedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    controlId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ControlWeaknessUncheckedUpdateManyWithoutReportedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    controlId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ControlWeaknessUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutControlWeaknessesNestedInput
+    control?: ControlUpdateOneWithoutWeaknessesNestedInput
+    reportedBy?: UserUpdateOneWithoutReportedControlWeaknessesNestedInput
+  }
+
+  export type ControlWeaknessUncheckedUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    controlId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ControlWeaknessUncheckedUpdateManyWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    controlId?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumControlWeaknessSeverityFieldUpdateOperationsInput | $Enums.ControlWeaknessSeverity
+    status?: EnumControlWeaknessStatusFieldUpdateOperationsInput | $Enums.ControlWeaknessStatus
+    discoveredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notificationDeadlineAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expectedRemediationAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    remediability?: EnumControlWeaknessRemediabilityDecisionFieldUpdateOperationsInput | $Enums.ControlWeaknessRemediabilityDecision
+    rootCause?: NullableStringFieldUpdateOperationsInput | string | null
+    remediationPlan?: NullableStringFieldUpdateOperationsInput | string | null
+    apraNotificationRequired?: BoolFieldUpdateOperationsInput | boolean
+    apraNotifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apraReference?: NullableStringFieldUpdateOperationsInput | string | null
     reportedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

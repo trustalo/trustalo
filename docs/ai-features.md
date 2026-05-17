@@ -58,6 +58,7 @@ Re-exports from:
 - `resolve.ts` — `resolveAIProvider`, `AINotConfiguredError`, `OperatorAIDefaults`, `OrgProviderRow`, `OrgFeatureRow`, `ResolveContext`, `ResolvedAI`.
 - `errors.ts` — `AIProviderError`, `AIProviderErrorKind`, `wrapProviderError`.
 - `extraction/from-text.ts` — `extractContextProposals`, `CONTEXT_CATEGORIES`, related types.
+- `extraction/asset-classification.ts` — `extractAssetClassifications`, `ASSET_SENSITIVITY_TIERS`, `ASSET_CRITICALITY_TIERS`, related types. CPS 234 Para 23 bootstrap helper.
 - `extraction/scrub.ts` — `scrubPii`, `ScrubResult`.
 - `prompts/quiz.ts` — `generateQuizQuestions`.
 
@@ -112,6 +113,7 @@ Used when an org enables a provider without specifying a model (and the operator
 
 - **`scrubPii(text)`** — regex-based redaction of email, phone, IP, large numbers, URL credentials. Returns `{ text, redactions, total }`. Run on user-supplied text **before** it reaches any provider in chat and context-extraction.
 - **`extractContextProposals(provider, input)`** — system+user prompts ask for compliance org-facts proposals; caps proposals at 8 (ceiling 20), truncates input at 12k chars, limits existing-fact refs to 60. Calls `provider.chat({ temperature: 0.1, responseFormat: "json", maxTokens: 1500 })`. Strips markdown fences, validates with Zod `ExtractionResultSchema`, falls back to per-element `rescuePartial`. Strips invalid `supersedesContextId`.
+- **`extractAssetClassifications(provider, input)`** — CPS 234 Para 23 bootstrap. Reads pasted architecture / data-flow prose and returns `(name, sensitivity, criticality, kind?, confidence)` proposals using fixed tier vocabularies (`Restricted | Confidential | Internal | Public` × `Critical | High | Medium | Low`). Default cap 12 (ceiling 30). Mirrors `extractContextProposals` conventions: PII pre-pass via `scrubPii`, `provider.chat({ temperature: 0.1, responseFormat: "json", maxTokens: 1500 })`, Zod-validated with per-element `rescuePartial`. The helper is **not yet wired to an API route**; callers (today: anticipated `/api/v1/assets/from-text`) are responsible for `resolveOrgAI("context_extraction")` resolution, audit logging, and rate-limiting. See [§8](#8-known-gaps--alternatives).
 - **`generateQuizQuestions(provider, input)`** — quiz prompt builder; calls `provider.chat({ temperature: 0.7, maxTokens: 4096, responseFormat: "json" })`. Throws if `questions` is missing in the response.
 
 ### 2.6 What the package does **not** do
@@ -264,6 +266,7 @@ System prompt built in `system-prompt.ts` + `grounding.renderBundleAsPrompt`:
 
 - Role: "Trustalo's compliance assistant".
 - Hard rules: only use the grounding bundle and this conversation; no state mutation; no secrets/PII; cite using bundle ids.
+- **Framework personas (`buildFrameworkPersonas`)** — when the tenant has adopted a regulated framework, a small persona block is injected between the global rules and the grounding bundle. Today wired for `cps234` (72-hour Para 33 clock, 10-business-day Para 35 clock, materiality cues) and `gdpr` (Art. 33 hook). Detected by `Framework.frameworkType` (the stable enum key), not by display name, and unit-tested in `system-prompt.test.ts`. Bundle version bumped to `v1.1` to invalidate prior `groundingHash` reproducibility audits.
 - Output: a **single JSON object** `{ answer: markdown, citations: [{kind, id}] }` where `kind ∈ policy | risk | vendor | control | framework | context | message`.
 
 #### Streaming behavior
@@ -773,6 +776,8 @@ In-process per-feature token buckets (`consumeToken`):
 7. **Token / cost tracking** — `ChatCompletionResult.usage` is populated but not aggregated. The AI Usage dashboard counts generations and outcomes, not tokens or cost. **Alternative:** persist `usage` per audit row to enable cost-per-feature reports.
 
 8. **Questionnaire async transport is in-process** — `setImmediate(runImportJob)` is fine for short documents but loses jobs on restart. **Alternative:** publish to SQS and consume from a worker, mirroring the vendor-research pattern.
+
+9. **`extractAssetClassifications` is not yet routed** — the CPS 234 Para 23 helper exists in `@trustalo/ai` and is fully unit-tested, but no API endpoint exposes it today. **Next step:** wire `POST /api/v1/assets/from-text` (auth `assets:write`, rate-limited via the existing `context_extraction` bucket, audited via `AssetAIClassification`) and a paste-to-classify UI on the Asset register.
 
 ---
 

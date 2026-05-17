@@ -30,7 +30,7 @@ import { dashboardsRouter } from "./modules/dashboards/router.js";
 import { vulnerabilitiesRouter } from "./modules/vulnerabilities/router.js";
 import { aiConfigRouter } from "./modules/ai-config/router.js";
 import { organizationContextRouter } from "./modules/organization-context/router.js";
-import { chatRouter } from "./modules/chat/router.js";
+import { chatRouter } from "./modules/chat/router.ee.js";
 import { integrationsRouter } from "./modules/integrations/router.js";
 import { questionnairesRouter } from "./modules/questionnaires/router.js";
 import { internalRouter } from "./modules/internal/router.js";

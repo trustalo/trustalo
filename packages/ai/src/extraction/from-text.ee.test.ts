@@ -1,6 +1,11 @@
+// EE-feature tests run with the dev license bypass active so we don't
+// need to issue a real key per test. The bypass is automatically refused
+// in production (NODE_ENV=production), so this is safe to ship.
+process.env.TRUSTALO_LICENSE_DEV_BYPASS = "1";
+
 import { describe, expect, test } from "bun:test";
 import type { AIProvider } from "../types.js";
-import { extractContextProposals, type ExistingContextRef } from "./from-text.js";
+import { extractContextProposals, type ExistingContextRef } from "./from-text.ee.js";
 
 function providerWithContent(content: string, capture?: (prompt: string) => void): AIProvider {
   return {

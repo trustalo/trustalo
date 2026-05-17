@@ -7,6 +7,7 @@
 
 import { Router } from "express";
 import { z } from "zod";
+import { assertEnterpriseLicense } from "@trustalo/license";
 import { prismaWithTenant } from "../../db/prisma.js";
 import { authorizeResource } from "../../middleware/authorize.js";
 import {
@@ -326,6 +327,7 @@ aiConfigRouter.get("/health", async (req, res, next) => {
 
 aiConfigRouter.post("/generate-quiz", async (req, res, next) => {
   try {
+    await assertEnterpriseLicense("ai");
     const tenantId = (req as any).auth.tenantId as string;
 
     const body = z

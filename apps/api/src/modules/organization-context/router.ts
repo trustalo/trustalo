@@ -25,6 +25,7 @@
 import { Router } from "express";
 import { z } from "zod";
 import { extractContextProposals, type ExistingContextRef } from "@trustalo/ai";
+import { assertEnterpriseLicense } from "@trustalo/license";
 import { prismaWithTenant } from "../../db/prisma.js";
 import { notifyProposalChanged } from "../../db/pg-listener.js";
 import { authorizeResource } from "../../middleware/authorize.js";
@@ -208,6 +209,12 @@ const EXTRACTION_LIMIT = { capacity: 6, refillMs: 60_000 } as const;
 // ── POST /from-text ────────────────────────────────────────────────
 organizationContextRouter.post("/from-text", async (req, res, next) => {
   try {
+    // EE — gated on the "ai" feature. The downstream
+    // `extractContextProposals` is itself an EE export and self-gates,
+    // but we check here too so the failure surfaces before any
+    // rate-limit token is consumed.
+    await assertEnterpriseLicense("ai");
+
     const tenantId = (req as any).auth.tenantId as string;
     const userId = (req as any).auth.userId as string;
 

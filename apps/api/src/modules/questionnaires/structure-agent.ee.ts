@@ -1,3 +1,12 @@
+// SPDX-License-Identifier: LicenseRef-Trustalo-Enterprise-1.0
+//
+// EE FILE — governed by LICENSE_EE at the repo root. The two LLM-driven
+// exports `mapXlsxStructure` and `mapDocxStructure` require a valid
+// Trustalo Enterprise License token in TRUSTALO_LICENSE_KEY that
+// includes the "ai" feature. Heuristic / cascade / lite-fallback
+// utilities exported from `__test` are inert without those entry points
+// and exist solely to power the parsing tests.
+
 /**
  * Document-structure agent for questionnaire imports.
  *
@@ -41,6 +50,7 @@
 
 import { z } from "zod";
 import ExcelJS from "exceljs";
+import { assertEnterpriseLicense } from "@trustalo/license";
 import { resolveOrgAI } from "../../config/ai.js";
 import { colIndex, colLetter, decodeCell, encodeCell } from "./a1.js";
 import { safeCellText } from "./excel-cell.js";
@@ -254,6 +264,7 @@ export interface MapResult {
  *     entire run, or the workbook has no readable content).
  */
 export async function mapXlsxStructure(input: MapXlsxInput): Promise<MapResult> {
+  await assertEnterpriseLicense("ai");
   const wb = new ExcelJS.Workbook();
   // ExcelJS ships a global `declare interface Buffer extends ArrayBuffer {}`
   // that shadows Node's Buffer in its `.load()` signature. The runtime

@@ -33,6 +33,7 @@
         "@trustalo/auth-provider-local": "workspace:*",
         "@trustalo/auth-provider-microsoft": "workspace:*",
         "@trustalo/integration-manifests": "workspace:*",
+        "@trustalo/license": "workspace:*",
         "@trustalo/queue": "workspace:*",
         "@trustalo/shared": "workspace:*",
         "@trustalo/storage": "workspace:*",
@@ -154,6 +155,7 @@
       "version": "0.0.1",
       "dependencies": {
         "@aws-sdk/credential-providers": "^3.700.0",
+        "@trustalo/license": "workspace:*",
         "openai": "^5.8.2",
         "zod": "^4.4.3",
       },
@@ -229,6 +231,17 @@
         "typescript": "^5.8.0",
       },
     },
+    "packages/auth-provider-saml.ee": {
+      "name": "@trustalo/auth-provider-saml.ee",
+      "version": "0.0.1",
+      "dependencies": {
+        "@trustalo/auth": "workspace:*",
+        "@trustalo/license": "workspace:*",
+      },
+      "devDependencies": {
+        "typescript": "^5.8.0",
+      },
+    },
     "packages/integration-manifests": {
       "name": "@trustalo/integration-manifests",
       "version": "0.0.1",
@@ -237,6 +250,16 @@
       },
       "devDependencies": {
         "typescript": "^5.6.0",
+      },
+    },
+    "packages/license": {
+      "name": "@trustalo/license",
+      "version": "0.0.1",
+      "dependencies": {
+        "zod": "^4.4.3",
+      },
+      "devDependencies": {
+        "typescript": "^5.8.0",
       },
     },
     "packages/queue": {
@@ -846,9 +869,13 @@
 
     "@trustalo/auth-provider-microsoft": ["@trustalo/auth-provider-microsoft@workspace:packages/auth-provider-microsoft"],
 
+    "@trustalo/auth-provider-saml.ee": ["@trustalo/auth-provider-saml.ee@workspace:packages/auth-provider-saml.ee"],
+
     "@trustalo/collector": ["@trustalo/collector@workspace:apps/collector"],
 
     "@trustalo/integration-manifests": ["@trustalo/integration-manifests@workspace:packages/integration-manifests"],
+
+    "@trustalo/license": ["@trustalo/license@workspace:packages/license"],
 
     "@trustalo/queue": ["@trustalo/queue@workspace:packages/queue"],
 

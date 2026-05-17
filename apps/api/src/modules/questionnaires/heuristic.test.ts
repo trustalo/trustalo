@@ -4,7 +4,7 @@ import {
   looksLikeQuestionLine,
   __test,
   type XlsxSheetSample,
-} from "./structure-agent.js";
+} from "./structure-agent.ee.js";
 
 describe("looksLikeQuestionLine", () => {
   test.each([

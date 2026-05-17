@@ -37,18 +37,19 @@ import { createStorageProvider } from "@trustalo/storage";
 import { Router } from "express";
 import multer from "multer";
 import { z } from "zod";
+import { assertEnterpriseLicense } from "@trustalo/license";
 import { prisma, prismaWithTenant } from "../../db/prisma.js";
 import { authorizeResource } from "../../middleware/authorize.js";
 import { audit } from "../../lib/audit.js";
 import { serializeCsv, detectColumns } from "./csv.js";
-import { type WorkbookMap } from "./structure-agent.js";
+import { type WorkbookMap } from "./structure-agent.ee.js";
 import { runImportJob } from "./import-job.js";
 import {
   answerAll,
   answerOne,
   QuestionNotFoundError,
   QuestionnaireNotFoundError,
-} from "./answer.js";
+} from "./answer.ee.js";
 import { writeXlsx, writeDocx, type AnswerCell } from "./writer.js";
 
 export const questionnairesRouter: Router = Router();
@@ -125,6 +126,13 @@ const createCsvBody = createMetaBody.extend({
  */
 questionnairesRouter.post("/", upload.single("file"), async (req, res, next) => {
   try {
+    // EE-gated: file upload kicks off `mapXlsxStructure` /
+    // `mapDocxStructure` via the import-job worker. Both are EE
+    // exports and self-gate, but we check here too so an unlicensed
+    // upload returns 402 immediately instead of accepting the file
+    // and failing the background job.
+    await assertEnterpriseLicense("ai");
+
     const tenantId = (req as any).auth.tenantId as string;
     const userId = (req as any).auth.userId as string;
 
@@ -508,6 +516,7 @@ questionnairesRouter.delete("/:id", async (req, res, next) => {
 
 questionnairesRouter.post("/:id/answer-all", async (req, res, next) => {
   try {
+    await assertEnterpriseLicense("ai");
     const tenantId = (req as any).auth.tenantId as string;
     const { id } = idParams.parse(req.params);
 
@@ -532,6 +541,7 @@ questionnairesRouter.post("/:id/answer-all", async (req, res, next) => {
 
 questionnairesRouter.post("/:id/questions/:qid/answer", async (req, res, next) => {
   try {
+    await assertEnterpriseLicense("ai");
     const tenantId = (req as any).auth.tenantId as string;
     const { id, qid } = subIdParams.parse(req.params);
     const db = prismaWithTenant(tenantId);

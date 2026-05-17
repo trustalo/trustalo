@@ -3,29 +3,77 @@ Trustalo Source-Available Commercial License v1.0
 Copyright (c) Trustalo Project Contributors
 All rights reserved.
 
+PREAMBLE — DUAL LICENSE STRUCTURE
+
+This repository is licensed under a dual-license structure:
+
+  a) Source code files whose filename contains the substring ".ee.", or
+     which are located within any directory whose name is "ee" or whose
+     path contains "/ee/", are designated "EE Files" and are NOT licensed
+     under the terms below. Use of EE Files in any Production environment
+     requires a valid Trustalo Enterprise License whose terms are set out
+     in the file "LICENSE_EE" at the repository root, regardless of
+     whether the user otherwise qualifies as a Qualified Organization
+     under this License.
+  b) All other source code, build artifacts, configuration, and
+     documentation in this repository (collectively, the "Licensed Work"
+     as defined below) are licensed under the terms set out below.
+  c) All third-party components incorporated into the Licensed Work
+     remain governed by the original license provided by the owner of
+     the applicable component.
+
 1. Definitions
 
 "Licensed Work" means the Trustalo software project and all source code,
-build artifacts, configuration, and documentation in this repository.
+build artifacts, configuration, and documentation in this repository,
+EXCLUDING any EE Files. EE Files are governed exclusively by the
+Trustalo Enterprise License (see LICENSE_EE) and are not granted any
+rights under this License.
 
-"Production Use" means use of the Licensed Work in any live environment that
-serves internal or external users, customers, or business operations.
+"Licensor" means the Trustalo Project Contributors, collectively, acting
+through the project maintainers.
+
+"Licensee" or "you" means the individual or single legal entity exercising
+rights under this License. For an organization, all affiliates under common
+control are treated as a single Licensee.
+
+"Internal Use" means installation, execution, and operation of the Licensed
+Work on infrastructure owned, leased, or operated by or solely for the
+Licensee, accessed only by the Licensee's own personnel and by the
+Licensee's end users in the ordinary course of the Licensee's own business.
+
+"Production Use" means use of the Licensed Work in any live environment
+that serves internal or external users, customers, or business operations.
+
+"Distribute" means to transfer, convey, publish, host, mirror, sublicense,
+sell, lease, lend, or otherwise make available a copy of the Licensed
+Work, in source or compiled form, in whole or in part, to any party
+other than the Licensor. Publishing or storing the Licensed Work in any
+public or private code repository, container registry, package registry,
+artifact store, or mirror constitutes Distribution, regardless of whether
+access is restricted to the Licensee's personnel.
 
 "Qualified Organization" means an organization that has BOTH:
   a) annual gross revenue below USD 1,000,000; and
   b) total external funding raised below USD 1,000,000.
 
-"Commercial License" means a separate written license agreement granted by the
-Licensor that explicitly permits Production Use by organizations that are not
-Qualified Organizations.
+"Commercial License" means a separate written license agreement granted by
+the Licensor that explicitly permits Production Use by organizations that
+are not Qualified Organizations.
 
 2. License Grant
 
-Subject to this License, you may use, copy, modify, and create derivative
-works of the Licensed Work for development, testing, evaluation, and other
-non-production purposes.
+Subject to this License, you may install, execute, copy (solely as
+strictly necessary for installation, backup, and ordinary operational
+purposes within your own infrastructure), modify, and create derivative
+works of the Licensed Work for your own Internal Use. This grant covers:
+  a) development, testing, evaluation, learning, and non-production
+     purposes by anyone; and
+  b) Production Use by Qualified Organizations or by organizations that
+     hold a Commercial License.
 
-Production Use is permitted only for Qualified Organizations.
+Modifications and derivative works are permitted solely for the
+Licensee's Internal Use and must not be Distributed.
 
 3. Commercial Trigger
 
@@ -35,39 +83,65 @@ Production Use:
   a) annual gross revenue of USD 1,000,000 or more; or
   b) total external funding raised of USD 1,000,000 or more.
 
-4. Redistribution
+4. No Distribution
 
-You may redistribute source copies of the Licensed Work, with or without
-modification, provided that:
-  a) this License is included in full; and
-  b) all copyright and attribution notices are preserved.
+The Licensor is the sole party permitted to Distribute the Licensed Work.
 
-Redistribution does not grant recipients any rights beyond those stated in
-this License.
+You may NOT Distribute the Licensed Work or any derivative work, in whole
+or in part, in source or compiled form, including without limitation:
+  a) hosting, mirroring, or republishing copies on any public or private
+     code repository, container registry, package registry, mirror, or
+     artifact store;
+  b) bundling, embedding, or repackaging the Licensed Work with any other
+     product, service, or offering;
+  c) sublicensing, selling, leasing, lending, or otherwise transferring
+     the Licensed Work to any third party.
 
-5. Restrictions
+Any Distribution by anyone other than the Licensor requires the Licensor's
+prior written permission.
+
+5. Contributions
+
+Unless you explicitly state otherwise, any contribution you intentionally
+submit for inclusion in the Licensed Work (including but not limited to
+pull requests, patches, and code suggestions) is licensed to the Licensor
+under a perpetual, worldwide, non-exclusive, royalty-free, irrevocable
+license to use, reproduce, modify, prepare derivative works of, publicly
+display, publicly perform, sublicense, and Distribute the contribution,
+and to relicense the Licensed Work (including such contribution) under
+different terms.
+
+6. Restrictions
 
 Except as expressly permitted by this License, you may not:
-  a) use the Licensed Work in Production Use if you are not a Qualified
+  a) Distribute the Licensed Work in violation of Section 4;
+  b) use the Licensed Work in Production Use if you are not a Qualified
      Organization and do not hold a Commercial License;
-  b) represent this License as an open source license approved by OSI;
-  c) use Licensor names, logos, or trademarks except for factual attribution.
+  c) represent this License as an open source license approved by OSI;
+  d) use Licensor names, logos, or trademarks except for factual
+     attribution;
+  e) remove, obscure, or alter any copyright, attribution, or license
+     notices contained in the Licensed Work.
 
-6. Termination
+7. Termination
 
 Any use of the Licensed Work in violation of this License automatically
-terminates your rights under this License.
+terminates your rights under this License. Upon termination, you must
+cease all use of the Licensed Work and destroy or return all copies in
+your possession or control. Sections 5 (Contributions), 8 (No Warranty),
+and 9 (Limitation of Liability) survive termination.
 
-7. No Warranty
+8. No Warranty
 
-TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE LICENSED WORK IS PROVIDED "AS IS"
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
-WITHOUT LIMITATION WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
-PURPOSE, NON-INFRINGEMENT, AND TITLE.
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE LICENSED WORK IS PROVIDED "AS
+IS" WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING WITHOUT LIMITATION WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE, NON-INFRINGEMENT, AND TITLE.
 
-8. Limitation of Liability
+9. Limitation of Liability
 
 TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL THE LICENSOR OR
-CONTRIBUTORS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN
-AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM OR IN CONNECTION WITH
-THE LICENSED WORK OR THE USE OR OTHER DEALINGS IN THE LICENSED WORK.
+CONTRIBUTORS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM OR IN
+CONNECTION WITH THE LICENSED WORK OR THE USE OR OTHER DEALINGS IN THE
+LICENSED WORK.

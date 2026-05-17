@@ -1,3 +1,9 @@
+// SPDX-License-Identifier: LicenseRef-Trustalo-Enterprise-1.0
+//
+// EE FILE — governed by LICENSE_EE at the repo root. Internal helper for
+// the chat assistant; license enforcement happens at the route level
+// (router.ee.ts).
+
 /**
  * Chat grounding builder.
  *

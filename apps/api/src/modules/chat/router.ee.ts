@@ -1,3 +1,9 @@
+// SPDX-License-Identifier: LicenseRef-Trustalo-Enterprise-1.0
+//
+// EE FILE — governed by LICENSE_EE at the repo root. Production use of
+// this router requires a valid Trustalo Enterprise License token in
+// TRUSTALO_LICENSE_KEY that includes the "ai" feature.
+
 /**
  * /api/v1/chat — general compliance assistant.
  *
@@ -43,6 +49,7 @@ import { Router } from "express";
 import type { Response } from "express";
 import { z } from "zod";
 import { extractContextProposals, scrubPii, type ExistingContextRef } from "@trustalo/ai";
+import { assertEnterpriseLicense } from "@trustalo/license";
 import { prismaWithTenant } from "../../db/prisma.js";
 import { notifyProposalChanged, subscribeProposalChanged } from "../../db/pg-listener.js";
 import { authorizeResource } from "../../middleware/authorize.js";
@@ -54,11 +61,24 @@ import {
   filterValidCitations,
   type Citation,
   type PageContext,
-} from "./grounding.js";
-import { buildChatSystemPrompt, parseAssistantEnvelope } from "./system-prompt.js";
+} from "./grounding.ee.js";
+import { buildChatSystemPrompt, parseAssistantEnvelope } from "./system-prompt.ee.js";
 
 export const chatRouter: Router = Router();
 chatRouter.use(authorizeResource("settings:read", "settings:write"));
+
+// All chat endpoints are EE — gate at router-mount time. A missing /
+// invalid license fails fast with a 402 Payment Required (mapped by
+// the global error handler) rather than letting the user navigate to
+// an endpoint that would have failed downstream anyway.
+chatRouter.use(async (_req, _res, next) => {
+  try {
+    await assertEnterpriseLicense("ai");
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 // ── Tunables ──────────────────────────────────────────────────────
 //

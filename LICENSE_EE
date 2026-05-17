@@ -1,0 +1,88 @@
+Trustalo Enterprise License v1.0
+
+Copyright (c) Trustalo Project Contributors
+All rights reserved.
+
+This License governs use of the source code files designated as "EE
+Files" in the Trustalo repository. EE Files are:
+
+  a) any file whose filename contains the substring ".ee."; and
+  b) any file located within a directory named "ee" or whose path
+     contains "/ee/".
+
+Capitalized terms not defined in this License have the meanings given
+to them in the Trustalo Source-Available Commercial License (the "Core
+License") set out in the file "LICENSE" at the repository root.
+
+1. License Grant
+
+Subject to the conditions below, you may view, install, copy, modify,
+and create derivative works of the EE Files solely for the purposes of:
+
+  a) reading, learning, and security review;
+  b) development, testing, evaluation, and other non-production
+     purposes by anyone; and
+  c) Production Use, but only if you (and any entity that you
+     represent) hold a valid, current Trustalo Enterprise License
+     agreement signed by the Licensor that explicitly entitles you to
+     use the EE Files in Production.
+
+2. No Free Production Tier
+
+The Qualified Organization free Production Use grant in the Core
+License DOES NOT apply to EE Files. Production Use of EE Files
+requires a paid, written Trustalo Enterprise License agreement,
+regardless of your organization's revenue, funding, or any other
+characteristic that would otherwise qualify you for a free tier under
+the Core License.
+
+3. License Key Enforcement
+
+Some EE Files may require a valid Trustalo Enterprise License key to
+function in Production. Removing, bypassing, tampering with, falsifying,
+or otherwise circumventing any license-key validation, expiration, or
+revocation mechanism is a material breach of this License and
+terminates your rights immediately.
+
+4. No Distribution
+
+The Licensor is the sole party permitted to Distribute the EE Files.
+The no-distribution terms set out in Section 4 of the Core License
+apply equally and in full to the EE Files. Modifications and derivative
+works of the EE Files must remain solely within the Licensee's own
+infrastructure and may not be Distributed.
+
+5. Patches and Modifications
+
+You may modify the EE Files for development, testing, and security
+review without holding a Trustalo Enterprise License. You may submit
+such modifications as contributions to the Licensor under the
+Contribution terms set out in Section 5 of the Core License. The
+Licensor retains all right, title, and interest in any modifications
+or patches accepted into the Licensed Work.
+
+6. Termination
+
+Any use of an EE File in violation of this License (including, without
+limitation, Production Use without a valid Enterprise License or any
+circumvention of license-key enforcement) automatically terminates
+your rights under both this License and the Core License with respect
+to those EE Files. Upon termination, you must cease all use of the
+affected EE Files and destroy or return all copies in your possession
+or control. Sections 7 (No Warranty) and 8 (Limitation of Liability)
+survive termination.
+
+7. No Warranty
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE EE FILES ARE PROVIDED "AS
+IS" WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING WITHOUT LIMITATION WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND TITLE.
+
+8. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL THE LICENSOR
+OR CONTRIBUTORS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM OR
+IN CONNECTION WITH THE EE FILES OR THE USE OR OTHER DEALINGS IN THE EE
+FILES.

@@ -1,21 +1,18 @@
 {
-  "name": "@trustalo/ai",
+  "name": "@trustalo/auth-provider-saml.ee",
   "version": "0.0.1",
   "private": true,
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
+  "license": "LicenseRef-Trustalo-Enterprise-1.0",
   "scripts": {
-    "test": "bun test",
-    "test:coverage": "bun test --coverage",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/credential-providers": "^3.700.0",
-    "@trustalo/license": "workspace:*",
-    "openai": "^5.8.2",
-    "zod": "^4.4.3"
+    "@trustalo/auth": "workspace:*",
+    "@trustalo/license": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.8.0"

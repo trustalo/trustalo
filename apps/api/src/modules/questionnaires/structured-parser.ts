@@ -26,7 +26,7 @@
 import ExcelJS from "exceljs";
 import { decodeCell } from "./a1.js";
 import { safeCellText } from "./excel-cell.js";
-import type { MetadataFact, SheetMap, SheetQuestion, WorkbookMap } from "./structure-agent.js";
+import type { MetadataFact, SheetMap, SheetQuestion, WorkbookMap } from "./structure-agent.ee.js";
 
 export interface ParsedQuestion {
   /** Stable key from the agent — used by the router to wire parents. */

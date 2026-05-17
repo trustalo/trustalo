@@ -1,3 +1,9 @@
+// SPDX-License-Identifier: LicenseRef-Trustalo-Enterprise-1.0
+//
+// EE FILE — governed by LICENSE_EE at the repo root. Production use of
+// any export from this file requires a valid Trustalo Enterprise License
+// token in TRUSTALO_LICENSE_KEY that includes the "ai" feature.
+
 /**
  * Context extraction — turn a paragraph of pasted (or chatted) prose
  * into a list of structured `TenantContext` proposals.
@@ -31,6 +37,7 @@
  * RoPA model.
  */
 import { z } from "zod";
+import { assertEnterpriseLicense } from "@trustalo/license";
 import type { AIProvider } from "../types.js";
 import { scrubPii } from "./scrub.js";
 
@@ -129,6 +136,7 @@ export async function extractContextProposals(
   provider: AIProvider,
   input: ExtractContextProposalsInput,
 ): Promise<ExtractContextProposalsResult> {
+  await assertEnterpriseLicense("ai");
   const cap = Math.min(input.maxProposals ?? MAX_PROPOSALS_DEFAULT, MAX_PROPOSALS_CEILING);
 
   const scrubbed = scrubPii(input.text.slice(0, MAX_INPUT_CHARS));

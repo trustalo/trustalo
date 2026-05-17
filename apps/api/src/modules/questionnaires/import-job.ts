@@ -28,7 +28,7 @@ import {
   StructureAgentError,
   type SheetProgress,
   type WorkbookMap,
-} from "./structure-agent.js";
+} from "./structure-agent.ee.js";
 import {
   parseDocxWithMap,
   parseXlsxWithMap,

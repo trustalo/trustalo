@@ -1,3 +1,9 @@
+// SPDX-License-Identifier: LicenseRef-Trustalo-Enterprise-1.0
+//
+// EE FILE — governed by LICENSE_EE at the repo root. Internal helper for
+// the chat assistant; license enforcement happens at the route level
+// (router.ee.ts).
+
 /**
  * Chat system prompt — defines the assistant's role, the citation
  * contract, and the JSON envelope it MUST emit.
@@ -29,8 +35,8 @@
  *     envelope reuse is a forward-compat hook for incremental SSE.)
  */
 
-import type { GroundingBundle } from "./grounding.js";
-import { renderBundleAsPrompt } from "./grounding.js";
+import type { GroundingBundle } from "./grounding.ee.js";
+import { renderBundleAsPrompt } from "./grounding.ee.js";
 
 /**
  * Per-framework persona addenda.

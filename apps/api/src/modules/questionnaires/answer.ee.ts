@@ -1,3 +1,9 @@
+// SPDX-License-Identifier: LicenseRef-Trustalo-Enterprise-1.0
+//
+// EE FILE — governed by LICENSE_EE at the repo root. Production use of
+// any export from this file requires a valid Trustalo Enterprise License
+// token in TRUSTALO_LICENSE_KEY that includes the "ai" feature.
+
 /**
  * Phase 6 (AI accelerators): AI questionnaire answering.
  *
@@ -17,6 +23,7 @@
  */
 
 import { z } from "zod";
+import { assertEnterpriseLicense } from "@trustalo/license";
 import { resolveOrgAI } from "../../config/ai.js";
 import { prisma, prismaWithTenant } from "../../db/prisma.js";
 import { stripHtml } from "../../lib/html.js";
@@ -188,6 +195,7 @@ export async function answerOne(args: {
   questionId: string;
   grounding?: GroundingBundle;
 }): Promise<AnsweredQuestion> {
+  await assertEnterpriseLicense("ai");
   const db = prismaWithTenant(args.tenantId);
 
   const question = await db.question.findUnique({
@@ -315,6 +323,7 @@ export async function answerAll(args: {
   tenantId: string;
   questionnaireId: string;
 }): Promise<BulkAnswerResult> {
+  await assertEnterpriseLicense("ai");
   const db = prismaWithTenant(args.tenantId);
 
   const questionnaire = await db.questionnaire.findUnique({

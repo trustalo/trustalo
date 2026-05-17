@@ -32,6 +32,77 @@
 import type { GroundingBundle } from "./grounding.js";
 import { renderBundleAsPrompt } from "./grounding.js";
 
+/**
+ * Per-framework persona addenda.
+ *
+ * Each entry adds a short, targeted block to the system prompt when the
+ * corresponding framework is adopted by the tenant. The detection key is
+ * `Framework.frameworkType` (the stable enum key), not the display name.
+ *
+ * Design rules for each addendum:
+ *   • ≤ ~400 tokens — prompt budget is precious.
+ *   • Cite the regulator's exact paragraph numbers / clock values so the
+ *     model can reuse them in answers.
+ *   • Reinforce the global hard rules (advisory only, no state mutation).
+ *     The addenda CANNOT relax the global rules.
+ *   • Talk in terms of what the assistant should remind the user about,
+ *     not what the assistant will do (still advisory).
+ *
+ * Add a new framework here in lockstep with `FrameworkType` extensions.
+ */
+const FRAMEWORK_PERSONAS: Record<string, string> = {
+  cps234: `## Regulated framework: APRA CPS 234 (adopted)
+
+The tenant is an APRA-regulated entity (or an entity asserting CPS 234 alignment). When answering questions about incidents, third parties, control weaknesses, classification or notifications, factor in the obligations below. Cite paragraphs explicitly when helpful (e.g. "per CPS 234 para 33").
+
+Reporting clocks (do not invent your own — use these exact numbers):
+- **Para 33** — material information-security incident: notify APRA "as soon as possible" and within **72 hours** of becoming aware. The clock does NOT pause for weekends or holidays.
+- **Para 34** — content of the notification must include description, impact (financial + non-financial), response taken, and remediation undertaken or planned.
+- **Para 35** — material information-security control weakness expected NOT to be remediated in a timely manner: notify APRA within **10 business days** of becoming aware. Business days exclude weekends and Australian national public holidays.
+- **Para 36** — records evidencing CPS 234 compliance must be retained (the platform aligns with CPS 220's 7-year retention norm).
+
+Materiality (when the user asks "is this notifiable?"):
+- "Material" = financial OR non-financial impact on the entity, depositors, policyholders, beneficiaries or other customers.
+- An incident already notified to another regulator (OAIC, ACSC ReportCyber, AUSTRAC, ASIC, an overseas equivalent) is automatically Para-33 notifiable.
+- The classification scheme of the affected information asset (Restricted/Confidential, Critical/High) is the primary materiality signal — anchor the answer to it when classification data is in the bundle.
+
+Roles to reference (Para 13-14):
+- Board is **ultimately responsible**; CISO/equivalent operates the capability; CRO + General Counsel review notifications; CEO (or delegate) signs off.
+
+When the user is on a DataBreach record (page focus = breach), check the breach's \`notificationDeadlineAt\` and tell the user the remaining time before the 72-hour clock expires; flag if it is in the past.
+
+When the user is on a ControlWeakness record (page focus = control_weakness), check the record's \`notificationDeadlineAt\` against \`now\` for the 10-business-day clock and warn if the entity has not yet decided whether the weakness is materially un-remediable.
+
+You still cannot mutate state. Frame every recommendation as "you could…" or "consider…".`,
+
+  gdpr: `## Regulated framework: GDPR (adopted)
+
+When answering questions about personal-data breaches, data-subject rights, transfers, or consent, anchor the answer in the relevant Article and the Privacy workspace's existing register entries. Use the GDPR Art. 33 72-hour clock (already computed on \`DataBreach.notificationDeadlineAt\`) when discussing breach notifications.`,
+};
+
+/**
+ * Build the framework-persona block for the bundle. Returns an empty
+ * string when no adopted framework needs a persona — the result is
+ * injected into the system prompt only if non-empty so unaffected
+ * tenants see the original prompt verbatim.
+ *
+ * Exported for unit tests.
+ */
+export function buildFrameworkPersonas(bundle: GroundingBundle): string {
+  if (!bundle.frameworks || bundle.frameworks.length === 0) return "";
+  const seen = new Set<string>();
+  const blocks: string[] = [];
+  // Stable order: rely on the bundle's own framework ordering so the
+  // resulting prompt (and any cache key derived from it) is deterministic.
+  for (const fw of bundle.frameworks) {
+    if (seen.has(fw.frameworkType)) continue;
+    seen.add(fw.frameworkType);
+    const block = FRAMEWORK_PERSONAS[fw.frameworkType];
+    if (block) blocks.push(block);
+  }
+  return blocks.join("\n\n");
+}
+
 const ROLE_AND_RULES = `You are Trustalo's compliance assistant. You help the user reason about their organisation's security, privacy, and compliance posture.
 
 Hard rules — follow ALL of them:
@@ -73,14 +144,19 @@ export interface BuildSystemPromptInput {
 
 export function buildChatSystemPrompt(input: BuildSystemPromptInput): string {
   const { bundle, inlineUserTurn } = input;
-  const sections: string[] = [
-    ROLE_AND_RULES,
+  const personas = buildFrameworkPersonas(bundle);
+  const sections: string[] = [ROLE_AND_RULES];
+  if (personas) {
+    sections.push("", personas);
+  }
+  sections.push(
+    "",
     "## Grounding bundle",
     `Bundle version: ${bundle.version}`,
     `Bundle hash: ${bundle.groundingHash}`,
     "",
     renderBundleAsPrompt(bundle),
-  ];
+  );
   if (inlineUserTurn) {
     sections.push("", "## User turn", inlineUserTurn);
   }

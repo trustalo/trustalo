@@ -1,0 +1,314 @@
+{
+  "$comment": "APRA CPS 234 → ISO/IEC 27001:2022 mappings. Derived from APRA CPG 234 (Jun 2019) which itself benchmarks against the ISO 27000 series, plus the AustCyber CPS 234 → ISO 27001 cross-walk and the cross-walks published by Vanta/Drata/AuditBoard. CPS 234 obligations are outcome-oriented and most map to multiple ISO controls; we encode the strongest relationships rather than an exhaustive catalogue. relationship: 'partial' = overlapping intent but ISO control is broader/narrower; 'informs' = ISO clause/control directly addresses the obligation but is not a one-for-one substitute.",
+  "source": "APRA CPG 234 (Jun 2019) + AustCyber CPS 234 ↔ ISO 27001 cross-walk",
+  "sourceFramework": "cps234",
+  "targetFramework": "iso27001",
+  "mappings": [
+    {
+      "source": "CPS234-13",
+      "target": "Cl.5.1",
+      "relationship": "partial",
+      "rationale": "Board accountability for information security mirrors the leadership and commitment clause of the ISMS."
+    },
+    {
+      "source": "CPS234-13",
+      "target": "A.5.1",
+      "relationship": "partial",
+      "rationale": "Approval and direction by management for information security policies."
+    },
+    {
+      "source": "CPS234-14",
+      "target": "A.5.2",
+      "relationship": "partial",
+      "rationale": "Information security roles and responsibilities are documented and assigned."
+    },
+    {
+      "source": "CPS234-14",
+      "target": "A.5.3",
+      "relationship": "partial",
+      "rationale": "Segregation of duties between conflicting information security roles."
+    },
+    {
+      "source": "CPS234-15",
+      "target": "Cl.7.1",
+      "relationship": "partial",
+      "rationale": "Resources required to establish, maintain and continually improve the ISMS — i.e. the security capability."
+    },
+    {
+      "source": "CPS234-15",
+      "target": "Cl.7.2",
+      "relationship": "partial",
+      "rationale": "Competence of persons performing work that affects information security performance."
+    },
+    {
+      "source": "CPS234-16",
+      "target": "Cl.10.1",
+      "relationship": "partial",
+      "rationale": "Continual improvement of the ISMS to address changing threats and vulnerabilities."
+    },
+    {
+      "source": "CPS234-16",
+      "target": "A.5.7",
+      "relationship": "partial",
+      "rationale": "Threat intelligence informing the maintenance of the security capability."
+    },
+    {
+      "source": "CPS234-17",
+      "target": "A.5.19",
+      "relationship": "partial",
+      "rationale": "Information security in supplier relationships covers third-party capability assessment."
+    },
+    {
+      "source": "CPS234-17",
+      "target": "A.5.20",
+      "relationship": "partial",
+      "rationale": "Addressing information security within supplier agreements."
+    },
+    {
+      "source": "CPS234-17",
+      "target": "A.5.21",
+      "relationship": "partial",
+      "rationale": "Managing information security in the ICT supply chain."
+    },
+    {
+      "source": "CPS234-18",
+      "target": "A.5.22",
+      "relationship": "partial",
+      "rationale": "Monitoring, review and change management of supplier services maintains capability through procurement and operations."
+    },
+    {
+      "source": "CPS234-18",
+      "target": "A.5.23",
+      "relationship": "partial",
+      "rationale": "Information security for use of cloud services aligns with maintaining capability when assets are outsourced."
+    },
+    {
+      "source": "CPS234-19",
+      "target": "Cl.9.2",
+      "relationship": "partial",
+      "rationale": "Internal audit and independent reviews provide objective assessment of capability."
+    },
+    {
+      "source": "CPS234-19",
+      "target": "A.5.35",
+      "relationship": "partial",
+      "rationale": "Independent review of information security."
+    },
+    {
+      "source": "CPS234-20",
+      "target": "A.5.1",
+      "relationship": "equivalent",
+      "rationale": "Information security policy framework approved and maintained — direct equivalent."
+    },
+    {
+      "source": "CPS234-21",
+      "target": "A.5.1",
+      "relationship": "partial",
+      "rationale": "Policies provide direction and define responsibilities of all parties."
+    },
+    {
+      "source": "CPS234-21",
+      "target": "A.5.4",
+      "relationship": "partial",
+      "rationale": "Management responsibilities — directing personnel to apply information security in line with policies."
+    },
+    {
+      "source": "CPS234-22",
+      "target": "A.5.2",
+      "relationship": "partial",
+      "rationale": "Stakeholder responsibilities are documented."
+    },
+    {
+      "source": "CPS234-22",
+      "target": "A.6.2",
+      "relationship": "partial",
+      "rationale": "Terms and conditions of employment include information security responsibilities."
+    },
+    {
+      "source": "CPS234-23",
+      "target": "A.5.9",
+      "relationship": "partial",
+      "rationale": "Inventory of information and other associated assets."
+    },
+    {
+      "source": "CPS234-23",
+      "target": "A.5.12",
+      "relationship": "equivalent",
+      "rationale": "Classification of information by criticality and sensitivity is the direct ISO equivalent."
+    },
+    {
+      "source": "CPS234-24",
+      "target": "A.5.13",
+      "relationship": "partial",
+      "rationale": "Labelling of information drives downstream control selection based on classification."
+    },
+    {
+      "source": "CPS234-24",
+      "target": "A.5.10",
+      "relationship": "partial",
+      "rationale": "Acceptable use of information and assets — handling rules driven by classification."
+    },
+    {
+      "source": "CPS234-25",
+      "target": "Cl.6.1.3",
+      "relationship": "partial",
+      "rationale": "Information security risk treatment — selection and implementation of controls to protect assets."
+    },
+    {
+      "source": "CPS234-25",
+      "target": "Cl.8.3",
+      "relationship": "partial",
+      "rationale": "Information security risk treatment — control implementation in operations."
+    },
+    {
+      "source": "CPS234-26",
+      "target": "Cl.6.1.2",
+      "relationship": "partial",
+      "rationale": "Risk assessment based on criticality, sensitivity and threats drives the selection of controls."
+    },
+    {
+      "source": "CPS234-26",
+      "target": "A.8.25",
+      "relationship": "partial",
+      "rationale": "Secure development life cycle ensures controls are commensurate at each stage."
+    },
+    {
+      "source": "CPS234-27",
+      "target": "A.8.8",
+      "relationship": "partial",
+      "rationale": "Management of technical vulnerabilities across the asset lifecycle."
+    },
+    {
+      "source": "CPS234-27",
+      "target": "A.8.9",
+      "relationship": "partial",
+      "rationale": "Configuration management throughout the lifecycle."
+    },
+    {
+      "source": "CPS234-27",
+      "target": "A.8.32",
+      "relationship": "partial",
+      "rationale": "Change management addresses vulnerabilities introduced during the asset lifecycle."
+    },
+    {
+      "source": "CPS234-28",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "Monitoring activities are embedded in BAU operations."
+    },
+    {
+      "source": "CPS234-28",
+      "target": "A.5.15",
+      "relationship": "partial",
+      "rationale": "Access control as an embedded operational discipline."
+    },
+    {
+      "source": "CPS234-28",
+      "target": "A.8.34",
+      "relationship": "informs",
+      "rationale": "Protection of information systems during audit testing — embedding controls in operations."
+    },
+    {
+      "source": "CPS234-29",
+      "target": "A.5.22",
+      "relationship": "partial",
+      "rationale": "Monitoring, review and change management of supplier services provides ongoing assurance over third-party-managed assets."
+    },
+    {
+      "source": "CPS234-29",
+      "target": "A.5.23",
+      "relationship": "partial",
+      "rationale": "Information security for use of cloud services — assurance over CSP-managed information assets."
+    },
+    {
+      "source": "CPS234-30",
+      "target": "A.5.24",
+      "relationship": "equivalent",
+      "rationale": "Information security incident management planning and preparation."
+    },
+    {
+      "source": "CPS234-30",
+      "target": "A.5.25",
+      "relationship": "partial",
+      "rationale": "Assessment and decision on information security events."
+    },
+    {
+      "source": "CPS234-30",
+      "target": "A.5.26",
+      "relationship": "partial",
+      "rationale": "Response to information security incidents."
+    },
+    {
+      "source": "CPS234-30",
+      "target": "A.5.27",
+      "relationship": "partial",
+      "rationale": "Learning from information security incidents."
+    },
+    {
+      "source": "CPS234-31",
+      "target": "Cl.9.1",
+      "relationship": "partial",
+      "rationale": "Monitoring, measurement, analysis and evaluation — testing the effectiveness of controls."
+    },
+    {
+      "source": "CPS234-31",
+      "target": "A.8.29",
+      "relationship": "partial",
+      "rationale": "Security testing in development and acceptance."
+    },
+    {
+      "source": "CPS234-31",
+      "target": "A.5.36",
+      "relationship": "partial",
+      "rationale": "Compliance with policies, rules and standards for information security — periodic review of controls."
+    },
+    {
+      "source": "CPS234-32",
+      "target": "Cl.9.2",
+      "relationship": "equivalent",
+      "rationale": "Internal audit of the ISMS — direct equivalent of CPS 234 internal-audit obligation."
+    },
+    {
+      "source": "CPS234-32",
+      "target": "A.5.35",
+      "relationship": "partial",
+      "rationale": "Independent review of information security."
+    },
+    {
+      "source": "CPS234-33",
+      "target": "A.5.5",
+      "relationship": "partial",
+      "rationale": "Contact with authorities — APRA notification of material incidents is the regulator-contact obligation."
+    },
+    {
+      "source": "CPS234-33",
+      "target": "A.5.26",
+      "relationship": "informs",
+      "rationale": "Incident response procedures should include external regulatory notification."
+    },
+    {
+      "source": "CPS234-34",
+      "target": "A.5.26",
+      "relationship": "informs",
+      "rationale": "Notification content overlaps with incident-response documentation requirements."
+    },
+    {
+      "source": "CPS234-35",
+      "target": "A.5.5",
+      "relationship": "partial",
+      "rationale": "Contact with authorities also covers material control-weakness notification."
+    },
+    {
+      "source": "CPS234-35",
+      "target": "A.5.36",
+      "relationship": "informs",
+      "rationale": "Material control weaknesses surface through compliance reviews and trigger notification."
+    },
+    {
+      "source": "CPS234-36",
+      "target": "Cl.7.5",
+      "relationship": "equivalent",
+      "rationale": "Documented information — creating, updating and controlling records to demonstrate compliance."
+    }
+  ]
+}

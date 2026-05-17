@@ -31,6 +31,21 @@ export type {
 export { scrubPii } from "./extraction/scrub.js";
 export type { ScrubResult } from "./extraction/scrub.js";
 
+// CPS 234 asset-classification bootstrap (Para 23 / CPS234-23).
+export {
+  extractAssetClassifications,
+  ASSET_SENSITIVITY_TIERS,
+  ASSET_CRITICALITY_TIERS,
+} from "./extraction/asset-classification.js";
+export type {
+  AssetSensitivity,
+  AssetCriticality,
+  AssetClassificationProposal,
+  AssetClassificationResult,
+  ExtractAssetClassificationsInput,
+  ExtractAssetClassificationsOutput,
+} from "./extraction/asset-classification.js";
+
 export type {
   AIResolutionSource,
   OperatorAIDefaults,

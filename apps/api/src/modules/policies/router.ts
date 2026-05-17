@@ -32,6 +32,7 @@ const frameworkTypeFilter = z.enum([
   "essential8",
   "nist_csf_2",
   "gdpr",
+  "cps234",
 ]);
 
 const createPolicyBody = z.object({

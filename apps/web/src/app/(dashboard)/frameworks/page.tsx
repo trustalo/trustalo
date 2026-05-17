@@ -36,6 +36,7 @@ const FRAMEWORK_META: Record<string, { color: string; icon: string }> = {
   essential8: { color: "#0ea5e9", icon: "AU" },
   nist_csf_2: { color: "#1e40af", icon: "CSF" },
   gdpr: { color: "#0891b2", icon: "EU" },
+  cps234: { color: "#b45309", icon: "APRA" },
 };
 
 const STATUS_CONFIG: Record<

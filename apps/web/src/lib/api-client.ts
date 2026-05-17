@@ -45,7 +45,8 @@ export type FrameworkType =
   | "soc2"
   | "essential8"
   | "nist_csf_2"
-  | "gdpr";
+  | "gdpr"
+  | "cps234";
 
 export interface FrameworkRef {
   id: string;
@@ -520,7 +521,9 @@ export type PolicyFrameworkCode =
   | "iso42001"
   | "soc2"
   | "essential8"
-  | "nist_csf_2";
+  | "nist_csf_2"
+  | "gdpr"
+  | "cps234";
 
 export interface PolicyTemplateListItem {
   id: string;

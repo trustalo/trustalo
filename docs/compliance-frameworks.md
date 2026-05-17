@@ -1,6 +1,6 @@
 # Compliance Frameworks
 
-Trustalo supports eight compliance frameworks. Each framework is modeled as a set of requirements and controls that can be mapped, tracked, and evidenced through the platform.
+Trustalo supports ten compliance frameworks. Each framework is modeled as a set of requirements and controls that can be mapped, tracked, and evidenced through the platform.
 
 ## Framework Overview
 
@@ -14,6 +14,8 @@ Trustalo supports eight compliance frameworks. Each framework is modeled as a se
 | SOC 2 | Trust service criteria | 5 TSC categories | AICPA | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
 | Essential Eight | Cyber mitigation strategies | 8 strategies × 3 maturity levels | ACSC (AU) | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
 | NIST CSF 2.0 | Cybersecurity outcomes | 106 subcategories × 4 tiers | NIST (US) | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| GDPR | EU privacy / personal-data protection | ~35 obligations across Chapters II-V | EU (Regulation 2016/679) | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| APRA CPS 234 | Information security for AU-regulated entities | 24 obligations (paras 13-36) | APRA (AU) | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
 
 ---
 
@@ -279,6 +281,54 @@ The seeder loads two NIST CSF mapping files:
 - `essential8_to_nist-csf-2.json` — manually verified via the E8 → ISO → CSF chain.
 
 In addition, `soc2_to_iso27001.json` provides full SOC 2 TSC ↔ ISO 27001:2022 Annex A coverage, completing the four-way cross-walk between Essential Eight, ISO 27001, SOC 2 and NIST CSF 2.0.
+
+---
+
+## APRA CPS 234
+
+**Australian Prudential Regulation Authority — Prudential Standard CPS 234 Information Security**
+
+CPS 234 (Nov 2018, effective 1 July 2019) imposes information-security obligations on APRA-regulated entities — banks (ADIs), general insurers, life insurers, private health insurers, RSE licensees (super funds), and their authorised non-operating holding companies. The standard is binary (no maturity tiers) and is supplemented by the non-binding APRA CPG 234 practice guide (Jun 2019).
+
+### Structure
+
+- **24 requirements** modelled from the operational obligations in paragraphs 13-36 of the standard.
+- Identifier scheme: `CPS234-<paragraph>` (e.g. `CPS234-30`).
+- Categories follow the structure of the standard so the dashboard groups requirements naturally:
+  - Roles and responsibilities (paras 13-14)
+  - Information security capability (paras 15-19)
+  - Policy framework (paras 20-22)
+  - Information asset identification and classification (paras 23-24)
+  - Implementation of controls (paras 25-29)
+  - Incident management (para 30)
+  - Testing control effectiveness (para 31)
+  - Internal audit (para 32)
+  - APRA notification (paras 33-36)
+
+### Distinctive Obligations
+
+Two CPS 234 obligations have no direct equivalent in the ISO/AICPA frameworks and are therefore worth tracking explicitly:
+
+- **72-hour APRA notification (Para 33)** — material information-security incidents must be notified to APRA "as soon as possible" and within 72 hours of becoming aware. The clock does not pause for weekends.
+- **10-business-day control-weakness notification (Para 35)** — material information-security control weaknesses that the entity does not expect to remediate in a timely manner must be notified within 10 business days.
+
+The Privacy / Incident Response register supports both clocks via the existing breach-clock infrastructure.
+
+### Cross-Framework Mappings
+
+The seeder loads:
+
+- `cps234_to_iso27001.json` — derived from APRA CPG 234 (Jun 2019), the AustCyber CPS 234 ↔ ISO 27001 cross-walk, and Vanta / Drata / AuditBoard published cross-walks. CPS 234 is heavily ISO-aligned, so this mapping covers ~80% of overlap; CPS 234 → SOC 2 / NIST CSF can be derived transitively via ISO 27001 in the cross-framework view.
+
+### Policy Templates
+
+CPS 234 ships with three Australia-specific policy templates not present in the ISO/SOC 2 packs:
+
+- `cps234-information-security-capability-policy` — paras 15-19 (capability sizing, third-party capability, independent assessment).
+- `cps234-information-asset-classification-policy` — paras 23-24 (criticality and sensitivity classification driving control selection).
+- `cps234-apra-notification-procedure` — paras 33-36 (the 72-hour and 10-business-day notification clocks, content, sign-off, record-keeping).
+
+Existing templates re-used for CPS 234 (tagged with `cps234`): Information Security Policy (ISMS), Access Control Policy, Incident Response Policy, Vendor &amp; Third-Party Risk Policy, Change Management Policy, Logging &amp; Security Monitoring Policy, Asset Management Policy, Risk Management Policy, Secure Development Policy.
 
 ---
 

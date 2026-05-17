@@ -22,6 +22,7 @@ const FRAMEWORK_VARIANT: Partial<Record<FrameworkType, BadgeVariant>> = {
   essential8: "warning",
   nist_csf_2: "info",
   gdpr: "info",
+  cps234: "warning",
 };
 
 const FRAMEWORK_LABEL: Partial<Record<FrameworkType, string>> = {
@@ -34,6 +35,7 @@ const FRAMEWORK_LABEL: Partial<Record<FrameworkType, string>> = {
   essential8: "E8",
   nist_csf_2: "CSF",
   gdpr: "GDPR",
+  cps234: "CPS 234",
 };
 
 const RELATIONSHIP_LABEL: Record<CrossFrameworkRelationship, string> = {

@@ -56,6 +56,7 @@ const FW_BADGE: Record<FrameworkType, { label: string; variant: BadgeVariant }> 
   essential8: { label: "E8", variant: "warning" },
   nist_csf_2: { label: "CSF", variant: "info" },
   gdpr: { label: "GDPR", variant: "info" },
+  cps234: { label: "CPS 234", variant: "warning" },
 };
 
 function getFrameworkBadges(ctrl: Control) {

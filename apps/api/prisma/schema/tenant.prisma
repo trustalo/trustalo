@@ -84,6 +84,7 @@ model Tenant {
   questions                     Question[]
   answers                       Answer[]
   questionnaireImportJobs       QuestionnaireImportJob[]
+  controlWeaknesses             ControlWeakness[]
 }
 
 model TenantSettings {

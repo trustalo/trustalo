@@ -51,9 +51,9 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     slug: "information-security-policy",
     title: "Information Security Policy (ISMS)",
     shortDescription:
-      "Top-level commitment and objectives for ISO 27001 / SOC 2 / NIST CSF 2.0 security programs.",
+      "Top-level commitment and objectives for ISO 27001 / SOC 2 / NIST CSF 2.0 / APRA CPS 234 security programs.",
     category: "Governance",
-    frameworkTypes: ["iso27001", "soc2", "nist_csf_2"],
+    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "cps234"],
     tags: ["isms", "security-program"],
     sortOrder: 10,
     contentHtml: doc(
@@ -95,7 +95,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     title: "Access Control Policy",
     shortDescription: "Identity, authentication, authorization, and access reviews.",
     category: "Identity & Access",
-    frameworkTypes: ["iso27001", "iso27017", "soc2", "nist_csf_2", "essential8"],
+    frameworkTypes: ["iso27001", "iso27017", "soc2", "nist_csf_2", "essential8", "cps234"],
     tags: ["iam", "least-privilege"],
     sortOrder: 30,
     contentHtml: doc(
@@ -161,9 +161,9 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     slug: "incident-response-policy",
     title: "Incident Response Policy",
     shortDescription:
-      "Detection, reporting, containment, and lessons learned. Aligns with NIST CSF RS, GDPR Art. 33-34.",
+      "Detection, reporting, containment, and lessons learned. Aligns with NIST CSF RS, GDPR Art. 33-34, APRA CPS 234 para 30.",
     category: "Incident Response",
-    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "gdpr"],
+    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "gdpr", "cps234"],
     tags: ["ir", "breach"],
     sortOrder: 60,
     contentHtml: doc(
@@ -206,9 +206,9 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     slug: "vendor-third-party-policy",
     title: "Vendor & Third-Party Risk Policy",
     shortDescription:
-      "Due diligence, contracts, and ongoing monitoring of suppliers. Covers NIST CSF GV.SC and GDPR Art. 28 sub-processors.",
+      "Due diligence, contracts, and ongoing monitoring of suppliers. Covers NIST CSF GV.SC, GDPR Art. 28 sub-processors, and APRA CPS 234 paras 17-19, 29 (related-party / third-party assurance).",
     category: "Vendor Management",
-    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "gdpr"],
+    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "gdpr", "cps234"],
     tags: ["tprm", "supply-chain"],
     sortOrder: 80,
     contentHtml: doc(
@@ -249,9 +249,9 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     slug: "change-management-policy",
     title: "Change Management Policy",
     shortDescription:
-      "Controlled changes to systems and environments (SOC 2 CC8 / ISO A.8 / NIST CSF PR.PS).",
+      "Controlled changes to systems and environments (SOC 2 CC8 / ISO A.8 / NIST CSF PR.PS / APRA CPS 234 para 28).",
     category: "Change Management",
-    frameworkTypes: ["iso27001", "soc2", "nist_csf_2"],
+    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "cps234"],
     tags: ["sdlc", "changes"],
     sortOrder: 100,
     contentHtml: doc(
@@ -269,9 +269,10 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
   {
     slug: "logging-monitoring-policy",
     title: "Logging & Security Monitoring Policy",
-    shortDescription: "What to log, retention, review, and alerting. Aligns with NIST CSF DE.CM.",
+    shortDescription:
+      "What to log, retention, review, and alerting. Aligns with NIST CSF DE.CM and APRA CPS 234 para 28.",
     category: "Operations",
-    frameworkTypes: ["iso27001", "iso27017", "soc2", "nist_csf_2"],
+    frameworkTypes: ["iso27001", "iso27017", "soc2", "nist_csf_2", "cps234"],
     tags: ["siem", "audit-logs"],
     sortOrder: 110,
     contentHtml: doc(
@@ -400,9 +401,10 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
   {
     slug: "asset-management-policy",
     title: "Asset Management Policy",
-    shortDescription: "Inventory, ownership, and lifecycle of information assets.",
+    shortDescription:
+      "Inventory, ownership, and lifecycle of information assets. Pairs with the CPS 234 Information Asset Classification policy.",
     category: "Asset Management",
-    frameworkTypes: ["iso27001", "soc2"],
+    frameworkTypes: ["iso27001", "soc2", "cps234"],
     tags: ["inventory", "cmdb"],
     sortOrder: 170,
     contentHtml: doc(
@@ -421,9 +423,9 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     slug: "risk-management-policy",
     title: "Risk Management Policy",
     shortDescription:
-      "Risk assessment cadence, treatment, and acceptance authority. Foundational for NIST CSF GV.RM and ISO 27001 Cl. 6.",
+      "Risk assessment cadence, treatment, and acceptance authority. Foundational for NIST CSF GV.RM, ISO 27001 Cl. 6, and APRA CPS 234 paras 25-27.",
     category: "Risk Management",
-    frameworkTypes: ["iso27001", "soc2", "nist_csf_2"],
+    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "cps234"],
     tags: ["risk-register", "treatment"],
     sortOrder: 180,
     contentHtml: doc(
@@ -441,9 +443,10 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
   {
     slug: "secure-development-policy",
     title: "Secure Development & SDLC Policy",
-    shortDescription: "Security in design, code review, testing, and dependency management.",
+    shortDescription:
+      "Security in design, code review, testing, and dependency management. Supports CPS 234 paras 27-28 (lifecycle controls in BAU).",
     category: "Operations",
-    frameworkTypes: ["iso27001", "soc2"],
+    frameworkTypes: ["iso27001", "soc2", "cps234"],
     tags: ["sdlc", "appsec"],
     sortOrder: 190,
     contentHtml: doc(
@@ -1147,6 +1150,146 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
 <p>The DPO contact details are published on the Privacy Notice and notified to the lead supervisory authority. Internal escalation path: [[INTERNAL_ESCALATION]].</p>
 <h2>7. Privacy lead (where no DPO designated)</h2>
 <p>Where no DPO is designated, the [[PRIVACY_LEAD_ROLE]] holds equivalent operational responsibility for the Privacy program; this role is not a "DPO" for the purposes of Art. 37 communications.</p>
+`,
+    ),
+  },
+  // ════════════════════════════════════════════════════════════════════
+  // APRA CPS 234 — three Australia-specific templates capturing the
+  // obligations that have no good equivalent in the ISO/SOC 2 packs:
+  // information-security capability (paras 15-19), information-asset
+  // classification (paras 23-24), and the APRA notification clock
+  // (paras 33-36). Existing ISMS / IR / vendor / risk / change /
+  // logging / asset / SDLC / access templates have been tagged with
+  // `cps234` so adopting the framework surfaces them automatically.
+  // ════════════════════════════════════════════════════════════════════
+  {
+    slug: "cps234-information-security-capability-policy",
+    title: "Information Security Capability Policy (CPS 234)",
+    shortDescription:
+      "APRA CPS 234 paras 15-19 — sizing, maintaining, and assuring information-security capability, including capability of related parties and third parties.",
+    category: "Governance",
+    frameworkTypes: ["cps234", "iso27001"],
+    tags: ["cps234", "apra", "capability", "australia"],
+    sortOrder: 400,
+    contentHtml: doc(
+      "Information Security Capability Policy",
+      `
+<h2>3. Capability commensurate with threats (CPS 234 para 15)</h2>
+<p>[[CAPABILITY_BENCHMARK]] — Document how the size and shape of the information-security function (people, processes, technology) is benchmarked against the entity's size, complexity, threat exposure, and the criticality / sensitivity of its information assets. State the benchmarking method (peer comparison, regulatory expectations, NIST CSF / ISO 27001 baseline) and review cadence.</p>
+<h2>4. Maintaining capability against change (CPS 234 para 16)</h2>
+<ul>
+<li>[[THREAT_INTEL_INPUTS]] — Sources used (vendor feeds, ACSC, AUSTRAC, ISMG, ISACs).</li>
+<li>[[CAPABILITY_REVIEW_TRIGGERS]] — Architectural change, M&amp;A, new product launch, material incident, threat-landscape shift.</li>
+<li>[[CAPABILITY_REVIEW_CADENCE]] — Annual at minimum; quarterly for entities classified as Significant Financial Institutions (SFIs).</li>
+</ul>
+<h2>5. Third-party / related-party capability (CPS 234 paras 17-18)</h2>
+<ul>
+<li>Each material third party / related party has an assessed information-security capability profile commensurate with the consequences of a security incident affecting the assets they manage.</li>
+<li>Acceptable assurance evidence: SOC 2 Type II, ISO 27001 certificate + SoA, IRAP report, contractual right-to-audit, independent penetration-test summary, or supervised on-site review.</li>
+<li>[[BRIDGE_LETTER_REQUIREMENTS]] — Bridge / gap letters covering periods between attestations.</li>
+<li>Procurement, change-management and offboarding processes preserve capability — see the Vendor &amp; Third-Party Risk Policy.</li>
+</ul>
+<h2>6. Independent assessment (CPS 234 para 19)</h2>
+<p>[[INDEPENDENT_ASSESSMENT_PROGRAMME]] — Internal Audit reviews, external CPS 234 tripartite reviews, and reliance assessment of third-party attestations. Findings are tracked in the audit register and reported to the Risk Committee.</p>
+<h2>7. Roles &amp; responsibilities</h2>
+<p>[[CAPABILITY_OWNER]] — The CISO (or equivalent) owns the capability assessment; the Chief Risk Officer and Head of Internal Audit provide independent challenge; the Board approves the capability roadmap and budget.</p>
+<h2>8. Records</h2>
+<p>Capability assessments, third-party assurance evidence, remediation plans and Board / Risk Committee minutes retained for at least 7 years (aligned with CPS 220 record-keeping).</p>
+`,
+    ),
+  },
+  {
+    slug: "cps234-information-asset-classification-policy",
+    title: "Information Asset Classification Policy (CPS 234)",
+    shortDescription:
+      "APRA CPS 234 paras 23-24 — classifying information assets (including those managed by third parties) by criticality and sensitivity, and using the classification to drive control selection.",
+    category: "Asset Management",
+    frameworkTypes: ["cps234", "iso27001"],
+    tags: ["cps234", "apra", "classification", "australia"],
+    sortOrder: 410,
+    contentHtml: doc(
+      "Information Asset Classification Policy",
+      `
+<h2>3. Scope</h2>
+<p>This policy applies to all information assets owned, processed, transmitted or stored by [[ORGANIZATION_NAME]] — including those managed by related parties and third parties, and assets located in cloud or SaaS environments.</p>
+<h2>4. Classification dimensions</h2>
+<table border="1">
+<tr><th>Dimension</th><th>Levels</th><th>Definition</th></tr>
+<tr><td><strong>Criticality</strong></td><td>Critical / High / Medium / Low</td><td>Impact on the entity, depositors, policyholders, beneficiaries or other customers if the asset becomes unavailable or its integrity is compromised.</td></tr>
+<tr><td><strong>Sensitivity</strong></td><td>Restricted / Confidential / Internal / Public</td><td>Impact on the entity or affected individuals if the asset is disclosed without authorisation.</td></tr>
+</table>
+<h2>5. Classification process (CPS 234 para 23)</h2>
+<ol>
+<li>The asset owner identifies the information asset and records it in the asset register.</li>
+<li>The owner classifies the asset using the dimensions above, considering the consequences of an incident on customers and the entity.</li>
+<li>Classification is reviewed when the asset changes materially and at least annually.</li>
+<li>Assets managed by third parties or related parties are classified by the relying business owner; the classification is recorded against the third-party register.</li>
+</ol>
+<h2>6. Control selection (CPS 234 para 24)</h2>
+<p>[[CLASSIFICATION_TO_CONTROL_MAPPING]] — Document the minimum controls required at each classification level (e.g. encryption strength, access-review cadence, MFA requirement, backup tier, monitoring requirement, vendor attestation requirement). Higher classification mandates a stronger combination of preventive, detective and corrective controls.</p>
+<h2>7. Labelling and handling</h2>
+<ul>
+<li>[[LABELLING_REQUIREMENTS]] — How classifications are visibly applied (document headers, data-store tags, IaC labels).</li>
+<li>[[HANDLING_RULES]] — Per-classification rules for storage, transmission, sharing, retention and disposal.</li>
+</ul>
+<h2>8. Reclassification triggers</h2>
+<p>[[RECLASSIFICATION_TRIGGERS]] — Aggregation effects, change of regulatory status, new use case, expansion of population of data subjects, sale of the data set. Reclassification SLA: [[1 month]] from trigger.</p>
+<h2>9. Roles</h2>
+<p>Asset owners are accountable for the classification of their assets; data stewards maintain the register; the CISO defines the control mapping; Internal Audit periodically tests classification accuracy.</p>
+`,
+    ),
+  },
+  {
+    slug: "cps234-apra-notification-procedure",
+    title: "APRA Notification Procedure (CPS 234)",
+    shortDescription:
+      "APRA CPS 234 paras 33-36 — 72-hour notification of material information-security incidents and 10-business-day notification of material control weaknesses; record-keeping evidencing CPS 234 compliance.",
+    category: "Incident Response",
+    frameworkTypes: ["cps234"],
+    tags: ["cps234", "apra", "notification", "regulatory", "australia"],
+    sortOrder: 420,
+    contentHtml: doc(
+      "APRA Notification Procedure",
+      `
+<h2>3. Trigger 1 — material information-security incident (Para 33)</h2>
+<p>An incident must be notified to APRA <strong>as soon as possible</strong> and in any case <strong>within 72 hours</strong> of becoming aware where it:</p>
+<ul>
+<li>materially affected, or had the potential to materially affect, financially or non-financially, the entity or the interests of depositors, policyholders, beneficiaries or other customers; <em>or</em></li>
+<li>has been notified to other regulators, in Australia or in another jurisdiction (OAIC, ACSC ReportCyber, AUSTRAC, ASIC, foreign equivalents).</li>
+</ul>
+<p>[[MATERIALITY_CRITERIA]] — Quantitative thresholds (e.g. ≥ [[X customers]] affected, ≥ [[$Y]] financial impact, any compromise of authentication credentials at scale, any disclosure of restricted/confidential data, any availability impact ≥ RTO of a critical process) and qualitative thresholds (regulator-mandated reporting, media risk, contagion to other ADIs).</p>
+<h2>4. Trigger 2 — material control weakness (Para 35)</h2>
+<p>A material information-security control weakness that the entity expects it will <strong>not be able to remediate in a timely manner</strong> must be notified to APRA <strong>within 10 business days</strong> of becoming aware.</p>
+<p>[[CONTROL_WEAKNESS_DEFINITION]] — Examples: unsupported / unpatched critical systems beyond SLA, validated finding from a penetration test that exposes a high-criticality asset and cannot be remediated within [[30]] days, loss of independent assurance over a critical third party.</p>
+<h2>5. The clock</h2>
+<ul>
+<li>"Becoming aware" = the time at which a person with authority to determine materiality (typically the CISO, CRO or duty IR commander) confirms the trigger applies. The Privacy / Incident Response register records this timestamp explicitly so the 72-hour and 10-business-day deadlines are auditable.</li>
+<li>The clock does <em>not</em> pause for weekends, public holidays or executive availability for the 72-hour incident clock.</li>
+</ul>
+<h2>6. Notification content (Para 34)</h2>
+<p>Notifications must include, at minimum:</p>
+<ol>
+<li>Description of the incident or control weakness.</li>
+<li>Impact (actual and potential), including affected information assets, customer impact, regulatory triggers and any other regulators notified.</li>
+<li>Response taken to date.</li>
+<li>Remediation undertaken or planned, with milestones and accountable owner.</li>
+</ol>
+<h2>7. Channel and delivery</h2>
+<p>[[APRA_CHANNEL]] — Notifications to the entity's responsible APRA supervisor at apra@apra.gov.au with cc to [[ESCALATION_RECIPIENTS]]. A copy is recorded in the APRA notification register.</p>
+<h2>8. Sign-off matrix</h2>
+<table border="1">
+<tr><th>Notification</th><th>Drafted by</th><th>Reviewed by</th><th>Sign-off</th></tr>
+<tr><td>72-hour incident</td><td>IR Commander / CISO</td><td>CRO + General Counsel</td><td>CEO (or delegate)</td></tr>
+<tr><td>10-day control weakness</td><td>CISO</td><td>CRO</td><td>CEO (or delegate)</td></tr>
+</table>
+<h2>9. Follow-up communications</h2>
+<p>The entity provides APRA with progress updates on remediation at agreed intervals and a closure communication when the incident is resolved or the control weakness is remediated. Material change to scope or impact triggers a fresh notification.</p>
+<h2>10. Record-keeping (Para 36)</h2>
+<p>The APRA-notification register, source incident or weakness records, supporting investigation evidence, draft and final notifications, and APRA correspondence are retained for at least <strong>7 years</strong> in a tamper-evident store. Regular self-attestation reviews confirm the register remains complete.</p>
+<h2>11. Tabletop and rehearsal</h2>
+<p>The notification procedure is rehearsed at least <strong>annually</strong> as part of an incident-response tabletop. Findings (e.g. clock interpretation disputes, channel failures, sign-off bottlenecks) are tracked to closure and the procedure updated.</p>
+<h2>12. Nil returns</h2>
+<p>Where no notifiable incidents or control weaknesses arose in a quarter, a signed nil-return is filed internally — this evidences active monitoring of the obligation.</p>
 `,
     ),
   },

@@ -13,6 +13,7 @@ import {
   ESSENTIAL8_FRAMEWORK,
   NIST_CSF_2_FRAMEWORK,
   GDPR_FRAMEWORK,
+  CPS234_FRAMEWORK,
   type FrameworkDef,
 } from "./frameworks/index.js";
 import { MAPPINGS } from "./mappings/index.js";
@@ -31,6 +32,7 @@ const FRAMEWORKS: FrameworkDef[] = [
   ESSENTIAL8_FRAMEWORK,
   NIST_CSF_2_FRAMEWORK,
   GDPR_FRAMEWORK,
+  CPS234_FRAMEWORK,
 ];
 
 /** Local test account; override with SEED_TEST_USER_EMAIL / SEED_TEST_USER_PASSWORD. */

@@ -39,6 +39,7 @@ const TEMPLATE_FRAMEWORK_FILTER: { value: string; label: string }[] = [
   { value: "essential8", label: "Essential Eight (AU)" },
   { value: "nist_csf_2", label: "NIST CSF 2.0" },
   { value: "gdpr", label: "GDPR" },
+  { value: "cps234", label: "APRA CPS 234 (AU)" },
 ];
 
 const STATUS_OPTIONS = [

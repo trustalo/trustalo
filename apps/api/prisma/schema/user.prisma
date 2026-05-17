@@ -93,6 +93,8 @@ model User {
   dpiaApprovals         DPIA[]               @relation("DPIAApprover")
   reportedDataBreaches  DataBreach[]         @relation("DataBreachReporter")
   assignedDataBreaches  DataBreach[]         @relation("DataBreachAssignee")
+  reportedControlWeaknesses ControlWeakness[] @relation("ControlWeaknessReporter")
+  assignedControlWeaknesses ControlWeakness[] @relation("ControlWeaknessAssignee")
   assignedDsarRequests  DSARRequest[]        @relation("DSARAssignee")
   importedQuestionnaires Questionnaire[]     @relation("QuestionnaireImporter")
   reviewedAnswers        Answer[]            @relation("AnswerReviewer")

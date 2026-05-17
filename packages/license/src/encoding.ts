@@ -13,20 +13,20 @@ export interface ParsedToken {
   signature: Uint8Array<ArrayBuffer>;
 }
 
+// Both functions delegate to Node/Bun's native `"base64url"` encoding
+// rather than building base64url out of regex `.replace()` chains.
+// CodeQL's "polynomial regular expression" check (`js/polynomial-redos`)
+// flags patterns like `=+$` for ReDoS even when the input is bounded,
+// and the native path is faster, smaller, and impossible to misuse.
 export function base64UrlEncode(bytes: Uint8Array): string {
-  return Buffer.from(bytes)
-    .toString("base64")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
+  return Buffer.from(bytes).toString("base64url");
 }
 
 export function base64UrlDecode(s: string): Uint8Array<ArrayBuffer> {
-  const pad = s.length % 4 === 0 ? "" : "=".repeat(4 - (s.length % 4));
-  const buf = Buffer.from(s.replace(/-/g, "+").replace(/_/g, "/") + pad, "base64");
-  // Copy into a fresh ArrayBuffer-backed Uint8Array. Buffer is typed as
-  // Uint8Array<ArrayBufferLike>, which the WebCrypto API surface (which
-  // requires BufferSource over ArrayBuffer) refuses to accept.
+  const buf = Buffer.from(s, "base64url");
+  // Copy into a fresh ArrayBuffer-backed Uint8Array. `Buffer` is typed as
+  // `Uint8Array<ArrayBufferLike>`, which the WebCrypto API surface
+  // (which requires `BufferSource` over `ArrayBuffer`) refuses to accept.
   const out = new Uint8Array(buf.byteLength);
   out.set(buf);
   return out as Uint8Array<ArrayBuffer>;

@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { getCorsOptions } from "../config/security.js";
+import { isOriginAllowed } from "../config/security.js";
 
 /**
  * CSRF protection for the collector via OWASP "Verifying Origin With
@@ -12,28 +12,6 @@ import { getCorsOptions } from "../config/security.js";
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 
 const EXEMPT_PATH_PREFIXES = ["/internal/", "/health", "/providers", "/research"] as const;
-
-function buildAllowList(): Set<string> {
-  const cors = getCorsOptions();
-  const raw = cors.origin;
-  const allowed = new Set<string>();
-
-  if (typeof raw === "string") {
-    allowed.add(raw);
-  } else if (Array.isArray(raw)) {
-    for (const origin of raw) {
-      if (typeof origin === "string") allowed.add(origin);
-    }
-  }
-  return allowed;
-}
-
-let cachedAllowList: Set<string> | null = null;
-
-function getAllowList(): Set<string> {
-  cachedAllowList ??= buildAllowList();
-  return cachedAllowList;
-}
 
 function originFromReferer(referer: string): string | null {
   try {
@@ -73,9 +51,7 @@ export function csrfProtection(req: Request, res: Response, next: NextFunction):
         ? originFromReferer(referer)
         : null;
 
-  const allowList = getAllowList();
-
-  if (!candidate || !allowList.has(candidate)) {
+  if (!isOriginAllowed(candidate)) {
     res.status(403).json({
       success: false,
       error: {

@@ -26,6 +26,12 @@ import {
   type EvidenceCollectionConfig,
   type EvidenceCollectionMode,
 } from "@/lib/api-client";
+import {
+  isEnterpriseLicenseError,
+  useEnterpriseGated,
+  useEnterpriseToast,
+} from "@/lib/enterprise-license";
+import { EnterpriseRequiredBanner } from "@/components/ai/enterprise-required-banner";
 
 interface Props {
   controlId: string;
@@ -59,6 +65,20 @@ export function EvidenceAgentPanel({ controlId, onRunCompleted }: Props) {
   const [mode, setMode] = useState<EvidenceCollectionMode>("manual");
   const [instructions, setInstructions] = useState("");
   const [selectedConnectionIds, setSelectedConnectionIds] = useState<string[]>([]);
+
+  // Evidence Agent is an LLM-driven, Enterprise-only feature. Gate the
+  // segmented control + Save / Run actions with the same toast pattern
+  // used by the other AI surfaces.
+  const aiGated = useEnterpriseGated();
+  const enterpriseToast = useEnterpriseToast();
+
+  function handleModeChange(next: EvidenceCollectionMode) {
+    if (next === "agent" && aiGated) {
+      enterpriseToast.show("Evidence Agent");
+      return;
+    }
+    setMode(next);
+  }
 
   const fetchAll = useCallback(async () => {
     setLoading(true);
@@ -140,6 +160,10 @@ export function EvidenceAgentPanel({ controlId, onRunCompleted }: Props) {
   }, [config, mode, instructions, selectedConnectionIds]);
 
   async function handleSave() {
+    if (mode === "agent" && aiGated) {
+      enterpriseToast.show("Evidence Agent");
+      return;
+    }
     setSaving(true);
     setError(null);
     setInfo(null);
@@ -152,13 +176,21 @@ export function EvidenceAgentPanel({ controlId, onRunCompleted }: Props) {
       setConfig(res.data);
       setInfo("Saved");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to save settings");
+      if (isEnterpriseLicenseError(err)) {
+        enterpriseToast.show("Evidence Agent");
+      } else {
+        setError(err instanceof Error ? err.message : "Failed to save settings");
+      }
     } finally {
       setSaving(false);
     }
   }
 
   async function handleRunNow() {
+    if (aiGated) {
+      enterpriseToast.show("Evidence Agent");
+      return;
+    }
     setRunning(true);
     setError(null);
     setInfo(null);
@@ -167,7 +199,11 @@ export function EvidenceAgentPanel({ controlId, onRunCompleted }: Props) {
       setRuns((prev) => [res.data, ...prev.filter((r) => r.id !== res.data.id)].slice(0, 5));
       setInfo("Agent run started");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to start agent run");
+      if (isEnterpriseLicenseError(err)) {
+        enterpriseToast.show("Evidence Agent");
+      } else {
+        setError(err instanceof Error ? err.message : "Failed to start agent run");
+      }
     } finally {
       setRunning(false);
     }
@@ -192,6 +228,12 @@ export function EvidenceAgentPanel({ controlId, onRunCompleted }: Props) {
   return (
     <Card>
       <div className="space-y-4">
+        <EnterpriseRequiredBanner
+          open={enterpriseToast.open}
+          feature={enterpriseToast.feature}
+          onClose={enterpriseToast.dismiss}
+        />
+
         {/* Header row: title + segmented mode control */}
         <div className="flex items-center justify-between gap-4">
           <div className="min-w-0">
@@ -204,7 +246,7 @@ export function EvidenceAgentPanel({ controlId, onRunCompleted }: Props) {
                 : "Add evidence yourself using the list below."}
             </p>
           </div>
-          <ModeSegmented value={mode} onChange={setMode} />
+          <ModeSegmented value={mode} onChange={handleModeChange} />
         </div>
 
         {mode === "agent" && (

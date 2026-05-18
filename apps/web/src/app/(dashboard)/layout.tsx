@@ -5,9 +5,16 @@ import { Sidebar, type NavItem, type NavSection } from "@/components/ui/sidebar"
 import { SidebarUserMenu } from "@/components/sidebar-user-menu";
 import { apiClient, type FrameworkType } from "@/lib/api-client";
 import { usePermissions, NAV_PERMISSIONS } from "@/lib/use-permissions";
+import { useEnterpriseGated } from "@/lib/enterprise-license";
 import { ChatProvider } from "@/components/chat/chat-provider";
 import { ChatFab } from "@/components/chat/chat-fab";
 import { ChatDrawer } from "@/components/chat/chat-drawer";
+
+// Nav-item labels that the layout post-processes after permission
+// filtering to apply EE gating. Listed here (rather than inline) so
+// the set is easy to discover and extend as more EE-only surfaces
+// graduate into the sidebar.
+const ENTERPRISE_NAV_LABELS = new Set<string>(["Trust Center"]);
 
 function Icon({ d }: { d: string }) {
   return (
@@ -210,6 +217,25 @@ function filterByPermission(items: NavItem[], hasPermission: (p: string) => bool
   });
 }
 
+/**
+ * Mark each EE-only nav item as `locked` when the deployment doesn't
+ * hold a valid Enterprise license. Items stay visible (so users can
+ * discover them and see the upgrade prompt) but render greyed-out
+ * with a lock icon and an explanatory tooltip; the click is a no-op
+ * because `lockedFallbackHref` is omitted.
+ */
+function applyEnterpriseGating(items: NavItem[], enterpriseGated: boolean): NavItem[] {
+  if (!enterpriseGated) return items;
+  return items.map((item) => {
+    if (!ENTERPRISE_NAV_LABELS.has(item.label)) return item;
+    return {
+      ...item,
+      locked: true,
+      lockedTooltip: `${item.label} is a Trustalo Enterprise feature.`,
+    };
+  });
+}
+
 function buildDomainItems(
   enabled: Set<FrameworkType>,
   hasPermission: (p: string) => boolean,
@@ -244,6 +270,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const [userName, setUserName] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
   const { hasPermission } = usePermissions();
+  const enterpriseGated = useEnterpriseGated();
 
   useEffect(() => {
     if (!apiClient.isAuthenticated()) return;
@@ -302,7 +329,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       },
       {
         label: "Risk & Trust",
-        items: filterByPermission(RISK_TRUST_ITEMS, hasPermission),
+        items: applyEnterpriseGating(
+          filterByPermission(RISK_TRUST_ITEMS, hasPermission),
+          enterpriseGated,
+        ),
       },
       ...(domainItems.length > 0 ? [{ label: "Domains", items: domainItems }] : []),
       // Hidden until launch — restore when the marketplace is ready to ship.
@@ -315,7 +345,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         items: filterByPermission(PROGRAM_ITEMS, hasPermission),
       },
     ].filter((section) => section.items.length > 0);
-  }, [enabledFrameworkTypes, hasPermission]);
+  }, [enabledFrameworkTypes, hasPermission, enterpriseGated]);
 
   return (
     <ChatProvider>

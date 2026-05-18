@@ -34,6 +34,12 @@ import {
   type QuestionnaireSheet,
   type QuestionnaireSourceFormat,
 } from "@/lib/api-client";
+import {
+  isEnterpriseLicenseError,
+  useEnterpriseGated,
+  useEnterpriseToast,
+} from "@/lib/enterprise-license";
+import { EnterpriseRequiredBanner } from "@/components/ai/enterprise-required-banner";
 
 const STATUS_TINT: Record<AnswerStatus, string> = {
   pending: "bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
@@ -74,6 +80,8 @@ export default function QuestionnaireDetailPage() {
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [exporting, setExporting] = useState(false);
   const [activeSheet, setActiveSheet] = useState<string | null>(null);
+  const aiGated = useEnterpriseGated();
+  const enterpriseToast = useEnterpriseToast();
 
   const refresh = useCallback(async () => {
     try {
@@ -120,6 +128,10 @@ export default function QuestionnaireDetailPage() {
   }, [data]);
 
   async function handleAnswerAll() {
+    if (aiGated) {
+      enterpriseToast.show("AI questionnaire answering");
+      return;
+    }
     setBulkRunning(true);
     setBulkResult(null);
     try {
@@ -131,20 +143,32 @@ export default function QuestionnaireDetailPage() {
       });
       await refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Bulk answer failed");
+      if (isEnterpriseLicenseError(err)) {
+        enterpriseToast.show("AI questionnaire answering");
+      } else {
+        setError(err instanceof Error ? err.message : "Bulk answer failed");
+      }
     } finally {
       setBulkRunning(false);
     }
   }
 
   async function handleRegenerate(qid: string) {
+    if (aiGated) {
+      enterpriseToast.show("AI questionnaire answering");
+      return;
+    }
     setPerRowBusy((s) => ({ ...s, [qid]: "regen" }));
     try {
       const res = await apiClient.generateAnswer(id, qid);
       setDrafts((s) => ({ ...s, [qid]: res.data.content }));
       await refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to regenerate");
+      if (isEnterpriseLicenseError(err)) {
+        enterpriseToast.show("AI questionnaire answering");
+      } else {
+        setError(err instanceof Error ? err.message : "Failed to regenerate");
+      }
     } finally {
       setPerRowBusy((s) => ({ ...s, [qid]: null }));
     }
@@ -254,6 +278,12 @@ export default function QuestionnaireDetailPage() {
           />
         </div>
       </header>
+
+      <EnterpriseRequiredBanner
+        open={enterpriseToast.open}
+        feature={enterpriseToast.feature}
+        onClose={enterpriseToast.dismiss}
+      />
 
       {bulkResult && (
         <div className="rounded-lg border border-blue-200 bg-blue-50 p-3 text-sm text-blue-800 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-200">

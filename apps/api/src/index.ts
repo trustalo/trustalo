@@ -33,6 +33,7 @@ import { organizationContextRouter } from "./modules/organization-context/router
 import { chatRouter } from "./modules/chat/router.ee.js";
 import { integrationsRouter } from "./modules/integrations/router.js";
 import { questionnairesRouter } from "./modules/questionnaires/router.js";
+import { licenseRouter } from "./modules/license/router.js";
 import { internalRouter } from "./modules/internal/router.js";
 import {
   startResearchResultsWorker,
@@ -106,6 +107,7 @@ app.use("/api/v1/organization-context", organizationContextRouter);
 app.use("/api/v1/chat", chatRouter);
 app.use("/api/v1/integrations", integrationsRouter);
 app.use("/api/v1/questionnaires", questionnairesRouter);
+app.use("/api/v1/license", licenseRouter);
 
 app.use(errorHandler);
 

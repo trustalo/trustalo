@@ -16,6 +16,12 @@ import {
   type QuizQuestionType,
   type CreateQuizInput,
 } from "@/lib/api-client";
+import {
+  isEnterpriseLicenseError,
+  useEnterpriseGated,
+  useEnterpriseToast,
+} from "@/lib/enterprise-license";
+import { EnterpriseRequiredBanner } from "@/components/ai/enterprise-required-banner";
 
 interface QuestionDraft {
   text: string;
@@ -74,8 +80,23 @@ export default function QuizBuilderPage() {
   const [aiContext, setAiContext] = useState("");
   const [aiGenerating, setAiGenerating] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
+  const aiGated = useEnterpriseGated();
+  const enterpriseToast = useEnterpriseToast();
+
+  function openAiModal() {
+    if (aiGated) {
+      enterpriseToast.show("AI quiz generation");
+      return;
+    }
+    setAiModalOpen(true);
+  }
 
   async function handleAIGenerate() {
+    if (aiGated) {
+      enterpriseToast.show("AI quiz generation");
+      setAiModalOpen(false);
+      return;
+    }
     setAiGenerating(true);
     setAiError(null);
     try {
@@ -104,10 +125,15 @@ export default function QuizBuilderPage() {
       setEditing(true);
       setAiModalOpen(false);
     } catch (err: any) {
-      setAiError(
-        err?.message ||
-          "Failed to generate quiz. Check Settings > AI to ensure quiz generation is configured.",
-      );
+      if (isEnterpriseLicenseError(err)) {
+        enterpriseToast.show("AI quiz generation");
+        setAiModalOpen(false);
+      } else {
+        setAiError(
+          err?.message ||
+            "Failed to generate quiz. Check Settings > AI to ensure quiz generation is configured.",
+        );
+      }
     } finally {
       setAiGenerating(false);
     }
@@ -567,7 +593,7 @@ export default function QuizBuilderPage() {
                 setAiDifficulty("intermediate");
                 setAiContext("");
                 setAiError(null);
-                setAiModalOpen(true);
+                openAiModal();
               }}
             >
               <span className="flex items-center gap-1.5">
@@ -591,6 +617,12 @@ export default function QuizBuilderPage() {
           </div>
         </div>
       </div>
+
+      <EnterpriseRequiredBanner
+        open={enterpriseToast.open}
+        feature={enterpriseToast.feature}
+        onClose={enterpriseToast.dismiss}
+      />
 
       {loading ? (
         <div className="flex items-center justify-center py-16">
@@ -630,7 +662,7 @@ export default function QuizBuilderPage() {
                   setAiDifficulty("intermediate");
                   setAiContext("");
                   setAiError(null);
-                  setAiModalOpen(true);
+                  openAiModal();
                 }}
               >
                 <span className="flex items-center gap-1.5">

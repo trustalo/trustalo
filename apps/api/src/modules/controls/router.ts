@@ -3,6 +3,8 @@ import { z } from "zod";
 import { prisma, prismaWithTenant } from "../../db/prisma.js";
 import { authorizeResource } from "../../middleware/authorize.js";
 import { resolveOrgAI, AINotConfiguredError } from "../../config/ai.js";
+import { AI_NOT_CONFIGURED_PUBLIC_MESSAGE } from "@trustalo/ai";
+import { assertEnterpriseLicense } from "@trustalo/license";
 import {
   CPS234_EVIDENCE_AGENT_PRESETS,
   applyEvidenceAgentPreset,
@@ -602,6 +604,10 @@ controlsRouter.put("/:id/evidence-config", async (req, res, next) => {
     }
 
     if (body.mode === "agent") {
+      // Evidence Agent is an LLM-driven AI feature gated to the
+      // Trustalo Enterprise tier. Block at config-write time so the
+      // user sees the upgrade prompt before any runs are scheduled.
+      await assertEnterpriseLicense("ai");
       const instructions = body.agentInstructions?.trim();
       if (!instructions) {
         res.status(400).json({
@@ -654,6 +660,8 @@ controlsRouter.put("/:id/evidence-config", async (req, res, next) => {
 
 controlsRouter.post("/:id/evidence-config/run", async (req, res, next) => {
   try {
+    // The evidence agent invokes an LLM with tool-use — Enterprise-only.
+    await assertEnterpriseLicense("ai");
     const tenantId = (req as any).auth.tenantId as string;
     const { id } = idParams.parse(req.params);
     const db = prismaWithTenant(tenantId);
@@ -709,7 +717,7 @@ controlsRouter.post("/:id/evidence-config/run", async (req, res, next) => {
       if (err instanceof AINotConfiguredError) {
         res.status(503).json({
           success: false,
-          error: { code: err.code, message: err.message },
+          error: { code: err.code, message: AI_NOT_CONFIGURED_PUBLIC_MESSAGE },
         });
         return;
       }

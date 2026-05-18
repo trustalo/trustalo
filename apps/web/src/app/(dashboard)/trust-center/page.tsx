@@ -29,6 +29,7 @@ import {
   type CreateTrustResourceMeta,
   type DpaStatus,
 } from "@/lib/api-client";
+import { useEnterpriseGated } from "@/lib/enterprise-license";
 
 const RESOURCE_TYPE_LABELS: Record<TrustResourceType, string> = {
   certificate: "Certificate",
@@ -86,6 +87,7 @@ function formatDate(dateStr: string | null | undefined): string {
 }
 
 export default function TrustCenterPage() {
+  const enterpriseGated = useEnterpriseGated();
   const [config, setConfig] = useState<TrustCenterConfig | null>(null);
   const [resources, setResources] = useState<TrustResource[]>([]);
   const [subprocessors, setSubprocessors] = useState<TrustCenterSubprocessor[]>([]);
@@ -99,6 +101,13 @@ export default function TrustCenterPage() {
   const [requestFilter, setRequestFilter] = useState<AccessRequestStatus | "all">("pending");
 
   const fetchAll = useCallback(async () => {
+    // Skip data fetches entirely when the workspace doesn't hold an
+    // Enterprise license — the API would 402 every call and we don't
+    // want the upsell view to flicker error toasts.
+    if (enterpriseGated) {
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     try {
       const [configRes, resourcesRes, subRes, requestsRes] = await Promise.all([
@@ -116,11 +125,15 @@ export default function TrustCenterPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [enterpriseGated]);
 
   useEffect(() => {
     fetchAll();
   }, [fetchAll]);
+
+  if (enterpriseGated) {
+    return <TrustCenterEnterpriseUpsell />;
+  }
 
   async function handleToggle() {
     if (!config) return;
@@ -912,5 +925,49 @@ function UploadResourceModal({
         </div>
       </form>
     </Modal>
+  );
+}
+
+/**
+ * Rendered when the workspace doesn't hold a Trustalo Enterprise
+ * license. We intentionally swap the entire page (rather than
+ * disabling individual controls inline) because Trust Center is an
+ * all-or-nothing surface — publishing a single resource still
+ * exposes the public payload, so showing partial UI would be
+ * misleading. The card mirrors the visual style of the AI upgrade
+ * notice for consistency.
+ */
+function TrustCenterEnterpriseUpsell() {
+  return (
+    <div className="space-y-6">
+      <header>
+        <h1 className="text-2xl font-semibold text-neutral-900 dark:text-white">Trust Center</h1>
+        <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+          Publish a branded portal that prospects can use to review your security posture, evidence,
+          and subprocessors.
+        </p>
+      </header>
+
+      <Card>
+        <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <div className="text-sm font-semibold text-amber-900 dark:text-amber-100">
+              Trust Center — Enterprise feature
+            </div>
+            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">
+              Trustalo Enterprise License is required to configure and publish your Trust Center.
+              Contact sales to upgrade and unlock the public posture portal, gated resource
+              downloads, and visitor analytics.
+            </p>
+          </div>
+          <a
+            href="mailto:sales@trustalo.com?subject=Trustalo%20Enterprise%20License%20%E2%80%94%20Trust%20Center"
+            className="shrink-0 rounded-md border border-amber-400 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-900 hover:bg-amber-100 dark:border-amber-600 dark:bg-amber-900/30 dark:text-amber-100 dark:hover:bg-amber-900/50"
+          >
+            Contact sales
+          </a>
+        </div>
+      </Card>
+    </div>
   );
 }

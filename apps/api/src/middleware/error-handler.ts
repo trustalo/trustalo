@@ -1,7 +1,11 @@
 import type { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
 import { Prisma } from "../../generated/prisma/client/index.js";
-import { AINotConfiguredError, AIProviderError } from "@trustalo/ai";
+import {
+  AINotConfiguredError,
+  AIProviderError,
+  AI_NOT_CONFIGURED_PUBLIC_MESSAGE,
+} from "@trustalo/ai";
 import { EnterpriseLicenseError } from "@trustalo/license";
 import { isSaaSMode, scrubSecrets } from "../config/deployment.js";
 
@@ -98,7 +102,7 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
   if (err instanceof AINotConfiguredError) {
     res.status(503).json({
       success: false,
-      error: { code: "AI_NOT_CONFIGURED", message: err.message },
+      error: { code: "AI_NOT_CONFIGURED", message: AI_NOT_CONFIGURED_PUBLIC_MESSAGE },
     } satisfies ErrorResponse);
     return;
   }
@@ -114,7 +118,7 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
       success: false,
       error: {
         code: `ENTERPRISE_LICENSE_${err.code.toUpperCase()}`,
-        message: `Trustalo Enterprise License required for "${err.featureId}" feature.`,
+        message: "Trustalo Enterprise License is required to use this feature.",
       },
     } satisfies ErrorResponse);
     return;

@@ -14,6 +14,8 @@ import {
   createAIProvider,
   generateQuizQuestions,
   FEATURE_LABELS,
+  AIProviderError,
+  AI_NOT_CONFIGURED_PUBLIC_MESSAGE,
   type AIFeatureType,
   type AIProviderCredentials,
 } from "@trustalo/ai";
@@ -184,9 +186,13 @@ aiConfigRouter.post("/providers/:provider/test", async (req, res, _next) => {
       },
     });
   } catch (err: any) {
+    const publicError =
+      err instanceof AIProviderError
+        ? err.publicMessage
+        : "Connection test failed. Verify the provider credentials and try again.";
     res.json({
       success: false,
-      error: err.message || "Connection test failed",
+      error: publicError,
     });
   }
 });
@@ -276,7 +282,7 @@ aiConfigRouter.get("/health", async (req, res, next) => {
       } catch (err) {
         resolved[feature] = {
           ok: false,
-          error: err instanceof AINotConfiguredError ? err.message : String(err),
+          error: toPublicAIError(err),
         };
       }
     }
@@ -298,7 +304,7 @@ aiConfigRouter.get("/health", async (req, res, next) => {
         });
         ping = { ok: true, latencyMs: Date.now() - t0 };
       } catch (err) {
-        ping = { ok: false, latencyMs: Date.now() - t0, error: String(err) };
+        ping = { ok: false, latencyMs: Date.now() - t0, error: toPublicAIError(err) };
       }
     }
 
@@ -310,7 +316,7 @@ aiConfigRouter.get("/health", async (req, res, next) => {
           provider: operator.provider,
           model: operator.model,
           enabled: operator.enabled,
-          disabledReason: operator.disabledReason,
+          disabledReason: toPublicOperatorDisabledReason(operator),
         },
         resolved,
         ping,
@@ -388,4 +394,21 @@ function getDefaultTestModel(provider: string): string {
     default:
       return "gpt-4o-mini";
   }
+}
+
+function toPublicAIError(err: unknown): string {
+  if (err instanceof AINotConfiguredError) return AI_NOT_CONFIGURED_PUBLIC_MESSAGE;
+  if (err instanceof AIProviderError) return err.publicMessage;
+  return "AI is temporarily unavailable. Please try again shortly.";
+}
+
+function toPublicOperatorDisabledReason(operator: {
+  enabled: boolean;
+  disabledReason?: string;
+}): string | null {
+  if (operator.enabled) return null;
+  if (!operator.disabledReason) {
+    return "Platform AI defaults are unavailable right now.";
+  }
+  return "Platform AI defaults are unavailable. Organization-level settings may still enable specific AI features.";
 }

@@ -34,7 +34,11 @@ import {
   type QuestionnaireSheet,
   type QuestionnaireSourceFormat,
 } from "@/lib/api-client";
-import { isEnterpriseLicenseError, useAiGated, useEnterpriseToast } from "@/lib/enterprise-license";
+import {
+  isEnterpriseLicenseError,
+  useEnterpriseGated,
+  useEnterpriseToast,
+} from "@/lib/enterprise-license";
 import { EnterpriseRequiredBanner } from "@/components/ai/enterprise-required-banner";
 
 const STATUS_TINT: Record<AnswerStatus, string> = {
@@ -76,7 +80,7 @@ export default function QuestionnaireDetailPage() {
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [exporting, setExporting] = useState(false);
   const [activeSheet, setActiveSheet] = useState<string | null>(null);
-  const aiGated = useAiGated();
+  const aiGated = useEnterpriseGated();
   const enterpriseToast = useEnterpriseToast();
 
   const refresh = useCallback(async () => {

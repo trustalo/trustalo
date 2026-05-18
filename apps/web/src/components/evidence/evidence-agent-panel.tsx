@@ -26,7 +26,11 @@ import {
   type EvidenceCollectionConfig,
   type EvidenceCollectionMode,
 } from "@/lib/api-client";
-import { isEnterpriseLicenseError, useAiGated, useEnterpriseToast } from "@/lib/enterprise-license";
+import {
+  isEnterpriseLicenseError,
+  useEnterpriseGated,
+  useEnterpriseToast,
+} from "@/lib/enterprise-license";
 import { EnterpriseRequiredBanner } from "@/components/ai/enterprise-required-banner";
 
 interface Props {
@@ -65,7 +69,7 @@ export function EvidenceAgentPanel({ controlId, onRunCompleted }: Props) {
   // Evidence Agent is an LLM-driven, Enterprise-only feature. Gate the
   // segmented control + Save / Run actions with the same toast pattern
   // used by the other AI surfaces.
-  const aiGated = useAiGated();
+  const aiGated = useEnterpriseGated();
   const enterpriseToast = useEnterpriseToast();
 
   function handleModeChange(next: EvidenceCollectionMode) {

@@ -25,7 +25,11 @@ import {
   type QuestionnaireImportJob,
   type QuestionnaireImportSheetProgress,
 } from "@/lib/api-client";
-import { isEnterpriseLicenseError, useAiGated, useEnterpriseToast } from "@/lib/enterprise-license";
+import {
+  isEnterpriseLicenseError,
+  useEnterpriseGated,
+  useEnterpriseToast,
+} from "@/lib/enterprise-license";
 import { EnterpriseRequiredBanner } from "@/components/ai/enterprise-required-banner";
 
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
@@ -56,7 +60,7 @@ export default function NewQuestionnairePage() {
   const [binaryFile, setBinaryFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const aiGated = useAiGated();
+  const aiGated = useEnterpriseGated();
   const enterpriseToast = useEnterpriseToast();
 
   // jobId (truthy) flips the page to the progress view. We don't

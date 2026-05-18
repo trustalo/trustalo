@@ -16,7 +16,11 @@ import {
   type QuizQuestionType,
   type CreateQuizInput,
 } from "@/lib/api-client";
-import { isEnterpriseLicenseError, useAiGated, useEnterpriseToast } from "@/lib/enterprise-license";
+import {
+  isEnterpriseLicenseError,
+  useEnterpriseGated,
+  useEnterpriseToast,
+} from "@/lib/enterprise-license";
 import { EnterpriseRequiredBanner } from "@/components/ai/enterprise-required-banner";
 
 interface QuestionDraft {
@@ -76,7 +80,7 @@ export default function QuizBuilderPage() {
   const [aiContext, setAiContext] = useState("");
   const [aiGenerating, setAiGenerating] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
-  const aiGated = useAiGated();
+  const aiGated = useEnterpriseGated();
   const enterpriseToast = useEnterpriseToast();
 
   function openAiModal() {

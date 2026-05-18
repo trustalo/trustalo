@@ -11,7 +11,11 @@
 
 import { useState } from "react";
 import { apiClient, type VendorTierSuggestion, type VendorRiskTier } from "@/lib/api-client";
-import { isEnterpriseLicenseError, useAiGated, useEnterpriseToast } from "@/lib/enterprise-license";
+import {
+  isEnterpriseLicenseError,
+  useEnterpriseGated,
+  useEnterpriseToast,
+} from "@/lib/enterprise-license";
 import { AdvisoryBanner } from "./advisory-banner";
 import { EnterpriseRequiredBanner } from "./enterprise-required-banner";
 
@@ -33,7 +37,7 @@ export function VendorTierSuggestionBanner({ vendorId, currentTier, onApply }: P
   const [loading, setLoading] = useState(false);
   const [applying, setApplying] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const aiGated = useAiGated();
+  const aiGated = useEnterpriseGated();
   const enterpriseToast = useEnterpriseToast();
 
   async function handleGenerate() {

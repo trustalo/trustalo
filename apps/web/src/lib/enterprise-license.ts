@@ -1,16 +1,16 @@
 /**
- * Helpers for handling Enterprise-license-gated errors on the client.
+ * Helpers for Enterprise-license-gated UX on the client.
  *
  * The API returns HTTP 402 with an error code of the form
  * `ENTERPRISE_LICENSE_*` when an Enterprise-only feature is invoked
- * without a valid Enterprise license (see `apps/api/src/middleware/
- * error-handler.ts`).
+ * without a valid Enterprise license (see
+ * `apps/api/src/middleware/error-handler.ts`).
  *
- * UX policy: show a transient inline notice (auto-dismiss after 5s,
- * also closable via the X) right at the surface the user just
- * interacted with. Buttons themselves stay enabled — clicking a gated
- * action is what triggers the notice, so users always see *why*
- * nothing happened. Combine `useAiGated()` (proactive) with
+ * UX policy: show a transient inline notice (5s auto-dismiss, also
+ * closable via the X) right at the surface the user just interacted
+ * with. Buttons themselves stay enabled — clicking a gated action is
+ * what triggers the notice, so users always see *why* nothing
+ * happened. Combine `useEnterpriseGated()` (proactive predicate) with
  * `useEnterpriseToast()` (the notice state) per surface.
  */
 
@@ -28,13 +28,15 @@ export function isEnterpriseLicenseError(err: unknown): err is ApiError {
   return Boolean(err.code && err.code.startsWith("ENTERPRISE_LICENSE_"));
 }
 
-// ─── License status hook ──────────────────────────────────────────
+// ─── License status (module-internal) ─────────────────────────────
 //
 // Fetched once per browser session and cached at module scope so the
-// many AI surfaces in the dashboard don't each hit the API on every
-// mount. Components subscribe via `useLicenseStatus()`; the first
-// caller triggers the fetch, subsequent callers reuse the resolved
-// value synchronously after it settles.
+// many EE-gated surfaces in the dashboard don't each hit the API on
+// every mount. The first subscriber triggers the fetch; subsequent
+// subscribers reuse the resolved value synchronously after it
+// settles. Components consume the derived `useEnterpriseGated()`
+// boolean rather than the raw status, so `useLicenseStatus` stays
+// module-internal.
 
 type Listener = (status: LicenseStatus | null) => void;
 
@@ -42,7 +44,7 @@ let cachedStatus: LicenseStatus | null = null;
 let inflight: Promise<LicenseStatus | null> | null = null;
 const listeners = new Set<Listener>();
 
-function notify() {
+function notify(): void {
   for (const fn of listeners) fn(cachedStatus);
 }
 
@@ -56,9 +58,10 @@ async function fetchLicenseStatus(): Promise<LicenseStatus | null> {
       notify();
       return cachedStatus;
     } catch {
-      // Network/auth failure: don't crash the UI, just leave AI controls
-      // enabled and let the 402 fallback path render the banner. We
-      // intentionally do not cache failures so a later mount retries.
+      // Network/auth failure: don't crash the UI, just leave gated
+      // controls enabled and let the 402 fallback path render the
+      // notice. We intentionally do not cache failures so a later
+      // mount retries.
       return null;
     } finally {
       inflight = null;
@@ -67,26 +70,13 @@ async function fetchLicenseStatus(): Promise<LicenseStatus | null> {
   return inflight;
 }
 
-/** Reset the cached status (after logout, license-key change, etc.). */
-export function resetLicenseStatusCache(): void {
-  cachedStatus = null;
-  inflight = null;
-  notify();
-}
-
-/**
- * React hook returning the current license status. `null` while the
- * first fetch is in flight or if the request failed. Components that
- * need to pre-disable AI affordances should treat `enterprise === true`
- * as "AI is allowed" and anything else (including `null`) as gated.
- */
-export function useLicenseStatus(): LicenseStatus | null {
+function useLicenseStatus(): LicenseStatus | null {
   const [status, setStatus] = useState<LicenseStatus | null>(cachedStatus);
 
   useEffect(() => {
     listeners.add(setStatus);
-    // Kick off the fetch if it hasn't happened yet; the listener will
-    // be notified once it resolves.
+    // Kick off the fetch if it hasn't happened yet; the listener
+    // will be notified once it resolves.
     if (!cachedStatus) {
       void fetchLicenseStatus();
     }
@@ -99,14 +89,14 @@ export function useLicenseStatus(): LicenseStatus | null {
 }
 
 /**
- * Convenience: returns `true` when the deployment lacks a valid
- * Trustalo Enterprise (or developer) license. Use this to pre-disable
- * or relabel Enterprise-only affordances anywhere in the dashboard.
+ * Returns `true` when the deployment lacks a valid Trustalo Enterprise
+ * (or developer-tier) license. Use this anywhere in the dashboard to
+ * pre-disable or relabel Enterprise-only affordances.
  *
- * Returns `false` while the first license-status fetch is in flight to
- * avoid a flicker on page load; the API-side 402 fallback covers the
- * rare case where the fetch fails but the user still hits a gated
- * endpoint.
+ * Returns `false` while the first license-status fetch is in flight
+ * to avoid a flicker on page load; the API-side 402 fallback covers
+ * the rare case where the fetch fails but the user still hits a
+ * gated endpoint.
  */
 export function useEnterpriseGated(): boolean {
   const status = useLicenseStatus();
@@ -114,26 +104,17 @@ export function useEnterpriseGated(): boolean {
   return !status.enterprise;
 }
 
-/**
- * Alias kept for AI-specific call sites that existed before the more
- * generic Enterprise gating was introduced. New code should prefer
- * `useEnterpriseGated()` so it reads consistently regardless of which
- * feature is being gated (AI, Trust Center, etc.).
- */
-export function useAiGated(): boolean {
-  return useEnterpriseGated();
-}
-
-// ─── Enterprise-required toast ────────────────────────────────────
+// ─── Enterprise-required toast (module-internal state shape) ──────
 //
-// Click-triggered, auto-dismissing notice rendered when the user tries
-// to use a gated AI action. The hook owns the visibility + feature
-// label; the banner component owns the timer-driven dismiss.
+// Click-triggered, auto-dismissing notice rendered when the user
+// tries to use a gated action. The hook owns visibility + feature
+// label; `<EnterpriseRequiredBanner />` owns the timer-driven
+// dismiss.
 
-export interface EnterpriseToastState {
+interface EnterpriseToastState {
   open: boolean;
   feature?: string;
-  show: (feature?: string) => void;
+  show: (feature: string) => void;
   dismiss: () => void;
 }
 
@@ -141,45 +122,14 @@ export function useEnterpriseToast(): EnterpriseToastState {
   const [open, setOpen] = useState(false);
   const [feature, setFeature] = useState<string | undefined>();
 
-  function show(nextFeature?: string) {
+  function show(nextFeature: string): void {
     setFeature(nextFeature);
     setOpen(true);
   }
 
-  function dismiss() {
+  function dismiss(): void {
     setOpen(false);
   }
 
   return { open, feature, show, dismiss };
-}
-
-/**
- * Wraps an async AI action handler so that, when AI is gated, the click
- * pops the toast instead of invoking the handler. Use this for buttons
- * that would otherwise call a gated API endpoint.
- *
- * The wrapper also catches 402 / ENTERPRISE_LICENSE_* responses from
- * the action itself — handy when license state changes mid-session and
- * the cached `useAiGated()` value is stale.
- */
-export function makeAiActionGuard(opts: {
-  aiGated: boolean;
-  toast: Pick<EnterpriseToastState, "show">;
-  feature: string;
-}) {
-  return async function run<T>(fn: () => Promise<T> | T): Promise<T | undefined> {
-    if (opts.aiGated) {
-      opts.toast.show(opts.feature);
-      return undefined;
-    }
-    try {
-      return await fn();
-    } catch (err) {
-      if (isEnterpriseLicenseError(err)) {
-        opts.toast.show(opts.feature);
-        return undefined;
-      }
-      throw err;
-    }
-  };
 }

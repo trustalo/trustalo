@@ -246,25 +246,11 @@ EE features must NEVER silently degrade to a less-capable behavior — that woul
 
 ## 4. Issuing license keys
 
-For v1, key issuance is manual. The script `scripts/license/issue-key.ts` (Trustalo-internal, NOT shipped):
+License keys are issued by Trustalo's private admin tooling, which is not part of this open repository. Customers receive the `trl_…` string by encrypted email or via the Trustalo Cloud dashboard.
 
-```text
-$ bun scripts/license/issue-key.ts \
-    --sub acme-corp \
-    --features sso,multi-tenant,ai-premium \
-    --max-users 250 \
-    --expires 365d
-trl_eyJ2IjoxLCJpc3MiOiJ0cnVzdGFsby5pby...EsImFkZCI6Im5vIn0.j7K9Gp...
-```
+The public verification key for the production signing keypair ships in this repository — see [§3.3 Trust root](#33-trust-root) — so any token the validator accepts is provably signed by Trustalo. The corresponding private key never leaves Trustalo's offline secret store and is never present on customer infrastructure.
 
-The script:
-
-1. Generates a fresh `lid` (ULID).
-2. Builds the payload with `iat = now`, `exp = now + duration`.
-3. Signs with the offline Ed25519 private key (read from a 1Password vault, never persisted to disk).
-4. Logs an entry to a Trustalo-side license ledger (CSV is fine for v1; Postgres later) with `lid`, customer, features, expiry, billing reference.
-
-Customers receive the `trl_…` string by encrypted email or Trustalo Cloud dashboard.
+For local development, see [§3.8 What developers see locally](#38-what-developers-see-locally) — `TRUSTALO_LICENSE_DEV_BYPASS=1` and `bun run license:issue-dev` cover both supported flows.
 
 ---
 

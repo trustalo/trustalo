@@ -35,29 +35,63 @@ export function getInternalKey(): string {
 const LOCALHOST_DEV_ALLOWLIST =
   /^https?:\/\/(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])(?::\d+)?$/i;
 
-export function getCorsOptions(): CorsOptions {
+type AllowedOrigins = {
+  exact: string[];
+  allowLocalhostFallback: boolean;
+};
+
+function readAllowedOrigins(): AllowedOrigins {
   const configured = process.env["CORS_ALLOWED_ORIGINS"]?.trim();
   if (!configured) {
-    if (isProduction())
+    if (isProduction()) {
       throw new Error("[security] CORS_ALLOWED_ORIGINS is required in production");
-    return {
-      origin(origin, cb) {
-        if (!origin) return cb(null, true);
-        cb(null, LOCALHOST_DEV_ALLOWLIST.test(origin));
-      },
-      credentials: true,
-    };
+    }
+    return { exact: [], allowLocalhostFallback: true };
   }
 
-  const allowlist = configured
-    .split(",")
-    .map((origin) => origin.trim())
-    .filter(Boolean);
+  return {
+    exact: configured
+      .split(",")
+      .map((origin) => origin.trim())
+      .filter(Boolean),
+    allowLocalhostFallback: false,
+  };
+}
+
+// Per-request hot path (CSRF middleware) caches the parsed config.
+// `getCorsOptions()` deliberately bypasses the cache so tests can swap
+// env vars between calls.
+let cachedAllowedOrigins: AllowedOrigins | null = null;
+
+/**
+ * Shared Origin check used by both the CORS and CSRF middlewares so the
+ * two cannot drift apart. Returns `true` only when `origin` matches the
+ * configured allow-list (or a `localhost` variant in the dev fallback).
+ * A missing/empty origin returns `false`; callers that want to permit
+ * non-browser requests handle that themselves (CORS does, CSRF does not).
+ */
+export function isOriginAllowed(origin: string | null | undefined): boolean {
+  if (!origin) return false;
+  cachedAllowedOrigins ??= readAllowedOrigins();
+  const { exact, allowLocalhostFallback } = cachedAllowedOrigins;
+  if (allowLocalhostFallback) return LOCALHOST_DEV_ALLOWLIST.test(origin);
+  return exact.includes(origin);
+}
+
+export function _resetOriginCacheForTests(): void {
+  cachedAllowedOrigins = null;
+}
+
+export function getCorsOptions(): CorsOptions {
+  const { exact, allowLocalhostFallback } = readAllowedOrigins();
 
   return {
     origin(origin, cb) {
       if (!origin) return cb(null, true);
-      cb(null, allowlist.includes(origin));
+      if (allowLocalhostFallback) {
+        return cb(null, LOCALHOST_DEV_ALLOWLIST.test(origin));
+      }
+      cb(null, exact.includes(origin));
     },
     credentials: true,
   };

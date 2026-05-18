@@ -3,6 +3,11 @@ Pull-request template for Trustalo. Please complete every applicable
 section. The two attestations at the bottom (C1 and C2) are required
 for every PR that touches AI features. Reviewers must verify them, not
 just trust the box.
+
+CI ENFORCEMENT: .github/workflows/pr-template-check.yml asserts that the
+PR body contains the headings and checklist anchors below verbatim. If
+you change a heading or checklist line here, update the `requiredText`
+array in that workflow in the same PR so the gate keeps working.
 -->
 
 ## Summary

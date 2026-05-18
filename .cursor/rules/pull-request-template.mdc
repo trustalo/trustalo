@@ -1,0 +1,13 @@
+---
+description: Rules for creating Trustalo pull requests
+alwaysApply: true
+---
+
+# Pull Requests
+
+- Every PR must use `.github/PULL_REQUEST_TEMPLATE.md` as its body structure. Do not create a PR with a blank body or a custom outline.
+- Preserve all template headings: Summary, Changes, Screenshots / recordings, Test plan, Framework changes, AI feature changes, and Required attestations.
+- Complete each applicable section with concrete details. If a section does not apply, write `N/A` under that heading rather than deleting it.
+- Keep the framework and AI sections present even when skipped; reviewers and CI use those anchors.
+- For AI-touching PRs, explicitly address the AI checklist and attestations. For framework changes, explicitly address the framework documentation checklist.
+- When using `gh pr create`, pass the body from a heredoc that follows the template instead of relying on an editor prompt.

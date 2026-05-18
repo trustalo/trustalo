@@ -1,0 +1,16 @@
+---
+description: Rules for Trustalo Enterprise Edition modules and license-gated features
+globs: "{**/*.ee.ts,**/*.ee.tsx,**/*.ee.test.ts,**/ee/**,**/*.ee/**,**/*.ee/**/*,packages/*.ee/**,packages/auth-provider-saml.ee/**,packages/license/src/**/*.ts,docs/enterprise.md,LICENSE_EE,README.md}"
+alwaysApply: false
+---
+
+# Enterprise Features
+
+- EE Files are any files with `.ee.` in the filename, any path under an `ee/` directory, or any package/directory ending in `.ee`. Keep the legal boundary file-level: do not mix core and EE behavior in the same source file.
+- Core code may be imported by EE code, but core code must not import EE files. If a core route needs optional EE behavior, split the implementation so the core path remains usable without paywalled code.
+- Every EE entry point that performs paywalled behavior must call `assertEnterpriseLicense(<featureId>)` before doing work. Current feature IDs include `sso`, `multi-tenant`, `ai`, and reserved `ai-premium`.
+- License checks must fail closed. Do not silently degrade, bypass, or substitute a core approximation for an unlicensed Enterprise feature.
+- Local development can use `TRUSTALO_LICENSE_DEV_BYPASS=1`; never rely on it in production paths. Production must require `TRUSTALO_LICENSE_KEY` validated by `packages/license`.
+- When adding a new EE feature, update `packages/license/src/types.ts`, `docs/enterprise.md`, the README license/EE section, and any relevant feature docs.
+- Tests for EE behavior should cover both entitled and unentitled paths. EE-only tests may set `TRUSTALO_LICENSE_DEV_BYPASS=1` explicitly.
+- Do not remove, weaken, or hide license checks. Changing `packages/license` or the trusted public-key path requires focused tests and clear review notes.

@@ -1,0 +1,16 @@
+---
+description: Rules for adding or changing Trustalo compliance frameworks
+globs: "{apps/api/prisma/frameworks/**/*.ts,apps/api/prisma/mappings/**/*.json,apps/api/prisma/mappings/**/*.ts,apps/api/prisma/seed*.ts,apps/api/src/modules/frameworks/**/*.ts,apps/api/src/modules/controls/**/*.ts,apps/web/src/**/*framework*.tsx,apps/web/src/**/*control*.tsx,docs/compliance-frameworks.md}"
+alwaysApply: false
+---
+
+# Adding Compliance Frameworks
+
+- Model frameworks as catalog data first. Add or update a `FrameworkDef` in `apps/api/prisma/frameworks/`, export it from `index.ts`, and keep `frameworkType` aligned with the Prisma `FrameworkType` enum.
+- Requirements need stable identifiers, clear titles, categories, and evidence guidance. Use `maturityLevel` only for tiered frameworks such as Essential Eight.
+- Add cross-framework mappings as JSON under `apps/api/prisma/mappings/` and register them in `MAPPINGS`. Use only `equivalent`, `partial`, or `informs`, with rationale when the relationship is not obvious.
+- Keep seeding idempotent. Changes should be safe to rerun through `bun run db:seed:api` without duplicating frameworks, controls, mappings, or policy templates.
+- When schema changes are required, update the split Prisma schema files, regenerate the combined schema/client, and include migrations. Do not hand-edit generated Prisma clients.
+- Update framework-aware UI and validation when new `frameworkType` values or statuses must appear in filters, badges, adoption flows, dashboards, or control views.
+- Update `docs/compliance-frameworks.md` and cite any intentional deviations from existing status, naming, or mapping conventions in the PR summary.
+- Do not copy control text, schemas, prompts, or mappings from third-party compliance products. Use primary standards, regulator material, or original summaries, and satisfy the originality attestation in the PR template.

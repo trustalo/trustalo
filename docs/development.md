@@ -12,11 +12,12 @@ Run from the repository root.
 
 | Script | What it does |
 | --- | --- |
-| `bun run dev` | Start API + Web concurrently. |
-| `bun run dev:all` | Start API + Web + Collector concurrently. |
+| `bun dev` / `bun run dev` | Start API + Web concurrently. |
+| `bun dev:all` / `bun run dev:all` | Start API + Web + Collector concurrently. |
 | `bun run dev:api` | Start API only. |
 | `bun run dev:web` | Start Web only. |
 | `bun run dev:collector` | Start Collector only. |
+| `bun run setup:local` | Bootstrap local env files, Docker services, dependencies, Prisma clients, migrations, and seed data. |
 | `bun run build` | Build every package and app. |
 | `bun run test` | Run workspace test suites (`@trustalo/api`, `@trustalo/auth`, `@trustalo/ai`). |
 | `bun run test:coverage` | Run coverage suites and print per-package `All files` coverage tables. |

@@ -56,15 +56,13 @@ Deeper dive: [`docs/architecture.md`](docs/architecture.md) and [`docs/integrati
 
 ```bash
 git clone <your-fork-url> trustalo && cd trustalo
-cp .env.example .env
-docker compose up -d                                 # Postgres (api + collector DBs) + Mongo + LocalStack
-bun install
-bun run db:generate:api && bun run db:generate:collector
-bun run db:migrate:api  && bun run db:migrate:collector
-bun run dev:all                                      # Web :3000, API :4000, Collector :4001
+bun run setup:local                                  # envs + Postgres/Mongo/LocalStack + deps + Prisma + seeds
+bun dev:all                                          # Web :3000, API :4000, Collector :4001
 ```
 
-> `bun run dev` starts only the API + Web. Use `bun run dev:all` when you need background syncs to run, or `bun run dev:collector` to start the Collector on its own.
+> `bun run setup:local` is idempotent — it copies env templates only when missing, starts Docker, generates Prisma clients, applies migrations, and seeds the API/Collector data. See [`docs/installation.md`](docs/installation.md) for the per-step manual path.
+>
+> `bun dev` starts only the API + Web. Use `bun dev:all` when you need background syncs to run, or `bun run dev:collector` to start the Collector on its own.
 
 The full walkthrough — every prerequisite, every env var, troubleshooting, and the seeded demo org — lives in [`docs/installation.md`](docs/installation.md). For the day-to-day loop (scripts, project structure, conventions), see [`docs/development.md`](docs/development.md).
 

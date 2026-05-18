@@ -21,6 +21,8 @@
     "format:check": "prettier --check --cache .",
     "license:check": "bun scripts/license-check.ts",
     "license:report": "bun scripts/license-check.ts --report",
+    "setup:local": "bun scripts/setup-local.ts",
+    "test:scripts": "bun test scripts/",
     "db:migrate:api": "bun run --filter @trustalo/api db:migrate",
     "db:migrate:collector": "bun run --filter @trustalo/collector db:migrate",
     "db:generate:api": "bun run --filter @trustalo/api db:generate",

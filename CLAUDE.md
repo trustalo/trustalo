@@ -13,8 +13,10 @@ When you start a task, scan the rule that matches the file(s) you are about to t
 | Topic | Source of truth | When it applies |
 | --- | --- | --- |
 | Code formatting (Prettier) | [`.cursor/rules/prettier-formatting.mdc`](.cursor/rules/prettier-formatting.mdc) | Always. Run `bun run format` before any commit; CI gate is `bun run format:check`. |
-| AI feature contract | [`.cursor/rules/ai-features.mdc`](.cursor/rules/ai-features.mdc) | Any file under `apps/api/src/modules/**`, `packages/ai/**`, `apps/web/src/components/ai/**`. |
+| AI feature contract | [`.cursor/rules/ai-features.mdc`](.cursor/rules/ai-features.mdc) | Any LLM or AI-feature path in `apps/api`, `apps/collector`, `apps/web`, `packages/ai`, or `packages/license`. |
+| Enterprise features | [`.cursor/rules/enterprise-features.mdc`](.cursor/rules/enterprise-features.mdc) | Any `.ee.*` file, `**/ee/**` path, `.ee` package, or license-gated feature. |
 | Adding a new framework | [`.cursor/rules/adding-frameworks.mdc`](.cursor/rules/adding-frameworks.mdc) | Any PR that touches `apps/api/prisma/frameworks/**` or framework-aware UI. |
+| Pull requests | [`.cursor/rules/pull-request-template.mdc`](.cursor/rules/pull-request-template.mdc) | Any time an agent creates or updates a PR. |
 
 The Cursor `.mdc` files are markdown with YAML frontmatter. Read them directly — they were written for an AI coding assistant.
 
@@ -22,8 +24,8 @@ The Cursor `.mdc` files are markdown with YAML frontmatter. Read them directly �
 
 ## Non-negotiables (short form)
 
-1. **Originality.** Trustalo is an independent, permissively-licensed product. Never copy source, prompts, schemas, or migrations from any third-party compliance tool. Every PR adds the originality attestation in [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md).
-2. **AI is advisory.** No AI code path may directly mutate a customer record. Every suggestion lands in `pending` / `draft` and emits an audit log entry. See the AI features rule.
+1. **Originality.** Trustalo is an independent, source-available product. Never copy source, prompts, schemas, or migrations from any third-party compliance tool. Every PR adds the originality attestation in [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md).
+2. **AI is advisory and licensed.** No AI code path may directly mutate a customer record. Every suggestion lands in `pending` / `draft` and emits an audit log entry. User-facing Enterprise AI surfaces must call `assertEnterpriseLicense("ai")`; local development may use `TRUSTALO_LICENSE_DEV_BYPASS=1`.
 3. **Multi-tenant isolation.** `tenantId` is derived from the JWT, never from a request header. Use `prismaWithTenant` for tenant-scoped queries. The `Tenant` model replaced the historical `Organization` — see [`docs/schema-design-intent.md`](docs/schema-design-intent.md).
 4. **Service-to-service auth is HMAC-signed.** API ↔ Collector calls use `lib/service-auth.ts`. The legacy `X-Internal-Key` fallback is being retired.
 5. **Secrets at rest are encrypted** with the AES-256-GCM envelope from `apps/api/src/lib/crypto-envelope.ts` (`enc:v1:` prefix). Integration credentials live in the collector `SecretVault` table and are referenced from `IntegrationConnection.secretId`.
@@ -33,7 +35,7 @@ The Cursor `.mdc` files are markdown with YAML frontmatter. Read them directly �
 
 ## Operating tips for Claude in this repo
 
-- The runtime is **Bun**, not Node. Use `bun install`, `bun run …`, `bun test`. Don't suggest `npm` / `pnpm` / `yarn` commands.
+- The runtime is **Bun**, not Node. Use `bun install`, `bun run …`, `bun test`, and short aliases such as `bun dev` / `bun dev:all`. Don't suggest `npm` / `pnpm` / `yarn` commands.
 - The unit-test runner is the built-in `bun:test` — `import { describe, expect, test } from "bun:test";`. There is no `vitest` or `jest` configured.
 - The web app is Next.js 16 (App Router). The CSP nonce middleware lives at `apps/web/src/proxy.ts` (Next 16 renamed `middleware.ts` → `proxy.ts`).
 - Database identifiers use the **`trustalo`** prefix throughout. A rebrand sweep from `Trustra` → `Trustalo` was completed; new code must use `Trustalo` / `trustalo` / `@trustalo/*`.

@@ -1,0 +1,18 @@
+---
+description: Required contract for Trustalo AI and LLM-backed features
+globs: "{apps/api/src/modules/**/*.ts,apps/api/src/config/ai.ts,apps/collector/src/**/*.ts,apps/web/src/**/*ai*.tsx,packages/ai/src/**/*.ts,packages/license/src/**/*.ts,docs/ai-features.md}"
+alwaysApply: false
+---
+
+# AI Feature Contract
+
+- All API-owned LLM calls must resolve providers through `resolveOrgAI(tenantId, feature)` or `resolveAIProvider`. Do not instantiate provider SDKs directly in app code. The collector vendor-research path is the current documented exception — TODO: remove the exception once that path is refactored to use `resolveOrgAI`.
+- Every new user-facing AI accelerator must be advisory: write proposals, drafts, or pending rows only. A human action must approve any customer-record mutation.
+- For Enterprise AI surfaces, gate every entry point with `assertEnterpriseLicense("ai")`; local dev may use `TRUSTALO_LICENSE_DEV_BYPASS=1`, but production must fail closed.
+- Audit every AI invocation or decision with `feature`, `provider`, `model`, `providerSource` where available, `outcome`, and enough non-secret context for review. Use the existing `audit(req, ...)` helper for API routes.
+- Rate-limit AI endpoints per tenant and feature in addition to the global limiter when the route can trigger model work or background collection.
+- Scrub PII before sending user-supplied free text to an external provider when the feature handles chat, pasted context, questionnaires, or uploaded document content.
+- Parse model output through Zod schemas or existing validated helpers. Do not trust raw `JSON.parse` results without schema validation and recovery/error handling.
+- Keep `packages/ai/src/types.ts`, Prisma `AIFeature`, `docs/ai-features.md`, and the UI feature labels/settings in sync when adding or renaming a feature key.
+- Provider and model selection must remain operator/org configurable. Do not hardcode a provider or model in a product feature except for explicit test probes or documented collector-only paths.
+- Update `.github/PULL_REQUEST_TEMPLATE.md` only if the AI checklist itself changes; otherwise satisfy its AI feature checklist in the PR.

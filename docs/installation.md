@@ -27,34 +27,59 @@ A working `git`, a POSIX shell, and the following host ports free on `localhost`
 git clone <your-fork-url> trustalo
 cd trustalo
 
-# 2. Copy the environment template. The root .env.example documents shared
-#    defaults; each app also ships its own apps/<service>/.env.example for
-#    service-specific overrides.
-cp .env.example .env
+# 2. Run the local setup command. It copies env templates, starts Docker,
+#    installs dependencies, generates Prisma clients, applies migrations,
+#    and seeds API + Collector data.
+bun run setup:local
 
-# 3. Bring up Postgres, MongoDB, and LocalStack (S3 + SQS). The single
-#    Postgres container hosts two databases (trustalo_api, trustalo_collector)
-#    provisioned by scripts/init-databases.sh.
+# 3. Start every service together. `bun dev` runs API + Web only;
+#    `bun dev:all` adds the Collector so background sync works.
+bun dev:all
+```
+
+The demo seed creates these local users:
+
+```text
+test@test.com / test.test
+alex.chen@demo.trustalo.io / Password.123
+morgan.lee@demo.trustalo.io / Password.123
+priya.patel@demo.trustalo.io / Password.123
+sam.rivera@demo.trustalo.io / Password.123
+jordan.kim@demo.trustalo.io / Password.123
+```
+
+If you prefer to run each setup step yourself:
+
+```bash
+# Copy shared and app-level environment templates.
+cp .env.example .env
+cp apps/api/.env.example apps/api/.env
+cp apps/collector/.env.example apps/collector/.env
+cp apps/web/.env.example apps/web/.env.local
+
+# Bring up Postgres, MongoDB, and LocalStack (S3 + SQS). The single
+# Postgres container hosts two databases (trustalo_api, trustalo_collector)
+# provisioned by scripts/init-databases.sh.
 docker compose up -d
 
-# 4. Install workspace dependencies.
+# Install workspace dependencies.
 bun install
 
-# 5. Generate the Prisma clients for the API and Collector schemas.
+# Generate the Prisma clients for the API and Collector schemas.
 bun run db:generate:api
 bun run db:generate:collector
 
-# 6. Apply migrations to both schemas.
+# Apply migrations to both schemas.
 bun run db:migrate:api
 bun run db:migrate:collector
 
-# 7. (Optional) seed reference data (frameworks, controls). Use
-#    db:seed:demo:api for a seeded demo organization with sample data.
+# Seed reference data, a demo organization, and the Collector integration catalog.
 bun run db:seed:api
+bun run db:seed:demo:api
+bun run --filter @trustalo/collector db:seed
 
-# 8. Start every service together. `bun run dev` runs API + Web only;
-#    `bun run dev:all` adds the Collector so background sync works.
-bun run dev:all
+# Start every service together.
+bun dev:all
 ```
 
 After the dev servers boot you should see:
@@ -72,7 +97,9 @@ After the dev servers boot you should see:
 
 ## Environment variables
 
-Every variable is documented in the per-app `.env.example` files. The table below is the short list of "things you will probably touch."
+Every variable is documented in the per-app `.env.example` files. The root `.env.example` documents shared defaults, but Prisma and the app dev servers load app-local env files too, so local setup requires `apps/api/.env`, `apps/collector/.env`, and `apps/web/.env.local`. `bun run setup:local` creates those files for you without overwriting existing copies.
+
+The table below is the short list of "things you will probably touch."
 
 | Variable | Default | Description |
 | --- | --- | --- |

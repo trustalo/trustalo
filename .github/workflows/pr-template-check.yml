@@ -1,0 +1,55 @@
+name: PR template check
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+
+concurrency:
+  group: pr-template-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  validate-pr-body:
+    name: Validate PR body
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check required template sections
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body || "";
+
+            const requiredText = [
+              "## Summary",
+              "## Changes",
+              "## Screenshots / recordings (UI changes)",
+              "## Test plan",
+              "## Framework changes (skip if N/A)",
+              "## AI feature changes (skip if N/A)",
+              "## Required attestations",
+              "Unit / integration tests added or updated",
+              "Manual smoke test against `bun dev` stack",
+              "Reviewed the framework documentation; change is consistent or deviation is documented.",
+              "Provider resolved exclusively via `resolveOrgAI` / `resolveAIProvider`",
+              "Every AI call audit-logged with `feature`, `provider`, `model`, `outcome`",
+              "C1 — Original work.",
+              "C2 — Operator-configurable AI."
+            ];
+
+            const missing = requiredText.filter((text) => !body.includes(text));
+
+            if (missing.length > 0) {
+              core.setFailed(
+                [
+                  "PR body does not follow .github/PULL_REQUEST_TEMPLATE.md.",
+                  "Restore the template headings/checklists or mark non-applicable sections as N/A.",
+                  "",
+                  "Missing:",
+                  ...missing.map((text) => `- ${text}`)
+                ].join("\n")
+              );
+            }

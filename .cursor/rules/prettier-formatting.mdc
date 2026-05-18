@@ -1,0 +1,13 @@
+---
+description: Formatting and toolchain rules for Trustalo
+alwaysApply: true
+---
+
+# Formatting And Tooling
+
+- Trustalo is a Bun monorepo. Use `bun install`, `bun run ...`, `bun test`, and the shorter `bun dev` / `bun dev:all` aliases where appropriate. Do not introduce npm, pnpm, yarn, Jest, or Vitest workflows unless the repo is intentionally migrated.
+- Prettier 3.8 is the only formatting authority. Run `bun run format` before committing and use `bun run format:check` for the CI-equivalent check.
+- Follow `.prettierrc.json`: 2 spaces, semicolons, double quotes, trailing commas, LF endings, `printWidth: 100`, and no hand-aligned formatting.
+- Do not add `// prettier-ignore` or equivalent ignores unless a short adjacent comment explains why generated or standards-mandated formatting is required.
+- Keep long-form docs in `docs/` in sync when behavior, setup steps, environment variables, APIs, or compliance semantics change.
+- Before pushing code changes, run the relevant focused tests plus `bun run typecheck` and `bun run lint`; for broad or shared changes, also run `bun run test`.

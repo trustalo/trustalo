@@ -5,6 +5,7 @@ import { prisma, prismaWithTenant } from "../../db/prisma.js";
 import { authorizeResource } from "../../middleware/authorize.js";
 import { audit } from "../../lib/audit.js";
 import { createStorageProvider } from "@trustalo/storage";
+import { assertEnterpriseLicense } from "@trustalo/license";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
@@ -578,6 +579,23 @@ trustCenterPublicRouter.post("/access/download", async (req, res, next) => {
 
 export const trustCenterRouter: Router = Router();
 trustCenterRouter.use(authorizeResource("settings:read", "settings:write"));
+
+// Trust Center is a Trustalo Enterprise feature. Every admin
+// endpoint mounted below requires a valid EE license — without
+// this, customers on lower tiers could build / publish a Trust
+// Center even though the public-facing payload is also an EE
+// surface. The public `trustCenterPublicRouter` is intentionally
+// NOT gated: prospects visiting a vendor's Trust Center must still
+// be able to load the page; gating the *publish* path here makes
+// sure no public payload exists in the first place without EE.
+trustCenterRouter.use(async (_req, _res, next) => {
+  try {
+    await assertEnterpriseLicense("trust-center");
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 trustCenterRouter.get("/", async (req, res, next) => {
   try {

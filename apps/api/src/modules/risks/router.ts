@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { z } from "zod";
+import { assertEnterpriseLicense } from "@trustalo/license";
 import type { Prisma } from "../../../generated/prisma/client/index.js";
 import { prisma, prismaWithTenant } from "../../db/prisma.js";
 import { authorizeResource } from "../../middleware/authorize.js";
@@ -1163,6 +1164,8 @@ risksRouter.delete("/:riskId/treatments/:id", async (req, res, next) => {
  */
 risksRouter.post("/:id/ai-suggest-score", async (req, res, next) => {
   try {
+    await assertEnterpriseLicense("ai");
+
     const tenantId = (req as any).auth.tenantId as string;
     const { id } = idParams.parse(req.params);
 
@@ -1204,6 +1207,8 @@ const aiScoreDecisionBody = z.object({
 
 risksRouter.post("/:id/ai-score-decision", async (req, res, next) => {
   try {
+    await assertEnterpriseLicense("ai");
+
     const { id } = idParams.parse(req.params);
     const body = aiScoreDecisionBody.parse(req.body);
 

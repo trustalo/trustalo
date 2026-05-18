@@ -54,7 +54,11 @@ export type {
   ResolveContext,
   ResolvedAI,
 } from "./resolve.js";
-export { resolveAIProvider, AINotConfiguredError } from "./resolve.js";
+export {
+  resolveAIProvider,
+  AINotConfiguredError,
+  AI_NOT_CONFIGURED_PUBLIC_MESSAGE,
+} from "./resolve.js";
 
 export { AIProviderError, wrapProviderError } from "./errors.js";
 export type { AIProviderErrorKind, AIProviderErrorInit } from "./errors.js";

@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import {
   AINotConfiguredError,
+  AI_NOT_CONFIGURED_PUBLIC_MESSAGE,
   type OrgFeatureRow,
   type OrgProviderRow,
   resolveAIProvider,
@@ -164,6 +165,6 @@ describe("resolveAIProvider", () => {
           },
         }),
       ),
-    ).rejects.toThrow("AI is not configured.");
+    ).rejects.toThrow(AI_NOT_CONFIGURED_PUBLIC_MESSAGE);
   });
 });

@@ -1746,6 +1746,19 @@ export interface TaskStats {
   byModule: Record<string, number>;
 }
 
+// ---------- License Types ----------
+
+export interface LicenseStatus {
+  /**
+   * True when the deployment has a valid Enterprise (or developer-tier)
+   * Trustalo license loaded. Drives client-side pre-gating of EE-only
+   * affordances (AI buttons, etc.).
+   */
+  enterprise: boolean;
+  tier: "enterprise" | "developer" | null;
+  features: string[];
+}
+
 // ---------- AI Config Types ----------
 
 export type AIProviderType = "openai" | "anthropic" | "bedrock" | "openrouter";
@@ -5058,6 +5071,11 @@ class ApiClient {
       "GET",
       `/api/v1/training/${programId}/quizzes/${quizId}/attempts`,
     );
+  }
+
+  // ---------- License ----------
+  getLicenseStatus() {
+    return this.request<ApiResponse<LicenseStatus>>("GET", "/api/v1/license/status");
   }
 
   // ---------- AI Config ----------

@@ -25,6 +25,8 @@ import {
   type QuestionnaireImportJob,
   type QuestionnaireImportSheetProgress,
 } from "@/lib/api-client";
+import { isEnterpriseLicenseError, useAiGated, useEnterpriseToast } from "@/lib/enterprise-license";
+import { EnterpriseRequiredBanner } from "@/components/ai/enterprise-required-banner";
 
 const MAX_UPLOAD_BYTES = 10 * 1024 * 1024;
 const ACCEPT_ATTR = [
@@ -54,6 +56,8 @@ export default function NewQuestionnairePage() {
   const [binaryFile, setBinaryFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const aiGated = useAiGated();
+  const enterpriseToast = useEnterpriseToast();
 
   // jobId (truthy) flips the page to the progress view. We don't
   // navigate away mid-import — the user wants to watch sheets tick
@@ -107,6 +111,10 @@ export default function NewQuestionnairePage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (aiGated) {
+      enterpriseToast.show("AI questionnaire import");
+      return;
+    }
     setError(null);
     setSubmitting(true);
     try {
@@ -124,7 +132,11 @@ export default function NewQuestionnairePage() {
       // owns navigation once the job reaches a terminal state.
       setJobId(res.data.jobId);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to import questionnaire");
+      if (isEnterpriseLicenseError(err)) {
+        enterpriseToast.show("AI questionnaire import");
+      } else {
+        setError(err instanceof Error ? err.message : "Failed to import questionnaire");
+      }
       setSubmitting(false);
     }
     // NOTE: don't reset `submitting` on success — we stay on the
@@ -162,6 +174,12 @@ export default function NewQuestionnairePage() {
           </p>
         </div>
       </header>
+
+      <EnterpriseRequiredBanner
+        open={enterpriseToast.open}
+        feature={enterpriseToast.feature}
+        onClose={enterpriseToast.dismiss}
+      />
 
       <form
         onSubmit={handleSubmit}

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { z } from "zod";
+import { assertEnterpriseLicense } from "@trustalo/license";
 import { prisma, prismaWithTenant } from "../../db/prisma.js";
 import {
   getQueueProvider,
@@ -906,6 +907,8 @@ vendorsRouter.delete("/:id/documents/:docId", async (req, res, next) => {
  */
 vendorsRouter.post("/:id/ai-suggest-tier", async (req, res, next) => {
   try {
+    await assertEnterpriseLicense("ai");
+
     const tenantId = (req as any).auth.tenantId as string;
     const { id } = idParams.parse(req.params);
 
@@ -945,6 +948,8 @@ const aiTierDecisionBody = z.object({
 
 vendorsRouter.post("/:id/ai-tier-decision", async (req, res, next) => {
   try {
+    await assertEnterpriseLicense("ai");
+
     const { id } = idParams.parse(req.params);
     const body = aiTierDecisionBody.parse(req.body);
 

@@ -73,11 +73,16 @@ export interface ResolvedAI {
   client: AIProvider;
 }
 
+export const AI_NOT_CONFIGURED_PUBLIC_MESSAGE =
+  "AI is not configured for this workspace. Ask an administrator to configure AI in Settings.";
+
 export class AINotConfiguredError extends Error {
   readonly code = "AI_NOT_CONFIGURED";
-  constructor(message: string) {
+  readonly internalReason?: string;
+  constructor(message = AI_NOT_CONFIGURED_PUBLIC_MESSAGE, internalReason?: string) {
     super(message);
     this.name = "AINotConfiguredError";
+    this.internalReason = internalReason;
   }
 }
 
@@ -160,10 +165,7 @@ export async function resolveAIProvider(ctx: ResolveContext): Promise<ResolvedAI
     };
   }
 
-  throw new AINotConfiguredError(
-    operator.disabledReason ??
-      "AI is not configured. Set AI_PROVIDER (and provider credentials) at the operator level, or configure an AI provider in Settings → AI.",
-  );
+  throw new AINotConfiguredError(AI_NOT_CONFIGURED_PUBLIC_MESSAGE, operator.disabledReason);
 }
 
 function mergeCredentials(

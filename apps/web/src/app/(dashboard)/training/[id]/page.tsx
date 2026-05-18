@@ -400,8 +400,18 @@ export default function TrainingDetailPage() {
                 </svg>
                 <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
                   No quizzes created yet.
-                  {isOfficer && ' Click "Manage Quizzes" to create one.'}
                 </p>
+                {isOfficer && (
+                  <div className="mt-4 flex justify-center">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => router.push(`/training/${id}/quiz`)}
+                    >
+                      Manage Quizzes
+                    </Button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="space-y-2">

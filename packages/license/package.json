@@ -10,8 +10,6 @@
     "test:coverage": "bun test --coverage",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",
-    "license:generate-keypair": "bun scripts/generate-keypair.ts",
-    "license:issue": "bun scripts/issue-key.ts",
     "license:issue-dev": "bun scripts/issue-dev-key.ts"
   },
   "dependencies": {

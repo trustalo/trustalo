@@ -86,14 +86,14 @@ describe("token encoding", () => {
   });
 });
 
-describe("LicenseValidator.issue + validate", () => {
+describe("LicenseValidator._issueForTesting + validate", () => {
   test("round-trip: issued key validates with the matching public key", async () => {
     const { publicJwk, privateJwk } = await freshKeypair();
     const validator = new LicenseValidator({
       trustedPublicKeys: [{ jwk: publicJwk, label: "test" }],
     });
 
-    const token = await LicenseValidator.issue({
+    const token = await LicenseValidator._issueForTesting({
       privateJwk,
       claims: baseClaims(),
     });
@@ -109,7 +109,7 @@ describe("LicenseValidator.issue + validate", () => {
     const validator = new LicenseValidator({
       trustedPublicKeys: [{ jwk: trusted.publicJwk, label: "trusted" }],
     });
-    const token = await LicenseValidator.issue({
+    const token = await LicenseValidator._issueForTesting({
       privateJwk: attacker.privateJwk,
       claims: baseClaims(),
     });
@@ -121,7 +121,7 @@ describe("LicenseValidator.issue + validate", () => {
     const validator = new LicenseValidator({
       trustedPublicKeys: [{ jwk: publicJwk, label: "test" }],
     });
-    const token = await LicenseValidator.issue({
+    const token = await LicenseValidator._issueForTesting({
       privateJwk,
       claims: baseClaims({ features: ["sso"] }),
     });
@@ -133,7 +133,7 @@ describe("LicenseValidator.issue + validate", () => {
     const validator = new LicenseValidator({
       trustedPublicKeys: [{ jwk: publicJwk, label: "test" }],
     });
-    const token = await LicenseValidator.issue({
+    const token = await LicenseValidator._issueForTesting({
       privateJwk,
       claims: baseClaims({ features: ["*"] }),
     });
@@ -148,7 +148,7 @@ describe("LicenseValidator.issue + validate", () => {
       clockSkewSeconds: 0,
     });
     const past = nowSec() - 7200;
-    const token = await LicenseValidator.issue({
+    const token = await LicenseValidator._issueForTesting({
       privateJwk,
       claims: baseClaims({ iat: past, nbf: past, exp: past + 60 }),
     });
@@ -162,7 +162,7 @@ describe("LicenseValidator.issue + validate", () => {
       clockSkewSeconds: 0,
     });
     const future = nowSec() + 7200;
-    const token = await LicenseValidator.issue({
+    const token = await LicenseValidator._issueForTesting({
       privateJwk,
       claims: baseClaims({ iat: future, nbf: future, exp: future + 3600 }),
     });
@@ -176,19 +176,26 @@ describe("LicenseValidator.issue + validate", () => {
       trustedPublicKeys: [{ jwk: publicJwk, label: "test" }],
       revokedLicenseIds: revoked,
     });
-    const token = await LicenseValidator.issue({ privateJwk, claims: baseClaims() });
+    const token = await LicenseValidator._issueForTesting({
+      privateJwk,
+      claims: baseClaims(),
+    });
     await expect(validator.validate(token, "sso")).rejects.toThrow(/revoked/);
   });
 
   test("rejects developer-tier in production", async () => {
-    process.env.NODE_ENV = "production";
+    // Mint the token first (in non-prod), then flip NODE_ENV=production for
+    // the validate() call. _issueForTesting itself refuses to run when
+    // NODE_ENV=production (see "_issueForTesting refuses in production").
     const { publicJwk, privateJwk } = await freshKeypair();
-    const validator = new LicenseValidator({
-      trustedPublicKeys: [{ jwk: publicJwk, label: "test" }],
-    });
-    const token = await LicenseValidator.issue({
+    const token = await LicenseValidator._issueForTesting({
       privateJwk,
       claims: baseClaims({ tier: "developer" }),
+    });
+
+    process.env.NODE_ENV = "production";
+    const validator = new LicenseValidator({
+      trustedPublicKeys: [{ jwk: publicJwk, label: "test" }],
     });
     await expect(validator.validate(token, "sso")).rejects.toThrow(/dev_key_in_production/);
   });
@@ -218,8 +225,19 @@ describe("LicenseValidator.issue + validate", () => {
   test("validator with empty trusted keys fails closed", async () => {
     const validator = new LicenseValidator({ trustedPublicKeys: [] });
     const { privateJwk } = await freshKeypair();
-    const token = await LicenseValidator.issue({ privateJwk, claims: baseClaims() });
+    const token = await LicenseValidator._issueForTesting({
+      privateJwk,
+      claims: baseClaims(),
+    });
     await expect(validator.validate(token, "sso")).rejects.toThrow(/no_trusted_keys/);
+  });
+
+  test("_issueForTesting refuses in production", async () => {
+    process.env.NODE_ENV = "production";
+    const { privateJwk } = await freshKeypair();
+    await expect(
+      LicenseValidator._issueForTesting({ privateJwk, claims: baseClaims() }),
+    ).rejects.toThrow(/must not be called in production/);
   });
 });
 
@@ -260,7 +278,7 @@ describe("assertEnterpriseLicense (global helper)", () => {
     const { publicJwk, privateJwk } = await freshKeypair();
     process.env.TRUSTALO_LICENSE_DEV_PUBLIC_KEY_JWK = JSON.stringify(publicJwk);
 
-    const token = await LicenseValidator.issue({
+    const token = await LicenseValidator._issueForTesting({
       privateJwk,
       claims: baseClaims({ tier: "developer", features: ["sso"] }),
     });
@@ -271,13 +289,15 @@ describe("assertEnterpriseLicense (global helper)", () => {
   });
 
   test("env-injected dev public key is NOT honored in production", async () => {
-    process.env.NODE_ENV = "production";
+    // Mint in non-prod (issuer refuses in prod), then flip NODE_ENV.
     const { publicJwk, privateJwk } = await freshKeypair();
-    process.env.TRUSTALO_LICENSE_DEV_PUBLIC_KEY_JWK = JSON.stringify(publicJwk);
-    const token = await LicenseValidator.issue({
+    const token = await LicenseValidator._issueForTesting({
       privateJwk,
       claims: baseClaims({ tier: "enterprise", features: ["sso"] }),
     });
+
+    process.env.NODE_ENV = "production";
+    process.env.TRUSTALO_LICENSE_DEV_PUBLIC_KEY_JWK = JSON.stringify(publicJwk);
     process.env.TRUSTALO_LICENSE_KEY = token;
 
     // In production with no PRODUCTION_PUBLIC_KEYS configured, this MUST fail.

@@ -219,16 +219,34 @@ export class LicenseValidator {
   }
 
   /**
-   * Sign a license key. Used by the Trustalo-internal issuance script and
-   * by the test suite. NOT exposed via the global helper.
+   * Sign a license key.
+   *
+   * INTERNAL — for the test suite and the local developer-key script
+   * (`scripts/issue-dev-key.ts`) ONLY. Production license issuance does
+   * NOT happen in this repository: it lives in Trustalo's private admin
+   * tooling, where the signing key is held offline / hardware-backed.
+   *
+   * The leading underscore and `ForTesting` suffix mark this as a
+   * non-public API; the runtime guard below makes accidental production
+   * use impossible.
+   *
+   * @internal
    */
-  static async issue(opts: {
+  static async _issueForTesting(opts: {
     privateJwk: Ed25519PrivateJwk;
     claims: Omit<LicenseClaims, "v" | "iss"> & {
       v?: 1;
       iss?: "trustalo.io";
     };
   }): Promise<string> {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(
+        "LicenseValidator._issueForTesting must not be called in production. " +
+          "Production license issuance happens in Trustalo's private admin tooling, " +
+          "not in @trustalo/license.",
+      );
+    }
+
     const fullClaims: LicenseClaims = licenseClaimsSchema.parse({
       v: 1,
       iss: "trustalo.io",

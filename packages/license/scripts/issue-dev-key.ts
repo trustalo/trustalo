@@ -32,7 +32,7 @@ if (!Number.isFinite(expiresInDays) || expiresInDays <= 0) {
 const { publicJwk, privateJwk } = await LicenseValidator.generateKeypair();
 const now = Math.floor(Date.now() / 1000);
 
-const token = await LicenseValidator.issue({
+const token = await LicenseValidator._issueForTesting({
   privateJwk,
   claims: {
     sub: "local-dev",

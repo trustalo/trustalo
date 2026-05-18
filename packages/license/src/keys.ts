@@ -1,15 +1,15 @@
 // Trusted Trustalo Enterprise License public keys.
 //
 // THESE ARE PUBLIC KEYS ONLY. The corresponding PRIVATE keys are held
-// offline by Trustalo (1Password / HSM) and are used to sign customer
-// license tokens. NEVER commit a private key to this repository.
+// offline by Trustalo and are used to sign customer license tokens.
+// NEVER commit a private key to this repository.
 //
 // Format: each entry is a public-only Ed25519 JWK plus a label.
 //
-// To generate the first production key:
-//   bun --filter @trustalo/license license:generate-keypair
-// Then paste the printed PUBLIC JWK into PRODUCTION_PUBLIC_KEYS below and
-// store the printed PRIVATE JWK in Trustalo's secret store.
+// Production keypair generation and license issuance both happen in
+// Trustalo's private admin tooling, not in this repository. To register
+// a new production public key here, paste the JWK printed by that
+// tooling into the PRODUCTION_PUBLIC_KEYS array below.
 //
 // Key rotation: add the new public key to the array; do NOT remove old
 // keys until every license token signed by them has expired (use the

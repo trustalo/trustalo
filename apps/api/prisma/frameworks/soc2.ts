@@ -603,6 +603,25 @@ export const SOC2_FRAMEWORK: FrameworkDef = {
         "Annual vendor privacy assessment plan; reassessment evidence per vendor (questionnaires, SOC 2 / ISO / privacy attestations, audit reports); corrective-action / remediation tracker; vendor risk ratings refreshed on a defined cadence.",
     },
     {
+      identifier: "P6.6",
+      title: "Breaches and incidents notified to affected data subjects, regulators, and others",
+      category: "Privacy",
+      description:
+        "The entity provides notification of breaches and incidents involving personal information to affected data subjects, regulators, and other relevant parties, in line with statutory, contractual and entity-defined timelines, to meet the entity's objectives related to privacy.",
+      evidenceGuidance:
+        "Privacy incident response plan with breach-classification criteria; jurisdictional notification SLAs (e.g. 72 hours under GDPR Art.33); archived sample regulator and data-subject notifications; breach decision log signed by DPO / privacy officer; tabletop exercise after-action reports for breach scenarios.",
+    },
+    {
+      identifier: "P6.7",
+      title:
+        "Accounting of personal information held and disclosed provided to data subjects on request",
+      category: "Privacy",
+      description:
+        "The entity provides data subjects, upon request, with an accounting of the personal information held about them and the disclosures of that personal information to third parties, to meet the entity's objectives related to privacy.",
+      evidenceGuidance:
+        "Data-subject request (DSR) workflow covering 'right to know' and accounting requests; identity-verification procedure; sample accounting reports delivered to data subjects; SLA dashboard for accounting requests; integration with the sub-processor register to populate disclosure history.",
+    },
+    {
       identifier: "P7.1",
       title: "Personal information accurate, up-to-date, complete, and relevant",
       category: "Privacy",

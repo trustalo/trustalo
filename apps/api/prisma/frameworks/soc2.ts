@@ -486,30 +486,31 @@ export const SOC2_FRAMEWORK: FrameworkDef = {
     },
     {
       identifier: "P2.1",
-      title: "Personal information collected is consistent with objectives",
+      title:
+        "Choice and consent for collection, use, retention, disclosure, and disposal communicated and obtained",
       category: "Privacy",
       description:
-        "Personal information is collected consistent with the entity's objectives related to privacy, including limiting collection to what is necessary for the purposes identified in the notice and for which the data subject provided consent.",
+        "The entity communicates choices available to data subjects regarding the collection, use, retention, disclosure and disposal of personal information, and obtains implicit or explicit consent to meet the entity's objectives related to privacy.",
       evidenceGuidance:
-        "Data inventory mapping each field to a stated purpose; minimisation reviews per processing activity; field-level justification in product designs; collection-method documentation.",
+        "Consent capture mechanisms (cookie banner, opt-in forms, granular consent UI); consent management platform records; preference centre; just-in-time consent prompts in product flows; documented lawful-basis decisions per processing activity.",
     },
     {
       identifier: "P3.1",
-      title: "Personal information retained and then disposed as defined",
+      title: "Personal information collected consistent with the entity's privacy objectives",
       category: "Privacy",
       description:
-        "The entity retains personal information for the period defined by its objectives related to privacy and securely disposes of it at the end of that period in accordance with the published retention schedule.",
+        "Personal information is collected consistent with the entity's objectives related to privacy, limited to what is necessary for the purposes identified in the privacy notice and for which consent has been obtained.",
       evidenceGuidance:
-        "Retention schedule per data category; automated purge job logs; certificates of destruction; sample audit confirming records removed on schedule; legal hold register for exceptions.",
+        "Data inventory mapping each field to a stated purpose; minimisation reviews per processing activity; field-level justification in product designs; collection-method documentation; PIA outputs at point of collection.",
     },
     {
       identifier: "P3.2",
-      title: "Personal information retained for no longer than needed",
+      title: "Explicit consent obtained for sensitive personal information",
       category: "Privacy",
       description:
-        "Personal information is retained for no longer than necessary to fulfil the purposes for which it was collected, unless a longer retention period is required by law or contractual commitment.",
+        "For sensitive personal information (e.g. health, biometric, financial, political or religious views), the entity communicates the need for explicit consent and obtains that consent from the data subject prior to collection, use, retention, disclosure or disposal.",
       evidenceGuidance:
-        "Time-to-live (TTL) configuration on records; purge job evidence per data class; review of retention exceptions with legal sign-off; reconciliation between retention policy and actual data age.",
+        "Sensitive-data classification policy; explicit-consent UX flows for sensitive categories; retained consent receipts; legal review of sensitive-data processing; sample audit of records collected under explicit consent.",
     },
     {
       identifier: "P4.1",
@@ -531,12 +532,12 @@ export const SOC2_FRAMEWORK: FrameworkDef = {
     },
     {
       identifier: "P4.3",
-      title: "Personal information disclosed to third parties only as stated",
+      title: "Personal information securely disposed of in line with privacy objectives",
       category: "Privacy",
       description:
-        "Personal information is disclosed to third parties only for the purposes identified in the privacy notice and with the consent of the data subject where required.",
+        "The entity securely disposes of personal information at the end of the defined retention period or upon a valid data-subject deletion request, using methods that prevent reconstruction, to meet the entity's objectives related to privacy.",
       evidenceGuidance:
-        "Sub-processor / third-party register; signed data sharing agreements; consent records linked to disclosures; access logs for third-party API calls; disclosure audit trail.",
+        "Cryptographic erasure / certificate-of-destruction records; automated purge job logs; data-subject deletion workflow tickets; media sanitisation procedures (NIST SP 800-88); audit confirmation that records are removed from primary stores, backups and replicas.",
     },
     {
       identifier: "P5.1",
@@ -594,16 +595,16 @@ export const SOC2_FRAMEWORK: FrameworkDef = {
     },
     {
       identifier: "P6.5",
-      title: "Personal information obtained from third parties is obtained with consent",
+      title: "Vendor and third-party compliance with privacy commitments assessed periodically",
       category: "Privacy",
       description:
-        "The entity obtains commitments from vendors and other third parties from whom personal information is collected, confirming that data was obtained with appropriate notice and consent.",
+        "The entity assesses, at least annually, the compliance of vendors and other third parties with the entity's privacy commitments and requirements, and takes corrective action when issues are identified.",
       evidenceGuidance:
-        "Source-of-data attestations; data-broker contracts with consent warranties; verification of upstream lawful basis; supplier onboarding privacy checklist.",
+        "Annual vendor privacy assessment plan; reassessment evidence per vendor (questionnaires, SOC 2 / ISO / privacy attestations, audit reports); corrective-action / remediation tracker; vendor risk ratings refreshed on a defined cadence.",
     },
     {
       identifier: "P7.1",
-      title: "Types of personal information collected and methods are consistent with commitments",
+      title: "Personal information accurate, up-to-date, complete, and relevant",
       category: "Privacy",
       description:
         "The entity collects and maintains accurate, up-to-date, complete, and relevant personal information, and corrects inaccuracies in a timely manner, to meet the entity's objectives related to privacy.",

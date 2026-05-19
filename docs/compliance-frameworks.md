@@ -7,11 +7,11 @@ Trustalo supports ten compliance frameworks. Each framework is modeled as a set 
 | Framework | Focus | Controls/Requirements | Standard Body | Status |
 | --- | --- | --- | --- | --- |
 | ISO 27001:2022 | Information security (ISMS) | 93 controls | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
-| ISO 27017:2015 | Cloud security | 37 + 7 cloud-specific | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
-| ISO 27018:2019 | Cloud PII protection | 25 PII controls | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
-| ISO 22301:2019 | Business continuity | BIA, BCP, DRP | ISO | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
-| ISO 42001:2023 | AI management systems | AI risk + governance | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
-| SOC 2 | Trust service criteria | 5 TSC categories | AICPA | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| ISO 27017:2015 | Cloud security | 7 CLD.\* + 19 cloud extensions (26 total) | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| ISO 27018:2019 | Cloud PII protection | 11 PII principles + 17 cloud-PII controls (28 total) | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| ISO 22301:2019 | Business continuity | 26 clauses (BIA, BCP, DRP) | ISO | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| ISO 42001:2023 | AI management systems | 23 HLS clauses + 38 Annex A controls (61 total) | ISO/IEC | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
+| SOC 2 | Trust service criteria | 61 TSC 2017 criteria (CC, A, PI, C, P) | AICPA | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
 | Essential Eight | Cyber mitigation strategies | 8 strategies × 3 maturity levels | ACSC (AU) | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
 | NIST CSF 2.0 | Cybersecurity outcomes | 106 subcategories × 4 tiers | NIST (US) | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
 | GDPR | EU privacy / personal-data protection | ~35 obligations across Chapters II-V | EU (Regulation 2016/679) | ![Experimental](https://img.shields.io/badge/status-experimental-orange) |
@@ -60,8 +60,8 @@ Extension of ISO 27001 providing cloud-specific security guidance for both cloud
 
 ### Key Components
 
-- **37 controls** derived from ISO 27002 with cloud implementation guidance
-- **7 additional cloud-specific controls** unique to 27017
+- **19 controls** with cloud-specific extensions to ISO 27002 implementation guidance
+- **7 additional cloud-specific controls** (CLD.\*) unique to 27017
 - Provider vs. customer responsibility mapping (shared responsibility model)
 
 ### Cloud-Specific Controls (CLD)
@@ -93,7 +93,7 @@ Code of practice for protection of personally identifiable information (PII) in 
 
 ### Key Components
 
-- **25 PII-specific controls** for public cloud environments
+- **11 PII protection principles + 17 cloud-PII processor controls (28 total)** for public cloud environments
 - Data subject rights management (access, rectification, erasure)
 - Consent management and lawful processing basis
 - Breach notification procedures and timelines

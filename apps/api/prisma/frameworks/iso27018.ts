@@ -147,6 +147,15 @@ export const ISO27018_FRAMEWORK: FrameworkDef = {
         "Approved PII protection policy with version history; policy distribution / acknowledgment records; alignment documentation between PII policy and ISO 27001 ISMS policies; review schedule.",
     },
     {
+      identifier: "7.2-pii",
+      title: "Personnel competence and confidentiality for PII processing",
+      category: "Cloud PII Processor Controls",
+      description:
+        "Personnel with access to PII shall be subject to confidentiality obligations, receive role-appropriate privacy awareness and training, and have their competence to handle PII assessed and maintained on a recurring basis.",
+      evidenceGuidance:
+        "Confidentiality / non-disclosure agreements executed by all personnel with PII access; annual privacy awareness training records; role-based PII handling training for engineers / support / DPO; competence assessment records; off-boarding confidentiality reminders.",
+    },
+    {
       identifier: "9.2-pii",
       title: "User access management for PII processing",
       category: "Cloud PII Processor Controls",
@@ -181,6 +190,15 @@ export const ISO27018_FRAMEWORK: FrameworkDef = {
         "Physical access to facilities used to process PII shall be restricted to authorised personnel through layered physical security controls, including perimeter, entry, server-room and disposal controls.",
       evidenceGuidance:
         "Data centre physical security attestations from upstream provider (SOC 2, ISO 27001 / 27018); badge / biometric access logs; visitor procedures; secure media destruction certificates.",
+    },
+    {
+      identifier: "11.2-pii",
+      title: "Secure disposal of equipment and media containing PII",
+      category: "Cloud PII Processor Controls",
+      description:
+        "Equipment, storage media and removable media that have processed or held PII shall be securely sanitised or destroyed at end of life using methods that prevent recovery, with disposal evidence retained for the periods required by policy and contractual commitments.",
+      evidenceGuidance:
+        "Media sanitisation procedure aligned to NIST SP 800-88 / ISO 21964; certificates of destruction from disposal vendors; cryptographic erasure logs for cloud volumes; tracking of decommissioned hardware containing PII; periodic audit of disposal records.",
     },
     {
       identifier: "12.1-pii",
@@ -219,6 +237,15 @@ export const ISO27018_FRAMEWORK: FrameworkDef = {
         "Data residency / processing-location documentation; published list of processing regions; SCCs / DPF / IDTA agreements with customers; data-transfer impact assessments.",
     },
     {
+      identifier: "15.1-pii",
+      title: "Sub-processor and information-supplier management for PII",
+      category: "Cloud PII Processor Controls",
+      description:
+        "Sub-processors and other suppliers with access to PII shall be subject to written agreements imposing equivalent PII protection obligations, and the PII processor shall disclose to the cloud service customer the identity and material changes of such sub-processors.",
+      evidenceGuidance:
+        "Published sub-processor register with notification mechanism for changes; sub-processor due diligence and onboarding records; flow-down PII clauses in supplier contracts; customer right-to-object documentation; periodic sub-processor compliance reassessment.",
+    },
+    {
       identifier: "16.1-pii",
       title: "PII breach notification",
       category: "Cloud PII Processor Controls",
@@ -228,6 +255,24 @@ export const ISO27018_FRAMEWORK: FrameworkDef = {
         "Incident response plan with defined PII-breach criteria and SLA for customer notification; sample notifications sent; customer-contact register; coordination with regulators where the PII processor is also a controller.",
     },
     {
+      identifier: "16.2-pii",
+      title: "PII return, transfer and disposal at end of contract",
+      category: "Cloud PII Processor Controls",
+      description:
+        "On termination of the cloud service contract, the PII processor shall return PII to the cloud service customer or securely dispose of it as instructed, within an agreed timeframe, including PII held in backups and by sub-processors, and shall provide evidence of the return or disposal.",
+      evidenceGuidance:
+        "Documented end-of-contract data return and disposal procedure; SLA for return / disposal; sample customer-facing certificates of destruction; reconciliation showing PII removed from primary stores, backups and sub-processor systems; retention of disposal evidence per policy.",
+    },
+    {
+      identifier: "17.1-pii",
+      title: "PII processing continuity",
+      category: "Cloud PII Processor Controls",
+      description:
+        "Information security continuity for systems processing PII shall be embedded in the PII processor's business continuity management system, with availability, recovery and integrity objectives sufficient to meet contractual commitments to cloud service customers.",
+      evidenceGuidance:
+        "BC / DR plan covering PII-processing systems; documented RTO / RPO per service; failover / restore test reports including PII workloads; multi-AZ / multi-region architecture; customer-facing availability commitments and status communications.",
+    },
+    {
       identifier: "18.1-pii",
       title: "Legal compliance for PII processing",
       category: "Cloud PII Processor Controls",
@@ -235,6 +280,15 @@ export const ISO27018_FRAMEWORK: FrameworkDef = {
         "The PII processor shall identify and document the legal, regulatory and contractual requirements applicable to its processing of PII, and shall implement controls to demonstrate ongoing compliance with those requirements.",
       evidenceGuidance:
         "PII compliance obligation register (GDPR, CCPA, APPs, HIPAA where applicable); legal-review records of standard contracts; compliance audit / certification reports (ISO 27018, SOC 2 + privacy criteria); corrective-action tracking for findings.",
+    },
+    {
+      identifier: "18.2-pii",
+      title: "Independent PII protection reviews",
+      category: "Cloud PII Processor Controls",
+      description:
+        "The PII processor's approach to managing PII protection shall be reviewed independently at planned intervals and when significant changes occur, with results made available to cloud service customers to support their own assurance activities.",
+      evidenceGuidance:
+        "Independent audit / certification reports (ISO 27001 + 27018, SOC 2 + privacy criteria); bridge letters between attestations; customer-accessible trust portal or audit clauses; corrective-action register for audit findings; cadence documented in the PII protection programme.",
     },
   ],
 };

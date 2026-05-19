@@ -122,6 +122,15 @@ export const ISO27017_FRAMEWORK: FrameworkDef = {
         "RACI matrix scoped to cloud services; named contacts for incident response, audit and operational security on both sides; published cloud-services responsibility documents.",
     },
     {
+      identifier: "8.1-ext",
+      title: "Asset responsibility for cloud services",
+      category: "Asset Management",
+      description:
+        "Inventories of assets associated with cloud services shall be maintained by both the cloud service provider and the cloud service customer, including the cloud services consumed, the data held within them and the ownership of each asset.",
+      evidenceGuidance:
+        "Cloud-service inventory (CSP infrastructure CMDB; customer SaaS / IaaS register); data classification per cloud-stored asset; assigned cloud-service owners; periodic inventory reconciliation against billing / discovery scans.",
+    },
+    {
       identifier: "9.2-ext",
       title: "User access management for cloud services",
       category: "Access Control",
@@ -147,6 +156,15 @@ export const ISO27017_FRAMEWORK: FrameworkDef = {
         "Cryptographic controls for cloud services shall be implemented to protect data in transit and at rest, with key-management practices that allow the cloud service customer to meet its own confidentiality and integrity obligations, including options such as customer-managed keys where appropriate.",
       evidenceGuidance:
         "Encryption-at-rest configuration per data store; TLS configuration and cipher policy; key-management documentation (KMS / HSM, CMK / BYOK options); key rotation logs; customer-controlled encryption features.",
+    },
+    {
+      identifier: "11.2-ext",
+      title: "Equipment and physical security for cloud services",
+      category: "Physical and Environmental Security",
+      description:
+        "Equipment supporting cloud services shall be protected by appropriate physical and environmental controls, including secure data-centre facilities, controlled physical access, redundant power and cooling, and secure media handling and disposal at the end of the equipment life cycle.",
+      evidenceGuidance:
+        "Data-centre physical security attestations (SOC 2 Type II, ISO 27001 facility audits); media-sanitisation procedures (NIST SP 800-88); environmental controls (power, fire suppression, HVAC) attestations; visitor and access logs for sensitive zones.",
     },
     {
       identifier: "12.1-ext",
@@ -176,6 +194,15 @@ export const ISO27017_FRAMEWORK: FrameworkDef = {
         "Log architecture covering cloud control-plane and data-plane events; log-integrity protections (write-once, retention rules); customer audit-log export; SIEM detections; sample alerts and incident records.",
     },
     {
+      identifier: "12.6-ext",
+      title: "Technical vulnerability management for cloud services",
+      category: "Operations Security",
+      description:
+        "Information about technical vulnerabilities of cloud services shall be obtained in a timely manner, exposure evaluated, and appropriate measures taken to address the associated risk, with responsibilities shared between the cloud service provider and the cloud service customer per the cloud service agreement.",
+      evidenceGuidance:
+        "Vulnerability scanning of cloud workloads and infrastructure (SCA, IaC, container, host); coordinated disclosure / bug-bounty programme; published security bulletins for customer-facing services; patch SLA metrics; customer notification process for shared-responsibility vulnerabilities.",
+    },
+    {
       identifier: "13.1-ext",
       title: "Network security management for cloud services",
       category: "Communications Security",
@@ -183,6 +210,51 @@ export const ISO27017_FRAMEWORK: FrameworkDef = {
         "Networks supporting cloud services shall be managed and controlled to protect information in systems and applications, including segmentation between tenants, hardening of management interfaces and consistent enforcement across virtual and physical layers.",
       evidenceGuidance:
         "Network architecture diagrams covering tenant segmentation; firewall / security-group rule reviews; bastion / jump-host configuration; mTLS or service-mesh policy; periodic network pen-test reports.",
+    },
+    {
+      identifier: "13.2-ext",
+      title: "Information transfer agreements for cloud services",
+      category: "Communications Security",
+      description:
+        "Agreements covering the transfer of information into, out of and between cloud services shall be established, including transfer mechanisms, encryption requirements, jurisdictional considerations and the responsibilities of each party.",
+      evidenceGuidance:
+        "Customer-import / export documentation and APIs; data-transfer security controls (TLS, key management); cross-border transfer mechanism evidence (SCCs, BCRs, adequacy decisions); contractual clauses on data-transfer responsibilities and notification.",
+    },
+    {
+      identifier: "14.1-ext",
+      title: "Security in cloud service development",
+      category: "System Acquisition, Development and Maintenance",
+      description:
+        "Information security requirements for cloud services shall be identified and incorporated into the development life cycle, including secure design, secure coding practices, security testing and security acceptance criteria appropriate for multi-tenant cloud environments.",
+      evidenceGuidance:
+        "Secure SDLC documentation referencing cloud-specific threat models (e.g. CSA STAR, OWASP cloud top 10); threat-modelling outputs per cloud service; SAST / DAST / IAST configuration; secure-coding training records; pre-release security review checklist.",
+    },
+    {
+      identifier: "15.1-ext",
+      title: "Sub-cloud and supplier relationships",
+      category: "Supplier Relationships",
+      description:
+        "Information security requirements shall be agreed with suppliers that provide components of the cloud service (sub-cloud providers, third-party processors), and the cloud service provider shall disclose to customers the identity and material changes of such sub-suppliers.",
+      evidenceGuidance:
+        "Sub-processor / sub-cloud register published to customers; supplier-onboarding security assessment; flow-down clauses in supplier contracts; customer-notification process for new or changed sub-suppliers; periodic supplier compliance reviews.",
+    },
+    {
+      identifier: "16.1-ext",
+      title: "Information security incident management for cloud services",
+      category: "Information Security Incident Management",
+      description:
+        "Information security incidents affecting cloud services shall be managed through documented procedures, with timely communication and coordination between the cloud service provider and cloud service customer to support each party's incident response obligations.",
+      evidenceGuidance:
+        "Cloud-incident response plan with customer-notification SLA; security incident contact / escalation register; post-incident reports shared with affected customers; tabletop exercises covering CSP-customer coordination; incident communications templates.",
+    },
+    {
+      identifier: "17.1-ext",
+      title: "Information security continuity for cloud services",
+      category: "Information Security Aspects of Business Continuity Management",
+      description:
+        "Information security continuity for cloud services shall be embedded in the cloud service provider's business continuity management system, with availability and recovery objectives documented in the cloud service agreement and verified through periodic testing.",
+      evidenceGuidance:
+        "Cloud BC / DR plan; published RTO / RPO commitments per service tier; failover and restore test reports; multi-AZ / multi-region architecture diagrams; customer-facing status / incident communications.",
     },
     {
       identifier: "18.1-ext",

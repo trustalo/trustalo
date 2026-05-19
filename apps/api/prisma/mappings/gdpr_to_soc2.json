@@ -1,5 +1,5 @@
 {
-  "$comment": "GDPR (EU 2016/679) → SOC 2 Type II Trust Service Criteria mappings. We map principally against the AICPA Privacy criteria (P1–P8) — these were specifically designed to align with GDPR-era privacy regulation — and reach into the Common Criteria (CC*) for security-of-processing (Art. 32) and breach (Art. 33/34). Vendor-management criteria CC9.2 carries the Article 28 processor work.",
+  "$comment": "GDPR (EU 2016/679) → SOC 2 Type II Trust Service Criteria mappings. We map principally against the AICPA Privacy criteria (P1–P8) — these were specifically designed to align with GDPR-era privacy regulation — and reach into the Common Criteria (CC*) for security-of-processing (Art. 32) and breach (Art. 33/34). Vendor-management criteria CC9.2 carries the Article 28 processor work. Target IDs reflect the canonical AICPA TSC 2017 numbering (P2.1 = Choice/Consent, P3.1 = Collection, P3.2 = Explicit consent for sensitive PI, P4.1 = Use, P4.2 = Retention, P4.3 = Disposal, P6.1–P6.7 = Disclosure & Notification).",
   "source": "AICPA Trust Services Criteria (2017) — Privacy criteria GDPR-aligned cross-walk; OneTrust + Drata published GDPR↔SOC 2 mapping",
   "sourceFramework": "gdpr",
   "targetFramework": "soc2",
@@ -21,14 +21,14 @@
       "source": "Art.5(1)(b)",
       "target": "P4.2",
       "relationship": "partial",
-      "rationale": "Retention bound to stated purposes."
+      "rationale": "Purpose limitation indirectly bounds retention."
     },
 
     {
       "source": "Art.5(1)(c)",
-      "target": "P2.1",
+      "target": "P3.1",
       "relationship": "equivalent",
-      "rationale": "Collection consistent with stated objectives — data minimisation in TSC form."
+      "rationale": "Collection of personal information consistent with privacy objectives — data minimisation in TSC form."
     },
 
     {
@@ -37,18 +37,24 @@
       "relationship": "partial",
       "rationale": "Access and correction requests handled — supports the accuracy principle."
     },
+    {
+      "source": "Art.5(1)(d)",
+      "target": "P7.1",
+      "relationship": "equivalent",
+      "rationale": "Accuracy of personal information — TSC P7.1 quality criterion is the direct AICPA expression of GDPR accuracy."
+    },
 
     {
       "source": "Art.5(1)(e)",
-      "target": "P3.1",
+      "target": "P4.2",
       "relationship": "equivalent",
-      "rationale": "Personal information retained and then disposed as defined — storage limitation."
+      "rationale": "Storage limitation — retention bound to stated purposes."
     },
     {
       "source": "Art.5(1)(e)",
-      "target": "P3.2",
+      "target": "P4.3",
       "relationship": "equivalent",
-      "rationale": "Retained no longer than needed."
+      "rationale": "Storage limitation includes secure disposal at the end of the retention period."
     },
 
     {
@@ -80,9 +86,22 @@
 
     {
       "source": "Art.7",
+      "target": "P2.1",
+      "relationship": "equivalent",
+      "rationale": "Conditions for consent — choice communicated and consent obtained from data subjects."
+    },
+    {
+      "source": "Art.7",
       "target": "P1.1",
       "relationship": "partial",
       "rationale": "Notice precedes consent capture; supports demonstrable consent."
+    },
+
+    {
+      "source": "Art.9",
+      "target": "P3.2",
+      "relationship": "equivalent",
+      "rationale": "Processing of special categories of personal data — explicit consent required for sensitive personal information."
     },
 
     {
@@ -111,6 +130,12 @@
       "rationale": "Requests addressed in a timely manner — DSAR SLA."
     },
     {
+      "source": "Art.15",
+      "target": "P6.7",
+      "relationship": "partial",
+      "rationale": "Right of access includes information on recipients (Art.15(1)(c)) — overlaps with the TSC accounting-of-disclosures criterion."
+    },
+    {
       "source": "Art.16",
       "target": "P5.1",
       "relationship": "equivalent",
@@ -121,6 +146,12 @@
       "target": "P5.1",
       "relationship": "partial",
       "rationale": "Erasure handled within the access/correction request workflow."
+    },
+    {
+      "source": "Art.17",
+      "target": "P4.3",
+      "relationship": "partial",
+      "rationale": "Right to erasure operationalised through the secure-disposal control."
     },
     {
       "source": "Art.21",
@@ -152,14 +183,26 @@
       "source": "Art.28",
       "target": "P6.4",
       "relationship": "partial",
-      "rationale": "Third parties assessed for compliance with privacy commitments."
+      "rationale": "Privacy commitments obtained from vendors and other third parties."
+    },
+    {
+      "source": "Art.28",
+      "target": "P6.5",
+      "relationship": "partial",
+      "rationale": "Periodic assessment of processor compliance with the DPA — Art. 28(3)(h) audit rights."
     },
 
     {
       "source": "Art.30",
-      "target": "P7.1",
+      "target": "P6.7",
       "relationship": "partial",
-      "rationale": "Inventory of personal-information types and collection methods — analogous to RoPA."
+      "rationale": "RoPA includes recipients of personal data (Art.30(1)(d)/(2)(c)) — underpins the accounting of disclosures the controller must provide on request."
+    },
+    {
+      "source": "Art.30",
+      "target": "CC2.1",
+      "relationship": "informs",
+      "rationale": "RoPA is the relevant, quality information about processing that COSO Principle 13 expects management to obtain or generate."
     },
 
     {
@@ -212,6 +255,12 @@
       "rationale": "Affected parties (incl. supervisory authority) notified of security incidents."
     },
     {
+      "source": "Art.33",
+      "target": "P6.6",
+      "relationship": "equivalent",
+      "rationale": "Notification of personal-data breach to the supervisory authority within 72 hours."
+    },
+    {
       "source": "Art.34",
       "target": "CC7.4",
       "relationship": "equivalent",
@@ -222,6 +271,12 @@
       "target": "P6.3",
       "relationship": "partial",
       "rationale": "Unauthorized disclosures identified and communicated."
+    },
+    {
+      "source": "Art.34",
+      "target": "P6.6",
+      "relationship": "equivalent",
+      "rationale": "Communication of personal-data breach to affected data subjects without undue delay."
     },
 
     {

@@ -4,13 +4,13 @@
 
 <h1 align="center">Trustalo</h1>
 
+<p align="center">Trustra gets founders to their first enterprise deal.</p>
+
 <p align="center">
   <a href="https://discord.gg/smDQgB5z">
     <img src="https://img.shields.io/badge/Discord-Join%20Chat-5865F2?logo=discord&logoColor=white" alt="Join Trustalo on Discord" />
   </a>
 </p>
-
-> Source-available compliance management platform — free for startups, modern stack, batteries included.
 
 <p align="center">
   <img src="docs/images/dashboard.jpg" alt="Trustalo dashboard — framework readiness and compliance posture at a glance" width="900" />

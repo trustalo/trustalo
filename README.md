@@ -7,7 +7,7 @@
 <p align="center">Trustra gets founders to their first enterprise deal.</p>
 
 <p align="center">
-  <a href="https://discord.gg/smDQgB5z">
+  <a href="https://discord.gg/VuzEpuNezw">
     <img src="https://img.shields.io/badge/Discord-Join%20Chat-5865F2?logo=discord&logoColor=white" alt="Join Trustalo on Discord" />
   </a>
 </p>

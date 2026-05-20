@@ -264,6 +264,12 @@ function buildDomainItems(
 }
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
+  // Gate the entire dashboard tree behind a synchronous auth check so the
+  // shell never flashes for unauthenticated users. The check runs on first
+  // mount; while it's pending (or while we're navigating to /login) we
+  // render nothing. apiClient.isAuthenticated() is synchronous so this
+  // resolves within a single render frame for the happy path.
+  const [authChecked, setAuthChecked] = useState(false);
   const [enabledFrameworkTypes, setEnabledFrameworkTypes] = useState<Set<FrameworkType>>(new Set());
   const [orgName, setOrgName] = useState<string>("");
   const [userInitials, setUserInitials] = useState<string>("");
@@ -273,7 +279,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   const enterpriseGated = useEnterpriseGated();
 
   useEffect(() => {
-    if (!apiClient.isAuthenticated()) return;
+    if (!apiClient.isAuthenticated()) {
+      window.location.href = "/login";
+      return;
+    }
+    setAuthChecked(true);
 
     apiClient
       .listFrameworkInstances()
@@ -346,6 +356,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       },
     ].filter((section) => section.items.length > 0);
   }, [enabledFrameworkTypes, hasPermission, enterpriseGated]);
+
+  // Render-block until we've confirmed an active session. This prevents the
+  // dashboard shell from flashing on screen for an unauthenticated user
+  // before window.location.href has a chance to redirect to /login.
+  if (!authChecked) return null;
 
   return (
     <ChatProvider>

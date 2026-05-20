@@ -1,4 +1,4 @@
-export type AIProviderType = "openai" | "anthropic" | "bedrock" | "openrouter";
+export type AIProviderType = "openai" | "anthropic" | "bedrock" | "openrouter" | "litellm";
 
 /**
  * Per-feature AI configuration keys.
@@ -35,7 +35,11 @@ export type AIFeatureType =
   // Per-control evidence agent: an LLM-driven loop in the collector
   // that follows natural-language instructions and calls integration
   // provider capabilities as tools to gather audit-grade evidence.
-  | "evidence_agent";
+  | "evidence_agent"
+  // Vendor research deep-dive (collector). Previously hard-wired to
+  // OPENAI_MODEL via a direct SDK call; routed through resolveOrgAI
+  // since the LiteLLM/metering work so every inference is metered.
+  | "vendor_research";
 
 export interface AIProviderCredentials {
   provider: AIProviderType;
@@ -90,6 +94,7 @@ export const PROVIDER_LABELS: Record<AIProviderType, string> = {
   anthropic: "Anthropic",
   bedrock: "AWS Bedrock",
   openrouter: "OpenRouter",
+  litellm: "LiteLLM Proxy",
 };
 
 export const PROVIDER_MODELS: Record<AIProviderType, { value: string; label: string }[]> = {
@@ -120,6 +125,16 @@ export const PROVIDER_MODELS: Record<AIProviderType, { value: string; label: str
     { value: "google/gemini-2.5-pro-preview", label: "Gemini 2.5 Pro" },
     { value: "meta-llama/llama-4-maverick", label: "Llama 4 Maverick" },
   ],
+  // LiteLLM model names are virtual aliases configured on the proxy
+  // itself (`config.yaml` `model_list:` entries). The values below are
+  // the conventions Trustalo's managed proxy ships with; self-hosted
+  // operators are free to define their own aliases and override the
+  // selection via per-feature `AIFeatureConfig.model`.
+  litellm: [
+    { value: "trustalo-default", label: "Trustalo Default (Sonnet-class)" },
+    { value: "trustalo-premium", label: "Trustalo Premium (Opus-class)" },
+    { value: "trustalo-fast", label: "Trustalo Fast (Haiku-class)" },
+  ],
 };
 
 export const FEATURE_LABELS: Record<AIFeatureType, string> = {
@@ -138,6 +153,7 @@ export const FEATURE_LABELS: Record<AIFeatureType, string> = {
   context_extraction: "Context Extraction",
   chat_assistant: "Compliance Assistant Chat",
   evidence_agent: "Evidence Collection Agent",
+  vendor_research: "Vendor Research",
 };
 
 /**
@@ -150,4 +166,5 @@ export const PROVIDER_DEFAULT_MODEL: Record<AIProviderType, string> = {
   anthropic: "claude-3-5-sonnet-20241022",
   bedrock: "anthropic.claude-3-5-sonnet-20241022-v2:0",
   openrouter: "openai/gpt-4o-mini",
+  litellm: "trustalo-default",
 };

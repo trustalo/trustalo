@@ -11,6 +11,7 @@ import { authorizeResource } from "../../middleware/authorize.js";
 import { createStorageProvider } from "@trustalo/storage";
 import { audit } from "../../lib/audit.js";
 import { suggestVendorTier, VendorNotFoundError } from "./ai-suggest-tier.js";
+import { resolveOrgAI } from "../../config/ai.js";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 
@@ -202,6 +203,44 @@ async function publishResearchRequest(
 ): Promise<void> {
   try {
     const queue = getQueueProvider();
+
+    // Resolve the AI provider here (in the API) rather than in the
+    // collector. Two reasons:
+    //   1. The resolver hot path checks the EE license + credit wallet;
+    //      doing the check at publish time fails fast (HTTP 402) before
+    //      we waste an SQS message + LiteLLM call on a tenant out of
+    //      credits.
+    //   2. The collector doesn't have AIProviderConfig in its own
+    //      Prisma schema — having the API publish creds avoids a
+    //      cross-service config-mirror table.
+    // If resolution fails (no operator config + no org config + no
+    // EE license), we log a warning and let the collector use its
+    // legacy OPENAI_MODEL fallback so vendor research doesn't simply
+    // stop working on deploys that haven't configured AI yet. Once
+    // the rollout settles, this fallback should be removed.
+    let ai: VendorResearchRequestMessage["ai"];
+    try {
+      const resolved = await resolveOrgAI(vendor.tenantId, "vendor_research");
+      ai = {
+        provider: resolved.provider,
+        model: resolved.model,
+        source: resolved.source,
+        credentials: {
+          apiKey: resolved.credentials.apiKey,
+          region: resolved.credentials.region,
+          accessKeyId: resolved.credentials.accessKeyId,
+          secretAccessKey: resolved.credentials.secretAccessKey,
+          baseUrl: resolved.credentials.baseUrl,
+          useDefaultChain: resolved.credentials.useDefaultChain,
+        },
+      };
+    } catch (err) {
+      console.warn(
+        `[vendors] resolveOrgAI(vendor_research) failed for tenant=${vendor.tenantId}; collector will fall back to OPENAI_MODEL:`,
+        err,
+      );
+    }
+
     const message: VendorResearchRequestMessage = {
       type: "vendor_research_request",
       vendorId: vendor.id,
@@ -212,6 +251,7 @@ async function publishResearchRequest(
       vendorCategory: vendor.category,
       vendorDescription: vendor.description,
       knownVendorId: vendor.knownVendorId,
+      ai,
     };
 
     await queue.publish(QUEUE_URLS.vendorResearchRequests, {

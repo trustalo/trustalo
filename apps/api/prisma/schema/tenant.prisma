@@ -88,6 +88,11 @@ model Tenant {
   directorySyncConfigs          DirectorySyncConfig[]
   directorySyncRuns             DirectorySyncRun[]
   externalIdentityMappings      ExternalIdentityMapping[]
+  // EE: managed LiteLLM routing + metered billing. See
+  // prisma/schema/billing.ee.prisma.
+  billingConfig                 TenantBillingConfig?
+  litellmKey                    TenantLiteLLMKey?
+  creditWallet                  CreditWallet?
 }
 
 model TenantSettings {

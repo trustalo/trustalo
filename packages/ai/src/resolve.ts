@@ -3,6 +3,41 @@ import { PROVIDER_DEFAULT_MODEL } from "./types.js";
 import { createAIProvider } from "./factory.js";
 
 /**
+ * Optional short-circuit returned by a `ManagedRoutingResolver`. When
+ * present, the standard precedence chain is bypassed entirely and the
+ * resolver returns this provider+model+credentials triple instead.
+ *
+ * The hook exists so EE-only managed-proxy logic (per-tenant LiteLLM
+ * virtual keys, credit-wallet gating, BYOK pass-through teams) can plug
+ * into the core resolver without dragging Stripe/billing imports into
+ * the `@trustalo/ai` package. The API layer wires
+ * `apps/api/src/modules/billing.ee/routing-resolver.ee.ts` as the
+ * implementation in SaaS; self-hosted deployments leave the hook unset
+ * and the existing precedence chain runs unchanged.
+ */
+export interface ManagedRoutingOverride {
+  provider: AIProviderType;
+  model: string;
+  credentials: AIProviderCredentials;
+  /**
+   * Identifier surfaced as the `source` field on `ResolvedAI`. EE
+   * implementations use `"managed"`. The string is otherwise opaque to
+   * the resolver — callers may inspect it for telemetry.
+   */
+  source: AIResolutionSource;
+  /**
+   * Forwarded to `createAIProvider`. For LiteLLM, this carries
+   * `tenantId` + `feature` so the proxy can attribute spend.
+   */
+  litellm?: { tenantId?: string; feature?: string };
+}
+
+export type ManagedRoutingResolver = (ctx: {
+  tenantId: string;
+  feature: AIFeatureType;
+}) => Promise<ManagedRoutingOverride | null>;
+
+/**
  * AI provider resolution layer (constraint C2 in the AI accelerators plan).
  *
  * Walks the precedence: operator default → per-org config → per-feature
@@ -17,7 +52,7 @@ import { createAIProvider } from "./factory.js";
  * in a small per-org TTL cache from the API layer.
  */
 
-export type AIResolutionSource = "operator" | "org" | "feature";
+export type AIResolutionSource = "operator" | "org" | "feature" | "managed";
 
 export interface OperatorAIDefaults {
   /** Provider chosen at deploy time via env (`AI_PROVIDER`). */
@@ -62,6 +97,12 @@ export interface ResolveContext {
    */
   loadOrgProviders: (tenantId: string) => Promise<OrgProviderRow[]>;
   loadOrgFeatures: (tenantId: string) => Promise<OrgFeatureRow[]>;
+  /**
+   * Optional EE-only short-circuit. If supplied and it returns a
+   * non-null override, the standard precedence is bypassed and the
+   * override is used. See `ManagedRoutingResolver` doc above.
+   */
+  resolveManagedRouting?: ManagedRoutingResolver;
 }
 
 export interface ResolvedAI {
@@ -92,6 +133,29 @@ export class AINotConfiguredError extends Error {
  * usable configuration exists at any layer.
  */
 export async function resolveAIProvider(ctx: ResolveContext): Promise<ResolvedAI> {
+  // ── 0. Managed-routing short-circuit (EE) ───────────────────────
+  // Runs before the precedence chain so a tenant on Trustalo-hosted
+  // SaaS routes 100% of inference through the managed LiteLLM proxy
+  // regardless of any stale BYOK rows in `AIProviderConfig`. The hook
+  // is responsible for its own license gate and credit-wallet check.
+  if (ctx.resolveManagedRouting) {
+    const override = await ctx.resolveManagedRouting({
+      tenantId: ctx.tenantId,
+      feature: ctx.feature,
+    });
+    if (override) {
+      return {
+        provider: override.provider,
+        model: override.model,
+        credentials: override.credentials,
+        source: override.source,
+        client: createAIProvider(override.credentials, override.model, {
+          litellm: override.litellm,
+        }),
+      };
+    }
+  }
+
   const operator = ctx.getOperatorDefaults();
 
   // Load org overrides up-front; the feature override may point at a
@@ -188,6 +252,32 @@ function mergeCredentials(
       provider === "bedrock"
         ? !(org.accessKeyId && org.secretAccessKey) && (opCreds.useDefaultChain ?? true)
         : undefined,
+  };
+}
+
+/**
+ * Convenience helper for the EE managed-routing resolver. Builds a
+ * LiteLLM `ManagedRoutingOverride` from a virtual key and the proxy URL
+ * with proper spend-attribution metadata. Kept here (and not in the EE
+ * package) because it has zero policy logic — it is just plumbing.
+ */
+export function buildLiteLLMOverride(args: {
+  tenantId: string;
+  feature: AIFeatureType;
+  baseUrl: string;
+  virtualKey: string;
+  model: string;
+}): ManagedRoutingOverride {
+  return {
+    provider: "litellm",
+    model: args.model,
+    credentials: {
+      provider: "litellm",
+      apiKey: args.virtualKey,
+      baseUrl: args.baseUrl,
+    },
+    source: "managed",
+    litellm: { tenantId: args.tenantId, feature: args.feature },
   };
 }
 

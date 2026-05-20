@@ -51,7 +51,7 @@ export interface RiskScoreSuggestion {
   confidence: number;
   caveats: string[];
   modelUsed: string;
-  providerSource: "operator" | "org" | "feature";
+  providerSource: "operator" | "org" | "feature" | "managed";
   generatedAt: string;
 }
 

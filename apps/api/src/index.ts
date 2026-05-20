@@ -40,6 +40,9 @@ import {
   startDirectorySyncScheduler,
   stopDirectorySyncScheduler,
 } from "./modules/directory-sync/scheduler.ee.js";
+import { billingRouter } from "./modules/billing.ee/router.ee.js";
+import { litellmWebhookRouter } from "./modules/billing.ee/webhook.ee.js";
+import { registerEEBillingRouting } from "./modules/billing.ee/routing-resolver.ee.js";
 import {
   startResearchResultsWorker,
   stopResearchResultsWorker,
@@ -87,6 +90,12 @@ app.use("/api/v1/trust-center/public", trustCenterPublicRouter);
 // `authenticate` middleware below.
 app.use("/internal", internalRouter);
 
+// LiteLLM spend webhook authenticates with an HMAC signature, not a
+// JWT, so it must be mounted before `authenticate` like the internal
+// router. See modules/billing.ee/webhook.ee.ts for the signing
+// contract.
+app.use("/api/v1/billing/webhooks", litellmWebhookRouter);
+
 app.use("/api/v1", authenticate);
 app.use("/api/v1/organizations", organizationsRouter);
 app.use("/api/v1/frameworks", frameworksRouter);
@@ -114,6 +123,7 @@ app.use("/api/v1/integrations", integrationsRouter);
 app.use("/api/v1/questionnaires", questionnairesRouter);
 app.use("/api/v1/license", licenseRouter);
 app.use("/api/v1/directory-sync", directorySyncRouter);
+app.use("/api/v1/billing", billingRouter);
 
 app.use(errorHandler);
 
@@ -122,6 +132,10 @@ async function start() {
   // misconfiguration (missing Cognito env vars, broken external plugin, etc.)
   // surfaces immediately instead of failing the first login request.
   await getActiveAuthProvider();
+
+  // Wire the EE managed-routing resolver into the AI resolution chain.
+  // No-op in self-hosted deploys (LITELLM_BASE_URL unset).
+  registerEEBillingRouting();
 
   await connectMongo();
   console.log("[api] MongoDB connected");

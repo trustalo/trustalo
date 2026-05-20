@@ -1,0 +1,186 @@
+// EE: Trustalo-managed LiteLLM routing + metered billing.
+//
+// This schema is loaded when running prisma:combine. It models the
+// minimum state needed to:
+//   - provision and refresh per-tenant LiteLLM virtual keys
+//   - track prepaid credit balance (1 credit == 1 USD; markup is
+//     baked into the purchase price)
+//   - record per-call spend events for audit + reconciliation
+//   - roll those events up monthly for fast dashboard reads
+//
+// All tables are gated at the application layer behind the `ai-metered`
+// feature id (see packages/license/src/types.ts). Self-hosted
+// deployments without an EE license will simply never write to them.
+
+enum TenantBillingMode {
+  // Trustalo pays the upstream provider via its master account on
+  // LiteLLM. Tenant pays Trustalo at the markup-inclusive credit price.
+  managed
+  // Tenant brings their own provider keys. LiteLLM proxies their
+  // traffic for logging/governance only; Trustalo applies 0% markup
+  // on inference and bills only the platform fee.
+  byok_passthrough
+  // Operator has explicitly disabled metering for this tenant
+  // (e.g. internal accounts, partner accounts). Skips wallet checks
+  // and never debits. Should be used sparingly.
+  disabled
+}
+
+enum TenantLiteLLMKeyStatus {
+  active
+  suspended
+  expired
+  rotating
+}
+
+model TenantBillingConfig {
+  id           String            @id @default(cuid())
+  tenantId     String            @unique
+  mode         TenantBillingMode @default(managed)
+  // Hard ceiling (in microcents) the tenant can ever spend per month
+  // regardless of wallet balance. Defence-in-depth against runaway
+  // costs from a compromised account. `null` means unlimited.
+  monthlySpendCapMicrocents BigInt?
+  // Operator overrides for tier mapping. When set, takes precedence
+  // over the per-feature `AIFeatureConfig.model`. Used for partner /
+  // dev accounts that need a non-default routing.
+  modelTierOverride         String?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  tenant       Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+}
+
+model TenantLiteLLMKey {
+  id                String                @id @default(cuid())
+  tenantId          String                @unique
+  // LiteLLM's identifier for the key (its `/key/info` "token" hash).
+  // Stable across rotations — only `virtualKeyCipher` changes.
+  litellmKeyId      String                @unique
+  // AES-256-GCM ciphertext of the actual virtual key. NEVER logged
+  // and decrypted lazily inside the resolver hot path.
+  virtualKeyCipher  String
+  // Comma-separated model aliases this key may use. Enforced
+  // server-side by LiteLLM; mirrored here for fast pre-flight checks.
+  modelAllowlist    String[]
+  status            TenantLiteLLMKeyStatus @default(active)
+  // Max budget configured on LiteLLM for this key, in microcents.
+  // `null` means no cap (managed-mode wallets enforce the cap via
+  // top-up balance; pass-through mode usually leaves this null).
+  budgetMaxMicrocents BigInt?
+  // Last-known LiteLLM-reported spend for reconciliation. Source of
+  // truth lives on LiteLLM; this is a cache to detect drift.
+  observedSpendMicrocents BigInt          @default(0)
+  lastSyncedAt      DateTime?
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+
+  tenant            Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+}
+
+model CreditWallet {
+  id                          String   @id @default(cuid())
+  tenantId                    String   @unique
+  // Available credits in microcents (USD). 1 credit == 1 USD ==
+  // 1_000_000 microcents. Cannot go negative — the LLM path checks
+  // this before resolving and 402s when zero.
+  balanceMicrocents           BigInt   @default(0)
+  // Lifetime stats for the dashboard.
+  lifetimeCreditedMicrocents  BigInt   @default(0)
+  lifetimeDebitedMicrocents   BigInt   @default(0)
+  // Low-balance warning threshold (in microcents). When the balance
+  // crosses this downward, a TaskService notification fires. `null`
+  // means use the operator-level default.
+  lowBalanceThresholdMicrocents BigInt?
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+
+  tenant                      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  transactions                CreditTransaction[]
+
+  @@index([tenantId])
+}
+
+enum CreditTransactionKind {
+  // Tenant purchased credits via Stripe.
+  purchase
+  // Operator gifted credits (trial, support credit, etc.).
+  grant
+  // Refund of a prior purchase (Stripe webhook).
+  refund
+  // LLM call debited the wallet (signed negative).
+  debit
+  // Reconciliation correction after spend-sync detected drift.
+  adjustment
+  // Promotional credit that expires.
+  promotion_expiry
+}
+
+model CreditTransaction {
+  id              String                @id @default(cuid())
+  walletId        String
+  tenantId        String
+  // Signed amount. Positive for credits added, negative for debits.
+  amountMicrocents BigInt
+  kind            CreditTransactionKind
+  // Free-form human-readable reason. Surfaced in the billing UI.
+  reason          String?
+  // For purchase/refund: the Stripe checkout session / payment intent.
+  // For debit: the LiteLLMSpendEvent.id that triggered the debit.
+  // For adjustment: the reconciliation run id.
+  externalRef     String?
+  // Snapshot of wallet balance AFTER applying this transaction. Lets
+  // the UI render a running balance without re-summing the entire log.
+  balanceAfterMicrocents BigInt
+  createdAt       DateTime              @default(now())
+
+  wallet          CreditWallet          @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, createdAt])
+  @@index([walletId, createdAt])
+}
+
+model LiteLLMSpendEvent {
+  id                  String   @id @default(cuid())
+  tenantId            String
+  feature             AIFeature
+  model               String
+  promptTokens        Int
+  completionTokens    Int
+  // Raw upstream cost reported by LiteLLM, in microcents (×1_000_000).
+  // Stored at microcent precision because individual completions can
+  // cost less than a full cent.
+  rawCostMicrocents   BigInt
+  // After Trustalo's markup. For BYOK pass-through this equals raw.
+  markedUpMicrocents  BigInt
+  // LiteLLM's request id. Indexed unique so the spend sync is
+  // idempotent and a webhook retry never double-debits.
+  litellmRequestId    String   @unique
+  occurredAt          DateTime
+  createdAt           DateTime @default(now())
+
+  @@index([tenantId, occurredAt])
+  @@index([tenantId, feature, occurredAt])
+}
+
+model TenantAIUsageMonth {
+  tenantId             String
+  // ISO month, e.g. "2026-05". Cheaper than a DateTime when the only
+  // operation is monthly grouping.
+  yearMonth            String
+  totalPromptTokens    Int      @default(0)
+  totalCompletionTokens Int     @default(0)
+  // Aggregate raw cost (microcents) — useful for cost-of-goods reports.
+  totalRawCostMicrocents BigInt @default(0)
+  // Aggregate billed cost (microcents) — what hit the wallet.
+  totalBilledMicrocents BigInt  @default(0)
+  // JSON breakdown by feature/model: { "chat_assistant": { tokens, billed }, ... }
+  byFeature            Json     @default("{}")
+  updatedAt            DateTime @updatedAt
+
+  @@id([tenantId, yearMonth])
+}

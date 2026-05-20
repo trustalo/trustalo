@@ -17,6 +17,9 @@ export {
 } from "./types.js";
 
 export { createAIProvider } from "./factory.js";
+export type { CreateAIProviderOptions } from "./factory.js";
+export { createLiteLLMProvider } from "./providers/litellm.js";
+export type { LiteLLMProviderOptions } from "./providers/litellm.js";
 export { generateQuizQuestions } from "./prompts/quiz.ee.js";
 
 // Phase 1 of "ongoing AI context"
@@ -53,11 +56,14 @@ export type {
   OrgFeatureRow,
   ResolveContext,
   ResolvedAI,
+  ManagedRoutingOverride,
+  ManagedRoutingResolver,
 } from "./resolve.js";
 export {
   resolveAIProvider,
   AINotConfiguredError,
   AI_NOT_CONFIGURED_PUBLIC_MESSAGE,
+  buildLiteLLMOverride,
 } from "./resolve.js";
 
 export { AIProviderError, wrapProviderError } from "./errors.js";

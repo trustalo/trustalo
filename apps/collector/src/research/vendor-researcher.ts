@@ -1,9 +1,48 @@
 import OpenAI from "openai";
+import {
+  createAIProvider,
+  type AIProvider,
+  type AIProviderCredentials,
+  type AIProviderType,
+} from "@trustalo/ai";
 import { createSearchEngine, type SearchEngine, type SearchResult } from "./search/index.js";
 
-const openai = new OpenAI({
-  apiKey: process.env["OPENAI_API_KEY"] ?? "",
-});
+/**
+ * Resolved AI handoff passed from the API in the SQS message. The
+ * shape is intentionally minimal — see
+ * apps/api/src/lib/queue.ts::ResolvedAIForCollector for the full type.
+ */
+export interface ResolvedAIInput {
+  provider: AIProviderType;
+  model: string;
+  source: "operator" | "org" | "feature" | "managed";
+  credentials: {
+    apiKey?: string;
+    region?: string;
+    accessKeyId?: string;
+    secretAccessKey?: string;
+    baseUrl?: string;
+    useDefaultChain?: boolean;
+  };
+}
+
+/**
+ * Legacy fallback used ONLY when the API publisher couldn't resolve
+ * AI configuration (no operator default, no org row, no EE license).
+ * Kept behind a feature flag so messages in-flight during the rollout
+ * still complete; new code should never enter this branch.
+ */
+let legacyOpenai: OpenAI | null = null;
+function getLegacyOpenAI(): OpenAI {
+  if (legacyOpenai) return legacyOpenai;
+  if (!process.env["OPENAI_API_KEY"]) {
+    throw new Error(
+      "[research] legacy fallback requested but OPENAI_API_KEY is unset. Configure AI in Settings or set OPENAI_API_KEY.",
+    );
+  }
+  legacyOpenai = new OpenAI({ apiKey: process.env["OPENAI_API_KEY"] });
+  return legacyOpenai;
+}
 
 let searchEngine: SearchEngine | null = null;
 
@@ -19,6 +58,20 @@ export interface VendorResearchInput {
   vendorWebsite?: string | null;
   vendorCategory?: string | null;
   vendorDescription?: string | null;
+  /**
+   * Tenant the research is being run for. Required when `ai` is
+   * supplied (so LiteLLM metadata can attribute spend) and harmless
+   * to set otherwise — surfaced in audit logs.
+   */
+  tenantId?: string;
+  /**
+   * Resolved AI provider+model+credentials produced by the API
+   * publisher's `resolveOrgAI("vendor_research")` call. When absent,
+   * the legacy OPENAI_MODEL/OPENAI_API_KEY path runs (this branch is
+   * scheduled for removal once the new flow has been live for one
+   * release; track via the migration note in docs/ai-features.md §8).
+   */
+  ai?: ResolvedAIInput;
 }
 
 export interface VendorResearchResult {
@@ -155,18 +208,44 @@ export async function performVendorResearch(
 
   const userPrompt = buildResearchPrompt(input, combinedContext);
 
-  const completion = await openai.chat.completions.create({
-    model: process.env["OPENAI_MODEL"] ?? "gpt-4o",
-    messages: [
-      { role: "system", content: RESEARCH_SYSTEM_PROMPT },
-      { role: "user", content: userPrompt },
-    ],
-    response_format: { type: "json_object" },
-    temperature: 0.3,
-    max_tokens: 4096,
-  });
+  const messages = [
+    { role: "system" as const, content: RESEARCH_SYSTEM_PROMPT },
+    { role: "user" as const, content: userPrompt },
+  ];
 
-  const content = completion.choices[0]?.message?.content;
+  let content = "";
+  let modelUsed: string;
+
+  if (input.ai) {
+    // New path: use the resolved provider from the API. In SaaS this
+    // is always LiteLLM (provider == "litellm", source == "managed"),
+    // which means the spend is metered against the tenant's wallet.
+    const provider = buildProvider(input);
+    const completion = await provider.chat({
+      messages,
+      responseFormat: "json",
+      temperature: 0.3,
+      maxTokens: 4096,
+    });
+    content = completion.content;
+    modelUsed = completion.model || input.ai.model;
+  } else {
+    // Legacy fallback. Logs a warning at module load so operators
+    // notice during the rollout.
+    console.warn(
+      "[research] no `ai` field on the message — falling back to OPENAI_MODEL. This branch is deprecated; ensure the API publisher is up-to-date.",
+    );
+    const completion = await getLegacyOpenAI().chat.completions.create({
+      model: process.env["OPENAI_MODEL"] ?? "gpt-4o",
+      messages,
+      response_format: { type: "json_object" },
+      temperature: 0.3,
+      max_tokens: 4096,
+    });
+    content = completion.choices[0]?.message?.content ?? "";
+    modelUsed = completion.model || process.env["OPENAI_MODEL"] || "gpt-4o";
+  }
+
   if (!content) {
     throw new Error("Empty response from AI model");
   }
@@ -183,12 +262,34 @@ export async function performVendorResearch(
       url: r.url,
       score: r.score,
     })),
-    modelUsed: process.env["OPENAI_MODEL"] ?? "gpt-4o",
+    modelUsed,
+    providerSource: input.ai?.source ?? "legacy",
     searchEngine: getSearchEngine().name,
     researchedAt: new Date().toISOString(),
   };
 
   return result;
+}
+
+function buildProvider(input: VendorResearchInput): AIProvider {
+  if (!input.ai) {
+    throw new Error("buildProvider called without ai handoff");
+  }
+  const creds: AIProviderCredentials = {
+    provider: input.ai.provider,
+    apiKey: input.ai.credentials.apiKey,
+    region: input.ai.credentials.region,
+    accessKeyId: input.ai.credentials.accessKeyId,
+    secretAccessKey: input.ai.credentials.secretAccessKey,
+    baseUrl: input.ai.credentials.baseUrl,
+    useDefaultChain: input.ai.credentials.useDefaultChain,
+  };
+  return createAIProvider(creds, input.ai.model, {
+    litellm: {
+      tenantId: input.tenantId,
+      feature: "vendor_research",
+    },
+  });
 }
 
 function buildResearchPrompt(input: VendorResearchInput, searchContext: string): string {

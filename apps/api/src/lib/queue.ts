@@ -33,6 +33,35 @@ export const QUEUE_URLS = {
 
 // ── Message type definitions for vendor research ──
 
+/**
+ * Compact AI provider envelope carried inside cross-service messages so
+ * the collector never has to read AI provider configuration from its
+ * own DB (which would force it to mirror tenant secrets cross-process).
+ *
+ * In managed-mode SaaS, the credentials are a per-tenant LiteLLM
+ * virtual key + the proxy URL — limited blast radius if the queue is
+ * ever compromised, since the key is revocable and scoped to one
+ * tenant's budget.
+ *
+ * In self-hosted mode without LiteLLM, the credentials are whatever
+ * the resolver returned (org BYOK or operator). Operators concerned
+ * about queue-at-rest leakage should enable SQS server-side encryption
+ * or switch to managed LiteLLM mode.
+ */
+export interface ResolvedAIForCollector {
+  provider: "openai" | "anthropic" | "bedrock" | "openrouter" | "litellm";
+  model: string;
+  source: "operator" | "org" | "feature" | "managed";
+  credentials: {
+    apiKey?: string;
+    region?: string;
+    accessKeyId?: string;
+    secretAccessKey?: string;
+    baseUrl?: string;
+    useDefaultChain?: boolean;
+  };
+}
+
 export interface VendorResearchRequestMessage {
   type: "vendor_research_request";
   vendorId: string;
@@ -43,6 +72,15 @@ export interface VendorResearchRequestMessage {
   vendorCategory?: string | null;
   vendorDescription?: string | null;
   knownVendorId?: string | null;
+  /**
+   * Resolved AI configuration for this run. Always populated by the
+   * publisher (vendors/router.ts) so the collector never has to call
+   * resolveOrgAI itself. When this field is absent, the collector
+   * falls back to its legacy OPENAI_MODEL path with a warning log —
+   * this is purely for backwards compatibility with in-flight messages
+   * during the rollout and can be deleted in a follow-up release.
+   */
+  ai?: ResolvedAIForCollector;
 }
 
 export interface VendorResearchResultMessage {

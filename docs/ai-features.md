@@ -21,6 +21,30 @@ From v1.0 onward the AI surface is **tiered**, in lock-step with the EE strategy
 
 `assertEnterpriseLicense("ai")` failures map to **HTTP 402 Payment Required** with a stable error code `ENTERPRISE_LICENSE_<reason>` (see [`apps/api/src/middleware/error-handler.ts`](../apps/api/src/middleware/error-handler.ts)). Local dev should set `TRUSTALO_LICENSE_DEV_BYPASS=1` rather than minting real keys; the bypass is hard-rejected when `NODE_ENV=production`. See [`docs/enterprise.md`](enterprise.md) for the full design.
 
+### Trustalo-managed LiteLLM routing + metered billing (EE — `ai-metered`)
+
+On SaaS, every LLM call is forced through a Trustalo-hosted LiteLLM proxy with a **per-tenant virtual key**. The proxy reports per-request cost back to the API which:
+
+1. Debits the tenant's **prepaid credit wallet** (1 credit == 1 USD; the configured `LITELLM_MARKUP_BPS` — default 30% — is baked into the purchase price; the customer-facing rate is markup-inclusive).
+2. Writes a `LiteLLMSpendEvent` row keyed on the immutable LiteLLM request id (idempotent against webhook retries).
+3. Returns **402 `CREDITS_EXHAUSTED`** on the next LLM call when the wallet hits zero.
+
+Tenants can be in one of three modes (stored as `TenantBillingConfig.mode`):
+
+| Mode | Inference billed by Trustalo? | Notes |
+| --- | --- | --- |
+| `managed` (default) | Yes, markup-inclusive | Standard SaaS path. Wallet checked on every call. |
+| `byok_passthrough` | No (0% markup; only platform fee) | Tenant brings their own OpenAI/Anthropic keys, routed through the proxy for unified logging + spend dashboard. |
+| `disabled` | Inference free at the proxy | Internal / partner accounts. Spend events still recorded, wallet never debited. |
+
+Wiring lives in:
+
+- [`packages/ai/src/providers/litellm.ts`](../packages/ai/src/providers/litellm.ts) — core LiteLLM provider (also reusable for self-hosted BYO proxy).
+- [`packages/billing.ee/`](../packages/billing.ee/) — admin client, money math, spend normaliser. Framework-agnostic.
+- [`apps/api/src/modules/billing.ee/`](../apps/api/src/modules/billing.ee/) — Express routes (`/api/v1/billing/*`), webhook receiver, key provisioning, wallet debit.
+- [`apps/api/src/config/litellm.ts`](../apps/api/src/config/litellm.ts) — `LITELLM_*` env parser.
+- The `ManagedRoutingResolver` hook in [`packages/ai/src/resolve.ts`](../packages/ai/src/resolve.ts) — runtime DI seam used by the API to inject EE behavior without core depending on EE.
+
 ## Table of Contents
 
 1. [Architecture overview](#1-architecture-overview)

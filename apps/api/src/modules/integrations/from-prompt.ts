@@ -76,7 +76,7 @@ export interface GeneratedCheck {
   suggestedSchedule: string;
   suggestedFrameworkRefs: FrameworkRef[];
   modelUsed: string;
-  providerSource: "operator" | "org" | "feature";
+  providerSource: "operator" | "org" | "feature" | "managed";
 }
 
 const RawAiResponseSchema = z.object({

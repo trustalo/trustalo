@@ -30,7 +30,7 @@ import { decryptStringMaybe, encryptStringMaybe } from "../../lib/crypto-envelop
 export const aiConfigRouter: Router = Router();
 aiConfigRouter.use(authorizeResource("settings:read", "settings:write"));
 
-const providerEnum = z.enum(["openai", "anthropic", "bedrock", "openrouter"]);
+const providerEnum = z.enum(["openai", "anthropic", "bedrock", "openrouter", "litellm"]);
 const featureEnum = z.enum([
   "quiz_generation",
   "risk_analysis",
@@ -44,6 +44,14 @@ const featureEnum = z.enum([
   "vendor_scoring",
   "questionnaire_answering",
   "trust_center_summary",
+  // Previously omitted (docs/ai-features.md gap #1) — added now so
+  // operators can configure per-feature provider/model for chat and
+  // extraction without dropping into SQL.
+  "chat_assistant",
+  "context_extraction",
+  "evidence_agent",
+  // New feature: vendor research, previously bypassed resolveOrgAI.
+  "vendor_research",
 ]);
 
 // =====================================================================

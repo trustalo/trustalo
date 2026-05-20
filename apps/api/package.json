@@ -28,6 +28,7 @@
     "@prisma/client-runtime-utils": "^7.5.0",
     "@trustalo/ai": "workspace:*",
     "@trustalo/auth": "workspace:*",
+    "@trustalo/billing.ee": "workspace:*",
     "@trustalo/auth-provider-cognito": "workspace:*",
     "@trustalo/auth-provider-google": "workspace:*",
     "@trustalo/auth-provider-keycloak": "workspace:*",

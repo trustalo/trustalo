@@ -49,6 +49,7 @@ Two feature IDs are reserved:
 
 - `ai` — the umbrella entitlement. Required by every EE-AI entry point above. A token without `ai` cannot run any of them.
 - `ai-premium` — reserved for future sub-features that need premium-model selection (Sonnet/Opus tier), agentic workflows, or RAG over a customer's own knowledge base. Tokens that hold `ai-premium` should also hold `ai`; this doc and the issuer script enforce the convention.
+- `ai-metered` — turns on **Trustalo-managed LiteLLM routing + metered billing**. Every LLM call is forced through Trustalo's hosted LiteLLM proxy with a per-tenant virtual key and debited from a prepaid credit wallet (1 credit == 1 USD; markup is baked into the purchase price at the configured `LITELLM_MARKUP_BPS`). MUST coexist with `ai` — the issuer script rejects a token holding `ai-metered` alone, and `assertEnterpriseLicense("ai-metered")` re-checks the relationship at runtime. Implementation in [`packages/billing.ee/`](../packages/billing.ee/) + [`apps/api/src/modules/billing.ee/`](../apps/api/src/modules/billing.ee/). Self-hosted deploys without this entitlement use the existing precedence chain and are responsible for paying upstream providers directly.
 
 Why this split and not "all AI is EE":
 

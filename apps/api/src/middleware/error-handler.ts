@@ -8,6 +8,10 @@ import {
 } from "@trustalo/ai";
 import { EnterpriseLicenseError } from "@trustalo/license";
 import { isSaaSMode, scrubSecrets } from "../config/deployment.js";
+import {
+  CreditsExhaustedError,
+  WebhookSignatureInvalidError,
+} from "../modules/billing.ee/errors.ee.js";
 
 interface ErrorResponse {
   success: false;
@@ -120,6 +124,30 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
         code: `ENTERPRISE_LICENSE_${err.code.toUpperCase()}`,
         message: "Trustalo Enterprise License is required to use this feature.",
       },
+    } satisfies ErrorResponse);
+    return;
+  }
+
+  // Credit wallet exhausted: the EE billing routing resolver throws
+  // this before issuing an LLM call when the tenant is in managed mode
+  // and the wallet is at $0. Maps to 402 so the SPA can show a clear
+  // "Top up to continue" panel; the error code is distinct from the
+  // EnterpriseLicense 402 so the UI can route it to the billing page
+  // rather than the sales page.
+  if (err instanceof CreditsExhaustedError) {
+    res.status(err.status).json({
+      success: false,
+      error: { code: err.code, message: err.message },
+    } satisfies ErrorResponse);
+    return;
+  }
+
+  // LiteLLM webhook signature failed verification. 401 because the
+  // body is well-formed but the caller is unauthenticated.
+  if (err instanceof WebhookSignatureInvalidError) {
+    res.status(err.status).json({
+      success: false,
+      error: { code: err.code, message: isSaaSMode() ? "Unauthorized" : err.message },
     } satisfies ErrorResponse);
     return;
   }

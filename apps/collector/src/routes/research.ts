@@ -17,6 +17,25 @@ interface VendorResearchRequestMessage {
   vendorCategory?: string | null;
   vendorDescription?: string | null;
   knownVendorId?: string | null;
+  /**
+   * Resolved AI handoff from the API publisher. The shape mirrors
+   * `ResolvedAIForCollector` in apps/api/src/lib/queue.ts. Absent
+   * messages fall through to the legacy OPENAI_MODEL path (logged as
+   * a warning in `performVendorResearch`).
+   */
+  ai?: {
+    provider: "openai" | "anthropic" | "bedrock" | "openrouter" | "litellm";
+    model: string;
+    source: "operator" | "org" | "feature" | "managed";
+    credentials: {
+      apiKey?: string;
+      region?: string;
+      accessKeyId?: string;
+      secretAccessKey?: string;
+      baseUrl?: string;
+      useDefaultChain?: boolean;
+    };
+  };
 }
 
 interface VendorResearchResultMessage {
@@ -76,6 +95,8 @@ async function executeResearch(req: VendorResearchRequestMessage): Promise<void>
       vendorWebsite: req.vendorWebsite,
       vendorCategory: req.vendorCategory,
       vendorDescription: req.vendorDescription,
+      tenantId: req.tenantId,
+      ai: req.ai,
     });
 
     console.log(`[research] completed for vendor=${vendorId} score=${results.overallScore}`);

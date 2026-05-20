@@ -79,6 +79,36 @@ export type BusinessImpactAnalysis = $Result.DefaultSelection<Prisma.$BusinessIm
  */
 export type BCPExercise = $Result.DefaultSelection<Prisma.$BCPExercisePayload>
 /**
+ * Model TenantBillingConfig
+ * 
+ */
+export type TenantBillingConfig = $Result.DefaultSelection<Prisma.$TenantBillingConfigPayload>
+/**
+ * Model TenantLiteLLMKey
+ * 
+ */
+export type TenantLiteLLMKey = $Result.DefaultSelection<Prisma.$TenantLiteLLMKeyPayload>
+/**
+ * Model CreditWallet
+ * 
+ */
+export type CreditWallet = $Result.DefaultSelection<Prisma.$CreditWalletPayload>
+/**
+ * Model CreditTransaction
+ * 
+ */
+export type CreditTransaction = $Result.DefaultSelection<Prisma.$CreditTransactionPayload>
+/**
+ * Model LiteLLMSpendEvent
+ * 
+ */
+export type LiteLLMSpendEvent = $Result.DefaultSelection<Prisma.$LiteLLMSpendEventPayload>
+/**
+ * Model TenantAIUsageMonth
+ * 
+ */
+export type TenantAIUsageMonth = $Result.DefaultSelection<Prisma.$TenantAIUsageMonthPayload>
+/**
  * Model Conversation
  * 
  */
@@ -424,7 +454,8 @@ export namespace $Enums {
   openai: 'openai',
   anthropic: 'anthropic',
   bedrock: 'bedrock',
-  openrouter: 'openrouter'
+  openrouter: 'openrouter',
+  litellm: 'litellm'
 };
 
 export type AIProvider = (typeof AIProvider)[keyof typeof AIProvider]
@@ -445,7 +476,8 @@ export const AIFeature: {
   trust_center_summary: 'trust_center_summary',
   context_extraction: 'context_extraction',
   chat_assistant: 'chat_assistant',
-  evidence_agent: 'evidence_agent'
+  evidence_agent: 'evidence_agent',
+  vendor_research: 'vendor_research'
 };
 
 export type AIFeature = (typeof AIFeature)[keyof typeof AIFeature]
@@ -685,6 +717,37 @@ export const BIAStatus: {
 };
 
 export type BIAStatus = (typeof BIAStatus)[keyof typeof BIAStatus]
+
+
+export const TenantBillingMode: {
+  managed: 'managed',
+  byok_passthrough: 'byok_passthrough',
+  disabled: 'disabled'
+};
+
+export type TenantBillingMode = (typeof TenantBillingMode)[keyof typeof TenantBillingMode]
+
+
+export const TenantLiteLLMKeyStatus: {
+  active: 'active',
+  suspended: 'suspended',
+  expired: 'expired',
+  rotating: 'rotating'
+};
+
+export type TenantLiteLLMKeyStatus = (typeof TenantLiteLLMKeyStatus)[keyof typeof TenantLiteLLMKeyStatus]
+
+
+export const CreditTransactionKind: {
+  purchase: 'purchase',
+  grant: 'grant',
+  refund: 'refund',
+  debit: 'debit',
+  adjustment: 'adjustment',
+  promotion_expiry: 'promotion_expiry'
+};
+
+export type CreditTransactionKind = (typeof CreditTransactionKind)[keyof typeof CreditTransactionKind]
 
 
 export const MessageRole: {
@@ -1673,6 +1736,18 @@ export type BIAStatus = $Enums.BIAStatus
 
 export const BIAStatus: typeof $Enums.BIAStatus
 
+export type TenantBillingMode = $Enums.TenantBillingMode
+
+export const TenantBillingMode: typeof $Enums.TenantBillingMode
+
+export type TenantLiteLLMKeyStatus = $Enums.TenantLiteLLMKeyStatus
+
+export const TenantLiteLLMKeyStatus: typeof $Enums.TenantLiteLLMKeyStatus
+
+export type CreditTransactionKind = $Enums.CreditTransactionKind
+
+export const CreditTransactionKind: typeof $Enums.CreditTransactionKind
+
 export type MessageRole = $Enums.MessageRole
 
 export const MessageRole: typeof $Enums.MessageRole
@@ -2251,6 +2326,66 @@ export class PrismaClient<
     * ```
     */
   get bCPExercise(): Prisma.BCPExerciseDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tenantBillingConfig`: Exposes CRUD operations for the **TenantBillingConfig** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TenantBillingConfigs
+    * const tenantBillingConfigs = await prisma.tenantBillingConfig.findMany()
+    * ```
+    */
+  get tenantBillingConfig(): Prisma.TenantBillingConfigDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tenantLiteLLMKey`: Exposes CRUD operations for the **TenantLiteLLMKey** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TenantLiteLLMKeys
+    * const tenantLiteLLMKeys = await prisma.tenantLiteLLMKey.findMany()
+    * ```
+    */
+  get tenantLiteLLMKey(): Prisma.TenantLiteLLMKeyDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.creditWallet`: Exposes CRUD operations for the **CreditWallet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CreditWallets
+    * const creditWallets = await prisma.creditWallet.findMany()
+    * ```
+    */
+  get creditWallet(): Prisma.CreditWalletDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.creditTransaction`: Exposes CRUD operations for the **CreditTransaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CreditTransactions
+    * const creditTransactions = await prisma.creditTransaction.findMany()
+    * ```
+    */
+  get creditTransaction(): Prisma.CreditTransactionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.liteLLMSpendEvent`: Exposes CRUD operations for the **LiteLLMSpendEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LiteLLMSpendEvents
+    * const liteLLMSpendEvents = await prisma.liteLLMSpendEvent.findMany()
+    * ```
+    */
+  get liteLLMSpendEvent(): Prisma.LiteLLMSpendEventDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tenantAIUsageMonth`: Exposes CRUD operations for the **TenantAIUsageMonth** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TenantAIUsageMonths
+    * const tenantAIUsageMonths = await prisma.tenantAIUsageMonth.findMany()
+    * ```
+    */
+  get tenantAIUsageMonth(): Prisma.TenantAIUsageMonthDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.conversation`: Exposes CRUD operations for the **Conversation** model.
@@ -3318,6 +3453,12 @@ export namespace Prisma {
     BusinessContinuityPlan: 'BusinessContinuityPlan',
     BusinessImpactAnalysis: 'BusinessImpactAnalysis',
     BCPExercise: 'BCPExercise',
+    TenantBillingConfig: 'TenantBillingConfig',
+    TenantLiteLLMKey: 'TenantLiteLLMKey',
+    CreditWallet: 'CreditWallet',
+    CreditTransaction: 'CreditTransaction',
+    LiteLLMSpendEvent: 'LiteLLMSpendEvent',
+    TenantAIUsageMonth: 'TenantAIUsageMonth',
     Conversation: 'Conversation',
     Message: 'Message',
     Control: 'Control',
@@ -3395,7 +3536,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
+      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "tenantBillingConfig" | "tenantLiteLLMKey" | "creditWallet" | "creditTransaction" | "liteLLMSpendEvent" | "tenantAIUsageMonth" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -4358,6 +4499,450 @@ export namespace Prisma {
           count: {
             args: Prisma.BCPExerciseCountArgs<ExtArgs>
             result: $Utils.Optional<BCPExerciseCountAggregateOutputType> | number
+          }
+        }
+      }
+      TenantBillingConfig: {
+        payload: Prisma.$TenantBillingConfigPayload<ExtArgs>
+        fields: Prisma.TenantBillingConfigFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TenantBillingConfigFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TenantBillingConfigFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload>
+          }
+          findFirst: {
+            args: Prisma.TenantBillingConfigFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TenantBillingConfigFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload>
+          }
+          findMany: {
+            args: Prisma.TenantBillingConfigFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload>[]
+          }
+          create: {
+            args: Prisma.TenantBillingConfigCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload>
+          }
+          createMany: {
+            args: Prisma.TenantBillingConfigCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TenantBillingConfigCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload>[]
+          }
+          delete: {
+            args: Prisma.TenantBillingConfigDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload>
+          }
+          update: {
+            args: Prisma.TenantBillingConfigUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload>
+          }
+          deleteMany: {
+            args: Prisma.TenantBillingConfigDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TenantBillingConfigUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TenantBillingConfigUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload>[]
+          }
+          upsert: {
+            args: Prisma.TenantBillingConfigUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantBillingConfigPayload>
+          }
+          aggregate: {
+            args: Prisma.TenantBillingConfigAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTenantBillingConfig>
+          }
+          groupBy: {
+            args: Prisma.TenantBillingConfigGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TenantBillingConfigGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TenantBillingConfigCountArgs<ExtArgs>
+            result: $Utils.Optional<TenantBillingConfigCountAggregateOutputType> | number
+          }
+        }
+      }
+      TenantLiteLLMKey: {
+        payload: Prisma.$TenantLiteLLMKeyPayload<ExtArgs>
+        fields: Prisma.TenantLiteLLMKeyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TenantLiteLLMKeyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TenantLiteLLMKeyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload>
+          }
+          findFirst: {
+            args: Prisma.TenantLiteLLMKeyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TenantLiteLLMKeyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload>
+          }
+          findMany: {
+            args: Prisma.TenantLiteLLMKeyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload>[]
+          }
+          create: {
+            args: Prisma.TenantLiteLLMKeyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload>
+          }
+          createMany: {
+            args: Prisma.TenantLiteLLMKeyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TenantLiteLLMKeyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload>[]
+          }
+          delete: {
+            args: Prisma.TenantLiteLLMKeyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload>
+          }
+          update: {
+            args: Prisma.TenantLiteLLMKeyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload>
+          }
+          deleteMany: {
+            args: Prisma.TenantLiteLLMKeyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TenantLiteLLMKeyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TenantLiteLLMKeyUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload>[]
+          }
+          upsert: {
+            args: Prisma.TenantLiteLLMKeyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantLiteLLMKeyPayload>
+          }
+          aggregate: {
+            args: Prisma.TenantLiteLLMKeyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTenantLiteLLMKey>
+          }
+          groupBy: {
+            args: Prisma.TenantLiteLLMKeyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TenantLiteLLMKeyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TenantLiteLLMKeyCountArgs<ExtArgs>
+            result: $Utils.Optional<TenantLiteLLMKeyCountAggregateOutputType> | number
+          }
+        }
+      }
+      CreditWallet: {
+        payload: Prisma.$CreditWalletPayload<ExtArgs>
+        fields: Prisma.CreditWalletFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CreditWalletFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CreditWalletFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload>
+          }
+          findFirst: {
+            args: Prisma.CreditWalletFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CreditWalletFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload>
+          }
+          findMany: {
+            args: Prisma.CreditWalletFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload>[]
+          }
+          create: {
+            args: Prisma.CreditWalletCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload>
+          }
+          createMany: {
+            args: Prisma.CreditWalletCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CreditWalletCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload>[]
+          }
+          delete: {
+            args: Prisma.CreditWalletDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload>
+          }
+          update: {
+            args: Prisma.CreditWalletUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload>
+          }
+          deleteMany: {
+            args: Prisma.CreditWalletDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CreditWalletUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CreditWalletUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload>[]
+          }
+          upsert: {
+            args: Prisma.CreditWalletUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditWalletPayload>
+          }
+          aggregate: {
+            args: Prisma.CreditWalletAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCreditWallet>
+          }
+          groupBy: {
+            args: Prisma.CreditWalletGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CreditWalletGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CreditWalletCountArgs<ExtArgs>
+            result: $Utils.Optional<CreditWalletCountAggregateOutputType> | number
+          }
+        }
+      }
+      CreditTransaction: {
+        payload: Prisma.$CreditTransactionPayload<ExtArgs>
+        fields: Prisma.CreditTransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CreditTransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CreditTransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.CreditTransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CreditTransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload>
+          }
+          findMany: {
+            args: Prisma.CreditTransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload>[]
+          }
+          create: {
+            args: Prisma.CreditTransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload>
+          }
+          createMany: {
+            args: Prisma.CreditTransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CreditTransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload>[]
+          }
+          delete: {
+            args: Prisma.CreditTransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload>
+          }
+          update: {
+            args: Prisma.CreditTransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.CreditTransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CreditTransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CreditTransactionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload>[]
+          }
+          upsert: {
+            args: Prisma.CreditTransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CreditTransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.CreditTransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCreditTransaction>
+          }
+          groupBy: {
+            args: Prisma.CreditTransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CreditTransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CreditTransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<CreditTransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      LiteLLMSpendEvent: {
+        payload: Prisma.$LiteLLMSpendEventPayload<ExtArgs>
+        fields: Prisma.LiteLLMSpendEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LiteLLMSpendEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LiteLLMSpendEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload>
+          }
+          findFirst: {
+            args: Prisma.LiteLLMSpendEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LiteLLMSpendEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload>
+          }
+          findMany: {
+            args: Prisma.LiteLLMSpendEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload>[]
+          }
+          create: {
+            args: Prisma.LiteLLMSpendEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload>
+          }
+          createMany: {
+            args: Prisma.LiteLLMSpendEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LiteLLMSpendEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload>[]
+          }
+          delete: {
+            args: Prisma.LiteLLMSpendEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload>
+          }
+          update: {
+            args: Prisma.LiteLLMSpendEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.LiteLLMSpendEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LiteLLMSpendEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LiteLLMSpendEventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload>[]
+          }
+          upsert: {
+            args: Prisma.LiteLLMSpendEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LiteLLMSpendEventPayload>
+          }
+          aggregate: {
+            args: Prisma.LiteLLMSpendEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLiteLLMSpendEvent>
+          }
+          groupBy: {
+            args: Prisma.LiteLLMSpendEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LiteLLMSpendEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LiteLLMSpendEventCountArgs<ExtArgs>
+            result: $Utils.Optional<LiteLLMSpendEventCountAggregateOutputType> | number
+          }
+        }
+      }
+      TenantAIUsageMonth: {
+        payload: Prisma.$TenantAIUsageMonthPayload<ExtArgs>
+        fields: Prisma.TenantAIUsageMonthFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TenantAIUsageMonthFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TenantAIUsageMonthFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload>
+          }
+          findFirst: {
+            args: Prisma.TenantAIUsageMonthFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TenantAIUsageMonthFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload>
+          }
+          findMany: {
+            args: Prisma.TenantAIUsageMonthFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload>[]
+          }
+          create: {
+            args: Prisma.TenantAIUsageMonthCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload>
+          }
+          createMany: {
+            args: Prisma.TenantAIUsageMonthCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TenantAIUsageMonthCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload>[]
+          }
+          delete: {
+            args: Prisma.TenantAIUsageMonthDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload>
+          }
+          update: {
+            args: Prisma.TenantAIUsageMonthUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload>
+          }
+          deleteMany: {
+            args: Prisma.TenantAIUsageMonthDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TenantAIUsageMonthUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TenantAIUsageMonthUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload>[]
+          }
+          upsert: {
+            args: Prisma.TenantAIUsageMonthUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TenantAIUsageMonthPayload>
+          }
+          aggregate: {
+            args: Prisma.TenantAIUsageMonthAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTenantAIUsageMonth>
+          }
+          groupBy: {
+            args: Prisma.TenantAIUsageMonthGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TenantAIUsageMonthGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TenantAIUsageMonthCountArgs<ExtArgs>
+            result: $Utils.Optional<TenantAIUsageMonthCountAggregateOutputType> | number
           }
         }
       }
@@ -9070,6 +9655,12 @@ export namespace Prisma {
     businessContinuityPlan?: BusinessContinuityPlanOmit
     businessImpactAnalysis?: BusinessImpactAnalysisOmit
     bCPExercise?: BCPExerciseOmit
+    tenantBillingConfig?: TenantBillingConfigOmit
+    tenantLiteLLMKey?: TenantLiteLLMKeyOmit
+    creditWallet?: CreditWalletOmit
+    creditTransaction?: CreditTransactionOmit
+    liteLLMSpendEvent?: LiteLLMSpendEventOmit
+    tenantAIUsageMonth?: TenantAIUsageMonthOmit
     conversation?: ConversationOmit
     message?: MessageOmit
     control?: ControlOmit
@@ -9333,6 +9924,37 @@ export namespace Prisma {
    */
   export type BusinessContinuityPlanCountOutputTypeCountExercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BCPExerciseWhereInput
+  }
+
+
+  /**
+   * Count Type CreditWalletCountOutputType
+   */
+
+  export type CreditWalletCountOutputType = {
+    transactions: number
+  }
+
+  export type CreditWalletCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transactions?: boolean | CreditWalletCountOutputTypeCountTransactionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CreditWalletCountOutputType without action
+   */
+  export type CreditWalletCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWalletCountOutputType
+     */
+    select?: CreditWalletCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CreditWalletCountOutputType without action
+   */
+  export type CreditWalletCountOutputTypeCountTransactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreditTransactionWhereInput
   }
 
 
@@ -27748,6 +28370,6840 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BCPExerciseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TenantBillingConfig
+   */
+
+  export type AggregateTenantBillingConfig = {
+    _count: TenantBillingConfigCountAggregateOutputType | null
+    _avg: TenantBillingConfigAvgAggregateOutputType | null
+    _sum: TenantBillingConfigSumAggregateOutputType | null
+    _min: TenantBillingConfigMinAggregateOutputType | null
+    _max: TenantBillingConfigMaxAggregateOutputType | null
+  }
+
+  export type TenantBillingConfigAvgAggregateOutputType = {
+    monthlySpendCapMicrocents: number | null
+  }
+
+  export type TenantBillingConfigSumAggregateOutputType = {
+    monthlySpendCapMicrocents: bigint | null
+  }
+
+  export type TenantBillingConfigMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    mode: $Enums.TenantBillingMode | null
+    monthlySpendCapMicrocents: bigint | null
+    modelTierOverride: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TenantBillingConfigMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    mode: $Enums.TenantBillingMode | null
+    monthlySpendCapMicrocents: bigint | null
+    modelTierOverride: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TenantBillingConfigCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    mode: number
+    monthlySpendCapMicrocents: number
+    modelTierOverride: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TenantBillingConfigAvgAggregateInputType = {
+    monthlySpendCapMicrocents?: true
+  }
+
+  export type TenantBillingConfigSumAggregateInputType = {
+    monthlySpendCapMicrocents?: true
+  }
+
+  export type TenantBillingConfigMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    mode?: true
+    monthlySpendCapMicrocents?: true
+    modelTierOverride?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TenantBillingConfigMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    mode?: true
+    monthlySpendCapMicrocents?: true
+    modelTierOverride?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TenantBillingConfigCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    mode?: true
+    monthlySpendCapMicrocents?: true
+    modelTierOverride?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TenantBillingConfigAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantBillingConfig to aggregate.
+     */
+    where?: TenantBillingConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantBillingConfigs to fetch.
+     */
+    orderBy?: TenantBillingConfigOrderByWithRelationInput | TenantBillingConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TenantBillingConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantBillingConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantBillingConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TenantBillingConfigs
+    **/
+    _count?: true | TenantBillingConfigCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TenantBillingConfigAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TenantBillingConfigSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TenantBillingConfigMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TenantBillingConfigMaxAggregateInputType
+  }
+
+  export type GetTenantBillingConfigAggregateType<T extends TenantBillingConfigAggregateArgs> = {
+        [P in keyof T & keyof AggregateTenantBillingConfig]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTenantBillingConfig[P]>
+      : GetScalarType<T[P], AggregateTenantBillingConfig[P]>
+  }
+
+
+
+
+  export type TenantBillingConfigGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantBillingConfigWhereInput
+    orderBy?: TenantBillingConfigOrderByWithAggregationInput | TenantBillingConfigOrderByWithAggregationInput[]
+    by: TenantBillingConfigScalarFieldEnum[] | TenantBillingConfigScalarFieldEnum
+    having?: TenantBillingConfigScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TenantBillingConfigCountAggregateInputType | true
+    _avg?: TenantBillingConfigAvgAggregateInputType
+    _sum?: TenantBillingConfigSumAggregateInputType
+    _min?: TenantBillingConfigMinAggregateInputType
+    _max?: TenantBillingConfigMaxAggregateInputType
+  }
+
+  export type TenantBillingConfigGroupByOutputType = {
+    id: string
+    tenantId: string
+    mode: $Enums.TenantBillingMode
+    monthlySpendCapMicrocents: bigint | null
+    modelTierOverride: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: TenantBillingConfigCountAggregateOutputType | null
+    _avg: TenantBillingConfigAvgAggregateOutputType | null
+    _sum: TenantBillingConfigSumAggregateOutputType | null
+    _min: TenantBillingConfigMinAggregateOutputType | null
+    _max: TenantBillingConfigMaxAggregateOutputType | null
+  }
+
+  type GetTenantBillingConfigGroupByPayload<T extends TenantBillingConfigGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TenantBillingConfigGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TenantBillingConfigGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TenantBillingConfigGroupByOutputType[P]>
+            : GetScalarType<T[P], TenantBillingConfigGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TenantBillingConfigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    mode?: boolean
+    monthlySpendCapMicrocents?: boolean
+    modelTierOverride?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantBillingConfig"]>
+
+  export type TenantBillingConfigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    mode?: boolean
+    monthlySpendCapMicrocents?: boolean
+    modelTierOverride?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantBillingConfig"]>
+
+  export type TenantBillingConfigSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    mode?: boolean
+    monthlySpendCapMicrocents?: boolean
+    modelTierOverride?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantBillingConfig"]>
+
+  export type TenantBillingConfigSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    mode?: boolean
+    monthlySpendCapMicrocents?: boolean
+    modelTierOverride?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TenantBillingConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "mode" | "monthlySpendCapMicrocents" | "modelTierOverride" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantBillingConfig"]>
+  export type TenantBillingConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type TenantBillingConfigIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type TenantBillingConfigIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $TenantBillingConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TenantBillingConfig"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      mode: $Enums.TenantBillingMode
+      monthlySpendCapMicrocents: bigint | null
+      modelTierOverride: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["tenantBillingConfig"]>
+    composites: {}
+  }
+
+  type TenantBillingConfigGetPayload<S extends boolean | null | undefined | TenantBillingConfigDefaultArgs> = $Result.GetResult<Prisma.$TenantBillingConfigPayload, S>
+
+  type TenantBillingConfigCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TenantBillingConfigFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TenantBillingConfigCountAggregateInputType | true
+    }
+
+  export interface TenantBillingConfigDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TenantBillingConfig'], meta: { name: 'TenantBillingConfig' } }
+    /**
+     * Find zero or one TenantBillingConfig that matches the filter.
+     * @param {TenantBillingConfigFindUniqueArgs} args - Arguments to find a TenantBillingConfig
+     * @example
+     * // Get one TenantBillingConfig
+     * const tenantBillingConfig = await prisma.tenantBillingConfig.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TenantBillingConfigFindUniqueArgs>(args: SelectSubset<T, TenantBillingConfigFindUniqueArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TenantBillingConfig that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TenantBillingConfigFindUniqueOrThrowArgs} args - Arguments to find a TenantBillingConfig
+     * @example
+     * // Get one TenantBillingConfig
+     * const tenantBillingConfig = await prisma.tenantBillingConfig.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TenantBillingConfigFindUniqueOrThrowArgs>(args: SelectSubset<T, TenantBillingConfigFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantBillingConfig that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantBillingConfigFindFirstArgs} args - Arguments to find a TenantBillingConfig
+     * @example
+     * // Get one TenantBillingConfig
+     * const tenantBillingConfig = await prisma.tenantBillingConfig.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TenantBillingConfigFindFirstArgs>(args?: SelectSubset<T, TenantBillingConfigFindFirstArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantBillingConfig that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantBillingConfigFindFirstOrThrowArgs} args - Arguments to find a TenantBillingConfig
+     * @example
+     * // Get one TenantBillingConfig
+     * const tenantBillingConfig = await prisma.tenantBillingConfig.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TenantBillingConfigFindFirstOrThrowArgs>(args?: SelectSubset<T, TenantBillingConfigFindFirstOrThrowArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TenantBillingConfigs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantBillingConfigFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TenantBillingConfigs
+     * const tenantBillingConfigs = await prisma.tenantBillingConfig.findMany()
+     * 
+     * // Get first 10 TenantBillingConfigs
+     * const tenantBillingConfigs = await prisma.tenantBillingConfig.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tenantBillingConfigWithIdOnly = await prisma.tenantBillingConfig.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TenantBillingConfigFindManyArgs>(args?: SelectSubset<T, TenantBillingConfigFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TenantBillingConfig.
+     * @param {TenantBillingConfigCreateArgs} args - Arguments to create a TenantBillingConfig.
+     * @example
+     * // Create one TenantBillingConfig
+     * const TenantBillingConfig = await prisma.tenantBillingConfig.create({
+     *   data: {
+     *     // ... data to create a TenantBillingConfig
+     *   }
+     * })
+     * 
+     */
+    create<T extends TenantBillingConfigCreateArgs>(args: SelectSubset<T, TenantBillingConfigCreateArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TenantBillingConfigs.
+     * @param {TenantBillingConfigCreateManyArgs} args - Arguments to create many TenantBillingConfigs.
+     * @example
+     * // Create many TenantBillingConfigs
+     * const tenantBillingConfig = await prisma.tenantBillingConfig.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TenantBillingConfigCreateManyArgs>(args?: SelectSubset<T, TenantBillingConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TenantBillingConfigs and returns the data saved in the database.
+     * @param {TenantBillingConfigCreateManyAndReturnArgs} args - Arguments to create many TenantBillingConfigs.
+     * @example
+     * // Create many TenantBillingConfigs
+     * const tenantBillingConfig = await prisma.tenantBillingConfig.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TenantBillingConfigs and only return the `id`
+     * const tenantBillingConfigWithIdOnly = await prisma.tenantBillingConfig.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TenantBillingConfigCreateManyAndReturnArgs>(args?: SelectSubset<T, TenantBillingConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TenantBillingConfig.
+     * @param {TenantBillingConfigDeleteArgs} args - Arguments to delete one TenantBillingConfig.
+     * @example
+     * // Delete one TenantBillingConfig
+     * const TenantBillingConfig = await prisma.tenantBillingConfig.delete({
+     *   where: {
+     *     // ... filter to delete one TenantBillingConfig
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TenantBillingConfigDeleteArgs>(args: SelectSubset<T, TenantBillingConfigDeleteArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TenantBillingConfig.
+     * @param {TenantBillingConfigUpdateArgs} args - Arguments to update one TenantBillingConfig.
+     * @example
+     * // Update one TenantBillingConfig
+     * const tenantBillingConfig = await prisma.tenantBillingConfig.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TenantBillingConfigUpdateArgs>(args: SelectSubset<T, TenantBillingConfigUpdateArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TenantBillingConfigs.
+     * @param {TenantBillingConfigDeleteManyArgs} args - Arguments to filter TenantBillingConfigs to delete.
+     * @example
+     * // Delete a few TenantBillingConfigs
+     * const { count } = await prisma.tenantBillingConfig.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TenantBillingConfigDeleteManyArgs>(args?: SelectSubset<T, TenantBillingConfigDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantBillingConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantBillingConfigUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TenantBillingConfigs
+     * const tenantBillingConfig = await prisma.tenantBillingConfig.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TenantBillingConfigUpdateManyArgs>(args: SelectSubset<T, TenantBillingConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantBillingConfigs and returns the data updated in the database.
+     * @param {TenantBillingConfigUpdateManyAndReturnArgs} args - Arguments to update many TenantBillingConfigs.
+     * @example
+     * // Update many TenantBillingConfigs
+     * const tenantBillingConfig = await prisma.tenantBillingConfig.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TenantBillingConfigs and only return the `id`
+     * const tenantBillingConfigWithIdOnly = await prisma.tenantBillingConfig.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TenantBillingConfigUpdateManyAndReturnArgs>(args: SelectSubset<T, TenantBillingConfigUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TenantBillingConfig.
+     * @param {TenantBillingConfigUpsertArgs} args - Arguments to update or create a TenantBillingConfig.
+     * @example
+     * // Update or create a TenantBillingConfig
+     * const tenantBillingConfig = await prisma.tenantBillingConfig.upsert({
+     *   create: {
+     *     // ... data to create a TenantBillingConfig
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TenantBillingConfig we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TenantBillingConfigUpsertArgs>(args: SelectSubset<T, TenantBillingConfigUpsertArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TenantBillingConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantBillingConfigCountArgs} args - Arguments to filter TenantBillingConfigs to count.
+     * @example
+     * // Count the number of TenantBillingConfigs
+     * const count = await prisma.tenantBillingConfig.count({
+     *   where: {
+     *     // ... the filter for the TenantBillingConfigs we want to count
+     *   }
+     * })
+    **/
+    count<T extends TenantBillingConfigCountArgs>(
+      args?: Subset<T, TenantBillingConfigCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TenantBillingConfigCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TenantBillingConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantBillingConfigAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TenantBillingConfigAggregateArgs>(args: Subset<T, TenantBillingConfigAggregateArgs>): Prisma.PrismaPromise<GetTenantBillingConfigAggregateType<T>>
+
+    /**
+     * Group by TenantBillingConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantBillingConfigGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TenantBillingConfigGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TenantBillingConfigGroupByArgs['orderBy'] }
+        : { orderBy?: TenantBillingConfigGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TenantBillingConfigGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTenantBillingConfigGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TenantBillingConfig model
+   */
+  readonly fields: TenantBillingConfigFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TenantBillingConfig.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TenantBillingConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TenantBillingConfig model
+   */
+  interface TenantBillingConfigFieldRefs {
+    readonly id: FieldRef<"TenantBillingConfig", 'String'>
+    readonly tenantId: FieldRef<"TenantBillingConfig", 'String'>
+    readonly mode: FieldRef<"TenantBillingConfig", 'TenantBillingMode'>
+    readonly monthlySpendCapMicrocents: FieldRef<"TenantBillingConfig", 'BigInt'>
+    readonly modelTierOverride: FieldRef<"TenantBillingConfig", 'String'>
+    readonly createdAt: FieldRef<"TenantBillingConfig", 'DateTime'>
+    readonly updatedAt: FieldRef<"TenantBillingConfig", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TenantBillingConfig findUnique
+   */
+  export type TenantBillingConfigFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantBillingConfig to fetch.
+     */
+    where: TenantBillingConfigWhereUniqueInput
+  }
+
+  /**
+   * TenantBillingConfig findUniqueOrThrow
+   */
+  export type TenantBillingConfigFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantBillingConfig to fetch.
+     */
+    where: TenantBillingConfigWhereUniqueInput
+  }
+
+  /**
+   * TenantBillingConfig findFirst
+   */
+  export type TenantBillingConfigFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantBillingConfig to fetch.
+     */
+    where?: TenantBillingConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantBillingConfigs to fetch.
+     */
+    orderBy?: TenantBillingConfigOrderByWithRelationInput | TenantBillingConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantBillingConfigs.
+     */
+    cursor?: TenantBillingConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantBillingConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantBillingConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantBillingConfigs.
+     */
+    distinct?: TenantBillingConfigScalarFieldEnum | TenantBillingConfigScalarFieldEnum[]
+  }
+
+  /**
+   * TenantBillingConfig findFirstOrThrow
+   */
+  export type TenantBillingConfigFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantBillingConfig to fetch.
+     */
+    where?: TenantBillingConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantBillingConfigs to fetch.
+     */
+    orderBy?: TenantBillingConfigOrderByWithRelationInput | TenantBillingConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantBillingConfigs.
+     */
+    cursor?: TenantBillingConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantBillingConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantBillingConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantBillingConfigs.
+     */
+    distinct?: TenantBillingConfigScalarFieldEnum | TenantBillingConfigScalarFieldEnum[]
+  }
+
+  /**
+   * TenantBillingConfig findMany
+   */
+  export type TenantBillingConfigFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantBillingConfigs to fetch.
+     */
+    where?: TenantBillingConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantBillingConfigs to fetch.
+     */
+    orderBy?: TenantBillingConfigOrderByWithRelationInput | TenantBillingConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TenantBillingConfigs.
+     */
+    cursor?: TenantBillingConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantBillingConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantBillingConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantBillingConfigs.
+     */
+    distinct?: TenantBillingConfigScalarFieldEnum | TenantBillingConfigScalarFieldEnum[]
+  }
+
+  /**
+   * TenantBillingConfig create
+   */
+  export type TenantBillingConfigCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TenantBillingConfig.
+     */
+    data: XOR<TenantBillingConfigCreateInput, TenantBillingConfigUncheckedCreateInput>
+  }
+
+  /**
+   * TenantBillingConfig createMany
+   */
+  export type TenantBillingConfigCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TenantBillingConfigs.
+     */
+    data: TenantBillingConfigCreateManyInput | TenantBillingConfigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TenantBillingConfig createManyAndReturn
+   */
+  export type TenantBillingConfigCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * The data used to create many TenantBillingConfigs.
+     */
+    data: TenantBillingConfigCreateManyInput | TenantBillingConfigCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TenantBillingConfig update
+   */
+  export type TenantBillingConfigUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TenantBillingConfig.
+     */
+    data: XOR<TenantBillingConfigUpdateInput, TenantBillingConfigUncheckedUpdateInput>
+    /**
+     * Choose, which TenantBillingConfig to update.
+     */
+    where: TenantBillingConfigWhereUniqueInput
+  }
+
+  /**
+   * TenantBillingConfig updateMany
+   */
+  export type TenantBillingConfigUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TenantBillingConfigs.
+     */
+    data: XOR<TenantBillingConfigUpdateManyMutationInput, TenantBillingConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantBillingConfigs to update
+     */
+    where?: TenantBillingConfigWhereInput
+    /**
+     * Limit how many TenantBillingConfigs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantBillingConfig updateManyAndReturn
+   */
+  export type TenantBillingConfigUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * The data used to update TenantBillingConfigs.
+     */
+    data: XOR<TenantBillingConfigUpdateManyMutationInput, TenantBillingConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantBillingConfigs to update
+     */
+    where?: TenantBillingConfigWhereInput
+    /**
+     * Limit how many TenantBillingConfigs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TenantBillingConfig upsert
+   */
+  export type TenantBillingConfigUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TenantBillingConfig to update in case it exists.
+     */
+    where: TenantBillingConfigWhereUniqueInput
+    /**
+     * In case the TenantBillingConfig found by the `where` argument doesn't exist, create a new TenantBillingConfig with this data.
+     */
+    create: XOR<TenantBillingConfigCreateInput, TenantBillingConfigUncheckedCreateInput>
+    /**
+     * In case the TenantBillingConfig was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TenantBillingConfigUpdateInput, TenantBillingConfigUncheckedUpdateInput>
+  }
+
+  /**
+   * TenantBillingConfig delete
+   */
+  export type TenantBillingConfigDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+    /**
+     * Filter which TenantBillingConfig to delete.
+     */
+    where: TenantBillingConfigWhereUniqueInput
+  }
+
+  /**
+   * TenantBillingConfig deleteMany
+   */
+  export type TenantBillingConfigDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantBillingConfigs to delete
+     */
+    where?: TenantBillingConfigWhereInput
+    /**
+     * Limit how many TenantBillingConfigs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantBillingConfig without action
+   */
+  export type TenantBillingConfigDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TenantLiteLLMKey
+   */
+
+  export type AggregateTenantLiteLLMKey = {
+    _count: TenantLiteLLMKeyCountAggregateOutputType | null
+    _avg: TenantLiteLLMKeyAvgAggregateOutputType | null
+    _sum: TenantLiteLLMKeySumAggregateOutputType | null
+    _min: TenantLiteLLMKeyMinAggregateOutputType | null
+    _max: TenantLiteLLMKeyMaxAggregateOutputType | null
+  }
+
+  export type TenantLiteLLMKeyAvgAggregateOutputType = {
+    budgetMaxMicrocents: number | null
+    observedSpendMicrocents: number | null
+  }
+
+  export type TenantLiteLLMKeySumAggregateOutputType = {
+    budgetMaxMicrocents: bigint | null
+    observedSpendMicrocents: bigint | null
+  }
+
+  export type TenantLiteLLMKeyMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    litellmKeyId: string | null
+    virtualKeyCipher: string | null
+    status: $Enums.TenantLiteLLMKeyStatus | null
+    budgetMaxMicrocents: bigint | null
+    observedSpendMicrocents: bigint | null
+    lastSyncedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TenantLiteLLMKeyMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    litellmKeyId: string | null
+    virtualKeyCipher: string | null
+    status: $Enums.TenantLiteLLMKeyStatus | null
+    budgetMaxMicrocents: bigint | null
+    observedSpendMicrocents: bigint | null
+    lastSyncedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TenantLiteLLMKeyCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    litellmKeyId: number
+    virtualKeyCipher: number
+    modelAllowlist: number
+    status: number
+    budgetMaxMicrocents: number
+    observedSpendMicrocents: number
+    lastSyncedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TenantLiteLLMKeyAvgAggregateInputType = {
+    budgetMaxMicrocents?: true
+    observedSpendMicrocents?: true
+  }
+
+  export type TenantLiteLLMKeySumAggregateInputType = {
+    budgetMaxMicrocents?: true
+    observedSpendMicrocents?: true
+  }
+
+  export type TenantLiteLLMKeyMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    litellmKeyId?: true
+    virtualKeyCipher?: true
+    status?: true
+    budgetMaxMicrocents?: true
+    observedSpendMicrocents?: true
+    lastSyncedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TenantLiteLLMKeyMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    litellmKeyId?: true
+    virtualKeyCipher?: true
+    status?: true
+    budgetMaxMicrocents?: true
+    observedSpendMicrocents?: true
+    lastSyncedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TenantLiteLLMKeyCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    litellmKeyId?: true
+    virtualKeyCipher?: true
+    modelAllowlist?: true
+    status?: true
+    budgetMaxMicrocents?: true
+    observedSpendMicrocents?: true
+    lastSyncedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TenantLiteLLMKeyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantLiteLLMKey to aggregate.
+     */
+    where?: TenantLiteLLMKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantLiteLLMKeys to fetch.
+     */
+    orderBy?: TenantLiteLLMKeyOrderByWithRelationInput | TenantLiteLLMKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TenantLiteLLMKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantLiteLLMKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantLiteLLMKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TenantLiteLLMKeys
+    **/
+    _count?: true | TenantLiteLLMKeyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TenantLiteLLMKeyAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TenantLiteLLMKeySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TenantLiteLLMKeyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TenantLiteLLMKeyMaxAggregateInputType
+  }
+
+  export type GetTenantLiteLLMKeyAggregateType<T extends TenantLiteLLMKeyAggregateArgs> = {
+        [P in keyof T & keyof AggregateTenantLiteLLMKey]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTenantLiteLLMKey[P]>
+      : GetScalarType<T[P], AggregateTenantLiteLLMKey[P]>
+  }
+
+
+
+
+  export type TenantLiteLLMKeyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantLiteLLMKeyWhereInput
+    orderBy?: TenantLiteLLMKeyOrderByWithAggregationInput | TenantLiteLLMKeyOrderByWithAggregationInput[]
+    by: TenantLiteLLMKeyScalarFieldEnum[] | TenantLiteLLMKeyScalarFieldEnum
+    having?: TenantLiteLLMKeyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TenantLiteLLMKeyCountAggregateInputType | true
+    _avg?: TenantLiteLLMKeyAvgAggregateInputType
+    _sum?: TenantLiteLLMKeySumAggregateInputType
+    _min?: TenantLiteLLMKeyMinAggregateInputType
+    _max?: TenantLiteLLMKeyMaxAggregateInputType
+  }
+
+  export type TenantLiteLLMKeyGroupByOutputType = {
+    id: string
+    tenantId: string
+    litellmKeyId: string
+    virtualKeyCipher: string
+    modelAllowlist: string[]
+    status: $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents: bigint | null
+    observedSpendMicrocents: bigint
+    lastSyncedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: TenantLiteLLMKeyCountAggregateOutputType | null
+    _avg: TenantLiteLLMKeyAvgAggregateOutputType | null
+    _sum: TenantLiteLLMKeySumAggregateOutputType | null
+    _min: TenantLiteLLMKeyMinAggregateOutputType | null
+    _max: TenantLiteLLMKeyMaxAggregateOutputType | null
+  }
+
+  type GetTenantLiteLLMKeyGroupByPayload<T extends TenantLiteLLMKeyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TenantLiteLLMKeyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TenantLiteLLMKeyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TenantLiteLLMKeyGroupByOutputType[P]>
+            : GetScalarType<T[P], TenantLiteLLMKeyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TenantLiteLLMKeySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    litellmKeyId?: boolean
+    virtualKeyCipher?: boolean
+    modelAllowlist?: boolean
+    status?: boolean
+    budgetMaxMicrocents?: boolean
+    observedSpendMicrocents?: boolean
+    lastSyncedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantLiteLLMKey"]>
+
+  export type TenantLiteLLMKeySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    litellmKeyId?: boolean
+    virtualKeyCipher?: boolean
+    modelAllowlist?: boolean
+    status?: boolean
+    budgetMaxMicrocents?: boolean
+    observedSpendMicrocents?: boolean
+    lastSyncedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantLiteLLMKey"]>
+
+  export type TenantLiteLLMKeySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    litellmKeyId?: boolean
+    virtualKeyCipher?: boolean
+    modelAllowlist?: boolean
+    status?: boolean
+    budgetMaxMicrocents?: boolean
+    observedSpendMicrocents?: boolean
+    lastSyncedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tenantLiteLLMKey"]>
+
+  export type TenantLiteLLMKeySelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    litellmKeyId?: boolean
+    virtualKeyCipher?: boolean
+    modelAllowlist?: boolean
+    status?: boolean
+    budgetMaxMicrocents?: boolean
+    observedSpendMicrocents?: boolean
+    lastSyncedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TenantLiteLLMKeyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "litellmKeyId" | "virtualKeyCipher" | "modelAllowlist" | "status" | "budgetMaxMicrocents" | "observedSpendMicrocents" | "lastSyncedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantLiteLLMKey"]>
+  export type TenantLiteLLMKeyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type TenantLiteLLMKeyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type TenantLiteLLMKeyIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $TenantLiteLLMKeyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TenantLiteLLMKey"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      litellmKeyId: string
+      virtualKeyCipher: string
+      modelAllowlist: string[]
+      status: $Enums.TenantLiteLLMKeyStatus
+      budgetMaxMicrocents: bigint | null
+      observedSpendMicrocents: bigint
+      lastSyncedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["tenantLiteLLMKey"]>
+    composites: {}
+  }
+
+  type TenantLiteLLMKeyGetPayload<S extends boolean | null | undefined | TenantLiteLLMKeyDefaultArgs> = $Result.GetResult<Prisma.$TenantLiteLLMKeyPayload, S>
+
+  type TenantLiteLLMKeyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TenantLiteLLMKeyFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TenantLiteLLMKeyCountAggregateInputType | true
+    }
+
+  export interface TenantLiteLLMKeyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TenantLiteLLMKey'], meta: { name: 'TenantLiteLLMKey' } }
+    /**
+     * Find zero or one TenantLiteLLMKey that matches the filter.
+     * @param {TenantLiteLLMKeyFindUniqueArgs} args - Arguments to find a TenantLiteLLMKey
+     * @example
+     * // Get one TenantLiteLLMKey
+     * const tenantLiteLLMKey = await prisma.tenantLiteLLMKey.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TenantLiteLLMKeyFindUniqueArgs>(args: SelectSubset<T, TenantLiteLLMKeyFindUniqueArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TenantLiteLLMKey that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TenantLiteLLMKeyFindUniqueOrThrowArgs} args - Arguments to find a TenantLiteLLMKey
+     * @example
+     * // Get one TenantLiteLLMKey
+     * const tenantLiteLLMKey = await prisma.tenantLiteLLMKey.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TenantLiteLLMKeyFindUniqueOrThrowArgs>(args: SelectSubset<T, TenantLiteLLMKeyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantLiteLLMKey that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantLiteLLMKeyFindFirstArgs} args - Arguments to find a TenantLiteLLMKey
+     * @example
+     * // Get one TenantLiteLLMKey
+     * const tenantLiteLLMKey = await prisma.tenantLiteLLMKey.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TenantLiteLLMKeyFindFirstArgs>(args?: SelectSubset<T, TenantLiteLLMKeyFindFirstArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantLiteLLMKey that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantLiteLLMKeyFindFirstOrThrowArgs} args - Arguments to find a TenantLiteLLMKey
+     * @example
+     * // Get one TenantLiteLLMKey
+     * const tenantLiteLLMKey = await prisma.tenantLiteLLMKey.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TenantLiteLLMKeyFindFirstOrThrowArgs>(args?: SelectSubset<T, TenantLiteLLMKeyFindFirstOrThrowArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TenantLiteLLMKeys that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantLiteLLMKeyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TenantLiteLLMKeys
+     * const tenantLiteLLMKeys = await prisma.tenantLiteLLMKey.findMany()
+     * 
+     * // Get first 10 TenantLiteLLMKeys
+     * const tenantLiteLLMKeys = await prisma.tenantLiteLLMKey.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tenantLiteLLMKeyWithIdOnly = await prisma.tenantLiteLLMKey.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TenantLiteLLMKeyFindManyArgs>(args?: SelectSubset<T, TenantLiteLLMKeyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TenantLiteLLMKey.
+     * @param {TenantLiteLLMKeyCreateArgs} args - Arguments to create a TenantLiteLLMKey.
+     * @example
+     * // Create one TenantLiteLLMKey
+     * const TenantLiteLLMKey = await prisma.tenantLiteLLMKey.create({
+     *   data: {
+     *     // ... data to create a TenantLiteLLMKey
+     *   }
+     * })
+     * 
+     */
+    create<T extends TenantLiteLLMKeyCreateArgs>(args: SelectSubset<T, TenantLiteLLMKeyCreateArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TenantLiteLLMKeys.
+     * @param {TenantLiteLLMKeyCreateManyArgs} args - Arguments to create many TenantLiteLLMKeys.
+     * @example
+     * // Create many TenantLiteLLMKeys
+     * const tenantLiteLLMKey = await prisma.tenantLiteLLMKey.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TenantLiteLLMKeyCreateManyArgs>(args?: SelectSubset<T, TenantLiteLLMKeyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TenantLiteLLMKeys and returns the data saved in the database.
+     * @param {TenantLiteLLMKeyCreateManyAndReturnArgs} args - Arguments to create many TenantLiteLLMKeys.
+     * @example
+     * // Create many TenantLiteLLMKeys
+     * const tenantLiteLLMKey = await prisma.tenantLiteLLMKey.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TenantLiteLLMKeys and only return the `id`
+     * const tenantLiteLLMKeyWithIdOnly = await prisma.tenantLiteLLMKey.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TenantLiteLLMKeyCreateManyAndReturnArgs>(args?: SelectSubset<T, TenantLiteLLMKeyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TenantLiteLLMKey.
+     * @param {TenantLiteLLMKeyDeleteArgs} args - Arguments to delete one TenantLiteLLMKey.
+     * @example
+     * // Delete one TenantLiteLLMKey
+     * const TenantLiteLLMKey = await prisma.tenantLiteLLMKey.delete({
+     *   where: {
+     *     // ... filter to delete one TenantLiteLLMKey
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TenantLiteLLMKeyDeleteArgs>(args: SelectSubset<T, TenantLiteLLMKeyDeleteArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TenantLiteLLMKey.
+     * @param {TenantLiteLLMKeyUpdateArgs} args - Arguments to update one TenantLiteLLMKey.
+     * @example
+     * // Update one TenantLiteLLMKey
+     * const tenantLiteLLMKey = await prisma.tenantLiteLLMKey.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TenantLiteLLMKeyUpdateArgs>(args: SelectSubset<T, TenantLiteLLMKeyUpdateArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TenantLiteLLMKeys.
+     * @param {TenantLiteLLMKeyDeleteManyArgs} args - Arguments to filter TenantLiteLLMKeys to delete.
+     * @example
+     * // Delete a few TenantLiteLLMKeys
+     * const { count } = await prisma.tenantLiteLLMKey.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TenantLiteLLMKeyDeleteManyArgs>(args?: SelectSubset<T, TenantLiteLLMKeyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantLiteLLMKeys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantLiteLLMKeyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TenantLiteLLMKeys
+     * const tenantLiteLLMKey = await prisma.tenantLiteLLMKey.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TenantLiteLLMKeyUpdateManyArgs>(args: SelectSubset<T, TenantLiteLLMKeyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantLiteLLMKeys and returns the data updated in the database.
+     * @param {TenantLiteLLMKeyUpdateManyAndReturnArgs} args - Arguments to update many TenantLiteLLMKeys.
+     * @example
+     * // Update many TenantLiteLLMKeys
+     * const tenantLiteLLMKey = await prisma.tenantLiteLLMKey.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TenantLiteLLMKeys and only return the `id`
+     * const tenantLiteLLMKeyWithIdOnly = await prisma.tenantLiteLLMKey.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TenantLiteLLMKeyUpdateManyAndReturnArgs>(args: SelectSubset<T, TenantLiteLLMKeyUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TenantLiteLLMKey.
+     * @param {TenantLiteLLMKeyUpsertArgs} args - Arguments to update or create a TenantLiteLLMKey.
+     * @example
+     * // Update or create a TenantLiteLLMKey
+     * const tenantLiteLLMKey = await prisma.tenantLiteLLMKey.upsert({
+     *   create: {
+     *     // ... data to create a TenantLiteLLMKey
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TenantLiteLLMKey we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TenantLiteLLMKeyUpsertArgs>(args: SelectSubset<T, TenantLiteLLMKeyUpsertArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TenantLiteLLMKeys.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantLiteLLMKeyCountArgs} args - Arguments to filter TenantLiteLLMKeys to count.
+     * @example
+     * // Count the number of TenantLiteLLMKeys
+     * const count = await prisma.tenantLiteLLMKey.count({
+     *   where: {
+     *     // ... the filter for the TenantLiteLLMKeys we want to count
+     *   }
+     * })
+    **/
+    count<T extends TenantLiteLLMKeyCountArgs>(
+      args?: Subset<T, TenantLiteLLMKeyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TenantLiteLLMKeyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TenantLiteLLMKey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantLiteLLMKeyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TenantLiteLLMKeyAggregateArgs>(args: Subset<T, TenantLiteLLMKeyAggregateArgs>): Prisma.PrismaPromise<GetTenantLiteLLMKeyAggregateType<T>>
+
+    /**
+     * Group by TenantLiteLLMKey.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantLiteLLMKeyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TenantLiteLLMKeyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TenantLiteLLMKeyGroupByArgs['orderBy'] }
+        : { orderBy?: TenantLiteLLMKeyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TenantLiteLLMKeyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTenantLiteLLMKeyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TenantLiteLLMKey model
+   */
+  readonly fields: TenantLiteLLMKeyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TenantLiteLLMKey.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TenantLiteLLMKeyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TenantLiteLLMKey model
+   */
+  interface TenantLiteLLMKeyFieldRefs {
+    readonly id: FieldRef<"TenantLiteLLMKey", 'String'>
+    readonly tenantId: FieldRef<"TenantLiteLLMKey", 'String'>
+    readonly litellmKeyId: FieldRef<"TenantLiteLLMKey", 'String'>
+    readonly virtualKeyCipher: FieldRef<"TenantLiteLLMKey", 'String'>
+    readonly modelAllowlist: FieldRef<"TenantLiteLLMKey", 'String[]'>
+    readonly status: FieldRef<"TenantLiteLLMKey", 'TenantLiteLLMKeyStatus'>
+    readonly budgetMaxMicrocents: FieldRef<"TenantLiteLLMKey", 'BigInt'>
+    readonly observedSpendMicrocents: FieldRef<"TenantLiteLLMKey", 'BigInt'>
+    readonly lastSyncedAt: FieldRef<"TenantLiteLLMKey", 'DateTime'>
+    readonly createdAt: FieldRef<"TenantLiteLLMKey", 'DateTime'>
+    readonly updatedAt: FieldRef<"TenantLiteLLMKey", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TenantLiteLLMKey findUnique
+   */
+  export type TenantLiteLLMKeyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantLiteLLMKey to fetch.
+     */
+    where: TenantLiteLLMKeyWhereUniqueInput
+  }
+
+  /**
+   * TenantLiteLLMKey findUniqueOrThrow
+   */
+  export type TenantLiteLLMKeyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantLiteLLMKey to fetch.
+     */
+    where: TenantLiteLLMKeyWhereUniqueInput
+  }
+
+  /**
+   * TenantLiteLLMKey findFirst
+   */
+  export type TenantLiteLLMKeyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantLiteLLMKey to fetch.
+     */
+    where?: TenantLiteLLMKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantLiteLLMKeys to fetch.
+     */
+    orderBy?: TenantLiteLLMKeyOrderByWithRelationInput | TenantLiteLLMKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantLiteLLMKeys.
+     */
+    cursor?: TenantLiteLLMKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantLiteLLMKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantLiteLLMKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantLiteLLMKeys.
+     */
+    distinct?: TenantLiteLLMKeyScalarFieldEnum | TenantLiteLLMKeyScalarFieldEnum[]
+  }
+
+  /**
+   * TenantLiteLLMKey findFirstOrThrow
+   */
+  export type TenantLiteLLMKeyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantLiteLLMKey to fetch.
+     */
+    where?: TenantLiteLLMKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantLiteLLMKeys to fetch.
+     */
+    orderBy?: TenantLiteLLMKeyOrderByWithRelationInput | TenantLiteLLMKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantLiteLLMKeys.
+     */
+    cursor?: TenantLiteLLMKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantLiteLLMKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantLiteLLMKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantLiteLLMKeys.
+     */
+    distinct?: TenantLiteLLMKeyScalarFieldEnum | TenantLiteLLMKeyScalarFieldEnum[]
+  }
+
+  /**
+   * TenantLiteLLMKey findMany
+   */
+  export type TenantLiteLLMKeyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+    /**
+     * Filter, which TenantLiteLLMKeys to fetch.
+     */
+    where?: TenantLiteLLMKeyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantLiteLLMKeys to fetch.
+     */
+    orderBy?: TenantLiteLLMKeyOrderByWithRelationInput | TenantLiteLLMKeyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TenantLiteLLMKeys.
+     */
+    cursor?: TenantLiteLLMKeyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantLiteLLMKeys from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantLiteLLMKeys.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantLiteLLMKeys.
+     */
+    distinct?: TenantLiteLLMKeyScalarFieldEnum | TenantLiteLLMKeyScalarFieldEnum[]
+  }
+
+  /**
+   * TenantLiteLLMKey create
+   */
+  export type TenantLiteLLMKeyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TenantLiteLLMKey.
+     */
+    data: XOR<TenantLiteLLMKeyCreateInput, TenantLiteLLMKeyUncheckedCreateInput>
+  }
+
+  /**
+   * TenantLiteLLMKey createMany
+   */
+  export type TenantLiteLLMKeyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TenantLiteLLMKeys.
+     */
+    data: TenantLiteLLMKeyCreateManyInput | TenantLiteLLMKeyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TenantLiteLLMKey createManyAndReturn
+   */
+  export type TenantLiteLLMKeyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * The data used to create many TenantLiteLLMKeys.
+     */
+    data: TenantLiteLLMKeyCreateManyInput | TenantLiteLLMKeyCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TenantLiteLLMKey update
+   */
+  export type TenantLiteLLMKeyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TenantLiteLLMKey.
+     */
+    data: XOR<TenantLiteLLMKeyUpdateInput, TenantLiteLLMKeyUncheckedUpdateInput>
+    /**
+     * Choose, which TenantLiteLLMKey to update.
+     */
+    where: TenantLiteLLMKeyWhereUniqueInput
+  }
+
+  /**
+   * TenantLiteLLMKey updateMany
+   */
+  export type TenantLiteLLMKeyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TenantLiteLLMKeys.
+     */
+    data: XOR<TenantLiteLLMKeyUpdateManyMutationInput, TenantLiteLLMKeyUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantLiteLLMKeys to update
+     */
+    where?: TenantLiteLLMKeyWhereInput
+    /**
+     * Limit how many TenantLiteLLMKeys to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantLiteLLMKey updateManyAndReturn
+   */
+  export type TenantLiteLLMKeyUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * The data used to update TenantLiteLLMKeys.
+     */
+    data: XOR<TenantLiteLLMKeyUpdateManyMutationInput, TenantLiteLLMKeyUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantLiteLLMKeys to update
+     */
+    where?: TenantLiteLLMKeyWhereInput
+    /**
+     * Limit how many TenantLiteLLMKeys to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TenantLiteLLMKey upsert
+   */
+  export type TenantLiteLLMKeyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TenantLiteLLMKey to update in case it exists.
+     */
+    where: TenantLiteLLMKeyWhereUniqueInput
+    /**
+     * In case the TenantLiteLLMKey found by the `where` argument doesn't exist, create a new TenantLiteLLMKey with this data.
+     */
+    create: XOR<TenantLiteLLMKeyCreateInput, TenantLiteLLMKeyUncheckedCreateInput>
+    /**
+     * In case the TenantLiteLLMKey was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TenantLiteLLMKeyUpdateInput, TenantLiteLLMKeyUncheckedUpdateInput>
+  }
+
+  /**
+   * TenantLiteLLMKey delete
+   */
+  export type TenantLiteLLMKeyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+    /**
+     * Filter which TenantLiteLLMKey to delete.
+     */
+    where: TenantLiteLLMKeyWhereUniqueInput
+  }
+
+  /**
+   * TenantLiteLLMKey deleteMany
+   */
+  export type TenantLiteLLMKeyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantLiteLLMKeys to delete
+     */
+    where?: TenantLiteLLMKeyWhereInput
+    /**
+     * Limit how many TenantLiteLLMKeys to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantLiteLLMKey without action
+   */
+  export type TenantLiteLLMKeyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CreditWallet
+   */
+
+  export type AggregateCreditWallet = {
+    _count: CreditWalletCountAggregateOutputType | null
+    _avg: CreditWalletAvgAggregateOutputType | null
+    _sum: CreditWalletSumAggregateOutputType | null
+    _min: CreditWalletMinAggregateOutputType | null
+    _max: CreditWalletMaxAggregateOutputType | null
+  }
+
+  export type CreditWalletAvgAggregateOutputType = {
+    balanceMicrocents: number | null
+    lifetimeCreditedMicrocents: number | null
+    lifetimeDebitedMicrocents: number | null
+    lowBalanceThresholdMicrocents: number | null
+  }
+
+  export type CreditWalletSumAggregateOutputType = {
+    balanceMicrocents: bigint | null
+    lifetimeCreditedMicrocents: bigint | null
+    lifetimeDebitedMicrocents: bigint | null
+    lowBalanceThresholdMicrocents: bigint | null
+  }
+
+  export type CreditWalletMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    balanceMicrocents: bigint | null
+    lifetimeCreditedMicrocents: bigint | null
+    lifetimeDebitedMicrocents: bigint | null
+    lowBalanceThresholdMicrocents: bigint | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CreditWalletMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    balanceMicrocents: bigint | null
+    lifetimeCreditedMicrocents: bigint | null
+    lifetimeDebitedMicrocents: bigint | null
+    lowBalanceThresholdMicrocents: bigint | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CreditWalletCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    balanceMicrocents: number
+    lifetimeCreditedMicrocents: number
+    lifetimeDebitedMicrocents: number
+    lowBalanceThresholdMicrocents: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CreditWalletAvgAggregateInputType = {
+    balanceMicrocents?: true
+    lifetimeCreditedMicrocents?: true
+    lifetimeDebitedMicrocents?: true
+    lowBalanceThresholdMicrocents?: true
+  }
+
+  export type CreditWalletSumAggregateInputType = {
+    balanceMicrocents?: true
+    lifetimeCreditedMicrocents?: true
+    lifetimeDebitedMicrocents?: true
+    lowBalanceThresholdMicrocents?: true
+  }
+
+  export type CreditWalletMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    balanceMicrocents?: true
+    lifetimeCreditedMicrocents?: true
+    lifetimeDebitedMicrocents?: true
+    lowBalanceThresholdMicrocents?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CreditWalletMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    balanceMicrocents?: true
+    lifetimeCreditedMicrocents?: true
+    lifetimeDebitedMicrocents?: true
+    lowBalanceThresholdMicrocents?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CreditWalletCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    balanceMicrocents?: true
+    lifetimeCreditedMicrocents?: true
+    lifetimeDebitedMicrocents?: true
+    lowBalanceThresholdMicrocents?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CreditWalletAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreditWallet to aggregate.
+     */
+    where?: CreditWalletWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditWallets to fetch.
+     */
+    orderBy?: CreditWalletOrderByWithRelationInput | CreditWalletOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CreditWalletWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditWallets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditWallets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CreditWallets
+    **/
+    _count?: true | CreditWalletCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CreditWalletAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CreditWalletSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CreditWalletMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CreditWalletMaxAggregateInputType
+  }
+
+  export type GetCreditWalletAggregateType<T extends CreditWalletAggregateArgs> = {
+        [P in keyof T & keyof AggregateCreditWallet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCreditWallet[P]>
+      : GetScalarType<T[P], AggregateCreditWallet[P]>
+  }
+
+
+
+
+  export type CreditWalletGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreditWalletWhereInput
+    orderBy?: CreditWalletOrderByWithAggregationInput | CreditWalletOrderByWithAggregationInput[]
+    by: CreditWalletScalarFieldEnum[] | CreditWalletScalarFieldEnum
+    having?: CreditWalletScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CreditWalletCountAggregateInputType | true
+    _avg?: CreditWalletAvgAggregateInputType
+    _sum?: CreditWalletSumAggregateInputType
+    _min?: CreditWalletMinAggregateInputType
+    _max?: CreditWalletMaxAggregateInputType
+  }
+
+  export type CreditWalletGroupByOutputType = {
+    id: string
+    tenantId: string
+    balanceMicrocents: bigint
+    lifetimeCreditedMicrocents: bigint
+    lifetimeDebitedMicrocents: bigint
+    lowBalanceThresholdMicrocents: bigint | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CreditWalletCountAggregateOutputType | null
+    _avg: CreditWalletAvgAggregateOutputType | null
+    _sum: CreditWalletSumAggregateOutputType | null
+    _min: CreditWalletMinAggregateOutputType | null
+    _max: CreditWalletMaxAggregateOutputType | null
+  }
+
+  type GetCreditWalletGroupByPayload<T extends CreditWalletGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CreditWalletGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CreditWalletGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CreditWalletGroupByOutputType[P]>
+            : GetScalarType<T[P], CreditWalletGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CreditWalletSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    balanceMicrocents?: boolean
+    lifetimeCreditedMicrocents?: boolean
+    lifetimeDebitedMicrocents?: boolean
+    lowBalanceThresholdMicrocents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    transactions?: boolean | CreditWallet$transactionsArgs<ExtArgs>
+    _count?: boolean | CreditWalletCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creditWallet"]>
+
+  export type CreditWalletSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    balanceMicrocents?: boolean
+    lifetimeCreditedMicrocents?: boolean
+    lifetimeDebitedMicrocents?: boolean
+    lowBalanceThresholdMicrocents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creditWallet"]>
+
+  export type CreditWalletSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    balanceMicrocents?: boolean
+    lifetimeCreditedMicrocents?: boolean
+    lifetimeDebitedMicrocents?: boolean
+    lowBalanceThresholdMicrocents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creditWallet"]>
+
+  export type CreditWalletSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    balanceMicrocents?: boolean
+    lifetimeCreditedMicrocents?: boolean
+    lifetimeDebitedMicrocents?: boolean
+    lowBalanceThresholdMicrocents?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CreditWalletOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "balanceMicrocents" | "lifetimeCreditedMicrocents" | "lifetimeDebitedMicrocents" | "lowBalanceThresholdMicrocents" | "createdAt" | "updatedAt", ExtArgs["result"]["creditWallet"]>
+  export type CreditWalletInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    transactions?: boolean | CreditWallet$transactionsArgs<ExtArgs>
+    _count?: boolean | CreditWalletCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CreditWalletIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type CreditWalletIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $CreditWalletPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CreditWallet"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      transactions: Prisma.$CreditTransactionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      balanceMicrocents: bigint
+      lifetimeCreditedMicrocents: bigint
+      lifetimeDebitedMicrocents: bigint
+      lowBalanceThresholdMicrocents: bigint | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["creditWallet"]>
+    composites: {}
+  }
+
+  type CreditWalletGetPayload<S extends boolean | null | undefined | CreditWalletDefaultArgs> = $Result.GetResult<Prisma.$CreditWalletPayload, S>
+
+  type CreditWalletCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CreditWalletFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CreditWalletCountAggregateInputType | true
+    }
+
+  export interface CreditWalletDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CreditWallet'], meta: { name: 'CreditWallet' } }
+    /**
+     * Find zero or one CreditWallet that matches the filter.
+     * @param {CreditWalletFindUniqueArgs} args - Arguments to find a CreditWallet
+     * @example
+     * // Get one CreditWallet
+     * const creditWallet = await prisma.creditWallet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CreditWalletFindUniqueArgs>(args: SelectSubset<T, CreditWalletFindUniqueArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CreditWallet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CreditWalletFindUniqueOrThrowArgs} args - Arguments to find a CreditWallet
+     * @example
+     * // Get one CreditWallet
+     * const creditWallet = await prisma.creditWallet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CreditWalletFindUniqueOrThrowArgs>(args: SelectSubset<T, CreditWalletFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CreditWallet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditWalletFindFirstArgs} args - Arguments to find a CreditWallet
+     * @example
+     * // Get one CreditWallet
+     * const creditWallet = await prisma.creditWallet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CreditWalletFindFirstArgs>(args?: SelectSubset<T, CreditWalletFindFirstArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CreditWallet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditWalletFindFirstOrThrowArgs} args - Arguments to find a CreditWallet
+     * @example
+     * // Get one CreditWallet
+     * const creditWallet = await prisma.creditWallet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CreditWalletFindFirstOrThrowArgs>(args?: SelectSubset<T, CreditWalletFindFirstOrThrowArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CreditWallets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditWalletFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CreditWallets
+     * const creditWallets = await prisma.creditWallet.findMany()
+     * 
+     * // Get first 10 CreditWallets
+     * const creditWallets = await prisma.creditWallet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const creditWalletWithIdOnly = await prisma.creditWallet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CreditWalletFindManyArgs>(args?: SelectSubset<T, CreditWalletFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CreditWallet.
+     * @param {CreditWalletCreateArgs} args - Arguments to create a CreditWallet.
+     * @example
+     * // Create one CreditWallet
+     * const CreditWallet = await prisma.creditWallet.create({
+     *   data: {
+     *     // ... data to create a CreditWallet
+     *   }
+     * })
+     * 
+     */
+    create<T extends CreditWalletCreateArgs>(args: SelectSubset<T, CreditWalletCreateArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CreditWallets.
+     * @param {CreditWalletCreateManyArgs} args - Arguments to create many CreditWallets.
+     * @example
+     * // Create many CreditWallets
+     * const creditWallet = await prisma.creditWallet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CreditWalletCreateManyArgs>(args?: SelectSubset<T, CreditWalletCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CreditWallets and returns the data saved in the database.
+     * @param {CreditWalletCreateManyAndReturnArgs} args - Arguments to create many CreditWallets.
+     * @example
+     * // Create many CreditWallets
+     * const creditWallet = await prisma.creditWallet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CreditWallets and only return the `id`
+     * const creditWalletWithIdOnly = await prisma.creditWallet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CreditWalletCreateManyAndReturnArgs>(args?: SelectSubset<T, CreditWalletCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CreditWallet.
+     * @param {CreditWalletDeleteArgs} args - Arguments to delete one CreditWallet.
+     * @example
+     * // Delete one CreditWallet
+     * const CreditWallet = await prisma.creditWallet.delete({
+     *   where: {
+     *     // ... filter to delete one CreditWallet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CreditWalletDeleteArgs>(args: SelectSubset<T, CreditWalletDeleteArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CreditWallet.
+     * @param {CreditWalletUpdateArgs} args - Arguments to update one CreditWallet.
+     * @example
+     * // Update one CreditWallet
+     * const creditWallet = await prisma.creditWallet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CreditWalletUpdateArgs>(args: SelectSubset<T, CreditWalletUpdateArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CreditWallets.
+     * @param {CreditWalletDeleteManyArgs} args - Arguments to filter CreditWallets to delete.
+     * @example
+     * // Delete a few CreditWallets
+     * const { count } = await prisma.creditWallet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CreditWalletDeleteManyArgs>(args?: SelectSubset<T, CreditWalletDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CreditWallets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditWalletUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CreditWallets
+     * const creditWallet = await prisma.creditWallet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CreditWalletUpdateManyArgs>(args: SelectSubset<T, CreditWalletUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CreditWallets and returns the data updated in the database.
+     * @param {CreditWalletUpdateManyAndReturnArgs} args - Arguments to update many CreditWallets.
+     * @example
+     * // Update many CreditWallets
+     * const creditWallet = await prisma.creditWallet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CreditWallets and only return the `id`
+     * const creditWalletWithIdOnly = await prisma.creditWallet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CreditWalletUpdateManyAndReturnArgs>(args: SelectSubset<T, CreditWalletUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CreditWallet.
+     * @param {CreditWalletUpsertArgs} args - Arguments to update or create a CreditWallet.
+     * @example
+     * // Update or create a CreditWallet
+     * const creditWallet = await prisma.creditWallet.upsert({
+     *   create: {
+     *     // ... data to create a CreditWallet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CreditWallet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CreditWalletUpsertArgs>(args: SelectSubset<T, CreditWalletUpsertArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CreditWallets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditWalletCountArgs} args - Arguments to filter CreditWallets to count.
+     * @example
+     * // Count the number of CreditWallets
+     * const count = await prisma.creditWallet.count({
+     *   where: {
+     *     // ... the filter for the CreditWallets we want to count
+     *   }
+     * })
+    **/
+    count<T extends CreditWalletCountArgs>(
+      args?: Subset<T, CreditWalletCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CreditWalletCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CreditWallet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditWalletAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CreditWalletAggregateArgs>(args: Subset<T, CreditWalletAggregateArgs>): Prisma.PrismaPromise<GetCreditWalletAggregateType<T>>
+
+    /**
+     * Group by CreditWallet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditWalletGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CreditWalletGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CreditWalletGroupByArgs['orderBy'] }
+        : { orderBy?: CreditWalletGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CreditWalletGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCreditWalletGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CreditWallet model
+   */
+  readonly fields: CreditWalletFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CreditWallet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CreditWalletClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    transactions<T extends CreditWallet$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, CreditWallet$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CreditWallet model
+   */
+  interface CreditWalletFieldRefs {
+    readonly id: FieldRef<"CreditWallet", 'String'>
+    readonly tenantId: FieldRef<"CreditWallet", 'String'>
+    readonly balanceMicrocents: FieldRef<"CreditWallet", 'BigInt'>
+    readonly lifetimeCreditedMicrocents: FieldRef<"CreditWallet", 'BigInt'>
+    readonly lifetimeDebitedMicrocents: FieldRef<"CreditWallet", 'BigInt'>
+    readonly lowBalanceThresholdMicrocents: FieldRef<"CreditWallet", 'BigInt'>
+    readonly createdAt: FieldRef<"CreditWallet", 'DateTime'>
+    readonly updatedAt: FieldRef<"CreditWallet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CreditWallet findUnique
+   */
+  export type CreditWalletFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditWallet to fetch.
+     */
+    where: CreditWalletWhereUniqueInput
+  }
+
+  /**
+   * CreditWallet findUniqueOrThrow
+   */
+  export type CreditWalletFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditWallet to fetch.
+     */
+    where: CreditWalletWhereUniqueInput
+  }
+
+  /**
+   * CreditWallet findFirst
+   */
+  export type CreditWalletFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditWallet to fetch.
+     */
+    where?: CreditWalletWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditWallets to fetch.
+     */
+    orderBy?: CreditWalletOrderByWithRelationInput | CreditWalletOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreditWallets.
+     */
+    cursor?: CreditWalletWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditWallets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditWallets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreditWallets.
+     */
+    distinct?: CreditWalletScalarFieldEnum | CreditWalletScalarFieldEnum[]
+  }
+
+  /**
+   * CreditWallet findFirstOrThrow
+   */
+  export type CreditWalletFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditWallet to fetch.
+     */
+    where?: CreditWalletWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditWallets to fetch.
+     */
+    orderBy?: CreditWalletOrderByWithRelationInput | CreditWalletOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreditWallets.
+     */
+    cursor?: CreditWalletWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditWallets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditWallets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreditWallets.
+     */
+    distinct?: CreditWalletScalarFieldEnum | CreditWalletScalarFieldEnum[]
+  }
+
+  /**
+   * CreditWallet findMany
+   */
+  export type CreditWalletFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditWallets to fetch.
+     */
+    where?: CreditWalletWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditWallets to fetch.
+     */
+    orderBy?: CreditWalletOrderByWithRelationInput | CreditWalletOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CreditWallets.
+     */
+    cursor?: CreditWalletWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditWallets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditWallets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreditWallets.
+     */
+    distinct?: CreditWalletScalarFieldEnum | CreditWalletScalarFieldEnum[]
+  }
+
+  /**
+   * CreditWallet create
+   */
+  export type CreditWalletCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CreditWallet.
+     */
+    data: XOR<CreditWalletCreateInput, CreditWalletUncheckedCreateInput>
+  }
+
+  /**
+   * CreditWallet createMany
+   */
+  export type CreditWalletCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CreditWallets.
+     */
+    data: CreditWalletCreateManyInput | CreditWalletCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CreditWallet createManyAndReturn
+   */
+  export type CreditWalletCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * The data used to create many CreditWallets.
+     */
+    data: CreditWalletCreateManyInput | CreditWalletCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CreditWallet update
+   */
+  export type CreditWalletUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CreditWallet.
+     */
+    data: XOR<CreditWalletUpdateInput, CreditWalletUncheckedUpdateInput>
+    /**
+     * Choose, which CreditWallet to update.
+     */
+    where: CreditWalletWhereUniqueInput
+  }
+
+  /**
+   * CreditWallet updateMany
+   */
+  export type CreditWalletUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CreditWallets.
+     */
+    data: XOR<CreditWalletUpdateManyMutationInput, CreditWalletUncheckedUpdateManyInput>
+    /**
+     * Filter which CreditWallets to update
+     */
+    where?: CreditWalletWhereInput
+    /**
+     * Limit how many CreditWallets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CreditWallet updateManyAndReturn
+   */
+  export type CreditWalletUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * The data used to update CreditWallets.
+     */
+    data: XOR<CreditWalletUpdateManyMutationInput, CreditWalletUncheckedUpdateManyInput>
+    /**
+     * Filter which CreditWallets to update
+     */
+    where?: CreditWalletWhereInput
+    /**
+     * Limit how many CreditWallets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CreditWallet upsert
+   */
+  export type CreditWalletUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CreditWallet to update in case it exists.
+     */
+    where: CreditWalletWhereUniqueInput
+    /**
+     * In case the CreditWallet found by the `where` argument doesn't exist, create a new CreditWallet with this data.
+     */
+    create: XOR<CreditWalletCreateInput, CreditWalletUncheckedCreateInput>
+    /**
+     * In case the CreditWallet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CreditWalletUpdateInput, CreditWalletUncheckedUpdateInput>
+  }
+
+  /**
+   * CreditWallet delete
+   */
+  export type CreditWalletDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+    /**
+     * Filter which CreditWallet to delete.
+     */
+    where: CreditWalletWhereUniqueInput
+  }
+
+  /**
+   * CreditWallet deleteMany
+   */
+  export type CreditWalletDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreditWallets to delete
+     */
+    where?: CreditWalletWhereInput
+    /**
+     * Limit how many CreditWallets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CreditWallet.transactions
+   */
+  export type CreditWallet$transactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+    where?: CreditTransactionWhereInput
+    orderBy?: CreditTransactionOrderByWithRelationInput | CreditTransactionOrderByWithRelationInput[]
+    cursor?: CreditTransactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CreditTransactionScalarFieldEnum | CreditTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * CreditWallet without action
+   */
+  export type CreditWalletDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CreditTransaction
+   */
+
+  export type AggregateCreditTransaction = {
+    _count: CreditTransactionCountAggregateOutputType | null
+    _avg: CreditTransactionAvgAggregateOutputType | null
+    _sum: CreditTransactionSumAggregateOutputType | null
+    _min: CreditTransactionMinAggregateOutputType | null
+    _max: CreditTransactionMaxAggregateOutputType | null
+  }
+
+  export type CreditTransactionAvgAggregateOutputType = {
+    amountMicrocents: number | null
+    balanceAfterMicrocents: number | null
+  }
+
+  export type CreditTransactionSumAggregateOutputType = {
+    amountMicrocents: bigint | null
+    balanceAfterMicrocents: bigint | null
+  }
+
+  export type CreditTransactionMinAggregateOutputType = {
+    id: string | null
+    walletId: string | null
+    tenantId: string | null
+    amountMicrocents: bigint | null
+    kind: $Enums.CreditTransactionKind | null
+    reason: string | null
+    externalRef: string | null
+    balanceAfterMicrocents: bigint | null
+    createdAt: Date | null
+  }
+
+  export type CreditTransactionMaxAggregateOutputType = {
+    id: string | null
+    walletId: string | null
+    tenantId: string | null
+    amountMicrocents: bigint | null
+    kind: $Enums.CreditTransactionKind | null
+    reason: string | null
+    externalRef: string | null
+    balanceAfterMicrocents: bigint | null
+    createdAt: Date | null
+  }
+
+  export type CreditTransactionCountAggregateOutputType = {
+    id: number
+    walletId: number
+    tenantId: number
+    amountMicrocents: number
+    kind: number
+    reason: number
+    externalRef: number
+    balanceAfterMicrocents: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CreditTransactionAvgAggregateInputType = {
+    amountMicrocents?: true
+    balanceAfterMicrocents?: true
+  }
+
+  export type CreditTransactionSumAggregateInputType = {
+    amountMicrocents?: true
+    balanceAfterMicrocents?: true
+  }
+
+  export type CreditTransactionMinAggregateInputType = {
+    id?: true
+    walletId?: true
+    tenantId?: true
+    amountMicrocents?: true
+    kind?: true
+    reason?: true
+    externalRef?: true
+    balanceAfterMicrocents?: true
+    createdAt?: true
+  }
+
+  export type CreditTransactionMaxAggregateInputType = {
+    id?: true
+    walletId?: true
+    tenantId?: true
+    amountMicrocents?: true
+    kind?: true
+    reason?: true
+    externalRef?: true
+    balanceAfterMicrocents?: true
+    createdAt?: true
+  }
+
+  export type CreditTransactionCountAggregateInputType = {
+    id?: true
+    walletId?: true
+    tenantId?: true
+    amountMicrocents?: true
+    kind?: true
+    reason?: true
+    externalRef?: true
+    balanceAfterMicrocents?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CreditTransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreditTransaction to aggregate.
+     */
+    where?: CreditTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditTransactions to fetch.
+     */
+    orderBy?: CreditTransactionOrderByWithRelationInput | CreditTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CreditTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CreditTransactions
+    **/
+    _count?: true | CreditTransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CreditTransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CreditTransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CreditTransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CreditTransactionMaxAggregateInputType
+  }
+
+  export type GetCreditTransactionAggregateType<T extends CreditTransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateCreditTransaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCreditTransaction[P]>
+      : GetScalarType<T[P], AggregateCreditTransaction[P]>
+  }
+
+
+
+
+  export type CreditTransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CreditTransactionWhereInput
+    orderBy?: CreditTransactionOrderByWithAggregationInput | CreditTransactionOrderByWithAggregationInput[]
+    by: CreditTransactionScalarFieldEnum[] | CreditTransactionScalarFieldEnum
+    having?: CreditTransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CreditTransactionCountAggregateInputType | true
+    _avg?: CreditTransactionAvgAggregateInputType
+    _sum?: CreditTransactionSumAggregateInputType
+    _min?: CreditTransactionMinAggregateInputType
+    _max?: CreditTransactionMaxAggregateInputType
+  }
+
+  export type CreditTransactionGroupByOutputType = {
+    id: string
+    walletId: string
+    tenantId: string
+    amountMicrocents: bigint
+    kind: $Enums.CreditTransactionKind
+    reason: string | null
+    externalRef: string | null
+    balanceAfterMicrocents: bigint
+    createdAt: Date
+    _count: CreditTransactionCountAggregateOutputType | null
+    _avg: CreditTransactionAvgAggregateOutputType | null
+    _sum: CreditTransactionSumAggregateOutputType | null
+    _min: CreditTransactionMinAggregateOutputType | null
+    _max: CreditTransactionMaxAggregateOutputType | null
+  }
+
+  type GetCreditTransactionGroupByPayload<T extends CreditTransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CreditTransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CreditTransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CreditTransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], CreditTransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CreditTransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    walletId?: boolean
+    tenantId?: boolean
+    amountMicrocents?: boolean
+    kind?: boolean
+    reason?: boolean
+    externalRef?: boolean
+    balanceAfterMicrocents?: boolean
+    createdAt?: boolean
+    wallet?: boolean | CreditWalletDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creditTransaction"]>
+
+  export type CreditTransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    walletId?: boolean
+    tenantId?: boolean
+    amountMicrocents?: boolean
+    kind?: boolean
+    reason?: boolean
+    externalRef?: boolean
+    balanceAfterMicrocents?: boolean
+    createdAt?: boolean
+    wallet?: boolean | CreditWalletDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creditTransaction"]>
+
+  export type CreditTransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    walletId?: boolean
+    tenantId?: boolean
+    amountMicrocents?: boolean
+    kind?: boolean
+    reason?: boolean
+    externalRef?: boolean
+    balanceAfterMicrocents?: boolean
+    createdAt?: boolean
+    wallet?: boolean | CreditWalletDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["creditTransaction"]>
+
+  export type CreditTransactionSelectScalar = {
+    id?: boolean
+    walletId?: boolean
+    tenantId?: boolean
+    amountMicrocents?: boolean
+    kind?: boolean
+    reason?: boolean
+    externalRef?: boolean
+    balanceAfterMicrocents?: boolean
+    createdAt?: boolean
+  }
+
+  export type CreditTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "walletId" | "tenantId" | "amountMicrocents" | "kind" | "reason" | "externalRef" | "balanceAfterMicrocents" | "createdAt", ExtArgs["result"]["creditTransaction"]>
+  export type CreditTransactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    wallet?: boolean | CreditWalletDefaultArgs<ExtArgs>
+  }
+  export type CreditTransactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    wallet?: boolean | CreditWalletDefaultArgs<ExtArgs>
+  }
+  export type CreditTransactionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    wallet?: boolean | CreditWalletDefaultArgs<ExtArgs>
+  }
+
+  export type $CreditTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CreditTransaction"
+    objects: {
+      wallet: Prisma.$CreditWalletPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      walletId: string
+      tenantId: string
+      amountMicrocents: bigint
+      kind: $Enums.CreditTransactionKind
+      reason: string | null
+      externalRef: string | null
+      balanceAfterMicrocents: bigint
+      createdAt: Date
+    }, ExtArgs["result"]["creditTransaction"]>
+    composites: {}
+  }
+
+  type CreditTransactionGetPayload<S extends boolean | null | undefined | CreditTransactionDefaultArgs> = $Result.GetResult<Prisma.$CreditTransactionPayload, S>
+
+  type CreditTransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CreditTransactionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CreditTransactionCountAggregateInputType | true
+    }
+
+  export interface CreditTransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CreditTransaction'], meta: { name: 'CreditTransaction' } }
+    /**
+     * Find zero or one CreditTransaction that matches the filter.
+     * @param {CreditTransactionFindUniqueArgs} args - Arguments to find a CreditTransaction
+     * @example
+     * // Get one CreditTransaction
+     * const creditTransaction = await prisma.creditTransaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CreditTransactionFindUniqueArgs>(args: SelectSubset<T, CreditTransactionFindUniqueArgs<ExtArgs>>): Prisma__CreditTransactionClient<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CreditTransaction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CreditTransactionFindUniqueOrThrowArgs} args - Arguments to find a CreditTransaction
+     * @example
+     * // Get one CreditTransaction
+     * const creditTransaction = await prisma.creditTransaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CreditTransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, CreditTransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CreditTransactionClient<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CreditTransaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditTransactionFindFirstArgs} args - Arguments to find a CreditTransaction
+     * @example
+     * // Get one CreditTransaction
+     * const creditTransaction = await prisma.creditTransaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CreditTransactionFindFirstArgs>(args?: SelectSubset<T, CreditTransactionFindFirstArgs<ExtArgs>>): Prisma__CreditTransactionClient<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CreditTransaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditTransactionFindFirstOrThrowArgs} args - Arguments to find a CreditTransaction
+     * @example
+     * // Get one CreditTransaction
+     * const creditTransaction = await prisma.creditTransaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CreditTransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, CreditTransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__CreditTransactionClient<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CreditTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditTransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CreditTransactions
+     * const creditTransactions = await prisma.creditTransaction.findMany()
+     * 
+     * // Get first 10 CreditTransactions
+     * const creditTransactions = await prisma.creditTransaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const creditTransactionWithIdOnly = await prisma.creditTransaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CreditTransactionFindManyArgs>(args?: SelectSubset<T, CreditTransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CreditTransaction.
+     * @param {CreditTransactionCreateArgs} args - Arguments to create a CreditTransaction.
+     * @example
+     * // Create one CreditTransaction
+     * const CreditTransaction = await prisma.creditTransaction.create({
+     *   data: {
+     *     // ... data to create a CreditTransaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends CreditTransactionCreateArgs>(args: SelectSubset<T, CreditTransactionCreateArgs<ExtArgs>>): Prisma__CreditTransactionClient<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CreditTransactions.
+     * @param {CreditTransactionCreateManyArgs} args - Arguments to create many CreditTransactions.
+     * @example
+     * // Create many CreditTransactions
+     * const creditTransaction = await prisma.creditTransaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CreditTransactionCreateManyArgs>(args?: SelectSubset<T, CreditTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CreditTransactions and returns the data saved in the database.
+     * @param {CreditTransactionCreateManyAndReturnArgs} args - Arguments to create many CreditTransactions.
+     * @example
+     * // Create many CreditTransactions
+     * const creditTransaction = await prisma.creditTransaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CreditTransactions and only return the `id`
+     * const creditTransactionWithIdOnly = await prisma.creditTransaction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CreditTransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, CreditTransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CreditTransaction.
+     * @param {CreditTransactionDeleteArgs} args - Arguments to delete one CreditTransaction.
+     * @example
+     * // Delete one CreditTransaction
+     * const CreditTransaction = await prisma.creditTransaction.delete({
+     *   where: {
+     *     // ... filter to delete one CreditTransaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CreditTransactionDeleteArgs>(args: SelectSubset<T, CreditTransactionDeleteArgs<ExtArgs>>): Prisma__CreditTransactionClient<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CreditTransaction.
+     * @param {CreditTransactionUpdateArgs} args - Arguments to update one CreditTransaction.
+     * @example
+     * // Update one CreditTransaction
+     * const creditTransaction = await prisma.creditTransaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CreditTransactionUpdateArgs>(args: SelectSubset<T, CreditTransactionUpdateArgs<ExtArgs>>): Prisma__CreditTransactionClient<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CreditTransactions.
+     * @param {CreditTransactionDeleteManyArgs} args - Arguments to filter CreditTransactions to delete.
+     * @example
+     * // Delete a few CreditTransactions
+     * const { count } = await prisma.creditTransaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CreditTransactionDeleteManyArgs>(args?: SelectSubset<T, CreditTransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CreditTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditTransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CreditTransactions
+     * const creditTransaction = await prisma.creditTransaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CreditTransactionUpdateManyArgs>(args: SelectSubset<T, CreditTransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CreditTransactions and returns the data updated in the database.
+     * @param {CreditTransactionUpdateManyAndReturnArgs} args - Arguments to update many CreditTransactions.
+     * @example
+     * // Update many CreditTransactions
+     * const creditTransaction = await prisma.creditTransaction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CreditTransactions and only return the `id`
+     * const creditTransactionWithIdOnly = await prisma.creditTransaction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CreditTransactionUpdateManyAndReturnArgs>(args: SelectSubset<T, CreditTransactionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CreditTransaction.
+     * @param {CreditTransactionUpsertArgs} args - Arguments to update or create a CreditTransaction.
+     * @example
+     * // Update or create a CreditTransaction
+     * const creditTransaction = await prisma.creditTransaction.upsert({
+     *   create: {
+     *     // ... data to create a CreditTransaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CreditTransaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CreditTransactionUpsertArgs>(args: SelectSubset<T, CreditTransactionUpsertArgs<ExtArgs>>): Prisma__CreditTransactionClient<$Result.GetResult<Prisma.$CreditTransactionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CreditTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditTransactionCountArgs} args - Arguments to filter CreditTransactions to count.
+     * @example
+     * // Count the number of CreditTransactions
+     * const count = await prisma.creditTransaction.count({
+     *   where: {
+     *     // ... the filter for the CreditTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends CreditTransactionCountArgs>(
+      args?: Subset<T, CreditTransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CreditTransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CreditTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditTransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CreditTransactionAggregateArgs>(args: Subset<T, CreditTransactionAggregateArgs>): Prisma.PrismaPromise<GetCreditTransactionAggregateType<T>>
+
+    /**
+     * Group by CreditTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CreditTransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CreditTransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CreditTransactionGroupByArgs['orderBy'] }
+        : { orderBy?: CreditTransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CreditTransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCreditTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CreditTransaction model
+   */
+  readonly fields: CreditTransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CreditTransaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CreditTransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    wallet<T extends CreditWalletDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CreditWalletDefaultArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CreditTransaction model
+   */
+  interface CreditTransactionFieldRefs {
+    readonly id: FieldRef<"CreditTransaction", 'String'>
+    readonly walletId: FieldRef<"CreditTransaction", 'String'>
+    readonly tenantId: FieldRef<"CreditTransaction", 'String'>
+    readonly amountMicrocents: FieldRef<"CreditTransaction", 'BigInt'>
+    readonly kind: FieldRef<"CreditTransaction", 'CreditTransactionKind'>
+    readonly reason: FieldRef<"CreditTransaction", 'String'>
+    readonly externalRef: FieldRef<"CreditTransaction", 'String'>
+    readonly balanceAfterMicrocents: FieldRef<"CreditTransaction", 'BigInt'>
+    readonly createdAt: FieldRef<"CreditTransaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CreditTransaction findUnique
+   */
+  export type CreditTransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditTransaction to fetch.
+     */
+    where: CreditTransactionWhereUniqueInput
+  }
+
+  /**
+   * CreditTransaction findUniqueOrThrow
+   */
+  export type CreditTransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditTransaction to fetch.
+     */
+    where: CreditTransactionWhereUniqueInput
+  }
+
+  /**
+   * CreditTransaction findFirst
+   */
+  export type CreditTransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditTransaction to fetch.
+     */
+    where?: CreditTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditTransactions to fetch.
+     */
+    orderBy?: CreditTransactionOrderByWithRelationInput | CreditTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreditTransactions.
+     */
+    cursor?: CreditTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreditTransactions.
+     */
+    distinct?: CreditTransactionScalarFieldEnum | CreditTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * CreditTransaction findFirstOrThrow
+   */
+  export type CreditTransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditTransaction to fetch.
+     */
+    where?: CreditTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditTransactions to fetch.
+     */
+    orderBy?: CreditTransactionOrderByWithRelationInput | CreditTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CreditTransactions.
+     */
+    cursor?: CreditTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreditTransactions.
+     */
+    distinct?: CreditTransactionScalarFieldEnum | CreditTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * CreditTransaction findMany
+   */
+  export type CreditTransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+    /**
+     * Filter, which CreditTransactions to fetch.
+     */
+    where?: CreditTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CreditTransactions to fetch.
+     */
+    orderBy?: CreditTransactionOrderByWithRelationInput | CreditTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CreditTransactions.
+     */
+    cursor?: CreditTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CreditTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CreditTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CreditTransactions.
+     */
+    distinct?: CreditTransactionScalarFieldEnum | CreditTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * CreditTransaction create
+   */
+  export type CreditTransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CreditTransaction.
+     */
+    data: XOR<CreditTransactionCreateInput, CreditTransactionUncheckedCreateInput>
+  }
+
+  /**
+   * CreditTransaction createMany
+   */
+  export type CreditTransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CreditTransactions.
+     */
+    data: CreditTransactionCreateManyInput | CreditTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CreditTransaction createManyAndReturn
+   */
+  export type CreditTransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * The data used to create many CreditTransactions.
+     */
+    data: CreditTransactionCreateManyInput | CreditTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CreditTransaction update
+   */
+  export type CreditTransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CreditTransaction.
+     */
+    data: XOR<CreditTransactionUpdateInput, CreditTransactionUncheckedUpdateInput>
+    /**
+     * Choose, which CreditTransaction to update.
+     */
+    where: CreditTransactionWhereUniqueInput
+  }
+
+  /**
+   * CreditTransaction updateMany
+   */
+  export type CreditTransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CreditTransactions.
+     */
+    data: XOR<CreditTransactionUpdateManyMutationInput, CreditTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which CreditTransactions to update
+     */
+    where?: CreditTransactionWhereInput
+    /**
+     * Limit how many CreditTransactions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CreditTransaction updateManyAndReturn
+   */
+  export type CreditTransactionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * The data used to update CreditTransactions.
+     */
+    data: XOR<CreditTransactionUpdateManyMutationInput, CreditTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which CreditTransactions to update
+     */
+    where?: CreditTransactionWhereInput
+    /**
+     * Limit how many CreditTransactions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CreditTransaction upsert
+   */
+  export type CreditTransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CreditTransaction to update in case it exists.
+     */
+    where: CreditTransactionWhereUniqueInput
+    /**
+     * In case the CreditTransaction found by the `where` argument doesn't exist, create a new CreditTransaction with this data.
+     */
+    create: XOR<CreditTransactionCreateInput, CreditTransactionUncheckedCreateInput>
+    /**
+     * In case the CreditTransaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CreditTransactionUpdateInput, CreditTransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * CreditTransaction delete
+   */
+  export type CreditTransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+    /**
+     * Filter which CreditTransaction to delete.
+     */
+    where: CreditTransactionWhereUniqueInput
+  }
+
+  /**
+   * CreditTransaction deleteMany
+   */
+  export type CreditTransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CreditTransactions to delete
+     */
+    where?: CreditTransactionWhereInput
+    /**
+     * Limit how many CreditTransactions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CreditTransaction without action
+   */
+  export type CreditTransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditTransaction
+     */
+    select?: CreditTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditTransaction
+     */
+    omit?: CreditTransactionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditTransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LiteLLMSpendEvent
+   */
+
+  export type AggregateLiteLLMSpendEvent = {
+    _count: LiteLLMSpendEventCountAggregateOutputType | null
+    _avg: LiteLLMSpendEventAvgAggregateOutputType | null
+    _sum: LiteLLMSpendEventSumAggregateOutputType | null
+    _min: LiteLLMSpendEventMinAggregateOutputType | null
+    _max: LiteLLMSpendEventMaxAggregateOutputType | null
+  }
+
+  export type LiteLLMSpendEventAvgAggregateOutputType = {
+    promptTokens: number | null
+    completionTokens: number | null
+    rawCostMicrocents: number | null
+    markedUpMicrocents: number | null
+  }
+
+  export type LiteLLMSpendEventSumAggregateOutputType = {
+    promptTokens: number | null
+    completionTokens: number | null
+    rawCostMicrocents: bigint | null
+    markedUpMicrocents: bigint | null
+  }
+
+  export type LiteLLMSpendEventMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    feature: $Enums.AIFeature | null
+    model: string | null
+    promptTokens: number | null
+    completionTokens: number | null
+    rawCostMicrocents: bigint | null
+    markedUpMicrocents: bigint | null
+    litellmRequestId: string | null
+    occurredAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type LiteLLMSpendEventMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    feature: $Enums.AIFeature | null
+    model: string | null
+    promptTokens: number | null
+    completionTokens: number | null
+    rawCostMicrocents: bigint | null
+    markedUpMicrocents: bigint | null
+    litellmRequestId: string | null
+    occurredAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type LiteLLMSpendEventCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    feature: number
+    model: number
+    promptTokens: number
+    completionTokens: number
+    rawCostMicrocents: number
+    markedUpMicrocents: number
+    litellmRequestId: number
+    occurredAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type LiteLLMSpendEventAvgAggregateInputType = {
+    promptTokens?: true
+    completionTokens?: true
+    rawCostMicrocents?: true
+    markedUpMicrocents?: true
+  }
+
+  export type LiteLLMSpendEventSumAggregateInputType = {
+    promptTokens?: true
+    completionTokens?: true
+    rawCostMicrocents?: true
+    markedUpMicrocents?: true
+  }
+
+  export type LiteLLMSpendEventMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    feature?: true
+    model?: true
+    promptTokens?: true
+    completionTokens?: true
+    rawCostMicrocents?: true
+    markedUpMicrocents?: true
+    litellmRequestId?: true
+    occurredAt?: true
+    createdAt?: true
+  }
+
+  export type LiteLLMSpendEventMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    feature?: true
+    model?: true
+    promptTokens?: true
+    completionTokens?: true
+    rawCostMicrocents?: true
+    markedUpMicrocents?: true
+    litellmRequestId?: true
+    occurredAt?: true
+    createdAt?: true
+  }
+
+  export type LiteLLMSpendEventCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    feature?: true
+    model?: true
+    promptTokens?: true
+    completionTokens?: true
+    rawCostMicrocents?: true
+    markedUpMicrocents?: true
+    litellmRequestId?: true
+    occurredAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type LiteLLMSpendEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LiteLLMSpendEvent to aggregate.
+     */
+    where?: LiteLLMSpendEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LiteLLMSpendEvents to fetch.
+     */
+    orderBy?: LiteLLMSpendEventOrderByWithRelationInput | LiteLLMSpendEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LiteLLMSpendEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LiteLLMSpendEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LiteLLMSpendEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LiteLLMSpendEvents
+    **/
+    _count?: true | LiteLLMSpendEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LiteLLMSpendEventAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LiteLLMSpendEventSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LiteLLMSpendEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LiteLLMSpendEventMaxAggregateInputType
+  }
+
+  export type GetLiteLLMSpendEventAggregateType<T extends LiteLLMSpendEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateLiteLLMSpendEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLiteLLMSpendEvent[P]>
+      : GetScalarType<T[P], AggregateLiteLLMSpendEvent[P]>
+  }
+
+
+
+
+  export type LiteLLMSpendEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LiteLLMSpendEventWhereInput
+    orderBy?: LiteLLMSpendEventOrderByWithAggregationInput | LiteLLMSpendEventOrderByWithAggregationInput[]
+    by: LiteLLMSpendEventScalarFieldEnum[] | LiteLLMSpendEventScalarFieldEnum
+    having?: LiteLLMSpendEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LiteLLMSpendEventCountAggregateInputType | true
+    _avg?: LiteLLMSpendEventAvgAggregateInputType
+    _sum?: LiteLLMSpendEventSumAggregateInputType
+    _min?: LiteLLMSpendEventMinAggregateInputType
+    _max?: LiteLLMSpendEventMaxAggregateInputType
+  }
+
+  export type LiteLLMSpendEventGroupByOutputType = {
+    id: string
+    tenantId: string
+    feature: $Enums.AIFeature
+    model: string
+    promptTokens: number
+    completionTokens: number
+    rawCostMicrocents: bigint
+    markedUpMicrocents: bigint
+    litellmRequestId: string
+    occurredAt: Date
+    createdAt: Date
+    _count: LiteLLMSpendEventCountAggregateOutputType | null
+    _avg: LiteLLMSpendEventAvgAggregateOutputType | null
+    _sum: LiteLLMSpendEventSumAggregateOutputType | null
+    _min: LiteLLMSpendEventMinAggregateOutputType | null
+    _max: LiteLLMSpendEventMaxAggregateOutputType | null
+  }
+
+  type GetLiteLLMSpendEventGroupByPayload<T extends LiteLLMSpendEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LiteLLMSpendEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LiteLLMSpendEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LiteLLMSpendEventGroupByOutputType[P]>
+            : GetScalarType<T[P], LiteLLMSpendEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LiteLLMSpendEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    feature?: boolean
+    model?: boolean
+    promptTokens?: boolean
+    completionTokens?: boolean
+    rawCostMicrocents?: boolean
+    markedUpMicrocents?: boolean
+    litellmRequestId?: boolean
+    occurredAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["liteLLMSpendEvent"]>
+
+  export type LiteLLMSpendEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    feature?: boolean
+    model?: boolean
+    promptTokens?: boolean
+    completionTokens?: boolean
+    rawCostMicrocents?: boolean
+    markedUpMicrocents?: boolean
+    litellmRequestId?: boolean
+    occurredAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["liteLLMSpendEvent"]>
+
+  export type LiteLLMSpendEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    feature?: boolean
+    model?: boolean
+    promptTokens?: boolean
+    completionTokens?: boolean
+    rawCostMicrocents?: boolean
+    markedUpMicrocents?: boolean
+    litellmRequestId?: boolean
+    occurredAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["liteLLMSpendEvent"]>
+
+  export type LiteLLMSpendEventSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    feature?: boolean
+    model?: boolean
+    promptTokens?: boolean
+    completionTokens?: boolean
+    rawCostMicrocents?: boolean
+    markedUpMicrocents?: boolean
+    litellmRequestId?: boolean
+    occurredAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type LiteLLMSpendEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "feature" | "model" | "promptTokens" | "completionTokens" | "rawCostMicrocents" | "markedUpMicrocents" | "litellmRequestId" | "occurredAt" | "createdAt", ExtArgs["result"]["liteLLMSpendEvent"]>
+
+  export type $LiteLLMSpendEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LiteLLMSpendEvent"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      feature: $Enums.AIFeature
+      model: string
+      promptTokens: number
+      completionTokens: number
+      rawCostMicrocents: bigint
+      markedUpMicrocents: bigint
+      litellmRequestId: string
+      occurredAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["liteLLMSpendEvent"]>
+    composites: {}
+  }
+
+  type LiteLLMSpendEventGetPayload<S extends boolean | null | undefined | LiteLLMSpendEventDefaultArgs> = $Result.GetResult<Prisma.$LiteLLMSpendEventPayload, S>
+
+  type LiteLLMSpendEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LiteLLMSpendEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LiteLLMSpendEventCountAggregateInputType | true
+    }
+
+  export interface LiteLLMSpendEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LiteLLMSpendEvent'], meta: { name: 'LiteLLMSpendEvent' } }
+    /**
+     * Find zero or one LiteLLMSpendEvent that matches the filter.
+     * @param {LiteLLMSpendEventFindUniqueArgs} args - Arguments to find a LiteLLMSpendEvent
+     * @example
+     * // Get one LiteLLMSpendEvent
+     * const liteLLMSpendEvent = await prisma.liteLLMSpendEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LiteLLMSpendEventFindUniqueArgs>(args: SelectSubset<T, LiteLLMSpendEventFindUniqueArgs<ExtArgs>>): Prisma__LiteLLMSpendEventClient<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LiteLLMSpendEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LiteLLMSpendEventFindUniqueOrThrowArgs} args - Arguments to find a LiteLLMSpendEvent
+     * @example
+     * // Get one LiteLLMSpendEvent
+     * const liteLLMSpendEvent = await prisma.liteLLMSpendEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LiteLLMSpendEventFindUniqueOrThrowArgs>(args: SelectSubset<T, LiteLLMSpendEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LiteLLMSpendEventClient<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LiteLLMSpendEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiteLLMSpendEventFindFirstArgs} args - Arguments to find a LiteLLMSpendEvent
+     * @example
+     * // Get one LiteLLMSpendEvent
+     * const liteLLMSpendEvent = await prisma.liteLLMSpendEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LiteLLMSpendEventFindFirstArgs>(args?: SelectSubset<T, LiteLLMSpendEventFindFirstArgs<ExtArgs>>): Prisma__LiteLLMSpendEventClient<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LiteLLMSpendEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiteLLMSpendEventFindFirstOrThrowArgs} args - Arguments to find a LiteLLMSpendEvent
+     * @example
+     * // Get one LiteLLMSpendEvent
+     * const liteLLMSpendEvent = await prisma.liteLLMSpendEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LiteLLMSpendEventFindFirstOrThrowArgs>(args?: SelectSubset<T, LiteLLMSpendEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__LiteLLMSpendEventClient<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LiteLLMSpendEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiteLLMSpendEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LiteLLMSpendEvents
+     * const liteLLMSpendEvents = await prisma.liteLLMSpendEvent.findMany()
+     * 
+     * // Get first 10 LiteLLMSpendEvents
+     * const liteLLMSpendEvents = await prisma.liteLLMSpendEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const liteLLMSpendEventWithIdOnly = await prisma.liteLLMSpendEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LiteLLMSpendEventFindManyArgs>(args?: SelectSubset<T, LiteLLMSpendEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LiteLLMSpendEvent.
+     * @param {LiteLLMSpendEventCreateArgs} args - Arguments to create a LiteLLMSpendEvent.
+     * @example
+     * // Create one LiteLLMSpendEvent
+     * const LiteLLMSpendEvent = await prisma.liteLLMSpendEvent.create({
+     *   data: {
+     *     // ... data to create a LiteLLMSpendEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends LiteLLMSpendEventCreateArgs>(args: SelectSubset<T, LiteLLMSpendEventCreateArgs<ExtArgs>>): Prisma__LiteLLMSpendEventClient<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LiteLLMSpendEvents.
+     * @param {LiteLLMSpendEventCreateManyArgs} args - Arguments to create many LiteLLMSpendEvents.
+     * @example
+     * // Create many LiteLLMSpendEvents
+     * const liteLLMSpendEvent = await prisma.liteLLMSpendEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LiteLLMSpendEventCreateManyArgs>(args?: SelectSubset<T, LiteLLMSpendEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LiteLLMSpendEvents and returns the data saved in the database.
+     * @param {LiteLLMSpendEventCreateManyAndReturnArgs} args - Arguments to create many LiteLLMSpendEvents.
+     * @example
+     * // Create many LiteLLMSpendEvents
+     * const liteLLMSpendEvent = await prisma.liteLLMSpendEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LiteLLMSpendEvents and only return the `id`
+     * const liteLLMSpendEventWithIdOnly = await prisma.liteLLMSpendEvent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LiteLLMSpendEventCreateManyAndReturnArgs>(args?: SelectSubset<T, LiteLLMSpendEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LiteLLMSpendEvent.
+     * @param {LiteLLMSpendEventDeleteArgs} args - Arguments to delete one LiteLLMSpendEvent.
+     * @example
+     * // Delete one LiteLLMSpendEvent
+     * const LiteLLMSpendEvent = await prisma.liteLLMSpendEvent.delete({
+     *   where: {
+     *     // ... filter to delete one LiteLLMSpendEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LiteLLMSpendEventDeleteArgs>(args: SelectSubset<T, LiteLLMSpendEventDeleteArgs<ExtArgs>>): Prisma__LiteLLMSpendEventClient<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LiteLLMSpendEvent.
+     * @param {LiteLLMSpendEventUpdateArgs} args - Arguments to update one LiteLLMSpendEvent.
+     * @example
+     * // Update one LiteLLMSpendEvent
+     * const liteLLMSpendEvent = await prisma.liteLLMSpendEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LiteLLMSpendEventUpdateArgs>(args: SelectSubset<T, LiteLLMSpendEventUpdateArgs<ExtArgs>>): Prisma__LiteLLMSpendEventClient<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LiteLLMSpendEvents.
+     * @param {LiteLLMSpendEventDeleteManyArgs} args - Arguments to filter LiteLLMSpendEvents to delete.
+     * @example
+     * // Delete a few LiteLLMSpendEvents
+     * const { count } = await prisma.liteLLMSpendEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LiteLLMSpendEventDeleteManyArgs>(args?: SelectSubset<T, LiteLLMSpendEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LiteLLMSpendEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiteLLMSpendEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LiteLLMSpendEvents
+     * const liteLLMSpendEvent = await prisma.liteLLMSpendEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LiteLLMSpendEventUpdateManyArgs>(args: SelectSubset<T, LiteLLMSpendEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LiteLLMSpendEvents and returns the data updated in the database.
+     * @param {LiteLLMSpendEventUpdateManyAndReturnArgs} args - Arguments to update many LiteLLMSpendEvents.
+     * @example
+     * // Update many LiteLLMSpendEvents
+     * const liteLLMSpendEvent = await prisma.liteLLMSpendEvent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LiteLLMSpendEvents and only return the `id`
+     * const liteLLMSpendEventWithIdOnly = await prisma.liteLLMSpendEvent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LiteLLMSpendEventUpdateManyAndReturnArgs>(args: SelectSubset<T, LiteLLMSpendEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LiteLLMSpendEvent.
+     * @param {LiteLLMSpendEventUpsertArgs} args - Arguments to update or create a LiteLLMSpendEvent.
+     * @example
+     * // Update or create a LiteLLMSpendEvent
+     * const liteLLMSpendEvent = await prisma.liteLLMSpendEvent.upsert({
+     *   create: {
+     *     // ... data to create a LiteLLMSpendEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LiteLLMSpendEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LiteLLMSpendEventUpsertArgs>(args: SelectSubset<T, LiteLLMSpendEventUpsertArgs<ExtArgs>>): Prisma__LiteLLMSpendEventClient<$Result.GetResult<Prisma.$LiteLLMSpendEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LiteLLMSpendEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiteLLMSpendEventCountArgs} args - Arguments to filter LiteLLMSpendEvents to count.
+     * @example
+     * // Count the number of LiteLLMSpendEvents
+     * const count = await prisma.liteLLMSpendEvent.count({
+     *   where: {
+     *     // ... the filter for the LiteLLMSpendEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends LiteLLMSpendEventCountArgs>(
+      args?: Subset<T, LiteLLMSpendEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LiteLLMSpendEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LiteLLMSpendEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiteLLMSpendEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LiteLLMSpendEventAggregateArgs>(args: Subset<T, LiteLLMSpendEventAggregateArgs>): Prisma.PrismaPromise<GetLiteLLMSpendEventAggregateType<T>>
+
+    /**
+     * Group by LiteLLMSpendEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LiteLLMSpendEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LiteLLMSpendEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LiteLLMSpendEventGroupByArgs['orderBy'] }
+        : { orderBy?: LiteLLMSpendEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LiteLLMSpendEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLiteLLMSpendEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LiteLLMSpendEvent model
+   */
+  readonly fields: LiteLLMSpendEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LiteLLMSpendEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LiteLLMSpendEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LiteLLMSpendEvent model
+   */
+  interface LiteLLMSpendEventFieldRefs {
+    readonly id: FieldRef<"LiteLLMSpendEvent", 'String'>
+    readonly tenantId: FieldRef<"LiteLLMSpendEvent", 'String'>
+    readonly feature: FieldRef<"LiteLLMSpendEvent", 'AIFeature'>
+    readonly model: FieldRef<"LiteLLMSpendEvent", 'String'>
+    readonly promptTokens: FieldRef<"LiteLLMSpendEvent", 'Int'>
+    readonly completionTokens: FieldRef<"LiteLLMSpendEvent", 'Int'>
+    readonly rawCostMicrocents: FieldRef<"LiteLLMSpendEvent", 'BigInt'>
+    readonly markedUpMicrocents: FieldRef<"LiteLLMSpendEvent", 'BigInt'>
+    readonly litellmRequestId: FieldRef<"LiteLLMSpendEvent", 'String'>
+    readonly occurredAt: FieldRef<"LiteLLMSpendEvent", 'DateTime'>
+    readonly createdAt: FieldRef<"LiteLLMSpendEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LiteLLMSpendEvent findUnique
+   */
+  export type LiteLLMSpendEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * Filter, which LiteLLMSpendEvent to fetch.
+     */
+    where: LiteLLMSpendEventWhereUniqueInput
+  }
+
+  /**
+   * LiteLLMSpendEvent findUniqueOrThrow
+   */
+  export type LiteLLMSpendEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * Filter, which LiteLLMSpendEvent to fetch.
+     */
+    where: LiteLLMSpendEventWhereUniqueInput
+  }
+
+  /**
+   * LiteLLMSpendEvent findFirst
+   */
+  export type LiteLLMSpendEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * Filter, which LiteLLMSpendEvent to fetch.
+     */
+    where?: LiteLLMSpendEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LiteLLMSpendEvents to fetch.
+     */
+    orderBy?: LiteLLMSpendEventOrderByWithRelationInput | LiteLLMSpendEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LiteLLMSpendEvents.
+     */
+    cursor?: LiteLLMSpendEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LiteLLMSpendEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LiteLLMSpendEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LiteLLMSpendEvents.
+     */
+    distinct?: LiteLLMSpendEventScalarFieldEnum | LiteLLMSpendEventScalarFieldEnum[]
+  }
+
+  /**
+   * LiteLLMSpendEvent findFirstOrThrow
+   */
+  export type LiteLLMSpendEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * Filter, which LiteLLMSpendEvent to fetch.
+     */
+    where?: LiteLLMSpendEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LiteLLMSpendEvents to fetch.
+     */
+    orderBy?: LiteLLMSpendEventOrderByWithRelationInput | LiteLLMSpendEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LiteLLMSpendEvents.
+     */
+    cursor?: LiteLLMSpendEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LiteLLMSpendEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LiteLLMSpendEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LiteLLMSpendEvents.
+     */
+    distinct?: LiteLLMSpendEventScalarFieldEnum | LiteLLMSpendEventScalarFieldEnum[]
+  }
+
+  /**
+   * LiteLLMSpendEvent findMany
+   */
+  export type LiteLLMSpendEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * Filter, which LiteLLMSpendEvents to fetch.
+     */
+    where?: LiteLLMSpendEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LiteLLMSpendEvents to fetch.
+     */
+    orderBy?: LiteLLMSpendEventOrderByWithRelationInput | LiteLLMSpendEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LiteLLMSpendEvents.
+     */
+    cursor?: LiteLLMSpendEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LiteLLMSpendEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LiteLLMSpendEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LiteLLMSpendEvents.
+     */
+    distinct?: LiteLLMSpendEventScalarFieldEnum | LiteLLMSpendEventScalarFieldEnum[]
+  }
+
+  /**
+   * LiteLLMSpendEvent create
+   */
+  export type LiteLLMSpendEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * The data needed to create a LiteLLMSpendEvent.
+     */
+    data: XOR<LiteLLMSpendEventCreateInput, LiteLLMSpendEventUncheckedCreateInput>
+  }
+
+  /**
+   * LiteLLMSpendEvent createMany
+   */
+  export type LiteLLMSpendEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LiteLLMSpendEvents.
+     */
+    data: LiteLLMSpendEventCreateManyInput | LiteLLMSpendEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LiteLLMSpendEvent createManyAndReturn
+   */
+  export type LiteLLMSpendEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * The data used to create many LiteLLMSpendEvents.
+     */
+    data: LiteLLMSpendEventCreateManyInput | LiteLLMSpendEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LiteLLMSpendEvent update
+   */
+  export type LiteLLMSpendEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * The data needed to update a LiteLLMSpendEvent.
+     */
+    data: XOR<LiteLLMSpendEventUpdateInput, LiteLLMSpendEventUncheckedUpdateInput>
+    /**
+     * Choose, which LiteLLMSpendEvent to update.
+     */
+    where: LiteLLMSpendEventWhereUniqueInput
+  }
+
+  /**
+   * LiteLLMSpendEvent updateMany
+   */
+  export type LiteLLMSpendEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LiteLLMSpendEvents.
+     */
+    data: XOR<LiteLLMSpendEventUpdateManyMutationInput, LiteLLMSpendEventUncheckedUpdateManyInput>
+    /**
+     * Filter which LiteLLMSpendEvents to update
+     */
+    where?: LiteLLMSpendEventWhereInput
+    /**
+     * Limit how many LiteLLMSpendEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LiteLLMSpendEvent updateManyAndReturn
+   */
+  export type LiteLLMSpendEventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * The data used to update LiteLLMSpendEvents.
+     */
+    data: XOR<LiteLLMSpendEventUpdateManyMutationInput, LiteLLMSpendEventUncheckedUpdateManyInput>
+    /**
+     * Filter which LiteLLMSpendEvents to update
+     */
+    where?: LiteLLMSpendEventWhereInput
+    /**
+     * Limit how many LiteLLMSpendEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LiteLLMSpendEvent upsert
+   */
+  export type LiteLLMSpendEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * The filter to search for the LiteLLMSpendEvent to update in case it exists.
+     */
+    where: LiteLLMSpendEventWhereUniqueInput
+    /**
+     * In case the LiteLLMSpendEvent found by the `where` argument doesn't exist, create a new LiteLLMSpendEvent with this data.
+     */
+    create: XOR<LiteLLMSpendEventCreateInput, LiteLLMSpendEventUncheckedCreateInput>
+    /**
+     * In case the LiteLLMSpendEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LiteLLMSpendEventUpdateInput, LiteLLMSpendEventUncheckedUpdateInput>
+  }
+
+  /**
+   * LiteLLMSpendEvent delete
+   */
+  export type LiteLLMSpendEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+    /**
+     * Filter which LiteLLMSpendEvent to delete.
+     */
+    where: LiteLLMSpendEventWhereUniqueInput
+  }
+
+  /**
+   * LiteLLMSpendEvent deleteMany
+   */
+  export type LiteLLMSpendEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LiteLLMSpendEvents to delete
+     */
+    where?: LiteLLMSpendEventWhereInput
+    /**
+     * Limit how many LiteLLMSpendEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LiteLLMSpendEvent without action
+   */
+  export type LiteLLMSpendEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LiteLLMSpendEvent
+     */
+    select?: LiteLLMSpendEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LiteLLMSpendEvent
+     */
+    omit?: LiteLLMSpendEventOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TenantAIUsageMonth
+   */
+
+  export type AggregateTenantAIUsageMonth = {
+    _count: TenantAIUsageMonthCountAggregateOutputType | null
+    _avg: TenantAIUsageMonthAvgAggregateOutputType | null
+    _sum: TenantAIUsageMonthSumAggregateOutputType | null
+    _min: TenantAIUsageMonthMinAggregateOutputType | null
+    _max: TenantAIUsageMonthMaxAggregateOutputType | null
+  }
+
+  export type TenantAIUsageMonthAvgAggregateOutputType = {
+    totalPromptTokens: number | null
+    totalCompletionTokens: number | null
+    totalRawCostMicrocents: number | null
+    totalBilledMicrocents: number | null
+  }
+
+  export type TenantAIUsageMonthSumAggregateOutputType = {
+    totalPromptTokens: number | null
+    totalCompletionTokens: number | null
+    totalRawCostMicrocents: bigint | null
+    totalBilledMicrocents: bigint | null
+  }
+
+  export type TenantAIUsageMonthMinAggregateOutputType = {
+    tenantId: string | null
+    yearMonth: string | null
+    totalPromptTokens: number | null
+    totalCompletionTokens: number | null
+    totalRawCostMicrocents: bigint | null
+    totalBilledMicrocents: bigint | null
+    updatedAt: Date | null
+  }
+
+  export type TenantAIUsageMonthMaxAggregateOutputType = {
+    tenantId: string | null
+    yearMonth: string | null
+    totalPromptTokens: number | null
+    totalCompletionTokens: number | null
+    totalRawCostMicrocents: bigint | null
+    totalBilledMicrocents: bigint | null
+    updatedAt: Date | null
+  }
+
+  export type TenantAIUsageMonthCountAggregateOutputType = {
+    tenantId: number
+    yearMonth: number
+    totalPromptTokens: number
+    totalCompletionTokens: number
+    totalRawCostMicrocents: number
+    totalBilledMicrocents: number
+    byFeature: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TenantAIUsageMonthAvgAggregateInputType = {
+    totalPromptTokens?: true
+    totalCompletionTokens?: true
+    totalRawCostMicrocents?: true
+    totalBilledMicrocents?: true
+  }
+
+  export type TenantAIUsageMonthSumAggregateInputType = {
+    totalPromptTokens?: true
+    totalCompletionTokens?: true
+    totalRawCostMicrocents?: true
+    totalBilledMicrocents?: true
+  }
+
+  export type TenantAIUsageMonthMinAggregateInputType = {
+    tenantId?: true
+    yearMonth?: true
+    totalPromptTokens?: true
+    totalCompletionTokens?: true
+    totalRawCostMicrocents?: true
+    totalBilledMicrocents?: true
+    updatedAt?: true
+  }
+
+  export type TenantAIUsageMonthMaxAggregateInputType = {
+    tenantId?: true
+    yearMonth?: true
+    totalPromptTokens?: true
+    totalCompletionTokens?: true
+    totalRawCostMicrocents?: true
+    totalBilledMicrocents?: true
+    updatedAt?: true
+  }
+
+  export type TenantAIUsageMonthCountAggregateInputType = {
+    tenantId?: true
+    yearMonth?: true
+    totalPromptTokens?: true
+    totalCompletionTokens?: true
+    totalRawCostMicrocents?: true
+    totalBilledMicrocents?: true
+    byFeature?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TenantAIUsageMonthAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantAIUsageMonth to aggregate.
+     */
+    where?: TenantAIUsageMonthWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantAIUsageMonths to fetch.
+     */
+    orderBy?: TenantAIUsageMonthOrderByWithRelationInput | TenantAIUsageMonthOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TenantAIUsageMonthWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantAIUsageMonths from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantAIUsageMonths.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TenantAIUsageMonths
+    **/
+    _count?: true | TenantAIUsageMonthCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TenantAIUsageMonthAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TenantAIUsageMonthSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TenantAIUsageMonthMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TenantAIUsageMonthMaxAggregateInputType
+  }
+
+  export type GetTenantAIUsageMonthAggregateType<T extends TenantAIUsageMonthAggregateArgs> = {
+        [P in keyof T & keyof AggregateTenantAIUsageMonth]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTenantAIUsageMonth[P]>
+      : GetScalarType<T[P], AggregateTenantAIUsageMonth[P]>
+  }
+
+
+
+
+  export type TenantAIUsageMonthGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantAIUsageMonthWhereInput
+    orderBy?: TenantAIUsageMonthOrderByWithAggregationInput | TenantAIUsageMonthOrderByWithAggregationInput[]
+    by: TenantAIUsageMonthScalarFieldEnum[] | TenantAIUsageMonthScalarFieldEnum
+    having?: TenantAIUsageMonthScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TenantAIUsageMonthCountAggregateInputType | true
+    _avg?: TenantAIUsageMonthAvgAggregateInputType
+    _sum?: TenantAIUsageMonthSumAggregateInputType
+    _min?: TenantAIUsageMonthMinAggregateInputType
+    _max?: TenantAIUsageMonthMaxAggregateInputType
+  }
+
+  export type TenantAIUsageMonthGroupByOutputType = {
+    tenantId: string
+    yearMonth: string
+    totalPromptTokens: number
+    totalCompletionTokens: number
+    totalRawCostMicrocents: bigint
+    totalBilledMicrocents: bigint
+    byFeature: JsonValue
+    updatedAt: Date
+    _count: TenantAIUsageMonthCountAggregateOutputType | null
+    _avg: TenantAIUsageMonthAvgAggregateOutputType | null
+    _sum: TenantAIUsageMonthSumAggregateOutputType | null
+    _min: TenantAIUsageMonthMinAggregateOutputType | null
+    _max: TenantAIUsageMonthMaxAggregateOutputType | null
+  }
+
+  type GetTenantAIUsageMonthGroupByPayload<T extends TenantAIUsageMonthGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TenantAIUsageMonthGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TenantAIUsageMonthGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TenantAIUsageMonthGroupByOutputType[P]>
+            : GetScalarType<T[P], TenantAIUsageMonthGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TenantAIUsageMonthSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    tenantId?: boolean
+    yearMonth?: boolean
+    totalPromptTokens?: boolean
+    totalCompletionTokens?: boolean
+    totalRawCostMicrocents?: boolean
+    totalBilledMicrocents?: boolean
+    byFeature?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["tenantAIUsageMonth"]>
+
+  export type TenantAIUsageMonthSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    tenantId?: boolean
+    yearMonth?: boolean
+    totalPromptTokens?: boolean
+    totalCompletionTokens?: boolean
+    totalRawCostMicrocents?: boolean
+    totalBilledMicrocents?: boolean
+    byFeature?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["tenantAIUsageMonth"]>
+
+  export type TenantAIUsageMonthSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    tenantId?: boolean
+    yearMonth?: boolean
+    totalPromptTokens?: boolean
+    totalCompletionTokens?: boolean
+    totalRawCostMicrocents?: boolean
+    totalBilledMicrocents?: boolean
+    byFeature?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["tenantAIUsageMonth"]>
+
+  export type TenantAIUsageMonthSelectScalar = {
+    tenantId?: boolean
+    yearMonth?: boolean
+    totalPromptTokens?: boolean
+    totalCompletionTokens?: boolean
+    totalRawCostMicrocents?: boolean
+    totalBilledMicrocents?: boolean
+    byFeature?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TenantAIUsageMonthOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"tenantId" | "yearMonth" | "totalPromptTokens" | "totalCompletionTokens" | "totalRawCostMicrocents" | "totalBilledMicrocents" | "byFeature" | "updatedAt", ExtArgs["result"]["tenantAIUsageMonth"]>
+
+  export type $TenantAIUsageMonthPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TenantAIUsageMonth"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      tenantId: string
+      yearMonth: string
+      totalPromptTokens: number
+      totalCompletionTokens: number
+      totalRawCostMicrocents: bigint
+      totalBilledMicrocents: bigint
+      byFeature: Prisma.JsonValue
+      updatedAt: Date
+    }, ExtArgs["result"]["tenantAIUsageMonth"]>
+    composites: {}
+  }
+
+  type TenantAIUsageMonthGetPayload<S extends boolean | null | undefined | TenantAIUsageMonthDefaultArgs> = $Result.GetResult<Prisma.$TenantAIUsageMonthPayload, S>
+
+  type TenantAIUsageMonthCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TenantAIUsageMonthFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TenantAIUsageMonthCountAggregateInputType | true
+    }
+
+  export interface TenantAIUsageMonthDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TenantAIUsageMonth'], meta: { name: 'TenantAIUsageMonth' } }
+    /**
+     * Find zero or one TenantAIUsageMonth that matches the filter.
+     * @param {TenantAIUsageMonthFindUniqueArgs} args - Arguments to find a TenantAIUsageMonth
+     * @example
+     * // Get one TenantAIUsageMonth
+     * const tenantAIUsageMonth = await prisma.tenantAIUsageMonth.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TenantAIUsageMonthFindUniqueArgs>(args: SelectSubset<T, TenantAIUsageMonthFindUniqueArgs<ExtArgs>>): Prisma__TenantAIUsageMonthClient<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TenantAIUsageMonth that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TenantAIUsageMonthFindUniqueOrThrowArgs} args - Arguments to find a TenantAIUsageMonth
+     * @example
+     * // Get one TenantAIUsageMonth
+     * const tenantAIUsageMonth = await prisma.tenantAIUsageMonth.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TenantAIUsageMonthFindUniqueOrThrowArgs>(args: SelectSubset<T, TenantAIUsageMonthFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TenantAIUsageMonthClient<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantAIUsageMonth that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantAIUsageMonthFindFirstArgs} args - Arguments to find a TenantAIUsageMonth
+     * @example
+     * // Get one TenantAIUsageMonth
+     * const tenantAIUsageMonth = await prisma.tenantAIUsageMonth.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TenantAIUsageMonthFindFirstArgs>(args?: SelectSubset<T, TenantAIUsageMonthFindFirstArgs<ExtArgs>>): Prisma__TenantAIUsageMonthClient<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TenantAIUsageMonth that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantAIUsageMonthFindFirstOrThrowArgs} args - Arguments to find a TenantAIUsageMonth
+     * @example
+     * // Get one TenantAIUsageMonth
+     * const tenantAIUsageMonth = await prisma.tenantAIUsageMonth.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TenantAIUsageMonthFindFirstOrThrowArgs>(args?: SelectSubset<T, TenantAIUsageMonthFindFirstOrThrowArgs<ExtArgs>>): Prisma__TenantAIUsageMonthClient<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TenantAIUsageMonths that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantAIUsageMonthFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TenantAIUsageMonths
+     * const tenantAIUsageMonths = await prisma.tenantAIUsageMonth.findMany()
+     * 
+     * // Get first 10 TenantAIUsageMonths
+     * const tenantAIUsageMonths = await prisma.tenantAIUsageMonth.findMany({ take: 10 })
+     * 
+     * // Only select the `tenantId`
+     * const tenantAIUsageMonthWithTenantIdOnly = await prisma.tenantAIUsageMonth.findMany({ select: { tenantId: true } })
+     * 
+     */
+    findMany<T extends TenantAIUsageMonthFindManyArgs>(args?: SelectSubset<T, TenantAIUsageMonthFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TenantAIUsageMonth.
+     * @param {TenantAIUsageMonthCreateArgs} args - Arguments to create a TenantAIUsageMonth.
+     * @example
+     * // Create one TenantAIUsageMonth
+     * const TenantAIUsageMonth = await prisma.tenantAIUsageMonth.create({
+     *   data: {
+     *     // ... data to create a TenantAIUsageMonth
+     *   }
+     * })
+     * 
+     */
+    create<T extends TenantAIUsageMonthCreateArgs>(args: SelectSubset<T, TenantAIUsageMonthCreateArgs<ExtArgs>>): Prisma__TenantAIUsageMonthClient<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TenantAIUsageMonths.
+     * @param {TenantAIUsageMonthCreateManyArgs} args - Arguments to create many TenantAIUsageMonths.
+     * @example
+     * // Create many TenantAIUsageMonths
+     * const tenantAIUsageMonth = await prisma.tenantAIUsageMonth.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TenantAIUsageMonthCreateManyArgs>(args?: SelectSubset<T, TenantAIUsageMonthCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TenantAIUsageMonths and returns the data saved in the database.
+     * @param {TenantAIUsageMonthCreateManyAndReturnArgs} args - Arguments to create many TenantAIUsageMonths.
+     * @example
+     * // Create many TenantAIUsageMonths
+     * const tenantAIUsageMonth = await prisma.tenantAIUsageMonth.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TenantAIUsageMonths and only return the `tenantId`
+     * const tenantAIUsageMonthWithTenantIdOnly = await prisma.tenantAIUsageMonth.createManyAndReturn({
+     *   select: { tenantId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TenantAIUsageMonthCreateManyAndReturnArgs>(args?: SelectSubset<T, TenantAIUsageMonthCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TenantAIUsageMonth.
+     * @param {TenantAIUsageMonthDeleteArgs} args - Arguments to delete one TenantAIUsageMonth.
+     * @example
+     * // Delete one TenantAIUsageMonth
+     * const TenantAIUsageMonth = await prisma.tenantAIUsageMonth.delete({
+     *   where: {
+     *     // ... filter to delete one TenantAIUsageMonth
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TenantAIUsageMonthDeleteArgs>(args: SelectSubset<T, TenantAIUsageMonthDeleteArgs<ExtArgs>>): Prisma__TenantAIUsageMonthClient<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TenantAIUsageMonth.
+     * @param {TenantAIUsageMonthUpdateArgs} args - Arguments to update one TenantAIUsageMonth.
+     * @example
+     * // Update one TenantAIUsageMonth
+     * const tenantAIUsageMonth = await prisma.tenantAIUsageMonth.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TenantAIUsageMonthUpdateArgs>(args: SelectSubset<T, TenantAIUsageMonthUpdateArgs<ExtArgs>>): Prisma__TenantAIUsageMonthClient<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TenantAIUsageMonths.
+     * @param {TenantAIUsageMonthDeleteManyArgs} args - Arguments to filter TenantAIUsageMonths to delete.
+     * @example
+     * // Delete a few TenantAIUsageMonths
+     * const { count } = await prisma.tenantAIUsageMonth.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TenantAIUsageMonthDeleteManyArgs>(args?: SelectSubset<T, TenantAIUsageMonthDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantAIUsageMonths.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantAIUsageMonthUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TenantAIUsageMonths
+     * const tenantAIUsageMonth = await prisma.tenantAIUsageMonth.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TenantAIUsageMonthUpdateManyArgs>(args: SelectSubset<T, TenantAIUsageMonthUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TenantAIUsageMonths and returns the data updated in the database.
+     * @param {TenantAIUsageMonthUpdateManyAndReturnArgs} args - Arguments to update many TenantAIUsageMonths.
+     * @example
+     * // Update many TenantAIUsageMonths
+     * const tenantAIUsageMonth = await prisma.tenantAIUsageMonth.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TenantAIUsageMonths and only return the `tenantId`
+     * const tenantAIUsageMonthWithTenantIdOnly = await prisma.tenantAIUsageMonth.updateManyAndReturn({
+     *   select: { tenantId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TenantAIUsageMonthUpdateManyAndReturnArgs>(args: SelectSubset<T, TenantAIUsageMonthUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TenantAIUsageMonth.
+     * @param {TenantAIUsageMonthUpsertArgs} args - Arguments to update or create a TenantAIUsageMonth.
+     * @example
+     * // Update or create a TenantAIUsageMonth
+     * const tenantAIUsageMonth = await prisma.tenantAIUsageMonth.upsert({
+     *   create: {
+     *     // ... data to create a TenantAIUsageMonth
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TenantAIUsageMonth we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TenantAIUsageMonthUpsertArgs>(args: SelectSubset<T, TenantAIUsageMonthUpsertArgs<ExtArgs>>): Prisma__TenantAIUsageMonthClient<$Result.GetResult<Prisma.$TenantAIUsageMonthPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TenantAIUsageMonths.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantAIUsageMonthCountArgs} args - Arguments to filter TenantAIUsageMonths to count.
+     * @example
+     * // Count the number of TenantAIUsageMonths
+     * const count = await prisma.tenantAIUsageMonth.count({
+     *   where: {
+     *     // ... the filter for the TenantAIUsageMonths we want to count
+     *   }
+     * })
+    **/
+    count<T extends TenantAIUsageMonthCountArgs>(
+      args?: Subset<T, TenantAIUsageMonthCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TenantAIUsageMonthCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TenantAIUsageMonth.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantAIUsageMonthAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TenantAIUsageMonthAggregateArgs>(args: Subset<T, TenantAIUsageMonthAggregateArgs>): Prisma.PrismaPromise<GetTenantAIUsageMonthAggregateType<T>>
+
+    /**
+     * Group by TenantAIUsageMonth.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TenantAIUsageMonthGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TenantAIUsageMonthGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TenantAIUsageMonthGroupByArgs['orderBy'] }
+        : { orderBy?: TenantAIUsageMonthGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TenantAIUsageMonthGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTenantAIUsageMonthGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TenantAIUsageMonth model
+   */
+  readonly fields: TenantAIUsageMonthFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TenantAIUsageMonth.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TenantAIUsageMonthClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TenantAIUsageMonth model
+   */
+  interface TenantAIUsageMonthFieldRefs {
+    readonly tenantId: FieldRef<"TenantAIUsageMonth", 'String'>
+    readonly yearMonth: FieldRef<"TenantAIUsageMonth", 'String'>
+    readonly totalPromptTokens: FieldRef<"TenantAIUsageMonth", 'Int'>
+    readonly totalCompletionTokens: FieldRef<"TenantAIUsageMonth", 'Int'>
+    readonly totalRawCostMicrocents: FieldRef<"TenantAIUsageMonth", 'BigInt'>
+    readonly totalBilledMicrocents: FieldRef<"TenantAIUsageMonth", 'BigInt'>
+    readonly byFeature: FieldRef<"TenantAIUsageMonth", 'Json'>
+    readonly updatedAt: FieldRef<"TenantAIUsageMonth", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TenantAIUsageMonth findUnique
+   */
+  export type TenantAIUsageMonthFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * Filter, which TenantAIUsageMonth to fetch.
+     */
+    where: TenantAIUsageMonthWhereUniqueInput
+  }
+
+  /**
+   * TenantAIUsageMonth findUniqueOrThrow
+   */
+  export type TenantAIUsageMonthFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * Filter, which TenantAIUsageMonth to fetch.
+     */
+    where: TenantAIUsageMonthWhereUniqueInput
+  }
+
+  /**
+   * TenantAIUsageMonth findFirst
+   */
+  export type TenantAIUsageMonthFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * Filter, which TenantAIUsageMonth to fetch.
+     */
+    where?: TenantAIUsageMonthWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantAIUsageMonths to fetch.
+     */
+    orderBy?: TenantAIUsageMonthOrderByWithRelationInput | TenantAIUsageMonthOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantAIUsageMonths.
+     */
+    cursor?: TenantAIUsageMonthWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantAIUsageMonths from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantAIUsageMonths.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantAIUsageMonths.
+     */
+    distinct?: TenantAIUsageMonthScalarFieldEnum | TenantAIUsageMonthScalarFieldEnum[]
+  }
+
+  /**
+   * TenantAIUsageMonth findFirstOrThrow
+   */
+  export type TenantAIUsageMonthFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * Filter, which TenantAIUsageMonth to fetch.
+     */
+    where?: TenantAIUsageMonthWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantAIUsageMonths to fetch.
+     */
+    orderBy?: TenantAIUsageMonthOrderByWithRelationInput | TenantAIUsageMonthOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TenantAIUsageMonths.
+     */
+    cursor?: TenantAIUsageMonthWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantAIUsageMonths from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantAIUsageMonths.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantAIUsageMonths.
+     */
+    distinct?: TenantAIUsageMonthScalarFieldEnum | TenantAIUsageMonthScalarFieldEnum[]
+  }
+
+  /**
+   * TenantAIUsageMonth findMany
+   */
+  export type TenantAIUsageMonthFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * Filter, which TenantAIUsageMonths to fetch.
+     */
+    where?: TenantAIUsageMonthWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TenantAIUsageMonths to fetch.
+     */
+    orderBy?: TenantAIUsageMonthOrderByWithRelationInput | TenantAIUsageMonthOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TenantAIUsageMonths.
+     */
+    cursor?: TenantAIUsageMonthWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TenantAIUsageMonths from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TenantAIUsageMonths.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TenantAIUsageMonths.
+     */
+    distinct?: TenantAIUsageMonthScalarFieldEnum | TenantAIUsageMonthScalarFieldEnum[]
+  }
+
+  /**
+   * TenantAIUsageMonth create
+   */
+  export type TenantAIUsageMonthCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * The data needed to create a TenantAIUsageMonth.
+     */
+    data: XOR<TenantAIUsageMonthCreateInput, TenantAIUsageMonthUncheckedCreateInput>
+  }
+
+  /**
+   * TenantAIUsageMonth createMany
+   */
+  export type TenantAIUsageMonthCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TenantAIUsageMonths.
+     */
+    data: TenantAIUsageMonthCreateManyInput | TenantAIUsageMonthCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TenantAIUsageMonth createManyAndReturn
+   */
+  export type TenantAIUsageMonthCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * The data used to create many TenantAIUsageMonths.
+     */
+    data: TenantAIUsageMonthCreateManyInput | TenantAIUsageMonthCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TenantAIUsageMonth update
+   */
+  export type TenantAIUsageMonthUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * The data needed to update a TenantAIUsageMonth.
+     */
+    data: XOR<TenantAIUsageMonthUpdateInput, TenantAIUsageMonthUncheckedUpdateInput>
+    /**
+     * Choose, which TenantAIUsageMonth to update.
+     */
+    where: TenantAIUsageMonthWhereUniqueInput
+  }
+
+  /**
+   * TenantAIUsageMonth updateMany
+   */
+  export type TenantAIUsageMonthUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TenantAIUsageMonths.
+     */
+    data: XOR<TenantAIUsageMonthUpdateManyMutationInput, TenantAIUsageMonthUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantAIUsageMonths to update
+     */
+    where?: TenantAIUsageMonthWhereInput
+    /**
+     * Limit how many TenantAIUsageMonths to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantAIUsageMonth updateManyAndReturn
+   */
+  export type TenantAIUsageMonthUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * The data used to update TenantAIUsageMonths.
+     */
+    data: XOR<TenantAIUsageMonthUpdateManyMutationInput, TenantAIUsageMonthUncheckedUpdateManyInput>
+    /**
+     * Filter which TenantAIUsageMonths to update
+     */
+    where?: TenantAIUsageMonthWhereInput
+    /**
+     * Limit how many TenantAIUsageMonths to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantAIUsageMonth upsert
+   */
+  export type TenantAIUsageMonthUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * The filter to search for the TenantAIUsageMonth to update in case it exists.
+     */
+    where: TenantAIUsageMonthWhereUniqueInput
+    /**
+     * In case the TenantAIUsageMonth found by the `where` argument doesn't exist, create a new TenantAIUsageMonth with this data.
+     */
+    create: XOR<TenantAIUsageMonthCreateInput, TenantAIUsageMonthUncheckedCreateInput>
+    /**
+     * In case the TenantAIUsageMonth was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TenantAIUsageMonthUpdateInput, TenantAIUsageMonthUncheckedUpdateInput>
+  }
+
+  /**
+   * TenantAIUsageMonth delete
+   */
+  export type TenantAIUsageMonthDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
+    /**
+     * Filter which TenantAIUsageMonth to delete.
+     */
+    where: TenantAIUsageMonthWhereUniqueInput
+  }
+
+  /**
+   * TenantAIUsageMonth deleteMany
+   */
+  export type TenantAIUsageMonthDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TenantAIUsageMonths to delete
+     */
+    where?: TenantAIUsageMonthWhereInput
+    /**
+     * Limit how many TenantAIUsageMonths to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TenantAIUsageMonth without action
+   */
+  export type TenantAIUsageMonthDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantAIUsageMonth
+     */
+    select?: TenantAIUsageMonthSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantAIUsageMonth
+     */
+    omit?: TenantAIUsageMonthOmit<ExtArgs> | null
   }
 
 
@@ -73429,6 +80885,9 @@ export namespace Prisma {
     directorySyncConfigs?: boolean | Tenant$directorySyncConfigsArgs<ExtArgs>
     directorySyncRuns?: boolean | Tenant$directorySyncRunsArgs<ExtArgs>
     externalIdentityMappings?: boolean | Tenant$externalIdentityMappingsArgs<ExtArgs>
+    billingConfig?: boolean | Tenant$billingConfigArgs<ExtArgs>
+    litellmKey?: boolean | Tenant$litellmKeyArgs<ExtArgs>
+    creditWallet?: boolean | Tenant$creditWalletArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -73526,6 +80985,9 @@ export namespace Prisma {
     directorySyncConfigs?: boolean | Tenant$directorySyncConfigsArgs<ExtArgs>
     directorySyncRuns?: boolean | Tenant$directorySyncRunsArgs<ExtArgs>
     externalIdentityMappings?: boolean | Tenant$externalIdentityMappingsArgs<ExtArgs>
+    billingConfig?: boolean | Tenant$billingConfigArgs<ExtArgs>
+    litellmKey?: boolean | Tenant$litellmKeyArgs<ExtArgs>
+    creditWallet?: boolean | Tenant$creditWalletArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -73596,6 +81058,9 @@ export namespace Prisma {
       directorySyncConfigs: Prisma.$DirectorySyncConfigPayload<ExtArgs>[]
       directorySyncRuns: Prisma.$DirectorySyncRunPayload<ExtArgs>[]
       externalIdentityMappings: Prisma.$ExternalIdentityMappingPayload<ExtArgs>[]
+      billingConfig: Prisma.$TenantBillingConfigPayload<ExtArgs> | null
+      litellmKey: Prisma.$TenantLiteLLMKeyPayload<ExtArgs> | null
+      creditWallet: Prisma.$CreditWalletPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -74061,6 +81526,9 @@ export namespace Prisma {
     directorySyncConfigs<T extends Tenant$directorySyncConfigsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$directorySyncConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     directorySyncRuns<T extends Tenant$directorySyncRunsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$directorySyncRunsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     externalIdentityMappings<T extends Tenant$externalIdentityMappingsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$externalIdentityMappingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    billingConfig<T extends Tenant$billingConfigArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$billingConfigArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    litellmKey<T extends Tenant$litellmKeyArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$litellmKeyArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    creditWallet<T extends Tenant$creditWalletArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$creditWalletArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -75960,6 +83428,63 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ExternalIdentityMappingScalarFieldEnum | ExternalIdentityMappingScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.billingConfig
+   */
+  export type Tenant$billingConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantBillingConfig
+     */
+    select?: TenantBillingConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantBillingConfig
+     */
+    omit?: TenantBillingConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantBillingConfigInclude<ExtArgs> | null
+    where?: TenantBillingConfigWhereInput
+  }
+
+  /**
+   * Tenant.litellmKey
+   */
+  export type Tenant$litellmKeyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TenantLiteLLMKey
+     */
+    select?: TenantLiteLLMKeySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TenantLiteLLMKey
+     */
+    omit?: TenantLiteLLMKeyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantLiteLLMKeyInclude<ExtArgs> | null
+    where?: TenantLiteLLMKeyWhereInput
+  }
+
+  /**
+   * Tenant.creditWallet
+   */
+  export type Tenant$creditWalletArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CreditWallet
+     */
+    select?: CreditWalletSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CreditWallet
+     */
+    omit?: CreditWalletOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CreditWalletInclude<ExtArgs> | null
+    where?: CreditWalletWhereInput
   }
 
   /**
@@ -107995,6 +115520,96 @@ export namespace Prisma {
   export type BCPExerciseScalarFieldEnum = (typeof BCPExerciseScalarFieldEnum)[keyof typeof BCPExerciseScalarFieldEnum]
 
 
+  export const TenantBillingConfigScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    mode: 'mode',
+    monthlySpendCapMicrocents: 'monthlySpendCapMicrocents',
+    modelTierOverride: 'modelTierOverride',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TenantBillingConfigScalarFieldEnum = (typeof TenantBillingConfigScalarFieldEnum)[keyof typeof TenantBillingConfigScalarFieldEnum]
+
+
+  export const TenantLiteLLMKeyScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    litellmKeyId: 'litellmKeyId',
+    virtualKeyCipher: 'virtualKeyCipher',
+    modelAllowlist: 'modelAllowlist',
+    status: 'status',
+    budgetMaxMicrocents: 'budgetMaxMicrocents',
+    observedSpendMicrocents: 'observedSpendMicrocents',
+    lastSyncedAt: 'lastSyncedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TenantLiteLLMKeyScalarFieldEnum = (typeof TenantLiteLLMKeyScalarFieldEnum)[keyof typeof TenantLiteLLMKeyScalarFieldEnum]
+
+
+  export const CreditWalletScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    balanceMicrocents: 'balanceMicrocents',
+    lifetimeCreditedMicrocents: 'lifetimeCreditedMicrocents',
+    lifetimeDebitedMicrocents: 'lifetimeDebitedMicrocents',
+    lowBalanceThresholdMicrocents: 'lowBalanceThresholdMicrocents',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CreditWalletScalarFieldEnum = (typeof CreditWalletScalarFieldEnum)[keyof typeof CreditWalletScalarFieldEnum]
+
+
+  export const CreditTransactionScalarFieldEnum: {
+    id: 'id',
+    walletId: 'walletId',
+    tenantId: 'tenantId',
+    amountMicrocents: 'amountMicrocents',
+    kind: 'kind',
+    reason: 'reason',
+    externalRef: 'externalRef',
+    balanceAfterMicrocents: 'balanceAfterMicrocents',
+    createdAt: 'createdAt'
+  };
+
+  export type CreditTransactionScalarFieldEnum = (typeof CreditTransactionScalarFieldEnum)[keyof typeof CreditTransactionScalarFieldEnum]
+
+
+  export const LiteLLMSpendEventScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    feature: 'feature',
+    model: 'model',
+    promptTokens: 'promptTokens',
+    completionTokens: 'completionTokens',
+    rawCostMicrocents: 'rawCostMicrocents',
+    markedUpMicrocents: 'markedUpMicrocents',
+    litellmRequestId: 'litellmRequestId',
+    occurredAt: 'occurredAt',
+    createdAt: 'createdAt'
+  };
+
+  export type LiteLLMSpendEventScalarFieldEnum = (typeof LiteLLMSpendEventScalarFieldEnum)[keyof typeof LiteLLMSpendEventScalarFieldEnum]
+
+
+  export const TenantAIUsageMonthScalarFieldEnum: {
+    tenantId: 'tenantId',
+    yearMonth: 'yearMonth',
+    totalPromptTokens: 'totalPromptTokens',
+    totalCompletionTokens: 'totalCompletionTokens',
+    totalRawCostMicrocents: 'totalRawCostMicrocents',
+    totalBilledMicrocents: 'totalBilledMicrocents',
+    byFeature: 'byFeature',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TenantAIUsageMonthScalarFieldEnum = (typeof TenantAIUsageMonthScalarFieldEnum)[keyof typeof TenantAIUsageMonthScalarFieldEnum]
+
+
   export const ConversationScalarFieldEnum: {
     id: 'id',
     tenantId: 'tenantId',
@@ -109649,6 +117264,62 @@ export namespace Prisma {
    * Reference to a field of type 'BCPExerciseOutcome[]'
    */
   export type ListEnumBCPExerciseOutcomeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BCPExerciseOutcome[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TenantBillingMode'
+   */
+  export type EnumTenantBillingModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantBillingMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'TenantBillingMode[]'
+   */
+  export type ListEnumTenantBillingModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantBillingMode[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TenantLiteLLMKeyStatus'
+   */
+  export type EnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantLiteLLMKeyStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'TenantLiteLLMKeyStatus[]'
+   */
+  export type ListEnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantLiteLLMKeyStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CreditTransactionKind'
+   */
+  export type EnumCreditTransactionKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CreditTransactionKind'>
+    
+
+
+  /**
+   * Reference to a field of type 'CreditTransactionKind[]'
+   */
+  export type ListEnumCreditTransactionKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CreditTransactionKind[]'>
     
 
 
@@ -112263,6 +119934,466 @@ export namespace Prisma {
     reviewedAt?: DateTimeNullableWithAggregatesFilter<"BCPExercise"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"BCPExercise"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BCPExercise"> | Date | string
+  }
+
+  export type TenantBillingConfigWhereInput = {
+    AND?: TenantBillingConfigWhereInput | TenantBillingConfigWhereInput[]
+    OR?: TenantBillingConfigWhereInput[]
+    NOT?: TenantBillingConfigWhereInput | TenantBillingConfigWhereInput[]
+    id?: StringFilter<"TenantBillingConfig"> | string
+    tenantId?: StringFilter<"TenantBillingConfig"> | string
+    mode?: EnumTenantBillingModeFilter<"TenantBillingConfig"> | $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: BigIntNullableFilter<"TenantBillingConfig"> | bigint | number | null
+    modelTierOverride?: StringNullableFilter<"TenantBillingConfig"> | string | null
+    createdAt?: DateTimeFilter<"TenantBillingConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"TenantBillingConfig"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }
+
+  export type TenantBillingConfigOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    mode?: SortOrder
+    monthlySpendCapMicrocents?: SortOrderInput | SortOrder
+    modelTierOverride?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type TenantBillingConfigWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId?: string
+    AND?: TenantBillingConfigWhereInput | TenantBillingConfigWhereInput[]
+    OR?: TenantBillingConfigWhereInput[]
+    NOT?: TenantBillingConfigWhereInput | TenantBillingConfigWhereInput[]
+    mode?: EnumTenantBillingModeFilter<"TenantBillingConfig"> | $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: BigIntNullableFilter<"TenantBillingConfig"> | bigint | number | null
+    modelTierOverride?: StringNullableFilter<"TenantBillingConfig"> | string | null
+    createdAt?: DateTimeFilter<"TenantBillingConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"TenantBillingConfig"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }, "id" | "tenantId">
+
+  export type TenantBillingConfigOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    mode?: SortOrder
+    monthlySpendCapMicrocents?: SortOrderInput | SortOrder
+    modelTierOverride?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TenantBillingConfigCountOrderByAggregateInput
+    _avg?: TenantBillingConfigAvgOrderByAggregateInput
+    _max?: TenantBillingConfigMaxOrderByAggregateInput
+    _min?: TenantBillingConfigMinOrderByAggregateInput
+    _sum?: TenantBillingConfigSumOrderByAggregateInput
+  }
+
+  export type TenantBillingConfigScalarWhereWithAggregatesInput = {
+    AND?: TenantBillingConfigScalarWhereWithAggregatesInput | TenantBillingConfigScalarWhereWithAggregatesInput[]
+    OR?: TenantBillingConfigScalarWhereWithAggregatesInput[]
+    NOT?: TenantBillingConfigScalarWhereWithAggregatesInput | TenantBillingConfigScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TenantBillingConfig"> | string
+    tenantId?: StringWithAggregatesFilter<"TenantBillingConfig"> | string
+    mode?: EnumTenantBillingModeWithAggregatesFilter<"TenantBillingConfig"> | $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: BigIntNullableWithAggregatesFilter<"TenantBillingConfig"> | bigint | number | null
+    modelTierOverride?: StringNullableWithAggregatesFilter<"TenantBillingConfig"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TenantBillingConfig"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TenantBillingConfig"> | Date | string
+  }
+
+  export type TenantLiteLLMKeyWhereInput = {
+    AND?: TenantLiteLLMKeyWhereInput | TenantLiteLLMKeyWhereInput[]
+    OR?: TenantLiteLLMKeyWhereInput[]
+    NOT?: TenantLiteLLMKeyWhereInput | TenantLiteLLMKeyWhereInput[]
+    id?: StringFilter<"TenantLiteLLMKey"> | string
+    tenantId?: StringFilter<"TenantLiteLLMKey"> | string
+    litellmKeyId?: StringFilter<"TenantLiteLLMKey"> | string
+    virtualKeyCipher?: StringFilter<"TenantLiteLLMKey"> | string
+    modelAllowlist?: StringNullableListFilter<"TenantLiteLLMKey">
+    status?: EnumTenantLiteLLMKeyStatusFilter<"TenantLiteLLMKey"> | $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: BigIntNullableFilter<"TenantLiteLLMKey"> | bigint | number | null
+    observedSpendMicrocents?: BigIntFilter<"TenantLiteLLMKey"> | bigint | number
+    lastSyncedAt?: DateTimeNullableFilter<"TenantLiteLLMKey"> | Date | string | null
+    createdAt?: DateTimeFilter<"TenantLiteLLMKey"> | Date | string
+    updatedAt?: DateTimeFilter<"TenantLiteLLMKey"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }
+
+  export type TenantLiteLLMKeyOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    litellmKeyId?: SortOrder
+    virtualKeyCipher?: SortOrder
+    modelAllowlist?: SortOrder
+    status?: SortOrder
+    budgetMaxMicrocents?: SortOrderInput | SortOrder
+    observedSpendMicrocents?: SortOrder
+    lastSyncedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type TenantLiteLLMKeyWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId?: string
+    litellmKeyId?: string
+    AND?: TenantLiteLLMKeyWhereInput | TenantLiteLLMKeyWhereInput[]
+    OR?: TenantLiteLLMKeyWhereInput[]
+    NOT?: TenantLiteLLMKeyWhereInput | TenantLiteLLMKeyWhereInput[]
+    virtualKeyCipher?: StringFilter<"TenantLiteLLMKey"> | string
+    modelAllowlist?: StringNullableListFilter<"TenantLiteLLMKey">
+    status?: EnumTenantLiteLLMKeyStatusFilter<"TenantLiteLLMKey"> | $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: BigIntNullableFilter<"TenantLiteLLMKey"> | bigint | number | null
+    observedSpendMicrocents?: BigIntFilter<"TenantLiteLLMKey"> | bigint | number
+    lastSyncedAt?: DateTimeNullableFilter<"TenantLiteLLMKey"> | Date | string | null
+    createdAt?: DateTimeFilter<"TenantLiteLLMKey"> | Date | string
+    updatedAt?: DateTimeFilter<"TenantLiteLLMKey"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }, "id" | "tenantId" | "litellmKeyId">
+
+  export type TenantLiteLLMKeyOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    litellmKeyId?: SortOrder
+    virtualKeyCipher?: SortOrder
+    modelAllowlist?: SortOrder
+    status?: SortOrder
+    budgetMaxMicrocents?: SortOrderInput | SortOrder
+    observedSpendMicrocents?: SortOrder
+    lastSyncedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TenantLiteLLMKeyCountOrderByAggregateInput
+    _avg?: TenantLiteLLMKeyAvgOrderByAggregateInput
+    _max?: TenantLiteLLMKeyMaxOrderByAggregateInput
+    _min?: TenantLiteLLMKeyMinOrderByAggregateInput
+    _sum?: TenantLiteLLMKeySumOrderByAggregateInput
+  }
+
+  export type TenantLiteLLMKeyScalarWhereWithAggregatesInput = {
+    AND?: TenantLiteLLMKeyScalarWhereWithAggregatesInput | TenantLiteLLMKeyScalarWhereWithAggregatesInput[]
+    OR?: TenantLiteLLMKeyScalarWhereWithAggregatesInput[]
+    NOT?: TenantLiteLLMKeyScalarWhereWithAggregatesInput | TenantLiteLLMKeyScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TenantLiteLLMKey"> | string
+    tenantId?: StringWithAggregatesFilter<"TenantLiteLLMKey"> | string
+    litellmKeyId?: StringWithAggregatesFilter<"TenantLiteLLMKey"> | string
+    virtualKeyCipher?: StringWithAggregatesFilter<"TenantLiteLLMKey"> | string
+    modelAllowlist?: StringNullableListFilter<"TenantLiteLLMKey">
+    status?: EnumTenantLiteLLMKeyStatusWithAggregatesFilter<"TenantLiteLLMKey"> | $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: BigIntNullableWithAggregatesFilter<"TenantLiteLLMKey"> | bigint | number | null
+    observedSpendMicrocents?: BigIntWithAggregatesFilter<"TenantLiteLLMKey"> | bigint | number
+    lastSyncedAt?: DateTimeNullableWithAggregatesFilter<"TenantLiteLLMKey"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TenantLiteLLMKey"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TenantLiteLLMKey"> | Date | string
+  }
+
+  export type CreditWalletWhereInput = {
+    AND?: CreditWalletWhereInput | CreditWalletWhereInput[]
+    OR?: CreditWalletWhereInput[]
+    NOT?: CreditWalletWhereInput | CreditWalletWhereInput[]
+    id?: StringFilter<"CreditWallet"> | string
+    tenantId?: StringFilter<"CreditWallet"> | string
+    balanceMicrocents?: BigIntFilter<"CreditWallet"> | bigint | number
+    lifetimeCreditedMicrocents?: BigIntFilter<"CreditWallet"> | bigint | number
+    lifetimeDebitedMicrocents?: BigIntFilter<"CreditWallet"> | bigint | number
+    lowBalanceThresholdMicrocents?: BigIntNullableFilter<"CreditWallet"> | bigint | number | null
+    createdAt?: DateTimeFilter<"CreditWallet"> | Date | string
+    updatedAt?: DateTimeFilter<"CreditWallet"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    transactions?: CreditTransactionListRelationFilter
+  }
+
+  export type CreditWalletOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    balanceMicrocents?: SortOrder
+    lifetimeCreditedMicrocents?: SortOrder
+    lifetimeDebitedMicrocents?: SortOrder
+    lowBalanceThresholdMicrocents?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    transactions?: CreditTransactionOrderByRelationAggregateInput
+  }
+
+  export type CreditWalletWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId?: string
+    AND?: CreditWalletWhereInput | CreditWalletWhereInput[]
+    OR?: CreditWalletWhereInput[]
+    NOT?: CreditWalletWhereInput | CreditWalletWhereInput[]
+    balanceMicrocents?: BigIntFilter<"CreditWallet"> | bigint | number
+    lifetimeCreditedMicrocents?: BigIntFilter<"CreditWallet"> | bigint | number
+    lifetimeDebitedMicrocents?: BigIntFilter<"CreditWallet"> | bigint | number
+    lowBalanceThresholdMicrocents?: BigIntNullableFilter<"CreditWallet"> | bigint | number | null
+    createdAt?: DateTimeFilter<"CreditWallet"> | Date | string
+    updatedAt?: DateTimeFilter<"CreditWallet"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    transactions?: CreditTransactionListRelationFilter
+  }, "id" | "tenantId">
+
+  export type CreditWalletOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    balanceMicrocents?: SortOrder
+    lifetimeCreditedMicrocents?: SortOrder
+    lifetimeDebitedMicrocents?: SortOrder
+    lowBalanceThresholdMicrocents?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CreditWalletCountOrderByAggregateInput
+    _avg?: CreditWalletAvgOrderByAggregateInput
+    _max?: CreditWalletMaxOrderByAggregateInput
+    _min?: CreditWalletMinOrderByAggregateInput
+    _sum?: CreditWalletSumOrderByAggregateInput
+  }
+
+  export type CreditWalletScalarWhereWithAggregatesInput = {
+    AND?: CreditWalletScalarWhereWithAggregatesInput | CreditWalletScalarWhereWithAggregatesInput[]
+    OR?: CreditWalletScalarWhereWithAggregatesInput[]
+    NOT?: CreditWalletScalarWhereWithAggregatesInput | CreditWalletScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CreditWallet"> | string
+    tenantId?: StringWithAggregatesFilter<"CreditWallet"> | string
+    balanceMicrocents?: BigIntWithAggregatesFilter<"CreditWallet"> | bigint | number
+    lifetimeCreditedMicrocents?: BigIntWithAggregatesFilter<"CreditWallet"> | bigint | number
+    lifetimeDebitedMicrocents?: BigIntWithAggregatesFilter<"CreditWallet"> | bigint | number
+    lowBalanceThresholdMicrocents?: BigIntNullableWithAggregatesFilter<"CreditWallet"> | bigint | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"CreditWallet"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CreditWallet"> | Date | string
+  }
+
+  export type CreditTransactionWhereInput = {
+    AND?: CreditTransactionWhereInput | CreditTransactionWhereInput[]
+    OR?: CreditTransactionWhereInput[]
+    NOT?: CreditTransactionWhereInput | CreditTransactionWhereInput[]
+    id?: StringFilter<"CreditTransaction"> | string
+    walletId?: StringFilter<"CreditTransaction"> | string
+    tenantId?: StringFilter<"CreditTransaction"> | string
+    amountMicrocents?: BigIntFilter<"CreditTransaction"> | bigint | number
+    kind?: EnumCreditTransactionKindFilter<"CreditTransaction"> | $Enums.CreditTransactionKind
+    reason?: StringNullableFilter<"CreditTransaction"> | string | null
+    externalRef?: StringNullableFilter<"CreditTransaction"> | string | null
+    balanceAfterMicrocents?: BigIntFilter<"CreditTransaction"> | bigint | number
+    createdAt?: DateTimeFilter<"CreditTransaction"> | Date | string
+    wallet?: XOR<CreditWalletScalarRelationFilter, CreditWalletWhereInput>
+  }
+
+  export type CreditTransactionOrderByWithRelationInput = {
+    id?: SortOrder
+    walletId?: SortOrder
+    tenantId?: SortOrder
+    amountMicrocents?: SortOrder
+    kind?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    externalRef?: SortOrderInput | SortOrder
+    balanceAfterMicrocents?: SortOrder
+    createdAt?: SortOrder
+    wallet?: CreditWalletOrderByWithRelationInput
+  }
+
+  export type CreditTransactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CreditTransactionWhereInput | CreditTransactionWhereInput[]
+    OR?: CreditTransactionWhereInput[]
+    NOT?: CreditTransactionWhereInput | CreditTransactionWhereInput[]
+    walletId?: StringFilter<"CreditTransaction"> | string
+    tenantId?: StringFilter<"CreditTransaction"> | string
+    amountMicrocents?: BigIntFilter<"CreditTransaction"> | bigint | number
+    kind?: EnumCreditTransactionKindFilter<"CreditTransaction"> | $Enums.CreditTransactionKind
+    reason?: StringNullableFilter<"CreditTransaction"> | string | null
+    externalRef?: StringNullableFilter<"CreditTransaction"> | string | null
+    balanceAfterMicrocents?: BigIntFilter<"CreditTransaction"> | bigint | number
+    createdAt?: DateTimeFilter<"CreditTransaction"> | Date | string
+    wallet?: XOR<CreditWalletScalarRelationFilter, CreditWalletWhereInput>
+  }, "id">
+
+  export type CreditTransactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    walletId?: SortOrder
+    tenantId?: SortOrder
+    amountMicrocents?: SortOrder
+    kind?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    externalRef?: SortOrderInput | SortOrder
+    balanceAfterMicrocents?: SortOrder
+    createdAt?: SortOrder
+    _count?: CreditTransactionCountOrderByAggregateInput
+    _avg?: CreditTransactionAvgOrderByAggregateInput
+    _max?: CreditTransactionMaxOrderByAggregateInput
+    _min?: CreditTransactionMinOrderByAggregateInput
+    _sum?: CreditTransactionSumOrderByAggregateInput
+  }
+
+  export type CreditTransactionScalarWhereWithAggregatesInput = {
+    AND?: CreditTransactionScalarWhereWithAggregatesInput | CreditTransactionScalarWhereWithAggregatesInput[]
+    OR?: CreditTransactionScalarWhereWithAggregatesInput[]
+    NOT?: CreditTransactionScalarWhereWithAggregatesInput | CreditTransactionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CreditTransaction"> | string
+    walletId?: StringWithAggregatesFilter<"CreditTransaction"> | string
+    tenantId?: StringWithAggregatesFilter<"CreditTransaction"> | string
+    amountMicrocents?: BigIntWithAggregatesFilter<"CreditTransaction"> | bigint | number
+    kind?: EnumCreditTransactionKindWithAggregatesFilter<"CreditTransaction"> | $Enums.CreditTransactionKind
+    reason?: StringNullableWithAggregatesFilter<"CreditTransaction"> | string | null
+    externalRef?: StringNullableWithAggregatesFilter<"CreditTransaction"> | string | null
+    balanceAfterMicrocents?: BigIntWithAggregatesFilter<"CreditTransaction"> | bigint | number
+    createdAt?: DateTimeWithAggregatesFilter<"CreditTransaction"> | Date | string
+  }
+
+  export type LiteLLMSpendEventWhereInput = {
+    AND?: LiteLLMSpendEventWhereInput | LiteLLMSpendEventWhereInput[]
+    OR?: LiteLLMSpendEventWhereInput[]
+    NOT?: LiteLLMSpendEventWhereInput | LiteLLMSpendEventWhereInput[]
+    id?: StringFilter<"LiteLLMSpendEvent"> | string
+    tenantId?: StringFilter<"LiteLLMSpendEvent"> | string
+    feature?: EnumAIFeatureFilter<"LiteLLMSpendEvent"> | $Enums.AIFeature
+    model?: StringFilter<"LiteLLMSpendEvent"> | string
+    promptTokens?: IntFilter<"LiteLLMSpendEvent"> | number
+    completionTokens?: IntFilter<"LiteLLMSpendEvent"> | number
+    rawCostMicrocents?: BigIntFilter<"LiteLLMSpendEvent"> | bigint | number
+    markedUpMicrocents?: BigIntFilter<"LiteLLMSpendEvent"> | bigint | number
+    litellmRequestId?: StringFilter<"LiteLLMSpendEvent"> | string
+    occurredAt?: DateTimeFilter<"LiteLLMSpendEvent"> | Date | string
+    createdAt?: DateTimeFilter<"LiteLLMSpendEvent"> | Date | string
+  }
+
+  export type LiteLLMSpendEventOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    feature?: SortOrder
+    model?: SortOrder
+    promptTokens?: SortOrder
+    completionTokens?: SortOrder
+    rawCostMicrocents?: SortOrder
+    markedUpMicrocents?: SortOrder
+    litellmRequestId?: SortOrder
+    occurredAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LiteLLMSpendEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    litellmRequestId?: string
+    AND?: LiteLLMSpendEventWhereInput | LiteLLMSpendEventWhereInput[]
+    OR?: LiteLLMSpendEventWhereInput[]
+    NOT?: LiteLLMSpendEventWhereInput | LiteLLMSpendEventWhereInput[]
+    tenantId?: StringFilter<"LiteLLMSpendEvent"> | string
+    feature?: EnumAIFeatureFilter<"LiteLLMSpendEvent"> | $Enums.AIFeature
+    model?: StringFilter<"LiteLLMSpendEvent"> | string
+    promptTokens?: IntFilter<"LiteLLMSpendEvent"> | number
+    completionTokens?: IntFilter<"LiteLLMSpendEvent"> | number
+    rawCostMicrocents?: BigIntFilter<"LiteLLMSpendEvent"> | bigint | number
+    markedUpMicrocents?: BigIntFilter<"LiteLLMSpendEvent"> | bigint | number
+    occurredAt?: DateTimeFilter<"LiteLLMSpendEvent"> | Date | string
+    createdAt?: DateTimeFilter<"LiteLLMSpendEvent"> | Date | string
+  }, "id" | "litellmRequestId">
+
+  export type LiteLLMSpendEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    feature?: SortOrder
+    model?: SortOrder
+    promptTokens?: SortOrder
+    completionTokens?: SortOrder
+    rawCostMicrocents?: SortOrder
+    markedUpMicrocents?: SortOrder
+    litellmRequestId?: SortOrder
+    occurredAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: LiteLLMSpendEventCountOrderByAggregateInput
+    _avg?: LiteLLMSpendEventAvgOrderByAggregateInput
+    _max?: LiteLLMSpendEventMaxOrderByAggregateInput
+    _min?: LiteLLMSpendEventMinOrderByAggregateInput
+    _sum?: LiteLLMSpendEventSumOrderByAggregateInput
+  }
+
+  export type LiteLLMSpendEventScalarWhereWithAggregatesInput = {
+    AND?: LiteLLMSpendEventScalarWhereWithAggregatesInput | LiteLLMSpendEventScalarWhereWithAggregatesInput[]
+    OR?: LiteLLMSpendEventScalarWhereWithAggregatesInput[]
+    NOT?: LiteLLMSpendEventScalarWhereWithAggregatesInput | LiteLLMSpendEventScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LiteLLMSpendEvent"> | string
+    tenantId?: StringWithAggregatesFilter<"LiteLLMSpendEvent"> | string
+    feature?: EnumAIFeatureWithAggregatesFilter<"LiteLLMSpendEvent"> | $Enums.AIFeature
+    model?: StringWithAggregatesFilter<"LiteLLMSpendEvent"> | string
+    promptTokens?: IntWithAggregatesFilter<"LiteLLMSpendEvent"> | number
+    completionTokens?: IntWithAggregatesFilter<"LiteLLMSpendEvent"> | number
+    rawCostMicrocents?: BigIntWithAggregatesFilter<"LiteLLMSpendEvent"> | bigint | number
+    markedUpMicrocents?: BigIntWithAggregatesFilter<"LiteLLMSpendEvent"> | bigint | number
+    litellmRequestId?: StringWithAggregatesFilter<"LiteLLMSpendEvent"> | string
+    occurredAt?: DateTimeWithAggregatesFilter<"LiteLLMSpendEvent"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"LiteLLMSpendEvent"> | Date | string
+  }
+
+  export type TenantAIUsageMonthWhereInput = {
+    AND?: TenantAIUsageMonthWhereInput | TenantAIUsageMonthWhereInput[]
+    OR?: TenantAIUsageMonthWhereInput[]
+    NOT?: TenantAIUsageMonthWhereInput | TenantAIUsageMonthWhereInput[]
+    tenantId?: StringFilter<"TenantAIUsageMonth"> | string
+    yearMonth?: StringFilter<"TenantAIUsageMonth"> | string
+    totalPromptTokens?: IntFilter<"TenantAIUsageMonth"> | number
+    totalCompletionTokens?: IntFilter<"TenantAIUsageMonth"> | number
+    totalRawCostMicrocents?: BigIntFilter<"TenantAIUsageMonth"> | bigint | number
+    totalBilledMicrocents?: BigIntFilter<"TenantAIUsageMonth"> | bigint | number
+    byFeature?: JsonFilter<"TenantAIUsageMonth">
+    updatedAt?: DateTimeFilter<"TenantAIUsageMonth"> | Date | string
+  }
+
+  export type TenantAIUsageMonthOrderByWithRelationInput = {
+    tenantId?: SortOrder
+    yearMonth?: SortOrder
+    totalPromptTokens?: SortOrder
+    totalCompletionTokens?: SortOrder
+    totalRawCostMicrocents?: SortOrder
+    totalBilledMicrocents?: SortOrder
+    byFeature?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantAIUsageMonthWhereUniqueInput = Prisma.AtLeast<{
+    tenantId_yearMonth?: TenantAIUsageMonthTenantIdYearMonthCompoundUniqueInput
+    AND?: TenantAIUsageMonthWhereInput | TenantAIUsageMonthWhereInput[]
+    OR?: TenantAIUsageMonthWhereInput[]
+    NOT?: TenantAIUsageMonthWhereInput | TenantAIUsageMonthWhereInput[]
+    tenantId?: StringFilter<"TenantAIUsageMonth"> | string
+    yearMonth?: StringFilter<"TenantAIUsageMonth"> | string
+    totalPromptTokens?: IntFilter<"TenantAIUsageMonth"> | number
+    totalCompletionTokens?: IntFilter<"TenantAIUsageMonth"> | number
+    totalRawCostMicrocents?: BigIntFilter<"TenantAIUsageMonth"> | bigint | number
+    totalBilledMicrocents?: BigIntFilter<"TenantAIUsageMonth"> | bigint | number
+    byFeature?: JsonFilter<"TenantAIUsageMonth">
+    updatedAt?: DateTimeFilter<"TenantAIUsageMonth"> | Date | string
+  }, "tenantId_yearMonth">
+
+  export type TenantAIUsageMonthOrderByWithAggregationInput = {
+    tenantId?: SortOrder
+    yearMonth?: SortOrder
+    totalPromptTokens?: SortOrder
+    totalCompletionTokens?: SortOrder
+    totalRawCostMicrocents?: SortOrder
+    totalBilledMicrocents?: SortOrder
+    byFeature?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TenantAIUsageMonthCountOrderByAggregateInput
+    _avg?: TenantAIUsageMonthAvgOrderByAggregateInput
+    _max?: TenantAIUsageMonthMaxOrderByAggregateInput
+    _min?: TenantAIUsageMonthMinOrderByAggregateInput
+    _sum?: TenantAIUsageMonthSumOrderByAggregateInput
+  }
+
+  export type TenantAIUsageMonthScalarWhereWithAggregatesInput = {
+    AND?: TenantAIUsageMonthScalarWhereWithAggregatesInput | TenantAIUsageMonthScalarWhereWithAggregatesInput[]
+    OR?: TenantAIUsageMonthScalarWhereWithAggregatesInput[]
+    NOT?: TenantAIUsageMonthScalarWhereWithAggregatesInput | TenantAIUsageMonthScalarWhereWithAggregatesInput[]
+    tenantId?: StringWithAggregatesFilter<"TenantAIUsageMonth"> | string
+    yearMonth?: StringWithAggregatesFilter<"TenantAIUsageMonth"> | string
+    totalPromptTokens?: IntWithAggregatesFilter<"TenantAIUsageMonth"> | number
+    totalCompletionTokens?: IntWithAggregatesFilter<"TenantAIUsageMonth"> | number
+    totalRawCostMicrocents?: BigIntWithAggregatesFilter<"TenantAIUsageMonth"> | bigint | number
+    totalBilledMicrocents?: BigIntWithAggregatesFilter<"TenantAIUsageMonth"> | bigint | number
+    byFeature?: JsonWithAggregatesFilter<"TenantAIUsageMonth">
+    updatedAt?: DateTimeWithAggregatesFilter<"TenantAIUsageMonth"> | Date | string
   }
 
   export type ConversationWhereInput = {
@@ -116330,6 +124461,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigListRelationFilter
     directorySyncRuns?: DirectorySyncRunListRelationFilter
     externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
+    billingConfig?: XOR<TenantBillingConfigNullableScalarRelationFilter, TenantBillingConfigWhereInput> | null
+    litellmKey?: XOR<TenantLiteLLMKeyNullableScalarRelationFilter, TenantLiteLLMKeyWhereInput> | null
+    creditWallet?: XOR<CreditWalletNullableScalarRelationFilter, CreditWalletWhereInput> | null
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -116402,6 +124536,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigOrderByRelationAggregateInput
     directorySyncRuns?: DirectorySyncRunOrderByRelationAggregateInput
     externalIdentityMappings?: ExternalIdentityMappingOrderByRelationAggregateInput
+    billingConfig?: TenantBillingConfigOrderByWithRelationInput
+    litellmKey?: TenantLiteLLMKeyOrderByWithRelationInput
+    creditWallet?: CreditWalletOrderByWithRelationInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -116477,6 +124614,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigListRelationFilter
     directorySyncRuns?: DirectorySyncRunListRelationFilter
     externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
+    billingConfig?: XOR<TenantBillingConfigNullableScalarRelationFilter, TenantBillingConfigWhereInput> | null
+    litellmKey?: XOR<TenantLiteLLMKeyNullableScalarRelationFilter, TenantLiteLLMKeyWhereInput> | null
+    creditWallet?: XOR<CreditWalletNullableScalarRelationFilter, CreditWalletWhereInput> | null
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -120678,6 +128818,510 @@ export namespace Prisma {
     nextExerciseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantBillingConfigCreateInput = {
+    id?: string
+    mode?: $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: bigint | number | null
+    modelTierOverride?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutBillingConfigInput
+  }
+
+  export type TenantBillingConfigUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    mode?: $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: bigint | number | null
+    modelTierOverride?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantBillingConfigUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mode?: EnumTenantBillingModeFieldUpdateOperationsInput | $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    modelTierOverride?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBillingConfigNestedInput
+  }
+
+  export type TenantBillingConfigUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    mode?: EnumTenantBillingModeFieldUpdateOperationsInput | $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    modelTierOverride?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantBillingConfigCreateManyInput = {
+    id?: string
+    tenantId: string
+    mode?: $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: bigint | number | null
+    modelTierOverride?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantBillingConfigUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mode?: EnumTenantBillingModeFieldUpdateOperationsInput | $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    modelTierOverride?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantBillingConfigUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    mode?: EnumTenantBillingModeFieldUpdateOperationsInput | $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    modelTierOverride?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantLiteLLMKeyCreateInput = {
+    id?: string
+    litellmKeyId: string
+    virtualKeyCipher: string
+    modelAllowlist?: TenantLiteLLMKeyCreatemodelAllowlistInput | string[]
+    status?: $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: bigint | number | null
+    observedSpendMicrocents?: bigint | number
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutLitellmKeyInput
+  }
+
+  export type TenantLiteLLMKeyUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    litellmKeyId: string
+    virtualKeyCipher: string
+    modelAllowlist?: TenantLiteLLMKeyCreatemodelAllowlistInput | string[]
+    status?: $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: bigint | number | null
+    observedSpendMicrocents?: bigint | number
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantLiteLLMKeyUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    litellmKeyId?: StringFieldUpdateOperationsInput | string
+    virtualKeyCipher?: StringFieldUpdateOperationsInput | string
+    modelAllowlist?: TenantLiteLLMKeyUpdatemodelAllowlistInput | string[]
+    status?: EnumTenantLiteLLMKeyStatusFieldUpdateOperationsInput | $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    observedSpendMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutLitellmKeyNestedInput
+  }
+
+  export type TenantLiteLLMKeyUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    litellmKeyId?: StringFieldUpdateOperationsInput | string
+    virtualKeyCipher?: StringFieldUpdateOperationsInput | string
+    modelAllowlist?: TenantLiteLLMKeyUpdatemodelAllowlistInput | string[]
+    status?: EnumTenantLiteLLMKeyStatusFieldUpdateOperationsInput | $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    observedSpendMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantLiteLLMKeyCreateManyInput = {
+    id?: string
+    tenantId: string
+    litellmKeyId: string
+    virtualKeyCipher: string
+    modelAllowlist?: TenantLiteLLMKeyCreatemodelAllowlistInput | string[]
+    status?: $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: bigint | number | null
+    observedSpendMicrocents?: bigint | number
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantLiteLLMKeyUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    litellmKeyId?: StringFieldUpdateOperationsInput | string
+    virtualKeyCipher?: StringFieldUpdateOperationsInput | string
+    modelAllowlist?: TenantLiteLLMKeyUpdatemodelAllowlistInput | string[]
+    status?: EnumTenantLiteLLMKeyStatusFieldUpdateOperationsInput | $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    observedSpendMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantLiteLLMKeyUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    litellmKeyId?: StringFieldUpdateOperationsInput | string
+    virtualKeyCipher?: StringFieldUpdateOperationsInput | string
+    modelAllowlist?: TenantLiteLLMKeyUpdatemodelAllowlistInput | string[]
+    status?: EnumTenantLiteLLMKeyStatusFieldUpdateOperationsInput | $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    observedSpendMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditWalletCreateInput = {
+    id?: string
+    balanceMicrocents?: bigint | number
+    lifetimeCreditedMicrocents?: bigint | number
+    lifetimeDebitedMicrocents?: bigint | number
+    lowBalanceThresholdMicrocents?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutCreditWalletInput
+    transactions?: CreditTransactionCreateNestedManyWithoutWalletInput
+  }
+
+  export type CreditWalletUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    balanceMicrocents?: bigint | number
+    lifetimeCreditedMicrocents?: bigint | number
+    lifetimeDebitedMicrocents?: bigint | number
+    lowBalanceThresholdMicrocents?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transactions?: CreditTransactionUncheckedCreateNestedManyWithoutWalletInput
+  }
+
+  export type CreditWalletUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balanceMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeCreditedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeDebitedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lowBalanceThresholdMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutCreditWalletNestedInput
+    transactions?: CreditTransactionUpdateManyWithoutWalletNestedInput
+  }
+
+  export type CreditWalletUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    balanceMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeCreditedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeDebitedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lowBalanceThresholdMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: CreditTransactionUncheckedUpdateManyWithoutWalletNestedInput
+  }
+
+  export type CreditWalletCreateManyInput = {
+    id?: string
+    tenantId: string
+    balanceMicrocents?: bigint | number
+    lifetimeCreditedMicrocents?: bigint | number
+    lifetimeDebitedMicrocents?: bigint | number
+    lowBalanceThresholdMicrocents?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CreditWalletUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balanceMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeCreditedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeDebitedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lowBalanceThresholdMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditWalletUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    balanceMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeCreditedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeDebitedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lowBalanceThresholdMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditTransactionCreateInput = {
+    id?: string
+    tenantId: string
+    amountMicrocents: bigint | number
+    kind: $Enums.CreditTransactionKind
+    reason?: string | null
+    externalRef?: string | null
+    balanceAfterMicrocents: bigint | number
+    createdAt?: Date | string
+    wallet: CreditWalletCreateNestedOneWithoutTransactionsInput
+  }
+
+  export type CreditTransactionUncheckedCreateInput = {
+    id?: string
+    walletId: string
+    tenantId: string
+    amountMicrocents: bigint | number
+    kind: $Enums.CreditTransactionKind
+    reason?: string | null
+    externalRef?: string | null
+    balanceAfterMicrocents: bigint | number
+    createdAt?: Date | string
+  }
+
+  export type CreditTransactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    amountMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    kind?: EnumCreditTransactionKindFieldUpdateOperationsInput | $Enums.CreditTransactionKind
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfterMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wallet?: CreditWalletUpdateOneRequiredWithoutTransactionsNestedInput
+  }
+
+  export type CreditTransactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    walletId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    amountMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    kind?: EnumCreditTransactionKindFieldUpdateOperationsInput | $Enums.CreditTransactionKind
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfterMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditTransactionCreateManyInput = {
+    id?: string
+    walletId: string
+    tenantId: string
+    amountMicrocents: bigint | number
+    kind: $Enums.CreditTransactionKind
+    reason?: string | null
+    externalRef?: string | null
+    balanceAfterMicrocents: bigint | number
+    createdAt?: Date | string
+  }
+
+  export type CreditTransactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    amountMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    kind?: EnumCreditTransactionKindFieldUpdateOperationsInput | $Enums.CreditTransactionKind
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfterMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditTransactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    walletId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    amountMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    kind?: EnumCreditTransactionKindFieldUpdateOperationsInput | $Enums.CreditTransactionKind
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfterMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiteLLMSpendEventCreateInput = {
+    id?: string
+    tenantId: string
+    feature: $Enums.AIFeature
+    model: string
+    promptTokens: number
+    completionTokens: number
+    rawCostMicrocents: bigint | number
+    markedUpMicrocents: bigint | number
+    litellmRequestId: string
+    occurredAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type LiteLLMSpendEventUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    feature: $Enums.AIFeature
+    model: string
+    promptTokens: number
+    completionTokens: number
+    rawCostMicrocents: bigint | number
+    markedUpMicrocents: bigint | number
+    litellmRequestId: string
+    occurredAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type LiteLLMSpendEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    feature?: EnumAIFeatureFieldUpdateOperationsInput | $Enums.AIFeature
+    model?: StringFieldUpdateOperationsInput | string
+    promptTokens?: IntFieldUpdateOperationsInput | number
+    completionTokens?: IntFieldUpdateOperationsInput | number
+    rawCostMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    markedUpMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    litellmRequestId?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiteLLMSpendEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    feature?: EnumAIFeatureFieldUpdateOperationsInput | $Enums.AIFeature
+    model?: StringFieldUpdateOperationsInput | string
+    promptTokens?: IntFieldUpdateOperationsInput | number
+    completionTokens?: IntFieldUpdateOperationsInput | number
+    rawCostMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    markedUpMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    litellmRequestId?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiteLLMSpendEventCreateManyInput = {
+    id?: string
+    tenantId: string
+    feature: $Enums.AIFeature
+    model: string
+    promptTokens: number
+    completionTokens: number
+    rawCostMicrocents: bigint | number
+    markedUpMicrocents: bigint | number
+    litellmRequestId: string
+    occurredAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type LiteLLMSpendEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    feature?: EnumAIFeatureFieldUpdateOperationsInput | $Enums.AIFeature
+    model?: StringFieldUpdateOperationsInput | string
+    promptTokens?: IntFieldUpdateOperationsInput | number
+    completionTokens?: IntFieldUpdateOperationsInput | number
+    rawCostMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    markedUpMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    litellmRequestId?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LiteLLMSpendEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    feature?: EnumAIFeatureFieldUpdateOperationsInput | $Enums.AIFeature
+    model?: StringFieldUpdateOperationsInput | string
+    promptTokens?: IntFieldUpdateOperationsInput | number
+    completionTokens?: IntFieldUpdateOperationsInput | number
+    rawCostMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    markedUpMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    litellmRequestId?: StringFieldUpdateOperationsInput | string
+    occurredAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantAIUsageMonthCreateInput = {
+    tenantId: string
+    yearMonth: string
+    totalPromptTokens?: number
+    totalCompletionTokens?: number
+    totalRawCostMicrocents?: bigint | number
+    totalBilledMicrocents?: bigint | number
+    byFeature?: JsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type TenantAIUsageMonthUncheckedCreateInput = {
+    tenantId: string
+    yearMonth: string
+    totalPromptTokens?: number
+    totalCompletionTokens?: number
+    totalRawCostMicrocents?: bigint | number
+    totalBilledMicrocents?: bigint | number
+    byFeature?: JsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type TenantAIUsageMonthUpdateInput = {
+    tenantId?: StringFieldUpdateOperationsInput | string
+    yearMonth?: StringFieldUpdateOperationsInput | string
+    totalPromptTokens?: IntFieldUpdateOperationsInput | number
+    totalCompletionTokens?: IntFieldUpdateOperationsInput | number
+    totalRawCostMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    totalBilledMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    byFeature?: JsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantAIUsageMonthUncheckedUpdateInput = {
+    tenantId?: StringFieldUpdateOperationsInput | string
+    yearMonth?: StringFieldUpdateOperationsInput | string
+    totalPromptTokens?: IntFieldUpdateOperationsInput | number
+    totalCompletionTokens?: IntFieldUpdateOperationsInput | number
+    totalRawCostMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    totalBilledMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    byFeature?: JsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantAIUsageMonthCreateManyInput = {
+    tenantId: string
+    yearMonth: string
+    totalPromptTokens?: number
+    totalCompletionTokens?: number
+    totalRawCostMicrocents?: bigint | number
+    totalBilledMicrocents?: bigint | number
+    byFeature?: JsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type TenantAIUsageMonthUpdateManyMutationInput = {
+    tenantId?: StringFieldUpdateOperationsInput | string
+    yearMonth?: StringFieldUpdateOperationsInput | string
+    totalPromptTokens?: IntFieldUpdateOperationsInput | number
+    totalCompletionTokens?: IntFieldUpdateOperationsInput | number
+    totalRawCostMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    totalBilledMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    byFeature?: JsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantAIUsageMonthUncheckedUpdateManyInput = {
+    tenantId?: StringFieldUpdateOperationsInput | string
+    yearMonth?: StringFieldUpdateOperationsInput | string
+    totalPromptTokens?: IntFieldUpdateOperationsInput | number
+    totalCompletionTokens?: IntFieldUpdateOperationsInput | number
+    totalRawCostMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    totalBilledMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    byFeature?: JsonNullValueInput | InputJsonValue
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -125179,6 +133823,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -125251,6 +133898,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -125323,6 +133973,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -125395,6 +134048,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -129826,6 +138482,462 @@ export namespace Prisma {
     _max?: NestedEnumBCPExerciseOutcomeNullableFilter<$PrismaModel>
   }
 
+  export type EnumTenantBillingModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TenantBillingMode | EnumTenantBillingModeFieldRefInput<$PrismaModel>
+    in?: $Enums.TenantBillingMode[] | ListEnumTenantBillingModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TenantBillingMode[] | ListEnumTenantBillingModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTenantBillingModeFilter<$PrismaModel> | $Enums.TenantBillingMode
+  }
+
+  export type BigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type TenantBillingConfigCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    mode?: SortOrder
+    monthlySpendCapMicrocents?: SortOrder
+    modelTierOverride?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantBillingConfigAvgOrderByAggregateInput = {
+    monthlySpendCapMicrocents?: SortOrder
+  }
+
+  export type TenantBillingConfigMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    mode?: SortOrder
+    monthlySpendCapMicrocents?: SortOrder
+    modelTierOverride?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantBillingConfigMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    mode?: SortOrder
+    monthlySpendCapMicrocents?: SortOrder
+    modelTierOverride?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantBillingConfigSumOrderByAggregateInput = {
+    monthlySpendCapMicrocents?: SortOrder
+  }
+
+  export type EnumTenantBillingModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TenantBillingMode | EnumTenantBillingModeFieldRefInput<$PrismaModel>
+    in?: $Enums.TenantBillingMode[] | ListEnumTenantBillingModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TenantBillingMode[] | ListEnumTenantBillingModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTenantBillingModeWithAggregatesFilter<$PrismaModel> | $Enums.TenantBillingMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTenantBillingModeFilter<$PrismaModel>
+    _max?: NestedEnumTenantBillingModeFilter<$PrismaModel>
+  }
+
+  export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumTenantLiteLLMKeyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TenantLiteLLMKeyStatus | EnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TenantLiteLLMKeyStatus[] | ListEnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TenantLiteLLMKeyStatus[] | ListEnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTenantLiteLLMKeyStatusFilter<$PrismaModel> | $Enums.TenantLiteLLMKeyStatus
+  }
+
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type TenantLiteLLMKeyCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    litellmKeyId?: SortOrder
+    virtualKeyCipher?: SortOrder
+    modelAllowlist?: SortOrder
+    status?: SortOrder
+    budgetMaxMicrocents?: SortOrder
+    observedSpendMicrocents?: SortOrder
+    lastSyncedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantLiteLLMKeyAvgOrderByAggregateInput = {
+    budgetMaxMicrocents?: SortOrder
+    observedSpendMicrocents?: SortOrder
+  }
+
+  export type TenantLiteLLMKeyMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    litellmKeyId?: SortOrder
+    virtualKeyCipher?: SortOrder
+    status?: SortOrder
+    budgetMaxMicrocents?: SortOrder
+    observedSpendMicrocents?: SortOrder
+    lastSyncedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantLiteLLMKeyMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    litellmKeyId?: SortOrder
+    virtualKeyCipher?: SortOrder
+    status?: SortOrder
+    budgetMaxMicrocents?: SortOrder
+    observedSpendMicrocents?: SortOrder
+    lastSyncedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantLiteLLMKeySumOrderByAggregateInput = {
+    budgetMaxMicrocents?: SortOrder
+    observedSpendMicrocents?: SortOrder
+  }
+
+  export type EnumTenantLiteLLMKeyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TenantLiteLLMKeyStatus | EnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TenantLiteLLMKeyStatus[] | ListEnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TenantLiteLLMKeyStatus[] | ListEnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTenantLiteLLMKeyStatusWithAggregatesFilter<$PrismaModel> | $Enums.TenantLiteLLMKeyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTenantLiteLLMKeyStatusFilter<$PrismaModel>
+    _max?: NestedEnumTenantLiteLLMKeyStatusFilter<$PrismaModel>
+  }
+
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type CreditTransactionListRelationFilter = {
+    every?: CreditTransactionWhereInput
+    some?: CreditTransactionWhereInput
+    none?: CreditTransactionWhereInput
+  }
+
+  export type CreditTransactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CreditWalletCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    balanceMicrocents?: SortOrder
+    lifetimeCreditedMicrocents?: SortOrder
+    lifetimeDebitedMicrocents?: SortOrder
+    lowBalanceThresholdMicrocents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreditWalletAvgOrderByAggregateInput = {
+    balanceMicrocents?: SortOrder
+    lifetimeCreditedMicrocents?: SortOrder
+    lifetimeDebitedMicrocents?: SortOrder
+    lowBalanceThresholdMicrocents?: SortOrder
+  }
+
+  export type CreditWalletMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    balanceMicrocents?: SortOrder
+    lifetimeCreditedMicrocents?: SortOrder
+    lifetimeDebitedMicrocents?: SortOrder
+    lowBalanceThresholdMicrocents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreditWalletMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    balanceMicrocents?: SortOrder
+    lifetimeCreditedMicrocents?: SortOrder
+    lifetimeDebitedMicrocents?: SortOrder
+    lowBalanceThresholdMicrocents?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CreditWalletSumOrderByAggregateInput = {
+    balanceMicrocents?: SortOrder
+    lifetimeCreditedMicrocents?: SortOrder
+    lifetimeDebitedMicrocents?: SortOrder
+    lowBalanceThresholdMicrocents?: SortOrder
+  }
+
+  export type EnumCreditTransactionKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.CreditTransactionKind | EnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    in?: $Enums.CreditTransactionKind[] | ListEnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CreditTransactionKind[] | ListEnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumCreditTransactionKindFilter<$PrismaModel> | $Enums.CreditTransactionKind
+  }
+
+  export type CreditWalletScalarRelationFilter = {
+    is?: CreditWalletWhereInput
+    isNot?: CreditWalletWhereInput
+  }
+
+  export type CreditTransactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    walletId?: SortOrder
+    tenantId?: SortOrder
+    amountMicrocents?: SortOrder
+    kind?: SortOrder
+    reason?: SortOrder
+    externalRef?: SortOrder
+    balanceAfterMicrocents?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CreditTransactionAvgOrderByAggregateInput = {
+    amountMicrocents?: SortOrder
+    balanceAfterMicrocents?: SortOrder
+  }
+
+  export type CreditTransactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    walletId?: SortOrder
+    tenantId?: SortOrder
+    amountMicrocents?: SortOrder
+    kind?: SortOrder
+    reason?: SortOrder
+    externalRef?: SortOrder
+    balanceAfterMicrocents?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CreditTransactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    walletId?: SortOrder
+    tenantId?: SortOrder
+    amountMicrocents?: SortOrder
+    kind?: SortOrder
+    reason?: SortOrder
+    externalRef?: SortOrder
+    balanceAfterMicrocents?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CreditTransactionSumOrderByAggregateInput = {
+    amountMicrocents?: SortOrder
+    balanceAfterMicrocents?: SortOrder
+  }
+
+  export type EnumCreditTransactionKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CreditTransactionKind | EnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    in?: $Enums.CreditTransactionKind[] | ListEnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CreditTransactionKind[] | ListEnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumCreditTransactionKindWithAggregatesFilter<$PrismaModel> | $Enums.CreditTransactionKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCreditTransactionKindFilter<$PrismaModel>
+    _max?: NestedEnumCreditTransactionKindFilter<$PrismaModel>
+  }
+
+  export type LiteLLMSpendEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    feature?: SortOrder
+    model?: SortOrder
+    promptTokens?: SortOrder
+    completionTokens?: SortOrder
+    rawCostMicrocents?: SortOrder
+    markedUpMicrocents?: SortOrder
+    litellmRequestId?: SortOrder
+    occurredAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LiteLLMSpendEventAvgOrderByAggregateInput = {
+    promptTokens?: SortOrder
+    completionTokens?: SortOrder
+    rawCostMicrocents?: SortOrder
+    markedUpMicrocents?: SortOrder
+  }
+
+  export type LiteLLMSpendEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    feature?: SortOrder
+    model?: SortOrder
+    promptTokens?: SortOrder
+    completionTokens?: SortOrder
+    rawCostMicrocents?: SortOrder
+    markedUpMicrocents?: SortOrder
+    litellmRequestId?: SortOrder
+    occurredAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LiteLLMSpendEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    feature?: SortOrder
+    model?: SortOrder
+    promptTokens?: SortOrder
+    completionTokens?: SortOrder
+    rawCostMicrocents?: SortOrder
+    markedUpMicrocents?: SortOrder
+    litellmRequestId?: SortOrder
+    occurredAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type LiteLLMSpendEventSumOrderByAggregateInput = {
+    promptTokens?: SortOrder
+    completionTokens?: SortOrder
+    rawCostMicrocents?: SortOrder
+    markedUpMicrocents?: SortOrder
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type TenantAIUsageMonthTenantIdYearMonthCompoundUniqueInput = {
+    tenantId: string
+    yearMonth: string
+  }
+
+  export type TenantAIUsageMonthCountOrderByAggregateInput = {
+    tenantId?: SortOrder
+    yearMonth?: SortOrder
+    totalPromptTokens?: SortOrder
+    totalCompletionTokens?: SortOrder
+    totalRawCostMicrocents?: SortOrder
+    totalBilledMicrocents?: SortOrder
+    byFeature?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantAIUsageMonthAvgOrderByAggregateInput = {
+    totalPromptTokens?: SortOrder
+    totalCompletionTokens?: SortOrder
+    totalRawCostMicrocents?: SortOrder
+    totalBilledMicrocents?: SortOrder
+  }
+
+  export type TenantAIUsageMonthMaxOrderByAggregateInput = {
+    tenantId?: SortOrder
+    yearMonth?: SortOrder
+    totalPromptTokens?: SortOrder
+    totalCompletionTokens?: SortOrder
+    totalRawCostMicrocents?: SortOrder
+    totalBilledMicrocents?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantAIUsageMonthMinOrderByAggregateInput = {
+    tenantId?: SortOrder
+    yearMonth?: SortOrder
+    totalPromptTokens?: SortOrder
+    totalCompletionTokens?: SortOrder
+    totalRawCostMicrocents?: SortOrder
+    totalBilledMicrocents?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TenantAIUsageMonthSumOrderByAggregateInput = {
+    totalPromptTokens?: SortOrder
+    totalCompletionTokens?: SortOrder
+    totalRawCostMicrocents?: SortOrder
+    totalBilledMicrocents?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
   export type MessageListRelationFilter = {
     every?: MessageWhereInput
     some?: MessageWhereInput
@@ -129871,29 +138983,6 @@ export namespace Prisma {
     in?: $Enums.MessageRole[] | ListEnumMessageRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.MessageRole[] | ListEnumMessageRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumMessageRoleFilter<$PrismaModel> | $Enums.MessageRole
-  }
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type ConversationScalarRelationFilter = {
@@ -129947,32 +139036,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMessageRoleFilter<$PrismaModel>
     _max?: NestedEnumMessageRoleFilter<$PrismaModel>
-  }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type EnumControlStatusFilter<$PrismaModel = never> = {
@@ -133484,6 +142547,21 @@ export namespace Prisma {
     none?: ExternalIdentityMappingWhereInput
   }
 
+  export type TenantBillingConfigNullableScalarRelationFilter = {
+    is?: TenantBillingConfigWhereInput | null
+    isNot?: TenantBillingConfigWhereInput | null
+  }
+
+  export type TenantLiteLLMKeyNullableScalarRelationFilter = {
+    is?: TenantLiteLLMKeyWhereInput | null
+    isNot?: TenantLiteLLMKeyWhereInput | null
+  }
+
+  export type CreditWalletNullableScalarRelationFilter = {
+    is?: CreditWalletWhereInput | null
+    isNot?: CreditWalletWhereInput | null
+  }
+
   export type MembershipOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -136375,6 +145453,141 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFacilitatedBcpExercisesInput, UserUpdateWithoutFacilitatedBcpExercisesInput>, UserUncheckedUpdateWithoutFacilitatedBcpExercisesInput>
+  }
+
+  export type TenantCreateNestedOneWithoutBillingConfigInput = {
+    create?: XOR<TenantCreateWithoutBillingConfigInput, TenantUncheckedCreateWithoutBillingConfigInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBillingConfigInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type EnumTenantBillingModeFieldUpdateOperationsInput = {
+    set?: $Enums.TenantBillingMode
+  }
+
+  export type NullableBigIntFieldUpdateOperationsInput = {
+    set?: bigint | number | null
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type TenantUpdateOneRequiredWithoutBillingConfigNestedInput = {
+    create?: XOR<TenantCreateWithoutBillingConfigInput, TenantUncheckedCreateWithoutBillingConfigInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBillingConfigInput
+    upsert?: TenantUpsertWithoutBillingConfigInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutBillingConfigInput, TenantUpdateWithoutBillingConfigInput>, TenantUncheckedUpdateWithoutBillingConfigInput>
+  }
+
+  export type TenantLiteLLMKeyCreatemodelAllowlistInput = {
+    set: string[]
+  }
+
+  export type TenantCreateNestedOneWithoutLitellmKeyInput = {
+    create?: XOR<TenantCreateWithoutLitellmKeyInput, TenantUncheckedCreateWithoutLitellmKeyInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutLitellmKeyInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantLiteLLMKeyUpdatemodelAllowlistInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type EnumTenantLiteLLMKeyStatusFieldUpdateOperationsInput = {
+    set?: $Enums.TenantLiteLLMKeyStatus
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type TenantUpdateOneRequiredWithoutLitellmKeyNestedInput = {
+    create?: XOR<TenantCreateWithoutLitellmKeyInput, TenantUncheckedCreateWithoutLitellmKeyInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutLitellmKeyInput
+    upsert?: TenantUpsertWithoutLitellmKeyInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutLitellmKeyInput, TenantUpdateWithoutLitellmKeyInput>, TenantUncheckedUpdateWithoutLitellmKeyInput>
+  }
+
+  export type TenantCreateNestedOneWithoutCreditWalletInput = {
+    create?: XOR<TenantCreateWithoutCreditWalletInput, TenantUncheckedCreateWithoutCreditWalletInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCreditWalletInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type CreditTransactionCreateNestedManyWithoutWalletInput = {
+    create?: XOR<CreditTransactionCreateWithoutWalletInput, CreditTransactionUncheckedCreateWithoutWalletInput> | CreditTransactionCreateWithoutWalletInput[] | CreditTransactionUncheckedCreateWithoutWalletInput[]
+    connectOrCreate?: CreditTransactionCreateOrConnectWithoutWalletInput | CreditTransactionCreateOrConnectWithoutWalletInput[]
+    createMany?: CreditTransactionCreateManyWalletInputEnvelope
+    connect?: CreditTransactionWhereUniqueInput | CreditTransactionWhereUniqueInput[]
+  }
+
+  export type CreditTransactionUncheckedCreateNestedManyWithoutWalletInput = {
+    create?: XOR<CreditTransactionCreateWithoutWalletInput, CreditTransactionUncheckedCreateWithoutWalletInput> | CreditTransactionCreateWithoutWalletInput[] | CreditTransactionUncheckedCreateWithoutWalletInput[]
+    connectOrCreate?: CreditTransactionCreateOrConnectWithoutWalletInput | CreditTransactionCreateOrConnectWithoutWalletInput[]
+    createMany?: CreditTransactionCreateManyWalletInputEnvelope
+    connect?: CreditTransactionWhereUniqueInput | CreditTransactionWhereUniqueInput[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutCreditWalletNestedInput = {
+    create?: XOR<TenantCreateWithoutCreditWalletInput, TenantUncheckedCreateWithoutCreditWalletInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCreditWalletInput
+    upsert?: TenantUpsertWithoutCreditWalletInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCreditWalletInput, TenantUpdateWithoutCreditWalletInput>, TenantUncheckedUpdateWithoutCreditWalletInput>
+  }
+
+  export type CreditTransactionUpdateManyWithoutWalletNestedInput = {
+    create?: XOR<CreditTransactionCreateWithoutWalletInput, CreditTransactionUncheckedCreateWithoutWalletInput> | CreditTransactionCreateWithoutWalletInput[] | CreditTransactionUncheckedCreateWithoutWalletInput[]
+    connectOrCreate?: CreditTransactionCreateOrConnectWithoutWalletInput | CreditTransactionCreateOrConnectWithoutWalletInput[]
+    upsert?: CreditTransactionUpsertWithWhereUniqueWithoutWalletInput | CreditTransactionUpsertWithWhereUniqueWithoutWalletInput[]
+    createMany?: CreditTransactionCreateManyWalletInputEnvelope
+    set?: CreditTransactionWhereUniqueInput | CreditTransactionWhereUniqueInput[]
+    disconnect?: CreditTransactionWhereUniqueInput | CreditTransactionWhereUniqueInput[]
+    delete?: CreditTransactionWhereUniqueInput | CreditTransactionWhereUniqueInput[]
+    connect?: CreditTransactionWhereUniqueInput | CreditTransactionWhereUniqueInput[]
+    update?: CreditTransactionUpdateWithWhereUniqueWithoutWalletInput | CreditTransactionUpdateWithWhereUniqueWithoutWalletInput[]
+    updateMany?: CreditTransactionUpdateManyWithWhereWithoutWalletInput | CreditTransactionUpdateManyWithWhereWithoutWalletInput[]
+    deleteMany?: CreditTransactionScalarWhereInput | CreditTransactionScalarWhereInput[]
+  }
+
+  export type CreditTransactionUncheckedUpdateManyWithoutWalletNestedInput = {
+    create?: XOR<CreditTransactionCreateWithoutWalletInput, CreditTransactionUncheckedCreateWithoutWalletInput> | CreditTransactionCreateWithoutWalletInput[] | CreditTransactionUncheckedCreateWithoutWalletInput[]
+    connectOrCreate?: CreditTransactionCreateOrConnectWithoutWalletInput | CreditTransactionCreateOrConnectWithoutWalletInput[]
+    upsert?: CreditTransactionUpsertWithWhereUniqueWithoutWalletInput | CreditTransactionUpsertWithWhereUniqueWithoutWalletInput[]
+    createMany?: CreditTransactionCreateManyWalletInputEnvelope
+    set?: CreditTransactionWhereUniqueInput | CreditTransactionWhereUniqueInput[]
+    disconnect?: CreditTransactionWhereUniqueInput | CreditTransactionWhereUniqueInput[]
+    delete?: CreditTransactionWhereUniqueInput | CreditTransactionWhereUniqueInput[]
+    connect?: CreditTransactionWhereUniqueInput | CreditTransactionWhereUniqueInput[]
+    update?: CreditTransactionUpdateWithWhereUniqueWithoutWalletInput | CreditTransactionUpdateWithWhereUniqueWithoutWalletInput[]
+    updateMany?: CreditTransactionUpdateManyWithWhereWithoutWalletInput | CreditTransactionUpdateManyWithWhereWithoutWalletInput[]
+    deleteMany?: CreditTransactionScalarWhereInput | CreditTransactionScalarWhereInput[]
+  }
+
+  export type CreditWalletCreateNestedOneWithoutTransactionsInput = {
+    create?: XOR<CreditWalletCreateWithoutTransactionsInput, CreditWalletUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: CreditWalletCreateOrConnectWithoutTransactionsInput
+    connect?: CreditWalletWhereUniqueInput
+  }
+
+  export type EnumCreditTransactionKindFieldUpdateOperationsInput = {
+    set?: $Enums.CreditTransactionKind
+  }
+
+  export type CreditWalletUpdateOneRequiredWithoutTransactionsNestedInput = {
+    create?: XOR<CreditWalletCreateWithoutTransactionsInput, CreditWalletUncheckedCreateWithoutTransactionsInput>
+    connectOrCreate?: CreditWalletCreateOrConnectWithoutTransactionsInput
+    upsert?: CreditWalletUpsertWithoutTransactionsInput
+    connect?: CreditWalletWhereUniqueInput
+    update?: XOR<XOR<CreditWalletUpdateToOneWithWhereWithoutTransactionsInput, CreditWalletUpdateWithoutTransactionsInput>, CreditWalletUncheckedUpdateWithoutTransactionsInput>
   }
 
   export type TenantCreateNestedOneWithoutConversationsInput = {
@@ -140181,6 +149394,24 @@ export namespace Prisma {
     connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
   }
 
+  export type TenantBillingConfigCreateNestedOneWithoutTenantInput = {
+    create?: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantBillingConfigCreateOrConnectWithoutTenantInput
+    connect?: TenantBillingConfigWhereUniqueInput
+  }
+
+  export type TenantLiteLLMKeyCreateNestedOneWithoutTenantInput = {
+    create?: XOR<TenantLiteLLMKeyCreateWithoutTenantInput, TenantLiteLLMKeyUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantLiteLLMKeyCreateOrConnectWithoutTenantInput
+    connect?: TenantLiteLLMKeyWhereUniqueInput
+  }
+
+  export type CreditWalletCreateNestedOneWithoutTenantInput = {
+    create?: XOR<CreditWalletCreateWithoutTenantInput, CreditWalletUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: CreditWalletCreateOrConnectWithoutTenantInput
+    connect?: CreditWalletWhereUniqueInput
+  }
+
   export type TenantSettingsUncheckedCreateNestedOneWithoutTenantInput = {
     create?: XOR<TenantSettingsCreateWithoutTenantInput, TenantSettingsUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantSettingsCreateOrConnectWithoutTenantInput
@@ -140610,6 +149841,24 @@ export namespace Prisma {
     connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutTenantInput | ExternalIdentityMappingCreateOrConnectWithoutTenantInput[]
     createMany?: ExternalIdentityMappingCreateManyTenantInputEnvelope
     connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+  }
+
+  export type TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput = {
+    create?: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantBillingConfigCreateOrConnectWithoutTenantInput
+    connect?: TenantBillingConfigWhereUniqueInput
+  }
+
+  export type TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput = {
+    create?: XOR<TenantLiteLLMKeyCreateWithoutTenantInput, TenantLiteLLMKeyUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantLiteLLMKeyCreateOrConnectWithoutTenantInput
+    connect?: TenantLiteLLMKeyWhereUniqueInput
+  }
+
+  export type CreditWalletUncheckedCreateNestedOneWithoutTenantInput = {
+    create?: XOR<CreditWalletCreateWithoutTenantInput, CreditWalletUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: CreditWalletCreateOrConnectWithoutTenantInput
+    connect?: CreditWalletWhereUniqueInput
   }
 
   export type EnumTenantPlanFieldUpdateOperationsInput = {
@@ -141476,6 +150725,36 @@ export namespace Prisma {
     deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
   }
 
+  export type TenantBillingConfigUpdateOneWithoutTenantNestedInput = {
+    create?: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantBillingConfigCreateOrConnectWithoutTenantInput
+    upsert?: TenantBillingConfigUpsertWithoutTenantInput
+    disconnect?: TenantBillingConfigWhereInput | boolean
+    delete?: TenantBillingConfigWhereInput | boolean
+    connect?: TenantBillingConfigWhereUniqueInput
+    update?: XOR<XOR<TenantBillingConfigUpdateToOneWithWhereWithoutTenantInput, TenantBillingConfigUpdateWithoutTenantInput>, TenantBillingConfigUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput = {
+    create?: XOR<TenantLiteLLMKeyCreateWithoutTenantInput, TenantLiteLLMKeyUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantLiteLLMKeyCreateOrConnectWithoutTenantInput
+    upsert?: TenantLiteLLMKeyUpsertWithoutTenantInput
+    disconnect?: TenantLiteLLMKeyWhereInput | boolean
+    delete?: TenantLiteLLMKeyWhereInput | boolean
+    connect?: TenantLiteLLMKeyWhereUniqueInput
+    update?: XOR<XOR<TenantLiteLLMKeyUpdateToOneWithWhereWithoutTenantInput, TenantLiteLLMKeyUpdateWithoutTenantInput>, TenantLiteLLMKeyUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type CreditWalletUpdateOneWithoutTenantNestedInput = {
+    create?: XOR<CreditWalletCreateWithoutTenantInput, CreditWalletUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: CreditWalletCreateOrConnectWithoutTenantInput
+    upsert?: CreditWalletUpsertWithoutTenantInput
+    disconnect?: CreditWalletWhereInput | boolean
+    delete?: CreditWalletWhereInput | boolean
+    connect?: CreditWalletWhereUniqueInput
+    update?: XOR<XOR<CreditWalletUpdateToOneWithWhereWithoutTenantInput, CreditWalletUpdateWithoutTenantInput>, CreditWalletUncheckedUpdateWithoutTenantInput>
+  }
+
   export type TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput = {
     create?: XOR<TenantSettingsCreateWithoutTenantInput, TenantSettingsUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantSettingsCreateOrConnectWithoutTenantInput
@@ -142330,6 +151609,36 @@ export namespace Prisma {
     update?: ExternalIdentityMappingUpdateWithWhereUniqueWithoutTenantInput | ExternalIdentityMappingUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: ExternalIdentityMappingUpdateManyWithWhereWithoutTenantInput | ExternalIdentityMappingUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
+  }
+
+  export type TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput = {
+    create?: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantBillingConfigCreateOrConnectWithoutTenantInput
+    upsert?: TenantBillingConfigUpsertWithoutTenantInput
+    disconnect?: TenantBillingConfigWhereInput | boolean
+    delete?: TenantBillingConfigWhereInput | boolean
+    connect?: TenantBillingConfigWhereUniqueInput
+    update?: XOR<XOR<TenantBillingConfigUpdateToOneWithWhereWithoutTenantInput, TenantBillingConfigUpdateWithoutTenantInput>, TenantBillingConfigUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput = {
+    create?: XOR<TenantLiteLLMKeyCreateWithoutTenantInput, TenantLiteLLMKeyUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: TenantLiteLLMKeyCreateOrConnectWithoutTenantInput
+    upsert?: TenantLiteLLMKeyUpsertWithoutTenantInput
+    disconnect?: TenantLiteLLMKeyWhereInput | boolean
+    delete?: TenantLiteLLMKeyWhereInput | boolean
+    connect?: TenantLiteLLMKeyWhereUniqueInput
+    update?: XOR<XOR<TenantLiteLLMKeyUpdateToOneWithWhereWithoutTenantInput, TenantLiteLLMKeyUpdateWithoutTenantInput>, TenantLiteLLMKeyUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type CreditWalletUncheckedUpdateOneWithoutTenantNestedInput = {
+    create?: XOR<CreditWalletCreateWithoutTenantInput, CreditWalletUncheckedCreateWithoutTenantInput>
+    connectOrCreate?: CreditWalletCreateOrConnectWithoutTenantInput
+    upsert?: CreditWalletUpsertWithoutTenantInput
+    disconnect?: CreditWalletWhereInput | boolean
+    delete?: CreditWalletWhereInput | boolean
+    connect?: CreditWalletWhereUniqueInput
+    update?: XOR<XOR<CreditWalletUpdateToOneWithWhereWithoutTenantInput, CreditWalletUpdateWithoutTenantInput>, CreditWalletUncheckedUpdateWithoutTenantInput>
   }
 
   export type TenantCreateNestedOneWithoutSettingsInput = {
@@ -147154,21 +156463,109 @@ export namespace Prisma {
     _max?: NestedEnumBCPExerciseOutcomeNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumMessageRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.MessageRole | EnumMessageRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.MessageRole[] | ListEnumMessageRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.MessageRole[] | ListEnumMessageRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumMessageRoleFilter<$PrismaModel> | $Enums.MessageRole
+  export type NestedEnumTenantBillingModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TenantBillingMode | EnumTenantBillingModeFieldRefInput<$PrismaModel>
+    in?: $Enums.TenantBillingMode[] | ListEnumTenantBillingModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TenantBillingMode[] | ListEnumTenantBillingModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTenantBillingModeFilter<$PrismaModel> | $Enums.TenantBillingMode
   }
 
-  export type NestedEnumMessageRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.MessageRole | EnumMessageRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.MessageRole[] | ListEnumMessageRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.MessageRole[] | ListEnumMessageRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumMessageRoleWithAggregatesFilter<$PrismaModel> | $Enums.MessageRole
+  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type NestedEnumTenantBillingModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TenantBillingMode | EnumTenantBillingModeFieldRefInput<$PrismaModel>
+    in?: $Enums.TenantBillingMode[] | ListEnumTenantBillingModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TenantBillingMode[] | ListEnumTenantBillingModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTenantBillingModeWithAggregatesFilter<$PrismaModel> | $Enums.TenantBillingMode
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumMessageRoleFilter<$PrismaModel>
-    _max?: NestedEnumMessageRoleFilter<$PrismaModel>
+    _min?: NestedEnumTenantBillingModeFilter<$PrismaModel>
+    _max?: NestedEnumTenantBillingModeFilter<$PrismaModel>
+  }
+
+  export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTenantLiteLLMKeyStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TenantLiteLLMKeyStatus | EnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TenantLiteLLMKeyStatus[] | ListEnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TenantLiteLLMKeyStatus[] | ListEnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTenantLiteLLMKeyStatusFilter<$PrismaModel> | $Enums.TenantLiteLLMKeyStatus
+  }
+
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type NestedEnumTenantLiteLLMKeyStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TenantLiteLLMKeyStatus | EnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TenantLiteLLMKeyStatus[] | ListEnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TenantLiteLLMKeyStatus[] | ListEnumTenantLiteLLMKeyStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTenantLiteLLMKeyStatusWithAggregatesFilter<$PrismaModel> | $Enums.TenantLiteLLMKeyStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTenantLiteLLMKeyStatusFilter<$PrismaModel>
+    _max?: NestedEnumTenantLiteLLMKeyStatusFilter<$PrismaModel>
+  }
+
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCreditTransactionKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.CreditTransactionKind | EnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    in?: $Enums.CreditTransactionKind[] | ListEnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CreditTransactionKind[] | ListEnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumCreditTransactionKindFilter<$PrismaModel> | $Enums.CreditTransactionKind
+  }
+
+  export type NestedEnumCreditTransactionKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CreditTransactionKind | EnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    in?: $Enums.CreditTransactionKind[] | ListEnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CreditTransactionKind[] | ListEnumCreditTransactionKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumCreditTransactionKindWithAggregatesFilter<$PrismaModel> | $Enums.CreditTransactionKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCreditTransactionKindFilter<$PrismaModel>
+    _max?: NestedEnumCreditTransactionKindFilter<$PrismaModel>
   }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -147192,6 +156589,23 @@ export namespace Prisma {
     gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumMessageRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageRole | EnumMessageRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageRole[] | ListEnumMessageRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageRole[] | ListEnumMessageRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageRoleFilter<$PrismaModel> | $Enums.MessageRole
+  }
+
+  export type NestedEnumMessageRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageRole | EnumMessageRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageRole[] | ListEnumMessageRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageRole[] | ListEnumMessageRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageRoleWithAggregatesFilter<$PrismaModel> | $Enums.MessageRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageRoleFilter<$PrismaModel>
+    _max?: NestedEnumMessageRoleFilter<$PrismaModel>
   }
 
   export type NestedEnumControlStatusFilter<$PrismaModel = never> = {
@@ -148702,6 +158116,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiProviderConfigsInput = {
@@ -148773,6 +158190,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiProviderConfigsInput = {
@@ -148860,6 +158280,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiProviderConfigsInput = {
@@ -148931,6 +158354,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiFeatureConfigsInput = {
@@ -149002,6 +158428,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiFeatureConfigsInput = {
@@ -149073,6 +158502,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiFeatureConfigsInput = {
@@ -149160,6 +158592,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiFeatureConfigsInput = {
@@ -149231,6 +158666,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiSystemsInput = {
@@ -149302,6 +158740,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiSystemsInput = {
@@ -149373,6 +158814,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiSystemsInput = {
@@ -149749,6 +159193,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiSystemsInput = {
@@ -149820,6 +159267,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedAiSystemsInput = {
@@ -150196,6 +159646,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiRiskAssessmentsInput = {
@@ -150267,6 +159720,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiRiskAssessmentsInput = {
@@ -150681,6 +160137,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiRiskAssessmentsInput = {
@@ -150752,6 +160211,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAiRiskAssessmentsInput = {
@@ -151117,6 +160579,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiIncidentsInput = {
@@ -151188,6 +160653,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiIncidentsInput = {
@@ -151596,6 +161064,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiIncidentsInput = {
@@ -151667,6 +161138,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type AISystemUpsertWithoutIncidentsInput = {
@@ -152116,6 +161590,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiImpactAssessmentsInput = {
@@ -152187,6 +161664,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiImpactAssessmentsInput = {
@@ -152601,6 +162081,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiImpactAssessmentsInput = {
@@ -152672,6 +162155,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAiImpactAssessmentsInput = {
@@ -153037,6 +162523,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAssetsInput = {
@@ -153108,6 +162597,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAssetsInput = {
@@ -153477,6 +162969,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAssetsInput = {
@@ -153548,6 +163043,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedAssetsInput = {
@@ -153913,6 +163411,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditsInput = {
@@ -153984,6 +163485,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditsInput = {
@@ -154176,6 +163680,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditsInput = {
@@ -154247,6 +163754,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type FrameworkInstanceUpsertWithoutAuditsInput = {
@@ -154466,6 +163976,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditFindingsInput = {
@@ -154537,6 +164050,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditFindingsInput = {
@@ -154861,6 +164377,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditFindingsInput = {
@@ -154932,6 +164451,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type ControlUpsertWithoutAuditFindingsInput = {
@@ -155246,6 +164768,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditDocumentsInput = {
@@ -155317,6 +164842,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditDocumentsInput = {
@@ -155594,6 +165122,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditDocumentsInput = {
@@ -155665,6 +165196,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutUploadedAuditDocumentsInput = {
@@ -155883,6 +165417,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBcpsInput = {
@@ -155954,6 +165491,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBcpsInput = {
@@ -156300,6 +165840,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBcpsInput = {
@@ -156371,6 +165914,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedBcpsInput = {
@@ -156678,6 +166224,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBiasInput = {
@@ -156749,6 +166298,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBiasInput = {
@@ -157014,6 +166566,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBiasInput = {
@@ -157085,6 +166640,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type BusinessContinuityPlanUpsertWithoutImpactAnalysesInput = {
@@ -157346,6 +166904,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBcpExercisesInput = {
@@ -157417,6 +166978,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBcpExercisesInput = {
@@ -157682,6 +167246,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBcpExercisesInput = {
@@ -157753,6 +167320,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type BusinessContinuityPlanUpsertWithoutExercisesInput = {
@@ -157945,6 +167515,1065 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type TenantCreateWithoutBillingConfigInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutBillingConfigInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutBillingConfigInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutBillingConfigInput, TenantUncheckedCreateWithoutBillingConfigInput>
+  }
+
+  export type TenantUpsertWithoutBillingConfigInput = {
+    update: XOR<TenantUpdateWithoutBillingConfigInput, TenantUncheckedUpdateWithoutBillingConfigInput>
+    create: XOR<TenantCreateWithoutBillingConfigInput, TenantUncheckedCreateWithoutBillingConfigInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutBillingConfigInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutBillingConfigInput, TenantUncheckedUpdateWithoutBillingConfigInput>
+  }
+
+  export type TenantUpdateWithoutBillingConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutBillingConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutLitellmKeyInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutLitellmKeyInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutLitellmKeyInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutLitellmKeyInput, TenantUncheckedCreateWithoutLitellmKeyInput>
+  }
+
+  export type TenantUpsertWithoutLitellmKeyInput = {
+    update: XOR<TenantUpdateWithoutLitellmKeyInput, TenantUncheckedUpdateWithoutLitellmKeyInput>
+    create: XOR<TenantCreateWithoutLitellmKeyInput, TenantUncheckedCreateWithoutLitellmKeyInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutLitellmKeyInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutLitellmKeyInput, TenantUncheckedUpdateWithoutLitellmKeyInput>
+  }
+
+  export type TenantUpdateWithoutLitellmKeyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutLitellmKeyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutCreditWalletInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutCreditWalletInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutCreditWalletInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutCreditWalletInput, TenantUncheckedCreateWithoutCreditWalletInput>
+  }
+
+  export type CreditTransactionCreateWithoutWalletInput = {
+    id?: string
+    tenantId: string
+    amountMicrocents: bigint | number
+    kind: $Enums.CreditTransactionKind
+    reason?: string | null
+    externalRef?: string | null
+    balanceAfterMicrocents: bigint | number
+    createdAt?: Date | string
+  }
+
+  export type CreditTransactionUncheckedCreateWithoutWalletInput = {
+    id?: string
+    tenantId: string
+    amountMicrocents: bigint | number
+    kind: $Enums.CreditTransactionKind
+    reason?: string | null
+    externalRef?: string | null
+    balanceAfterMicrocents: bigint | number
+    createdAt?: Date | string
+  }
+
+  export type CreditTransactionCreateOrConnectWithoutWalletInput = {
+    where: CreditTransactionWhereUniqueInput
+    create: XOR<CreditTransactionCreateWithoutWalletInput, CreditTransactionUncheckedCreateWithoutWalletInput>
+  }
+
+  export type CreditTransactionCreateManyWalletInputEnvelope = {
+    data: CreditTransactionCreateManyWalletInput | CreditTransactionCreateManyWalletInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutCreditWalletInput = {
+    update: XOR<TenantUpdateWithoutCreditWalletInput, TenantUncheckedUpdateWithoutCreditWalletInput>
+    create: XOR<TenantCreateWithoutCreditWalletInput, TenantUncheckedCreateWithoutCreditWalletInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutCreditWalletInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutCreditWalletInput, TenantUncheckedUpdateWithoutCreditWalletInput>
+  }
+
+  export type TenantUpdateWithoutCreditWalletInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutCreditWalletInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type CreditTransactionUpsertWithWhereUniqueWithoutWalletInput = {
+    where: CreditTransactionWhereUniqueInput
+    update: XOR<CreditTransactionUpdateWithoutWalletInput, CreditTransactionUncheckedUpdateWithoutWalletInput>
+    create: XOR<CreditTransactionCreateWithoutWalletInput, CreditTransactionUncheckedCreateWithoutWalletInput>
+  }
+
+  export type CreditTransactionUpdateWithWhereUniqueWithoutWalletInput = {
+    where: CreditTransactionWhereUniqueInput
+    data: XOR<CreditTransactionUpdateWithoutWalletInput, CreditTransactionUncheckedUpdateWithoutWalletInput>
+  }
+
+  export type CreditTransactionUpdateManyWithWhereWithoutWalletInput = {
+    where: CreditTransactionScalarWhereInput
+    data: XOR<CreditTransactionUpdateManyMutationInput, CreditTransactionUncheckedUpdateManyWithoutWalletInput>
+  }
+
+  export type CreditTransactionScalarWhereInput = {
+    AND?: CreditTransactionScalarWhereInput | CreditTransactionScalarWhereInput[]
+    OR?: CreditTransactionScalarWhereInput[]
+    NOT?: CreditTransactionScalarWhereInput | CreditTransactionScalarWhereInput[]
+    id?: StringFilter<"CreditTransaction"> | string
+    walletId?: StringFilter<"CreditTransaction"> | string
+    tenantId?: StringFilter<"CreditTransaction"> | string
+    amountMicrocents?: BigIntFilter<"CreditTransaction"> | bigint | number
+    kind?: EnumCreditTransactionKindFilter<"CreditTransaction"> | $Enums.CreditTransactionKind
+    reason?: StringNullableFilter<"CreditTransaction"> | string | null
+    externalRef?: StringNullableFilter<"CreditTransaction"> | string | null
+    balanceAfterMicrocents?: BigIntFilter<"CreditTransaction"> | bigint | number
+    createdAt?: DateTimeFilter<"CreditTransaction"> | Date | string
+  }
+
+  export type CreditWalletCreateWithoutTransactionsInput = {
+    id?: string
+    balanceMicrocents?: bigint | number
+    lifetimeCreditedMicrocents?: bigint | number
+    lifetimeDebitedMicrocents?: bigint | number
+    lowBalanceThresholdMicrocents?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutCreditWalletInput
+  }
+
+  export type CreditWalletUncheckedCreateWithoutTransactionsInput = {
+    id?: string
+    tenantId: string
+    balanceMicrocents?: bigint | number
+    lifetimeCreditedMicrocents?: bigint | number
+    lifetimeDebitedMicrocents?: bigint | number
+    lowBalanceThresholdMicrocents?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CreditWalletCreateOrConnectWithoutTransactionsInput = {
+    where: CreditWalletWhereUniqueInput
+    create: XOR<CreditWalletCreateWithoutTransactionsInput, CreditWalletUncheckedCreateWithoutTransactionsInput>
+  }
+
+  export type CreditWalletUpsertWithoutTransactionsInput = {
+    update: XOR<CreditWalletUpdateWithoutTransactionsInput, CreditWalletUncheckedUpdateWithoutTransactionsInput>
+    create: XOR<CreditWalletCreateWithoutTransactionsInput, CreditWalletUncheckedCreateWithoutTransactionsInput>
+    where?: CreditWalletWhereInput
+  }
+
+  export type CreditWalletUpdateToOneWithWhereWithoutTransactionsInput = {
+    where?: CreditWalletWhereInput
+    data: XOR<CreditWalletUpdateWithoutTransactionsInput, CreditWalletUncheckedUpdateWithoutTransactionsInput>
+  }
+
+  export type CreditWalletUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balanceMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeCreditedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeDebitedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lowBalanceThresholdMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutCreditWalletNestedInput
+  }
+
+  export type CreditWalletUncheckedUpdateWithoutTransactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    balanceMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeCreditedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeDebitedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lowBalanceThresholdMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantCreateWithoutConversationsInput = {
     id?: string
     name: string
@@ -158014,6 +168643,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutConversationsInput = {
@@ -158085,6 +168717,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutConversationsInput = {
@@ -158208,6 +168843,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutConversationsInput = {
@@ -158279,6 +168917,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type MessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -158383,6 +169024,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutConversationMessagesInput = {
@@ -158454,6 +169098,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutConversationMessagesInput = {
@@ -158566,6 +169213,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutConversationMessagesInput = {
@@ -158637,6 +169287,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type ConversationUpsertWithoutMessagesInput = {
@@ -158739,6 +169392,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutControlsInput = {
@@ -158810,6 +169466,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutControlsInput = {
@@ -159341,6 +170000,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutControlsInput = {
@@ -159412,6 +170074,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedControlsInput = {
@@ -159975,6 +170640,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutControlWeaknessesInput = {
@@ -160046,6 +170714,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutControlWeaknessesInput = {
@@ -160462,6 +171133,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutControlWeaknessesInput = {
@@ -160533,6 +171207,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type ControlUpsertWithoutWeaknessesInput = {
@@ -160951,6 +171628,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutEvidenceInput = {
@@ -161022,6 +171702,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutEvidenceInput = {
@@ -161438,6 +172121,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutEvidenceInput = {
@@ -161509,6 +172195,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type ControlUpsertWithoutEvidenceInput = {
@@ -162066,6 +172755,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFrameworkInstancesInput = {
@@ -162137,6 +172829,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFrameworkInstancesInput = {
@@ -162329,6 +173024,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFrameworkInstancesInput = {
@@ -162400,6 +173098,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type FrameworkUpsertWithoutInstancesInput = {
@@ -162916,6 +173617,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutControlRequirementAssignmentsInput = {
@@ -162987,6 +173691,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutControlRequirementAssignmentsInput = {
@@ -163187,6 +173894,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutControlRequirementAssignmentsInput = {
@@ -163258,6 +173968,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type RequirementUpsertWithoutControlRequirementAssignmentsInput = {
@@ -163460,6 +174173,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentsInput = {
@@ -163531,6 +174247,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentsInput = {
@@ -163928,6 +174647,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentsInput = {
@@ -163999,6 +174721,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutReportedIncidentsInput = {
@@ -164434,6 +175159,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentTimelinesInput = {
@@ -164505,6 +175233,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentTimelinesInput = {
@@ -164780,6 +175511,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentTimelinesInput = {
@@ -164851,6 +175585,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutIncidentTimelineActionsInput = {
@@ -165069,6 +175806,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPoliciesInput = {
@@ -165140,6 +175880,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPoliciesInput = {
@@ -165502,6 +176245,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPoliciesInput = {
@@ -165573,6 +176319,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedPoliciesInput = {
@@ -166887,6 +177636,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPolicyAcksInput = {
@@ -166958,6 +177710,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPolicyAcksInput = {
@@ -167276,6 +178031,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPolicyAcksInput = {
@@ -167347,6 +178105,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type PolicyCreateWithoutCommentsInput = {
@@ -167631,6 +178392,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPolicyCommentsInput = {
@@ -167702,6 +178466,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPolicyCommentsInput = {
@@ -168248,6 +179015,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPolicyCommentsInput = {
@@ -168319,6 +179089,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutResolvedCommentsInput = {
@@ -168688,6 +179461,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPolicyControlsInput = {
@@ -168759,6 +179535,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPolicyControlsInput = {
@@ -168946,6 +179725,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPolicyControlsInput = {
@@ -169017,6 +179799,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutProcessingActivitiesInput = {
@@ -169088,6 +179873,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutProcessingActivitiesInput = {
@@ -169159,6 +179947,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutProcessingActivitiesInput = {
@@ -169721,6 +180512,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutProcessingActivitiesInput = {
@@ -169792,6 +180586,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedProcessingActivitiesInput = {
@@ -170247,6 +181044,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDpiasInput = {
@@ -170318,6 +181118,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDpiasInput = {
@@ -170750,6 +181553,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDpiasInput = {
@@ -170821,6 +181627,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type ProcessingActivityUpsertWithoutDpiasInput = {
@@ -171255,6 +182064,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDataBreachesInput = {
@@ -171326,6 +182138,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDataBreachesInput = {
@@ -171758,6 +182573,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDataBreachesInput = {
@@ -171829,6 +182647,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type ProcessingActivityUpsertWithoutBreachesInput = {
@@ -172263,6 +183084,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDsarRequestsInput = {
@@ -172334,6 +183158,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDsarRequestsInput = {
@@ -172625,6 +183452,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDsarRequestsInput = {
@@ -172696,6 +183526,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAssignedDsarRequestsInput = {
@@ -172958,6 +183791,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuestionnaireImportJobsInput = {
@@ -173029,6 +183865,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuestionnaireImportJobsInput = {
@@ -173306,6 +184145,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuestionnaireImportJobsInput = {
@@ -173377,6 +184219,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutQuestionnaireImportJobsInput = {
@@ -173650,6 +184495,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuestionnairesInput = {
@@ -173721,6 +184569,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuestionnairesInput = {
@@ -174172,6 +185023,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuestionnairesInput = {
@@ -174243,6 +185097,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutImportedQuestionnairesInput = {
@@ -174655,6 +185512,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuestionsInput = {
@@ -174726,6 +185586,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuestionsInput = {
@@ -175009,6 +185872,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuestionsInput = {
@@ -175080,6 +185946,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type QuestionnaireUpsertWithoutQuestionsInput = {
@@ -175293,6 +186162,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAnswersInput = {
@@ -175364,6 +186236,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAnswersInput = {
@@ -175690,6 +186565,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAnswersInput = {
@@ -175761,6 +186639,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type QuestionnaireUpsertWithoutAnswersInput = {
@@ -176089,6 +186970,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRisksInput = {
@@ -176160,6 +187044,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRisksInput = {
@@ -176706,6 +187593,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRisksInput = {
@@ -176777,6 +187667,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedRisksInput = {
@@ -177404,6 +188297,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskAssessmentsInput = {
@@ -177475,6 +188371,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskAssessmentsInput = {
@@ -177800,6 +188699,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskAssessmentsInput = {
@@ -177871,6 +188773,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutRiskAssessmentsInput = {
@@ -178180,6 +189085,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskTreatmentsInput = {
@@ -178251,6 +189159,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskTreatmentsInput = {
@@ -178576,6 +189487,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskTreatmentsInput = {
@@ -178647,6 +189561,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutRiskTreatmentsInput = {
@@ -178865,6 +189782,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskRegisterConfigInput = {
@@ -178936,6 +189856,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskRegisterConfigInput = {
@@ -179023,6 +189946,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskRegisterConfigInput = {
@@ -179094,6 +190020,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type RiskCreateWithoutMatrixChangesInput = {
@@ -179256,6 +190185,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskMatrixChangesInput = {
@@ -179327,6 +190259,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskMatrixChangesInput = {
@@ -179652,6 +190587,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskMatrixChangesInput = {
@@ -179723,6 +190661,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutRiskMatrixChangesInput = {
@@ -179941,6 +190882,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTasksInput = {
@@ -180012,6 +190956,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTasksInput = {
@@ -180329,6 +191276,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTasksInput = {
@@ -180400,6 +191350,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAssignedTasksInput = {
@@ -180752,6 +191705,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTaskEvidenceInput = {
@@ -180823,6 +191779,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTaskEvidenceInput = {
@@ -181243,6 +192202,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTaskEvidenceInput = {
@@ -181314,6 +192276,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutSubmittedEvidenceInput = {
@@ -181766,6 +192731,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutContextEntriesInput = {
@@ -181837,6 +192805,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutContextEntriesInput = {
@@ -182008,6 +192979,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutContextEntriesInput = {
@@ -182079,6 +193053,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutContextProposalsInput = {
@@ -182150,6 +193127,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutContextProposalsInput = {
@@ -182221,6 +193201,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutContextProposalsInput = {
@@ -182308,6 +193291,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutContextProposalsInput = {
@@ -182379,6 +193365,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantSettingsCreateWithoutTenantInput = {
@@ -185132,6 +196121,87 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TenantBillingConfigCreateWithoutTenantInput = {
+    id?: string
+    mode?: $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: bigint | number | null
+    modelTierOverride?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantBillingConfigUncheckedCreateWithoutTenantInput = {
+    id?: string
+    mode?: $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: bigint | number | null
+    modelTierOverride?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantBillingConfigCreateOrConnectWithoutTenantInput = {
+    where: TenantBillingConfigWhereUniqueInput
+    create: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
+  }
+
+  export type TenantLiteLLMKeyCreateWithoutTenantInput = {
+    id?: string
+    litellmKeyId: string
+    virtualKeyCipher: string
+    modelAllowlist?: TenantLiteLLMKeyCreatemodelAllowlistInput | string[]
+    status?: $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: bigint | number | null
+    observedSpendMicrocents?: bigint | number
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantLiteLLMKeyUncheckedCreateWithoutTenantInput = {
+    id?: string
+    litellmKeyId: string
+    virtualKeyCipher: string
+    modelAllowlist?: TenantLiteLLMKeyCreatemodelAllowlistInput | string[]
+    status?: $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: bigint | number | null
+    observedSpendMicrocents?: bigint | number
+    lastSyncedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TenantLiteLLMKeyCreateOrConnectWithoutTenantInput = {
+    where: TenantLiteLLMKeyWhereUniqueInput
+    create: XOR<TenantLiteLLMKeyCreateWithoutTenantInput, TenantLiteLLMKeyUncheckedCreateWithoutTenantInput>
+  }
+
+  export type CreditWalletCreateWithoutTenantInput = {
+    id?: string
+    balanceMicrocents?: bigint | number
+    lifetimeCreditedMicrocents?: bigint | number
+    lifetimeDebitedMicrocents?: bigint | number
+    lowBalanceThresholdMicrocents?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transactions?: CreditTransactionCreateNestedManyWithoutWalletInput
+  }
+
+  export type CreditWalletUncheckedCreateWithoutTenantInput = {
+    id?: string
+    balanceMicrocents?: bigint | number
+    lifetimeCreditedMicrocents?: bigint | number
+    lifetimeDebitedMicrocents?: bigint | number
+    lowBalanceThresholdMicrocents?: bigint | number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transactions?: CreditTransactionUncheckedCreateNestedManyWithoutWalletInput
+  }
+
+  export type CreditWalletCreateOrConnectWithoutTenantInput = {
+    where: CreditWalletWhereUniqueInput
+    create: XOR<CreditWalletCreateWithoutTenantInput, CreditWalletUncheckedCreateWithoutTenantInput>
+  }
+
   export type TenantSettingsUpsertWithoutTenantInput = {
     update: XOR<TenantSettingsUpdateWithoutTenantInput, TenantSettingsUncheckedUpdateWithoutTenantInput>
     create: XOR<TenantSettingsCreateWithoutTenantInput, TenantSettingsUncheckedCreateWithoutTenantInput>
@@ -186675,6 +197745,105 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
   }
 
+  export type TenantBillingConfigUpsertWithoutTenantInput = {
+    update: XOR<TenantBillingConfigUpdateWithoutTenantInput, TenantBillingConfigUncheckedUpdateWithoutTenantInput>
+    create: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
+    where?: TenantBillingConfigWhereInput
+  }
+
+  export type TenantBillingConfigUpdateToOneWithWhereWithoutTenantInput = {
+    where?: TenantBillingConfigWhereInput
+    data: XOR<TenantBillingConfigUpdateWithoutTenantInput, TenantBillingConfigUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TenantBillingConfigUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mode?: EnumTenantBillingModeFieldUpdateOperationsInput | $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    modelTierOverride?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantBillingConfigUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mode?: EnumTenantBillingModeFieldUpdateOperationsInput | $Enums.TenantBillingMode
+    monthlySpendCapMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    modelTierOverride?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantLiteLLMKeyUpsertWithoutTenantInput = {
+    update: XOR<TenantLiteLLMKeyUpdateWithoutTenantInput, TenantLiteLLMKeyUncheckedUpdateWithoutTenantInput>
+    create: XOR<TenantLiteLLMKeyCreateWithoutTenantInput, TenantLiteLLMKeyUncheckedCreateWithoutTenantInput>
+    where?: TenantLiteLLMKeyWhereInput
+  }
+
+  export type TenantLiteLLMKeyUpdateToOneWithWhereWithoutTenantInput = {
+    where?: TenantLiteLLMKeyWhereInput
+    data: XOR<TenantLiteLLMKeyUpdateWithoutTenantInput, TenantLiteLLMKeyUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type TenantLiteLLMKeyUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    litellmKeyId?: StringFieldUpdateOperationsInput | string
+    virtualKeyCipher?: StringFieldUpdateOperationsInput | string
+    modelAllowlist?: TenantLiteLLMKeyUpdatemodelAllowlistInput | string[]
+    status?: EnumTenantLiteLLMKeyStatusFieldUpdateOperationsInput | $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    observedSpendMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TenantLiteLLMKeyUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    litellmKeyId?: StringFieldUpdateOperationsInput | string
+    virtualKeyCipher?: StringFieldUpdateOperationsInput | string
+    modelAllowlist?: TenantLiteLLMKeyUpdatemodelAllowlistInput | string[]
+    status?: EnumTenantLiteLLMKeyStatusFieldUpdateOperationsInput | $Enums.TenantLiteLLMKeyStatus
+    budgetMaxMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    observedSpendMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lastSyncedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditWalletUpsertWithoutTenantInput = {
+    update: XOR<CreditWalletUpdateWithoutTenantInput, CreditWalletUncheckedUpdateWithoutTenantInput>
+    create: XOR<CreditWalletCreateWithoutTenantInput, CreditWalletUncheckedCreateWithoutTenantInput>
+    where?: CreditWalletWhereInput
+  }
+
+  export type CreditWalletUpdateToOneWithWhereWithoutTenantInput = {
+    where?: CreditWalletWhereInput
+    data: XOR<CreditWalletUpdateWithoutTenantInput, CreditWalletUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type CreditWalletUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balanceMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeCreditedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeDebitedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lowBalanceThresholdMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: CreditTransactionUpdateManyWithoutWalletNestedInput
+  }
+
+  export type CreditWalletUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    balanceMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeCreditedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lifetimeDebitedMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    lowBalanceThresholdMicrocents?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transactions?: CreditTransactionUncheckedUpdateManyWithoutWalletNestedInput
+  }
+
   export type TenantCreateWithoutSettingsInput = {
     id?: string
     name: string
@@ -186744,6 +197913,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSettingsInput = {
@@ -186815,6 +197987,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSettingsInput = {
@@ -186902,6 +198077,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSettingsInput = {
@@ -186973,6 +198151,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutTrainingProgramsInput = {
@@ -187044,6 +198225,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingProgramsInput = {
@@ -187115,6 +198299,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingProgramsInput = {
@@ -187274,6 +198461,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingProgramsInput = {
@@ -187345,6 +198535,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TrainingCompletionUpsertWithWhereUniqueWithoutTrainingProgramInput = {
@@ -187624,6 +198817,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingCompletionsInput = {
@@ -187695,6 +198891,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingCompletionsInput = {
@@ -187970,6 +199169,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingCompletionsInput = {
@@ -188041,6 +199243,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TrainingProgramCreateWithoutQuizzesInput = {
@@ -188147,6 +199352,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingQuizzesInput = {
@@ -188218,6 +199426,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingQuizzesInput = {
@@ -188414,6 +199625,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingQuizzesInput = {
@@ -188485,6 +199699,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type QuizQuestionUpsertWithWhereUniqueWithoutQuizInput = {
@@ -189057,6 +200274,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
@@ -189128,6 +200348,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuizAttemptsInput = {
@@ -189427,6 +200650,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -189498,6 +200724,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type QuizAnswerUpsertWithWhereUniqueWithoutAttemptInput = {
@@ -189761,6 +200990,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustCenterConfigInput = {
@@ -189832,6 +201064,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustCenterConfigInput = {
@@ -190019,6 +201254,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustCenterConfigInput = {
@@ -190090,6 +201328,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TrustResourceUpsertWithWhereUniqueWithoutTrustCenterConfigInput = {
@@ -190209,6 +201450,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustCenterSnapshotsInput = {
@@ -190280,6 +201524,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustCenterSnapshotsInput = {
@@ -190545,6 +201792,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustCenterSnapshotsInput = {
@@ -190616,6 +201866,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TrustCenterConfigUpsertWithoutSnapshotsInput = {
@@ -190877,6 +202130,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustCenterEventsInput = {
@@ -190948,6 +202204,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustCenterEventsInput = {
@@ -191072,6 +202331,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustCenterEventsInput = {
@@ -191143,6 +202405,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TrustCenterConfigUpsertWithoutEventsInput = {
@@ -191257,6 +202522,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustResourcesInput = {
@@ -191328,6 +202596,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustResourcesInput = {
@@ -191500,6 +202771,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustResourcesInput = {
@@ -191571,6 +202845,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TrustCenterConfigUpsertWithoutResourcesInput = {
@@ -191701,6 +202978,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAccessRequestsInput = {
@@ -191772,6 +203052,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAccessRequestsInput = {
@@ -192035,6 +203318,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAccessRequestsInput = {
@@ -192106,6 +203392,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TrustResourceUpsertWithoutAccessRequestsInput = {
@@ -196054,6 +207343,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMembershipsInput = {
@@ -196125,6 +207417,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMembershipsInput = {
@@ -196359,6 +207654,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMembershipsInput = {
@@ -196430,6 +207728,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutDirectorySyncConfigsInput = {
@@ -196501,6 +207802,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDirectorySyncConfigsInput = {
@@ -196572,6 +207876,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDirectorySyncConfigsInput = {
@@ -196741,6 +208048,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDirectorySyncConfigsInput = {
@@ -196812,6 +208122,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type DirectorySyncRunUpsertWithWhereUniqueWithoutConfigInput = {
@@ -196915,6 +208228,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDirectorySyncRunsInput = {
@@ -196986,6 +208302,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDirectorySyncRunsInput = {
@@ -197114,6 +208433,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDirectorySyncRunsInput = {
@@ -197185,6 +208507,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type DirectorySyncConfigUpsertWithoutRunsInput = {
@@ -197303,6 +208628,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExternalIdentityMappingsInput = {
@@ -197374,6 +208702,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExternalIdentityMappingsInput = {
@@ -197643,6 +208974,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExternalIdentityMappingsInput = {
@@ -197714,6 +209048,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type DirectorySyncConfigUpsertWithoutMappingsInput = {
@@ -198141,6 +209478,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorsInput = {
@@ -198212,6 +209552,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorsInput = {
@@ -198625,6 +209968,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorsInput = {
@@ -198696,6 +210042,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type KnownVendorUpsertWithoutVendorsInput = {
@@ -198998,6 +210347,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorAssessmentsInput = {
@@ -199069,6 +210421,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorAssessmentsInput = {
@@ -199423,6 +210778,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorAssessmentsInput = {
@@ -199494,6 +210852,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutVendorAssessmentsInput = {
@@ -199887,6 +211248,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorResearchesInput = {
@@ -199958,6 +211322,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorResearchesInput = {
@@ -200205,6 +211572,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorResearchesInput = {
@@ -200276,6 +211646,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type VendorAssessmentUpsertWithWhereUniqueWithoutResearchInput = {
@@ -200570,6 +211943,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorDocumentsInput = {
@@ -200641,6 +212017,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorDocumentsInput = {
@@ -200942,6 +212321,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorDocumentsInput = {
@@ -201013,6 +212395,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutVendorDocumentsInput = {
@@ -201231,6 +212616,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVulnerabilitiesInput = {
@@ -201302,6 +212690,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVulnerabilitiesInput = {
@@ -201671,6 +213062,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVulnerabilitiesInput = {
@@ -201742,6 +213136,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutReportedVulnerabilitiesInput = {
@@ -202572,6 +213969,50 @@ export namespace Prisma {
     reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditTransactionCreateManyWalletInput = {
+    id?: string
+    tenantId: string
+    amountMicrocents: bigint | number
+    kind: $Enums.CreditTransactionKind
+    reason?: string | null
+    externalRef?: string | null
+    balanceAfterMicrocents: bigint | number
+    createdAt?: Date | string
+  }
+
+  export type CreditTransactionUpdateWithoutWalletInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    amountMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    kind?: EnumCreditTransactionKindFieldUpdateOperationsInput | $Enums.CreditTransactionKind
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfterMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditTransactionUncheckedUpdateWithoutWalletInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    amountMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    kind?: EnumCreditTransactionKindFieldUpdateOperationsInput | $Enums.CreditTransactionKind
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfterMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CreditTransactionUncheckedUpdateManyWithoutWalletInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    amountMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    kind?: EnumCreditTransactionKindFieldUpdateOperationsInput | $Enums.CreditTransactionKind
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    externalRef?: NullableStringFieldUpdateOperationsInput | string | null
+    balanceAfterMicrocents?: BigIntFieldUpdateOperationsInput | bigint | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageCreateManyConversationInput = {

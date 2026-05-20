@@ -3,6 +3,15 @@ enum AIProvider {
   anthropic
   bedrock
   openrouter
+  // LiteLLM is an OpenAI-API-compatible proxy. Two distinct uses:
+  //   1. Bring-your-own (core/free): operator stands up LiteLLM and
+  //      points org rows at it via baseUrl + a virtual key in apiKey.
+  //   2. Trustalo-managed (EE): SaaS deployment forces routing through
+  //      Trustalo's hosted proxy with a per-tenant virtual key for
+  //      metered billing. See packages/billing.ee and the
+  //      TenantLiteLLMKey / CreditWallet / LiteLLMSpendEvent tables in
+  //      billing.ee.prisma.
+  litellm
 }
 
 enum AIFeature {
@@ -32,6 +41,10 @@ enum AIFeature {
   // that follows natural-language instructions and calls integration
   // provider capabilities as tools to gather audit-grade evidence.
   evidence_agent
+  // Vendor research deep-dive (collector). Previously bypassed
+  // resolveOrgAI with a direct OpenAI SDK call; now routed through the
+  // resolver so it is metered like every other LLM feature.
+  vendor_research
 }
 
 model AIProviderConfig {

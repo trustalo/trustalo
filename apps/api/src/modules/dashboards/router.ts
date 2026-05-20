@@ -163,91 +163,197 @@ dashboardsRouter.get("/overview", async (req, res, next) => {
 dashboardsRouter.get("/ai-usage", async (req, res, next) => {
   try {
     const tenantId = (req as unknown as { auth: { tenantId: string } }).auth.tenantId;
+    const db = prismaWithTenant(tenantId);
     const days = Math.min(Math.max(Number(req.query.days ?? 30) || 30, 1), 365);
     const to = new Date();
     const from = new Date(to.getTime() - days * 24 * 60 * 60 * 1000);
+    const monthStart = new Date(to.getFullYear(), to.getMonth(), 1);
 
-    // Resource → feature mapping. The audit `resource` field is the canonical
-    // way to identify an AI surface (see ai-features.mdc § 2 — convention is
-    // `<Domain>AI<Feature>`). When new AI features ship, add them here.
-    const FEATURE_MATCH: Array<{
-      feature: string;
-      label: string;
-      resources: string[];
-    }> = [
-      {
-        feature: "policy_generation",
-        label: "Policy drafting",
-        resources: ["PolicyAIDraft"],
-      },
-      {
-        feature: "risk_scoring",
-        label: "Risk scoring",
-        resources: ["RiskAIScoreSuggestion"],
-      },
-      {
-        feature: "vendor_scoring",
-        label: "Vendor tiering",
-        resources: ["VendorAITierSuggestion"],
-      },
-      {
-        feature: "automated_check_generation",
-        label: "Automated checks",
-        resources: ["IntegrationAICheckSpec"],
-      },
-      {
-        feature: "questionnaire_answering",
-        label: "Questionnaire answering",
-        resources: ["QuestionnaireAIBulkAnswer", "QuestionnaireAIAnswer", "QuestionnaireAnswer"],
-      },
-      {
-        feature: "trust_center_summary",
-        label: "Trust Center summaries",
-        resources: ["TrustCenterAISummary"],
-      },
-    ];
+    // Canonical labels shown in the dashboard.
+    const FEATURE_LABELS: Record<string, string> = {
+      chat_assistant: "Compliance assistant chat",
+      context_extraction: "Context extraction",
+      questionnaire_answering: "Questionnaire answering",
+      policy_generation: "Policy drafting",
+      risk_scoring: "Risk scoring",
+      vendor_scoring: "Vendor tiering",
+      automated_check_generation: "Automated checks",
+      evidence_agent: "Evidence agent",
+      quiz_generation: "Training quiz generation",
+      trust_center_summary: "Trust Center summaries",
+      vendor_research: "Vendor research",
+    };
 
-    const allResources = FEATURE_MATCH.flatMap((f) => f.resources);
+    // Audit resources still matter for human decision metrics
+    // (approve/reject/update). Generation counts are now sourced from
+    // LiteLLM spend events (actual LLM calls) when available.
+    const AUDIT_RESOURCE_TO_FEATURE: Record<string, string> = {
+      PolicyAIDraft: "policy_generation",
+      RiskAIScoreSuggestion: "risk_scoring",
+      VendorAITierSuggestion: "vendor_scoring",
+      IntegrationAICheckSpec: "automated_check_generation",
+      QuestionnaireAIBulkAnswer: "questionnaire_answering",
+      QuestionnaireAIAnswer: "questionnaire_answering",
+      QuestionnaireAnswer: "questionnaire_answering",
+      TrustCenterAISummary: "trust_center_summary",
+      OrganizationContextAIProposal: "context_extraction",
+      OrganizationContextAIConfirmation: "context_extraction",
+      ChatAIAssistantTurn: "chat_assistant",
+    };
 
-    const logs = await AuditLog.find({
+    const logsPromise = AuditLog.find({
       tenantId,
       createdAt: { $gte: from, $lte: to },
-      resource: { $in: allResources },
+      resource: { $in: Object.keys(AUDIT_RESOURCE_TO_FEATURE) },
     })
       .sort({ createdAt: -1 })
       .limit(5000)
       .lean();
+
+    // Graceful fallback: before billing.ee migrations land, older
+    // environments won't have `LiteLLMSpendEvent`. In that case, we
+    // keep AI Usage alive with audit-only stats instead of failing the
+    // whole page. Once migrated, spend-backed metrics auto-enable.
+    let usageSource: "spend+audit" | "audit_only" = "spend+audit";
+    let spendRows: Array<{
+      feature: unknown;
+      _count: { _all: number };
+      _sum: {
+        promptTokens: number | null;
+        completionTokens: number | null;
+        rawCostMicrocents: bigint | null;
+        markedUpMicrocents: bigint | null;
+      };
+    }> = [];
+    let spendEvents: Array<{
+      occurredAt: Date;
+      feature: unknown;
+      model: string;
+      promptTokens: number;
+      completionTokens: number;
+      rawCostMicrocents: bigint;
+      markedUpMicrocents: bigint;
+    }> = [];
+    let currentMonthCreditsUsedMicrocents: bigint | null = null;
+    let currentMonthCalls: number | null = null;
+
+    try {
+      const [rows, events, monthAgg] = await Promise.all([
+        db.liteLLMSpendEvent.groupBy({
+          by: ["feature"],
+          where: { occurredAt: { gte: from, lte: to } },
+          _count: { _all: true },
+          _sum: {
+            promptTokens: true,
+            completionTokens: true,
+            rawCostMicrocents: true,
+            markedUpMicrocents: true,
+          },
+        }),
+        db.liteLLMSpendEvent.findMany({
+          where: { occurredAt: { gte: from, lte: to } },
+          orderBy: { occurredAt: "desc" },
+          take: 5000,
+          select: {
+            occurredAt: true,
+            feature: true,
+            model: true,
+            promptTokens: true,
+            completionTokens: true,
+            rawCostMicrocents: true,
+            markedUpMicrocents: true,
+          },
+        }),
+        db.liteLLMSpendEvent.aggregate({
+          where: { occurredAt: { gte: monthStart, lte: to } },
+          _count: { _all: true },
+          _sum: { markedUpMicrocents: true },
+        }),
+      ]);
+      spendRows = rows;
+      spendEvents = events;
+      currentMonthCreditsUsedMicrocents = monthAgg._sum.markedUpMicrocents ?? 0n;
+      currentMonthCalls = monthAgg._count._all;
+    } catch (err) {
+      if (!isMissingLiteLLMSpendTable(err)) throw err;
+      usageSource = "audit_only";
+      spendRows = [];
+      spendEvents = [];
+      currentMonthCreditsUsedMicrocents = null;
+      currentMonthCalls = null;
+    }
+
+    const logs = await logsPromise;
 
     type Bucket = {
       generations: number;
       approvals: number;
       rejections: number;
       edits: number;
+      promptTokens: number;
+      completionTokens: number;
+      rawCostMicrocents: bigint;
+      billedMicrocents: bigint;
     };
 
     const featureBuckets = new Map<string, Bucket>();
-    for (const f of FEATURE_MATCH) {
-      featureBuckets.set(f.feature, { generations: 0, approvals: 0, rejections: 0, edits: 0 });
+    const knownFeatures = new Set<string>([
+      ...Object.keys(FEATURE_LABELS),
+      ...spendRows.map((r) => String(r.feature)),
+      ...Object.values(AUDIT_RESOURCE_TO_FEATURE),
+    ]);
+    for (const feature of knownFeatures) {
+      featureBuckets.set(feature, {
+        generations: 0,
+        approvals: 0,
+        rejections: 0,
+        edits: 0,
+        promptTokens: 0,
+        completionTokens: 0,
+        rawCostMicrocents: 0n,
+        billedMicrocents: 0n,
+      });
     }
     const dailyBuckets = new Map<string, { generations: number; decisions: number }>();
 
-    function featureFor(resource: string): string | null {
-      for (const f of FEATURE_MATCH) {
-        if (f.resources.includes(resource)) return f.feature;
-      }
-      return null;
+    function featureForAuditResource(resource: string): string | null {
+      return AUDIT_RESOURCE_TO_FEATURE[resource] ?? null;
     }
 
+    // 1) Actual LLM call usage from spend events (primary source).
+    for (const row of spendRows) {
+      const feature = String(row.feature);
+      const bucket = featureBuckets.get(feature);
+      if (!bucket) continue;
+      bucket.generations = row._count._all;
+      bucket.promptTokens = row._sum.promptTokens ?? 0;
+      bucket.completionTokens = row._sum.completionTokens ?? 0;
+      bucket.rawCostMicrocents = row._sum.rawCostMicrocents ?? 0n;
+      bucket.billedMicrocents = row._sum.markedUpMicrocents ?? 0n;
+    }
+
+    for (const ev of spendEvents) {
+      const dayKey = new Date(ev.occurredAt).toISOString().slice(0, 10);
+      const day = dailyBuckets.get(dayKey) ?? { generations: 0, decisions: 0 };
+      day.generations++;
+      dailyBuckets.set(dayKey, day);
+    }
+
+    // 2) Human decision + fallback generation metrics from audit logs.
     for (const log of logs) {
-      const feature = featureFor(log.resource);
+      const feature = featureForAuditResource(log.resource);
       if (!feature) continue;
       const bucket = featureBuckets.get(feature)!;
       const dayKey = new Date(log.createdAt).toISOString().slice(0, 10);
       const day = dailyBuckets.get(dayKey) ?? { generations: 0, decisions: 0 };
 
       if (log.action === "create") {
-        bucket.generations++;
-        day.generations++;
+        // Fallback for non-LiteLLM paths: if no spend row exists for this
+        // feature in the window, infer generation count from audit.
+        if (bucket.generations === 0) {
+          bucket.generations++;
+          day.generations++;
+        }
       } else if (log.action === "approve") {
         bucket.approvals++;
         day.decisions++;
@@ -262,16 +368,19 @@ dashboardsRouter.get("/ai-usage", async (req, res, next) => {
       dailyBuckets.set(dayKey, day);
     }
 
-    const features = FEATURE_MATCH.map((f) => {
-      const b = featureBuckets.get(f.feature)!;
+    const features = Array.from(featureBuckets.entries()).map(([feature, b]) => {
       const decided = b.approvals + b.rejections;
       return {
-        feature: f.feature,
-        label: f.label,
+        feature,
+        label: FEATURE_LABELS[feature] ?? feature,
         generations: b.generations,
         approvals: b.approvals,
         rejections: b.rejections,
         edits: b.edits,
+        promptTokens: b.promptTokens,
+        completionTokens: b.completionTokens,
+        rawCostMicrocents: b.rawCostMicrocents.toString(),
+        billedMicrocents: b.billedMicrocents.toString(),
         acceptanceRate: decided > 0 ? Math.round((b.approvals / decided) * 100) : null,
       };
     });
@@ -282,9 +391,22 @@ dashboardsRouter.get("/ai-usage", async (req, res, next) => {
         acc.approvals += f.approvals;
         acc.rejections += f.rejections;
         acc.edits += f.edits;
+        acc.promptTokens += f.promptTokens;
+        acc.completionTokens += f.completionTokens;
+        acc.rawCostMicrocents += BigInt(f.rawCostMicrocents);
+        acc.billedMicrocents += BigInt(f.billedMicrocents);
         return acc;
       },
-      { generations: 0, approvals: 0, rejections: 0, edits: 0 },
+      {
+        generations: 0,
+        approvals: 0,
+        rejections: 0,
+        edits: 0,
+        promptTokens: 0,
+        completionTokens: 0,
+        rawCostMicrocents: 0n,
+        billedMicrocents: 0n,
+      },
     );
 
     const daily = Array.from(dailyBuckets.entries())
@@ -295,7 +417,7 @@ dashboardsRouter.get("/ai-usage", async (req, res, next) => {
       const details = (log.details ?? {}) as Record<string, unknown>;
       return {
         at: log.createdAt,
-        feature: featureFor(log.resource),
+        feature: featureForAuditResource(log.resource),
         action: log.action,
         resource: log.resource,
         resourceId: log.resourceId ?? null,
@@ -304,18 +426,57 @@ dashboardsRouter.get("/ai-usage", async (req, res, next) => {
         model: typeof details.model === "string" ? details.model : null,
       };
     });
+    const recentLlm = spendEvents.slice(0, 50).map((ev) => ({
+      at: ev.occurredAt,
+      feature: String(ev.feature),
+      action: "call",
+      resource: "LiteLLMSpendEvent",
+      resourceId: null,
+      decision: null,
+      provider: "litellm",
+      model: ev.model,
+    }));
+    const mergedRecent = [...recentLlm, ...recent]
+      .sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime())
+      .slice(0, 50);
 
     res.json({
       success: true,
       data: {
         window: { from, to, days },
-        totals,
+        usageSource,
+        currentMonthCredits: {
+          from: monthStart,
+          to,
+          available: usageSource === "spend+audit",
+          billedMicrocents:
+            currentMonthCreditsUsedMicrocents == null
+              ? null
+              : currentMonthCreditsUsedMicrocents.toString(),
+          calls: currentMonthCalls,
+        },
+        totals: {
+          ...totals,
+          rawCostMicrocents: totals.rawCostMicrocents.toString(),
+          billedMicrocents: totals.billedMicrocents.toString(),
+        },
         features,
         daily,
-        recent,
+        recent: mergedRecent,
       },
     });
   } catch (err) {
     next(err);
   }
 });
+
+function isMissingLiteLLMSpendTable(err: unknown): boolean {
+  if (typeof err !== "object" || err === null) return false;
+  const maybe = err as { code?: string; message?: string };
+  if (maybe.code === "P2021") return true; // relation/table does not exist
+  return (
+    typeof maybe.message === "string" &&
+    maybe.message.includes("LiteLLMSpendEvent") &&
+    maybe.message.includes("does not exist")
+  );
+}

@@ -56,6 +56,12 @@ export function AIUsageTab() {
     return Math.round((data.totals.approvals / decided) * 100);
   }, [data]);
 
+  const monthToDateCredits = useMemo(() => {
+    if (!data || !data.currentMonthCredits.available) return null;
+    if (!data.currentMonthCredits.billedMicrocents) return 0;
+    return microcentsToUsd(data.currentMonthCredits.billedMicrocents);
+  }, [data]);
+
   return (
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
@@ -99,11 +105,21 @@ export function AIUsageTab() {
       {data && (
         <>
           {/* KPI tiles */}
-          <div className="grid gap-4 sm:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             <Tile
               label="AI generations"
               value={data.totals.generations}
               hint="Total suggestions across all features"
+            />
+            <Tile
+              label="Credits used (MTD)"
+              value={monthToDateCredits == null ? "—" : `USD ${monthToDateCredits.toFixed(2)}`}
+              tint="blue"
+              hint={
+                data.currentMonthCredits.available
+                  ? `Current month · ${data.currentMonthCredits.calls ?? 0} calls`
+                  : "Available after billing tables are migrated"
+              }
             />
             <Tile label="Approved" value={data.totals.approvals} tint="green" />
             <Tile label="Rejected" value={data.totals.rejections} tint="red" />
@@ -221,6 +237,12 @@ export function AIUsageTab() {
       )}
     </div>
   );
+}
+
+function microcentsToUsd(microcents: string): number {
+  const n = Number(microcents);
+  if (!Number.isFinite(n)) return 0;
+  return n / 1_000_000;
 }
 
 function describeAction(action: string, decision: string | null): string {

@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import {
+  buildLiteLLMOverride,
   AINotConfiguredError,
   AI_NOT_CONFIGURED_PUBLIC_MESSAGE,
   type OrgFeatureRow,
@@ -47,6 +48,70 @@ function baseContext(overrides?: {
 }
 
 describe("resolveAIProvider", () => {
+  test("uses managed-routing override when resolver returns one", async () => {
+    let providersCalled = false;
+    let featuresCalled = false;
+    const resolved = await resolveAIProvider({
+      ...baseContext(),
+      resolveManagedRouting: async () =>
+        buildLiteLLMOverride({
+          tenantId: "org-1",
+          feature: "policy_generation",
+          baseUrl: "http://localhost:4005",
+          virtualKey: "sk-litellm-key",
+          model: "trustalo-default",
+        }),
+      loadOrgProviders: async () => {
+        providersCalled = true;
+        return [];
+      },
+      loadOrgFeatures: async () => {
+        featuresCalled = true;
+        return [];
+      },
+    });
+
+    expect(resolved.source).toBe("managed");
+    expect(resolved.provider).toBe("litellm");
+    expect(resolved.model).toBe("trustalo-default");
+    expect(resolved.credentials.baseUrl).toBe("http://localhost:4005");
+    expect(resolved.credentials.apiKey).toBe("sk-litellm-key");
+    expect(providersCalled).toBe(false);
+    expect(featuresCalled).toBe(false);
+  });
+
+  test("falls back to normal precedence when managed resolver returns null", async () => {
+    const resolved = await resolveAIProvider({
+      ...baseContext(),
+      resolveManagedRouting: async () => null,
+    });
+    expect(resolved.source).toBe("operator");
+    expect(resolved.provider).toBe("anthropic");
+  });
+
+  test("buildLiteLLMOverride populates managed credentials and metadata", () => {
+    const out = buildLiteLLMOverride({
+      tenantId: "tenant-1",
+      feature: "chat_assistant",
+      baseUrl: "http://localhost:4005",
+      virtualKey: "sk-litellm-tenant-key",
+      model: "trustalo-default",
+    });
+
+    expect(out.source).toBe("managed");
+    expect(out.provider).toBe("litellm");
+    expect(out.model).toBe("trustalo-default");
+    expect(out.credentials).toEqual({
+      provider: "litellm",
+      apiKey: "sk-litellm-tenant-key",
+      baseUrl: "http://localhost:4005",
+    });
+    expect(out.litellm).toEqual({
+      tenantId: "tenant-1",
+      feature: "chat_assistant",
+    });
+  });
+
   test("uses feature-level override with matching org credentials", async () => {
     const resolved = await resolveAIProvider(
       baseContext({

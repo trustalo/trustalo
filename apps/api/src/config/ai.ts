@@ -13,6 +13,7 @@
 import { z } from "zod";
 import type {
   AIFeatureType,
+  ManagedRoutingResolver,
   OperatorAIDefaults,
   OrgFeatureRow,
   OrgProviderRow,
@@ -22,7 +23,7 @@ import { AINotConfiguredError, resolveAIProvider } from "@trustalo/ai";
 import { prisma } from "../db/prisma.js";
 import { decryptStringMaybe } from "../lib/crypto-envelope.js";
 
-const providerEnum = z.enum(["openai", "anthropic", "bedrock", "openrouter", "none"]);
+const providerEnum = z.enum(["openai", "anthropic", "bedrock", "openrouter", "litellm", "none"]);
 
 const envSchema = z.object({
   AI_PROVIDER: providerEnum.optional().default("none"),
@@ -44,6 +45,14 @@ const envSchema = z.object({
   // OpenRouter
   OPENROUTER_API_KEY: z.string().optional(),
   OPENROUTER_BASE_URL: z.string().optional(),
+
+  // LiteLLM proxy — for self-hosted operators who want to put a
+  // LiteLLM gateway in front of one or more upstream providers without
+  // engaging the Trustalo-managed/metered surface. Trustalo-managed
+  // routing is configured separately via LITELLM_* in config/litellm.ts
+  // and bypasses this operator default entirely.
+  LITELLM_OPERATOR_BASE_URL: z.string().optional(),
+  LITELLM_OPERATOR_API_KEY: z.string().optional(),
 });
 
 let cached: OperatorAIDefaults | null = null;
@@ -115,6 +124,21 @@ function computeFromEnv(): OperatorAIDefaults {
         provider: "openrouter",
         model: parsed.AI_DEFAULT_MODEL ?? null,
         credentials: { apiKey: parsed.OPENROUTER_API_KEY, baseUrl: parsed.OPENROUTER_BASE_URL },
+        enabled: true,
+      };
+    case "litellm":
+      if (!parsed.LITELLM_OPERATOR_BASE_URL || !parsed.LITELLM_OPERATOR_API_KEY)
+        return disabled(
+          "litellm",
+          "LITELLM_OPERATOR_BASE_URL and LITELLM_OPERATOR_API_KEY are required when AI_PROVIDER=litellm",
+        );
+      return {
+        provider: "litellm",
+        model: parsed.AI_DEFAULT_MODEL ?? null,
+        credentials: {
+          apiKey: parsed.LITELLM_OPERATOR_API_KEY,
+          baseUrl: parsed.LITELLM_OPERATOR_BASE_URL,
+        },
         enabled: true,
       };
     case "bedrock":
@@ -194,6 +218,29 @@ export function invalidateAIConfigCache(tenantId: string): void {
   featuresCache.delete(tenantId);
 }
 
+// ─── Managed-routing hook (EE) ───────────────────────────────────
+// The EE billing module (apps/api/src/modules/billing.ee/) registers
+// its resolver here at boot. We keep this as runtime DI rather than a
+// direct import so:
+//   - the core `@trustalo/ai` package never depends on the EE billing
+//     package (would violate the import-direction rule in docs/enterprise.md)
+//   - self-hosted deployments without the EE module loaded just skip
+//     the override and run the existing precedence chain
+let managedRoutingResolver: ManagedRoutingResolver | null = null;
+
+export function registerManagedRoutingResolver(resolver: ManagedRoutingResolver): void {
+  if (managedRoutingResolver && managedRoutingResolver !== resolver) {
+    // Double-registration would silently swap the billing surface,
+    // which is a bug. Fail loudly instead.
+    throw new Error("ManagedRoutingResolver is already registered");
+  }
+  managedRoutingResolver = resolver;
+}
+
+export function __unregisterManagedRoutingResolverForTests(): void {
+  managedRoutingResolver = null;
+}
+
 /**
  * Convenience wrapper: every API call site for an AI feature should call
  * this exactly once at the top of the handler. Throws AINotConfiguredError
@@ -206,6 +253,7 @@ export async function resolveOrgAI(tenantId: string, feature: AIFeatureType): Pr
     getOperatorDefaults: getOperatorAIDefaults,
     loadOrgProviders,
     loadOrgFeatures,
+    resolveManagedRouting: managedRoutingResolver ?? undefined,
   });
 }
 

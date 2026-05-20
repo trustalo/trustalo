@@ -2149,12 +2149,16 @@ export interface DashboardOverview {
 
 // ---------- AI usage dashboard ----------
 export interface AIUsageFeatureRow {
-  feature: AIFeatureType | "trust_center_summary";
+  feature: string;
   label: string;
   generations: number;
   approvals: number;
   rejections: number;
   edits: number;
+  promptTokens: number;
+  completionTokens: number;
+  rawCostMicrocents: string;
+  billedMicrocents: string;
   acceptanceRate: number | null;
 }
 
@@ -2177,7 +2181,24 @@ export interface AIUsageRecentEntry {
 
 export interface AIUsageDashboard {
   window: { from: string; to: string; days: number };
-  totals: { generations: number; approvals: number; rejections: number; edits: number };
+  usageSource: "spend+audit" | "audit_only";
+  currentMonthCredits: {
+    from: string;
+    to: string;
+    available: boolean;
+    billedMicrocents: string | null;
+    calls: number | null;
+  };
+  totals: {
+    generations: number;
+    approvals: number;
+    rejections: number;
+    edits: number;
+    promptTokens: number;
+    completionTokens: number;
+    rawCostMicrocents: string;
+    billedMicrocents: string;
+  };
   features: AIUsageFeatureRow[];
   daily: AIUsageDailyPoint[];
   recent: AIUsageRecentEntry[];

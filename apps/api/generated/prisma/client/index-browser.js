@@ -351,6 +351,78 @@ exports.Prisma.BCPExerciseScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TenantBillingConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  mode: 'mode',
+  monthlySpendCapMicrocents: 'monthlySpendCapMicrocents',
+  modelTierOverride: 'modelTierOverride',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TenantLiteLLMKeyScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  litellmKeyId: 'litellmKeyId',
+  virtualKeyCipher: 'virtualKeyCipher',
+  modelAllowlist: 'modelAllowlist',
+  status: 'status',
+  budgetMaxMicrocents: 'budgetMaxMicrocents',
+  observedSpendMicrocents: 'observedSpendMicrocents',
+  lastSyncedAt: 'lastSyncedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CreditWalletScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  balanceMicrocents: 'balanceMicrocents',
+  lifetimeCreditedMicrocents: 'lifetimeCreditedMicrocents',
+  lifetimeDebitedMicrocents: 'lifetimeDebitedMicrocents',
+  lowBalanceThresholdMicrocents: 'lowBalanceThresholdMicrocents',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CreditTransactionScalarFieldEnum = {
+  id: 'id',
+  walletId: 'walletId',
+  tenantId: 'tenantId',
+  amountMicrocents: 'amountMicrocents',
+  kind: 'kind',
+  reason: 'reason',
+  externalRef: 'externalRef',
+  balanceAfterMicrocents: 'balanceAfterMicrocents',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.LiteLLMSpendEventScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  feature: 'feature',
+  model: 'model',
+  promptTokens: 'promptTokens',
+  completionTokens: 'completionTokens',
+  rawCostMicrocents: 'rawCostMicrocents',
+  markedUpMicrocents: 'markedUpMicrocents',
+  litellmRequestId: 'litellmRequestId',
+  occurredAt: 'occurredAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.TenantAIUsageMonthScalarFieldEnum = {
+  tenantId: 'tenantId',
+  yearMonth: 'yearMonth',
+  totalPromptTokens: 'totalPromptTokens',
+  totalCompletionTokens: 'totalCompletionTokens',
+  totalRawCostMicrocents: 'totalRawCostMicrocents',
+  totalBilledMicrocents: 'totalBilledMicrocents',
+  byFeature: 'byFeature',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ConversationScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -1389,7 +1461,8 @@ exports.AIProvider = exports.$Enums.AIProvider = {
   openai: 'openai',
   anthropic: 'anthropic',
   bedrock: 'bedrock',
-  openrouter: 'openrouter'
+  openrouter: 'openrouter',
+  litellm: 'litellm'
 };
 
 exports.AIFeature = exports.$Enums.AIFeature = {
@@ -1407,7 +1480,8 @@ exports.AIFeature = exports.$Enums.AIFeature = {
   trust_center_summary: 'trust_center_summary',
   context_extraction: 'context_extraction',
   chat_assistant: 'chat_assistant',
-  evidence_agent: 'evidence_agent'
+  evidence_agent: 'evidence_agent',
+  vendor_research: 'vendor_research'
 };
 
 exports.AISystemType = exports.$Enums.AISystemType = {
@@ -1578,6 +1652,28 @@ exports.BCPExerciseOutcome = exports.$Enums.BCPExerciseOutcome = {
   partially_met: 'partially_met',
   met: 'met',
   exceeded: 'exceeded'
+};
+
+exports.TenantBillingMode = exports.$Enums.TenantBillingMode = {
+  managed: 'managed',
+  byok_passthrough: 'byok_passthrough',
+  disabled: 'disabled'
+};
+
+exports.TenantLiteLLMKeyStatus = exports.$Enums.TenantLiteLLMKeyStatus = {
+  active: 'active',
+  suspended: 'suspended',
+  expired: 'expired',
+  rotating: 'rotating'
+};
+
+exports.CreditTransactionKind = exports.$Enums.CreditTransactionKind = {
+  purchase: 'purchase',
+  grant: 'grant',
+  refund: 'refund',
+  debit: 'debit',
+  adjustment: 'adjustment',
+  promotion_expiry: 'promotion_expiry'
 };
 
 exports.MessageRole = exports.$Enums.MessageRole = {
@@ -2237,6 +2333,12 @@ exports.Prisma.ModelName = {
   BusinessContinuityPlan: 'BusinessContinuityPlan',
   BusinessImpactAnalysis: 'BusinessImpactAnalysis',
   BCPExercise: 'BCPExercise',
+  TenantBillingConfig: 'TenantBillingConfig',
+  TenantLiteLLMKey: 'TenantLiteLLMKey',
+  CreditWallet: 'CreditWallet',
+  CreditTransaction: 'CreditTransaction',
+  LiteLLMSpendEvent: 'LiteLLMSpendEvent',
+  TenantAIUsageMonth: 'TenantAIUsageMonth',
   Conversation: 'Conversation',
   Message: 'Message',
   Control: 'Control',

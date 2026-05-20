@@ -25,6 +25,20 @@ export type FeatureId =
   // to "ai" too — features that only need basic AI should still gate on
   // "ai" so a customer with only "ai-premium" can be denied basic.
   | "ai-premium"
+  // Trustalo-managed LiteLLM routing + metered billing. When a tenant
+  // holds this entitlement, every LLM call is forced through Trustalo's
+  // hosted LiteLLM proxy with a per-tenant virtual key, debited against
+  // a prepaid credit wallet (1 credit == 1 USD; markup baked into the
+  // purchase price). MUST coexist with "ai" — the issuer script enforces
+  // this, and `assertEnterpriseLicense("ai-metered")` additionally
+  // verifies the parent "ai" entitlement is present at runtime.
+  //
+  // Implementation lives in packages/billing.ee and
+  // apps/api/src/modules/billing.ee. Self-hosted deployments without
+  // this entitlement use the existing precedence chain (operator → org
+  // → feature) and are responsible for paying upstream providers
+  // directly.
+  | "ai-metered"
   | (string & {});
 
 export type LicenseTier = "enterprise" | "developer";

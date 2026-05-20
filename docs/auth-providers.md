@@ -208,6 +208,48 @@ AUTH_EXTERNAL_PROVIDER=@your-org/trustalo-auth-provider-okta
 
 ---
 
+## Directory sync (Entra + Google Workspace)
+
+Trustalo can optionally sync directory users into tenant memberships from the **General Settings -> Directory Sync** card.
+
+- Sync is **tenant-scoped** and **Enterprise-gated** (`sso` feature).
+- Supported frequencies are **24h** and **7d** only (plus manual `Sync now`).
+- Synced users are provisioned into `User` + `Membership` rows with configurable default role/status.
+
+### Entra ID credentials
+
+Provide these values in the UI:
+
+- `tenantId` (Directory tenant ID)
+- `clientId` (Application ID)
+- `clientSecret` (Certificates & secrets)
+
+Required Microsoft Graph **application** permissions:
+
+- `User.Read.All`
+- `GroupMember.Read.All` (required when group-to-role mapping is enabled)
+
+Grant **admin consent** for the app before testing the connection.
+
+### Google Workspace credentials
+
+Provide these values in the UI:
+
+- `serviceAccountJson` (full service-account key JSON)
+- `adminEmail` (super-admin account used for domain-wide delegation impersonation)
+
+Required domain-wide delegation scopes:
+
+- `https://www.googleapis.com/auth/admin.directory.user.readonly`
+- `https://www.googleapis.com/auth/admin.directory.group.readonly`
+- `https://www.googleapis.com/auth/admin.directory.group.member.readonly`
+
+### Credential storage
+
+Directory-sync credentials are encrypted at rest using `apps/api/src/lib/crypto-envelope.ts` (`enc:v1:` envelope) before persistence.
+
+---
+
 ## Architecture
 
 ```

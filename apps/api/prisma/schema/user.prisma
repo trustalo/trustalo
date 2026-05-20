@@ -17,6 +17,29 @@ enum MembershipStatus {
   suspended
 }
 
+enum DirectorySyncProvider {
+  entra
+  google_workspace
+}
+
+enum DirectorySyncDefaultStatus {
+  active
+  invited
+}
+
+enum DirectorySyncRunStatus {
+  pending
+  running
+  succeeded
+  failed
+  cancelled
+}
+
+enum DirectorySyncRunTrigger {
+  schedule
+  manual
+}
+
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
@@ -99,6 +122,7 @@ model User {
   importedQuestionnaires Questionnaire[]     @relation("QuestionnaireImporter")
   reviewedAnswers        Answer[]            @relation("AnswerReviewer")
   questionnaireImportJobs QuestionnaireImportJob[] @relation("QuestionnaireImportJobCreator")
+  externalIdentityMappings ExternalIdentityMapping[]
 }
 
 model Membership {
@@ -119,4 +143,76 @@ model Membership {
   @@unique([userId, tenantId])
   @@index([tenantId])
   @@index([userId])
+}
+
+model DirectorySyncConfig {
+  id                   String                     @id @default(cuid())
+  tenantId             String
+  provider             DirectorySyncProvider
+  isEnabled            Boolean                    @default(true)
+  syncFrequencyMinutes Int                        @default(1440)
+  defaultRole          MembershipRole             @default(viewer)
+  defaultStatus        DirectorySyncDefaultStatus @default(invited)
+  groupRoleMappings    Json?
+  encryptedCredentials String                     @db.Text
+  lastSyncAt           DateTime?
+  lastSyncStatus       DirectorySyncRunStatus?
+  lastSyncError        String?
+  createdAt            DateTime                   @default(now())
+  updatedAt            DateTime                   @updatedAt
+
+  tenant   Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  runs     DirectorySyncRun[]
+  mappings ExternalIdentityMapping[]
+
+  @@unique([tenantId, provider])
+  @@index([tenantId])
+  @@index([tenantId, isEnabled])
+}
+
+model DirectorySyncRun {
+  id              String                  @id @default(cuid())
+  tenantId        String
+  configId        String
+  provider        DirectorySyncProvider
+  status          DirectorySyncRunStatus  @default(pending)
+  triggeredBy     DirectorySyncRunTrigger @default(schedule)
+  startedAt       DateTime?
+  finishedAt      DateTime?
+  usersDiscovered Int                     @default(0)
+  usersCreated    Int                     @default(0)
+  usersUpdated    Int                     @default(0)
+  usersSuspended  Int                     @default(0)
+  errorMessage    String?
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+
+  tenant Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  config DirectorySyncConfig @relation(fields: [configId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, createdAt])
+  @@index([configId, status])
+}
+
+model ExternalIdentityMapping {
+  id                  String                @id @default(cuid())
+  tenantId            String
+  configId            String
+  provider            DirectorySyncProvider
+  externalId          String
+  userId              String
+  externalEmail       String
+  externalDisplayName String?
+  externalGroupIds    String[]
+  lastSeenAt          DateTime
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+
+  tenant Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  config DirectorySyncConfig @relation(fields: [configId], references: [id], onDelete: Cascade)
+  user   User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, provider, externalId])
+  @@index([tenantId, provider, lastSeenAt])
+  @@index([userId, tenantId])
 }

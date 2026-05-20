@@ -1175,6 +1175,56 @@ exports.Prisma.MembershipScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DirectorySyncConfigScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  provider: 'provider',
+  isEnabled: 'isEnabled',
+  syncFrequencyMinutes: 'syncFrequencyMinutes',
+  defaultRole: 'defaultRole',
+  defaultStatus: 'defaultStatus',
+  groupRoleMappings: 'groupRoleMappings',
+  encryptedCredentials: 'encryptedCredentials',
+  lastSyncAt: 'lastSyncAt',
+  lastSyncStatus: 'lastSyncStatus',
+  lastSyncError: 'lastSyncError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DirectorySyncRunScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  configId: 'configId',
+  provider: 'provider',
+  status: 'status',
+  triggeredBy: 'triggeredBy',
+  startedAt: 'startedAt',
+  finishedAt: 'finishedAt',
+  usersDiscovered: 'usersDiscovered',
+  usersCreated: 'usersCreated',
+  usersUpdated: 'usersUpdated',
+  usersSuspended: 'usersSuspended',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ExternalIdentityMappingScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  configId: 'configId',
+  provider: 'provider',
+  externalId: 'externalId',
+  userId: 'userId',
+  externalEmail: 'externalEmail',
+  externalDisplayName: 'externalDisplayName',
+  externalGroupIds: 'externalGroupIds',
+  lastSeenAt: 'lastSeenAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.KnownVendorScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -2073,6 +2123,29 @@ exports.MembershipStatus = exports.$Enums.MembershipStatus = {
   suspended: 'suspended'
 };
 
+exports.DirectorySyncProvider = exports.$Enums.DirectorySyncProvider = {
+  entra: 'entra',
+  google_workspace: 'google_workspace'
+};
+
+exports.DirectorySyncDefaultStatus = exports.$Enums.DirectorySyncDefaultStatus = {
+  active: 'active',
+  invited: 'invited'
+};
+
+exports.DirectorySyncRunStatus = exports.$Enums.DirectorySyncRunStatus = {
+  pending: 'pending',
+  running: 'running',
+  succeeded: 'succeeded',
+  failed: 'failed',
+  cancelled: 'cancelled'
+};
+
+exports.DirectorySyncRunTrigger = exports.$Enums.DirectorySyncRunTrigger = {
+  schedule: 'schedule',
+  manual: 'manual'
+};
+
 exports.VendorRiskTier = exports.$Enums.VendorRiskTier = {
   critical: 'critical',
   high: 'high',
@@ -2216,6 +2289,9 @@ exports.Prisma.ModelName = {
   TrustCenterAccessRequest: 'TrustCenterAccessRequest',
   User: 'User',
   Membership: 'Membership',
+  DirectorySyncConfig: 'DirectorySyncConfig',
+  DirectorySyncRun: 'DirectorySyncRun',
+  ExternalIdentityMapping: 'ExternalIdentityMapping',
   KnownVendor: 'KnownVendor',
   Vendor: 'Vendor',
   VendorAssessment: 'VendorAssessment',

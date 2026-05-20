@@ -85,6 +85,9 @@ model Tenant {
   answers                       Answer[]
   questionnaireImportJobs       QuestionnaireImportJob[]
   controlWeaknesses             ControlWeakness[]
+  directorySyncConfigs          DirectorySyncConfig[]
+  directorySyncRuns             DirectorySyncRun[]
+  externalIdentityMappings      ExternalIdentityMapping[]
 }
 
 model TenantSettings {

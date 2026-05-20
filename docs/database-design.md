@@ -118,6 +118,62 @@ The combine script concatenates all `.prisma` files into a single `schema.prisma
 | acceptedAt  | DateTime? |                                                            |
 | createdAt   | DateTime  |                                                            |
 
+**DirectorySyncConfig**
+
+| Field                | Type      | Notes                                                      |
+| -------------------- | --------- | ---------------------------------------------------------- |
+| id                   | UUID      | Primary key                                                |
+| tenantId             | UUID      | FK -> Tenant                                               |
+| provider             | Enum      | entra, google_workspace                                    |
+| isEnabled            | Boolean   | Scheduler considers config when true                       |
+| syncFrequencyMinutes | Int       | Allowed values: 1440 (24h), 10080 (7d)                     |
+| defaultRole          | Enum      | MembershipRole fallback when no group mapping matches      |
+| defaultStatus        | Enum      | invited, active                                            |
+| groupRoleMappings    | JSON?     | Optional provider group -> Trustalo role mappings          |
+| encryptedCredentials | Text      | AES-256-GCM envelope from `crypto-envelope.ts` (`enc:v1:`) |
+| lastSyncAt           | DateTime? | Last completed run timestamp                               |
+| lastSyncStatus       | Enum?     | pending, running, succeeded, failed, cancelled             |
+| lastSyncError        | String?   | Last failure message                                       |
+| createdAt            | DateTime  |                                                            |
+| updatedAt            | DateTime  |                                                            |
+
+**DirectorySyncRun**
+
+| Field           | Type      | Notes                                          |
+| --------------- | --------- | ---------------------------------------------- |
+| id              | UUID      | Primary key                                    |
+| tenantId        | UUID      | FK -> Tenant                                   |
+| configId        | UUID      | FK -> DirectorySyncConfig                      |
+| provider        | Enum      | entra, google_workspace                        |
+| status          | Enum      | pending, running, succeeded, failed, cancelled |
+| triggeredBy     | Enum      | schedule, manual                               |
+| startedAt       | DateTime? |                                                |
+| finishedAt      | DateTime? |                                                |
+| usersDiscovered | Int       | Total users fetched from provider in this run  |
+| usersCreated    | Int       | New `User` rows created                        |
+| usersUpdated    | Int       | Memberships updated/upserted                   |
+| usersSuspended  | Int       | Memberships suspended because user disappeared |
+| errorMessage    | String?   | Failure details for UI history                 |
+| createdAt       | DateTime  |                                                |
+| updatedAt       | DateTime  |                                                |
+
+**ExternalIdentityMapping**
+
+| Field               | Type     | Notes                                             |
+| ------------------- | -------- | ------------------------------------------------- |
+| id                  | UUID     | Primary key                                       |
+| tenantId            | UUID     | FK -> Tenant                                      |
+| configId            | UUID     | FK -> DirectorySyncConfig                         |
+| provider            | Enum     | entra, google_workspace                           |
+| externalId          | String   | Stable directory object ID                        |
+| userId              | UUID     | FK -> User                                        |
+| externalEmail       | String   | Last email seen from directory                    |
+| externalDisplayName | String?  | Last display name seen from directory             |
+| externalGroupIds    | String[] | Groups seen for role-mapping resolution           |
+| lastSeenAt          | DateTime | Used to detect stale users and suspend membership |
+| createdAt           | DateTime |                                                   |
+| updatedAt           | DateTime |                                                   |
+
 ### Compliance Frameworks
 
 **Framework**

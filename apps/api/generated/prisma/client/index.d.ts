@@ -366,6 +366,21 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Membership = $Result.DefaultSelection<Prisma.$MembershipPayload>
 /**
+ * Model DirectorySyncConfig
+ * 
+ */
+export type DirectorySyncConfig = $Result.DefaultSelection<Prisma.$DirectorySyncConfigPayload>
+/**
+ * Model DirectorySyncRun
+ * 
+ */
+export type DirectorySyncRun = $Result.DefaultSelection<Prisma.$DirectorySyncRunPayload>
+/**
+ * Model ExternalIdentityMapping
+ * 
+ */
+export type ExternalIdentityMapping = $Result.DefaultSelection<Prisma.$ExternalIdentityMappingPayload>
+/**
  * Model KnownVendor
  * 
  */
@@ -1422,6 +1437,41 @@ export const MembershipStatus: {
 export type MembershipStatus = (typeof MembershipStatus)[keyof typeof MembershipStatus]
 
 
+export const DirectorySyncProvider: {
+  entra: 'entra',
+  google_workspace: 'google_workspace'
+};
+
+export type DirectorySyncProvider = (typeof DirectorySyncProvider)[keyof typeof DirectorySyncProvider]
+
+
+export const DirectorySyncDefaultStatus: {
+  active: 'active',
+  invited: 'invited'
+};
+
+export type DirectorySyncDefaultStatus = (typeof DirectorySyncDefaultStatus)[keyof typeof DirectorySyncDefaultStatus]
+
+
+export const DirectorySyncRunStatus: {
+  pending: 'pending',
+  running: 'running',
+  succeeded: 'succeeded',
+  failed: 'failed',
+  cancelled: 'cancelled'
+};
+
+export type DirectorySyncRunStatus = (typeof DirectorySyncRunStatus)[keyof typeof DirectorySyncRunStatus]
+
+
+export const DirectorySyncRunTrigger: {
+  schedule: 'schedule',
+  manual: 'manual'
+};
+
+export type DirectorySyncRunTrigger = (typeof DirectorySyncRunTrigger)[keyof typeof DirectorySyncRunTrigger]
+
+
 export const VendorRiskTier: {
   critical: 'critical',
   high: 'high',
@@ -1898,6 +1948,22 @@ export const MembershipRole: typeof $Enums.MembershipRole
 export type MembershipStatus = $Enums.MembershipStatus
 
 export const MembershipStatus: typeof $Enums.MembershipStatus
+
+export type DirectorySyncProvider = $Enums.DirectorySyncProvider
+
+export const DirectorySyncProvider: typeof $Enums.DirectorySyncProvider
+
+export type DirectorySyncDefaultStatus = $Enums.DirectorySyncDefaultStatus
+
+export const DirectorySyncDefaultStatus: typeof $Enums.DirectorySyncDefaultStatus
+
+export type DirectorySyncRunStatus = $Enums.DirectorySyncRunStatus
+
+export const DirectorySyncRunStatus: typeof $Enums.DirectorySyncRunStatus
+
+export type DirectorySyncRunTrigger = $Enums.DirectorySyncRunTrigger
+
+export const DirectorySyncRunTrigger: typeof $Enums.DirectorySyncRunTrigger
 
 export type VendorRiskTier = $Enums.VendorRiskTier
 
@@ -2707,6 +2773,36 @@ export class PrismaClient<
   get membership(): Prisma.MembershipDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.directorySyncConfig`: Exposes CRUD operations for the **DirectorySyncConfig** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DirectorySyncConfigs
+    * const directorySyncConfigs = await prisma.directorySyncConfig.findMany()
+    * ```
+    */
+  get directorySyncConfig(): Prisma.DirectorySyncConfigDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.directorySyncRun`: Exposes CRUD operations for the **DirectorySyncRun** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DirectorySyncRuns
+    * const directorySyncRuns = await prisma.directorySyncRun.findMany()
+    * ```
+    */
+  get directorySyncRun(): Prisma.DirectorySyncRunDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.externalIdentityMapping`: Exposes CRUD operations for the **ExternalIdentityMapping** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ExternalIdentityMappings
+    * const externalIdentityMappings = await prisma.externalIdentityMapping.findMany()
+    * ```
+    */
+  get externalIdentityMapping(): Prisma.ExternalIdentityMappingDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.knownVendor`: Exposes CRUD operations for the **KnownVendor** model.
     * Example usage:
     * ```ts
@@ -3274,6 +3370,9 @@ export namespace Prisma {
     TrustCenterAccessRequest: 'TrustCenterAccessRequest',
     User: 'User',
     Membership: 'Membership',
+    DirectorySyncConfig: 'DirectorySyncConfig',
+    DirectorySyncRun: 'DirectorySyncRun',
+    ExternalIdentityMapping: 'ExternalIdentityMapping',
     KnownVendor: 'KnownVendor',
     Vendor: 'Vendor',
     VendorAssessment: 'VendorAssessment',
@@ -3296,7 +3395,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
+      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -8110,6 +8209,228 @@ export namespace Prisma {
           }
         }
       }
+      DirectorySyncConfig: {
+        payload: Prisma.$DirectorySyncConfigPayload<ExtArgs>
+        fields: Prisma.DirectorySyncConfigFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DirectorySyncConfigFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DirectorySyncConfigFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload>
+          }
+          findFirst: {
+            args: Prisma.DirectorySyncConfigFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DirectorySyncConfigFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload>
+          }
+          findMany: {
+            args: Prisma.DirectorySyncConfigFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload>[]
+          }
+          create: {
+            args: Prisma.DirectorySyncConfigCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload>
+          }
+          createMany: {
+            args: Prisma.DirectorySyncConfigCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DirectorySyncConfigCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload>[]
+          }
+          delete: {
+            args: Prisma.DirectorySyncConfigDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload>
+          }
+          update: {
+            args: Prisma.DirectorySyncConfigUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload>
+          }
+          deleteMany: {
+            args: Prisma.DirectorySyncConfigDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DirectorySyncConfigUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DirectorySyncConfigUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload>[]
+          }
+          upsert: {
+            args: Prisma.DirectorySyncConfigUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncConfigPayload>
+          }
+          aggregate: {
+            args: Prisma.DirectorySyncConfigAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDirectorySyncConfig>
+          }
+          groupBy: {
+            args: Prisma.DirectorySyncConfigGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DirectorySyncConfigGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DirectorySyncConfigCountArgs<ExtArgs>
+            result: $Utils.Optional<DirectorySyncConfigCountAggregateOutputType> | number
+          }
+        }
+      }
+      DirectorySyncRun: {
+        payload: Prisma.$DirectorySyncRunPayload<ExtArgs>
+        fields: Prisma.DirectorySyncRunFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DirectorySyncRunFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DirectorySyncRunFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload>
+          }
+          findFirst: {
+            args: Prisma.DirectorySyncRunFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DirectorySyncRunFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload>
+          }
+          findMany: {
+            args: Prisma.DirectorySyncRunFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload>[]
+          }
+          create: {
+            args: Prisma.DirectorySyncRunCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload>
+          }
+          createMany: {
+            args: Prisma.DirectorySyncRunCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DirectorySyncRunCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload>[]
+          }
+          delete: {
+            args: Prisma.DirectorySyncRunDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload>
+          }
+          update: {
+            args: Prisma.DirectorySyncRunUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload>
+          }
+          deleteMany: {
+            args: Prisma.DirectorySyncRunDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DirectorySyncRunUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DirectorySyncRunUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload>[]
+          }
+          upsert: {
+            args: Prisma.DirectorySyncRunUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectorySyncRunPayload>
+          }
+          aggregate: {
+            args: Prisma.DirectorySyncRunAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDirectorySyncRun>
+          }
+          groupBy: {
+            args: Prisma.DirectorySyncRunGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DirectorySyncRunGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DirectorySyncRunCountArgs<ExtArgs>
+            result: $Utils.Optional<DirectorySyncRunCountAggregateOutputType> | number
+          }
+        }
+      }
+      ExternalIdentityMapping: {
+        payload: Prisma.$ExternalIdentityMappingPayload<ExtArgs>
+        fields: Prisma.ExternalIdentityMappingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ExternalIdentityMappingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ExternalIdentityMappingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload>
+          }
+          findFirst: {
+            args: Prisma.ExternalIdentityMappingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ExternalIdentityMappingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload>
+          }
+          findMany: {
+            args: Prisma.ExternalIdentityMappingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload>[]
+          }
+          create: {
+            args: Prisma.ExternalIdentityMappingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload>
+          }
+          createMany: {
+            args: Prisma.ExternalIdentityMappingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ExternalIdentityMappingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload>[]
+          }
+          delete: {
+            args: Prisma.ExternalIdentityMappingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload>
+          }
+          update: {
+            args: Prisma.ExternalIdentityMappingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload>
+          }
+          deleteMany: {
+            args: Prisma.ExternalIdentityMappingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ExternalIdentityMappingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ExternalIdentityMappingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload>[]
+          }
+          upsert: {
+            args: Prisma.ExternalIdentityMappingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ExternalIdentityMappingPayload>
+          }
+          aggregate: {
+            args: Prisma.ExternalIdentityMappingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateExternalIdentityMapping>
+          }
+          groupBy: {
+            args: Prisma.ExternalIdentityMappingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ExternalIdentityMappingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ExternalIdentityMappingCountArgs<ExtArgs>
+            result: $Utils.Optional<ExternalIdentityMappingCountAggregateOutputType> | number
+          }
+        }
+      }
       KnownVendor: {
         payload: Prisma.$KnownVendorPayload<ExtArgs>
         fields: Prisma.KnownVendorFieldRefs
@@ -8801,6 +9122,9 @@ export namespace Prisma {
     trustCenterAccessRequest?: TrustCenterAccessRequestOmit
     user?: UserOmit
     membership?: MembershipOmit
+    directorySyncConfig?: DirectorySyncConfigOmit
+    directorySyncRun?: DirectorySyncRunOmit
+    externalIdentityMapping?: ExternalIdentityMappingOmit
     knownVendor?: KnownVendorOmit
     vendor?: VendorOmit
     vendorAssessment?: VendorAssessmentOmit
@@ -9767,6 +10091,9 @@ export namespace Prisma {
     answers: number
     questionnaireImportJobs: number
     controlWeaknesses: number
+    directorySyncConfigs: number
+    directorySyncRuns: number
+    externalIdentityMappings: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9826,6 +10153,9 @@ export namespace Prisma {
     answers?: boolean | TenantCountOutputTypeCountAnswersArgs
     questionnaireImportJobs?: boolean | TenantCountOutputTypeCountQuestionnaireImportJobsArgs
     controlWeaknesses?: boolean | TenantCountOutputTypeCountControlWeaknessesArgs
+    directorySyncConfigs?: boolean | TenantCountOutputTypeCountDirectorySyncConfigsArgs
+    directorySyncRuns?: boolean | TenantCountOutputTypeCountDirectorySyncRunsArgs
+    externalIdentityMappings?: boolean | TenantCountOutputTypeCountExternalIdentityMappingsArgs
   }
 
   // Custom InputTypes
@@ -10231,6 +10561,27 @@ export namespace Prisma {
     where?: ControlWeaknessWhereInput
   }
 
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDirectorySyncConfigsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DirectorySyncConfigWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDirectorySyncRunsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DirectorySyncRunWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountExternalIdentityMappingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExternalIdentityMappingWhereInput
+  }
+
 
   /**
    * Count Type TrainingProgramCountOutputType
@@ -10553,6 +10904,7 @@ export namespace Prisma {
     importedQuestionnaires: number
     reviewedAnswers: number
     questionnaireImportJobs: number
+    externalIdentityMappings: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10610,6 +10962,7 @@ export namespace Prisma {
     importedQuestionnaires?: boolean | UserCountOutputTypeCountImportedQuestionnairesArgs
     reviewedAnswers?: boolean | UserCountOutputTypeCountReviewedAnswersArgs
     questionnaireImportJobs?: boolean | UserCountOutputTypeCountQuestionnaireImportJobsArgs
+    externalIdentityMappings?: boolean | UserCountOutputTypeCountExternalIdentityMappingsArgs
   }
 
   // Custom InputTypes
@@ -10999,6 +11352,53 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountQuestionnaireImportJobsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: QuestionnaireImportJobWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountExternalIdentityMappingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExternalIdentityMappingWhereInput
+  }
+
+
+  /**
+   * Count Type DirectorySyncConfigCountOutputType
+   */
+
+  export type DirectorySyncConfigCountOutputType = {
+    runs: number
+    mappings: number
+  }
+
+  export type DirectorySyncConfigCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    runs?: boolean | DirectorySyncConfigCountOutputTypeCountRunsArgs
+    mappings?: boolean | DirectorySyncConfigCountOutputTypeCountMappingsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DirectorySyncConfigCountOutputType without action
+   */
+  export type DirectorySyncConfigCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfigCountOutputType
+     */
+    select?: DirectorySyncConfigCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DirectorySyncConfigCountOutputType without action
+   */
+  export type DirectorySyncConfigCountOutputTypeCountRunsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DirectorySyncRunWhereInput
+  }
+
+  /**
+   * DirectorySyncConfigCountOutputType without action
+   */
+  export type DirectorySyncConfigCountOutputTypeCountMappingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExternalIdentityMappingWhereInput
   }
 
 
@@ -73026,6 +73426,9 @@ export namespace Prisma {
     answers?: boolean | Tenant$answersArgs<ExtArgs>
     questionnaireImportJobs?: boolean | Tenant$questionnaireImportJobsArgs<ExtArgs>
     controlWeaknesses?: boolean | Tenant$controlWeaknessesArgs<ExtArgs>
+    directorySyncConfigs?: boolean | Tenant$directorySyncConfigsArgs<ExtArgs>
+    directorySyncRuns?: boolean | Tenant$directorySyncRunsArgs<ExtArgs>
+    externalIdentityMappings?: boolean | Tenant$externalIdentityMappingsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -73120,6 +73523,9 @@ export namespace Prisma {
     answers?: boolean | Tenant$answersArgs<ExtArgs>
     questionnaireImportJobs?: boolean | Tenant$questionnaireImportJobsArgs<ExtArgs>
     controlWeaknesses?: boolean | Tenant$controlWeaknessesArgs<ExtArgs>
+    directorySyncConfigs?: boolean | Tenant$directorySyncConfigsArgs<ExtArgs>
+    directorySyncRuns?: boolean | Tenant$directorySyncRunsArgs<ExtArgs>
+    externalIdentityMappings?: boolean | Tenant$externalIdentityMappingsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -73187,6 +73593,9 @@ export namespace Prisma {
       answers: Prisma.$AnswerPayload<ExtArgs>[]
       questionnaireImportJobs: Prisma.$QuestionnaireImportJobPayload<ExtArgs>[]
       controlWeaknesses: Prisma.$ControlWeaknessPayload<ExtArgs>[]
+      directorySyncConfigs: Prisma.$DirectorySyncConfigPayload<ExtArgs>[]
+      directorySyncRuns: Prisma.$DirectorySyncRunPayload<ExtArgs>[]
+      externalIdentityMappings: Prisma.$ExternalIdentityMappingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -73649,6 +74058,9 @@ export namespace Prisma {
     answers<T extends Tenant$answersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$answersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     questionnaireImportJobs<T extends Tenant$questionnaireImportJobsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$questionnaireImportJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionnaireImportJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     controlWeaknesses<T extends Tenant$controlWeaknessesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$controlWeaknessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ControlWeaknessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    directorySyncConfigs<T extends Tenant$directorySyncConfigsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$directorySyncConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    directorySyncRuns<T extends Tenant$directorySyncRunsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$directorySyncRunsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    externalIdentityMappings<T extends Tenant$externalIdentityMappingsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$externalIdentityMappingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -75476,6 +75888,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ControlWeaknessScalarFieldEnum | ControlWeaknessScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.directorySyncConfigs
+   */
+  export type Tenant$directorySyncConfigsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+    where?: DirectorySyncConfigWhereInput
+    orderBy?: DirectorySyncConfigOrderByWithRelationInput | DirectorySyncConfigOrderByWithRelationInput[]
+    cursor?: DirectorySyncConfigWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DirectorySyncConfigScalarFieldEnum | DirectorySyncConfigScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.directorySyncRuns
+   */
+  export type Tenant$directorySyncRunsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    where?: DirectorySyncRunWhereInput
+    orderBy?: DirectorySyncRunOrderByWithRelationInput | DirectorySyncRunOrderByWithRelationInput[]
+    cursor?: DirectorySyncRunWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DirectorySyncRunScalarFieldEnum | DirectorySyncRunScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.externalIdentityMappings
+   */
+  export type Tenant$externalIdentityMappingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    where?: ExternalIdentityMappingWhereInput
+    orderBy?: ExternalIdentityMappingOrderByWithRelationInput | ExternalIdentityMappingOrderByWithRelationInput[]
+    cursor?: ExternalIdentityMappingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExternalIdentityMappingScalarFieldEnum | ExternalIdentityMappingScalarFieldEnum[]
   }
 
   /**
@@ -91011,6 +91495,7 @@ export namespace Prisma {
     importedQuestionnaires?: boolean | User$importedQuestionnairesArgs<ExtArgs>
     reviewedAnswers?: boolean | User$reviewedAnswersArgs<ExtArgs>
     questionnaireImportJobs?: boolean | User$questionnaireImportJobsArgs<ExtArgs>
+    externalIdentityMappings?: boolean | User$externalIdentityMappingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -91112,6 +91597,7 @@ export namespace Prisma {
     importedQuestionnaires?: boolean | User$importedQuestionnairesArgs<ExtArgs>
     reviewedAnswers?: boolean | User$reviewedAnswersArgs<ExtArgs>
     questionnaireImportJobs?: boolean | User$questionnaireImportJobsArgs<ExtArgs>
+    externalIdentityMappings?: boolean | User$externalIdentityMappingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -91174,6 +91660,7 @@ export namespace Prisma {
       importedQuestionnaires: Prisma.$QuestionnairePayload<ExtArgs>[]
       reviewedAnswers: Prisma.$AnswerPayload<ExtArgs>[]
       questionnaireImportJobs: Prisma.$QuestionnaireImportJobPayload<ExtArgs>[]
+      externalIdentityMappings: Prisma.$ExternalIdentityMappingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -91635,6 +92122,7 @@ export namespace Prisma {
     importedQuestionnaires<T extends User$importedQuestionnairesArgs<ExtArgs> = {}>(args?: Subset<T, User$importedQuestionnairesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionnairePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviewedAnswers<T extends User$reviewedAnswersArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewedAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     questionnaireImportJobs<T extends User$questionnaireImportJobsArgs<ExtArgs> = {}>(args?: Subset<T, User$questionnaireImportJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionnaireImportJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    externalIdentityMappings<T extends User$externalIdentityMappingsArgs<ExtArgs> = {}>(args?: Subset<T, User$externalIdentityMappingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -93364,6 +93852,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.externalIdentityMappings
+   */
+  export type User$externalIdentityMappingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    where?: ExternalIdentityMappingWhereInput
+    orderBy?: ExternalIdentityMappingOrderByWithRelationInput | ExternalIdentityMappingOrderByWithRelationInput[]
+    cursor?: ExternalIdentityMappingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExternalIdentityMappingScalarFieldEnum | ExternalIdentityMappingScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -94511,6 +95023,3687 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MembershipInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DirectorySyncConfig
+   */
+
+  export type AggregateDirectorySyncConfig = {
+    _count: DirectorySyncConfigCountAggregateOutputType | null
+    _avg: DirectorySyncConfigAvgAggregateOutputType | null
+    _sum: DirectorySyncConfigSumAggregateOutputType | null
+    _min: DirectorySyncConfigMinAggregateOutputType | null
+    _max: DirectorySyncConfigMaxAggregateOutputType | null
+  }
+
+  export type DirectorySyncConfigAvgAggregateOutputType = {
+    syncFrequencyMinutes: number | null
+  }
+
+  export type DirectorySyncConfigSumAggregateOutputType = {
+    syncFrequencyMinutes: number | null
+  }
+
+  export type DirectorySyncConfigMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    provider: $Enums.DirectorySyncProvider | null
+    isEnabled: boolean | null
+    syncFrequencyMinutes: number | null
+    defaultRole: $Enums.MembershipRole | null
+    defaultStatus: $Enums.DirectorySyncDefaultStatus | null
+    encryptedCredentials: string | null
+    lastSyncAt: Date | null
+    lastSyncStatus: $Enums.DirectorySyncRunStatus | null
+    lastSyncError: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DirectorySyncConfigMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    provider: $Enums.DirectorySyncProvider | null
+    isEnabled: boolean | null
+    syncFrequencyMinutes: number | null
+    defaultRole: $Enums.MembershipRole | null
+    defaultStatus: $Enums.DirectorySyncDefaultStatus | null
+    encryptedCredentials: string | null
+    lastSyncAt: Date | null
+    lastSyncStatus: $Enums.DirectorySyncRunStatus | null
+    lastSyncError: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DirectorySyncConfigCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    provider: number
+    isEnabled: number
+    syncFrequencyMinutes: number
+    defaultRole: number
+    defaultStatus: number
+    groupRoleMappings: number
+    encryptedCredentials: number
+    lastSyncAt: number
+    lastSyncStatus: number
+    lastSyncError: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DirectorySyncConfigAvgAggregateInputType = {
+    syncFrequencyMinutes?: true
+  }
+
+  export type DirectorySyncConfigSumAggregateInputType = {
+    syncFrequencyMinutes?: true
+  }
+
+  export type DirectorySyncConfigMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    provider?: true
+    isEnabled?: true
+    syncFrequencyMinutes?: true
+    defaultRole?: true
+    defaultStatus?: true
+    encryptedCredentials?: true
+    lastSyncAt?: true
+    lastSyncStatus?: true
+    lastSyncError?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DirectorySyncConfigMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    provider?: true
+    isEnabled?: true
+    syncFrequencyMinutes?: true
+    defaultRole?: true
+    defaultStatus?: true
+    encryptedCredentials?: true
+    lastSyncAt?: true
+    lastSyncStatus?: true
+    lastSyncError?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DirectorySyncConfigCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    provider?: true
+    isEnabled?: true
+    syncFrequencyMinutes?: true
+    defaultRole?: true
+    defaultStatus?: true
+    groupRoleMappings?: true
+    encryptedCredentials?: true
+    lastSyncAt?: true
+    lastSyncStatus?: true
+    lastSyncError?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DirectorySyncConfigAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DirectorySyncConfig to aggregate.
+     */
+    where?: DirectorySyncConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectorySyncConfigs to fetch.
+     */
+    orderBy?: DirectorySyncConfigOrderByWithRelationInput | DirectorySyncConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DirectorySyncConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectorySyncConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectorySyncConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DirectorySyncConfigs
+    **/
+    _count?: true | DirectorySyncConfigCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DirectorySyncConfigAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DirectorySyncConfigSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DirectorySyncConfigMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DirectorySyncConfigMaxAggregateInputType
+  }
+
+  export type GetDirectorySyncConfigAggregateType<T extends DirectorySyncConfigAggregateArgs> = {
+        [P in keyof T & keyof AggregateDirectorySyncConfig]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDirectorySyncConfig[P]>
+      : GetScalarType<T[P], AggregateDirectorySyncConfig[P]>
+  }
+
+
+
+
+  export type DirectorySyncConfigGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DirectorySyncConfigWhereInput
+    orderBy?: DirectorySyncConfigOrderByWithAggregationInput | DirectorySyncConfigOrderByWithAggregationInput[]
+    by: DirectorySyncConfigScalarFieldEnum[] | DirectorySyncConfigScalarFieldEnum
+    having?: DirectorySyncConfigScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DirectorySyncConfigCountAggregateInputType | true
+    _avg?: DirectorySyncConfigAvgAggregateInputType
+    _sum?: DirectorySyncConfigSumAggregateInputType
+    _min?: DirectorySyncConfigMinAggregateInputType
+    _max?: DirectorySyncConfigMaxAggregateInputType
+  }
+
+  export type DirectorySyncConfigGroupByOutputType = {
+    id: string
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled: boolean
+    syncFrequencyMinutes: number
+    defaultRole: $Enums.MembershipRole
+    defaultStatus: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings: JsonValue | null
+    encryptedCredentials: string
+    lastSyncAt: Date | null
+    lastSyncStatus: $Enums.DirectorySyncRunStatus | null
+    lastSyncError: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: DirectorySyncConfigCountAggregateOutputType | null
+    _avg: DirectorySyncConfigAvgAggregateOutputType | null
+    _sum: DirectorySyncConfigSumAggregateOutputType | null
+    _min: DirectorySyncConfigMinAggregateOutputType | null
+    _max: DirectorySyncConfigMaxAggregateOutputType | null
+  }
+
+  type GetDirectorySyncConfigGroupByPayload<T extends DirectorySyncConfigGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DirectorySyncConfigGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DirectorySyncConfigGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DirectorySyncConfigGroupByOutputType[P]>
+            : GetScalarType<T[P], DirectorySyncConfigGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DirectorySyncConfigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    provider?: boolean
+    isEnabled?: boolean
+    syncFrequencyMinutes?: boolean
+    defaultRole?: boolean
+    defaultStatus?: boolean
+    groupRoleMappings?: boolean
+    encryptedCredentials?: boolean
+    lastSyncAt?: boolean
+    lastSyncStatus?: boolean
+    lastSyncError?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    runs?: boolean | DirectorySyncConfig$runsArgs<ExtArgs>
+    mappings?: boolean | DirectorySyncConfig$mappingsArgs<ExtArgs>
+    _count?: boolean | DirectorySyncConfigCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["directorySyncConfig"]>
+
+  export type DirectorySyncConfigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    provider?: boolean
+    isEnabled?: boolean
+    syncFrequencyMinutes?: boolean
+    defaultRole?: boolean
+    defaultStatus?: boolean
+    groupRoleMappings?: boolean
+    encryptedCredentials?: boolean
+    lastSyncAt?: boolean
+    lastSyncStatus?: boolean
+    lastSyncError?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["directorySyncConfig"]>
+
+  export type DirectorySyncConfigSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    provider?: boolean
+    isEnabled?: boolean
+    syncFrequencyMinutes?: boolean
+    defaultRole?: boolean
+    defaultStatus?: boolean
+    groupRoleMappings?: boolean
+    encryptedCredentials?: boolean
+    lastSyncAt?: boolean
+    lastSyncStatus?: boolean
+    lastSyncError?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["directorySyncConfig"]>
+
+  export type DirectorySyncConfigSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    provider?: boolean
+    isEnabled?: boolean
+    syncFrequencyMinutes?: boolean
+    defaultRole?: boolean
+    defaultStatus?: boolean
+    groupRoleMappings?: boolean
+    encryptedCredentials?: boolean
+    lastSyncAt?: boolean
+    lastSyncStatus?: boolean
+    lastSyncError?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DirectorySyncConfigOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "provider" | "isEnabled" | "syncFrequencyMinutes" | "defaultRole" | "defaultStatus" | "groupRoleMappings" | "encryptedCredentials" | "lastSyncAt" | "lastSyncStatus" | "lastSyncError" | "createdAt" | "updatedAt", ExtArgs["result"]["directorySyncConfig"]>
+  export type DirectorySyncConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    runs?: boolean | DirectorySyncConfig$runsArgs<ExtArgs>
+    mappings?: boolean | DirectorySyncConfig$mappingsArgs<ExtArgs>
+    _count?: boolean | DirectorySyncConfigCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DirectorySyncConfigIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type DirectorySyncConfigIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $DirectorySyncConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DirectorySyncConfig"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      runs: Prisma.$DirectorySyncRunPayload<ExtArgs>[]
+      mappings: Prisma.$ExternalIdentityMappingPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      provider: $Enums.DirectorySyncProvider
+      isEnabled: boolean
+      syncFrequencyMinutes: number
+      defaultRole: $Enums.MembershipRole
+      defaultStatus: $Enums.DirectorySyncDefaultStatus
+      groupRoleMappings: Prisma.JsonValue | null
+      encryptedCredentials: string
+      lastSyncAt: Date | null
+      lastSyncStatus: $Enums.DirectorySyncRunStatus | null
+      lastSyncError: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["directorySyncConfig"]>
+    composites: {}
+  }
+
+  type DirectorySyncConfigGetPayload<S extends boolean | null | undefined | DirectorySyncConfigDefaultArgs> = $Result.GetResult<Prisma.$DirectorySyncConfigPayload, S>
+
+  type DirectorySyncConfigCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DirectorySyncConfigFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DirectorySyncConfigCountAggregateInputType | true
+    }
+
+  export interface DirectorySyncConfigDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DirectorySyncConfig'], meta: { name: 'DirectorySyncConfig' } }
+    /**
+     * Find zero or one DirectorySyncConfig that matches the filter.
+     * @param {DirectorySyncConfigFindUniqueArgs} args - Arguments to find a DirectorySyncConfig
+     * @example
+     * // Get one DirectorySyncConfig
+     * const directorySyncConfig = await prisma.directorySyncConfig.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DirectorySyncConfigFindUniqueArgs>(args: SelectSubset<T, DirectorySyncConfigFindUniqueArgs<ExtArgs>>): Prisma__DirectorySyncConfigClient<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DirectorySyncConfig that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DirectorySyncConfigFindUniqueOrThrowArgs} args - Arguments to find a DirectorySyncConfig
+     * @example
+     * // Get one DirectorySyncConfig
+     * const directorySyncConfig = await prisma.directorySyncConfig.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DirectorySyncConfigFindUniqueOrThrowArgs>(args: SelectSubset<T, DirectorySyncConfigFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DirectorySyncConfigClient<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DirectorySyncConfig that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncConfigFindFirstArgs} args - Arguments to find a DirectorySyncConfig
+     * @example
+     * // Get one DirectorySyncConfig
+     * const directorySyncConfig = await prisma.directorySyncConfig.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DirectorySyncConfigFindFirstArgs>(args?: SelectSubset<T, DirectorySyncConfigFindFirstArgs<ExtArgs>>): Prisma__DirectorySyncConfigClient<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DirectorySyncConfig that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncConfigFindFirstOrThrowArgs} args - Arguments to find a DirectorySyncConfig
+     * @example
+     * // Get one DirectorySyncConfig
+     * const directorySyncConfig = await prisma.directorySyncConfig.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DirectorySyncConfigFindFirstOrThrowArgs>(args?: SelectSubset<T, DirectorySyncConfigFindFirstOrThrowArgs<ExtArgs>>): Prisma__DirectorySyncConfigClient<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DirectorySyncConfigs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncConfigFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DirectorySyncConfigs
+     * const directorySyncConfigs = await prisma.directorySyncConfig.findMany()
+     * 
+     * // Get first 10 DirectorySyncConfigs
+     * const directorySyncConfigs = await prisma.directorySyncConfig.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const directorySyncConfigWithIdOnly = await prisma.directorySyncConfig.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DirectorySyncConfigFindManyArgs>(args?: SelectSubset<T, DirectorySyncConfigFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DirectorySyncConfig.
+     * @param {DirectorySyncConfigCreateArgs} args - Arguments to create a DirectorySyncConfig.
+     * @example
+     * // Create one DirectorySyncConfig
+     * const DirectorySyncConfig = await prisma.directorySyncConfig.create({
+     *   data: {
+     *     // ... data to create a DirectorySyncConfig
+     *   }
+     * })
+     * 
+     */
+    create<T extends DirectorySyncConfigCreateArgs>(args: SelectSubset<T, DirectorySyncConfigCreateArgs<ExtArgs>>): Prisma__DirectorySyncConfigClient<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DirectorySyncConfigs.
+     * @param {DirectorySyncConfigCreateManyArgs} args - Arguments to create many DirectorySyncConfigs.
+     * @example
+     * // Create many DirectorySyncConfigs
+     * const directorySyncConfig = await prisma.directorySyncConfig.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DirectorySyncConfigCreateManyArgs>(args?: SelectSubset<T, DirectorySyncConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DirectorySyncConfigs and returns the data saved in the database.
+     * @param {DirectorySyncConfigCreateManyAndReturnArgs} args - Arguments to create many DirectorySyncConfigs.
+     * @example
+     * // Create many DirectorySyncConfigs
+     * const directorySyncConfig = await prisma.directorySyncConfig.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DirectorySyncConfigs and only return the `id`
+     * const directorySyncConfigWithIdOnly = await prisma.directorySyncConfig.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DirectorySyncConfigCreateManyAndReturnArgs>(args?: SelectSubset<T, DirectorySyncConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DirectorySyncConfig.
+     * @param {DirectorySyncConfigDeleteArgs} args - Arguments to delete one DirectorySyncConfig.
+     * @example
+     * // Delete one DirectorySyncConfig
+     * const DirectorySyncConfig = await prisma.directorySyncConfig.delete({
+     *   where: {
+     *     // ... filter to delete one DirectorySyncConfig
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DirectorySyncConfigDeleteArgs>(args: SelectSubset<T, DirectorySyncConfigDeleteArgs<ExtArgs>>): Prisma__DirectorySyncConfigClient<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DirectorySyncConfig.
+     * @param {DirectorySyncConfigUpdateArgs} args - Arguments to update one DirectorySyncConfig.
+     * @example
+     * // Update one DirectorySyncConfig
+     * const directorySyncConfig = await prisma.directorySyncConfig.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DirectorySyncConfigUpdateArgs>(args: SelectSubset<T, DirectorySyncConfigUpdateArgs<ExtArgs>>): Prisma__DirectorySyncConfigClient<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DirectorySyncConfigs.
+     * @param {DirectorySyncConfigDeleteManyArgs} args - Arguments to filter DirectorySyncConfigs to delete.
+     * @example
+     * // Delete a few DirectorySyncConfigs
+     * const { count } = await prisma.directorySyncConfig.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DirectorySyncConfigDeleteManyArgs>(args?: SelectSubset<T, DirectorySyncConfigDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DirectorySyncConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncConfigUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DirectorySyncConfigs
+     * const directorySyncConfig = await prisma.directorySyncConfig.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DirectorySyncConfigUpdateManyArgs>(args: SelectSubset<T, DirectorySyncConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DirectorySyncConfigs and returns the data updated in the database.
+     * @param {DirectorySyncConfigUpdateManyAndReturnArgs} args - Arguments to update many DirectorySyncConfigs.
+     * @example
+     * // Update many DirectorySyncConfigs
+     * const directorySyncConfig = await prisma.directorySyncConfig.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DirectorySyncConfigs and only return the `id`
+     * const directorySyncConfigWithIdOnly = await prisma.directorySyncConfig.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DirectorySyncConfigUpdateManyAndReturnArgs>(args: SelectSubset<T, DirectorySyncConfigUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DirectorySyncConfig.
+     * @param {DirectorySyncConfigUpsertArgs} args - Arguments to update or create a DirectorySyncConfig.
+     * @example
+     * // Update or create a DirectorySyncConfig
+     * const directorySyncConfig = await prisma.directorySyncConfig.upsert({
+     *   create: {
+     *     // ... data to create a DirectorySyncConfig
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DirectorySyncConfig we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DirectorySyncConfigUpsertArgs>(args: SelectSubset<T, DirectorySyncConfigUpsertArgs<ExtArgs>>): Prisma__DirectorySyncConfigClient<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DirectorySyncConfigs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncConfigCountArgs} args - Arguments to filter DirectorySyncConfigs to count.
+     * @example
+     * // Count the number of DirectorySyncConfigs
+     * const count = await prisma.directorySyncConfig.count({
+     *   where: {
+     *     // ... the filter for the DirectorySyncConfigs we want to count
+     *   }
+     * })
+    **/
+    count<T extends DirectorySyncConfigCountArgs>(
+      args?: Subset<T, DirectorySyncConfigCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DirectorySyncConfigCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DirectorySyncConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncConfigAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DirectorySyncConfigAggregateArgs>(args: Subset<T, DirectorySyncConfigAggregateArgs>): Prisma.PrismaPromise<GetDirectorySyncConfigAggregateType<T>>
+
+    /**
+     * Group by DirectorySyncConfig.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncConfigGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DirectorySyncConfigGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DirectorySyncConfigGroupByArgs['orderBy'] }
+        : { orderBy?: DirectorySyncConfigGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DirectorySyncConfigGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDirectorySyncConfigGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DirectorySyncConfig model
+   */
+  readonly fields: DirectorySyncConfigFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DirectorySyncConfig.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DirectorySyncConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    runs<T extends DirectorySyncConfig$runsArgs<ExtArgs> = {}>(args?: Subset<T, DirectorySyncConfig$runsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mappings<T extends DirectorySyncConfig$mappingsArgs<ExtArgs> = {}>(args?: Subset<T, DirectorySyncConfig$mappingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DirectorySyncConfig model
+   */
+  interface DirectorySyncConfigFieldRefs {
+    readonly id: FieldRef<"DirectorySyncConfig", 'String'>
+    readonly tenantId: FieldRef<"DirectorySyncConfig", 'String'>
+    readonly provider: FieldRef<"DirectorySyncConfig", 'DirectorySyncProvider'>
+    readonly isEnabled: FieldRef<"DirectorySyncConfig", 'Boolean'>
+    readonly syncFrequencyMinutes: FieldRef<"DirectorySyncConfig", 'Int'>
+    readonly defaultRole: FieldRef<"DirectorySyncConfig", 'MembershipRole'>
+    readonly defaultStatus: FieldRef<"DirectorySyncConfig", 'DirectorySyncDefaultStatus'>
+    readonly groupRoleMappings: FieldRef<"DirectorySyncConfig", 'Json'>
+    readonly encryptedCredentials: FieldRef<"DirectorySyncConfig", 'String'>
+    readonly lastSyncAt: FieldRef<"DirectorySyncConfig", 'DateTime'>
+    readonly lastSyncStatus: FieldRef<"DirectorySyncConfig", 'DirectorySyncRunStatus'>
+    readonly lastSyncError: FieldRef<"DirectorySyncConfig", 'String'>
+    readonly createdAt: FieldRef<"DirectorySyncConfig", 'DateTime'>
+    readonly updatedAt: FieldRef<"DirectorySyncConfig", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DirectorySyncConfig findUnique
+   */
+  export type DirectorySyncConfigFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectorySyncConfig to fetch.
+     */
+    where: DirectorySyncConfigWhereUniqueInput
+  }
+
+  /**
+   * DirectorySyncConfig findUniqueOrThrow
+   */
+  export type DirectorySyncConfigFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectorySyncConfig to fetch.
+     */
+    where: DirectorySyncConfigWhereUniqueInput
+  }
+
+  /**
+   * DirectorySyncConfig findFirst
+   */
+  export type DirectorySyncConfigFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectorySyncConfig to fetch.
+     */
+    where?: DirectorySyncConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectorySyncConfigs to fetch.
+     */
+    orderBy?: DirectorySyncConfigOrderByWithRelationInput | DirectorySyncConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DirectorySyncConfigs.
+     */
+    cursor?: DirectorySyncConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectorySyncConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectorySyncConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DirectorySyncConfigs.
+     */
+    distinct?: DirectorySyncConfigScalarFieldEnum | DirectorySyncConfigScalarFieldEnum[]
+  }
+
+  /**
+   * DirectorySyncConfig findFirstOrThrow
+   */
+  export type DirectorySyncConfigFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectorySyncConfig to fetch.
+     */
+    where?: DirectorySyncConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectorySyncConfigs to fetch.
+     */
+    orderBy?: DirectorySyncConfigOrderByWithRelationInput | DirectorySyncConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DirectorySyncConfigs.
+     */
+    cursor?: DirectorySyncConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectorySyncConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectorySyncConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DirectorySyncConfigs.
+     */
+    distinct?: DirectorySyncConfigScalarFieldEnum | DirectorySyncConfigScalarFieldEnum[]
+  }
+
+  /**
+   * DirectorySyncConfig findMany
+   */
+  export type DirectorySyncConfigFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectorySyncConfigs to fetch.
+     */
+    where?: DirectorySyncConfigWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectorySyncConfigs to fetch.
+     */
+    orderBy?: DirectorySyncConfigOrderByWithRelationInput | DirectorySyncConfigOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DirectorySyncConfigs.
+     */
+    cursor?: DirectorySyncConfigWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectorySyncConfigs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectorySyncConfigs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DirectorySyncConfigs.
+     */
+    distinct?: DirectorySyncConfigScalarFieldEnum | DirectorySyncConfigScalarFieldEnum[]
+  }
+
+  /**
+   * DirectorySyncConfig create
+   */
+  export type DirectorySyncConfigCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DirectorySyncConfig.
+     */
+    data: XOR<DirectorySyncConfigCreateInput, DirectorySyncConfigUncheckedCreateInput>
+  }
+
+  /**
+   * DirectorySyncConfig createMany
+   */
+  export type DirectorySyncConfigCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DirectorySyncConfigs.
+     */
+    data: DirectorySyncConfigCreateManyInput | DirectorySyncConfigCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DirectorySyncConfig createManyAndReturn
+   */
+  export type DirectorySyncConfigCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * The data used to create many DirectorySyncConfigs.
+     */
+    data: DirectorySyncConfigCreateManyInput | DirectorySyncConfigCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DirectorySyncConfig update
+   */
+  export type DirectorySyncConfigUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DirectorySyncConfig.
+     */
+    data: XOR<DirectorySyncConfigUpdateInput, DirectorySyncConfigUncheckedUpdateInput>
+    /**
+     * Choose, which DirectorySyncConfig to update.
+     */
+    where: DirectorySyncConfigWhereUniqueInput
+  }
+
+  /**
+   * DirectorySyncConfig updateMany
+   */
+  export type DirectorySyncConfigUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DirectorySyncConfigs.
+     */
+    data: XOR<DirectorySyncConfigUpdateManyMutationInput, DirectorySyncConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which DirectorySyncConfigs to update
+     */
+    where?: DirectorySyncConfigWhereInput
+    /**
+     * Limit how many DirectorySyncConfigs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DirectorySyncConfig updateManyAndReturn
+   */
+  export type DirectorySyncConfigUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * The data used to update DirectorySyncConfigs.
+     */
+    data: XOR<DirectorySyncConfigUpdateManyMutationInput, DirectorySyncConfigUncheckedUpdateManyInput>
+    /**
+     * Filter which DirectorySyncConfigs to update
+     */
+    where?: DirectorySyncConfigWhereInput
+    /**
+     * Limit how many DirectorySyncConfigs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DirectorySyncConfig upsert
+   */
+  export type DirectorySyncConfigUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DirectorySyncConfig to update in case it exists.
+     */
+    where: DirectorySyncConfigWhereUniqueInput
+    /**
+     * In case the DirectorySyncConfig found by the `where` argument doesn't exist, create a new DirectorySyncConfig with this data.
+     */
+    create: XOR<DirectorySyncConfigCreateInput, DirectorySyncConfigUncheckedCreateInput>
+    /**
+     * In case the DirectorySyncConfig was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DirectorySyncConfigUpdateInput, DirectorySyncConfigUncheckedUpdateInput>
+  }
+
+  /**
+   * DirectorySyncConfig delete
+   */
+  export type DirectorySyncConfigDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+    /**
+     * Filter which DirectorySyncConfig to delete.
+     */
+    where: DirectorySyncConfigWhereUniqueInput
+  }
+
+  /**
+   * DirectorySyncConfig deleteMany
+   */
+  export type DirectorySyncConfigDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DirectorySyncConfigs to delete
+     */
+    where?: DirectorySyncConfigWhereInput
+    /**
+     * Limit how many DirectorySyncConfigs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DirectorySyncConfig.runs
+   */
+  export type DirectorySyncConfig$runsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    where?: DirectorySyncRunWhereInput
+    orderBy?: DirectorySyncRunOrderByWithRelationInput | DirectorySyncRunOrderByWithRelationInput[]
+    cursor?: DirectorySyncRunWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DirectorySyncRunScalarFieldEnum | DirectorySyncRunScalarFieldEnum[]
+  }
+
+  /**
+   * DirectorySyncConfig.mappings
+   */
+  export type DirectorySyncConfig$mappingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    where?: ExternalIdentityMappingWhereInput
+    orderBy?: ExternalIdentityMappingOrderByWithRelationInput | ExternalIdentityMappingOrderByWithRelationInput[]
+    cursor?: ExternalIdentityMappingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ExternalIdentityMappingScalarFieldEnum | ExternalIdentityMappingScalarFieldEnum[]
+  }
+
+  /**
+   * DirectorySyncConfig without action
+   */
+  export type DirectorySyncConfigDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncConfig
+     */
+    select?: DirectorySyncConfigSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncConfig
+     */
+    omit?: DirectorySyncConfigOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncConfigInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DirectorySyncRun
+   */
+
+  export type AggregateDirectorySyncRun = {
+    _count: DirectorySyncRunCountAggregateOutputType | null
+    _avg: DirectorySyncRunAvgAggregateOutputType | null
+    _sum: DirectorySyncRunSumAggregateOutputType | null
+    _min: DirectorySyncRunMinAggregateOutputType | null
+    _max: DirectorySyncRunMaxAggregateOutputType | null
+  }
+
+  export type DirectorySyncRunAvgAggregateOutputType = {
+    usersDiscovered: number | null
+    usersCreated: number | null
+    usersUpdated: number | null
+    usersSuspended: number | null
+  }
+
+  export type DirectorySyncRunSumAggregateOutputType = {
+    usersDiscovered: number | null
+    usersCreated: number | null
+    usersUpdated: number | null
+    usersSuspended: number | null
+  }
+
+  export type DirectorySyncRunMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    configId: string | null
+    provider: $Enums.DirectorySyncProvider | null
+    status: $Enums.DirectorySyncRunStatus | null
+    triggeredBy: $Enums.DirectorySyncRunTrigger | null
+    startedAt: Date | null
+    finishedAt: Date | null
+    usersDiscovered: number | null
+    usersCreated: number | null
+    usersUpdated: number | null
+    usersSuspended: number | null
+    errorMessage: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DirectorySyncRunMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    configId: string | null
+    provider: $Enums.DirectorySyncProvider | null
+    status: $Enums.DirectorySyncRunStatus | null
+    triggeredBy: $Enums.DirectorySyncRunTrigger | null
+    startedAt: Date | null
+    finishedAt: Date | null
+    usersDiscovered: number | null
+    usersCreated: number | null
+    usersUpdated: number | null
+    usersSuspended: number | null
+    errorMessage: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DirectorySyncRunCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    configId: number
+    provider: number
+    status: number
+    triggeredBy: number
+    startedAt: number
+    finishedAt: number
+    usersDiscovered: number
+    usersCreated: number
+    usersUpdated: number
+    usersSuspended: number
+    errorMessage: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DirectorySyncRunAvgAggregateInputType = {
+    usersDiscovered?: true
+    usersCreated?: true
+    usersUpdated?: true
+    usersSuspended?: true
+  }
+
+  export type DirectorySyncRunSumAggregateInputType = {
+    usersDiscovered?: true
+    usersCreated?: true
+    usersUpdated?: true
+    usersSuspended?: true
+  }
+
+  export type DirectorySyncRunMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    configId?: true
+    provider?: true
+    status?: true
+    triggeredBy?: true
+    startedAt?: true
+    finishedAt?: true
+    usersDiscovered?: true
+    usersCreated?: true
+    usersUpdated?: true
+    usersSuspended?: true
+    errorMessage?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DirectorySyncRunMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    configId?: true
+    provider?: true
+    status?: true
+    triggeredBy?: true
+    startedAt?: true
+    finishedAt?: true
+    usersDiscovered?: true
+    usersCreated?: true
+    usersUpdated?: true
+    usersSuspended?: true
+    errorMessage?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DirectorySyncRunCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    configId?: true
+    provider?: true
+    status?: true
+    triggeredBy?: true
+    startedAt?: true
+    finishedAt?: true
+    usersDiscovered?: true
+    usersCreated?: true
+    usersUpdated?: true
+    usersSuspended?: true
+    errorMessage?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DirectorySyncRunAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DirectorySyncRun to aggregate.
+     */
+    where?: DirectorySyncRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectorySyncRuns to fetch.
+     */
+    orderBy?: DirectorySyncRunOrderByWithRelationInput | DirectorySyncRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DirectorySyncRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectorySyncRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectorySyncRuns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DirectorySyncRuns
+    **/
+    _count?: true | DirectorySyncRunCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DirectorySyncRunAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DirectorySyncRunSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DirectorySyncRunMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DirectorySyncRunMaxAggregateInputType
+  }
+
+  export type GetDirectorySyncRunAggregateType<T extends DirectorySyncRunAggregateArgs> = {
+        [P in keyof T & keyof AggregateDirectorySyncRun]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDirectorySyncRun[P]>
+      : GetScalarType<T[P], AggregateDirectorySyncRun[P]>
+  }
+
+
+
+
+  export type DirectorySyncRunGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DirectorySyncRunWhereInput
+    orderBy?: DirectorySyncRunOrderByWithAggregationInput | DirectorySyncRunOrderByWithAggregationInput[]
+    by: DirectorySyncRunScalarFieldEnum[] | DirectorySyncRunScalarFieldEnum
+    having?: DirectorySyncRunScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DirectorySyncRunCountAggregateInputType | true
+    _avg?: DirectorySyncRunAvgAggregateInputType
+    _sum?: DirectorySyncRunSumAggregateInputType
+    _min?: DirectorySyncRunMinAggregateInputType
+    _max?: DirectorySyncRunMaxAggregateInputType
+  }
+
+  export type DirectorySyncRunGroupByOutputType = {
+    id: string
+    tenantId: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    status: $Enums.DirectorySyncRunStatus
+    triggeredBy: $Enums.DirectorySyncRunTrigger
+    startedAt: Date | null
+    finishedAt: Date | null
+    usersDiscovered: number
+    usersCreated: number
+    usersUpdated: number
+    usersSuspended: number
+    errorMessage: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: DirectorySyncRunCountAggregateOutputType | null
+    _avg: DirectorySyncRunAvgAggregateOutputType | null
+    _sum: DirectorySyncRunSumAggregateOutputType | null
+    _min: DirectorySyncRunMinAggregateOutputType | null
+    _max: DirectorySyncRunMaxAggregateOutputType | null
+  }
+
+  type GetDirectorySyncRunGroupByPayload<T extends DirectorySyncRunGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DirectorySyncRunGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DirectorySyncRunGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DirectorySyncRunGroupByOutputType[P]>
+            : GetScalarType<T[P], DirectorySyncRunGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DirectorySyncRunSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    configId?: boolean
+    provider?: boolean
+    status?: boolean
+    triggeredBy?: boolean
+    startedAt?: boolean
+    finishedAt?: boolean
+    usersDiscovered?: boolean
+    usersCreated?: boolean
+    usersUpdated?: boolean
+    usersSuspended?: boolean
+    errorMessage?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["directorySyncRun"]>
+
+  export type DirectorySyncRunSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    configId?: boolean
+    provider?: boolean
+    status?: boolean
+    triggeredBy?: boolean
+    startedAt?: boolean
+    finishedAt?: boolean
+    usersDiscovered?: boolean
+    usersCreated?: boolean
+    usersUpdated?: boolean
+    usersSuspended?: boolean
+    errorMessage?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["directorySyncRun"]>
+
+  export type DirectorySyncRunSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    configId?: boolean
+    provider?: boolean
+    status?: boolean
+    triggeredBy?: boolean
+    startedAt?: boolean
+    finishedAt?: boolean
+    usersDiscovered?: boolean
+    usersCreated?: boolean
+    usersUpdated?: boolean
+    usersSuspended?: boolean
+    errorMessage?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["directorySyncRun"]>
+
+  export type DirectorySyncRunSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    configId?: boolean
+    provider?: boolean
+    status?: boolean
+    triggeredBy?: boolean
+    startedAt?: boolean
+    finishedAt?: boolean
+    usersDiscovered?: boolean
+    usersCreated?: boolean
+    usersUpdated?: boolean
+    usersSuspended?: boolean
+    errorMessage?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DirectorySyncRunOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "configId" | "provider" | "status" | "triggeredBy" | "startedAt" | "finishedAt" | "usersDiscovered" | "usersCreated" | "usersUpdated" | "usersSuspended" | "errorMessage" | "createdAt" | "updatedAt", ExtArgs["result"]["directorySyncRun"]>
+  export type DirectorySyncRunInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+  }
+  export type DirectorySyncRunIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+  }
+  export type DirectorySyncRunIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+  }
+
+  export type $DirectorySyncRunPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DirectorySyncRun"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      config: Prisma.$DirectorySyncConfigPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      configId: string
+      provider: $Enums.DirectorySyncProvider
+      status: $Enums.DirectorySyncRunStatus
+      triggeredBy: $Enums.DirectorySyncRunTrigger
+      startedAt: Date | null
+      finishedAt: Date | null
+      usersDiscovered: number
+      usersCreated: number
+      usersUpdated: number
+      usersSuspended: number
+      errorMessage: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["directorySyncRun"]>
+    composites: {}
+  }
+
+  type DirectorySyncRunGetPayload<S extends boolean | null | undefined | DirectorySyncRunDefaultArgs> = $Result.GetResult<Prisma.$DirectorySyncRunPayload, S>
+
+  type DirectorySyncRunCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DirectorySyncRunFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DirectorySyncRunCountAggregateInputType | true
+    }
+
+  export interface DirectorySyncRunDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DirectorySyncRun'], meta: { name: 'DirectorySyncRun' } }
+    /**
+     * Find zero or one DirectorySyncRun that matches the filter.
+     * @param {DirectorySyncRunFindUniqueArgs} args - Arguments to find a DirectorySyncRun
+     * @example
+     * // Get one DirectorySyncRun
+     * const directorySyncRun = await prisma.directorySyncRun.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DirectorySyncRunFindUniqueArgs>(args: SelectSubset<T, DirectorySyncRunFindUniqueArgs<ExtArgs>>): Prisma__DirectorySyncRunClient<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DirectorySyncRun that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DirectorySyncRunFindUniqueOrThrowArgs} args - Arguments to find a DirectorySyncRun
+     * @example
+     * // Get one DirectorySyncRun
+     * const directorySyncRun = await prisma.directorySyncRun.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DirectorySyncRunFindUniqueOrThrowArgs>(args: SelectSubset<T, DirectorySyncRunFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DirectorySyncRunClient<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DirectorySyncRun that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncRunFindFirstArgs} args - Arguments to find a DirectorySyncRun
+     * @example
+     * // Get one DirectorySyncRun
+     * const directorySyncRun = await prisma.directorySyncRun.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DirectorySyncRunFindFirstArgs>(args?: SelectSubset<T, DirectorySyncRunFindFirstArgs<ExtArgs>>): Prisma__DirectorySyncRunClient<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DirectorySyncRun that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncRunFindFirstOrThrowArgs} args - Arguments to find a DirectorySyncRun
+     * @example
+     * // Get one DirectorySyncRun
+     * const directorySyncRun = await prisma.directorySyncRun.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DirectorySyncRunFindFirstOrThrowArgs>(args?: SelectSubset<T, DirectorySyncRunFindFirstOrThrowArgs<ExtArgs>>): Prisma__DirectorySyncRunClient<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DirectorySyncRuns that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncRunFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DirectorySyncRuns
+     * const directorySyncRuns = await prisma.directorySyncRun.findMany()
+     * 
+     * // Get first 10 DirectorySyncRuns
+     * const directorySyncRuns = await prisma.directorySyncRun.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const directorySyncRunWithIdOnly = await prisma.directorySyncRun.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DirectorySyncRunFindManyArgs>(args?: SelectSubset<T, DirectorySyncRunFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DirectorySyncRun.
+     * @param {DirectorySyncRunCreateArgs} args - Arguments to create a DirectorySyncRun.
+     * @example
+     * // Create one DirectorySyncRun
+     * const DirectorySyncRun = await prisma.directorySyncRun.create({
+     *   data: {
+     *     // ... data to create a DirectorySyncRun
+     *   }
+     * })
+     * 
+     */
+    create<T extends DirectorySyncRunCreateArgs>(args: SelectSubset<T, DirectorySyncRunCreateArgs<ExtArgs>>): Prisma__DirectorySyncRunClient<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DirectorySyncRuns.
+     * @param {DirectorySyncRunCreateManyArgs} args - Arguments to create many DirectorySyncRuns.
+     * @example
+     * // Create many DirectorySyncRuns
+     * const directorySyncRun = await prisma.directorySyncRun.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DirectorySyncRunCreateManyArgs>(args?: SelectSubset<T, DirectorySyncRunCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DirectorySyncRuns and returns the data saved in the database.
+     * @param {DirectorySyncRunCreateManyAndReturnArgs} args - Arguments to create many DirectorySyncRuns.
+     * @example
+     * // Create many DirectorySyncRuns
+     * const directorySyncRun = await prisma.directorySyncRun.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DirectorySyncRuns and only return the `id`
+     * const directorySyncRunWithIdOnly = await prisma.directorySyncRun.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DirectorySyncRunCreateManyAndReturnArgs>(args?: SelectSubset<T, DirectorySyncRunCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DirectorySyncRun.
+     * @param {DirectorySyncRunDeleteArgs} args - Arguments to delete one DirectorySyncRun.
+     * @example
+     * // Delete one DirectorySyncRun
+     * const DirectorySyncRun = await prisma.directorySyncRun.delete({
+     *   where: {
+     *     // ... filter to delete one DirectorySyncRun
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DirectorySyncRunDeleteArgs>(args: SelectSubset<T, DirectorySyncRunDeleteArgs<ExtArgs>>): Prisma__DirectorySyncRunClient<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DirectorySyncRun.
+     * @param {DirectorySyncRunUpdateArgs} args - Arguments to update one DirectorySyncRun.
+     * @example
+     * // Update one DirectorySyncRun
+     * const directorySyncRun = await prisma.directorySyncRun.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DirectorySyncRunUpdateArgs>(args: SelectSubset<T, DirectorySyncRunUpdateArgs<ExtArgs>>): Prisma__DirectorySyncRunClient<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DirectorySyncRuns.
+     * @param {DirectorySyncRunDeleteManyArgs} args - Arguments to filter DirectorySyncRuns to delete.
+     * @example
+     * // Delete a few DirectorySyncRuns
+     * const { count } = await prisma.directorySyncRun.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DirectorySyncRunDeleteManyArgs>(args?: SelectSubset<T, DirectorySyncRunDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DirectorySyncRuns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncRunUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DirectorySyncRuns
+     * const directorySyncRun = await prisma.directorySyncRun.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DirectorySyncRunUpdateManyArgs>(args: SelectSubset<T, DirectorySyncRunUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DirectorySyncRuns and returns the data updated in the database.
+     * @param {DirectorySyncRunUpdateManyAndReturnArgs} args - Arguments to update many DirectorySyncRuns.
+     * @example
+     * // Update many DirectorySyncRuns
+     * const directorySyncRun = await prisma.directorySyncRun.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DirectorySyncRuns and only return the `id`
+     * const directorySyncRunWithIdOnly = await prisma.directorySyncRun.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DirectorySyncRunUpdateManyAndReturnArgs>(args: SelectSubset<T, DirectorySyncRunUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DirectorySyncRun.
+     * @param {DirectorySyncRunUpsertArgs} args - Arguments to update or create a DirectorySyncRun.
+     * @example
+     * // Update or create a DirectorySyncRun
+     * const directorySyncRun = await prisma.directorySyncRun.upsert({
+     *   create: {
+     *     // ... data to create a DirectorySyncRun
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DirectorySyncRun we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DirectorySyncRunUpsertArgs>(args: SelectSubset<T, DirectorySyncRunUpsertArgs<ExtArgs>>): Prisma__DirectorySyncRunClient<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DirectorySyncRuns.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncRunCountArgs} args - Arguments to filter DirectorySyncRuns to count.
+     * @example
+     * // Count the number of DirectorySyncRuns
+     * const count = await prisma.directorySyncRun.count({
+     *   where: {
+     *     // ... the filter for the DirectorySyncRuns we want to count
+     *   }
+     * })
+    **/
+    count<T extends DirectorySyncRunCountArgs>(
+      args?: Subset<T, DirectorySyncRunCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DirectorySyncRunCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DirectorySyncRun.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncRunAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DirectorySyncRunAggregateArgs>(args: Subset<T, DirectorySyncRunAggregateArgs>): Prisma.PrismaPromise<GetDirectorySyncRunAggregateType<T>>
+
+    /**
+     * Group by DirectorySyncRun.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectorySyncRunGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DirectorySyncRunGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DirectorySyncRunGroupByArgs['orderBy'] }
+        : { orderBy?: DirectorySyncRunGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DirectorySyncRunGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDirectorySyncRunGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DirectorySyncRun model
+   */
+  readonly fields: DirectorySyncRunFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DirectorySyncRun.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DirectorySyncRunClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    config<T extends DirectorySyncConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DirectorySyncConfigDefaultArgs<ExtArgs>>): Prisma__DirectorySyncConfigClient<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DirectorySyncRun model
+   */
+  interface DirectorySyncRunFieldRefs {
+    readonly id: FieldRef<"DirectorySyncRun", 'String'>
+    readonly tenantId: FieldRef<"DirectorySyncRun", 'String'>
+    readonly configId: FieldRef<"DirectorySyncRun", 'String'>
+    readonly provider: FieldRef<"DirectorySyncRun", 'DirectorySyncProvider'>
+    readonly status: FieldRef<"DirectorySyncRun", 'DirectorySyncRunStatus'>
+    readonly triggeredBy: FieldRef<"DirectorySyncRun", 'DirectorySyncRunTrigger'>
+    readonly startedAt: FieldRef<"DirectorySyncRun", 'DateTime'>
+    readonly finishedAt: FieldRef<"DirectorySyncRun", 'DateTime'>
+    readonly usersDiscovered: FieldRef<"DirectorySyncRun", 'Int'>
+    readonly usersCreated: FieldRef<"DirectorySyncRun", 'Int'>
+    readonly usersUpdated: FieldRef<"DirectorySyncRun", 'Int'>
+    readonly usersSuspended: FieldRef<"DirectorySyncRun", 'Int'>
+    readonly errorMessage: FieldRef<"DirectorySyncRun", 'String'>
+    readonly createdAt: FieldRef<"DirectorySyncRun", 'DateTime'>
+    readonly updatedAt: FieldRef<"DirectorySyncRun", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DirectorySyncRun findUnique
+   */
+  export type DirectorySyncRunFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectorySyncRun to fetch.
+     */
+    where: DirectorySyncRunWhereUniqueInput
+  }
+
+  /**
+   * DirectorySyncRun findUniqueOrThrow
+   */
+  export type DirectorySyncRunFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectorySyncRun to fetch.
+     */
+    where: DirectorySyncRunWhereUniqueInput
+  }
+
+  /**
+   * DirectorySyncRun findFirst
+   */
+  export type DirectorySyncRunFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectorySyncRun to fetch.
+     */
+    where?: DirectorySyncRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectorySyncRuns to fetch.
+     */
+    orderBy?: DirectorySyncRunOrderByWithRelationInput | DirectorySyncRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DirectorySyncRuns.
+     */
+    cursor?: DirectorySyncRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectorySyncRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectorySyncRuns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DirectorySyncRuns.
+     */
+    distinct?: DirectorySyncRunScalarFieldEnum | DirectorySyncRunScalarFieldEnum[]
+  }
+
+  /**
+   * DirectorySyncRun findFirstOrThrow
+   */
+  export type DirectorySyncRunFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectorySyncRun to fetch.
+     */
+    where?: DirectorySyncRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectorySyncRuns to fetch.
+     */
+    orderBy?: DirectorySyncRunOrderByWithRelationInput | DirectorySyncRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DirectorySyncRuns.
+     */
+    cursor?: DirectorySyncRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectorySyncRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectorySyncRuns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DirectorySyncRuns.
+     */
+    distinct?: DirectorySyncRunScalarFieldEnum | DirectorySyncRunScalarFieldEnum[]
+  }
+
+  /**
+   * DirectorySyncRun findMany
+   */
+  export type DirectorySyncRunFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectorySyncRuns to fetch.
+     */
+    where?: DirectorySyncRunWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectorySyncRuns to fetch.
+     */
+    orderBy?: DirectorySyncRunOrderByWithRelationInput | DirectorySyncRunOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DirectorySyncRuns.
+     */
+    cursor?: DirectorySyncRunWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectorySyncRuns from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectorySyncRuns.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DirectorySyncRuns.
+     */
+    distinct?: DirectorySyncRunScalarFieldEnum | DirectorySyncRunScalarFieldEnum[]
+  }
+
+  /**
+   * DirectorySyncRun create
+   */
+  export type DirectorySyncRunCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DirectorySyncRun.
+     */
+    data: XOR<DirectorySyncRunCreateInput, DirectorySyncRunUncheckedCreateInput>
+  }
+
+  /**
+   * DirectorySyncRun createMany
+   */
+  export type DirectorySyncRunCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DirectorySyncRuns.
+     */
+    data: DirectorySyncRunCreateManyInput | DirectorySyncRunCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DirectorySyncRun createManyAndReturn
+   */
+  export type DirectorySyncRunCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * The data used to create many DirectorySyncRuns.
+     */
+    data: DirectorySyncRunCreateManyInput | DirectorySyncRunCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DirectorySyncRun update
+   */
+  export type DirectorySyncRunUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DirectorySyncRun.
+     */
+    data: XOR<DirectorySyncRunUpdateInput, DirectorySyncRunUncheckedUpdateInput>
+    /**
+     * Choose, which DirectorySyncRun to update.
+     */
+    where: DirectorySyncRunWhereUniqueInput
+  }
+
+  /**
+   * DirectorySyncRun updateMany
+   */
+  export type DirectorySyncRunUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DirectorySyncRuns.
+     */
+    data: XOR<DirectorySyncRunUpdateManyMutationInput, DirectorySyncRunUncheckedUpdateManyInput>
+    /**
+     * Filter which DirectorySyncRuns to update
+     */
+    where?: DirectorySyncRunWhereInput
+    /**
+     * Limit how many DirectorySyncRuns to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DirectorySyncRun updateManyAndReturn
+   */
+  export type DirectorySyncRunUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * The data used to update DirectorySyncRuns.
+     */
+    data: XOR<DirectorySyncRunUpdateManyMutationInput, DirectorySyncRunUncheckedUpdateManyInput>
+    /**
+     * Filter which DirectorySyncRuns to update
+     */
+    where?: DirectorySyncRunWhereInput
+    /**
+     * Limit how many DirectorySyncRuns to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DirectorySyncRun upsert
+   */
+  export type DirectorySyncRunUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DirectorySyncRun to update in case it exists.
+     */
+    where: DirectorySyncRunWhereUniqueInput
+    /**
+     * In case the DirectorySyncRun found by the `where` argument doesn't exist, create a new DirectorySyncRun with this data.
+     */
+    create: XOR<DirectorySyncRunCreateInput, DirectorySyncRunUncheckedCreateInput>
+    /**
+     * In case the DirectorySyncRun was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DirectorySyncRunUpdateInput, DirectorySyncRunUncheckedUpdateInput>
+  }
+
+  /**
+   * DirectorySyncRun delete
+   */
+  export type DirectorySyncRunDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+    /**
+     * Filter which DirectorySyncRun to delete.
+     */
+    where: DirectorySyncRunWhereUniqueInput
+  }
+
+  /**
+   * DirectorySyncRun deleteMany
+   */
+  export type DirectorySyncRunDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DirectorySyncRuns to delete
+     */
+    where?: DirectorySyncRunWhereInput
+    /**
+     * Limit how many DirectorySyncRuns to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DirectorySyncRun without action
+   */
+  export type DirectorySyncRunDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectorySyncRun
+     */
+    select?: DirectorySyncRunSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectorySyncRun
+     */
+    omit?: DirectorySyncRunOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectorySyncRunInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ExternalIdentityMapping
+   */
+
+  export type AggregateExternalIdentityMapping = {
+    _count: ExternalIdentityMappingCountAggregateOutputType | null
+    _min: ExternalIdentityMappingMinAggregateOutputType | null
+    _max: ExternalIdentityMappingMaxAggregateOutputType | null
+  }
+
+  export type ExternalIdentityMappingMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    configId: string | null
+    provider: $Enums.DirectorySyncProvider | null
+    externalId: string | null
+    userId: string | null
+    externalEmail: string | null
+    externalDisplayName: string | null
+    lastSeenAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExternalIdentityMappingMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    configId: string | null
+    provider: $Enums.DirectorySyncProvider | null
+    externalId: string | null
+    userId: string | null
+    externalEmail: string | null
+    externalDisplayName: string | null
+    lastSeenAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ExternalIdentityMappingCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    configId: number
+    provider: number
+    externalId: number
+    userId: number
+    externalEmail: number
+    externalDisplayName: number
+    externalGroupIds: number
+    lastSeenAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ExternalIdentityMappingMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    configId?: true
+    provider?: true
+    externalId?: true
+    userId?: true
+    externalEmail?: true
+    externalDisplayName?: true
+    lastSeenAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ExternalIdentityMappingMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    configId?: true
+    provider?: true
+    externalId?: true
+    userId?: true
+    externalEmail?: true
+    externalDisplayName?: true
+    lastSeenAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ExternalIdentityMappingCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    configId?: true
+    provider?: true
+    externalId?: true
+    userId?: true
+    externalEmail?: true
+    externalDisplayName?: true
+    externalGroupIds?: true
+    lastSeenAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ExternalIdentityMappingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExternalIdentityMapping to aggregate.
+     */
+    where?: ExternalIdentityMappingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExternalIdentityMappings to fetch.
+     */
+    orderBy?: ExternalIdentityMappingOrderByWithRelationInput | ExternalIdentityMappingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ExternalIdentityMappingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExternalIdentityMappings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExternalIdentityMappings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ExternalIdentityMappings
+    **/
+    _count?: true | ExternalIdentityMappingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ExternalIdentityMappingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ExternalIdentityMappingMaxAggregateInputType
+  }
+
+  export type GetExternalIdentityMappingAggregateType<T extends ExternalIdentityMappingAggregateArgs> = {
+        [P in keyof T & keyof AggregateExternalIdentityMapping]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateExternalIdentityMapping[P]>
+      : GetScalarType<T[P], AggregateExternalIdentityMapping[P]>
+  }
+
+
+
+
+  export type ExternalIdentityMappingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ExternalIdentityMappingWhereInput
+    orderBy?: ExternalIdentityMappingOrderByWithAggregationInput | ExternalIdentityMappingOrderByWithAggregationInput[]
+    by: ExternalIdentityMappingScalarFieldEnum[] | ExternalIdentityMappingScalarFieldEnum
+    having?: ExternalIdentityMappingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ExternalIdentityMappingCountAggregateInputType | true
+    _min?: ExternalIdentityMappingMinAggregateInputType
+    _max?: ExternalIdentityMappingMaxAggregateInputType
+  }
+
+  export type ExternalIdentityMappingGroupByOutputType = {
+    id: string
+    tenantId: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    userId: string
+    externalEmail: string
+    externalDisplayName: string | null
+    externalGroupIds: string[]
+    lastSeenAt: Date
+    createdAt: Date
+    updatedAt: Date
+    _count: ExternalIdentityMappingCountAggregateOutputType | null
+    _min: ExternalIdentityMappingMinAggregateOutputType | null
+    _max: ExternalIdentityMappingMaxAggregateOutputType | null
+  }
+
+  type GetExternalIdentityMappingGroupByPayload<T extends ExternalIdentityMappingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ExternalIdentityMappingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ExternalIdentityMappingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ExternalIdentityMappingGroupByOutputType[P]>
+            : GetScalarType<T[P], ExternalIdentityMappingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ExternalIdentityMappingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    configId?: boolean
+    provider?: boolean
+    externalId?: boolean
+    userId?: boolean
+    externalEmail?: boolean
+    externalDisplayName?: boolean
+    externalGroupIds?: boolean
+    lastSeenAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["externalIdentityMapping"]>
+
+  export type ExternalIdentityMappingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    configId?: boolean
+    provider?: boolean
+    externalId?: boolean
+    userId?: boolean
+    externalEmail?: boolean
+    externalDisplayName?: boolean
+    externalGroupIds?: boolean
+    lastSeenAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["externalIdentityMapping"]>
+
+  export type ExternalIdentityMappingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    configId?: boolean
+    provider?: boolean
+    externalId?: boolean
+    userId?: boolean
+    externalEmail?: boolean
+    externalDisplayName?: boolean
+    externalGroupIds?: boolean
+    lastSeenAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["externalIdentityMapping"]>
+
+  export type ExternalIdentityMappingSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    configId?: boolean
+    provider?: boolean
+    externalId?: boolean
+    userId?: boolean
+    externalEmail?: boolean
+    externalDisplayName?: boolean
+    externalGroupIds?: boolean
+    lastSeenAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ExternalIdentityMappingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "configId" | "provider" | "externalId" | "userId" | "externalEmail" | "externalDisplayName" | "externalGroupIds" | "lastSeenAt" | "createdAt" | "updatedAt", ExtArgs["result"]["externalIdentityMapping"]>
+  export type ExternalIdentityMappingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ExternalIdentityMappingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ExternalIdentityMappingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    config?: boolean | DirectorySyncConfigDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ExternalIdentityMappingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ExternalIdentityMapping"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      config: Prisma.$DirectorySyncConfigPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      configId: string
+      provider: $Enums.DirectorySyncProvider
+      externalId: string
+      userId: string
+      externalEmail: string
+      externalDisplayName: string | null
+      externalGroupIds: string[]
+      lastSeenAt: Date
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["externalIdentityMapping"]>
+    composites: {}
+  }
+
+  type ExternalIdentityMappingGetPayload<S extends boolean | null | undefined | ExternalIdentityMappingDefaultArgs> = $Result.GetResult<Prisma.$ExternalIdentityMappingPayload, S>
+
+  type ExternalIdentityMappingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ExternalIdentityMappingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ExternalIdentityMappingCountAggregateInputType | true
+    }
+
+  export interface ExternalIdentityMappingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ExternalIdentityMapping'], meta: { name: 'ExternalIdentityMapping' } }
+    /**
+     * Find zero or one ExternalIdentityMapping that matches the filter.
+     * @param {ExternalIdentityMappingFindUniqueArgs} args - Arguments to find a ExternalIdentityMapping
+     * @example
+     * // Get one ExternalIdentityMapping
+     * const externalIdentityMapping = await prisma.externalIdentityMapping.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ExternalIdentityMappingFindUniqueArgs>(args: SelectSubset<T, ExternalIdentityMappingFindUniqueArgs<ExtArgs>>): Prisma__ExternalIdentityMappingClient<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ExternalIdentityMapping that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ExternalIdentityMappingFindUniqueOrThrowArgs} args - Arguments to find a ExternalIdentityMapping
+     * @example
+     * // Get one ExternalIdentityMapping
+     * const externalIdentityMapping = await prisma.externalIdentityMapping.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ExternalIdentityMappingFindUniqueOrThrowArgs>(args: SelectSubset<T, ExternalIdentityMappingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ExternalIdentityMappingClient<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExternalIdentityMapping that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExternalIdentityMappingFindFirstArgs} args - Arguments to find a ExternalIdentityMapping
+     * @example
+     * // Get one ExternalIdentityMapping
+     * const externalIdentityMapping = await prisma.externalIdentityMapping.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ExternalIdentityMappingFindFirstArgs>(args?: SelectSubset<T, ExternalIdentityMappingFindFirstArgs<ExtArgs>>): Prisma__ExternalIdentityMappingClient<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ExternalIdentityMapping that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExternalIdentityMappingFindFirstOrThrowArgs} args - Arguments to find a ExternalIdentityMapping
+     * @example
+     * // Get one ExternalIdentityMapping
+     * const externalIdentityMapping = await prisma.externalIdentityMapping.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ExternalIdentityMappingFindFirstOrThrowArgs>(args?: SelectSubset<T, ExternalIdentityMappingFindFirstOrThrowArgs<ExtArgs>>): Prisma__ExternalIdentityMappingClient<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ExternalIdentityMappings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExternalIdentityMappingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ExternalIdentityMappings
+     * const externalIdentityMappings = await prisma.externalIdentityMapping.findMany()
+     * 
+     * // Get first 10 ExternalIdentityMappings
+     * const externalIdentityMappings = await prisma.externalIdentityMapping.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const externalIdentityMappingWithIdOnly = await prisma.externalIdentityMapping.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ExternalIdentityMappingFindManyArgs>(args?: SelectSubset<T, ExternalIdentityMappingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ExternalIdentityMapping.
+     * @param {ExternalIdentityMappingCreateArgs} args - Arguments to create a ExternalIdentityMapping.
+     * @example
+     * // Create one ExternalIdentityMapping
+     * const ExternalIdentityMapping = await prisma.externalIdentityMapping.create({
+     *   data: {
+     *     // ... data to create a ExternalIdentityMapping
+     *   }
+     * })
+     * 
+     */
+    create<T extends ExternalIdentityMappingCreateArgs>(args: SelectSubset<T, ExternalIdentityMappingCreateArgs<ExtArgs>>): Prisma__ExternalIdentityMappingClient<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ExternalIdentityMappings.
+     * @param {ExternalIdentityMappingCreateManyArgs} args - Arguments to create many ExternalIdentityMappings.
+     * @example
+     * // Create many ExternalIdentityMappings
+     * const externalIdentityMapping = await prisma.externalIdentityMapping.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ExternalIdentityMappingCreateManyArgs>(args?: SelectSubset<T, ExternalIdentityMappingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ExternalIdentityMappings and returns the data saved in the database.
+     * @param {ExternalIdentityMappingCreateManyAndReturnArgs} args - Arguments to create many ExternalIdentityMappings.
+     * @example
+     * // Create many ExternalIdentityMappings
+     * const externalIdentityMapping = await prisma.externalIdentityMapping.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ExternalIdentityMappings and only return the `id`
+     * const externalIdentityMappingWithIdOnly = await prisma.externalIdentityMapping.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ExternalIdentityMappingCreateManyAndReturnArgs>(args?: SelectSubset<T, ExternalIdentityMappingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ExternalIdentityMapping.
+     * @param {ExternalIdentityMappingDeleteArgs} args - Arguments to delete one ExternalIdentityMapping.
+     * @example
+     * // Delete one ExternalIdentityMapping
+     * const ExternalIdentityMapping = await prisma.externalIdentityMapping.delete({
+     *   where: {
+     *     // ... filter to delete one ExternalIdentityMapping
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ExternalIdentityMappingDeleteArgs>(args: SelectSubset<T, ExternalIdentityMappingDeleteArgs<ExtArgs>>): Prisma__ExternalIdentityMappingClient<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ExternalIdentityMapping.
+     * @param {ExternalIdentityMappingUpdateArgs} args - Arguments to update one ExternalIdentityMapping.
+     * @example
+     * // Update one ExternalIdentityMapping
+     * const externalIdentityMapping = await prisma.externalIdentityMapping.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ExternalIdentityMappingUpdateArgs>(args: SelectSubset<T, ExternalIdentityMappingUpdateArgs<ExtArgs>>): Prisma__ExternalIdentityMappingClient<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ExternalIdentityMappings.
+     * @param {ExternalIdentityMappingDeleteManyArgs} args - Arguments to filter ExternalIdentityMappings to delete.
+     * @example
+     * // Delete a few ExternalIdentityMappings
+     * const { count } = await prisma.externalIdentityMapping.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ExternalIdentityMappingDeleteManyArgs>(args?: SelectSubset<T, ExternalIdentityMappingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExternalIdentityMappings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExternalIdentityMappingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ExternalIdentityMappings
+     * const externalIdentityMapping = await prisma.externalIdentityMapping.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ExternalIdentityMappingUpdateManyArgs>(args: SelectSubset<T, ExternalIdentityMappingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ExternalIdentityMappings and returns the data updated in the database.
+     * @param {ExternalIdentityMappingUpdateManyAndReturnArgs} args - Arguments to update many ExternalIdentityMappings.
+     * @example
+     * // Update many ExternalIdentityMappings
+     * const externalIdentityMapping = await prisma.externalIdentityMapping.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ExternalIdentityMappings and only return the `id`
+     * const externalIdentityMappingWithIdOnly = await prisma.externalIdentityMapping.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ExternalIdentityMappingUpdateManyAndReturnArgs>(args: SelectSubset<T, ExternalIdentityMappingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ExternalIdentityMapping.
+     * @param {ExternalIdentityMappingUpsertArgs} args - Arguments to update or create a ExternalIdentityMapping.
+     * @example
+     * // Update or create a ExternalIdentityMapping
+     * const externalIdentityMapping = await prisma.externalIdentityMapping.upsert({
+     *   create: {
+     *     // ... data to create a ExternalIdentityMapping
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ExternalIdentityMapping we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ExternalIdentityMappingUpsertArgs>(args: SelectSubset<T, ExternalIdentityMappingUpsertArgs<ExtArgs>>): Prisma__ExternalIdentityMappingClient<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ExternalIdentityMappings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExternalIdentityMappingCountArgs} args - Arguments to filter ExternalIdentityMappings to count.
+     * @example
+     * // Count the number of ExternalIdentityMappings
+     * const count = await prisma.externalIdentityMapping.count({
+     *   where: {
+     *     // ... the filter for the ExternalIdentityMappings we want to count
+     *   }
+     * })
+    **/
+    count<T extends ExternalIdentityMappingCountArgs>(
+      args?: Subset<T, ExternalIdentityMappingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ExternalIdentityMappingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ExternalIdentityMapping.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExternalIdentityMappingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ExternalIdentityMappingAggregateArgs>(args: Subset<T, ExternalIdentityMappingAggregateArgs>): Prisma.PrismaPromise<GetExternalIdentityMappingAggregateType<T>>
+
+    /**
+     * Group by ExternalIdentityMapping.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ExternalIdentityMappingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ExternalIdentityMappingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ExternalIdentityMappingGroupByArgs['orderBy'] }
+        : { orderBy?: ExternalIdentityMappingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ExternalIdentityMappingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetExternalIdentityMappingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ExternalIdentityMapping model
+   */
+  readonly fields: ExternalIdentityMappingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ExternalIdentityMapping.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ExternalIdentityMappingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    config<T extends DirectorySyncConfigDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DirectorySyncConfigDefaultArgs<ExtArgs>>): Prisma__DirectorySyncConfigClient<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ExternalIdentityMapping model
+   */
+  interface ExternalIdentityMappingFieldRefs {
+    readonly id: FieldRef<"ExternalIdentityMapping", 'String'>
+    readonly tenantId: FieldRef<"ExternalIdentityMapping", 'String'>
+    readonly configId: FieldRef<"ExternalIdentityMapping", 'String'>
+    readonly provider: FieldRef<"ExternalIdentityMapping", 'DirectorySyncProvider'>
+    readonly externalId: FieldRef<"ExternalIdentityMapping", 'String'>
+    readonly userId: FieldRef<"ExternalIdentityMapping", 'String'>
+    readonly externalEmail: FieldRef<"ExternalIdentityMapping", 'String'>
+    readonly externalDisplayName: FieldRef<"ExternalIdentityMapping", 'String'>
+    readonly externalGroupIds: FieldRef<"ExternalIdentityMapping", 'String[]'>
+    readonly lastSeenAt: FieldRef<"ExternalIdentityMapping", 'DateTime'>
+    readonly createdAt: FieldRef<"ExternalIdentityMapping", 'DateTime'>
+    readonly updatedAt: FieldRef<"ExternalIdentityMapping", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ExternalIdentityMapping findUnique
+   */
+  export type ExternalIdentityMappingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    /**
+     * Filter, which ExternalIdentityMapping to fetch.
+     */
+    where: ExternalIdentityMappingWhereUniqueInput
+  }
+
+  /**
+   * ExternalIdentityMapping findUniqueOrThrow
+   */
+  export type ExternalIdentityMappingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    /**
+     * Filter, which ExternalIdentityMapping to fetch.
+     */
+    where: ExternalIdentityMappingWhereUniqueInput
+  }
+
+  /**
+   * ExternalIdentityMapping findFirst
+   */
+  export type ExternalIdentityMappingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    /**
+     * Filter, which ExternalIdentityMapping to fetch.
+     */
+    where?: ExternalIdentityMappingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExternalIdentityMappings to fetch.
+     */
+    orderBy?: ExternalIdentityMappingOrderByWithRelationInput | ExternalIdentityMappingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExternalIdentityMappings.
+     */
+    cursor?: ExternalIdentityMappingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExternalIdentityMappings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExternalIdentityMappings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExternalIdentityMappings.
+     */
+    distinct?: ExternalIdentityMappingScalarFieldEnum | ExternalIdentityMappingScalarFieldEnum[]
+  }
+
+  /**
+   * ExternalIdentityMapping findFirstOrThrow
+   */
+  export type ExternalIdentityMappingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    /**
+     * Filter, which ExternalIdentityMapping to fetch.
+     */
+    where?: ExternalIdentityMappingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExternalIdentityMappings to fetch.
+     */
+    orderBy?: ExternalIdentityMappingOrderByWithRelationInput | ExternalIdentityMappingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ExternalIdentityMappings.
+     */
+    cursor?: ExternalIdentityMappingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExternalIdentityMappings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExternalIdentityMappings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExternalIdentityMappings.
+     */
+    distinct?: ExternalIdentityMappingScalarFieldEnum | ExternalIdentityMappingScalarFieldEnum[]
+  }
+
+  /**
+   * ExternalIdentityMapping findMany
+   */
+  export type ExternalIdentityMappingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    /**
+     * Filter, which ExternalIdentityMappings to fetch.
+     */
+    where?: ExternalIdentityMappingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ExternalIdentityMappings to fetch.
+     */
+    orderBy?: ExternalIdentityMappingOrderByWithRelationInput | ExternalIdentityMappingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ExternalIdentityMappings.
+     */
+    cursor?: ExternalIdentityMappingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ExternalIdentityMappings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ExternalIdentityMappings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ExternalIdentityMappings.
+     */
+    distinct?: ExternalIdentityMappingScalarFieldEnum | ExternalIdentityMappingScalarFieldEnum[]
+  }
+
+  /**
+   * ExternalIdentityMapping create
+   */
+  export type ExternalIdentityMappingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ExternalIdentityMapping.
+     */
+    data: XOR<ExternalIdentityMappingCreateInput, ExternalIdentityMappingUncheckedCreateInput>
+  }
+
+  /**
+   * ExternalIdentityMapping createMany
+   */
+  export type ExternalIdentityMappingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ExternalIdentityMappings.
+     */
+    data: ExternalIdentityMappingCreateManyInput | ExternalIdentityMappingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ExternalIdentityMapping createManyAndReturn
+   */
+  export type ExternalIdentityMappingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * The data used to create many ExternalIdentityMappings.
+     */
+    data: ExternalIdentityMappingCreateManyInput | ExternalIdentityMappingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ExternalIdentityMapping update
+   */
+  export type ExternalIdentityMappingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ExternalIdentityMapping.
+     */
+    data: XOR<ExternalIdentityMappingUpdateInput, ExternalIdentityMappingUncheckedUpdateInput>
+    /**
+     * Choose, which ExternalIdentityMapping to update.
+     */
+    where: ExternalIdentityMappingWhereUniqueInput
+  }
+
+  /**
+   * ExternalIdentityMapping updateMany
+   */
+  export type ExternalIdentityMappingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ExternalIdentityMappings.
+     */
+    data: XOR<ExternalIdentityMappingUpdateManyMutationInput, ExternalIdentityMappingUncheckedUpdateManyInput>
+    /**
+     * Filter which ExternalIdentityMappings to update
+     */
+    where?: ExternalIdentityMappingWhereInput
+    /**
+     * Limit how many ExternalIdentityMappings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExternalIdentityMapping updateManyAndReturn
+   */
+  export type ExternalIdentityMappingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * The data used to update ExternalIdentityMappings.
+     */
+    data: XOR<ExternalIdentityMappingUpdateManyMutationInput, ExternalIdentityMappingUncheckedUpdateManyInput>
+    /**
+     * Filter which ExternalIdentityMappings to update
+     */
+    where?: ExternalIdentityMappingWhereInput
+    /**
+     * Limit how many ExternalIdentityMappings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ExternalIdentityMapping upsert
+   */
+  export type ExternalIdentityMappingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ExternalIdentityMapping to update in case it exists.
+     */
+    where: ExternalIdentityMappingWhereUniqueInput
+    /**
+     * In case the ExternalIdentityMapping found by the `where` argument doesn't exist, create a new ExternalIdentityMapping with this data.
+     */
+    create: XOR<ExternalIdentityMappingCreateInput, ExternalIdentityMappingUncheckedCreateInput>
+    /**
+     * In case the ExternalIdentityMapping was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ExternalIdentityMappingUpdateInput, ExternalIdentityMappingUncheckedUpdateInput>
+  }
+
+  /**
+   * ExternalIdentityMapping delete
+   */
+  export type ExternalIdentityMappingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
+    /**
+     * Filter which ExternalIdentityMapping to delete.
+     */
+    where: ExternalIdentityMappingWhereUniqueInput
+  }
+
+  /**
+   * ExternalIdentityMapping deleteMany
+   */
+  export type ExternalIdentityMappingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ExternalIdentityMappings to delete
+     */
+    where?: ExternalIdentityMappingWhereInput
+    /**
+     * Limit how many ExternalIdentityMappings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ExternalIdentityMapping without action
+   */
+  export type ExternalIdentityMappingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ExternalIdentityMapping
+     */
+    select?: ExternalIdentityMappingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ExternalIdentityMapping
+     */
+    omit?: ExternalIdentityMappingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ExternalIdentityMappingInclude<ExtArgs> | null
   }
 
 
@@ -104782,6 +108975,65 @@ export namespace Prisma {
   export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof typeof MembershipScalarFieldEnum]
 
 
+  export const DirectorySyncConfigScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    provider: 'provider',
+    isEnabled: 'isEnabled',
+    syncFrequencyMinutes: 'syncFrequencyMinutes',
+    defaultRole: 'defaultRole',
+    defaultStatus: 'defaultStatus',
+    groupRoleMappings: 'groupRoleMappings',
+    encryptedCredentials: 'encryptedCredentials',
+    lastSyncAt: 'lastSyncAt',
+    lastSyncStatus: 'lastSyncStatus',
+    lastSyncError: 'lastSyncError',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DirectorySyncConfigScalarFieldEnum = (typeof DirectorySyncConfigScalarFieldEnum)[keyof typeof DirectorySyncConfigScalarFieldEnum]
+
+
+  export const DirectorySyncRunScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    configId: 'configId',
+    provider: 'provider',
+    status: 'status',
+    triggeredBy: 'triggeredBy',
+    startedAt: 'startedAt',
+    finishedAt: 'finishedAt',
+    usersDiscovered: 'usersDiscovered',
+    usersCreated: 'usersCreated',
+    usersUpdated: 'usersUpdated',
+    usersSuspended: 'usersSuspended',
+    errorMessage: 'errorMessage',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DirectorySyncRunScalarFieldEnum = (typeof DirectorySyncRunScalarFieldEnum)[keyof typeof DirectorySyncRunScalarFieldEnum]
+
+
+  export const ExternalIdentityMappingScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    configId: 'configId',
+    provider: 'provider',
+    externalId: 'externalId',
+    userId: 'userId',
+    externalEmail: 'externalEmail',
+    externalDisplayName: 'externalDisplayName',
+    externalGroupIds: 'externalGroupIds',
+    lastSeenAt: 'lastSeenAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ExternalIdentityMappingScalarFieldEnum = (typeof ExternalIdentityMappingScalarFieldEnum)[keyof typeof ExternalIdentityMappingScalarFieldEnum]
+
+
   export const KnownVendorScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -106377,6 +110629,62 @@ export namespace Prisma {
    * Reference to a field of type 'MembershipStatus[]'
    */
   export type ListEnumMembershipStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MembershipStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DirectorySyncProvider'
+   */
+  export type EnumDirectorySyncProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DirectorySyncProvider'>
+    
+
+
+  /**
+   * Reference to a field of type 'DirectorySyncProvider[]'
+   */
+  export type ListEnumDirectorySyncProviderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DirectorySyncProvider[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DirectorySyncDefaultStatus'
+   */
+  export type EnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DirectorySyncDefaultStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'DirectorySyncDefaultStatus[]'
+   */
+  export type ListEnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DirectorySyncDefaultStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DirectorySyncRunStatus'
+   */
+  export type EnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DirectorySyncRunStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'DirectorySyncRunStatus[]'
+   */
+  export type ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DirectorySyncRunStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DirectorySyncRunTrigger'
+   */
+  export type EnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DirectorySyncRunTrigger'>
+    
+
+
+  /**
+   * Reference to a field of type 'DirectorySyncRunTrigger[]'
+   */
+  export type ListEnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DirectorySyncRunTrigger[]'>
     
 
 
@@ -112019,6 +116327,9 @@ export namespace Prisma {
     answers?: AnswerListRelationFilter
     questionnaireImportJobs?: QuestionnaireImportJobListRelationFilter
     controlWeaknesses?: ControlWeaknessListRelationFilter
+    directorySyncConfigs?: DirectorySyncConfigListRelationFilter
+    directorySyncRuns?: DirectorySyncRunListRelationFilter
+    externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -112088,6 +116399,9 @@ export namespace Prisma {
     answers?: AnswerOrderByRelationAggregateInput
     questionnaireImportJobs?: QuestionnaireImportJobOrderByRelationAggregateInput
     controlWeaknesses?: ControlWeaknessOrderByRelationAggregateInput
+    directorySyncConfigs?: DirectorySyncConfigOrderByRelationAggregateInput
+    directorySyncRuns?: DirectorySyncRunOrderByRelationAggregateInput
+    externalIdentityMappings?: ExternalIdentityMappingOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -112160,6 +116474,9 @@ export namespace Prisma {
     answers?: AnswerListRelationFilter
     questionnaireImportJobs?: QuestionnaireImportJobListRelationFilter
     controlWeaknesses?: ControlWeaknessListRelationFilter
+    directorySyncConfigs?: DirectorySyncConfigListRelationFilter
+    directorySyncRuns?: DirectorySyncRunListRelationFilter
+    externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
@@ -113352,6 +117669,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireListRelationFilter
     reviewedAnswers?: AnswerListRelationFilter
     questionnaireImportJobs?: QuestionnaireImportJobListRelationFilter
+    externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -113420,6 +117738,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireOrderByRelationAggregateInput
     reviewedAnswers?: AnswerOrderByRelationAggregateInput
     questionnaireImportJobs?: QuestionnaireImportJobOrderByRelationAggregateInput
+    externalIdentityMappings?: ExternalIdentityMappingOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -113492,6 +117811,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireListRelationFilter
     reviewedAnswers?: AnswerListRelationFilter
     questionnaireImportJobs?: QuestionnaireImportJobListRelationFilter
+    externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
   }, "id" | "email" | "authProvider_externalId">
 
   export type UserOrderByWithAggregationInput = {
@@ -113610,6 +117930,322 @@ export namespace Prisma {
     joinedAt?: DateTimeNullableWithAggregatesFilter<"Membership"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Membership"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Membership"> | Date | string
+  }
+
+  export type DirectorySyncConfigWhereInput = {
+    AND?: DirectorySyncConfigWhereInput | DirectorySyncConfigWhereInput[]
+    OR?: DirectorySyncConfigWhereInput[]
+    NOT?: DirectorySyncConfigWhereInput | DirectorySyncConfigWhereInput[]
+    id?: StringFilter<"DirectorySyncConfig"> | string
+    tenantId?: StringFilter<"DirectorySyncConfig"> | string
+    provider?: EnumDirectorySyncProviderFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFilter<"DirectorySyncConfig"> | boolean
+    syncFrequencyMinutes?: IntFilter<"DirectorySyncConfig"> | number
+    defaultRole?: EnumMembershipRoleFilter<"DirectorySyncConfig"> | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: JsonNullableFilter<"DirectorySyncConfig">
+    encryptedCredentials?: StringFilter<"DirectorySyncConfig"> | string
+    lastSyncAt?: DateTimeNullableFilter<"DirectorySyncConfig"> | Date | string | null
+    lastSyncStatus?: EnumDirectorySyncRunStatusNullableFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: StringNullableFilter<"DirectorySyncConfig"> | string | null
+    createdAt?: DateTimeFilter<"DirectorySyncConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"DirectorySyncConfig"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    runs?: DirectorySyncRunListRelationFilter
+    mappings?: ExternalIdentityMappingListRelationFilter
+  }
+
+  export type DirectorySyncConfigOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    provider?: SortOrder
+    isEnabled?: SortOrder
+    syncFrequencyMinutes?: SortOrder
+    defaultRole?: SortOrder
+    defaultStatus?: SortOrder
+    groupRoleMappings?: SortOrderInput | SortOrder
+    encryptedCredentials?: SortOrder
+    lastSyncAt?: SortOrderInput | SortOrder
+    lastSyncStatus?: SortOrderInput | SortOrder
+    lastSyncError?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    runs?: DirectorySyncRunOrderByRelationAggregateInput
+    mappings?: ExternalIdentityMappingOrderByRelationAggregateInput
+  }
+
+  export type DirectorySyncConfigWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId_provider?: DirectorySyncConfigTenantIdProviderCompoundUniqueInput
+    AND?: DirectorySyncConfigWhereInput | DirectorySyncConfigWhereInput[]
+    OR?: DirectorySyncConfigWhereInput[]
+    NOT?: DirectorySyncConfigWhereInput | DirectorySyncConfigWhereInput[]
+    tenantId?: StringFilter<"DirectorySyncConfig"> | string
+    provider?: EnumDirectorySyncProviderFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFilter<"DirectorySyncConfig"> | boolean
+    syncFrequencyMinutes?: IntFilter<"DirectorySyncConfig"> | number
+    defaultRole?: EnumMembershipRoleFilter<"DirectorySyncConfig"> | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: JsonNullableFilter<"DirectorySyncConfig">
+    encryptedCredentials?: StringFilter<"DirectorySyncConfig"> | string
+    lastSyncAt?: DateTimeNullableFilter<"DirectorySyncConfig"> | Date | string | null
+    lastSyncStatus?: EnumDirectorySyncRunStatusNullableFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: StringNullableFilter<"DirectorySyncConfig"> | string | null
+    createdAt?: DateTimeFilter<"DirectorySyncConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"DirectorySyncConfig"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    runs?: DirectorySyncRunListRelationFilter
+    mappings?: ExternalIdentityMappingListRelationFilter
+  }, "id" | "tenantId_provider">
+
+  export type DirectorySyncConfigOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    provider?: SortOrder
+    isEnabled?: SortOrder
+    syncFrequencyMinutes?: SortOrder
+    defaultRole?: SortOrder
+    defaultStatus?: SortOrder
+    groupRoleMappings?: SortOrderInput | SortOrder
+    encryptedCredentials?: SortOrder
+    lastSyncAt?: SortOrderInput | SortOrder
+    lastSyncStatus?: SortOrderInput | SortOrder
+    lastSyncError?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DirectorySyncConfigCountOrderByAggregateInput
+    _avg?: DirectorySyncConfigAvgOrderByAggregateInput
+    _max?: DirectorySyncConfigMaxOrderByAggregateInput
+    _min?: DirectorySyncConfigMinOrderByAggregateInput
+    _sum?: DirectorySyncConfigSumOrderByAggregateInput
+  }
+
+  export type DirectorySyncConfigScalarWhereWithAggregatesInput = {
+    AND?: DirectorySyncConfigScalarWhereWithAggregatesInput | DirectorySyncConfigScalarWhereWithAggregatesInput[]
+    OR?: DirectorySyncConfigScalarWhereWithAggregatesInput[]
+    NOT?: DirectorySyncConfigScalarWhereWithAggregatesInput | DirectorySyncConfigScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DirectorySyncConfig"> | string
+    tenantId?: StringWithAggregatesFilter<"DirectorySyncConfig"> | string
+    provider?: EnumDirectorySyncProviderWithAggregatesFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncProvider
+    isEnabled?: BoolWithAggregatesFilter<"DirectorySyncConfig"> | boolean
+    syncFrequencyMinutes?: IntWithAggregatesFilter<"DirectorySyncConfig"> | number
+    defaultRole?: EnumMembershipRoleWithAggregatesFilter<"DirectorySyncConfig"> | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusWithAggregatesFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: JsonNullableWithAggregatesFilter<"DirectorySyncConfig">
+    encryptedCredentials?: StringWithAggregatesFilter<"DirectorySyncConfig"> | string
+    lastSyncAt?: DateTimeNullableWithAggregatesFilter<"DirectorySyncConfig"> | Date | string | null
+    lastSyncStatus?: EnumDirectorySyncRunStatusNullableWithAggregatesFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: StringNullableWithAggregatesFilter<"DirectorySyncConfig"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DirectorySyncConfig"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DirectorySyncConfig"> | Date | string
+  }
+
+  export type DirectorySyncRunWhereInput = {
+    AND?: DirectorySyncRunWhereInput | DirectorySyncRunWhereInput[]
+    OR?: DirectorySyncRunWhereInput[]
+    NOT?: DirectorySyncRunWhereInput | DirectorySyncRunWhereInput[]
+    id?: StringFilter<"DirectorySyncRun"> | string
+    tenantId?: StringFilter<"DirectorySyncRun"> | string
+    configId?: StringFilter<"DirectorySyncRun"> | string
+    provider?: EnumDirectorySyncProviderFilter<"DirectorySyncRun"> | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFilter<"DirectorySyncRun"> | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFilter<"DirectorySyncRun"> | $Enums.DirectorySyncRunTrigger
+    startedAt?: DateTimeNullableFilter<"DirectorySyncRun"> | Date | string | null
+    finishedAt?: DateTimeNullableFilter<"DirectorySyncRun"> | Date | string | null
+    usersDiscovered?: IntFilter<"DirectorySyncRun"> | number
+    usersCreated?: IntFilter<"DirectorySyncRun"> | number
+    usersUpdated?: IntFilter<"DirectorySyncRun"> | number
+    usersSuspended?: IntFilter<"DirectorySyncRun"> | number
+    errorMessage?: StringNullableFilter<"DirectorySyncRun"> | string | null
+    createdAt?: DateTimeFilter<"DirectorySyncRun"> | Date | string
+    updatedAt?: DateTimeFilter<"DirectorySyncRun"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    config?: XOR<DirectorySyncConfigScalarRelationFilter, DirectorySyncConfigWhereInput>
+  }
+
+  export type DirectorySyncRunOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    configId?: SortOrder
+    provider?: SortOrder
+    status?: SortOrder
+    triggeredBy?: SortOrder
+    startedAt?: SortOrderInput | SortOrder
+    finishedAt?: SortOrderInput | SortOrder
+    usersDiscovered?: SortOrder
+    usersCreated?: SortOrder
+    usersUpdated?: SortOrder
+    usersSuspended?: SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    config?: DirectorySyncConfigOrderByWithRelationInput
+  }
+
+  export type DirectorySyncRunWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DirectorySyncRunWhereInput | DirectorySyncRunWhereInput[]
+    OR?: DirectorySyncRunWhereInput[]
+    NOT?: DirectorySyncRunWhereInput | DirectorySyncRunWhereInput[]
+    tenantId?: StringFilter<"DirectorySyncRun"> | string
+    configId?: StringFilter<"DirectorySyncRun"> | string
+    provider?: EnumDirectorySyncProviderFilter<"DirectorySyncRun"> | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFilter<"DirectorySyncRun"> | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFilter<"DirectorySyncRun"> | $Enums.DirectorySyncRunTrigger
+    startedAt?: DateTimeNullableFilter<"DirectorySyncRun"> | Date | string | null
+    finishedAt?: DateTimeNullableFilter<"DirectorySyncRun"> | Date | string | null
+    usersDiscovered?: IntFilter<"DirectorySyncRun"> | number
+    usersCreated?: IntFilter<"DirectorySyncRun"> | number
+    usersUpdated?: IntFilter<"DirectorySyncRun"> | number
+    usersSuspended?: IntFilter<"DirectorySyncRun"> | number
+    errorMessage?: StringNullableFilter<"DirectorySyncRun"> | string | null
+    createdAt?: DateTimeFilter<"DirectorySyncRun"> | Date | string
+    updatedAt?: DateTimeFilter<"DirectorySyncRun"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    config?: XOR<DirectorySyncConfigScalarRelationFilter, DirectorySyncConfigWhereInput>
+  }, "id">
+
+  export type DirectorySyncRunOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    configId?: SortOrder
+    provider?: SortOrder
+    status?: SortOrder
+    triggeredBy?: SortOrder
+    startedAt?: SortOrderInput | SortOrder
+    finishedAt?: SortOrderInput | SortOrder
+    usersDiscovered?: SortOrder
+    usersCreated?: SortOrder
+    usersUpdated?: SortOrder
+    usersSuspended?: SortOrder
+    errorMessage?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DirectorySyncRunCountOrderByAggregateInput
+    _avg?: DirectorySyncRunAvgOrderByAggregateInput
+    _max?: DirectorySyncRunMaxOrderByAggregateInput
+    _min?: DirectorySyncRunMinOrderByAggregateInput
+    _sum?: DirectorySyncRunSumOrderByAggregateInput
+  }
+
+  export type DirectorySyncRunScalarWhereWithAggregatesInput = {
+    AND?: DirectorySyncRunScalarWhereWithAggregatesInput | DirectorySyncRunScalarWhereWithAggregatesInput[]
+    OR?: DirectorySyncRunScalarWhereWithAggregatesInput[]
+    NOT?: DirectorySyncRunScalarWhereWithAggregatesInput | DirectorySyncRunScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DirectorySyncRun"> | string
+    tenantId?: StringWithAggregatesFilter<"DirectorySyncRun"> | string
+    configId?: StringWithAggregatesFilter<"DirectorySyncRun"> | string
+    provider?: EnumDirectorySyncProviderWithAggregatesFilter<"DirectorySyncRun"> | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusWithAggregatesFilter<"DirectorySyncRun"> | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerWithAggregatesFilter<"DirectorySyncRun"> | $Enums.DirectorySyncRunTrigger
+    startedAt?: DateTimeNullableWithAggregatesFilter<"DirectorySyncRun"> | Date | string | null
+    finishedAt?: DateTimeNullableWithAggregatesFilter<"DirectorySyncRun"> | Date | string | null
+    usersDiscovered?: IntWithAggregatesFilter<"DirectorySyncRun"> | number
+    usersCreated?: IntWithAggregatesFilter<"DirectorySyncRun"> | number
+    usersUpdated?: IntWithAggregatesFilter<"DirectorySyncRun"> | number
+    usersSuspended?: IntWithAggregatesFilter<"DirectorySyncRun"> | number
+    errorMessage?: StringNullableWithAggregatesFilter<"DirectorySyncRun"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DirectorySyncRun"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DirectorySyncRun"> | Date | string
+  }
+
+  export type ExternalIdentityMappingWhereInput = {
+    AND?: ExternalIdentityMappingWhereInput | ExternalIdentityMappingWhereInput[]
+    OR?: ExternalIdentityMappingWhereInput[]
+    NOT?: ExternalIdentityMappingWhereInput | ExternalIdentityMappingWhereInput[]
+    id?: StringFilter<"ExternalIdentityMapping"> | string
+    tenantId?: StringFilter<"ExternalIdentityMapping"> | string
+    configId?: StringFilter<"ExternalIdentityMapping"> | string
+    provider?: EnumDirectorySyncProviderFilter<"ExternalIdentityMapping"> | $Enums.DirectorySyncProvider
+    externalId?: StringFilter<"ExternalIdentityMapping"> | string
+    userId?: StringFilter<"ExternalIdentityMapping"> | string
+    externalEmail?: StringFilter<"ExternalIdentityMapping"> | string
+    externalDisplayName?: StringNullableFilter<"ExternalIdentityMapping"> | string | null
+    externalGroupIds?: StringNullableListFilter<"ExternalIdentityMapping">
+    lastSeenAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
+    createdAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
+    updatedAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    config?: XOR<DirectorySyncConfigScalarRelationFilter, DirectorySyncConfigWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ExternalIdentityMappingOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    configId?: SortOrder
+    provider?: SortOrder
+    externalId?: SortOrder
+    userId?: SortOrder
+    externalEmail?: SortOrder
+    externalDisplayName?: SortOrderInput | SortOrder
+    externalGroupIds?: SortOrder
+    lastSeenAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    config?: DirectorySyncConfigOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ExternalIdentityMappingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId_provider_externalId?: ExternalIdentityMappingTenantIdProviderExternalIdCompoundUniqueInput
+    AND?: ExternalIdentityMappingWhereInput | ExternalIdentityMappingWhereInput[]
+    OR?: ExternalIdentityMappingWhereInput[]
+    NOT?: ExternalIdentityMappingWhereInput | ExternalIdentityMappingWhereInput[]
+    tenantId?: StringFilter<"ExternalIdentityMapping"> | string
+    configId?: StringFilter<"ExternalIdentityMapping"> | string
+    provider?: EnumDirectorySyncProviderFilter<"ExternalIdentityMapping"> | $Enums.DirectorySyncProvider
+    externalId?: StringFilter<"ExternalIdentityMapping"> | string
+    userId?: StringFilter<"ExternalIdentityMapping"> | string
+    externalEmail?: StringFilter<"ExternalIdentityMapping"> | string
+    externalDisplayName?: StringNullableFilter<"ExternalIdentityMapping"> | string | null
+    externalGroupIds?: StringNullableListFilter<"ExternalIdentityMapping">
+    lastSeenAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
+    createdAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
+    updatedAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    config?: XOR<DirectorySyncConfigScalarRelationFilter, DirectorySyncConfigWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "tenantId_provider_externalId">
+
+  export type ExternalIdentityMappingOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    configId?: SortOrder
+    provider?: SortOrder
+    externalId?: SortOrder
+    userId?: SortOrder
+    externalEmail?: SortOrder
+    externalDisplayName?: SortOrderInput | SortOrder
+    externalGroupIds?: SortOrder
+    lastSeenAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ExternalIdentityMappingCountOrderByAggregateInput
+    _max?: ExternalIdentityMappingMaxOrderByAggregateInput
+    _min?: ExternalIdentityMappingMinOrderByAggregateInput
+  }
+
+  export type ExternalIdentityMappingScalarWhereWithAggregatesInput = {
+    AND?: ExternalIdentityMappingScalarWhereWithAggregatesInput | ExternalIdentityMappingScalarWhereWithAggregatesInput[]
+    OR?: ExternalIdentityMappingScalarWhereWithAggregatesInput[]
+    NOT?: ExternalIdentityMappingScalarWhereWithAggregatesInput | ExternalIdentityMappingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ExternalIdentityMapping"> | string
+    tenantId?: StringWithAggregatesFilter<"ExternalIdentityMapping"> | string
+    configId?: StringWithAggregatesFilter<"ExternalIdentityMapping"> | string
+    provider?: EnumDirectorySyncProviderWithAggregatesFilter<"ExternalIdentityMapping"> | $Enums.DirectorySyncProvider
+    externalId?: StringWithAggregatesFilter<"ExternalIdentityMapping"> | string
+    userId?: StringWithAggregatesFilter<"ExternalIdentityMapping"> | string
+    externalEmail?: StringWithAggregatesFilter<"ExternalIdentityMapping"> | string
+    externalDisplayName?: StringNullableWithAggregatesFilter<"ExternalIdentityMapping"> | string | null
+    externalGroupIds?: StringNullableListFilter<"ExternalIdentityMapping">
+    lastSeenAt?: DateTimeWithAggregatesFilter<"ExternalIdentityMapping"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"ExternalIdentityMapping"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ExternalIdentityMapping"> | Date | string
   }
 
   export type KnownVendorWhereInput = {
@@ -120540,6 +125176,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -120609,6 +125248,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -120678,6 +125320,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -120747,6 +125392,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -122008,6 +126656,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -122076,6 +126725,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -122144,6 +126794,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -122212,6 +126863,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -122341,6 +126993,358 @@ export namespace Prisma {
     status?: EnumMembershipStatusFieldUpdateOperationsInput | $Enums.MembershipStatus
     invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DirectorySyncConfigCreateInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled?: boolean
+    syncFrequencyMinutes?: number
+    defaultRole?: $Enums.MembershipRole
+    defaultStatus?: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials: string
+    lastSyncAt?: Date | string | null
+    lastSyncStatus?: $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDirectorySyncConfigsInput
+    runs?: DirectorySyncRunCreateNestedManyWithoutConfigInput
+    mappings?: ExternalIdentityMappingCreateNestedManyWithoutConfigInput
+  }
+
+  export type DirectorySyncConfigUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled?: boolean
+    syncFrequencyMinutes?: number
+    defaultRole?: $Enums.MembershipRole
+    defaultStatus?: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials: string
+    lastSyncAt?: Date | string | null
+    lastSyncStatus?: $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    runs?: DirectorySyncRunUncheckedCreateNestedManyWithoutConfigInput
+    mappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutConfigInput
+  }
+
+  export type DirectorySyncConfigUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDirectorySyncConfigsNestedInput
+    runs?: DirectorySyncRunUpdateManyWithoutConfigNestedInput
+    mappings?: ExternalIdentityMappingUpdateManyWithoutConfigNestedInput
+  }
+
+  export type DirectorySyncConfigUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    runs?: DirectorySyncRunUncheckedUpdateManyWithoutConfigNestedInput
+    mappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type DirectorySyncConfigCreateManyInput = {
+    id?: string
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled?: boolean
+    syncFrequencyMinutes?: number
+    defaultRole?: $Enums.MembershipRole
+    defaultStatus?: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials: string
+    lastSyncAt?: Date | string | null
+    lastSyncStatus?: $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DirectorySyncConfigUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DirectorySyncConfigUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DirectorySyncRunCreateInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    status?: $Enums.DirectorySyncRunStatus
+    triggeredBy?: $Enums.DirectorySyncRunTrigger
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    usersDiscovered?: number
+    usersCreated?: number
+    usersUpdated?: number
+    usersSuspended?: number
+    errorMessage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDirectorySyncRunsInput
+    config: DirectorySyncConfigCreateNestedOneWithoutRunsInput
+  }
+
+  export type DirectorySyncRunUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    status?: $Enums.DirectorySyncRunStatus
+    triggeredBy?: $Enums.DirectorySyncRunTrigger
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    usersDiscovered?: number
+    usersCreated?: number
+    usersUpdated?: number
+    usersSuspended?: number
+    errorMessage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DirectorySyncRunUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFieldUpdateOperationsInput | $Enums.DirectorySyncRunTrigger
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usersDiscovered?: IntFieldUpdateOperationsInput | number
+    usersCreated?: IntFieldUpdateOperationsInput | number
+    usersUpdated?: IntFieldUpdateOperationsInput | number
+    usersSuspended?: IntFieldUpdateOperationsInput | number
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDirectorySyncRunsNestedInput
+    config?: DirectorySyncConfigUpdateOneRequiredWithoutRunsNestedInput
+  }
+
+  export type DirectorySyncRunUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFieldUpdateOperationsInput | $Enums.DirectorySyncRunTrigger
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usersDiscovered?: IntFieldUpdateOperationsInput | number
+    usersCreated?: IntFieldUpdateOperationsInput | number
+    usersUpdated?: IntFieldUpdateOperationsInput | number
+    usersSuspended?: IntFieldUpdateOperationsInput | number
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DirectorySyncRunCreateManyInput = {
+    id?: string
+    tenantId: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    status?: $Enums.DirectorySyncRunStatus
+    triggeredBy?: $Enums.DirectorySyncRunTrigger
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    usersDiscovered?: number
+    usersCreated?: number
+    usersUpdated?: number
+    usersSuspended?: number
+    errorMessage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DirectorySyncRunUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFieldUpdateOperationsInput | $Enums.DirectorySyncRunTrigger
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usersDiscovered?: IntFieldUpdateOperationsInput | number
+    usersCreated?: IntFieldUpdateOperationsInput | number
+    usersUpdated?: IntFieldUpdateOperationsInput | number
+    usersSuspended?: IntFieldUpdateOperationsInput | number
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DirectorySyncRunUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFieldUpdateOperationsInput | $Enums.DirectorySyncRunTrigger
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usersDiscovered?: IntFieldUpdateOperationsInput | number
+    usersCreated?: IntFieldUpdateOperationsInput | number
+    usersUpdated?: IntFieldUpdateOperationsInput | number
+    usersSuspended?: IntFieldUpdateOperationsInput | number
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExternalIdentityMappingCreateInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutExternalIdentityMappingsInput
+    config: DirectorySyncConfigCreateNestedOneWithoutMappingsInput
+    user: UserCreateNestedOneWithoutExternalIdentityMappingsInput
+  }
+
+  export type ExternalIdentityMappingUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    userId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExternalIdentityMappingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutExternalIdentityMappingsNestedInput
+    config?: DirectorySyncConfigUpdateOneRequiredWithoutMappingsNestedInput
+    user?: UserUpdateOneRequiredWithoutExternalIdentityMappingsNestedInput
+  }
+
+  export type ExternalIdentityMappingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExternalIdentityMappingCreateManyInput = {
+    id?: string
+    tenantId: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    userId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExternalIdentityMappingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExternalIdentityMappingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -128462,6 +133466,24 @@ export namespace Prisma {
     none?: QuestionnaireWhereInput
   }
 
+  export type DirectorySyncConfigListRelationFilter = {
+    every?: DirectorySyncConfigWhereInput
+    some?: DirectorySyncConfigWhereInput
+    none?: DirectorySyncConfigWhereInput
+  }
+
+  export type DirectorySyncRunListRelationFilter = {
+    every?: DirectorySyncRunWhereInput
+    some?: DirectorySyncRunWhereInput
+    none?: DirectorySyncRunWhereInput
+  }
+
+  export type ExternalIdentityMappingListRelationFilter = {
+    every?: ExternalIdentityMappingWhereInput
+    some?: ExternalIdentityMappingWhereInput
+    none?: ExternalIdentityMappingWhereInput
+  }
+
   export type MembershipOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -128555,6 +133577,18 @@ export namespace Prisma {
   }
 
   export type QuestionnaireOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DirectorySyncConfigOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DirectorySyncRunOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ExternalIdentityMappingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -129489,6 +134523,275 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumMembershipStatusFilter<$PrismaModel>
     _max?: NestedEnumMembershipStatusFilter<$PrismaModel>
+  }
+
+  export type EnumDirectorySyncProviderFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncProvider | EnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncProvider[] | ListEnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncProvider[] | ListEnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncProviderFilter<$PrismaModel> | $Enums.DirectorySyncProvider
+  }
+
+  export type EnumDirectorySyncDefaultStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncDefaultStatus | EnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncDefaultStatus[] | ListEnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncDefaultStatus[] | ListEnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncDefaultStatusFilter<$PrismaModel> | $Enums.DirectorySyncDefaultStatus
+  }
+
+  export type EnumDirectorySyncRunStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunStatus | EnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDirectorySyncRunStatusNullableFilter<$PrismaModel> | $Enums.DirectorySyncRunStatus | null
+  }
+
+  export type DirectorySyncConfigTenantIdProviderCompoundUniqueInput = {
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+  }
+
+  export type DirectorySyncConfigCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    provider?: SortOrder
+    isEnabled?: SortOrder
+    syncFrequencyMinutes?: SortOrder
+    defaultRole?: SortOrder
+    defaultStatus?: SortOrder
+    groupRoleMappings?: SortOrder
+    encryptedCredentials?: SortOrder
+    lastSyncAt?: SortOrder
+    lastSyncStatus?: SortOrder
+    lastSyncError?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DirectorySyncConfigAvgOrderByAggregateInput = {
+    syncFrequencyMinutes?: SortOrder
+  }
+
+  export type DirectorySyncConfigMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    provider?: SortOrder
+    isEnabled?: SortOrder
+    syncFrequencyMinutes?: SortOrder
+    defaultRole?: SortOrder
+    defaultStatus?: SortOrder
+    encryptedCredentials?: SortOrder
+    lastSyncAt?: SortOrder
+    lastSyncStatus?: SortOrder
+    lastSyncError?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DirectorySyncConfigMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    provider?: SortOrder
+    isEnabled?: SortOrder
+    syncFrequencyMinutes?: SortOrder
+    defaultRole?: SortOrder
+    defaultStatus?: SortOrder
+    encryptedCredentials?: SortOrder
+    lastSyncAt?: SortOrder
+    lastSyncStatus?: SortOrder
+    lastSyncError?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DirectorySyncConfigSumOrderByAggregateInput = {
+    syncFrequencyMinutes?: SortOrder
+  }
+
+  export type EnumDirectorySyncProviderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncProvider | EnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncProvider[] | ListEnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncProvider[] | ListEnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncProviderWithAggregatesFilter<$PrismaModel> | $Enums.DirectorySyncProvider
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDirectorySyncProviderFilter<$PrismaModel>
+    _max?: NestedEnumDirectorySyncProviderFilter<$PrismaModel>
+  }
+
+  export type EnumDirectorySyncDefaultStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncDefaultStatus | EnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncDefaultStatus[] | ListEnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncDefaultStatus[] | ListEnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncDefaultStatusWithAggregatesFilter<$PrismaModel> | $Enums.DirectorySyncDefaultStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDirectorySyncDefaultStatusFilter<$PrismaModel>
+    _max?: NestedEnumDirectorySyncDefaultStatusFilter<$PrismaModel>
+  }
+
+  export type EnumDirectorySyncRunStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunStatus | EnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDirectorySyncRunStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.DirectorySyncRunStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumDirectorySyncRunStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumDirectorySyncRunStatusNullableFilter<$PrismaModel>
+  }
+
+  export type EnumDirectorySyncRunStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunStatus | EnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncRunStatusFilter<$PrismaModel> | $Enums.DirectorySyncRunStatus
+  }
+
+  export type EnumDirectorySyncRunTriggerFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunTrigger | EnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncRunTrigger[] | ListEnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncRunTrigger[] | ListEnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncRunTriggerFilter<$PrismaModel> | $Enums.DirectorySyncRunTrigger
+  }
+
+  export type DirectorySyncConfigScalarRelationFilter = {
+    is?: DirectorySyncConfigWhereInput
+    isNot?: DirectorySyncConfigWhereInput
+  }
+
+  export type DirectorySyncRunCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    configId?: SortOrder
+    provider?: SortOrder
+    status?: SortOrder
+    triggeredBy?: SortOrder
+    startedAt?: SortOrder
+    finishedAt?: SortOrder
+    usersDiscovered?: SortOrder
+    usersCreated?: SortOrder
+    usersUpdated?: SortOrder
+    usersSuspended?: SortOrder
+    errorMessage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DirectorySyncRunAvgOrderByAggregateInput = {
+    usersDiscovered?: SortOrder
+    usersCreated?: SortOrder
+    usersUpdated?: SortOrder
+    usersSuspended?: SortOrder
+  }
+
+  export type DirectorySyncRunMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    configId?: SortOrder
+    provider?: SortOrder
+    status?: SortOrder
+    triggeredBy?: SortOrder
+    startedAt?: SortOrder
+    finishedAt?: SortOrder
+    usersDiscovered?: SortOrder
+    usersCreated?: SortOrder
+    usersUpdated?: SortOrder
+    usersSuspended?: SortOrder
+    errorMessage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DirectorySyncRunMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    configId?: SortOrder
+    provider?: SortOrder
+    status?: SortOrder
+    triggeredBy?: SortOrder
+    startedAt?: SortOrder
+    finishedAt?: SortOrder
+    usersDiscovered?: SortOrder
+    usersCreated?: SortOrder
+    usersUpdated?: SortOrder
+    usersSuspended?: SortOrder
+    errorMessage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DirectorySyncRunSumOrderByAggregateInput = {
+    usersDiscovered?: SortOrder
+    usersCreated?: SortOrder
+    usersUpdated?: SortOrder
+    usersSuspended?: SortOrder
+  }
+
+  export type EnumDirectorySyncRunStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunStatus | EnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncRunStatusWithAggregatesFilter<$PrismaModel> | $Enums.DirectorySyncRunStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDirectorySyncRunStatusFilter<$PrismaModel>
+    _max?: NestedEnumDirectorySyncRunStatusFilter<$PrismaModel>
+  }
+
+  export type EnumDirectorySyncRunTriggerWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunTrigger | EnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncRunTrigger[] | ListEnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncRunTrigger[] | ListEnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncRunTriggerWithAggregatesFilter<$PrismaModel> | $Enums.DirectorySyncRunTrigger
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDirectorySyncRunTriggerFilter<$PrismaModel>
+    _max?: NestedEnumDirectorySyncRunTriggerFilter<$PrismaModel>
+  }
+
+  export type ExternalIdentityMappingTenantIdProviderExternalIdCompoundUniqueInput = {
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+  }
+
+  export type ExternalIdentityMappingCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    configId?: SortOrder
+    provider?: SortOrder
+    externalId?: SortOrder
+    userId?: SortOrder
+    externalEmail?: SortOrder
+    externalDisplayName?: SortOrder
+    externalGroupIds?: SortOrder
+    lastSeenAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExternalIdentityMappingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    configId?: SortOrder
+    provider?: SortOrder
+    externalId?: SortOrder
+    userId?: SortOrder
+    externalEmail?: SortOrder
+    externalDisplayName?: SortOrder
+    lastSeenAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ExternalIdentityMappingMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    configId?: SortOrder
+    provider?: SortOrder
+    externalId?: SortOrder
+    userId?: SortOrder
+    externalEmail?: SortOrder
+    externalDisplayName?: SortOrder
+    lastSeenAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type KnownVendorCountOrderByAggregateInput = {
@@ -134857,6 +140160,27 @@ export namespace Prisma {
     connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
   }
 
+  export type DirectorySyncConfigCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DirectorySyncConfigCreateWithoutTenantInput, DirectorySyncConfigUncheckedCreateWithoutTenantInput> | DirectorySyncConfigCreateWithoutTenantInput[] | DirectorySyncConfigUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DirectorySyncConfigCreateOrConnectWithoutTenantInput | DirectorySyncConfigCreateOrConnectWithoutTenantInput[]
+    createMany?: DirectorySyncConfigCreateManyTenantInputEnvelope
+    connect?: DirectorySyncConfigWhereUniqueInput | DirectorySyncConfigWhereUniqueInput[]
+  }
+
+  export type DirectorySyncRunCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DirectorySyncRunCreateWithoutTenantInput, DirectorySyncRunUncheckedCreateWithoutTenantInput> | DirectorySyncRunCreateWithoutTenantInput[] | DirectorySyncRunUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DirectorySyncRunCreateOrConnectWithoutTenantInput | DirectorySyncRunCreateOrConnectWithoutTenantInput[]
+    createMany?: DirectorySyncRunCreateManyTenantInputEnvelope
+    connect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+  }
+
+  export type ExternalIdentityMappingCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutTenantInput, ExternalIdentityMappingUncheckedCreateWithoutTenantInput> | ExternalIdentityMappingCreateWithoutTenantInput[] | ExternalIdentityMappingUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutTenantInput | ExternalIdentityMappingCreateOrConnectWithoutTenantInput[]
+    createMany?: ExternalIdentityMappingCreateManyTenantInputEnvelope
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+  }
+
   export type TenantSettingsUncheckedCreateNestedOneWithoutTenantInput = {
     create?: XOR<TenantSettingsCreateWithoutTenantInput, TenantSettingsUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantSettingsCreateOrConnectWithoutTenantInput
@@ -135265,6 +140589,27 @@ export namespace Prisma {
     connectOrCreate?: ControlWeaknessCreateOrConnectWithoutTenantInput | ControlWeaknessCreateOrConnectWithoutTenantInput[]
     createMany?: ControlWeaknessCreateManyTenantInputEnvelope
     connect?: ControlWeaknessWhereUniqueInput | ControlWeaknessWhereUniqueInput[]
+  }
+
+  export type DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DirectorySyncConfigCreateWithoutTenantInput, DirectorySyncConfigUncheckedCreateWithoutTenantInput> | DirectorySyncConfigCreateWithoutTenantInput[] | DirectorySyncConfigUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DirectorySyncConfigCreateOrConnectWithoutTenantInput | DirectorySyncConfigCreateOrConnectWithoutTenantInput[]
+    createMany?: DirectorySyncConfigCreateManyTenantInputEnvelope
+    connect?: DirectorySyncConfigWhereUniqueInput | DirectorySyncConfigWhereUniqueInput[]
+  }
+
+  export type DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DirectorySyncRunCreateWithoutTenantInput, DirectorySyncRunUncheckedCreateWithoutTenantInput> | DirectorySyncRunCreateWithoutTenantInput[] | DirectorySyncRunUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DirectorySyncRunCreateOrConnectWithoutTenantInput | DirectorySyncRunCreateOrConnectWithoutTenantInput[]
+    createMany?: DirectorySyncRunCreateManyTenantInputEnvelope
+    connect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+  }
+
+  export type ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutTenantInput, ExternalIdentityMappingUncheckedCreateWithoutTenantInput> | ExternalIdentityMappingCreateWithoutTenantInput[] | ExternalIdentityMappingUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutTenantInput | ExternalIdentityMappingCreateOrConnectWithoutTenantInput[]
+    createMany?: ExternalIdentityMappingCreateManyTenantInputEnvelope
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
   }
 
   export type EnumTenantPlanFieldUpdateOperationsInput = {
@@ -136089,6 +141434,48 @@ export namespace Prisma {
     deleteMany?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
   }
 
+  export type DirectorySyncConfigUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DirectorySyncConfigCreateWithoutTenantInput, DirectorySyncConfigUncheckedCreateWithoutTenantInput> | DirectorySyncConfigCreateWithoutTenantInput[] | DirectorySyncConfigUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DirectorySyncConfigCreateOrConnectWithoutTenantInput | DirectorySyncConfigCreateOrConnectWithoutTenantInput[]
+    upsert?: DirectorySyncConfigUpsertWithWhereUniqueWithoutTenantInput | DirectorySyncConfigUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DirectorySyncConfigCreateManyTenantInputEnvelope
+    set?: DirectorySyncConfigWhereUniqueInput | DirectorySyncConfigWhereUniqueInput[]
+    disconnect?: DirectorySyncConfigWhereUniqueInput | DirectorySyncConfigWhereUniqueInput[]
+    delete?: DirectorySyncConfigWhereUniqueInput | DirectorySyncConfigWhereUniqueInput[]
+    connect?: DirectorySyncConfigWhereUniqueInput | DirectorySyncConfigWhereUniqueInput[]
+    update?: DirectorySyncConfigUpdateWithWhereUniqueWithoutTenantInput | DirectorySyncConfigUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DirectorySyncConfigUpdateManyWithWhereWithoutTenantInput | DirectorySyncConfigUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DirectorySyncConfigScalarWhereInput | DirectorySyncConfigScalarWhereInput[]
+  }
+
+  export type DirectorySyncRunUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DirectorySyncRunCreateWithoutTenantInput, DirectorySyncRunUncheckedCreateWithoutTenantInput> | DirectorySyncRunCreateWithoutTenantInput[] | DirectorySyncRunUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DirectorySyncRunCreateOrConnectWithoutTenantInput | DirectorySyncRunCreateOrConnectWithoutTenantInput[]
+    upsert?: DirectorySyncRunUpsertWithWhereUniqueWithoutTenantInput | DirectorySyncRunUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DirectorySyncRunCreateManyTenantInputEnvelope
+    set?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    disconnect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    delete?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    connect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    update?: DirectorySyncRunUpdateWithWhereUniqueWithoutTenantInput | DirectorySyncRunUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DirectorySyncRunUpdateManyWithWhereWithoutTenantInput | DirectorySyncRunUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DirectorySyncRunScalarWhereInput | DirectorySyncRunScalarWhereInput[]
+  }
+
+  export type ExternalIdentityMappingUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutTenantInput, ExternalIdentityMappingUncheckedCreateWithoutTenantInput> | ExternalIdentityMappingCreateWithoutTenantInput[] | ExternalIdentityMappingUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutTenantInput | ExternalIdentityMappingCreateOrConnectWithoutTenantInput[]
+    upsert?: ExternalIdentityMappingUpsertWithWhereUniqueWithoutTenantInput | ExternalIdentityMappingUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ExternalIdentityMappingCreateManyTenantInputEnvelope
+    set?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    disconnect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    delete?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    update?: ExternalIdentityMappingUpdateWithWhereUniqueWithoutTenantInput | ExternalIdentityMappingUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ExternalIdentityMappingUpdateManyWithWhereWithoutTenantInput | ExternalIdentityMappingUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
+  }
+
   export type TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput = {
     create?: XOR<TenantSettingsCreateWithoutTenantInput, TenantSettingsUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantSettingsCreateOrConnectWithoutTenantInput
@@ -136901,6 +142288,48 @@ export namespace Prisma {
     update?: ControlWeaknessUpdateWithWhereUniqueWithoutTenantInput | ControlWeaknessUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: ControlWeaknessUpdateManyWithWhereWithoutTenantInput | ControlWeaknessUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: ControlWeaknessScalarWhereInput | ControlWeaknessScalarWhereInput[]
+  }
+
+  export type DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DirectorySyncConfigCreateWithoutTenantInput, DirectorySyncConfigUncheckedCreateWithoutTenantInput> | DirectorySyncConfigCreateWithoutTenantInput[] | DirectorySyncConfigUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DirectorySyncConfigCreateOrConnectWithoutTenantInput | DirectorySyncConfigCreateOrConnectWithoutTenantInput[]
+    upsert?: DirectorySyncConfigUpsertWithWhereUniqueWithoutTenantInput | DirectorySyncConfigUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DirectorySyncConfigCreateManyTenantInputEnvelope
+    set?: DirectorySyncConfigWhereUniqueInput | DirectorySyncConfigWhereUniqueInput[]
+    disconnect?: DirectorySyncConfigWhereUniqueInput | DirectorySyncConfigWhereUniqueInput[]
+    delete?: DirectorySyncConfigWhereUniqueInput | DirectorySyncConfigWhereUniqueInput[]
+    connect?: DirectorySyncConfigWhereUniqueInput | DirectorySyncConfigWhereUniqueInput[]
+    update?: DirectorySyncConfigUpdateWithWhereUniqueWithoutTenantInput | DirectorySyncConfigUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DirectorySyncConfigUpdateManyWithWhereWithoutTenantInput | DirectorySyncConfigUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DirectorySyncConfigScalarWhereInput | DirectorySyncConfigScalarWhereInput[]
+  }
+
+  export type DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DirectorySyncRunCreateWithoutTenantInput, DirectorySyncRunUncheckedCreateWithoutTenantInput> | DirectorySyncRunCreateWithoutTenantInput[] | DirectorySyncRunUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DirectorySyncRunCreateOrConnectWithoutTenantInput | DirectorySyncRunCreateOrConnectWithoutTenantInput[]
+    upsert?: DirectorySyncRunUpsertWithWhereUniqueWithoutTenantInput | DirectorySyncRunUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DirectorySyncRunCreateManyTenantInputEnvelope
+    set?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    disconnect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    delete?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    connect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    update?: DirectorySyncRunUpdateWithWhereUniqueWithoutTenantInput | DirectorySyncRunUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DirectorySyncRunUpdateManyWithWhereWithoutTenantInput | DirectorySyncRunUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DirectorySyncRunScalarWhereInput | DirectorySyncRunScalarWhereInput[]
+  }
+
+  export type ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutTenantInput, ExternalIdentityMappingUncheckedCreateWithoutTenantInput> | ExternalIdentityMappingCreateWithoutTenantInput[] | ExternalIdentityMappingUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutTenantInput | ExternalIdentityMappingCreateOrConnectWithoutTenantInput[]
+    upsert?: ExternalIdentityMappingUpsertWithWhereUniqueWithoutTenantInput | ExternalIdentityMappingUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ExternalIdentityMappingCreateManyTenantInputEnvelope
+    set?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    disconnect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    delete?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    update?: ExternalIdentityMappingUpdateWithWhereUniqueWithoutTenantInput | ExternalIdentityMappingUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ExternalIdentityMappingUpdateManyWithWhereWithoutTenantInput | ExternalIdentityMappingUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutSettingsInput = {
@@ -138193,6 +143622,13 @@ export namespace Prisma {
     connect?: QuestionnaireImportJobWhereUniqueInput | QuestionnaireImportJobWhereUniqueInput[]
   }
 
+  export type ExternalIdentityMappingCreateNestedManyWithoutUserInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutUserInput, ExternalIdentityMappingUncheckedCreateWithoutUserInput> | ExternalIdentityMappingCreateWithoutUserInput[] | ExternalIdentityMappingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutUserInput | ExternalIdentityMappingCreateOrConnectWithoutUserInput[]
+    createMany?: ExternalIdentityMappingCreateManyUserInputEnvelope
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+  }
+
   export type MembershipUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
@@ -138569,6 +144005,13 @@ export namespace Prisma {
     connectOrCreate?: QuestionnaireImportJobCreateOrConnectWithoutCreatedByInput | QuestionnaireImportJobCreateOrConnectWithoutCreatedByInput[]
     createMany?: QuestionnaireImportJobCreateManyCreatedByInputEnvelope
     connect?: QuestionnaireImportJobWhereUniqueInput | QuestionnaireImportJobWhereUniqueInput[]
+  }
+
+  export type ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutUserInput, ExternalIdentityMappingUncheckedCreateWithoutUserInput> | ExternalIdentityMappingCreateWithoutUserInput[] | ExternalIdentityMappingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutUserInput | ExternalIdentityMappingCreateOrConnectWithoutUserInput[]
+    createMany?: ExternalIdentityMappingCreateManyUserInputEnvelope
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
   }
 
   export type MembershipUpdateManyWithoutUserNestedInput = {
@@ -139327,6 +144770,20 @@ export namespace Prisma {
     deleteMany?: QuestionnaireImportJobScalarWhereInput | QuestionnaireImportJobScalarWhereInput[]
   }
 
+  export type ExternalIdentityMappingUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutUserInput, ExternalIdentityMappingUncheckedCreateWithoutUserInput> | ExternalIdentityMappingCreateWithoutUserInput[] | ExternalIdentityMappingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutUserInput | ExternalIdentityMappingCreateOrConnectWithoutUserInput[]
+    upsert?: ExternalIdentityMappingUpsertWithWhereUniqueWithoutUserInput | ExternalIdentityMappingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ExternalIdentityMappingCreateManyUserInputEnvelope
+    set?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    disconnect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    delete?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    update?: ExternalIdentityMappingUpdateWithWhereUniqueWithoutUserInput | ExternalIdentityMappingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ExternalIdentityMappingUpdateManyWithWhereWithoutUserInput | ExternalIdentityMappingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
+  }
+
   export type MembershipUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
@@ -140083,6 +145540,20 @@ export namespace Prisma {
     deleteMany?: QuestionnaireImportJobScalarWhereInput | QuestionnaireImportJobScalarWhereInput[]
   }
 
+  export type ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutUserInput, ExternalIdentityMappingUncheckedCreateWithoutUserInput> | ExternalIdentityMappingCreateWithoutUserInput[] | ExternalIdentityMappingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutUserInput | ExternalIdentityMappingCreateOrConnectWithoutUserInput[]
+    upsert?: ExternalIdentityMappingUpsertWithWhereUniqueWithoutUserInput | ExternalIdentityMappingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ExternalIdentityMappingCreateManyUserInputEnvelope
+    set?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    disconnect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    delete?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    update?: ExternalIdentityMappingUpdateWithWhereUniqueWithoutUserInput | ExternalIdentityMappingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ExternalIdentityMappingUpdateManyWithWhereWithoutUserInput | ExternalIdentityMappingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
+  }
+
   export type MembershipCreatepermissionsInput = {
     set: string[]
   }
@@ -140126,6 +145597,203 @@ export namespace Prisma {
     upsert?: TenantUpsertWithoutMembershipsInput
     connect?: TenantWhereUniqueInput
     update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutMembershipsInput, TenantUpdateWithoutMembershipsInput>, TenantUncheckedUpdateWithoutMembershipsInput>
+  }
+
+  export type TenantCreateNestedOneWithoutDirectorySyncConfigsInput = {
+    create?: XOR<TenantCreateWithoutDirectorySyncConfigsInput, TenantUncheckedCreateWithoutDirectorySyncConfigsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDirectorySyncConfigsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type DirectorySyncRunCreateNestedManyWithoutConfigInput = {
+    create?: XOR<DirectorySyncRunCreateWithoutConfigInput, DirectorySyncRunUncheckedCreateWithoutConfigInput> | DirectorySyncRunCreateWithoutConfigInput[] | DirectorySyncRunUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: DirectorySyncRunCreateOrConnectWithoutConfigInput | DirectorySyncRunCreateOrConnectWithoutConfigInput[]
+    createMany?: DirectorySyncRunCreateManyConfigInputEnvelope
+    connect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+  }
+
+  export type ExternalIdentityMappingCreateNestedManyWithoutConfigInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutConfigInput, ExternalIdentityMappingUncheckedCreateWithoutConfigInput> | ExternalIdentityMappingCreateWithoutConfigInput[] | ExternalIdentityMappingUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutConfigInput | ExternalIdentityMappingCreateOrConnectWithoutConfigInput[]
+    createMany?: ExternalIdentityMappingCreateManyConfigInputEnvelope
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+  }
+
+  export type DirectorySyncRunUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<DirectorySyncRunCreateWithoutConfigInput, DirectorySyncRunUncheckedCreateWithoutConfigInput> | DirectorySyncRunCreateWithoutConfigInput[] | DirectorySyncRunUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: DirectorySyncRunCreateOrConnectWithoutConfigInput | DirectorySyncRunCreateOrConnectWithoutConfigInput[]
+    createMany?: DirectorySyncRunCreateManyConfigInputEnvelope
+    connect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+  }
+
+  export type ExternalIdentityMappingUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutConfigInput, ExternalIdentityMappingUncheckedCreateWithoutConfigInput> | ExternalIdentityMappingCreateWithoutConfigInput[] | ExternalIdentityMappingUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutConfigInput | ExternalIdentityMappingCreateOrConnectWithoutConfigInput[]
+    createMany?: ExternalIdentityMappingCreateManyConfigInputEnvelope
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+  }
+
+  export type EnumDirectorySyncProviderFieldUpdateOperationsInput = {
+    set?: $Enums.DirectorySyncProvider
+  }
+
+  export type EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput = {
+    set?: $Enums.DirectorySyncDefaultStatus
+  }
+
+  export type NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput = {
+    set?: $Enums.DirectorySyncRunStatus | null
+  }
+
+  export type TenantUpdateOneRequiredWithoutDirectorySyncConfigsNestedInput = {
+    create?: XOR<TenantCreateWithoutDirectorySyncConfigsInput, TenantUncheckedCreateWithoutDirectorySyncConfigsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDirectorySyncConfigsInput
+    upsert?: TenantUpsertWithoutDirectorySyncConfigsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDirectorySyncConfigsInput, TenantUpdateWithoutDirectorySyncConfigsInput>, TenantUncheckedUpdateWithoutDirectorySyncConfigsInput>
+  }
+
+  export type DirectorySyncRunUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<DirectorySyncRunCreateWithoutConfigInput, DirectorySyncRunUncheckedCreateWithoutConfigInput> | DirectorySyncRunCreateWithoutConfigInput[] | DirectorySyncRunUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: DirectorySyncRunCreateOrConnectWithoutConfigInput | DirectorySyncRunCreateOrConnectWithoutConfigInput[]
+    upsert?: DirectorySyncRunUpsertWithWhereUniqueWithoutConfigInput | DirectorySyncRunUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: DirectorySyncRunCreateManyConfigInputEnvelope
+    set?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    disconnect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    delete?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    connect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    update?: DirectorySyncRunUpdateWithWhereUniqueWithoutConfigInput | DirectorySyncRunUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: DirectorySyncRunUpdateManyWithWhereWithoutConfigInput | DirectorySyncRunUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: DirectorySyncRunScalarWhereInput | DirectorySyncRunScalarWhereInput[]
+  }
+
+  export type ExternalIdentityMappingUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutConfigInput, ExternalIdentityMappingUncheckedCreateWithoutConfigInput> | ExternalIdentityMappingCreateWithoutConfigInput[] | ExternalIdentityMappingUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutConfigInput | ExternalIdentityMappingCreateOrConnectWithoutConfigInput[]
+    upsert?: ExternalIdentityMappingUpsertWithWhereUniqueWithoutConfigInput | ExternalIdentityMappingUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: ExternalIdentityMappingCreateManyConfigInputEnvelope
+    set?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    disconnect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    delete?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    update?: ExternalIdentityMappingUpdateWithWhereUniqueWithoutConfigInput | ExternalIdentityMappingUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: ExternalIdentityMappingUpdateManyWithWhereWithoutConfigInput | ExternalIdentityMappingUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
+  }
+
+  export type DirectorySyncRunUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<DirectorySyncRunCreateWithoutConfigInput, DirectorySyncRunUncheckedCreateWithoutConfigInput> | DirectorySyncRunCreateWithoutConfigInput[] | DirectorySyncRunUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: DirectorySyncRunCreateOrConnectWithoutConfigInput | DirectorySyncRunCreateOrConnectWithoutConfigInput[]
+    upsert?: DirectorySyncRunUpsertWithWhereUniqueWithoutConfigInput | DirectorySyncRunUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: DirectorySyncRunCreateManyConfigInputEnvelope
+    set?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    disconnect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    delete?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    connect?: DirectorySyncRunWhereUniqueInput | DirectorySyncRunWhereUniqueInput[]
+    update?: DirectorySyncRunUpdateWithWhereUniqueWithoutConfigInput | DirectorySyncRunUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: DirectorySyncRunUpdateManyWithWhereWithoutConfigInput | DirectorySyncRunUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: DirectorySyncRunScalarWhereInput | DirectorySyncRunScalarWhereInput[]
+  }
+
+  export type ExternalIdentityMappingUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<ExternalIdentityMappingCreateWithoutConfigInput, ExternalIdentityMappingUncheckedCreateWithoutConfigInput> | ExternalIdentityMappingCreateWithoutConfigInput[] | ExternalIdentityMappingUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutConfigInput | ExternalIdentityMappingCreateOrConnectWithoutConfigInput[]
+    upsert?: ExternalIdentityMappingUpsertWithWhereUniqueWithoutConfigInput | ExternalIdentityMappingUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: ExternalIdentityMappingCreateManyConfigInputEnvelope
+    set?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    disconnect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    delete?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+    update?: ExternalIdentityMappingUpdateWithWhereUniqueWithoutConfigInput | ExternalIdentityMappingUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: ExternalIdentityMappingUpdateManyWithWhereWithoutConfigInput | ExternalIdentityMappingUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutDirectorySyncRunsInput = {
+    create?: XOR<TenantCreateWithoutDirectorySyncRunsInput, TenantUncheckedCreateWithoutDirectorySyncRunsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDirectorySyncRunsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type DirectorySyncConfigCreateNestedOneWithoutRunsInput = {
+    create?: XOR<DirectorySyncConfigCreateWithoutRunsInput, DirectorySyncConfigUncheckedCreateWithoutRunsInput>
+    connectOrCreate?: DirectorySyncConfigCreateOrConnectWithoutRunsInput
+    connect?: DirectorySyncConfigWhereUniqueInput
+  }
+
+  export type EnumDirectorySyncRunStatusFieldUpdateOperationsInput = {
+    set?: $Enums.DirectorySyncRunStatus
+  }
+
+  export type EnumDirectorySyncRunTriggerFieldUpdateOperationsInput = {
+    set?: $Enums.DirectorySyncRunTrigger
+  }
+
+  export type TenantUpdateOneRequiredWithoutDirectorySyncRunsNestedInput = {
+    create?: XOR<TenantCreateWithoutDirectorySyncRunsInput, TenantUncheckedCreateWithoutDirectorySyncRunsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDirectorySyncRunsInput
+    upsert?: TenantUpsertWithoutDirectorySyncRunsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDirectorySyncRunsInput, TenantUpdateWithoutDirectorySyncRunsInput>, TenantUncheckedUpdateWithoutDirectorySyncRunsInput>
+  }
+
+  export type DirectorySyncConfigUpdateOneRequiredWithoutRunsNestedInput = {
+    create?: XOR<DirectorySyncConfigCreateWithoutRunsInput, DirectorySyncConfigUncheckedCreateWithoutRunsInput>
+    connectOrCreate?: DirectorySyncConfigCreateOrConnectWithoutRunsInput
+    upsert?: DirectorySyncConfigUpsertWithoutRunsInput
+    connect?: DirectorySyncConfigWhereUniqueInput
+    update?: XOR<XOR<DirectorySyncConfigUpdateToOneWithWhereWithoutRunsInput, DirectorySyncConfigUpdateWithoutRunsInput>, DirectorySyncConfigUncheckedUpdateWithoutRunsInput>
+  }
+
+  export type ExternalIdentityMappingCreateexternalGroupIdsInput = {
+    set: string[]
+  }
+
+  export type TenantCreateNestedOneWithoutExternalIdentityMappingsInput = {
+    create?: XOR<TenantCreateWithoutExternalIdentityMappingsInput, TenantUncheckedCreateWithoutExternalIdentityMappingsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutExternalIdentityMappingsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type DirectorySyncConfigCreateNestedOneWithoutMappingsInput = {
+    create?: XOR<DirectorySyncConfigCreateWithoutMappingsInput, DirectorySyncConfigUncheckedCreateWithoutMappingsInput>
+    connectOrCreate?: DirectorySyncConfigCreateOrConnectWithoutMappingsInput
+    connect?: DirectorySyncConfigWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutExternalIdentityMappingsInput = {
+    create?: XOR<UserCreateWithoutExternalIdentityMappingsInput, UserUncheckedCreateWithoutExternalIdentityMappingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutExternalIdentityMappingsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ExternalIdentityMappingUpdateexternalGroupIdsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutExternalIdentityMappingsNestedInput = {
+    create?: XOR<TenantCreateWithoutExternalIdentityMappingsInput, TenantUncheckedCreateWithoutExternalIdentityMappingsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutExternalIdentityMappingsInput
+    upsert?: TenantUpsertWithoutExternalIdentityMappingsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutExternalIdentityMappingsInput, TenantUpdateWithoutExternalIdentityMappingsInput>, TenantUncheckedUpdateWithoutExternalIdentityMappingsInput>
+  }
+
+  export type DirectorySyncConfigUpdateOneRequiredWithoutMappingsNestedInput = {
+    create?: XOR<DirectorySyncConfigCreateWithoutMappingsInput, DirectorySyncConfigUncheckedCreateWithoutMappingsInput>
+    connectOrCreate?: DirectorySyncConfigCreateOrConnectWithoutMappingsInput
+    upsert?: DirectorySyncConfigUpsertWithoutMappingsInput
+    connect?: DirectorySyncConfigWhereUniqueInput
+    update?: XOR<XOR<DirectorySyncConfigUpdateToOneWithWhereWithoutMappingsInput, DirectorySyncConfigUpdateWithoutMappingsInput>, DirectorySyncConfigUncheckedUpdateWithoutMappingsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutExternalIdentityMappingsNestedInput = {
+    create?: XOR<UserCreateWithoutExternalIdentityMappingsInput, UserUncheckedCreateWithoutExternalIdentityMappingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutExternalIdentityMappingsInput
+    upsert?: UserUpsertWithoutExternalIdentityMappingsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutExternalIdentityMappingsInput, UserUpdateWithoutExternalIdentityMappingsInput>, UserUncheckedUpdateWithoutExternalIdentityMappingsInput>
   }
 
   export type KnownVendorCreateindustriesInput = {
@@ -142727,6 +148395,91 @@ export namespace Prisma {
     _max?: NestedEnumMembershipStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumDirectorySyncProviderFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncProvider | EnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncProvider[] | ListEnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncProvider[] | ListEnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncProviderFilter<$PrismaModel> | $Enums.DirectorySyncProvider
+  }
+
+  export type NestedEnumDirectorySyncDefaultStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncDefaultStatus | EnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncDefaultStatus[] | ListEnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncDefaultStatus[] | ListEnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncDefaultStatusFilter<$PrismaModel> | $Enums.DirectorySyncDefaultStatus
+  }
+
+  export type NestedEnumDirectorySyncRunStatusNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunStatus | EnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDirectorySyncRunStatusNullableFilter<$PrismaModel> | $Enums.DirectorySyncRunStatus | null
+  }
+
+  export type NestedEnumDirectorySyncProviderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncProvider | EnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncProvider[] | ListEnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncProvider[] | ListEnumDirectorySyncProviderFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncProviderWithAggregatesFilter<$PrismaModel> | $Enums.DirectorySyncProvider
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDirectorySyncProviderFilter<$PrismaModel>
+    _max?: NestedEnumDirectorySyncProviderFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDirectorySyncDefaultStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncDefaultStatus | EnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncDefaultStatus[] | ListEnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncDefaultStatus[] | ListEnumDirectorySyncDefaultStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncDefaultStatusWithAggregatesFilter<$PrismaModel> | $Enums.DirectorySyncDefaultStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDirectorySyncDefaultStatusFilter<$PrismaModel>
+    _max?: NestedEnumDirectorySyncDefaultStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDirectorySyncRunStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunStatus | EnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    in?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumDirectorySyncRunStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.DirectorySyncRunStatus | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumDirectorySyncRunStatusNullableFilter<$PrismaModel>
+    _max?: NestedEnumDirectorySyncRunStatusNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDirectorySyncRunStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunStatus | EnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncRunStatusFilter<$PrismaModel> | $Enums.DirectorySyncRunStatus
+  }
+
+  export type NestedEnumDirectorySyncRunTriggerFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunTrigger | EnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncRunTrigger[] | ListEnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncRunTrigger[] | ListEnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncRunTriggerFilter<$PrismaModel> | $Enums.DirectorySyncRunTrigger
+  }
+
+  export type NestedEnumDirectorySyncRunStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunStatus | EnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncRunStatus[] | ListEnumDirectorySyncRunStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncRunStatusWithAggregatesFilter<$PrismaModel> | $Enums.DirectorySyncRunStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDirectorySyncRunStatusFilter<$PrismaModel>
+    _max?: NestedEnumDirectorySyncRunStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDirectorySyncRunTriggerWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DirectorySyncRunTrigger | EnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    in?: $Enums.DirectorySyncRunTrigger[] | ListEnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DirectorySyncRunTrigger[] | ListEnumDirectorySyncRunTriggerFieldRefInput<$PrismaModel>
+    not?: NestedEnumDirectorySyncRunTriggerWithAggregatesFilter<$PrismaModel> | $Enums.DirectorySyncRunTrigger
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDirectorySyncRunTriggerFilter<$PrismaModel>
+    _max?: NestedEnumDirectorySyncRunTriggerFilter<$PrismaModel>
+  }
+
   export type NestedEnumVendorRiskTierFilter<$PrismaModel = never> = {
     equals?: $Enums.VendorRiskTier | EnumVendorRiskTierFieldRefInput<$PrismaModel>
     in?: $Enums.VendorRiskTier[] | ListEnumVendorRiskTierFieldRefInput<$PrismaModel>
@@ -142946,6 +148699,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiProviderConfigsInput = {
@@ -143014,6 +148770,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiProviderConfigsInput = {
@@ -143098,6 +148857,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiProviderConfigsInput = {
@@ -143166,6 +148928,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiFeatureConfigsInput = {
@@ -143234,6 +148999,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiFeatureConfigsInput = {
@@ -143302,6 +149070,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiFeatureConfigsInput = {
@@ -143386,6 +149157,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiFeatureConfigsInput = {
@@ -143454,6 +149228,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAiSystemsInput = {
@@ -143522,6 +149299,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiSystemsInput = {
@@ -143590,6 +149370,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiSystemsInput = {
@@ -143662,6 +149445,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedAiSystemsInput = {
@@ -143729,6 +149513,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedAiSystemsInput = {
@@ -143961,6 +149746,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiSystemsInput = {
@@ -144029,6 +149817,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedAiSystemsInput = {
@@ -144107,6 +149898,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedAiSystemsInput = {
@@ -144174,6 +149966,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AIRiskAssessmentUpsertWithWhereUniqueWithoutAiSystemInput = {
@@ -144400,6 +150193,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiRiskAssessmentsInput = {
@@ -144468,6 +150264,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiRiskAssessmentsInput = {
@@ -144540,6 +150339,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiRiskAssessmentsInput = {
@@ -144607,6 +150407,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiRiskAssessmentsInput = {
@@ -144679,6 +150480,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiRiskApprovalsInput = {
@@ -144746,6 +150548,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiRiskApprovalsInput = {
@@ -144875,6 +150678,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiRiskAssessmentsInput = {
@@ -144943,6 +150749,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAiRiskAssessmentsInput = {
@@ -145021,6 +150830,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiRiskAssessmentsInput = {
@@ -145088,6 +150898,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAiRiskApprovalsInput = {
@@ -145166,6 +150977,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiRiskApprovalsInput = {
@@ -145233,6 +151045,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutAiIncidentsInput = {
@@ -145301,6 +151114,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiIncidentsInput = {
@@ -145369,6 +151185,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiIncidentsInput = {
@@ -145480,6 +151299,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedAiIncidentsInput = {
@@ -145547,6 +151367,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedAiIncidentsInput = {
@@ -145619,6 +151440,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedAiIncidentsInput = {
@@ -145686,6 +151508,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedAiIncidentsInput = {
@@ -145770,6 +151593,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiIncidentsInput = {
@@ -145838,6 +151664,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type AISystemUpsertWithoutIncidentsInput = {
@@ -145961,6 +151790,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedAiIncidentsInput = {
@@ -146028,6 +151858,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAssignedAiIncidentsInput = {
@@ -146106,6 +151937,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedAiIncidentsInput = {
@@ -146173,6 +152005,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AISystemCreateWithoutImpactAssessmentsInput = {
@@ -146280,6 +152113,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAiImpactAssessmentsInput = {
@@ -146348,6 +152184,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAiImpactAssessmentsInput = {
@@ -146420,6 +152259,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiImpactAssessmentsInput = {
@@ -146487,6 +152327,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiImpactAssessmentsInput = {
@@ -146559,6 +152400,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiImpactApprovalsInput = {
@@ -146626,6 +152468,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiImpactApprovalsInput = {
@@ -146755,6 +152598,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAiImpactAssessmentsInput = {
@@ -146823,6 +152669,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAiImpactAssessmentsInput = {
@@ -146901,6 +152750,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiImpactAssessmentsInput = {
@@ -146968,6 +152818,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAiImpactApprovalsInput = {
@@ -147046,6 +152897,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiImpactApprovalsInput = {
@@ -147113,6 +152965,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutAssetsInput = {
@@ -147181,6 +153034,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAssetsInput = {
@@ -147249,6 +153105,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAssetsInput = {
@@ -147321,6 +153180,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedAssetsInput = {
@@ -147388,6 +153248,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedAssetsInput = {
@@ -147460,6 +153321,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDeletedAssetsInput = {
@@ -147527,6 +153389,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDeletedAssetsInput = {
@@ -147611,6 +153474,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAssetsInput = {
@@ -147679,6 +153545,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedAssetsInput = {
@@ -147757,6 +153626,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedAssetsInput = {
@@ -147824,6 +153694,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutDeletedAssetsInput = {
@@ -147902,6 +153773,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDeletedAssetsInput = {
@@ -147969,6 +153841,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutAuditsInput = {
@@ -148037,6 +153910,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditsInput = {
@@ -148105,6 +153981,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditsInput = {
@@ -148294,6 +154173,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditsInput = {
@@ -148362,6 +154244,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FrameworkInstanceUpsertWithoutAuditsInput = {
@@ -148578,6 +154463,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditFindingsInput = {
@@ -148646,6 +154534,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditFindingsInput = {
@@ -148765,6 +154656,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedAuditFindingsInput = {
@@ -148832,6 +154724,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedAuditFindingsInput = {
@@ -148965,6 +154858,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditFindingsInput = {
@@ -149033,6 +154929,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ControlUpsertWithoutAuditFindingsInput = {
@@ -149164,6 +155063,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedAuditFindingsInput = {
@@ -149231,6 +155131,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AuditCreateWithoutDocumentsInput = {
@@ -149342,6 +155243,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditDocumentsInput = {
@@ -149410,6 +155314,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditDocumentsInput = {
@@ -149482,6 +155389,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUploadedAuditDocumentsInput = {
@@ -149549,6 +155457,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUploadedAuditDocumentsInput = {
@@ -149682,6 +155591,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditDocumentsInput = {
@@ -149750,6 +155662,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutUploadedAuditDocumentsInput = {
@@ -149828,6 +155743,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUploadedAuditDocumentsInput = {
@@ -149895,6 +155811,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutBcpsInput = {
@@ -149963,6 +155880,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBcpsInput = {
@@ -150031,6 +155951,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBcpsInput = {
@@ -150103,6 +156026,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedBcpsInput = {
@@ -150170,6 +156094,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedBcpsInput = {
@@ -150372,6 +156297,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBcpsInput = {
@@ -150440,6 +156368,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedBcpsInput = {
@@ -150518,6 +156449,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedBcpsInput = {
@@ -150585,6 +156517,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BusinessImpactAnalysisUpsertWithWhereUniqueWithoutBcpInput = {
@@ -150742,6 +156675,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBiasInput = {
@@ -150810,6 +156746,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBiasInput = {
@@ -150919,6 +156858,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedBiasInput = {
@@ -150986,6 +156926,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedBiasInput = {
@@ -151070,6 +157011,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBiasInput = {
@@ -151138,6 +157082,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BusinessContinuityPlanUpsertWithoutImpactAnalysesInput = {
@@ -151259,6 +157206,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedBiasInput = {
@@ -151326,6 +157274,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutBcpExercisesInput = {
@@ -151394,6 +157343,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutBcpExercisesInput = {
@@ -151462,6 +157414,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutBcpExercisesInput = {
@@ -151571,6 +157526,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFacilitatedBcpExercisesInput = {
@@ -151638,6 +157594,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFacilitatedBcpExercisesInput = {
@@ -151722,6 +157679,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutBcpExercisesInput = {
@@ -151790,6 +157750,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type BusinessContinuityPlanUpsertWithoutExercisesInput = {
@@ -151911,6 +157874,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFacilitatedBcpExercisesInput = {
@@ -151978,6 +157942,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutConversationsInput = {
@@ -152046,6 +158011,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutConversationsInput = {
@@ -152114,6 +158082,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutConversationsInput = {
@@ -152234,6 +158205,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutConversationsInput = {
@@ -152302,6 +158276,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type MessageUpsertWithWhereUniqueWithoutConversationInput = {
@@ -152403,6 +158380,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutConversationMessagesInput = {
@@ -152471,6 +158451,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutConversationMessagesInput = {
@@ -152580,6 +158563,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutConversationMessagesInput = {
@@ -152648,6 +158634,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ConversationUpsertWithoutMessagesInput = {
@@ -152747,6 +158736,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutControlsInput = {
@@ -152815,6 +158807,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutControlsInput = {
@@ -152887,6 +158882,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedControlsInput = {
@@ -152954,6 +158950,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedControlsInput = {
@@ -153341,6 +159338,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutControlsInput = {
@@ -153409,6 +159409,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedControlsInput = {
@@ -153487,6 +159490,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedControlsInput = {
@@ -153554,6 +159558,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ControlRequirementAssignmentUpsertWithWhereUniqueWithoutControlInput = {
@@ -153967,6 +159972,9 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutControlWeaknessesInput = {
@@ -154035,6 +160043,9 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutControlWeaknessesInput = {
@@ -154154,6 +160165,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedControlWeaknessesInput = {
@@ -154221,6 +160233,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedControlWeaknessesInput = {
@@ -154293,6 +160306,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedControlWeaknessesInput = {
@@ -154360,6 +160374,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedControlWeaknessesInput = {
@@ -154444,6 +160459,9 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutControlWeaknessesInput = {
@@ -154512,6 +160530,9 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ControlUpsertWithoutWeaknessesInput = {
@@ -154643,6 +160664,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedControlWeaknessesInput = {
@@ -154710,6 +160732,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAssignedControlWeaknessesInput = {
@@ -154788,6 +160811,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedControlWeaknessesInput = {
@@ -154855,6 +160879,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutEvidenceInput = {
@@ -154923,6 +160948,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutEvidenceInput = {
@@ -154991,6 +161019,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutEvidenceInput = {
@@ -155110,6 +161141,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubmittedControlEvidenceInput = {
@@ -155177,6 +161209,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubmittedControlEvidenceInput = {
@@ -155249,6 +161282,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewedControlEvidenceInput = {
@@ -155316,6 +161350,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewedControlEvidenceInput = {
@@ -155400,6 +161435,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutEvidenceInput = {
@@ -155468,6 +161506,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ControlUpsertWithoutEvidenceInput = {
@@ -155599,6 +161640,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubmittedControlEvidenceInput = {
@@ -155666,6 +161708,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReviewedControlEvidenceInput = {
@@ -155744,6 +161787,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedControlEvidenceInput = {
@@ -155811,6 +161855,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FrameworkInstanceCreateWithoutFrameworkInput = {
@@ -156018,6 +162063,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFrameworkInstancesInput = {
@@ -156086,6 +162134,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFrameworkInstancesInput = {
@@ -156275,6 +162326,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFrameworkInstancesInput = {
@@ -156343,6 +162397,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FrameworkUpsertWithoutInstancesInput = {
@@ -156856,6 +162913,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutControlRequirementAssignmentsInput = {
@@ -156924,6 +162984,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutControlRequirementAssignmentsInput = {
@@ -157121,6 +163184,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutControlRequirementAssignmentsInput = {
@@ -157189,6 +163255,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type RequirementUpsertWithoutControlRequirementAssignmentsInput = {
@@ -157388,6 +163457,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentsInput = {
@@ -157456,6 +163528,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentsInput = {
@@ -157528,6 +163603,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -157595,6 +163671,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -157667,6 +163744,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedIncidentsInput = {
@@ -157734,6 +163812,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedIncidentsInput = {
@@ -157846,6 +163925,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentsInput = {
@@ -157914,6 +163996,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutReportedIncidentsInput = {
@@ -157992,6 +164077,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -158059,6 +164145,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAssignedIncidentsInput = {
@@ -158137,6 +164224,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedIncidentsInput = {
@@ -158204,6 +164292,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type IncidentTimelineUpsertWithWhereUniqueWithoutIncidentInput = {
@@ -158342,6 +164431,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutIncidentTimelinesInput = {
@@ -158410,6 +164502,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutIncidentTimelinesInput = {
@@ -158482,6 +164577,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIncidentTimelineActionsInput = {
@@ -158549,6 +164645,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIncidentTimelineActionsInput = {
@@ -158680,6 +164777,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutIncidentTimelinesInput = {
@@ -158748,6 +164848,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutIncidentTimelineActionsInput = {
@@ -158826,6 +164929,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIncidentTimelineActionsInput = {
@@ -158893,6 +164997,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutPoliciesInput = {
@@ -158961,6 +165066,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPoliciesInput = {
@@ -159029,6 +165137,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPoliciesInput = {
@@ -159101,6 +165212,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedPoliciesInput = {
@@ -159168,6 +165280,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedPoliciesInput = {
@@ -159386,6 +165499,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPoliciesInput = {
@@ -159454,6 +165570,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedPoliciesInput = {
@@ -159532,6 +165651,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedPoliciesInput = {
@@ -159599,6 +165719,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PolicyVersionUpsertWithWhereUniqueWithoutPolicyInput = {
@@ -159820,6 +165941,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedPolicyVersionsInput = {
@@ -159887,6 +166009,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedPolicyVersionsInput = {
@@ -159959,6 +166082,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApprovedPolicyVersionsInput = {
@@ -160026,6 +166150,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApprovedPolicyVersionsInput = {
@@ -160230,6 +166355,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedPolicyVersionsInput = {
@@ -160297,6 +166423,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutApprovedPolicyVersionsInput = {
@@ -160375,6 +166502,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedPolicyVersionsInput = {
@@ -160442,6 +166570,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PolicyAcknowledgmentUpsertWithWhereUniqueWithoutPolicyVersionInput = {
@@ -160613,6 +166742,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPolicyAcknowledgmentsInput = {
@@ -160680,6 +166810,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPolicyAcknowledgmentsInput = {
@@ -160753,6 +166884,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPolicyAcksInput = {
@@ -160821,6 +166955,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPolicyAcksInput = {
@@ -160988,6 +167125,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPolicyAcknowledgmentsInput = {
@@ -161055,6 +167193,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutPolicyAcksInput = {
@@ -161134,6 +167273,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPolicyAcksInput = {
@@ -161202,6 +167344,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type PolicyCreateWithoutCommentsInput = {
@@ -161341,6 +167486,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPolicyCommentsInput = {
@@ -161408,6 +167554,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPolicyCommentsInput = {
@@ -161481,6 +167628,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPolicyCommentsInput = {
@@ -161549,6 +167699,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPolicyCommentsInput = {
@@ -161621,6 +167774,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutResolvedCommentsInput = {
@@ -161688,6 +167842,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutResolvedCommentsInput = {
@@ -161942,6 +168097,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPolicyCommentsInput = {
@@ -162009,6 +168165,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutPolicyCommentsInput = {
@@ -162088,6 +168245,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPolicyCommentsInput = {
@@ -162156,6 +168316,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutResolvedCommentsInput = {
@@ -162234,6 +168397,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutResolvedCommentsInput = {
@@ -162301,6 +168465,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PolicyCommentUpsertWithoutRepliesInput = {
@@ -162520,6 +168685,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutPolicyControlsInput = {
@@ -162588,6 +168756,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutPolicyControlsInput = {
@@ -162772,6 +168943,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutPolicyControlsInput = {
@@ -162840,6 +169014,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutProcessingActivitiesInput = {
@@ -162908,6 +169085,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutProcessingActivitiesInput = {
@@ -162976,6 +169156,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutProcessingActivitiesInput = {
@@ -163048,6 +169231,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedProcessingActivitiesInput = {
@@ -163115,6 +169299,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedProcessingActivitiesInput = {
@@ -163533,6 +169718,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutProcessingActivitiesInput = {
@@ -163601,6 +169789,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedProcessingActivitiesInput = {
@@ -163679,6 +169870,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedProcessingActivitiesInput = {
@@ -163746,6 +169938,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DPIAUpsertWithWhereUniqueWithoutProcessingActivityInput = {
@@ -164051,6 +170244,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDpiasInput = {
@@ -164119,6 +170315,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDpiasInput = {
@@ -164254,6 +170453,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDpiaAssessmentsInput = {
@@ -164321,6 +170521,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDpiaAssessmentsInput = {
@@ -164393,6 +170594,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDpiaApprovalsInput = {
@@ -164460,6 +170662,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDpiaApprovalsInput = {
@@ -164544,6 +170747,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDpiasInput = {
@@ -164612,6 +170818,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProcessingActivityUpsertWithoutDpiasInput = {
@@ -164759,6 +170968,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDpiaAssessmentsInput = {
@@ -164826,6 +171036,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutDpiaApprovalsInput = {
@@ -164904,6 +171115,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDpiaApprovalsInput = {
@@ -164971,6 +171183,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutDataBreachesInput = {
@@ -165039,6 +171252,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDataBreachesInput = {
@@ -165107,6 +171323,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDataBreachesInput = {
@@ -165242,6 +171461,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedDataBreachesInput = {
@@ -165309,6 +171529,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedDataBreachesInput = {
@@ -165381,6 +171602,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedDataBreachesInput = {
@@ -165448,6 +171670,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedDataBreachesInput = {
@@ -165532,6 +171755,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDataBreachesInput = {
@@ -165600,6 +171826,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ProcessingActivityUpsertWithoutBreachesInput = {
@@ -165747,6 +171976,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedDataBreachesInput = {
@@ -165814,6 +172044,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAssignedDataBreachesInput = {
@@ -165892,6 +172123,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedDataBreachesInput = {
@@ -165959,6 +172191,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutDsarRequestsInput = {
@@ -166027,6 +172260,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutDsarRequestsInput = {
@@ -166095,6 +172331,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutDsarRequestsInput = {
@@ -166167,6 +172406,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedDsarRequestsInput = {
@@ -166234,6 +172474,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedDsarRequestsInput = {
@@ -166381,6 +172622,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutDsarRequestsInput = {
@@ -166449,6 +172693,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAssignedDsarRequestsInput = {
@@ -166527,6 +172774,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedDsarRequestsInput = {
@@ -166594,6 +172842,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProcessingActivityUpsertWithWhereUniqueWithoutDsarsInput = {
@@ -166706,6 +172955,9 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     answers?: AnswerCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuestionnaireImportJobsInput = {
@@ -166774,6 +173026,9 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuestionnaireImportJobsInput = {
@@ -166846,6 +173101,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutQuestionnaireImportJobsInput = {
@@ -166913,6 +173169,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutQuestionnaireImportJobsInput = {
@@ -167046,6 +173303,9 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuestionnaireImportJobsInput = {
@@ -167114,6 +173374,9 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutQuestionnaireImportJobsInput = {
@@ -167192,6 +173455,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutQuestionnaireImportJobsInput = {
@@ -167259,6 +173523,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuestionnaireUpsertWithoutImportJobsInput = {
@@ -167382,6 +173647,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuestionnairesInput = {
@@ -167450,6 +173718,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuestionnairesInput = {
@@ -167522,6 +173793,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutImportedQuestionnairesInput = {
@@ -167589,6 +173861,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutImportedQuestionnairesInput = {
@@ -167896,6 +174169,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuestionnairesInput = {
@@ -167964,6 +174240,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutImportedQuestionnairesInput = {
@@ -168042,6 +174321,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutImportedQuestionnairesInput = {
@@ -168109,6 +174389,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VendorUpsertWithoutQuestionnairesInput = {
@@ -168371,6 +174652,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuestionsInput = {
@@ -168439,6 +174723,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuestionsInput = {
@@ -168719,6 +175006,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuestionsInput = {
@@ -168787,6 +175077,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type QuestionnaireUpsertWithoutQuestionsInput = {
@@ -168997,6 +175290,9 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAnswersInput = {
@@ -169065,6 +175361,9 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAnswersInput = {
@@ -169235,6 +175534,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewedAnswersInput = {
@@ -169302,6 +175602,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewedAnswersInput = {
@@ -169386,6 +175687,9 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAnswersInput = {
@@ -169454,6 +175758,9 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type QuestionnaireUpsertWithoutAnswersInput = {
@@ -169642,6 +175949,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedAnswersInput = {
@@ -169709,6 +176017,7 @@ export namespace Prisma {
     assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutRisksInput = {
@@ -169777,6 +176086,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRisksInput = {
@@ -169845,6 +176157,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRisksInput = {
@@ -169917,6 +176232,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedRisksInput = {
@@ -169984,6 +176300,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedRisksInput = {
@@ -170056,6 +176373,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutActionOwnedRisksInput = {
@@ -170123,6 +176441,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutActionOwnedRisksInput = {
@@ -170384,6 +176703,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRisksInput = {
@@ -170452,6 +176774,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutOwnedRisksInput = {
@@ -170530,6 +176855,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedRisksInput = {
@@ -170597,6 +176923,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutActionOwnedRisksInput = {
@@ -170675,6 +177002,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutActionOwnedRisksInput = {
@@ -170742,6 +177070,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProcessingActivityUpsertWithoutRisksInput = {
@@ -171072,6 +177401,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskAssessmentsInput = {
@@ -171140,6 +177472,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskAssessmentsInput = {
@@ -171212,6 +177547,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRiskAssessmentsInput = {
@@ -171279,6 +177615,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRiskAssessmentsInput = {
@@ -171460,6 +177797,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskAssessmentsInput = {
@@ -171528,6 +177868,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutRiskAssessmentsInput = {
@@ -171606,6 +177949,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRiskAssessmentsInput = {
@@ -171673,6 +178017,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RiskCreateWithoutTreatmentsInput = {
@@ -171832,6 +178177,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskTreatmentsInput = {
@@ -171900,6 +178248,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskTreatmentsInput = {
@@ -171972,6 +178323,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRiskTreatmentsInput = {
@@ -172039,6 +178391,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRiskTreatmentsInput = {
@@ -172220,6 +178573,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskTreatmentsInput = {
@@ -172288,6 +178644,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutRiskTreatmentsInput = {
@@ -172366,6 +178725,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRiskTreatmentsInput = {
@@ -172433,6 +178793,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutRiskRegisterConfigInput = {
@@ -172501,6 +178862,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskRegisterConfigInput = {
@@ -172569,6 +178933,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskRegisterConfigInput = {
@@ -172653,6 +179020,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskRegisterConfigInput = {
@@ -172721,6 +179091,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type RiskCreateWithoutMatrixChangesInput = {
@@ -172880,6 +179253,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRiskMatrixChangesInput = {
@@ -172948,6 +179324,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRiskMatrixChangesInput = {
@@ -173020,6 +179399,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRiskMatrixChangesInput = {
@@ -173087,6 +179467,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRiskMatrixChangesInput = {
@@ -173268,6 +179649,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRiskMatrixChangesInput = {
@@ -173336,6 +179720,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutRiskMatrixChangesInput = {
@@ -173414,6 +179801,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRiskMatrixChangesInput = {
@@ -173481,6 +179869,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutTasksInput = {
@@ -173549,6 +179938,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTasksInput = {
@@ -173617,6 +180009,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTasksInput = {
@@ -173689,6 +180084,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedTasksInput = {
@@ -173756,6 +180152,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedTasksInput = {
@@ -173929,6 +180326,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTasksInput = {
@@ -173997,6 +180397,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAssignedTasksInput = {
@@ -174075,6 +180478,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedTasksInput = {
@@ -174142,6 +180546,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ControlUpsertWithoutTasksInput = {
@@ -174344,6 +180749,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTaskEvidenceInput = {
@@ -174412,6 +180820,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTaskEvidenceInput = {
@@ -174484,6 +180895,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubmittedEvidenceInput = {
@@ -174551,6 +180963,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubmittedEvidenceInput = {
@@ -174623,6 +181036,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApprovedEvidenceInput = {
@@ -174690,6 +181104,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApprovedEvidenceInput = {
@@ -174825,6 +181240,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTaskEvidenceInput = {
@@ -174893,6 +181311,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutSubmittedEvidenceInput = {
@@ -174971,6 +181392,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubmittedEvidenceInput = {
@@ -175038,6 +181460,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutApprovedEvidenceInput = {
@@ -175116,6 +181539,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedEvidenceInput = {
@@ -175183,6 +181607,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantContextCreateWithoutSupersededByInput = {
@@ -175338,6 +181763,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutContextEntriesInput = {
@@ -175406,6 +181834,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutContextEntriesInput = {
@@ -175574,6 +182005,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutContextEntriesInput = {
@@ -175642,6 +182076,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutContextProposalsInput = {
@@ -175710,6 +182147,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutContextProposalsInput = {
@@ -175778,6 +182218,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutContextProposalsInput = {
@@ -175862,6 +182305,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutContextProposalsInput = {
@@ -175930,6 +182376,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantSettingsCreateWithoutTenantInput = {
@@ -178555,6 +185004,134 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DirectorySyncConfigCreateWithoutTenantInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled?: boolean
+    syncFrequencyMinutes?: number
+    defaultRole?: $Enums.MembershipRole
+    defaultStatus?: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials: string
+    lastSyncAt?: Date | string | null
+    lastSyncStatus?: $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    runs?: DirectorySyncRunCreateNestedManyWithoutConfigInput
+    mappings?: ExternalIdentityMappingCreateNestedManyWithoutConfigInput
+  }
+
+  export type DirectorySyncConfigUncheckedCreateWithoutTenantInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled?: boolean
+    syncFrequencyMinutes?: number
+    defaultRole?: $Enums.MembershipRole
+    defaultStatus?: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials: string
+    lastSyncAt?: Date | string | null
+    lastSyncStatus?: $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    runs?: DirectorySyncRunUncheckedCreateNestedManyWithoutConfigInput
+    mappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutConfigInput
+  }
+
+  export type DirectorySyncConfigCreateOrConnectWithoutTenantInput = {
+    where: DirectorySyncConfigWhereUniqueInput
+    create: XOR<DirectorySyncConfigCreateWithoutTenantInput, DirectorySyncConfigUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DirectorySyncConfigCreateManyTenantInputEnvelope = {
+    data: DirectorySyncConfigCreateManyTenantInput | DirectorySyncConfigCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DirectorySyncRunCreateWithoutTenantInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    status?: $Enums.DirectorySyncRunStatus
+    triggeredBy?: $Enums.DirectorySyncRunTrigger
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    usersDiscovered?: number
+    usersCreated?: number
+    usersUpdated?: number
+    usersSuspended?: number
+    errorMessage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    config: DirectorySyncConfigCreateNestedOneWithoutRunsInput
+  }
+
+  export type DirectorySyncRunUncheckedCreateWithoutTenantInput = {
+    id?: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    status?: $Enums.DirectorySyncRunStatus
+    triggeredBy?: $Enums.DirectorySyncRunTrigger
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    usersDiscovered?: number
+    usersCreated?: number
+    usersUpdated?: number
+    usersSuspended?: number
+    errorMessage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DirectorySyncRunCreateOrConnectWithoutTenantInput = {
+    where: DirectorySyncRunWhereUniqueInput
+    create: XOR<DirectorySyncRunCreateWithoutTenantInput, DirectorySyncRunUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DirectorySyncRunCreateManyTenantInputEnvelope = {
+    data: DirectorySyncRunCreateManyTenantInput | DirectorySyncRunCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExternalIdentityMappingCreateWithoutTenantInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    config: DirectorySyncConfigCreateNestedOneWithoutMappingsInput
+    user: UserCreateNestedOneWithoutExternalIdentityMappingsInput
+  }
+
+  export type ExternalIdentityMappingUncheckedCreateWithoutTenantInput = {
+    id?: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    userId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExternalIdentityMappingCreateOrConnectWithoutTenantInput = {
+    where: ExternalIdentityMappingWhereUniqueInput
+    create: XOR<ExternalIdentityMappingCreateWithoutTenantInput, ExternalIdentityMappingUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ExternalIdentityMappingCreateManyTenantInputEnvelope = {
+    data: ExternalIdentityMappingCreateManyTenantInput | ExternalIdentityMappingCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantSettingsUpsertWithoutTenantInput = {
     update: XOR<TenantSettingsUpdateWithoutTenantInput, TenantSettingsUncheckedUpdateWithoutTenantInput>
     create: XOR<TenantSettingsCreateWithoutTenantInput, TenantSettingsUncheckedCreateWithoutTenantInput>
@@ -179991,6 +186568,113 @@ export namespace Prisma {
     data: XOR<ControlWeaknessUpdateManyMutationInput, ControlWeaknessUncheckedUpdateManyWithoutTenantInput>
   }
 
+  export type DirectorySyncConfigUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DirectorySyncConfigWhereUniqueInput
+    update: XOR<DirectorySyncConfigUpdateWithoutTenantInput, DirectorySyncConfigUncheckedUpdateWithoutTenantInput>
+    create: XOR<DirectorySyncConfigCreateWithoutTenantInput, DirectorySyncConfigUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DirectorySyncConfigUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DirectorySyncConfigWhereUniqueInput
+    data: XOR<DirectorySyncConfigUpdateWithoutTenantInput, DirectorySyncConfigUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DirectorySyncConfigUpdateManyWithWhereWithoutTenantInput = {
+    where: DirectorySyncConfigScalarWhereInput
+    data: XOR<DirectorySyncConfigUpdateManyMutationInput, DirectorySyncConfigUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type DirectorySyncConfigScalarWhereInput = {
+    AND?: DirectorySyncConfigScalarWhereInput | DirectorySyncConfigScalarWhereInput[]
+    OR?: DirectorySyncConfigScalarWhereInput[]
+    NOT?: DirectorySyncConfigScalarWhereInput | DirectorySyncConfigScalarWhereInput[]
+    id?: StringFilter<"DirectorySyncConfig"> | string
+    tenantId?: StringFilter<"DirectorySyncConfig"> | string
+    provider?: EnumDirectorySyncProviderFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFilter<"DirectorySyncConfig"> | boolean
+    syncFrequencyMinutes?: IntFilter<"DirectorySyncConfig"> | number
+    defaultRole?: EnumMembershipRoleFilter<"DirectorySyncConfig"> | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: JsonNullableFilter<"DirectorySyncConfig">
+    encryptedCredentials?: StringFilter<"DirectorySyncConfig"> | string
+    lastSyncAt?: DateTimeNullableFilter<"DirectorySyncConfig"> | Date | string | null
+    lastSyncStatus?: EnumDirectorySyncRunStatusNullableFilter<"DirectorySyncConfig"> | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: StringNullableFilter<"DirectorySyncConfig"> | string | null
+    createdAt?: DateTimeFilter<"DirectorySyncConfig"> | Date | string
+    updatedAt?: DateTimeFilter<"DirectorySyncConfig"> | Date | string
+  }
+
+  export type DirectorySyncRunUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DirectorySyncRunWhereUniqueInput
+    update: XOR<DirectorySyncRunUpdateWithoutTenantInput, DirectorySyncRunUncheckedUpdateWithoutTenantInput>
+    create: XOR<DirectorySyncRunCreateWithoutTenantInput, DirectorySyncRunUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DirectorySyncRunUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DirectorySyncRunWhereUniqueInput
+    data: XOR<DirectorySyncRunUpdateWithoutTenantInput, DirectorySyncRunUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DirectorySyncRunUpdateManyWithWhereWithoutTenantInput = {
+    where: DirectorySyncRunScalarWhereInput
+    data: XOR<DirectorySyncRunUpdateManyMutationInput, DirectorySyncRunUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type DirectorySyncRunScalarWhereInput = {
+    AND?: DirectorySyncRunScalarWhereInput | DirectorySyncRunScalarWhereInput[]
+    OR?: DirectorySyncRunScalarWhereInput[]
+    NOT?: DirectorySyncRunScalarWhereInput | DirectorySyncRunScalarWhereInput[]
+    id?: StringFilter<"DirectorySyncRun"> | string
+    tenantId?: StringFilter<"DirectorySyncRun"> | string
+    configId?: StringFilter<"DirectorySyncRun"> | string
+    provider?: EnumDirectorySyncProviderFilter<"DirectorySyncRun"> | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFilter<"DirectorySyncRun"> | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFilter<"DirectorySyncRun"> | $Enums.DirectorySyncRunTrigger
+    startedAt?: DateTimeNullableFilter<"DirectorySyncRun"> | Date | string | null
+    finishedAt?: DateTimeNullableFilter<"DirectorySyncRun"> | Date | string | null
+    usersDiscovered?: IntFilter<"DirectorySyncRun"> | number
+    usersCreated?: IntFilter<"DirectorySyncRun"> | number
+    usersUpdated?: IntFilter<"DirectorySyncRun"> | number
+    usersSuspended?: IntFilter<"DirectorySyncRun"> | number
+    errorMessage?: StringNullableFilter<"DirectorySyncRun"> | string | null
+    createdAt?: DateTimeFilter<"DirectorySyncRun"> | Date | string
+    updatedAt?: DateTimeFilter<"DirectorySyncRun"> | Date | string
+  }
+
+  export type ExternalIdentityMappingUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ExternalIdentityMappingWhereUniqueInput
+    update: XOR<ExternalIdentityMappingUpdateWithoutTenantInput, ExternalIdentityMappingUncheckedUpdateWithoutTenantInput>
+    create: XOR<ExternalIdentityMappingCreateWithoutTenantInput, ExternalIdentityMappingUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ExternalIdentityMappingUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ExternalIdentityMappingWhereUniqueInput
+    data: XOR<ExternalIdentityMappingUpdateWithoutTenantInput, ExternalIdentityMappingUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ExternalIdentityMappingUpdateManyWithWhereWithoutTenantInput = {
+    where: ExternalIdentityMappingScalarWhereInput
+    data: XOR<ExternalIdentityMappingUpdateManyMutationInput, ExternalIdentityMappingUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type ExternalIdentityMappingScalarWhereInput = {
+    AND?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
+    OR?: ExternalIdentityMappingScalarWhereInput[]
+    NOT?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
+    id?: StringFilter<"ExternalIdentityMapping"> | string
+    tenantId?: StringFilter<"ExternalIdentityMapping"> | string
+    configId?: StringFilter<"ExternalIdentityMapping"> | string
+    provider?: EnumDirectorySyncProviderFilter<"ExternalIdentityMapping"> | $Enums.DirectorySyncProvider
+    externalId?: StringFilter<"ExternalIdentityMapping"> | string
+    userId?: StringFilter<"ExternalIdentityMapping"> | string
+    externalEmail?: StringFilter<"ExternalIdentityMapping"> | string
+    externalDisplayName?: StringNullableFilter<"ExternalIdentityMapping"> | string | null
+    externalGroupIds?: StringNullableListFilter<"ExternalIdentityMapping">
+    lastSeenAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
+    createdAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
+    updatedAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
+  }
+
   export type TenantCreateWithoutSettingsInput = {
     id?: string
     name: string
@@ -180057,6 +186741,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutSettingsInput = {
@@ -180125,6 +186812,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutSettingsInput = {
@@ -180209,6 +186899,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutSettingsInput = {
@@ -180277,6 +186970,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutTrainingProgramsInput = {
@@ -180345,6 +187041,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingProgramsInput = {
@@ -180413,6 +187112,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingProgramsInput = {
@@ -180569,6 +187271,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingProgramsInput = {
@@ -180637,6 +187342,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrainingCompletionUpsertWithWhereUniqueWithoutTrainingProgramInput = {
@@ -180771,6 +187479,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTrainingCompletionsInput = {
@@ -180838,6 +187547,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTrainingCompletionsInput = {
@@ -180911,6 +187621,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingCompletionsInput = {
@@ -180979,6 +187692,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingCompletionsInput = {
@@ -181103,6 +187819,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTrainingCompletionsInput = {
@@ -181170,6 +187887,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutTrainingCompletionsInput = {
@@ -181249,6 +187967,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingCompletionsInput = {
@@ -181317,6 +188038,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrainingProgramCreateWithoutQuizzesInput = {
@@ -181420,6 +188144,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrainingQuizzesInput = {
@@ -181488,6 +188215,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrainingQuizzesInput = {
@@ -181681,6 +188411,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrainingQuizzesInput = {
@@ -181749,6 +188482,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type QuizQuestionUpsertWithWhereUniqueWithoutQuizInput = {
@@ -182176,6 +188912,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutQuizAttemptsInput = {
@@ -182243,6 +188980,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutQuizAttemptsInput = {
@@ -182316,6 +189054,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutQuizAttemptsInput = {
@@ -182384,6 +189125,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutQuizAttemptsInput = {
@@ -182532,6 +189276,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -182599,6 +189344,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutQuizAttemptsInput = {
@@ -182678,6 +189424,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -182746,6 +189495,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type QuizAnswerUpsertWithWhereUniqueWithoutAttemptInput = {
@@ -183006,6 +189758,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustCenterConfigInput = {
@@ -183074,6 +189829,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustCenterConfigInput = {
@@ -183258,6 +190016,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustCenterConfigInput = {
@@ -183326,6 +190087,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrustResourceUpsertWithWhereUniqueWithoutTrustCenterConfigInput = {
@@ -183442,6 +190206,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustCenterSnapshotsInput = {
@@ -183510,6 +190277,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustCenterSnapshotsInput = {
@@ -183619,6 +190389,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPublishedTrustSnapshotsInput = {
@@ -183686,6 +190457,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPublishedTrustSnapshotsInput = {
@@ -183770,6 +190542,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustCenterSnapshotsInput = {
@@ -183838,6 +190613,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrustCenterConfigUpsertWithoutSnapshotsInput = {
@@ -183959,6 +190737,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPublishedTrustSnapshotsInput = {
@@ -184026,6 +190805,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutTrustCenterEventsInput = {
@@ -184094,6 +190874,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustCenterEventsInput = {
@@ -184162,6 +190945,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustCenterEventsInput = {
@@ -184283,6 +191069,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustCenterEventsInput = {
@@ -184351,6 +191140,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrustCenterConfigUpsertWithoutEventsInput = {
@@ -184462,6 +191254,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTrustResourcesInput = {
@@ -184530,6 +191325,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTrustResourcesInput = {
@@ -184699,6 +191497,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTrustResourcesInput = {
@@ -184767,6 +191568,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrustCenterConfigUpsertWithoutResourcesInput = {
@@ -184894,6 +191698,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAccessRequestsInput = {
@@ -184962,6 +191769,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAccessRequestsInput = {
@@ -185069,6 +191879,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApprovedAccessRequestsInput = {
@@ -185136,6 +191947,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApprovedAccessRequestsInput = {
@@ -185220,6 +192032,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAccessRequestsInput = {
@@ -185288,6 +192103,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TrustResourceUpsertWithoutAccessRequestsInput = {
@@ -185407,6 +192225,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedAccessRequestsInput = {
@@ -185474,6 +192293,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MembershipCreateWithoutUserInput = {
@@ -188106,6 +194926,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ExternalIdentityMappingCreateWithoutUserInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutExternalIdentityMappingsInput
+    config: DirectorySyncConfigCreateNestedOneWithoutMappingsInput
+  }
+
+  export type ExternalIdentityMappingUncheckedCreateWithoutUserInput = {
+    id?: string
+    tenantId: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExternalIdentityMappingCreateOrConnectWithoutUserInput = {
+    where: ExternalIdentityMappingWhereUniqueInput
+    create: XOR<ExternalIdentityMappingCreateWithoutUserInput, ExternalIdentityMappingUncheckedCreateWithoutUserInput>
+  }
+
+  export type ExternalIdentityMappingCreateManyUserInputEnvelope = {
+    data: ExternalIdentityMappingCreateManyUserInput | ExternalIdentityMappingCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MembershipUpsertWithWhereUniqueWithoutUserInput = {
     where: MembershipWhereUniqueInput
     update: XOR<MembershipUpdateWithoutUserInput, MembershipUncheckedUpdateWithoutUserInput>
@@ -188970,6 +195828,22 @@ export namespace Prisma {
     data: XOR<QuestionnaireImportJobUpdateManyMutationInput, QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByInput>
   }
 
+  export type ExternalIdentityMappingUpsertWithWhereUniqueWithoutUserInput = {
+    where: ExternalIdentityMappingWhereUniqueInput
+    update: XOR<ExternalIdentityMappingUpdateWithoutUserInput, ExternalIdentityMappingUncheckedUpdateWithoutUserInput>
+    create: XOR<ExternalIdentityMappingCreateWithoutUserInput, ExternalIdentityMappingUncheckedCreateWithoutUserInput>
+  }
+
+  export type ExternalIdentityMappingUpdateWithWhereUniqueWithoutUserInput = {
+    where: ExternalIdentityMappingWhereUniqueInput
+    data: XOR<ExternalIdentityMappingUpdateWithoutUserInput, ExternalIdentityMappingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ExternalIdentityMappingUpdateManyWithWhereWithoutUserInput = {
+    where: ExternalIdentityMappingScalarWhereInput
+    data: XOR<ExternalIdentityMappingUpdateManyMutationInput, ExternalIdentityMappingUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type UserCreateWithoutMembershipsInput = {
     id?: string
     email: string
@@ -189035,6 +195909,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -189102,6 +195977,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -189175,6 +196051,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutMembershipsInput = {
@@ -189243,6 +196122,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutMembershipsInput = {
@@ -189326,6 +196208,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -189393,6 +196276,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutMembershipsInput = {
@@ -189472,6 +196356,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutMembershipsInput = {
@@ -189540,6 +196427,1487 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutDirectorySyncConfigsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDirectorySyncConfigsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDirectorySyncConfigsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDirectorySyncConfigsInput, TenantUncheckedCreateWithoutDirectorySyncConfigsInput>
+  }
+
+  export type DirectorySyncRunCreateWithoutConfigInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    status?: $Enums.DirectorySyncRunStatus
+    triggeredBy?: $Enums.DirectorySyncRunTrigger
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    usersDiscovered?: number
+    usersCreated?: number
+    usersUpdated?: number
+    usersSuspended?: number
+    errorMessage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDirectorySyncRunsInput
+  }
+
+  export type DirectorySyncRunUncheckedCreateWithoutConfigInput = {
+    id?: string
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+    status?: $Enums.DirectorySyncRunStatus
+    triggeredBy?: $Enums.DirectorySyncRunTrigger
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    usersDiscovered?: number
+    usersCreated?: number
+    usersUpdated?: number
+    usersSuspended?: number
+    errorMessage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DirectorySyncRunCreateOrConnectWithoutConfigInput = {
+    where: DirectorySyncRunWhereUniqueInput
+    create: XOR<DirectorySyncRunCreateWithoutConfigInput, DirectorySyncRunUncheckedCreateWithoutConfigInput>
+  }
+
+  export type DirectorySyncRunCreateManyConfigInputEnvelope = {
+    data: DirectorySyncRunCreateManyConfigInput | DirectorySyncRunCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ExternalIdentityMappingCreateWithoutConfigInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutExternalIdentityMappingsInput
+    user: UserCreateNestedOneWithoutExternalIdentityMappingsInput
+  }
+
+  export type ExternalIdentityMappingUncheckedCreateWithoutConfigInput = {
+    id?: string
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    userId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExternalIdentityMappingCreateOrConnectWithoutConfigInput = {
+    where: ExternalIdentityMappingWhereUniqueInput
+    create: XOR<ExternalIdentityMappingCreateWithoutConfigInput, ExternalIdentityMappingUncheckedCreateWithoutConfigInput>
+  }
+
+  export type ExternalIdentityMappingCreateManyConfigInputEnvelope = {
+    data: ExternalIdentityMappingCreateManyConfigInput | ExternalIdentityMappingCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutDirectorySyncConfigsInput = {
+    update: XOR<TenantUpdateWithoutDirectorySyncConfigsInput, TenantUncheckedUpdateWithoutDirectorySyncConfigsInput>
+    create: XOR<TenantCreateWithoutDirectorySyncConfigsInput, TenantUncheckedCreateWithoutDirectorySyncConfigsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDirectorySyncConfigsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDirectorySyncConfigsInput, TenantUncheckedUpdateWithoutDirectorySyncConfigsInput>
+  }
+
+  export type TenantUpdateWithoutDirectorySyncConfigsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDirectorySyncConfigsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type DirectorySyncRunUpsertWithWhereUniqueWithoutConfigInput = {
+    where: DirectorySyncRunWhereUniqueInput
+    update: XOR<DirectorySyncRunUpdateWithoutConfigInput, DirectorySyncRunUncheckedUpdateWithoutConfigInput>
+    create: XOR<DirectorySyncRunCreateWithoutConfigInput, DirectorySyncRunUncheckedCreateWithoutConfigInput>
+  }
+
+  export type DirectorySyncRunUpdateWithWhereUniqueWithoutConfigInput = {
+    where: DirectorySyncRunWhereUniqueInput
+    data: XOR<DirectorySyncRunUpdateWithoutConfigInput, DirectorySyncRunUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type DirectorySyncRunUpdateManyWithWhereWithoutConfigInput = {
+    where: DirectorySyncRunScalarWhereInput
+    data: XOR<DirectorySyncRunUpdateManyMutationInput, DirectorySyncRunUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type ExternalIdentityMappingUpsertWithWhereUniqueWithoutConfigInput = {
+    where: ExternalIdentityMappingWhereUniqueInput
+    update: XOR<ExternalIdentityMappingUpdateWithoutConfigInput, ExternalIdentityMappingUncheckedUpdateWithoutConfigInput>
+    create: XOR<ExternalIdentityMappingCreateWithoutConfigInput, ExternalIdentityMappingUncheckedCreateWithoutConfigInput>
+  }
+
+  export type ExternalIdentityMappingUpdateWithWhereUniqueWithoutConfigInput = {
+    where: ExternalIdentityMappingWhereUniqueInput
+    data: XOR<ExternalIdentityMappingUpdateWithoutConfigInput, ExternalIdentityMappingUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type ExternalIdentityMappingUpdateManyWithWhereWithoutConfigInput = {
+    where: ExternalIdentityMappingScalarWhereInput
+    data: XOR<ExternalIdentityMappingUpdateManyMutationInput, ExternalIdentityMappingUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type TenantCreateWithoutDirectorySyncRunsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDirectorySyncRunsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDirectorySyncRunsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDirectorySyncRunsInput, TenantUncheckedCreateWithoutDirectorySyncRunsInput>
+  }
+
+  export type DirectorySyncConfigCreateWithoutRunsInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled?: boolean
+    syncFrequencyMinutes?: number
+    defaultRole?: $Enums.MembershipRole
+    defaultStatus?: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials: string
+    lastSyncAt?: Date | string | null
+    lastSyncStatus?: $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDirectorySyncConfigsInput
+    mappings?: ExternalIdentityMappingCreateNestedManyWithoutConfigInput
+  }
+
+  export type DirectorySyncConfigUncheckedCreateWithoutRunsInput = {
+    id?: string
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled?: boolean
+    syncFrequencyMinutes?: number
+    defaultRole?: $Enums.MembershipRole
+    defaultStatus?: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials: string
+    lastSyncAt?: Date | string | null
+    lastSyncStatus?: $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    mappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutConfigInput
+  }
+
+  export type DirectorySyncConfigCreateOrConnectWithoutRunsInput = {
+    where: DirectorySyncConfigWhereUniqueInput
+    create: XOR<DirectorySyncConfigCreateWithoutRunsInput, DirectorySyncConfigUncheckedCreateWithoutRunsInput>
+  }
+
+  export type TenantUpsertWithoutDirectorySyncRunsInput = {
+    update: XOR<TenantUpdateWithoutDirectorySyncRunsInput, TenantUncheckedUpdateWithoutDirectorySyncRunsInput>
+    create: XOR<TenantCreateWithoutDirectorySyncRunsInput, TenantUncheckedCreateWithoutDirectorySyncRunsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDirectorySyncRunsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDirectorySyncRunsInput, TenantUncheckedUpdateWithoutDirectorySyncRunsInput>
+  }
+
+  export type TenantUpdateWithoutDirectorySyncRunsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDirectorySyncRunsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type DirectorySyncConfigUpsertWithoutRunsInput = {
+    update: XOR<DirectorySyncConfigUpdateWithoutRunsInput, DirectorySyncConfigUncheckedUpdateWithoutRunsInput>
+    create: XOR<DirectorySyncConfigCreateWithoutRunsInput, DirectorySyncConfigUncheckedCreateWithoutRunsInput>
+    where?: DirectorySyncConfigWhereInput
+  }
+
+  export type DirectorySyncConfigUpdateToOneWithWhereWithoutRunsInput = {
+    where?: DirectorySyncConfigWhereInput
+    data: XOR<DirectorySyncConfigUpdateWithoutRunsInput, DirectorySyncConfigUncheckedUpdateWithoutRunsInput>
+  }
+
+  export type DirectorySyncConfigUpdateWithoutRunsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDirectorySyncConfigsNestedInput
+    mappings?: ExternalIdentityMappingUpdateManyWithoutConfigNestedInput
+  }
+
+  export type DirectorySyncConfigUncheckedUpdateWithoutRunsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type TenantCreateWithoutExternalIdentityMappingsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutExternalIdentityMappingsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutExternalIdentityMappingsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutExternalIdentityMappingsInput, TenantUncheckedCreateWithoutExternalIdentityMappingsInput>
+  }
+
+  export type DirectorySyncConfigCreateWithoutMappingsInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled?: boolean
+    syncFrequencyMinutes?: number
+    defaultRole?: $Enums.MembershipRole
+    defaultStatus?: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials: string
+    lastSyncAt?: Date | string | null
+    lastSyncStatus?: $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDirectorySyncConfigsInput
+    runs?: DirectorySyncRunCreateNestedManyWithoutConfigInput
+  }
+
+  export type DirectorySyncConfigUncheckedCreateWithoutMappingsInput = {
+    id?: string
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled?: boolean
+    syncFrequencyMinutes?: number
+    defaultRole?: $Enums.MembershipRole
+    defaultStatus?: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials: string
+    lastSyncAt?: Date | string | null
+    lastSyncStatus?: $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    runs?: DirectorySyncRunUncheckedCreateNestedManyWithoutConfigInput
+  }
+
+  export type DirectorySyncConfigCreateOrConnectWithoutMappingsInput = {
+    where: DirectorySyncConfigWhereUniqueInput
+    create: XOR<DirectorySyncConfigCreateWithoutMappingsInput, DirectorySyncConfigUncheckedCreateWithoutMappingsInput>
+  }
+
+  export type UserCreateWithoutExternalIdentityMappingsInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipCreateNestedManyWithoutUserInput
+    ownedControls?: ControlCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIACreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
+    assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutExternalIdentityMappingsInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
+    ownedControls?: ControlUncheckedCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyUncheckedCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskUncheckedCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskUncheckedCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetUncheckedCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetUncheckedCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentUncheckedCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineUncheckedCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingUncheckedCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemUncheckedCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentUncheckedCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIAUncheckedCreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutExternalIdentityMappingsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutExternalIdentityMappingsInput, UserUncheckedCreateWithoutExternalIdentityMappingsInput>
+  }
+
+  export type TenantUpsertWithoutExternalIdentityMappingsInput = {
+    update: XOR<TenantUpdateWithoutExternalIdentityMappingsInput, TenantUncheckedUpdateWithoutExternalIdentityMappingsInput>
+    create: XOR<TenantCreateWithoutExternalIdentityMappingsInput, TenantUncheckedCreateWithoutExternalIdentityMappingsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutExternalIdentityMappingsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutExternalIdentityMappingsInput, TenantUncheckedUpdateWithoutExternalIdentityMappingsInput>
+  }
+
+  export type TenantUpdateWithoutExternalIdentityMappingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutExternalIdentityMappingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type DirectorySyncConfigUpsertWithoutMappingsInput = {
+    update: XOR<DirectorySyncConfigUpdateWithoutMappingsInput, DirectorySyncConfigUncheckedUpdateWithoutMappingsInput>
+    create: XOR<DirectorySyncConfigCreateWithoutMappingsInput, DirectorySyncConfigUncheckedCreateWithoutMappingsInput>
+    where?: DirectorySyncConfigWhereInput
+  }
+
+  export type DirectorySyncConfigUpdateToOneWithWhereWithoutMappingsInput = {
+    where?: DirectorySyncConfigWhereInput
+    data: XOR<DirectorySyncConfigUpdateWithoutMappingsInput, DirectorySyncConfigUncheckedUpdateWithoutMappingsInput>
+  }
+
+  export type DirectorySyncConfigUpdateWithoutMappingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDirectorySyncConfigsNestedInput
+    runs?: DirectorySyncRunUpdateManyWithoutConfigNestedInput
+  }
+
+  export type DirectorySyncConfigUncheckedUpdateWithoutMappingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    runs?: DirectorySyncRunUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type UserUpsertWithoutExternalIdentityMappingsInput = {
+    update: XOR<UserUpdateWithoutExternalIdentityMappingsInput, UserUncheckedUpdateWithoutExternalIdentityMappingsInput>
+    create: XOR<UserCreateWithoutExternalIdentityMappingsInput, UserUncheckedCreateWithoutExternalIdentityMappingsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutExternalIdentityMappingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutExternalIdentityMappingsInput, UserUncheckedUpdateWithoutExternalIdentityMappingsInput>
+  }
+
+  export type UserUpdateWithoutExternalIdentityMappingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
+    assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutExternalIdentityMappingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUncheckedUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUncheckedUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUncheckedUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUncheckedUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUncheckedUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUncheckedUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUncheckedUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUncheckedUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUncheckedUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUncheckedUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type VendorCreateWithoutKnownVendorInput = {
@@ -189770,6 +198138,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorsInput = {
@@ -189838,6 +198209,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorsInput = {
@@ -190248,6 +198622,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorsInput = {
@@ -190316,6 +198693,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type KnownVendorUpsertWithoutVendorsInput = {
@@ -190615,6 +198995,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorAssessmentsInput = {
@@ -190683,6 +199066,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorAssessmentsInput = {
@@ -190755,6 +199141,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVendorAssessmentsInput = {
@@ -190822,6 +199209,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVendorAssessmentsInput = {
@@ -191032,6 +199420,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorAssessmentsInput = {
@@ -191100,6 +199491,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutVendorAssessmentsInput = {
@@ -191178,6 +199572,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVendorAssessmentsInput = {
@@ -191245,6 +199640,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VendorResearchUpsertWithoutAssessmentsInput = {
@@ -191488,6 +199884,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorResearchesInput = {
@@ -191556,6 +199955,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorResearchesInput = {
@@ -191800,6 +200202,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorResearchesInput = {
@@ -191868,6 +200273,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type VendorAssessmentUpsertWithWhereUniqueWithoutResearchInput = {
@@ -192159,6 +200567,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVendorDocumentsInput = {
@@ -192227,6 +200638,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVendorDocumentsInput = {
@@ -192299,6 +200713,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVendorDocumentsInput = {
@@ -192366,6 +200781,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVendorDocumentsInput = {
@@ -192523,6 +200939,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVendorDocumentsInput = {
@@ -192591,6 +201010,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutVendorDocumentsInput = {
@@ -192669,6 +201091,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVendorDocumentsInput = {
@@ -192736,6 +201159,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutVulnerabilitiesInput = {
@@ -192804,6 +201228,9 @@ export namespace Prisma {
     answers?: AnswerCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutVulnerabilitiesInput = {
@@ -192872,6 +201299,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutVulnerabilitiesInput = {
@@ -192944,6 +201374,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedVulnerabilitiesInput = {
@@ -193011,6 +201442,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedVulnerabilitiesInput = {
@@ -193083,6 +201515,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedVulnerabilitiesInput = {
@@ -193150,6 +201583,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedVulnerabilitiesInput = {
@@ -193234,6 +201668,9 @@ export namespace Prisma {
     answers?: AnswerUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutVulnerabilitiesInput = {
@@ -193302,6 +201739,9 @@ export namespace Prisma {
     answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutReportedVulnerabilitiesInput = {
@@ -193380,6 +201820,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedVulnerabilitiesInput = {
@@ -193447,6 +201888,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAssignedVulnerabilitiesInput = {
@@ -193525,6 +201967,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedVulnerabilitiesInput = {
@@ -193592,6 +202035,7 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AIRiskAssessmentCreateManyAiSystemInput = {
@@ -197544,6 +205988,53 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type DirectorySyncConfigCreateManyTenantInput = {
+    id?: string
+    provider: $Enums.DirectorySyncProvider
+    isEnabled?: boolean
+    syncFrequencyMinutes?: number
+    defaultRole?: $Enums.MembershipRole
+    defaultStatus?: $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials: string
+    lastSyncAt?: Date | string | null
+    lastSyncStatus?: $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DirectorySyncRunCreateManyTenantInput = {
+    id?: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    status?: $Enums.DirectorySyncRunStatus
+    triggeredBy?: $Enums.DirectorySyncRunTrigger
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    usersDiscovered?: number
+    usersCreated?: number
+    usersUpdated?: number
+    usersSuspended?: number
+    errorMessage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExternalIdentityMappingCreateManyTenantInput = {
+    id?: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    userId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type MembershipUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
@@ -200459,6 +208950,151 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DirectorySyncConfigUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    runs?: DirectorySyncRunUpdateManyWithoutConfigNestedInput
+    mappings?: ExternalIdentityMappingUpdateManyWithoutConfigNestedInput
+  }
+
+  export type DirectorySyncConfigUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    runs?: DirectorySyncRunUncheckedUpdateManyWithoutConfigNestedInput
+    mappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type DirectorySyncConfigUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
+    defaultRole?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
+    defaultStatus?: EnumDirectorySyncDefaultStatusFieldUpdateOperationsInput | $Enums.DirectorySyncDefaultStatus
+    groupRoleMappings?: NullableJsonNullValueInput | InputJsonValue
+    encryptedCredentials?: StringFieldUpdateOperationsInput | string
+    lastSyncAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSyncStatus?: NullableEnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus | null
+    lastSyncError?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DirectorySyncRunUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFieldUpdateOperationsInput | $Enums.DirectorySyncRunTrigger
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usersDiscovered?: IntFieldUpdateOperationsInput | number
+    usersCreated?: IntFieldUpdateOperationsInput | number
+    usersUpdated?: IntFieldUpdateOperationsInput | number
+    usersSuspended?: IntFieldUpdateOperationsInput | number
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    config?: DirectorySyncConfigUpdateOneRequiredWithoutRunsNestedInput
+  }
+
+  export type DirectorySyncRunUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFieldUpdateOperationsInput | $Enums.DirectorySyncRunTrigger
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usersDiscovered?: IntFieldUpdateOperationsInput | number
+    usersCreated?: IntFieldUpdateOperationsInput | number
+    usersUpdated?: IntFieldUpdateOperationsInput | number
+    usersSuspended?: IntFieldUpdateOperationsInput | number
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DirectorySyncRunUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFieldUpdateOperationsInput | $Enums.DirectorySyncRunTrigger
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usersDiscovered?: IntFieldUpdateOperationsInput | number
+    usersCreated?: IntFieldUpdateOperationsInput | number
+    usersUpdated?: IntFieldUpdateOperationsInput | number
+    usersSuspended?: IntFieldUpdateOperationsInput | number
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExternalIdentityMappingUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    config?: DirectorySyncConfigUpdateOneRequiredWithoutMappingsNestedInput
+    user?: UserUpdateOneRequiredWithoutExternalIdentityMappingsNestedInput
+  }
+
+  export type ExternalIdentityMappingUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExternalIdentityMappingUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TrainingCompletionCreateManyTrainingProgramInput = {
     id?: string
     userId: string
@@ -201979,6 +210615,20 @@ export namespace Prisma {
     updatedAt?: Date | string
     startedAt?: Date | string | null
     completedAt?: Date | string | null
+  }
+
+  export type ExternalIdentityMappingCreateManyUserInput = {
+    id?: string
+    tenantId: string
+    configId: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type MembershipUpdateWithoutUserInput = {
@@ -205073,6 +213723,172 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ExternalIdentityMappingUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutExternalIdentityMappingsNestedInput
+    config?: DirectorySyncConfigUpdateOneRequiredWithoutMappingsNestedInput
+  }
+
+  export type ExternalIdentityMappingUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExternalIdentityMappingUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    configId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DirectorySyncRunCreateManyConfigInput = {
+    id?: string
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+    status?: $Enums.DirectorySyncRunStatus
+    triggeredBy?: $Enums.DirectorySyncRunTrigger
+    startedAt?: Date | string | null
+    finishedAt?: Date | string | null
+    usersDiscovered?: number
+    usersCreated?: number
+    usersUpdated?: number
+    usersSuspended?: number
+    errorMessage?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ExternalIdentityMappingCreateManyConfigInput = {
+    id?: string
+    tenantId: string
+    provider: $Enums.DirectorySyncProvider
+    externalId: string
+    userId: string
+    externalEmail: string
+    externalDisplayName?: string | null
+    externalGroupIds?: ExternalIdentityMappingCreateexternalGroupIdsInput | string[]
+    lastSeenAt: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DirectorySyncRunUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFieldUpdateOperationsInput | $Enums.DirectorySyncRunTrigger
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usersDiscovered?: IntFieldUpdateOperationsInput | number
+    usersCreated?: IntFieldUpdateOperationsInput | number
+    usersUpdated?: IntFieldUpdateOperationsInput | number
+    usersSuspended?: IntFieldUpdateOperationsInput | number
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDirectorySyncRunsNestedInput
+  }
+
+  export type DirectorySyncRunUncheckedUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFieldUpdateOperationsInput | $Enums.DirectorySyncRunTrigger
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usersDiscovered?: IntFieldUpdateOperationsInput | number
+    usersCreated?: IntFieldUpdateOperationsInput | number
+    usersUpdated?: IntFieldUpdateOperationsInput | number
+    usersSuspended?: IntFieldUpdateOperationsInput | number
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DirectorySyncRunUncheckedUpdateManyWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    status?: EnumDirectorySyncRunStatusFieldUpdateOperationsInput | $Enums.DirectorySyncRunStatus
+    triggeredBy?: EnumDirectorySyncRunTriggerFieldUpdateOperationsInput | $Enums.DirectorySyncRunTrigger
+    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    finishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    usersDiscovered?: IntFieldUpdateOperationsInput | number
+    usersCreated?: IntFieldUpdateOperationsInput | number
+    usersUpdated?: IntFieldUpdateOperationsInput | number
+    usersSuspended?: IntFieldUpdateOperationsInput | number
+    errorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExternalIdentityMappingUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutExternalIdentityMappingsNestedInput
+    user?: UserUpdateOneRequiredWithoutExternalIdentityMappingsNestedInput
+  }
+
+  export type ExternalIdentityMappingUncheckedUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ExternalIdentityMappingUncheckedUpdateManyWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    provider?: EnumDirectorySyncProviderFieldUpdateOperationsInput | $Enums.DirectorySyncProvider
+    externalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    externalEmail?: StringFieldUpdateOperationsInput | string
+    externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
+    externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
+    lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type VendorCreateManyKnownVendorInput = {

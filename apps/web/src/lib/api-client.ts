@@ -430,6 +430,70 @@ export interface InviteMemberInput {
   role: string;
 }
 
+export type DirectorySyncProvider = "entra" | "google_workspace";
+export type DirectorySyncFrequencyMinutes = 1440 | 10080;
+export type DirectorySyncDefaultStatus = "active" | "invited";
+
+export interface DirectorySyncGroupRoleMapping {
+  externalGroupId: string;
+  externalGroupName?: string | null;
+  role: "admin" | "compliance_manager" | "auditor" | "viewer" | "integration_admin" | "dpo";
+}
+
+export interface EntraDirectorySyncCredentials {
+  tenantId: string;
+  clientId: string;
+  clientSecret: string;
+}
+
+export interface GoogleWorkspaceDirectorySyncCredentials {
+  serviceAccountJson: string;
+  adminEmail: string;
+}
+
+export interface DirectorySyncConfig {
+  id: string;
+  provider: DirectorySyncProvider;
+  isEnabled: boolean;
+  syncFrequencyMinutes: DirectorySyncFrequencyMinutes;
+  defaultRole: "admin" | "compliance_manager" | "auditor" | "viewer" | "integration_admin" | "dpo";
+  defaultStatus: DirectorySyncDefaultStatus;
+  groupRoleMappings: DirectorySyncGroupRoleMapping[];
+  lastSyncAt: string | null;
+  lastSyncStatus: "pending" | "running" | "succeeded" | "failed" | "cancelled" | null;
+  lastSyncError: string | null;
+  hasCredentials: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DirectorySyncRun {
+  id: string;
+  tenantId: string;
+  configId: string;
+  provider: DirectorySyncProvider;
+  status: "pending" | "running" | "succeeded" | "failed" | "cancelled";
+  triggeredBy: "schedule" | "manual";
+  startedAt: string | null;
+  finishedAt: string | null;
+  usersDiscovered: number;
+  usersCreated: number;
+  usersUpdated: number;
+  usersSuspended: number;
+  errorMessage: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UpsertDirectorySyncConfigInput {
+  isEnabled: boolean;
+  syncFrequencyMinutes: DirectorySyncFrequencyMinutes;
+  defaultRole: "admin" | "compliance_manager" | "auditor" | "viewer" | "integration_admin" | "dpo";
+  defaultStatus: DirectorySyncDefaultStatus;
+  groupRoleMappings: DirectorySyncGroupRoleMapping[];
+  credentials: EntraDirectorySyncCredentials | GoogleWorkspaceDirectorySyncCredentials;
+}
+
 // ---------- Policy Types ----------
 
 export type PolicyStatus = "draft" | "pending_approval" | "approved" | "published" | "archived";
@@ -3590,6 +3654,56 @@ class ApiClient {
     return this.request<ApiResponse<{ id: string }>>(
       "DELETE",
       `/api/v1/organizations/members/${memberId}`,
+    );
+  }
+
+  listDirectorySyncConfigs() {
+    return this.request<ApiResponse<DirectorySyncConfig[]>>(
+      "GET",
+      "/api/v1/directory-sync/configs",
+    );
+  }
+
+  upsertDirectorySyncConfig(provider: DirectorySyncProvider, data: UpsertDirectorySyncConfigInput) {
+    return this.request<ApiResponse<DirectorySyncConfig>>(
+      "PUT",
+      `/api/v1/directory-sync/configs/${provider}`,
+      data,
+    );
+  }
+
+  testDirectorySyncConfig(
+    provider: DirectorySyncProvider,
+    credentials?: EntraDirectorySyncCredentials | GoogleWorkspaceDirectorySyncCredentials,
+  ) {
+    return this.request<
+      ApiResponse<{ provider: DirectorySyncProvider; usersSampled: number; success: boolean }>
+    >(
+      "POST",
+      `/api/v1/directory-sync/configs/${provider}/test`,
+      credentials ? { credentials } : {},
+    );
+  }
+
+  triggerDirectorySync(provider: DirectorySyncProvider) {
+    return this.request<ApiResponse<DirectorySyncRun | { status: "already_running" }>>(
+      "POST",
+      `/api/v1/directory-sync/configs/${provider}/sync`,
+    );
+  }
+
+  listDirectorySyncRuns(params?: { provider?: DirectorySyncProvider; limit?: number }) {
+    const query = new URLSearchParams();
+    if (params?.provider) query.set("provider", params.provider);
+    if (params?.limit) query.set("limit", String(params.limit));
+    const qs = query.size > 0 ? `?${query.toString()}` : "";
+    return this.request<ApiResponse<DirectorySyncRun[]>>("GET", `/api/v1/directory-sync/runs${qs}`);
+  }
+
+  deleteDirectorySyncConfig(provider: DirectorySyncProvider) {
+    return this.request<ApiResponse<{ provider: DirectorySyncProvider }>>(
+      "DELETE",
+      `/api/v1/directory-sync/configs/${provider}`,
     );
   }
 

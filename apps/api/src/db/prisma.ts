@@ -105,6 +105,11 @@ export function prismaWithTenant(tenantId: string) {
           // across orgs would expose another tenant's questionnaire
           // contents and import errors.
           "QuestionnaireImportJob",
+          // Tenant-scoped directory-sync config, run history, and external
+          // identity mapping records for Entra/Google user provisioning.
+          "DirectorySyncConfig",
+          "DirectorySyncRun",
+          "ExternalIdentityMapping",
           // Per-control evidence-collection mode picker (manual vs agent)
           // and the agent's natural-language instructions + tool selection.
           // Strictly per-tenant: leaking another org's instructions or tool

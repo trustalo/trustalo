@@ -4,7 +4,7 @@
 
 <h1 align="center">Trustalo</h1>
 
-<p align="center">Trustra gets founders to their first enterprise deal.</p>
+<p align="center">Trustalo gets founders to their first enterprise deal.</p>
 
 <p align="center">
   <a href="https://discord.gg/VuzEpuNezw">

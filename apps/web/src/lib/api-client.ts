@@ -3129,8 +3129,13 @@ export class ApiError extends Error {
  */
 async function* parseSseStream(
   responsePromise: Promise<Response>,
+  onUnauthorized?: () => void,
 ): AsyncGenerator<Record<string, unknown> & { type: string }> {
   const response = await responsePromise;
+  if (response.status === 401) {
+    onUnauthorized?.();
+    return;
+  }
   if (!response.ok || !response.body) {
     let message = `SSE request failed with status ${response.status}`;
     try {
@@ -3229,6 +3234,18 @@ class ApiClient {
     }
   }
 
+  private redirectToLogin() {
+    if (typeof window === "undefined") return;
+    this.clearToken();
+    window.location.href = "/login";
+  }
+
+  private redirectToLoginOnUnauthorized(response: Response): boolean {
+    if (response.status !== 401 || typeof window === "undefined") return false;
+    this.redirectToLogin();
+    return true;
+  }
+
   private async request<T>(method: string, path: string, body?: unknown): Promise<T> {
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
@@ -3249,9 +3266,7 @@ class ApiClient {
     });
 
     if (!response.ok) {
-      if (response.status === 401 && typeof window !== "undefined") {
-        this.clearToken();
-        window.location.href = "/login";
+      if (this.redirectToLoginOnUnauthorized(response)) {
         throw new ApiError(401, "Session expired", "TOKEN_EXPIRED");
       }
       const error = await response
@@ -3279,6 +3294,9 @@ class ApiClient {
       credentials: "include",
     });
     if (!response.ok) {
+      if (this.redirectToLoginOnUnauthorized(response)) {
+        throw new ApiError(401, "Session expired", "TOKEN_EXPIRED");
+      }
       const error = await response
         .json()
         .catch(() => ({ error: { message: response.statusText } }));
@@ -3593,8 +3611,14 @@ class ApiClient {
     });
 
     if (!response.ok) {
+      if (this.redirectToLoginOnUnauthorized(response)) {
+        throw new ApiError(401, "Session expired", "TOKEN_EXPIRED");
+      }
       const error = await response.json().catch(() => ({ error: { message: "Upload failed" } }));
-      throw new Error(error.error?.message || `Upload failed: ${response.status}`);
+      throw new ApiError(
+        response.status,
+        error.error?.message || `Upload failed: ${response.status}`,
+      );
     }
     return response.json();
   }
@@ -4064,8 +4088,10 @@ class ApiClient {
         method: "POST",
         headers,
         body: JSON.stringify(body),
+        credentials: "include",
         signal: options.signal,
       }),
+      () => this.redirectToLogin(),
     ) as AsyncIterable<ChatStreamEvent>;
   }
 
@@ -4084,7 +4110,10 @@ class ApiClient {
     };
     if (this.token) headers["Authorization"] = `Bearer ${this.token}`;
 
-    return parseSseStream(fetch(url, { method: "GET", headers, signal })) as AsyncIterable<
+    return parseSseStream(
+      fetch(url, { method: "GET", headers, credentials: "include", signal }),
+      () => this.redirectToLogin(),
+    ) as AsyncIterable<
       { type: "proposals"; proposals: TenantContextProposal[] } | { type: "error"; error: string }
     >;
   }
@@ -4316,6 +4345,9 @@ class ApiClient {
     });
 
     if (!response.ok) {
+      if (this.redirectToLoginOnUnauthorized(response)) {
+        throw new ApiError(401, "Session expired", "TOKEN_EXPIRED");
+      }
       const error = await response.json().catch(() => ({ error: { message: "Upload failed" } }));
       throw new ApiError(
         response.status,
@@ -5330,6 +5362,9 @@ class ApiClient {
       credentials: "include",
     });
     if (!response.ok) {
+      if (this.redirectToLoginOnUnauthorized(response)) {
+        throw new ApiError(401, "Session expired", "TOKEN_EXPIRED");
+      }
       const error = await response.json().catch(() => ({ error: { message: "Upload failed" } }));
       throw new ApiError(
         response.status,
@@ -5391,6 +5426,9 @@ class ApiClient {
     });
 
     if (!response.ok) {
+      if (this.redirectToLoginOnUnauthorized(response)) {
+        throw new ApiError(401, "Session expired", "TOKEN_EXPIRED");
+      }
       const error = await response.json().catch(() => ({ error: { message: "Upload failed" } }));
       throw new ApiError(
         response.status,
@@ -5670,6 +5708,9 @@ class ApiClient {
     });
 
     if (!response.ok) {
+      if (this.redirectToLoginOnUnauthorized(response)) {
+        throw new ApiError(401, "Session expired", "TOKEN_EXPIRED");
+      }
       const error = await response
         .json()
         .catch(() => ({ error: { message: response.statusText } }));

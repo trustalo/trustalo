@@ -111,7 +111,21 @@ class CollectorClient {
 
   private getToken(): string | null {
     if (typeof window === "undefined") return null;
-    return localStorage.getItem(TOKEN_KEY);
+    return sessionStorage.getItem(TOKEN_KEY);
+  }
+
+  private clearToken() {
+    if (typeof window === "undefined") return;
+    sessionStorage.removeItem(TOKEN_KEY);
+    // Also clear the legacy persistent storage that older builds may have written.
+    localStorage.removeItem(TOKEN_KEY);
+  }
+
+  private redirectToLoginOnUnauthorized(response: Response): boolean {
+    if (response.status !== 401 || typeof window === "undefined") return false;
+    this.clearToken();
+    window.location.href = "/login";
+    return true;
   }
 
   private async request<T>(method: string, path: string, body?: unknown): Promise<T> {
@@ -131,6 +145,9 @@ class CollectorClient {
     });
 
     if (!response.ok) {
+      if (this.redirectToLoginOnUnauthorized(response)) {
+        throw new CollectorError(401, "Session expired", "TOKEN_EXPIRED");
+      }
       const error = await response
         .json()
         .catch(() => ({ error: { message: response.statusText } }));

@@ -23,6 +23,7 @@ import {
 } from "@/lib/api-client";
 import { usePermissions } from "@/lib/use-permissions";
 import { AIUsageTab } from "./_components/ai-usage-tab";
+import { DirectorySyncCard } from "./_components/directory-sync-card";
 
 type SettingsTab = "general" | "members" | "security" | "ai" | "ai-usage";
 
@@ -382,6 +383,8 @@ function GeneralTab({
           </SettingRow>
         </dl>
       </Card>
+
+      <DirectorySyncCard canWrite={canWrite} />
 
       {/* Edit Organization Name Modal */}
       <Modal

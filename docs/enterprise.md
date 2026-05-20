@@ -22,7 +22,7 @@ The following capabilities are designated EE from v1.0 onward.
 
 | Feature area | Feature ID(s) | Why it's EE | EE Files in repo |
 | --- | --- | --- | --- |
-| **SSO / SAML / advanced auth** | `sso` | Enterprise buying signal; high integration burden; not needed by SMBs | `packages/auth-provider-saml.ee/` _(scaffolded; SAML protocol logic to follow)_ |
+| **SSO / SAML / advanced auth** | `sso` | Enterprise buying signal; high integration burden; not needed by SMBs | `packages/auth-provider-saml.ee/` _(scaffolded; SAML protocol logic to follow)_, `apps/api/src/modules/directory-sync/*.ee.ts` |
 | **Multi-org / multi-tenant partner portal** | `multi-tenant` | Used by MSSPs, audit firms, and consultancies who serve multiple client orgs from one deployment | _(planned — `apps/api/src/modules/multi-tenant.ee/`, `apps/web/src/app/(partner).ee/`)_ |
 | **AI accelerators** | `ai`, `ai-premium` | LLM inference is expensive, and the AI surface is a primary commercial differentiator; the only AI capabilities that stay free are defence-in-depth utilities (PII scrubbing) and a basic asset-classification bootstrap | See [§1.1 AI scope split](#11-ai-scope-split-free-vs-ee) below |
 

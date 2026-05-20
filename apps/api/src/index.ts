@@ -35,6 +35,11 @@ import { integrationsRouter } from "./modules/integrations/router.js";
 import { questionnairesRouter } from "./modules/questionnaires/router.js";
 import { licenseRouter } from "./modules/license/router.js";
 import { internalRouter } from "./modules/internal/router.js";
+import { directorySyncRouter } from "./modules/directory-sync/router.ee.js";
+import {
+  startDirectorySyncScheduler,
+  stopDirectorySyncScheduler,
+} from "./modules/directory-sync/scheduler.ee.js";
 import {
   startResearchResultsWorker,
   stopResearchResultsWorker,
@@ -108,6 +113,7 @@ app.use("/api/v1/chat", chatRouter);
 app.use("/api/v1/integrations", integrationsRouter);
 app.use("/api/v1/questionnaires", questionnairesRouter);
 app.use("/api/v1/license", licenseRouter);
+app.use("/api/v1/directory-sync", directorySyncRouter);
 
 app.use(errorHandler);
 
@@ -127,10 +133,14 @@ async function start() {
   startResearchResultsWorker().catch((err) =>
     console.error("[api] research-results worker failed to start:", err),
   );
+  startDirectorySyncScheduler().catch((err) =>
+    console.error("[api] directory-sync scheduler failed to start:", err),
+  );
 }
 
 async function shutdown() {
   console.log("[api] Shutting down…");
+  await stopDirectorySyncScheduler();
   await stopResearchResultsWorker();
   await disconnectMongo();
   await prisma.$disconnect();

@@ -23,7 +23,7 @@ const schema = z
       .string()
       .url()
       .optional()
-      .transform((v) => (v ? v.replace(/\/+$/, "") : v)),
+      .transform((v) => (v ? stripTrailingSlashes(v) : v)),
     LITELLM_MASTER_KEY: z.string().min(16).optional(),
     // HMAC secret used to verify spend webhooks from LiteLLM. Required
     // when webhooks are enabled; the webhook handler 401s if unset.
@@ -86,4 +86,12 @@ export function getLiteLLMConfig(): LiteLLMOperatorConfig {
 /** Test-only — clears the singleton so a fresh `process.env` is read. */
 export function __resetLiteLLMConfig(): void {
   cached = null;
+}
+
+function stripTrailingSlashes(input: string): string {
+  let end = input.length;
+  while (end > 0 && input.charCodeAt(end - 1) === 47) {
+    end--;
+  }
+  return end === input.length ? input : input.slice(0, end);
 }

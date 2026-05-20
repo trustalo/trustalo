@@ -108,7 +108,7 @@ export class LiteLLMAdminClient {
   constructor(opts: LiteLLMAdminClientOptions) {
     if (!opts.baseUrl) throw new Error("LiteLLMAdminClient: baseUrl is required");
     if (!opts.masterKey) throw new Error("LiteLLMAdminClient: masterKey is required");
-    this.baseUrl = opts.baseUrl.replace(/\/+$/, "");
+    this.baseUrl = stripTrailingSlashes(opts.baseUrl);
     this.headers = {
       Authorization: `Bearer ${opts.masterKey}`,
       "Content-Type": "application/json",
@@ -255,4 +255,12 @@ export class LiteLLMAdminClient {
       clearTimeout(timer);
     }
   }
+}
+
+function stripTrailingSlashes(input: string): string {
+  let end = input.length;
+  while (end > 0 && input.charCodeAt(end - 1) === 47) {
+    end--;
+  }
+  return end === input.length ? input : input.slice(0, end);
 }

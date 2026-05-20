@@ -1,10 +1,14 @@
-# Trustalo
-
 <p align="center">
   <img src="docs/images/logo.svg" alt="Trustalo company logo" width="180" />
 </p>
 
-[![Discord](https://img.shields.io/badge/Discord-Join%20Chat-5865F2?logo=discord&logoColor=white)](https://discord.gg/smDQgB5z)
+<h1 align="center">Trustalo</h1>
+
+<p align="center">
+  <a href="https://discord.gg/smDQgB5z">
+    <img src="https://img.shields.io/badge/Discord-Join%20Chat-5865F2?logo=discord&logoColor=white" alt="Join Trustalo on Discord" />
+  </a>
+</p>
 
 > Source-available compliance management platform — free for startups, modern stack, batteries included.
 

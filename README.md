@@ -56,7 +56,7 @@ trustalo/
     └── integration-manifests/        AWS, GitHub, GitLab, Google Workspace, Microsoft 365, Okta
 ```
 
-The **API** owns the compliance domain (frameworks, controls, policies, risks, evidence, audits, vendors, assets, incidents, vulnerabilities, BCP, AI governance, privacy, training, trust center). The **Collector** owns the integration domain (the catalog, connections, credentials in a transactional secret vault, jobs, sync logs) and submits evidence to the API via HMAC-signed internal calls. Nine connectors ship today (`aws`, `gcp`, `azure`, `okta`, `auth0`, `github`, `bitbucket`, `google-workspace`, `office365`); a separate `@trustalo/integration-manifests` package ships declarative check manifests (including a `gitlab` manifest that does not yet have a runtime connector). The **Web** frontend talks to both services directly through the cookie-based session.
+The **API** owns the compliance domain (frameworks, controls, policies, risks, evidence, audits, vendors, assets, incidents, vulnerabilities, BCP, AI governance, privacy, training, trust center). The **Collector** owns the integration domain (the catalog, connections, credentials in a transactional secret vault, jobs, sync logs) and submits evidence to the API via HMAC-signed internal calls. Ten connectors ship today (`aws`, `gcp`, `azure`, `okta`, `auth0`, `github`, `bitbucket`, `google-workspace`, `office365`, `wazuh`); a separate `@trustalo/integration-manifests` package ships declarative check manifests (including a `gitlab` manifest that does not yet have a runtime connector). The **Web** frontend talks to both services directly through the cookie-based session.
 
 Deeper dive: [`docs/architecture.md`](docs/architecture.md) and [`docs/integrations.md`](docs/integrations.md).
 

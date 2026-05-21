@@ -9,6 +9,7 @@
     "start": "bun dist/index.js",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",
+    "test": "bun test",
     "db:generate": "bun run prisma:combine && prisma generate",
     "db:migrate": "bun run prisma:combine && prisma migrate dev",
     "db:push": "bun run prisma:combine && prisma db push",

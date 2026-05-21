@@ -291,6 +291,73 @@ const integrations: IntegrationSeed[] = [
       ],
     },
   },
+  {
+    id: "wazuh",
+    name: "Wazuh",
+    description:
+      "Collect evidence from Wazuh for endpoint security, SIEM detections, cloud workload posture, and control coverage",
+    authType: "api_key",
+    category: "security",
+    capabilities: [
+      "configuration_assessment",
+      "malware_detection",
+      "file_integrity_monitoring",
+      "vulnerability_detection",
+      "log_analysis",
+      "threat_hunting",
+      "incident_response",
+      "regulatory_compliance",
+      "it_hygiene",
+      "container_security",
+      "cloud_posture",
+      "agents_inventory",
+      "mitre_coverage",
+      "rbac_review",
+    ],
+    configSchema: {
+      fields: [
+        {
+          key: "managerUrl",
+          label: "Wazuh Manager URL",
+          type: "text",
+          required: true,
+          placeholder: "https://wazuh.example.com:55000",
+        },
+        {
+          key: "username",
+          label: "Username",
+          type: "text",
+          required: true,
+        },
+        {
+          key: "password",
+          label: "Password",
+          type: "password",
+          required: true,
+          sensitive: true,
+        },
+        {
+          key: "verifyTls",
+          label: "Verify TLS certificates",
+          type: "select",
+          required: true,
+          default: "true",
+          options: [
+            { value: "true", label: "Yes (recommended)" },
+            { value: "false", label: "No (self-signed lab certs)" },
+          ],
+        },
+        {
+          key: "enabledCapabilities",
+          label: "Enabled capabilities (comma-separated, optional)",
+          type: "textarea",
+          required: false,
+          placeholder:
+            "configuration_assessment,malware_detection,file_integrity_monitoring,vulnerability_detection,log_analysis",
+        },
+      ],
+    },
+  },
 
   // ─── AI providers ────────────────────────────────────
   // Stored in the collector catalog so the SecretVault can hold AI keys

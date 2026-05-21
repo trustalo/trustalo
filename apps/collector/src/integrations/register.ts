@@ -16,6 +16,7 @@ import { BitbucketProvider } from "./providers/bitbucket/index.js";
 // --- Email / Productivity ---
 import { GoogleWorkspaceProvider } from "./providers/google-workspace/index.js";
 import { Office365Provider } from "./providers/office365/index.js";
+import { WazuhProvider } from "./providers/wazuh/index.js";
 
 // ────────────────────────────────────────────────
 // Future categories — add new providers here:
@@ -56,6 +57,9 @@ export function registerAllProviders(): void {
   // Email / Productivity
   providerRegistry.register("google-workspace", new GoogleWorkspaceProvider());
   providerRegistry.register("office365", new Office365Provider());
+
+  // Security
+  providerRegistry.register("wazuh", new WazuhProvider());
 
   console.log(`[registry] ${providerRegistry.size} providers registered`);
 }

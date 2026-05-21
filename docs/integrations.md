@@ -146,7 +146,7 @@ Credentials never live on the `IntegrationConnection` row. They are stored in th
 
 ## Connectors shipped today
 
-Nine connectors are registered. Capabilities below are read directly from each `index.ts`.
+Ten connectors are registered. Capabilities below are read directly from each `index.ts`.
 
 | Slug (`id`) | Display name | Category | Auth type | Capabilities |
 | --- | --- | --- | --- | --- |
@@ -159,8 +159,9 @@ Nine connectors are registered. Capabilities below are read directly from each `
 | `bitbucket` | Bitbucket | `code_repository` | `oauth2` | `access_review`, `branch_protection`, `merge_controls`, `repository_visibility` |
 | `google-workspace` | Google Workspace | `productivity` | `api_key`<sup>\*</sup> | `users`, `2sv_status`, `groups`, `drive_sharing`, `oauth_apps`, `admin_activity` |
 | `office365` | Microsoft Office 365 | `productivity` | `oauth2` | `users_groups`, `mfa_status`, `conditional_access`, `dlp_policies`, `audit_logs`, `secure_score` |
+| `wazuh` | Wazuh | `security` | `api_key`<sup>\*\*\*\*</sup> | `configuration_assessment`, `malware_detection`, `file_integrity_monitoring`, `vulnerability_detection`, `log_analysis`, `threat_hunting`, `incident_response`, `regulatory_compliance`, `it_hygiene`, `container_security`, `cloud_posture`, `agents_inventory`, `mitre_coverage`, `rbac_review` |
 
-<sup>\*</sup> `api_key` here means a service-account JSON key (GCP) or a service-account JSON key plus domain-wide delegation (Google Workspace) — not a literal API key string. <sup>**</sup> Auth0 uses an M2M client-credentials OAuth2 flow. <sup>\***</sup> GitHub currently accepts a personal-access token or a fine-grained PAT through the `oauth2` field; a GitHub-App flow is planned.
+<sup>\*</sup> `api_key` here means a service-account JSON key (GCP) or a service-account JSON key plus domain-wide delegation (Google Workspace) — not a literal API key string. <sup>**</sup> Auth0 uses an M2M client-credentials OAuth2 flow. <sup>\***</sup> GitHub currently accepts a personal-access token or a fine-grained PAT through the `oauth2` field; a GitHub-App flow is planned. <sup>\*\*\*\*</sup> Wazuh accepts the Manager API username/password (used to obtain a short-lived JWT internally); a per-connection `enabledCapabilities` field lets operators select a subset of capabilities to collect.
 
 The required IAM/scope/permission set for each connector is returned by `getRequiredPermissions()` and surfaced in the UI before the operator submits credentials.
 

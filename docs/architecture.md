@@ -65,7 +65,7 @@ Express.js service that owns all compliance domain logic. Port **4000**.
 Express.js service responsible for third-party integrations. Port **4001**.
 
 - Owns its own PostgreSQL database (Prisma 7) for integration metadata, connections, jobs, and secret-vault rows
-- Hosts nine registered connectors today: `aws`, `gcp`, `azure`, `okta`, `auth0`, `github`, `bitbucket`, `google-workspace`, `office365` (see [`integrations.md`](integrations.md))
+- Hosts ten registered connectors today: `aws`, `gcp`, `azure`, `okta`, `auth0`, `github`, `bitbucket`, `google-workspace`, `office365`, `wazuh` (see [`integrations.md`](integrations.md))
 - Collects evidence and submits it to the API in HMAC-signed batches at `/internal/evidence/bulk`
 - Runs a 60 s scheduler and a 10 s runner with exponential-backoff retries
 - Hosts a vendor-research subsystem (queue subscriber + pluggable web-search providers) and an evidence-agent loop invoked by the API

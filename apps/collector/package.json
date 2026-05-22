@@ -31,6 +31,7 @@
     "@prisma/client-runtime-utils": "^7.5.0",
     "@trustalo/ai": "workspace:*",
     "@trustalo/auth": "workspace:*",
+    "@trustalo/integration-manifests": "workspace:*",
     "@trustalo/queue": "workspace:*",
     "@trustalo/shared": "workspace:*",
     "cors": "^2.8.5",

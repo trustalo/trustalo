@@ -328,6 +328,7 @@ export class WazuhProvider implements IntegrationProvider {
       results.push({
         title: "Wazuh Manager Status",
         description: `Wazuh manager ${String(firstAffected["version"] ?? "version unknown")} status collected`,
+        manifestKey: "wazuh.manager.status",
         sourceType: "wazuh.manager.status",
         sourceId: "wazuh-manager-status",
         rawData: { managerInfo: infoData, managerStatus: statusData },
@@ -356,6 +357,7 @@ export class WazuhProvider implements IntegrationProvider {
       results.push({
         title: "Wazuh Agent Fleet Summary",
         description: `${asNumber(agentSummary["total"], agentList.total)} agents managed by Wazuh`,
+        manifestKey: "wazuh.agents.summary",
         sourceType: "wazuh.agents.summary",
         sourceId: "wazuh-agents-summary",
         rawData: { summary: agentSummary, sampleAgents: agentList.items.slice(0, 50) },
@@ -367,6 +369,7 @@ export class WazuhProvider implements IntegrationProvider {
       results.push({
         title: "Wazuh Agent Inventory",
         description: `${agentList.total} endpoint agents inventoried`,
+        manifestKey: "wazuh.agents.inventory",
         sourceType: "wazuh.agents.inventory",
         sourceId: "wazuh-agents-inventory",
         rawData: {
@@ -387,6 +390,7 @@ export class WazuhProvider implements IntegrationProvider {
         results.push({
           title: "Wazuh SIEM Analysis Stats",
           description: "Manager analysisd statistics collected for alert pipeline health",
+          manifestKey: "wazuh.alerts.summary",
           sourceType: "wazuh.alerts.summary",
           sourceId: "wazuh-alerts-analysisd",
           rawData: {
@@ -411,6 +415,7 @@ export class WazuhProvider implements IntegrationProvider {
         results.push({
           title: "Wazuh RBAC Configuration",
           description: "Wazuh RBAC users, roles, and policies collected",
+          manifestKey: "wazuh.security.rbac",
           sourceType: "wazuh.security.rbac",
           sourceId: "wazuh-rbac",
           rawData: {
@@ -435,6 +440,7 @@ export class WazuhProvider implements IntegrationProvider {
         results.push({
           title: "Wazuh MITRE ATT&CK Coverage",
           description: "Mapped MITRE techniques and groups collected from Wazuh",
+          manifestKey: "wazuh.mitre.coverage",
           sourceType: "wazuh.mitre.coverage",
           sourceId: "wazuh-mitre-coverage",
           rawData: {
@@ -467,6 +473,7 @@ export class WazuhProvider implements IntegrationProvider {
           results.push({
             title: "Wazuh Regulatory Rule Coverage",
             description: `${complianceRules.length} compliance-oriented rules detected`,
+            manifestKey: "wazuh.compliance.coverage",
             sourceType: "wazuh.compliance.coverage",
             sourceId: "wazuh-compliance-rules",
             rawData: {
@@ -487,6 +494,7 @@ export class WazuhProvider implements IntegrationProvider {
           results.push({
             title: "Wazuh Container Security Rule Coverage",
             description: `${containerRules.length} container/Docker detection rules configured`,
+            manifestKey: "wazuh.containers.rule_coverage",
             sourceType: "wazuh.containers.rule_coverage",
             sourceId: "wazuh-container-rule-coverage",
             rawData: { count: containerRules.length, rules: containerRules.slice(0, 100) },
@@ -503,6 +511,7 @@ export class WazuhProvider implements IntegrationProvider {
           results.push({
             title: "Wazuh Cloud Workload Rule Coverage",
             description: `${cloudRules.length} cloud-provider detection rules configured`,
+            manifestKey: "wazuh.cloud.rule_coverage",
             sourceType: "wazuh.cloud.rule_coverage",
             sourceId: "wazuh-cloud-rule-coverage",
             rawData: { count: cloudRules.length, rules: cloudRules.slice(0, 100) },
@@ -532,6 +541,7 @@ export class WazuhProvider implements IntegrationProvider {
         results.push({
           title: "Wazuh Active Response Configuration",
           description: `${configuredCount} active-response commands configured on the manager`,
+          manifestKey: "wazuh.active_response.configuration",
           sourceType: "wazuh.active_response.configuration",
           sourceId: "wazuh-active-response-config",
           rawData: { configuredCount, configurations: activeResponseConfigs ?? [] },
@@ -574,6 +584,7 @@ export class WazuhProvider implements IntegrationProvider {
         results.push({
           title: "Wazuh Vulnerability Findings",
           description: `${allVulnerabilities.length} vulnerability findings across sampled active agents`,
+          manifestKey: "wazuh.vulnerabilities",
           sourceType: "wazuh.vulnerabilities",
           sourceId: "wazuh-vulnerabilities",
           rawData: {
@@ -612,6 +623,7 @@ export class WazuhProvider implements IntegrationProvider {
         results.push({
           title: "Wazuh File Integrity Monitoring",
           description: `${fimChanges.length} file integrity events since ${since.toISOString()}`,
+          manifestKey: "wazuh.fim.changes",
           sourceType: "wazuh.fim.changes",
           sourceId: "wazuh-fim-events",
           rawData: { since: since.toISOString(), changes: fimChanges.slice(0, 300) },
@@ -643,6 +655,7 @@ export class WazuhProvider implements IntegrationProvider {
         results.push({
           title: "Wazuh Configuration Assessment",
           description: `${scaResults.length} SCA policy results from sampled agents`,
+          manifestKey: "wazuh.sca.results",
           sourceType: "wazuh.sca.results",
           sourceId: "wazuh-sca-results",
           rawData: { sampledAgents: activeAgents.length, checks: scaResults.slice(0, 400) },
@@ -678,6 +691,7 @@ export class WazuhProvider implements IntegrationProvider {
         results.push({
           title: "Wazuh Malware and Rootcheck Findings",
           description: `${malwareFindings.length} malware/rootcheck findings since ${since.toISOString()}`,
+          manifestKey: "wazuh.endpoints.malware",
           sourceType: "wazuh.endpoints.malware",
           sourceId: "wazuh-malware-rootcheck",
           rawData: { since: since.toISOString(), findings: malwareFindings.slice(0, 300) },
@@ -700,6 +714,7 @@ export class WazuhProvider implements IntegrationProvider {
         results.push({
           title: "Wazuh Endpoint Hygiene Inventory",
           description: `${packagesPayload.total} package inventory records collected`,
+          manifestKey: "wazuh.endpoints.inventory",
           sourceType: "wazuh.endpoints.inventory",
           sourceId: "wazuh-endpoint-hygiene",
           rawData: { records: packagesPayload.items.slice(0, 300) },

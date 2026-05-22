@@ -11,6 +11,9 @@ import { connectionsRouter } from "./routes/connections.js";
 import { jobsRouter } from "./routes/jobs.js";
 import { syncLogsRouter } from "./routes/sync-logs.js";
 import { startScheduler, stopScheduler } from "./scheduler/index.js";
+import { startReconcileScheduler, stopReconcileScheduler } from "./scheduler/reconciler.js";
+import { startOverdueDetector, stopOverdueDetector } from "./scheduler/overdue-detector.js";
+import { startGapEscalator, stopGapEscalator } from "./scheduler/gap-escalator.js";
 import { startRunner, stopRunner } from "./runner/index.js";
 import { startResearchScheduler, stopResearchScheduler } from "./research/scheduler.js";
 import {
@@ -80,6 +83,15 @@ const server = app.listen(PORT, () => {
   console.log(`[collector] listening on :${PORT}`);
   startScheduler().catch((err) => console.error("[collector] scheduler failed to start:", err));
   startRunner().catch((err) => console.error("[collector] runner failed to start:", err));
+  startReconcileScheduler().catch((err) =>
+    console.error("[collector] binding-reconciler failed to start:", err),
+  );
+  startOverdueDetector().catch((err) =>
+    console.error("[collector] overdue-detector failed to start:", err),
+  );
+  startGapEscalator().catch((err) =>
+    console.error("[collector] gap-escalator failed to start:", err),
+  );
   startResearchScheduler().catch((err) =>
     console.error("[collector] research scheduler failed to start:", err),
   );
@@ -92,6 +104,9 @@ async function shutdown(signal: string) {
   console.log(`[collector] ${signal} received – shutting down`);
   stopScheduler();
   stopRunner();
+  stopReconcileScheduler();
+  stopOverdueDetector();
+  stopGapEscalator();
   stopResearchScheduler();
   await stopResearchSubscriber();
   server.close(() => {

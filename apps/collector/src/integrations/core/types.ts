@@ -39,6 +39,13 @@ export interface IntegrationConnector {
   readonly version: string;
   readonly category: IntegrationCategory;
   readonly authType: "oauth2" | "api_key" | "iam_role";
+  /**
+   * @deprecated Kept as a free-form display hint. The authoritative
+   * list of capabilities is now declared in
+   * `@trustalo/integration-manifests` and is resolved at runtime via
+   * `getManifest(connectorId).capabilities`. Provider classes should
+   * leave this empty going forward; the binder + reconciler ignore it.
+   */
   readonly capabilities: string[];
   readonly configSchema: CredentialField[];
 
@@ -79,10 +86,30 @@ export interface CollectOptions {
 export interface EvidenceResult {
   title: string;
   description: string;
+  /**
+   * Stable manifest key for the capability that produced this evidence
+   * row. Resolves to a `Capability` (or `Check`) declared in the
+   * connector's manifest (`@trustalo/integration-manifests`). The
+   * runner uses this to look up the tenant `IntegrationCheckControl`
+   * rows and attach the evidence to the bound tenant Controls.
+   *
+   * Historically the same string was emitted as `sourceType`; the two
+   * are kept in lock-step (manifestKey is the authoritative field, and
+   * `sourceType` is filled with the same value for backwards
+   * compatibility with consumers reading the evidence row).
+   */
+  manifestKey: string;
+  /** @deprecated Mirror of `manifestKey`; will be removed in a later release. */
   sourceType: string;
   sourceId: string;
   rawData: Record<string, unknown>;
   severity?: "critical" | "high" | "medium" | "low" | "info";
+  /**
+   * @deprecated Free-form framework requirement strings. Bindings are
+   * now derived from `manifestKey` via `IntegrationCheckControl` rows
+   * created by the binder/reconciler. Providers still populate this
+   * for one release so callers consuming the wire format don't break.
+   */
   controlMapping?: string[];
   collectedAt: Date;
 }

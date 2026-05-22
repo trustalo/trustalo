@@ -3,6 +3,8 @@ import { providerRegistry } from "../integrations/core/registry.js";
 import { SecretVaultService } from "../secret-vault/service.js";
 import { submitEvidence } from "../lib/api-client.js";
 import type { EvidenceResult } from "../integrations/core/types.js";
+import { classifyError } from "./classify-error.js";
+import { markChecksFailing, markChecksHealthy } from "./check-health.js";
 
 const POLL_INTERVAL_MS = 10_000;
 const MAX_CONCURRENT_JOBS = 3;
@@ -67,6 +69,7 @@ async function executeJob(job: {
     id: string;
     secretId: string | null;
     lastSyncAt: Date | null;
+    syncFrequencyMinutes: number;
     integration: { id: string; name: string };
   };
 }): Promise<void> {
@@ -126,12 +129,50 @@ async function executeJob(job: {
 
     let submittedCount = 0;
     let submitErrors = 0;
+    let orphanCount = 0;
 
     if (evidence.length > 0) {
+      // Resolve IntegrationCheckControl bindings for every manifestKey
+      // in this batch in a single query. The runner uses the materialised
+      // bindings as the authoritative source — historically each
+      // EvidenceResult carried a free-form `controlMapping[]`, but those
+      // are now ignored in favour of the binder-managed map.
+      const manifestKeys = [...new Set(evidence.map((e) => e.manifestKey))];
+      const bindings = manifestKeys.length
+        ? await prisma.integrationCheckControl.findMany({
+            where: {
+              connectionId: connection.id,
+              isEnabled: true,
+              integrationCheck: { manifestKey: { in: manifestKeys } },
+            },
+            select: {
+              controlId: true,
+              integrationCheck: { select: { manifestKey: true } },
+            },
+          })
+        : [];
+      const controlIdsByManifestKey = new Map<string, Set<string>>();
+      for (const b of bindings) {
+        const key = b.integrationCheck.manifestKey;
+        const set = controlIdsByManifestKey.get(key) ?? new Set<string>();
+        set.add(b.controlId);
+        controlIdsByManifestKey.set(key, set);
+      }
+
+      // Attach controlIds to each evidence row. Items whose manifestKey
+      // has no enabled binding are still submitted (so they're queryable
+      // for diagnostics) but with `controlIds: []` — the API persists
+      // them and a separate orphan-evidence report makes them visible.
+      const evidenceWithBindings = evidence.map((e) => {
+        const controlIds = [...(controlIdsByManifestKey.get(e.manifestKey) ?? [])];
+        if (controlIds.length === 0) orphanCount++;
+        return { ...e, controlIds };
+      });
+
       try {
         const batchSize = 50;
-        for (let i = 0; i < evidence.length; i += batchSize) {
-          const batch = evidence.slice(i, i + batchSize);
+        for (let i = 0; i < evidenceWithBindings.length; i += batchSize) {
+          const batch = evidenceWithBindings.slice(i, i + batchSize);
           const result = await submitEvidence(tenantId, batch);
           if (result.success) {
             submittedCount += result.data?.created ?? 0;
@@ -146,6 +187,20 @@ async function executeJob(job: {
       } catch (err) {
         submitErrors++;
         console.error(`[runner] evidence submission error for job=${jobId}:`, err);
+      }
+
+      if (orphanCount > 0) {
+        console.warn(
+          `[runner] job=${jobId}: ${orphanCount} evidence row(s) have no IntegrationCheckControl binding ` +
+            `— manifestKeys without bound controls: ` +
+            [
+              ...new Set(
+                evidenceWithBindings
+                  .filter((e) => e.controlIds.length === 0)
+                  .map((e) => e.manifestKey),
+              ),
+            ].join(", "),
+        );
       }
     }
 
@@ -166,7 +221,8 @@ async function executeJob(job: {
             evidenceCollected: evidence.length,
             evidenceSubmitted: submittedCount,
             submitErrors,
-            capabilities: [...new Set(evidence.map((e) => e.sourceType.split(".")[1] ?? ""))],
+            orphanCount,
+            manifestKeys: [...new Set(evidence.map((e) => e.manifestKey))],
           },
         },
       }),
@@ -180,13 +236,31 @@ async function executeJob(job: {
       }),
     ]);
 
+    // Refresh check-level health metrics and close any open coverage
+    // gaps. Done outside the transaction above to keep the success
+    // path's critical section short — even if this fails we don't want
+    // to roll back the job completion.
+    try {
+      await markChecksHealthy({
+        tenantId,
+        connectionId: connection.id,
+        syncFrequencyMinutes: connection.syncFrequencyMinutes,
+      });
+    } catch (healthErr) {
+      console.error(`[runner] failed to update check health for job=${jobId}:`, healthErr);
+    }
+
     console.log(
       `[runner] completed job=${jobId}: ${evidence.length} evidence items in ${durationMs}ms`,
     );
   } catch (err) {
     const durationMs = Date.now() - startTime;
     const errorMessage = err instanceof Error ? err.message : String(err);
-    console.error(`[runner] failed job=${jobId}:`, errorMessage);
+    const classified = classifyError(err);
+    console.error(
+      `[runner] failed job=${jobId} reason=${classified.reason} retriable=${classified.retriable}:`,
+      errorMessage,
+    );
 
     await logSync(tenantId, connection.id, connection.integration.id, [], "failed");
 
@@ -204,7 +278,25 @@ async function executeJob(job: {
       where: { jobRunId: jobRun.id },
     });
 
-    if (retryCount < MAX_RETRIES) {
+    // Non-retriable errors short-circuit the retry loop. Retriable ones
+    // get up to MAX_RETRIES attempts before we open the coverage gap.
+    const shouldRetry = classified.retriable && retryCount < MAX_RETRIES;
+    const retriesExhausted = !shouldRetry;
+
+    try {
+      await markChecksFailing({
+        tenantId,
+        connectionId: connection.id,
+        reason: classified.reason,
+        retriable: classified.retriable,
+        retriesExhausted,
+        errorMessage: classified.message,
+      });
+    } catch (healthErr) {
+      console.error(`[runner] failed to update check health for job=${jobId}:`, healthErr);
+    }
+
+    if (shouldRetry) {
       const backoffMs = BASE_BACKOFF_MS * Math.pow(2, retryCount);
       const nextRetryAt = new Date(Date.now() + backoffMs);
 
@@ -268,7 +360,7 @@ async function logSync(
         completedAt: status === "completed" ? new Date() : undefined,
         details: {
           evidenceCount: evidence.length,
-          sourceTypes: [...new Set(evidence.map((e) => e.sourceType))],
+          manifestKeys: [...new Set(evidence.map((e) => e.manifestKey))],
         },
       },
     });

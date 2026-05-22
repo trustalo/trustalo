@@ -1,7 +1,11 @@
 import type { Manifest } from "../types.js";
 
 export const microsoft365Manifest: Manifest = {
-  connector: "microsoft_365",
+  // Slug matches `Integration.id` in the collector seed ("office365").
+  // The display name retains "Microsoft 365" — only the routing slug
+  // is normalised to keep manifest lookups by integrationId direct.
+  connector: "office365",
+  version: "1.0.0",
   displayName: "Microsoft 365",
   description:
     "Validates Conditional Access policies, MFA enforcement, and audit log retention via Microsoft Graph.",
@@ -46,6 +50,67 @@ export const microsoft365Manifest: Manifest = {
       runner: "oauth_api",
       params: { api: "graph.policies.conditionalAccessPolicies" },
       controlMappings: [{ framework: "iso27001", requirement: "A.8.5" }],
+    },
+  ],
+  capabilities: [
+    {
+      key: "office365.users.inventory",
+      title: "User inventory",
+      description: "All users with enabled/disabled status.",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "iso27001", requirement: "A.9.2.1" },
+      ],
+    },
+    {
+      key: "office365.users.mfa",
+      title: "Per-user MFA enrolment",
+      description: "Graph credentialUserRegistrationDetails report.",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "soc2", requirement: "CC6.3" },
+        { framework: "iso27001", requirement: "A.9.4.2" },
+      ],
+    },
+    {
+      key: "office365.identity.conditional_access",
+      title: "Conditional Access policies",
+      description: "Inventory of enabled and report-only CA policies.",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "iso27001", requirement: "A.9.4.1" },
+      ],
+    },
+    {
+      key: "office365.groups.security",
+      title: "Security group inventory",
+      description: "Security-enabled directory groups.",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "iso27001", requirement: "A.9.2.3" },
+      ],
+    },
+    {
+      key: "office365.security.secure_score",
+      title: "Microsoft Secure Score",
+      description: "Tenant-level secure score against the maximum achievable.",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC7.1" },
+        { framework: "iso27001", requirement: "A.18.2.2" },
+      ],
+    },
+    {
+      key: "office365.logs.failed_signins",
+      title: "Failed sign-ins",
+      description: "Failed sign-in attempts in the monitored period.",
+      defaultSeverity: "medium",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC7.2" },
+        { framework: "iso27001", requirement: "A.12.4.1" },
+      ],
     },
   ],
 };

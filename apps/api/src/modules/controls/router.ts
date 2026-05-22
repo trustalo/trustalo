@@ -15,9 +15,38 @@ import {
   getAgentRun,
   listAgentRuns,
   listConnectionsForOrg,
+  listBoundConnectionsForControl,
+  reconcileConnectionBindings,
+  getControlAutomationHealth,
+  getControlEvidenceCoverage,
   CollectorRequestError,
   respondWithCollectorError,
 } from "../../lib/collector-client.js";
+
+/**
+ * Best-effort reconcile-bindings dispatch. API mutations should never
+ * 5xx because the collector is temporarily unreachable, so failures
+ * here are swallowed with a structured log line. The nightly cron is
+ * the safety net for missed events.
+ */
+async function dispatchReconcile(
+  tenantId: string,
+  triggerReason: Parameters<typeof reconcileConnectionBindings>[1] extends infer T
+    ? T extends { triggerReason?: infer R }
+      ? R
+      : never
+    : never,
+  trigger: string,
+): Promise<void> {
+  try {
+    await reconcileConnectionBindings(tenantId, { triggerReason });
+  } catch (err) {
+    console.warn(
+      `[controls.reconcile] trigger=${trigger} tenant=${tenantId} failed:`,
+      err instanceof Error ? err.message : err,
+    );
+  }
+}
 
 const controlStatus = z.enum([
   "not_implemented",
@@ -250,10 +279,26 @@ controlsRouter.get("/:id", async (req, res, next) => {
     }
 
     const related = [...relatedById.values()];
+
+    // Embed the automation-health rollup so the control card can show
+    // "evidence collected, last sync 4h ago" without a second request.
+    // Best-effort: a collector outage shouldn't block the GET — the
+    // UI just renders "automation status unavailable".
+    let automationHealth: Awaited<ReturnType<typeof getControlAutomationHealth>> | null = null;
+    try {
+      automationHealth = await getControlAutomationHealth(tenantId, id);
+    } catch (err) {
+      console.warn(
+        `[controls.get] automation-health fetch failed for control=${id} tenant=${tenantId}:`,
+        err instanceof Error ? err.message : err,
+      );
+    }
+
     const enriched = {
       ...control,
       relatedRequirementsCount: related.length,
       relatedRequirements: related.slice(0, 3),
+      automationHealth,
     };
 
     res.json({ success: true, data: enriched });
@@ -285,11 +330,36 @@ controlsRouter.patch("/:id", async (req, res, next) => {
     const body = updateBody.parse(req.body);
     const db = prismaWithTenant(tenantId);
 
+    // Capture the prior status so we can detect a transition into /
+    // out of `not_applicable` — that's the case that flips
+    // IntegrationCheckControl bindings on or off.
+    const prior = await db.control.findUnique({
+      where: { id },
+      select: { status: true },
+    });
+
     const control = await db.control.update({
       where: { id },
       data: body,
       include: controlInclude,
     });
+
+    if (
+      prior &&
+      body.status &&
+      prior.status !== body.status &&
+      (prior.status === "not_applicable" || body.status === "not_applicable")
+    ) {
+      // Don't await — we want PATCH to return immediately. Best-effort
+      // dispatch keeps the user-visible latency stable while the
+      // collector picks up the drift.
+      void dispatchReconcile(
+        tenantId,
+        body.status === "not_applicable" ? "control_not_applicable" : "ref_unmapped",
+        `control.patch.${id}`,
+      );
+    }
+
     res.json({ success: true, data: control });
   } catch (err) {
     next(err);
@@ -316,7 +386,36 @@ controlsRouter.delete("/:id", async (req, res, next) => {
     }
 
     await db.control.delete({ where: { id } });
+    void dispatchReconcile(tenantId, "control_deleted", `control.delete.${id}`);
     res.json({ success: true, data: { id } });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ─── Evidence coverage (automation-health timeline) ───────────
+//
+// Forwards through to the collector's `EvidenceCoverageGap` rollup.
+// Default window is 30 days; the caller can pass `?windowDays=N` to
+// widen or narrow it. Authoriser already enforces `controls:read`.
+
+controlsRouter.get("/:id/evidence-coverage", async (req, res, next) => {
+  try {
+    const tenantId = (req as any).auth.tenantId as string;
+    const { id } = idParams.parse(req.params);
+    const windowDays = req.query.windowDays
+      ? Math.max(1, Math.min(365, Number(req.query.windowDays)))
+      : undefined;
+    try {
+      const coverage = await getControlEvidenceCoverage(tenantId, id, windowDays);
+      res.json({ success: true, data: coverage });
+    } catch (err) {
+      if (err instanceof CollectorRequestError) {
+        respondWithCollectorError(res, err);
+        return;
+      }
+      throw err;
+    }
   } catch (err) {
     next(err);
   }
@@ -410,6 +509,12 @@ controlsRouter.put("/:id/mappings", async (req, res, next) => {
         },
       },
     });
+
+    // Mapping changes alter which Requirements (and therefore which
+    // FrameworkRefs) point at this control — reconcile every
+    // connection's bindings so the new mapping shows up in the
+    // dashboard immediately.
+    void dispatchReconcile(tenantId, "ref_unmapped", `control.put-mappings.${controlId}`);
 
     res.json({ success: true, data: assignments });
   } catch (err) {
@@ -619,16 +724,11 @@ controlsRouter.put("/:id/evidence-config", async (req, res, next) => {
         });
         return;
       }
-      if (body.agentToolConnectionIds.length === 0) {
-        res.status(400).json({
-          success: false,
-          error: {
-            code: "AGENT_TOOLS_REQUIRED",
-            message: "Select at least one connection the agent can use as a tool.",
-          },
-        });
-        return;
-      }
+      // `agentToolConnectionIds` is intentionally optional here.
+      // When empty, the agent run defaults the tool set to whatever
+      // connections are bound to this control via
+      // IntegrationCheckControl. The user can still override by
+      // populating the field explicitly — that override wins.
     }
 
     const data = {
@@ -699,12 +799,37 @@ controlsRouter.post("/:id/evidence-config/run", async (req, res, next) => {
       });
       return;
     }
-    if (!config.agentToolConnectionIds.length) {
+    // Resolve the effective tool connection set:
+    //  1. Explicit `agentToolConnectionIds` always wins (user override).
+    //  2. Otherwise, default to whatever connections are bound to this
+    //     control via `IntegrationCheckControl` (the unified binding
+    //     pipeline already wired GitHub/AWS/etc. to this control when
+    //     the user connected them).
+    let effectiveToolConnectionIds = config.agentToolConnectionIds;
+    let toolSource: "explicit" | "bindings" = "explicit";
+    if (effectiveToolConnectionIds.length === 0) {
+      try {
+        const bound = await listBoundConnectionsForControl(tenantId, id);
+        effectiveToolConnectionIds = bound
+          .filter((c) => c.isActive && c.status === "connected")
+          .map((c) => c.id);
+        toolSource = "bindings";
+      } catch (err) {
+        if (err instanceof CollectorRequestError) {
+          respondWithCollectorError(res, err);
+          return;
+        }
+        throw err;
+      }
+    }
+
+    if (effectiveToolConnectionIds.length === 0) {
       res.status(400).json({
         success: false,
         error: {
           code: "AGENT_TOOLS_REQUIRED",
-          message: "Select at least one tool/connection before running the evidence agent.",
+          message:
+            "No tool connections available — either select connections on the control or connect an integration that maps to this control.",
         },
       });
       return;
@@ -730,7 +855,7 @@ controlsRouter.post("/:id/evidence-config/run", async (req, res, next) => {
         controlId: id,
         controlTitle: control.title,
         instructions,
-        toolConnectionIds: config.agentToolConnectionIds,
+        toolConnectionIds: effectiveToolConnectionIds,
         ai: {
           provider: resolved.provider,
           model: resolved.model,
@@ -756,7 +881,16 @@ controlsRouter.post("/:id/evidence-config/run", async (req, res, next) => {
       },
     });
 
-    res.status(202).json({ success: true, data: run });
+    res.status(202).json({
+      success: true,
+      data: {
+        ...run,
+        // Audit metadata so the UI can show "agent picked connections
+        // from IntegrationCheckControl bindings (vs explicit choice)".
+        toolSource,
+        resolvedToolConnectionIds: effectiveToolConnectionIds,
+      },
+    });
   } catch (err) {
     next(err);
   }

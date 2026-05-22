@@ -124,6 +124,7 @@ export class Office365Provider implements IntegrationProvider {
       results.push({
         title: "Office 365 User Inventory",
         description: `${users.length} users, ${disabledUsers.length} disabled accounts`,
+        manifestKey: "office365.users.inventory",
         sourceType: "office365.users.inventory",
         sourceId: `o365-users-${client.tenantId}`,
         rawData: {
@@ -156,6 +157,7 @@ export class Office365Provider implements IntegrationProvider {
       results.push({
         title: "Office 365 MFA Registration",
         description: `${registeredForMfa.length} of ${mfaReport.length} users registered for MFA, ${notRegistered.length} not registered`,
+        manifestKey: "office365.users.mfa",
         sourceType: "office365.users.mfa",
         sourceId: `o365-mfa-${client.tenantId}`,
         rawData: {
@@ -189,6 +191,7 @@ export class Office365Provider implements IntegrationProvider {
       results.push({
         title: "Office 365 Conditional Access Policies",
         description: `${policies.length} policies: ${enabledPolicies.length} enabled, ${reportOnlyPolicies.length} report-only`,
+        manifestKey: "office365.identity.conditional_access",
         sourceType: "office365.identity.conditional_access",
         sourceId: `o365-ca-${client.tenantId}`,
         rawData: {
@@ -218,6 +221,7 @@ export class Office365Provider implements IntegrationProvider {
       results.push({
         title: "Office 365 Security Groups",
         description: `${groups.length} security groups configured`,
+        manifestKey: "office365.groups.security",
         sourceType: "office365.groups.security",
         sourceId: `o365-groups-${client.tenantId}`,
         rawData: {
@@ -249,6 +253,7 @@ export class Office365Provider implements IntegrationProvider {
         results.push({
           title: "Microsoft Secure Score",
           description: `Score: ${currentScore}/${maxScore} (${percentage}%)`,
+          manifestKey: "office365.security.secure_score",
           sourceType: "office365.security.secure_score",
           sourceId: `o365-secure-score-${client.tenantId}`,
           rawData: {
@@ -277,6 +282,7 @@ export class Office365Provider implements IntegrationProvider {
       results.push({
         title: "Office 365 Failed Sign-Ins",
         description: `${signIns.length} failed sign-in attempts in the monitored period`,
+        manifestKey: "office365.logs.failed_signins",
         sourceType: "office365.logs.failed_signins",
         sourceId: `o365-failed-signins-${client.tenantId}-${now.toISOString().split("T")[0]}`,
         rawData: {

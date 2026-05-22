@@ -9,6 +9,22 @@ import {
   requirementMappingsQuery,
 } from "./validation.js";
 import { authorizeResource } from "../../middleware/authorize.js";
+import { reconcileConnectionBindings } from "../../lib/collector-client.js";
+
+async function dispatchReconcile(
+  tenantId: string,
+  triggerReason: "framework_disabled" | "ref_unmapped",
+  trigger: string,
+): Promise<void> {
+  try {
+    await reconcileConnectionBindings(tenantId, { triggerReason });
+  } catch (err) {
+    console.warn(
+      `[frameworks.reconcile] trigger=${trigger} tenant=${tenantId} failed:`,
+      err instanceof Error ? err.message : err,
+    );
+  }
+}
 
 export const frameworksRouter: Router = Router();
 frameworksRouter.use(authorizeResource("frameworks:read", "frameworks:write"));
@@ -81,6 +97,11 @@ frameworksRouter.post("/instances", async (req, res, next) => {
     const body = adoptFrameworkBody.parse(req.body);
     const tenantId = (req as any).auth.tenantId as string;
     const instance = await frameworkService.adoptFramework(tenantId, body);
+    // Adopting a framework expands the resolver's universe — refs that
+    // previously came back `framework_not_seeded` may now bind. Re-
+    // reconcile so the user sees new bindings without waiting for the
+    // nightly cron.
+    void dispatchReconcile(tenantId, "ref_unmapped", `framework.adopt.${instance.id}`);
     res.status(201).json({ success: true, data: instance });
   } catch (err) {
     next(err);
@@ -136,6 +157,15 @@ frameworksRouter.patch("/instances/:id/toggle", async (req, res, next) => {
     const { isEnabled } = toggleInstanceBody.parse(req.body);
     const tenantId = (req as any).auth.tenantId as string;
     const instance = await frameworkService.toggleInstance(tenantId, id, isEnabled);
+    // Enabling expands the desired binding set (refs that previously
+    // returned `framework_not_enabled` now resolve); disabling
+    // collapses it. Both branches go through the same idempotent
+    // reconciler.
+    void dispatchReconcile(
+      tenantId,
+      isEnabled ? "ref_unmapped" : "framework_disabled",
+      `framework.toggle.${id}.${isEnabled ? "on" : "off"}`,
+    );
     res.json({ success: true, data: instance });
   } catch (err) {
     next(err);
@@ -147,6 +177,7 @@ frameworksRouter.delete("/instances/:id", async (req, res, next) => {
     const { id } = frameworkInstanceParams.parse(req.params);
     const tenantId = (req as any).auth.tenantId as string;
     const result = await frameworkService.removeInstance(tenantId, id);
+    void dispatchReconcile(tenantId, "framework_disabled", `framework.delete.${id}`);
     res.json({ success: true, data: result });
   } catch (err) {
     next(err);

@@ -2,6 +2,7 @@ import type { Manifest } from "../types.js";
 
 export const gitlabManifest: Manifest = {
   connector: "gitlab",
+  version: "1.0.0",
   displayName: "GitLab",
   description:
     "Verifies group-level 2FA enforcement, signed-commit requirements, container scanning, and SAST defaults.",

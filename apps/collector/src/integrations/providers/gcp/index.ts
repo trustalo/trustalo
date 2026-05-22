@@ -99,6 +99,7 @@ export class GCPProvider implements IntegrationProvider {
       results.push({
         title: "GCP IAM Policy",
         description: `${totalMembers} unique members across ${bindings.length} role bindings, ${adminBindings.length} admin/owner roles`,
+        manifestKey: "gcp.iam.policy",
         sourceType: "gcp.iam.policy",
         sourceId: `gcp-iam-policy-${client.projectId}`,
         rawData: {
@@ -126,6 +127,7 @@ export class GCPProvider implements IntegrationProvider {
       results.push({
         title: "GCP Service Accounts",
         description: `${accounts.length} service accounts found`,
+        manifestKey: "gcp.iam.service_accounts",
         sourceType: "gcp.iam.service_accounts",
         sourceId: `gcp-sa-${client.projectId}`,
         rawData: {
@@ -171,6 +173,7 @@ export class GCPProvider implements IntegrationProvider {
       results.push({
         title: "GCP Compute Instances",
         description: `${allInstances.length} instances, ${publicInstances.length} with external IPs`,
+        manifestKey: "gcp.compute.instances",
         sourceType: "gcp.compute.instances",
         sourceId: `gcp-compute-${client.projectId}`,
         rawData: {
@@ -205,6 +208,7 @@ export class GCPProvider implements IntegrationProvider {
       results.push({
         title: "GCP Firewall Rules",
         description: `${rules.length} firewall rules, ${openRules.length} with unrestricted ingress (0.0.0.0/0)`,
+        manifestKey: "gcp.compute.firewall_rules",
         sourceType: "gcp.compute.firewall_rules",
         sourceId: `gcp-firewall-${client.projectId}`,
         rawData: {
@@ -239,6 +243,7 @@ export class GCPProvider implements IntegrationProvider {
       results.push({
         title: "GCP Cloud Storage Security",
         description: `${buckets.length} buckets, ${publicBuckets.length} without public access prevention enforced`,
+        manifestKey: "gcp.storage.security",
         sourceType: "gcp.storage.security",
         sourceId: `gcp-storage-${client.projectId}`,
         rawData: {
@@ -269,6 +274,7 @@ export class GCPProvider implements IntegrationProvider {
       results.push({
         title: "GCP Audit Logging Configuration",
         description: `${auditConfigs.length} audit log configurations found`,
+        manifestKey: "gcp.logging.audit_config",
         sourceType: "gcp.logging.audit_config",
         sourceId: `gcp-audit-${client.projectId}`,
         rawData: { totalConfigs: auditConfigs.length, configs: auditConfigs },

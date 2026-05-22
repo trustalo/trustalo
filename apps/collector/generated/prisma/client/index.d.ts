@@ -39,6 +39,11 @@ export type IntegrationCheckControl = $Result.DefaultSelection<Prisma.$Integrati
  */
 export type IntegrationCheckResult = $Result.DefaultSelection<Prisma.$IntegrationCheckResultPayload>
 /**
+ * Model EvidenceCoverageGap
+ * 
+ */
+export type EvidenceCoverageGap = $Result.DefaultSelection<Prisma.$EvidenceCoverageGapPayload>
+/**
  * Model Integration
  * 
  */
@@ -123,6 +128,43 @@ export const IntegrationCheckSeverity: {
 };
 
 export type IntegrationCheckSeverity = (typeof IntegrationCheckSeverity)[keyof typeof IntegrationCheckSeverity]
+
+
+export const CheckHealthState: {
+  healthy: 'healthy',
+  degraded: 'degraded',
+  overdue: 'overdue',
+  failing: 'failing',
+  paused: 'paused'
+};
+
+export type CheckHealthState = (typeof CheckHealthState)[keyof typeof CheckHealthState]
+
+
+export const IntegrationCheckControlDisabledReason: {
+  pending_confirmation: 'pending_confirmation',
+  user_disabled: 'user_disabled',
+  control_not_applicable: 'control_not_applicable',
+  control_deleted: 'control_deleted',
+  framework_disabled: 'framework_disabled',
+  ref_unmapped: 'ref_unmapped',
+  manifest_removed: 'manifest_removed'
+};
+
+export type IntegrationCheckControlDisabledReason = (typeof IntegrationCheckControlDisabledReason)[keyof typeof IntegrationCheckControlDisabledReason]
+
+
+export const CoverageGapReason: {
+  connection_error: 'connection_error',
+  credentials_invalid: 'credentials_invalid',
+  rate_limited: 'rate_limited',
+  check_runtime_error: 'check_runtime_error',
+  schedule_missed: 'schedule_missed',
+  manifest_removed: 'manifest_removed',
+  paused_by_user: 'paused_by_user'
+};
+
+export type CoverageGapReason = (typeof CoverageGapReason)[keyof typeof CoverageGapReason]
 
 
 export const AuthType: {
@@ -239,6 +281,18 @@ export const IntegrationCheckStatus: typeof $Enums.IntegrationCheckStatus
 export type IntegrationCheckSeverity = $Enums.IntegrationCheckSeverity
 
 export const IntegrationCheckSeverity: typeof $Enums.IntegrationCheckSeverity
+
+export type CheckHealthState = $Enums.CheckHealthState
+
+export const CheckHealthState: typeof $Enums.CheckHealthState
+
+export type IntegrationCheckControlDisabledReason = $Enums.IntegrationCheckControlDisabledReason
+
+export const IntegrationCheckControlDisabledReason: typeof $Enums.IntegrationCheckControlDisabledReason
+
+export type CoverageGapReason = $Enums.CoverageGapReason
+
+export const CoverageGapReason: typeof $Enums.CoverageGapReason
 
 export type AuthType = $Enums.AuthType
 
@@ -446,6 +500,16 @@ export class PrismaClient<
     * ```
     */
   get integrationCheckResult(): Prisma.IntegrationCheckResultDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.evidenceCoverageGap`: Exposes CRUD operations for the **EvidenceCoverageGap** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EvidenceCoverageGaps
+    * const evidenceCoverageGaps = await prisma.evidenceCoverageGap.findMany()
+    * ```
+    */
+  get evidenceCoverageGap(): Prisma.EvidenceCoverageGapDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.integration`: Exposes CRUD operations for the **Integration** model.
@@ -945,6 +1009,7 @@ export namespace Prisma {
     IntegrationCheck: 'IntegrationCheck',
     IntegrationCheckControl: 'IntegrationCheckControl',
     IntegrationCheckResult: 'IntegrationCheckResult',
+    EvidenceCoverageGap: 'EvidenceCoverageGap',
     Integration: 'Integration',
     CollectionJob: 'CollectionJob',
     CollectionJobRun: 'CollectionJobRun',
@@ -966,7 +1031,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "agentRun" | "integrationConnection" | "integrationCheck" | "integrationCheckControl" | "integrationCheckResult" | "integration" | "collectionJob" | "collectionJobRun" | "collectionRetry" | "secretVault" | "syncLog"
+      modelProps: "agentRun" | "integrationConnection" | "integrationCheck" | "integrationCheckControl" | "integrationCheckResult" | "evidenceCoverageGap" | "integration" | "collectionJob" | "collectionJobRun" | "collectionRetry" | "secretVault" | "syncLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1337,6 +1402,80 @@ export namespace Prisma {
           count: {
             args: Prisma.IntegrationCheckResultCountArgs<ExtArgs>
             result: $Utils.Optional<IntegrationCheckResultCountAggregateOutputType> | number
+          }
+        }
+      }
+      EvidenceCoverageGap: {
+        payload: Prisma.$EvidenceCoverageGapPayload<ExtArgs>
+        fields: Prisma.EvidenceCoverageGapFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EvidenceCoverageGapFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EvidenceCoverageGapFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload>
+          }
+          findFirst: {
+            args: Prisma.EvidenceCoverageGapFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EvidenceCoverageGapFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload>
+          }
+          findMany: {
+            args: Prisma.EvidenceCoverageGapFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload>[]
+          }
+          create: {
+            args: Prisma.EvidenceCoverageGapCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload>
+          }
+          createMany: {
+            args: Prisma.EvidenceCoverageGapCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EvidenceCoverageGapCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload>[]
+          }
+          delete: {
+            args: Prisma.EvidenceCoverageGapDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload>
+          }
+          update: {
+            args: Prisma.EvidenceCoverageGapUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload>
+          }
+          deleteMany: {
+            args: Prisma.EvidenceCoverageGapDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EvidenceCoverageGapUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EvidenceCoverageGapUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload>[]
+          }
+          upsert: {
+            args: Prisma.EvidenceCoverageGapUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EvidenceCoverageGapPayload>
+          }
+          aggregate: {
+            args: Prisma.EvidenceCoverageGapAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEvidenceCoverageGap>
+          }
+          groupBy: {
+            args: Prisma.EvidenceCoverageGapGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EvidenceCoverageGapGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EvidenceCoverageGapCountArgs<ExtArgs>
+            result: $Utils.Optional<EvidenceCoverageGapCountAggregateOutputType> | number
           }
         }
       }
@@ -1897,6 +2036,7 @@ export namespace Prisma {
     integrationCheck?: IntegrationCheckOmit
     integrationCheckControl?: IntegrationCheckControlOmit
     integrationCheckResult?: IntegrationCheckResultOmit
+    evidenceCoverageGap?: EvidenceCoverageGapOmit
     integration?: IntegrationOmit
     collectionJob?: CollectionJobOmit
     collectionJobRun?: CollectionJobRunOmit
@@ -2052,11 +2192,13 @@ export namespace Prisma {
   export type IntegrationCheckCountOutputType = {
     controls: number
     results: number
+    coverageGaps: number
   }
 
   export type IntegrationCheckCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     controls?: boolean | IntegrationCheckCountOutputTypeCountControlsArgs
     results?: boolean | IntegrationCheckCountOutputTypeCountResultsArgs
+    coverageGaps?: boolean | IntegrationCheckCountOutputTypeCountCoverageGapsArgs
   }
 
   // Custom InputTypes
@@ -2082,6 +2224,13 @@ export namespace Prisma {
    */
   export type IntegrationCheckCountOutputTypeCountResultsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: IntegrationCheckResultWhereInput
+  }
+
+  /**
+   * IntegrationCheckCountOutputType without action
+   */
+  export type IntegrationCheckCountOutputTypeCountCoverageGapsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EvidenceCoverageGapWhereInput
   }
 
 
@@ -3473,6 +3622,8 @@ export namespace Prisma {
     lastErrorMessage: string | null
     syncFrequencyMinutes: number | null
     isActive: boolean | null
+    manifestVersion: string | null
+    lastReconciledAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3488,6 +3639,8 @@ export namespace Prisma {
     lastErrorMessage: string | null
     syncFrequencyMinutes: number | null
     isActive: boolean | null
+    manifestVersion: string | null
+    lastReconciledAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3504,6 +3657,8 @@ export namespace Prisma {
     lastErrorMessage: number
     syncFrequencyMinutes: number
     isActive: number
+    manifestVersion: number
+    lastReconciledAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -3529,6 +3684,8 @@ export namespace Prisma {
     lastErrorMessage?: true
     syncFrequencyMinutes?: true
     isActive?: true
+    manifestVersion?: true
+    lastReconciledAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3544,6 +3701,8 @@ export namespace Prisma {
     lastErrorMessage?: true
     syncFrequencyMinutes?: true
     isActive?: true
+    manifestVersion?: true
+    lastReconciledAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -3560,6 +3719,8 @@ export namespace Prisma {
     lastErrorMessage?: true
     syncFrequencyMinutes?: true
     isActive?: true
+    manifestVersion?: true
+    lastReconciledAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3663,6 +3824,8 @@ export namespace Prisma {
     lastErrorMessage: string | null
     syncFrequencyMinutes: number
     isActive: boolean
+    manifestVersion: string | null
+    lastReconciledAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: IntegrationConnectionCountAggregateOutputType | null
@@ -3698,6 +3861,8 @@ export namespace Prisma {
     lastErrorMessage?: boolean
     syncFrequencyMinutes?: boolean
     isActive?: boolean
+    manifestVersion?: boolean
+    lastReconciledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     integration?: boolean | IntegrationDefaultArgs<ExtArgs>
@@ -3721,6 +3886,8 @@ export namespace Prisma {
     lastErrorMessage?: boolean
     syncFrequencyMinutes?: boolean
     isActive?: boolean
+    manifestVersion?: boolean
+    lastReconciledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     integration?: boolean | IntegrationDefaultArgs<ExtArgs>
@@ -3738,6 +3905,8 @@ export namespace Prisma {
     lastErrorMessage?: boolean
     syncFrequencyMinutes?: boolean
     isActive?: boolean
+    manifestVersion?: boolean
+    lastReconciledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     integration?: boolean | IntegrationDefaultArgs<ExtArgs>
@@ -3755,11 +3924,13 @@ export namespace Prisma {
     lastErrorMessage?: boolean
     syncFrequencyMinutes?: boolean
     isActive?: boolean
+    manifestVersion?: boolean
+    lastReconciledAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type IntegrationConnectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "integrationId" | "name" | "status" | "secretId" | "config" | "lastSyncAt" | "lastErrorMessage" | "syncFrequencyMinutes" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["integrationConnection"]>
+  export type IntegrationConnectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "integrationId" | "name" | "status" | "secretId" | "config" | "lastSyncAt" | "lastErrorMessage" | "syncFrequencyMinutes" | "isActive" | "manifestVersion" | "lastReconciledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["integrationConnection"]>
   export type IntegrationConnectionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     integration?: boolean | IntegrationDefaultArgs<ExtArgs>
     jobs?: boolean | IntegrationConnection$jobsArgs<ExtArgs>
@@ -3798,6 +3969,8 @@ export namespace Prisma {
       lastErrorMessage: string | null
       syncFrequencyMinutes: number
       isActive: boolean
+      manifestVersion: string | null
+      lastReconciledAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["integrationConnection"]>
@@ -4240,6 +4413,8 @@ export namespace Prisma {
     readonly lastErrorMessage: FieldRef<"IntegrationConnection", 'String'>
     readonly syncFrequencyMinutes: FieldRef<"IntegrationConnection", 'Int'>
     readonly isActive: FieldRef<"IntegrationConnection", 'Boolean'>
+    readonly manifestVersion: FieldRef<"IntegrationConnection", 'String'>
+    readonly lastReconciledAt: FieldRef<"IntegrationConnection", 'DateTime'>
     readonly createdAt: FieldRef<"IntegrationConnection", 'DateTime'>
     readonly updatedAt: FieldRef<"IntegrationConnection", 'DateTime'>
   }
@@ -4787,8 +4962,18 @@ export namespace Prisma {
 
   export type AggregateIntegrationCheck = {
     _count: IntegrationCheckCountAggregateOutputType | null
+    _avg: IntegrationCheckAvgAggregateOutputType | null
+    _sum: IntegrationCheckSumAggregateOutputType | null
     _min: IntegrationCheckMinAggregateOutputType | null
     _max: IntegrationCheckMaxAggregateOutputType | null
+  }
+
+  export type IntegrationCheckAvgAggregateOutputType = {
+    consecutiveFailures: number | null
+  }
+
+  export type IntegrationCheckSumAggregateOutputType = {
+    consecutiveFailures: number | null
   }
 
   export type IntegrationCheckMinAggregateOutputType = {
@@ -4808,6 +4993,12 @@ export namespace Prisma {
     lastStatus: $Enums.IntegrationCheckStatus | null
     lastRunAt: Date | null
     lastEvidenceId: string | null
+    expectedNextRunAt: Date | null
+    lastSuccessfulRunAt: Date | null
+    consecutiveFailures: number | null
+    healthState: $Enums.CheckHealthState | null
+    healthChangedAt: Date | null
+    healthReason: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4829,6 +5020,12 @@ export namespace Prisma {
     lastStatus: $Enums.IntegrationCheckStatus | null
     lastRunAt: Date | null
     lastEvidenceId: string | null
+    expectedNextRunAt: Date | null
+    lastSuccessfulRunAt: Date | null
+    consecutiveFailures: number | null
+    healthState: $Enums.CheckHealthState | null
+    healthChangedAt: Date | null
+    healthReason: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4851,11 +5048,25 @@ export namespace Prisma {
     lastStatus: number
     lastRunAt: number
     lastEvidenceId: number
+    expectedNextRunAt: number
+    lastSuccessfulRunAt: number
+    consecutiveFailures: number
+    healthState: number
+    healthChangedAt: number
+    healthReason: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type IntegrationCheckAvgAggregateInputType = {
+    consecutiveFailures?: true
+  }
+
+  export type IntegrationCheckSumAggregateInputType = {
+    consecutiveFailures?: true
+  }
 
   export type IntegrationCheckMinAggregateInputType = {
     id?: true
@@ -4874,6 +5085,12 @@ export namespace Prisma {
     lastStatus?: true
     lastRunAt?: true
     lastEvidenceId?: true
+    expectedNextRunAt?: true
+    lastSuccessfulRunAt?: true
+    consecutiveFailures?: true
+    healthState?: true
+    healthChangedAt?: true
+    healthReason?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4895,6 +5112,12 @@ export namespace Prisma {
     lastStatus?: true
     lastRunAt?: true
     lastEvidenceId?: true
+    expectedNextRunAt?: true
+    lastSuccessfulRunAt?: true
+    consecutiveFailures?: true
+    healthState?: true
+    healthChangedAt?: true
+    healthReason?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4917,6 +5140,12 @@ export namespace Prisma {
     lastStatus?: true
     lastRunAt?: true
     lastEvidenceId?: true
+    expectedNextRunAt?: true
+    lastSuccessfulRunAt?: true
+    consecutiveFailures?: true
+    healthState?: true
+    healthChangedAt?: true
+    healthReason?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4960,6 +5189,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: IntegrationCheckAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: IntegrationCheckSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: IntegrationCheckMinAggregateInputType
@@ -4990,6 +5231,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: IntegrationCheckCountAggregateInputType | true
+    _avg?: IntegrationCheckAvgAggregateInputType
+    _sum?: IntegrationCheckSumAggregateInputType
     _min?: IntegrationCheckMinAggregateInputType
     _max?: IntegrationCheckMaxAggregateInputType
   }
@@ -5012,9 +5255,17 @@ export namespace Prisma {
     lastStatus: $Enums.IntegrationCheckStatus
     lastRunAt: Date | null
     lastEvidenceId: string | null
+    expectedNextRunAt: Date | null
+    lastSuccessfulRunAt: Date | null
+    consecutiveFailures: number
+    healthState: $Enums.CheckHealthState
+    healthChangedAt: Date | null
+    healthReason: string | null
     createdAt: Date
     updatedAt: Date
     _count: IntegrationCheckCountAggregateOutputType | null
+    _avg: IntegrationCheckAvgAggregateOutputType | null
+    _sum: IntegrationCheckSumAggregateOutputType | null
     _min: IntegrationCheckMinAggregateOutputType | null
     _max: IntegrationCheckMaxAggregateOutputType | null
   }
@@ -5051,12 +5302,19 @@ export namespace Prisma {
     lastStatus?: boolean
     lastRunAt?: boolean
     lastEvidenceId?: boolean
+    expectedNextRunAt?: boolean
+    lastSuccessfulRunAt?: boolean
+    consecutiveFailures?: boolean
+    healthState?: boolean
+    healthChangedAt?: boolean
+    healthReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     connection?: boolean | IntegrationConnectionDefaultArgs<ExtArgs>
     integration?: boolean | IntegrationDefaultArgs<ExtArgs>
     controls?: boolean | IntegrationCheck$controlsArgs<ExtArgs>
     results?: boolean | IntegrationCheck$resultsArgs<ExtArgs>
+    coverageGaps?: boolean | IntegrationCheck$coverageGapsArgs<ExtArgs>
     _count?: boolean | IntegrationCheckCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["integrationCheck"]>
 
@@ -5078,6 +5336,12 @@ export namespace Prisma {
     lastStatus?: boolean
     lastRunAt?: boolean
     lastEvidenceId?: boolean
+    expectedNextRunAt?: boolean
+    lastSuccessfulRunAt?: boolean
+    consecutiveFailures?: boolean
+    healthState?: boolean
+    healthChangedAt?: boolean
+    healthReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     connection?: boolean | IntegrationConnectionDefaultArgs<ExtArgs>
@@ -5102,6 +5366,12 @@ export namespace Prisma {
     lastStatus?: boolean
     lastRunAt?: boolean
     lastEvidenceId?: boolean
+    expectedNextRunAt?: boolean
+    lastSuccessfulRunAt?: boolean
+    consecutiveFailures?: boolean
+    healthState?: boolean
+    healthChangedAt?: boolean
+    healthReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     connection?: boolean | IntegrationConnectionDefaultArgs<ExtArgs>
@@ -5126,16 +5396,23 @@ export namespace Prisma {
     lastStatus?: boolean
     lastRunAt?: boolean
     lastEvidenceId?: boolean
+    expectedNextRunAt?: boolean
+    lastSuccessfulRunAt?: boolean
+    consecutiveFailures?: boolean
+    healthState?: boolean
+    healthChangedAt?: boolean
+    healthReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type IntegrationCheckOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "connectionId" | "integrationId" | "manifestKey" | "title" | "description" | "severity" | "schedule" | "isEnabled" | "runner" | "spec" | "aiPrompt" | "aiModel" | "lastStatus" | "lastRunAt" | "lastEvidenceId" | "createdAt" | "updatedAt", ExtArgs["result"]["integrationCheck"]>
+  export type IntegrationCheckOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "connectionId" | "integrationId" | "manifestKey" | "title" | "description" | "severity" | "schedule" | "isEnabled" | "runner" | "spec" | "aiPrompt" | "aiModel" | "lastStatus" | "lastRunAt" | "lastEvidenceId" | "expectedNextRunAt" | "lastSuccessfulRunAt" | "consecutiveFailures" | "healthState" | "healthChangedAt" | "healthReason" | "createdAt" | "updatedAt", ExtArgs["result"]["integrationCheck"]>
   export type IntegrationCheckInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     connection?: boolean | IntegrationConnectionDefaultArgs<ExtArgs>
     integration?: boolean | IntegrationDefaultArgs<ExtArgs>
     controls?: boolean | IntegrationCheck$controlsArgs<ExtArgs>
     results?: boolean | IntegrationCheck$resultsArgs<ExtArgs>
+    coverageGaps?: boolean | IntegrationCheck$coverageGapsArgs<ExtArgs>
     _count?: boolean | IntegrationCheckCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type IntegrationCheckIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5154,6 +5431,7 @@ export namespace Prisma {
       integration: Prisma.$IntegrationPayload<ExtArgs>
       controls: Prisma.$IntegrationCheckControlPayload<ExtArgs>[]
       results: Prisma.$IntegrationCheckResultPayload<ExtArgs>[]
+      coverageGaps: Prisma.$EvidenceCoverageGapPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5173,6 +5451,12 @@ export namespace Prisma {
       lastStatus: $Enums.IntegrationCheckStatus
       lastRunAt: Date | null
       lastEvidenceId: string | null
+      expectedNextRunAt: Date | null
+      lastSuccessfulRunAt: Date | null
+      consecutiveFailures: number
+      healthState: $Enums.CheckHealthState
+      healthChangedAt: Date | null
+      healthReason: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["integrationCheck"]>
@@ -5573,6 +5857,7 @@ export namespace Prisma {
     integration<T extends IntegrationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IntegrationDefaultArgs<ExtArgs>>): Prisma__IntegrationClient<$Result.GetResult<Prisma.$IntegrationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     controls<T extends IntegrationCheck$controlsArgs<ExtArgs> = {}>(args?: Subset<T, IntegrationCheck$controlsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IntegrationCheckControlPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     results<T extends IntegrationCheck$resultsArgs<ExtArgs> = {}>(args?: Subset<T, IntegrationCheck$resultsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IntegrationCheckResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    coverageGaps<T extends IntegrationCheck$coverageGapsArgs<ExtArgs> = {}>(args?: Subset<T, IntegrationCheck$coverageGapsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5619,6 +5904,12 @@ export namespace Prisma {
     readonly lastStatus: FieldRef<"IntegrationCheck", 'IntegrationCheckStatus'>
     readonly lastRunAt: FieldRef<"IntegrationCheck", 'DateTime'>
     readonly lastEvidenceId: FieldRef<"IntegrationCheck", 'String'>
+    readonly expectedNextRunAt: FieldRef<"IntegrationCheck", 'DateTime'>
+    readonly lastSuccessfulRunAt: FieldRef<"IntegrationCheck", 'DateTime'>
+    readonly consecutiveFailures: FieldRef<"IntegrationCheck", 'Int'>
+    readonly healthState: FieldRef<"IntegrationCheck", 'CheckHealthState'>
+    readonly healthChangedAt: FieldRef<"IntegrationCheck", 'DateTime'>
+    readonly healthReason: FieldRef<"IntegrationCheck", 'String'>
     readonly createdAt: FieldRef<"IntegrationCheck", 'DateTime'>
     readonly updatedAt: FieldRef<"IntegrationCheck", 'DateTime'>
   }
@@ -6070,6 +6361,30 @@ export namespace Prisma {
   }
 
   /**
+   * IntegrationCheck.coverageGaps
+   */
+  export type IntegrationCheck$coverageGapsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
+    where?: EvidenceCoverageGapWhereInput
+    orderBy?: EvidenceCoverageGapOrderByWithRelationInput | EvidenceCoverageGapOrderByWithRelationInput[]
+    cursor?: EvidenceCoverageGapWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EvidenceCoverageGapScalarFieldEnum | EvidenceCoverageGapScalarFieldEnum[]
+  }
+
+  /**
    * IntegrationCheck without action
    */
   export type IntegrationCheckDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6104,6 +6419,10 @@ export namespace Prisma {
     integrationCheckId: string | null
     connectionId: string | null
     controlId: string | null
+    isEnabled: boolean | null
+    disabledReason: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt: Date | null
+    lastReconciledAt: Date | null
     createdAt: Date | null
   }
 
@@ -6113,6 +6432,10 @@ export namespace Prisma {
     integrationCheckId: string | null
     connectionId: string | null
     controlId: string | null
+    isEnabled: boolean | null
+    disabledReason: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt: Date | null
+    lastReconciledAt: Date | null
     createdAt: Date | null
   }
 
@@ -6122,6 +6445,10 @@ export namespace Prisma {
     integrationCheckId: number
     connectionId: number
     controlId: number
+    isEnabled: number
+    disabledReason: number
+    disabledAt: number
+    lastReconciledAt: number
     createdAt: number
     _all: number
   }
@@ -6133,6 +6460,10 @@ export namespace Prisma {
     integrationCheckId?: true
     connectionId?: true
     controlId?: true
+    isEnabled?: true
+    disabledReason?: true
+    disabledAt?: true
+    lastReconciledAt?: true
     createdAt?: true
   }
 
@@ -6142,6 +6473,10 @@ export namespace Prisma {
     integrationCheckId?: true
     connectionId?: true
     controlId?: true
+    isEnabled?: true
+    disabledReason?: true
+    disabledAt?: true
+    lastReconciledAt?: true
     createdAt?: true
   }
 
@@ -6151,6 +6486,10 @@ export namespace Prisma {
     integrationCheckId?: true
     connectionId?: true
     controlId?: true
+    isEnabled?: true
+    disabledReason?: true
+    disabledAt?: true
+    lastReconciledAt?: true
     createdAt?: true
     _all?: true
   }
@@ -6233,6 +6572,10 @@ export namespace Prisma {
     integrationCheckId: string
     connectionId: string
     controlId: string
+    isEnabled: boolean
+    disabledReason: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt: Date | null
+    lastReconciledAt: Date
     createdAt: Date
     _count: IntegrationCheckControlCountAggregateOutputType | null
     _min: IntegrationCheckControlMinAggregateOutputType | null
@@ -6259,6 +6602,10 @@ export namespace Prisma {
     integrationCheckId?: boolean
     connectionId?: boolean
     controlId?: boolean
+    isEnabled?: boolean
+    disabledReason?: boolean
+    disabledAt?: boolean
+    lastReconciledAt?: boolean
     createdAt?: boolean
     integrationCheck?: boolean | IntegrationCheckDefaultArgs<ExtArgs>
     connection?: boolean | IntegrationConnectionDefaultArgs<ExtArgs>
@@ -6270,6 +6617,10 @@ export namespace Prisma {
     integrationCheckId?: boolean
     connectionId?: boolean
     controlId?: boolean
+    isEnabled?: boolean
+    disabledReason?: boolean
+    disabledAt?: boolean
+    lastReconciledAt?: boolean
     createdAt?: boolean
     integrationCheck?: boolean | IntegrationCheckDefaultArgs<ExtArgs>
     connection?: boolean | IntegrationConnectionDefaultArgs<ExtArgs>
@@ -6281,6 +6632,10 @@ export namespace Prisma {
     integrationCheckId?: boolean
     connectionId?: boolean
     controlId?: boolean
+    isEnabled?: boolean
+    disabledReason?: boolean
+    disabledAt?: boolean
+    lastReconciledAt?: boolean
     createdAt?: boolean
     integrationCheck?: boolean | IntegrationCheckDefaultArgs<ExtArgs>
     connection?: boolean | IntegrationConnectionDefaultArgs<ExtArgs>
@@ -6292,10 +6647,14 @@ export namespace Prisma {
     integrationCheckId?: boolean
     connectionId?: boolean
     controlId?: boolean
+    isEnabled?: boolean
+    disabledReason?: boolean
+    disabledAt?: boolean
+    lastReconciledAt?: boolean
     createdAt?: boolean
   }
 
-  export type IntegrationCheckControlOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "integrationCheckId" | "connectionId" | "controlId" | "createdAt", ExtArgs["result"]["integrationCheckControl"]>
+  export type IntegrationCheckControlOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "integrationCheckId" | "connectionId" | "controlId" | "isEnabled" | "disabledReason" | "disabledAt" | "lastReconciledAt" | "createdAt", ExtArgs["result"]["integrationCheckControl"]>
   export type IntegrationCheckControlInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     integrationCheck?: boolean | IntegrationCheckDefaultArgs<ExtArgs>
     connection?: boolean | IntegrationConnectionDefaultArgs<ExtArgs>
@@ -6321,6 +6680,10 @@ export namespace Prisma {
       integrationCheckId: string
       connectionId: string
       controlId: string
+      isEnabled: boolean
+      disabledReason: $Enums.IntegrationCheckControlDisabledReason | null
+      disabledAt: Date | null
+      lastReconciledAt: Date
       createdAt: Date
     }, ExtArgs["result"]["integrationCheckControl"]>
     composites: {}
@@ -6752,6 +7115,10 @@ export namespace Prisma {
     readonly integrationCheckId: FieldRef<"IntegrationCheckControl", 'String'>
     readonly connectionId: FieldRef<"IntegrationCheckControl", 'String'>
     readonly controlId: FieldRef<"IntegrationCheckControl", 'String'>
+    readonly isEnabled: FieldRef<"IntegrationCheckControl", 'Boolean'>
+    readonly disabledReason: FieldRef<"IntegrationCheckControl", 'IntegrationCheckControlDisabledReason'>
+    readonly disabledAt: FieldRef<"IntegrationCheckControl", 'DateTime'>
+    readonly lastReconciledAt: FieldRef<"IntegrationCheckControl", 'DateTime'>
     readonly createdAt: FieldRef<"IntegrationCheckControl", 'DateTime'>
   }
     
@@ -8335,6 +8702,1194 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: IntegrationCheckResultInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EvidenceCoverageGap
+   */
+
+  export type AggregateEvidenceCoverageGap = {
+    _count: EvidenceCoverageGapCountAggregateOutputType | null
+    _avg: EvidenceCoverageGapAvgAggregateOutputType | null
+    _sum: EvidenceCoverageGapSumAggregateOutputType | null
+    _min: EvidenceCoverageGapMinAggregateOutputType | null
+    _max: EvidenceCoverageGapMaxAggregateOutputType | null
+  }
+
+  export type EvidenceCoverageGapAvgAggregateOutputType = {
+    retryCount: number | null
+    escalationCount: number | null
+  }
+
+  export type EvidenceCoverageGapSumAggregateOutputType = {
+    retryCount: number | null
+    escalationCount: number | null
+  }
+
+  export type EvidenceCoverageGapMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    integrationCheckId: string | null
+    reason: $Enums.CoverageGapReason | null
+    startedAt: Date | null
+    endedAt: Date | null
+    lastErrorMessage: string | null
+    retryCount: number | null
+    controlWeaknessId: string | null
+    lastEscalatedAt: Date | null
+    escalationCount: number | null
+  }
+
+  export type EvidenceCoverageGapMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    integrationCheckId: string | null
+    reason: $Enums.CoverageGapReason | null
+    startedAt: Date | null
+    endedAt: Date | null
+    lastErrorMessage: string | null
+    retryCount: number | null
+    controlWeaknessId: string | null
+    lastEscalatedAt: Date | null
+    escalationCount: number | null
+  }
+
+  export type EvidenceCoverageGapCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    integrationCheckId: number
+    affectedControlIds: number
+    reason: number
+    startedAt: number
+    endedAt: number
+    lastErrorMessage: number
+    retryCount: number
+    controlWeaknessId: number
+    lastEscalatedAt: number
+    escalationCount: number
+    _all: number
+  }
+
+
+  export type EvidenceCoverageGapAvgAggregateInputType = {
+    retryCount?: true
+    escalationCount?: true
+  }
+
+  export type EvidenceCoverageGapSumAggregateInputType = {
+    retryCount?: true
+    escalationCount?: true
+  }
+
+  export type EvidenceCoverageGapMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    integrationCheckId?: true
+    reason?: true
+    startedAt?: true
+    endedAt?: true
+    lastErrorMessage?: true
+    retryCount?: true
+    controlWeaknessId?: true
+    lastEscalatedAt?: true
+    escalationCount?: true
+  }
+
+  export type EvidenceCoverageGapMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    integrationCheckId?: true
+    reason?: true
+    startedAt?: true
+    endedAt?: true
+    lastErrorMessage?: true
+    retryCount?: true
+    controlWeaknessId?: true
+    lastEscalatedAt?: true
+    escalationCount?: true
+  }
+
+  export type EvidenceCoverageGapCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    integrationCheckId?: true
+    affectedControlIds?: true
+    reason?: true
+    startedAt?: true
+    endedAt?: true
+    lastErrorMessage?: true
+    retryCount?: true
+    controlWeaknessId?: true
+    lastEscalatedAt?: true
+    escalationCount?: true
+    _all?: true
+  }
+
+  export type EvidenceCoverageGapAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EvidenceCoverageGap to aggregate.
+     */
+    where?: EvidenceCoverageGapWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EvidenceCoverageGaps to fetch.
+     */
+    orderBy?: EvidenceCoverageGapOrderByWithRelationInput | EvidenceCoverageGapOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EvidenceCoverageGapWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EvidenceCoverageGaps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EvidenceCoverageGaps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EvidenceCoverageGaps
+    **/
+    _count?: true | EvidenceCoverageGapCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EvidenceCoverageGapAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EvidenceCoverageGapSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EvidenceCoverageGapMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EvidenceCoverageGapMaxAggregateInputType
+  }
+
+  export type GetEvidenceCoverageGapAggregateType<T extends EvidenceCoverageGapAggregateArgs> = {
+        [P in keyof T & keyof AggregateEvidenceCoverageGap]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEvidenceCoverageGap[P]>
+      : GetScalarType<T[P], AggregateEvidenceCoverageGap[P]>
+  }
+
+
+
+
+  export type EvidenceCoverageGapGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EvidenceCoverageGapWhereInput
+    orderBy?: EvidenceCoverageGapOrderByWithAggregationInput | EvidenceCoverageGapOrderByWithAggregationInput[]
+    by: EvidenceCoverageGapScalarFieldEnum[] | EvidenceCoverageGapScalarFieldEnum
+    having?: EvidenceCoverageGapScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EvidenceCoverageGapCountAggregateInputType | true
+    _avg?: EvidenceCoverageGapAvgAggregateInputType
+    _sum?: EvidenceCoverageGapSumAggregateInputType
+    _min?: EvidenceCoverageGapMinAggregateInputType
+    _max?: EvidenceCoverageGapMaxAggregateInputType
+  }
+
+  export type EvidenceCoverageGapGroupByOutputType = {
+    id: string
+    tenantId: string
+    integrationCheckId: string
+    affectedControlIds: string[]
+    reason: $Enums.CoverageGapReason
+    startedAt: Date
+    endedAt: Date | null
+    lastErrorMessage: string | null
+    retryCount: number
+    controlWeaknessId: string | null
+    lastEscalatedAt: Date | null
+    escalationCount: number
+    _count: EvidenceCoverageGapCountAggregateOutputType | null
+    _avg: EvidenceCoverageGapAvgAggregateOutputType | null
+    _sum: EvidenceCoverageGapSumAggregateOutputType | null
+    _min: EvidenceCoverageGapMinAggregateOutputType | null
+    _max: EvidenceCoverageGapMaxAggregateOutputType | null
+  }
+
+  type GetEvidenceCoverageGapGroupByPayload<T extends EvidenceCoverageGapGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EvidenceCoverageGapGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EvidenceCoverageGapGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EvidenceCoverageGapGroupByOutputType[P]>
+            : GetScalarType<T[P], EvidenceCoverageGapGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EvidenceCoverageGapSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    integrationCheckId?: boolean
+    affectedControlIds?: boolean
+    reason?: boolean
+    startedAt?: boolean
+    endedAt?: boolean
+    lastErrorMessage?: boolean
+    retryCount?: boolean
+    controlWeaknessId?: boolean
+    lastEscalatedAt?: boolean
+    escalationCount?: boolean
+    integrationCheck?: boolean | IntegrationCheckDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["evidenceCoverageGap"]>
+
+  export type EvidenceCoverageGapSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    integrationCheckId?: boolean
+    affectedControlIds?: boolean
+    reason?: boolean
+    startedAt?: boolean
+    endedAt?: boolean
+    lastErrorMessage?: boolean
+    retryCount?: boolean
+    controlWeaknessId?: boolean
+    lastEscalatedAt?: boolean
+    escalationCount?: boolean
+    integrationCheck?: boolean | IntegrationCheckDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["evidenceCoverageGap"]>
+
+  export type EvidenceCoverageGapSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    integrationCheckId?: boolean
+    affectedControlIds?: boolean
+    reason?: boolean
+    startedAt?: boolean
+    endedAt?: boolean
+    lastErrorMessage?: boolean
+    retryCount?: boolean
+    controlWeaknessId?: boolean
+    lastEscalatedAt?: boolean
+    escalationCount?: boolean
+    integrationCheck?: boolean | IntegrationCheckDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["evidenceCoverageGap"]>
+
+  export type EvidenceCoverageGapSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    integrationCheckId?: boolean
+    affectedControlIds?: boolean
+    reason?: boolean
+    startedAt?: boolean
+    endedAt?: boolean
+    lastErrorMessage?: boolean
+    retryCount?: boolean
+    controlWeaknessId?: boolean
+    lastEscalatedAt?: boolean
+    escalationCount?: boolean
+  }
+
+  export type EvidenceCoverageGapOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "integrationCheckId" | "affectedControlIds" | "reason" | "startedAt" | "endedAt" | "lastErrorMessage" | "retryCount" | "controlWeaknessId" | "lastEscalatedAt" | "escalationCount", ExtArgs["result"]["evidenceCoverageGap"]>
+  export type EvidenceCoverageGapInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    integrationCheck?: boolean | IntegrationCheckDefaultArgs<ExtArgs>
+  }
+  export type EvidenceCoverageGapIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    integrationCheck?: boolean | IntegrationCheckDefaultArgs<ExtArgs>
+  }
+  export type EvidenceCoverageGapIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    integrationCheck?: boolean | IntegrationCheckDefaultArgs<ExtArgs>
+  }
+
+  export type $EvidenceCoverageGapPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EvidenceCoverageGap"
+    objects: {
+      integrationCheck: Prisma.$IntegrationCheckPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      integrationCheckId: string
+      affectedControlIds: string[]
+      reason: $Enums.CoverageGapReason
+      startedAt: Date
+      endedAt: Date | null
+      lastErrorMessage: string | null
+      retryCount: number
+      controlWeaknessId: string | null
+      lastEscalatedAt: Date | null
+      escalationCount: number
+    }, ExtArgs["result"]["evidenceCoverageGap"]>
+    composites: {}
+  }
+
+  type EvidenceCoverageGapGetPayload<S extends boolean | null | undefined | EvidenceCoverageGapDefaultArgs> = $Result.GetResult<Prisma.$EvidenceCoverageGapPayload, S>
+
+  type EvidenceCoverageGapCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EvidenceCoverageGapFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EvidenceCoverageGapCountAggregateInputType | true
+    }
+
+  export interface EvidenceCoverageGapDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EvidenceCoverageGap'], meta: { name: 'EvidenceCoverageGap' } }
+    /**
+     * Find zero or one EvidenceCoverageGap that matches the filter.
+     * @param {EvidenceCoverageGapFindUniqueArgs} args - Arguments to find a EvidenceCoverageGap
+     * @example
+     * // Get one EvidenceCoverageGap
+     * const evidenceCoverageGap = await prisma.evidenceCoverageGap.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EvidenceCoverageGapFindUniqueArgs>(args: SelectSubset<T, EvidenceCoverageGapFindUniqueArgs<ExtArgs>>): Prisma__EvidenceCoverageGapClient<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EvidenceCoverageGap that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EvidenceCoverageGapFindUniqueOrThrowArgs} args - Arguments to find a EvidenceCoverageGap
+     * @example
+     * // Get one EvidenceCoverageGap
+     * const evidenceCoverageGap = await prisma.evidenceCoverageGap.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EvidenceCoverageGapFindUniqueOrThrowArgs>(args: SelectSubset<T, EvidenceCoverageGapFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EvidenceCoverageGapClient<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EvidenceCoverageGap that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EvidenceCoverageGapFindFirstArgs} args - Arguments to find a EvidenceCoverageGap
+     * @example
+     * // Get one EvidenceCoverageGap
+     * const evidenceCoverageGap = await prisma.evidenceCoverageGap.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EvidenceCoverageGapFindFirstArgs>(args?: SelectSubset<T, EvidenceCoverageGapFindFirstArgs<ExtArgs>>): Prisma__EvidenceCoverageGapClient<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EvidenceCoverageGap that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EvidenceCoverageGapFindFirstOrThrowArgs} args - Arguments to find a EvidenceCoverageGap
+     * @example
+     * // Get one EvidenceCoverageGap
+     * const evidenceCoverageGap = await prisma.evidenceCoverageGap.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EvidenceCoverageGapFindFirstOrThrowArgs>(args?: SelectSubset<T, EvidenceCoverageGapFindFirstOrThrowArgs<ExtArgs>>): Prisma__EvidenceCoverageGapClient<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EvidenceCoverageGaps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EvidenceCoverageGapFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EvidenceCoverageGaps
+     * const evidenceCoverageGaps = await prisma.evidenceCoverageGap.findMany()
+     * 
+     * // Get first 10 EvidenceCoverageGaps
+     * const evidenceCoverageGaps = await prisma.evidenceCoverageGap.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const evidenceCoverageGapWithIdOnly = await prisma.evidenceCoverageGap.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EvidenceCoverageGapFindManyArgs>(args?: SelectSubset<T, EvidenceCoverageGapFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EvidenceCoverageGap.
+     * @param {EvidenceCoverageGapCreateArgs} args - Arguments to create a EvidenceCoverageGap.
+     * @example
+     * // Create one EvidenceCoverageGap
+     * const EvidenceCoverageGap = await prisma.evidenceCoverageGap.create({
+     *   data: {
+     *     // ... data to create a EvidenceCoverageGap
+     *   }
+     * })
+     * 
+     */
+    create<T extends EvidenceCoverageGapCreateArgs>(args: SelectSubset<T, EvidenceCoverageGapCreateArgs<ExtArgs>>): Prisma__EvidenceCoverageGapClient<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EvidenceCoverageGaps.
+     * @param {EvidenceCoverageGapCreateManyArgs} args - Arguments to create many EvidenceCoverageGaps.
+     * @example
+     * // Create many EvidenceCoverageGaps
+     * const evidenceCoverageGap = await prisma.evidenceCoverageGap.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EvidenceCoverageGapCreateManyArgs>(args?: SelectSubset<T, EvidenceCoverageGapCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EvidenceCoverageGaps and returns the data saved in the database.
+     * @param {EvidenceCoverageGapCreateManyAndReturnArgs} args - Arguments to create many EvidenceCoverageGaps.
+     * @example
+     * // Create many EvidenceCoverageGaps
+     * const evidenceCoverageGap = await prisma.evidenceCoverageGap.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EvidenceCoverageGaps and only return the `id`
+     * const evidenceCoverageGapWithIdOnly = await prisma.evidenceCoverageGap.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EvidenceCoverageGapCreateManyAndReturnArgs>(args?: SelectSubset<T, EvidenceCoverageGapCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EvidenceCoverageGap.
+     * @param {EvidenceCoverageGapDeleteArgs} args - Arguments to delete one EvidenceCoverageGap.
+     * @example
+     * // Delete one EvidenceCoverageGap
+     * const EvidenceCoverageGap = await prisma.evidenceCoverageGap.delete({
+     *   where: {
+     *     // ... filter to delete one EvidenceCoverageGap
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EvidenceCoverageGapDeleteArgs>(args: SelectSubset<T, EvidenceCoverageGapDeleteArgs<ExtArgs>>): Prisma__EvidenceCoverageGapClient<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EvidenceCoverageGap.
+     * @param {EvidenceCoverageGapUpdateArgs} args - Arguments to update one EvidenceCoverageGap.
+     * @example
+     * // Update one EvidenceCoverageGap
+     * const evidenceCoverageGap = await prisma.evidenceCoverageGap.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EvidenceCoverageGapUpdateArgs>(args: SelectSubset<T, EvidenceCoverageGapUpdateArgs<ExtArgs>>): Prisma__EvidenceCoverageGapClient<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EvidenceCoverageGaps.
+     * @param {EvidenceCoverageGapDeleteManyArgs} args - Arguments to filter EvidenceCoverageGaps to delete.
+     * @example
+     * // Delete a few EvidenceCoverageGaps
+     * const { count } = await prisma.evidenceCoverageGap.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EvidenceCoverageGapDeleteManyArgs>(args?: SelectSubset<T, EvidenceCoverageGapDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EvidenceCoverageGaps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EvidenceCoverageGapUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EvidenceCoverageGaps
+     * const evidenceCoverageGap = await prisma.evidenceCoverageGap.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EvidenceCoverageGapUpdateManyArgs>(args: SelectSubset<T, EvidenceCoverageGapUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EvidenceCoverageGaps and returns the data updated in the database.
+     * @param {EvidenceCoverageGapUpdateManyAndReturnArgs} args - Arguments to update many EvidenceCoverageGaps.
+     * @example
+     * // Update many EvidenceCoverageGaps
+     * const evidenceCoverageGap = await prisma.evidenceCoverageGap.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EvidenceCoverageGaps and only return the `id`
+     * const evidenceCoverageGapWithIdOnly = await prisma.evidenceCoverageGap.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EvidenceCoverageGapUpdateManyAndReturnArgs>(args: SelectSubset<T, EvidenceCoverageGapUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EvidenceCoverageGap.
+     * @param {EvidenceCoverageGapUpsertArgs} args - Arguments to update or create a EvidenceCoverageGap.
+     * @example
+     * // Update or create a EvidenceCoverageGap
+     * const evidenceCoverageGap = await prisma.evidenceCoverageGap.upsert({
+     *   create: {
+     *     // ... data to create a EvidenceCoverageGap
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EvidenceCoverageGap we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EvidenceCoverageGapUpsertArgs>(args: SelectSubset<T, EvidenceCoverageGapUpsertArgs<ExtArgs>>): Prisma__EvidenceCoverageGapClient<$Result.GetResult<Prisma.$EvidenceCoverageGapPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EvidenceCoverageGaps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EvidenceCoverageGapCountArgs} args - Arguments to filter EvidenceCoverageGaps to count.
+     * @example
+     * // Count the number of EvidenceCoverageGaps
+     * const count = await prisma.evidenceCoverageGap.count({
+     *   where: {
+     *     // ... the filter for the EvidenceCoverageGaps we want to count
+     *   }
+     * })
+    **/
+    count<T extends EvidenceCoverageGapCountArgs>(
+      args?: Subset<T, EvidenceCoverageGapCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EvidenceCoverageGapCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EvidenceCoverageGap.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EvidenceCoverageGapAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EvidenceCoverageGapAggregateArgs>(args: Subset<T, EvidenceCoverageGapAggregateArgs>): Prisma.PrismaPromise<GetEvidenceCoverageGapAggregateType<T>>
+
+    /**
+     * Group by EvidenceCoverageGap.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EvidenceCoverageGapGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EvidenceCoverageGapGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EvidenceCoverageGapGroupByArgs['orderBy'] }
+        : { orderBy?: EvidenceCoverageGapGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EvidenceCoverageGapGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEvidenceCoverageGapGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EvidenceCoverageGap model
+   */
+  readonly fields: EvidenceCoverageGapFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EvidenceCoverageGap.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EvidenceCoverageGapClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    integrationCheck<T extends IntegrationCheckDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IntegrationCheckDefaultArgs<ExtArgs>>): Prisma__IntegrationCheckClient<$Result.GetResult<Prisma.$IntegrationCheckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EvidenceCoverageGap model
+   */
+  interface EvidenceCoverageGapFieldRefs {
+    readonly id: FieldRef<"EvidenceCoverageGap", 'String'>
+    readonly tenantId: FieldRef<"EvidenceCoverageGap", 'String'>
+    readonly integrationCheckId: FieldRef<"EvidenceCoverageGap", 'String'>
+    readonly affectedControlIds: FieldRef<"EvidenceCoverageGap", 'String[]'>
+    readonly reason: FieldRef<"EvidenceCoverageGap", 'CoverageGapReason'>
+    readonly startedAt: FieldRef<"EvidenceCoverageGap", 'DateTime'>
+    readonly endedAt: FieldRef<"EvidenceCoverageGap", 'DateTime'>
+    readonly lastErrorMessage: FieldRef<"EvidenceCoverageGap", 'String'>
+    readonly retryCount: FieldRef<"EvidenceCoverageGap", 'Int'>
+    readonly controlWeaknessId: FieldRef<"EvidenceCoverageGap", 'String'>
+    readonly lastEscalatedAt: FieldRef<"EvidenceCoverageGap", 'DateTime'>
+    readonly escalationCount: FieldRef<"EvidenceCoverageGap", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EvidenceCoverageGap findUnique
+   */
+  export type EvidenceCoverageGapFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
+    /**
+     * Filter, which EvidenceCoverageGap to fetch.
+     */
+    where: EvidenceCoverageGapWhereUniqueInput
+  }
+
+  /**
+   * EvidenceCoverageGap findUniqueOrThrow
+   */
+  export type EvidenceCoverageGapFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
+    /**
+     * Filter, which EvidenceCoverageGap to fetch.
+     */
+    where: EvidenceCoverageGapWhereUniqueInput
+  }
+
+  /**
+   * EvidenceCoverageGap findFirst
+   */
+  export type EvidenceCoverageGapFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
+    /**
+     * Filter, which EvidenceCoverageGap to fetch.
+     */
+    where?: EvidenceCoverageGapWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EvidenceCoverageGaps to fetch.
+     */
+    orderBy?: EvidenceCoverageGapOrderByWithRelationInput | EvidenceCoverageGapOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EvidenceCoverageGaps.
+     */
+    cursor?: EvidenceCoverageGapWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EvidenceCoverageGaps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EvidenceCoverageGaps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EvidenceCoverageGaps.
+     */
+    distinct?: EvidenceCoverageGapScalarFieldEnum | EvidenceCoverageGapScalarFieldEnum[]
+  }
+
+  /**
+   * EvidenceCoverageGap findFirstOrThrow
+   */
+  export type EvidenceCoverageGapFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
+    /**
+     * Filter, which EvidenceCoverageGap to fetch.
+     */
+    where?: EvidenceCoverageGapWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EvidenceCoverageGaps to fetch.
+     */
+    orderBy?: EvidenceCoverageGapOrderByWithRelationInput | EvidenceCoverageGapOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EvidenceCoverageGaps.
+     */
+    cursor?: EvidenceCoverageGapWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EvidenceCoverageGaps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EvidenceCoverageGaps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EvidenceCoverageGaps.
+     */
+    distinct?: EvidenceCoverageGapScalarFieldEnum | EvidenceCoverageGapScalarFieldEnum[]
+  }
+
+  /**
+   * EvidenceCoverageGap findMany
+   */
+  export type EvidenceCoverageGapFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
+    /**
+     * Filter, which EvidenceCoverageGaps to fetch.
+     */
+    where?: EvidenceCoverageGapWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EvidenceCoverageGaps to fetch.
+     */
+    orderBy?: EvidenceCoverageGapOrderByWithRelationInput | EvidenceCoverageGapOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EvidenceCoverageGaps.
+     */
+    cursor?: EvidenceCoverageGapWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EvidenceCoverageGaps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EvidenceCoverageGaps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EvidenceCoverageGaps.
+     */
+    distinct?: EvidenceCoverageGapScalarFieldEnum | EvidenceCoverageGapScalarFieldEnum[]
+  }
+
+  /**
+   * EvidenceCoverageGap create
+   */
+  export type EvidenceCoverageGapCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EvidenceCoverageGap.
+     */
+    data: XOR<EvidenceCoverageGapCreateInput, EvidenceCoverageGapUncheckedCreateInput>
+  }
+
+  /**
+   * EvidenceCoverageGap createMany
+   */
+  export type EvidenceCoverageGapCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EvidenceCoverageGaps.
+     */
+    data: EvidenceCoverageGapCreateManyInput | EvidenceCoverageGapCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EvidenceCoverageGap createManyAndReturn
+   */
+  export type EvidenceCoverageGapCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * The data used to create many EvidenceCoverageGaps.
+     */
+    data: EvidenceCoverageGapCreateManyInput | EvidenceCoverageGapCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EvidenceCoverageGap update
+   */
+  export type EvidenceCoverageGapUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EvidenceCoverageGap.
+     */
+    data: XOR<EvidenceCoverageGapUpdateInput, EvidenceCoverageGapUncheckedUpdateInput>
+    /**
+     * Choose, which EvidenceCoverageGap to update.
+     */
+    where: EvidenceCoverageGapWhereUniqueInput
+  }
+
+  /**
+   * EvidenceCoverageGap updateMany
+   */
+  export type EvidenceCoverageGapUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EvidenceCoverageGaps.
+     */
+    data: XOR<EvidenceCoverageGapUpdateManyMutationInput, EvidenceCoverageGapUncheckedUpdateManyInput>
+    /**
+     * Filter which EvidenceCoverageGaps to update
+     */
+    where?: EvidenceCoverageGapWhereInput
+    /**
+     * Limit how many EvidenceCoverageGaps to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EvidenceCoverageGap updateManyAndReturn
+   */
+  export type EvidenceCoverageGapUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * The data used to update EvidenceCoverageGaps.
+     */
+    data: XOR<EvidenceCoverageGapUpdateManyMutationInput, EvidenceCoverageGapUncheckedUpdateManyInput>
+    /**
+     * Filter which EvidenceCoverageGaps to update
+     */
+    where?: EvidenceCoverageGapWhereInput
+    /**
+     * Limit how many EvidenceCoverageGaps to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EvidenceCoverageGap upsert
+   */
+  export type EvidenceCoverageGapUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EvidenceCoverageGap to update in case it exists.
+     */
+    where: EvidenceCoverageGapWhereUniqueInput
+    /**
+     * In case the EvidenceCoverageGap found by the `where` argument doesn't exist, create a new EvidenceCoverageGap with this data.
+     */
+    create: XOR<EvidenceCoverageGapCreateInput, EvidenceCoverageGapUncheckedCreateInput>
+    /**
+     * In case the EvidenceCoverageGap was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EvidenceCoverageGapUpdateInput, EvidenceCoverageGapUncheckedUpdateInput>
+  }
+
+  /**
+   * EvidenceCoverageGap delete
+   */
+  export type EvidenceCoverageGapDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
+    /**
+     * Filter which EvidenceCoverageGap to delete.
+     */
+    where: EvidenceCoverageGapWhereUniqueInput
+  }
+
+  /**
+   * EvidenceCoverageGap deleteMany
+   */
+  export type EvidenceCoverageGapDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EvidenceCoverageGaps to delete
+     */
+    where?: EvidenceCoverageGapWhereInput
+    /**
+     * Limit how many EvidenceCoverageGaps to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EvidenceCoverageGap without action
+   */
+  export type EvidenceCoverageGapDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EvidenceCoverageGap
+     */
+    select?: EvidenceCoverageGapSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EvidenceCoverageGap
+     */
+    omit?: EvidenceCoverageGapOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EvidenceCoverageGapInclude<ExtArgs> | null
   }
 
 
@@ -15471,6 +17026,8 @@ export namespace Prisma {
     lastErrorMessage: 'lastErrorMessage',
     syncFrequencyMinutes: 'syncFrequencyMinutes',
     isActive: 'isActive',
+    manifestVersion: 'manifestVersion',
+    lastReconciledAt: 'lastReconciledAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15496,6 +17053,12 @@ export namespace Prisma {
     lastStatus: 'lastStatus',
     lastRunAt: 'lastRunAt',
     lastEvidenceId: 'lastEvidenceId',
+    expectedNextRunAt: 'expectedNextRunAt',
+    lastSuccessfulRunAt: 'lastSuccessfulRunAt',
+    consecutiveFailures: 'consecutiveFailures',
+    healthState: 'healthState',
+    healthChangedAt: 'healthChangedAt',
+    healthReason: 'healthReason',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15509,6 +17072,10 @@ export namespace Prisma {
     integrationCheckId: 'integrationCheckId',
     connectionId: 'connectionId',
     controlId: 'controlId',
+    isEnabled: 'isEnabled',
+    disabledReason: 'disabledReason',
+    disabledAt: 'disabledAt',
+    lastReconciledAt: 'lastReconciledAt',
     createdAt: 'createdAt'
   };
 
@@ -15529,6 +17096,24 @@ export namespace Prisma {
   };
 
   export type IntegrationCheckResultScalarFieldEnum = (typeof IntegrationCheckResultScalarFieldEnum)[keyof typeof IntegrationCheckResultScalarFieldEnum]
+
+
+  export const EvidenceCoverageGapScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    integrationCheckId: 'integrationCheckId',
+    affectedControlIds: 'affectedControlIds',
+    reason: 'reason',
+    startedAt: 'startedAt',
+    endedAt: 'endedAt',
+    lastErrorMessage: 'lastErrorMessage',
+    retryCount: 'retryCount',
+    controlWeaknessId: 'controlWeaknessId',
+    lastEscalatedAt: 'lastEscalatedAt',
+    escalationCount: 'escalationCount'
+  };
+
+  export type EvidenceCoverageGapScalarFieldEnum = (typeof EvidenceCoverageGapScalarFieldEnum)[keyof typeof EvidenceCoverageGapScalarFieldEnum]
 
 
   export const IntegrationScalarFieldEnum: {
@@ -15813,6 +17398,48 @@ export namespace Prisma {
    * Reference to a field of type 'IntegrationCheckStatus[]'
    */
   export type ListEnumIntegrationCheckStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationCheckStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CheckHealthState'
+   */
+  export type EnumCheckHealthStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CheckHealthState'>
+    
+
+
+  /**
+   * Reference to a field of type 'CheckHealthState[]'
+   */
+  export type ListEnumCheckHealthStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CheckHealthState[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'IntegrationCheckControlDisabledReason'
+   */
+  export type EnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationCheckControlDisabledReason'>
+    
+
+
+  /**
+   * Reference to a field of type 'IntegrationCheckControlDisabledReason[]'
+   */
+  export type ListEnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationCheckControlDisabledReason[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CoverageGapReason'
+   */
+  export type EnumCoverageGapReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CoverageGapReason'>
+    
+
+
+  /**
+   * Reference to a field of type 'CoverageGapReason[]'
+   */
+  export type ListEnumCoverageGapReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CoverageGapReason[]'>
     
 
 
@@ -16113,6 +17740,8 @@ export namespace Prisma {
     lastErrorMessage?: StringNullableFilter<"IntegrationConnection"> | string | null
     syncFrequencyMinutes?: IntFilter<"IntegrationConnection"> | number
     isActive?: BoolFilter<"IntegrationConnection"> | boolean
+    manifestVersion?: StringNullableFilter<"IntegrationConnection"> | string | null
+    lastReconciledAt?: DateTimeNullableFilter<"IntegrationConnection"> | Date | string | null
     createdAt?: DateTimeFilter<"IntegrationConnection"> | Date | string
     updatedAt?: DateTimeFilter<"IntegrationConnection"> | Date | string
     integration?: XOR<IntegrationScalarRelationFilter, IntegrationWhereInput>
@@ -16135,6 +17764,8 @@ export namespace Prisma {
     lastErrorMessage?: SortOrderInput | SortOrder
     syncFrequencyMinutes?: SortOrder
     isActive?: SortOrder
+    manifestVersion?: SortOrderInput | SortOrder
+    lastReconciledAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     integration?: IntegrationOrderByWithRelationInput
@@ -16161,6 +17792,8 @@ export namespace Prisma {
     lastErrorMessage?: StringNullableFilter<"IntegrationConnection"> | string | null
     syncFrequencyMinutes?: IntFilter<"IntegrationConnection"> | number
     isActive?: BoolFilter<"IntegrationConnection"> | boolean
+    manifestVersion?: StringNullableFilter<"IntegrationConnection"> | string | null
+    lastReconciledAt?: DateTimeNullableFilter<"IntegrationConnection"> | Date | string | null
     createdAt?: DateTimeFilter<"IntegrationConnection"> | Date | string
     updatedAt?: DateTimeFilter<"IntegrationConnection"> | Date | string
     integration?: XOR<IntegrationScalarRelationFilter, IntegrationWhereInput>
@@ -16183,6 +17816,8 @@ export namespace Prisma {
     lastErrorMessage?: SortOrderInput | SortOrder
     syncFrequencyMinutes?: SortOrder
     isActive?: SortOrder
+    manifestVersion?: SortOrderInput | SortOrder
+    lastReconciledAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: IntegrationConnectionCountOrderByAggregateInput
@@ -16207,6 +17842,8 @@ export namespace Prisma {
     lastErrorMessage?: StringNullableWithAggregatesFilter<"IntegrationConnection"> | string | null
     syncFrequencyMinutes?: IntWithAggregatesFilter<"IntegrationConnection"> | number
     isActive?: BoolWithAggregatesFilter<"IntegrationConnection"> | boolean
+    manifestVersion?: StringNullableWithAggregatesFilter<"IntegrationConnection"> | string | null
+    lastReconciledAt?: DateTimeNullableWithAggregatesFilter<"IntegrationConnection"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"IntegrationConnection"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"IntegrationConnection"> | Date | string
   }
@@ -16232,12 +17869,19 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFilter<"IntegrationCheck"> | $Enums.IntegrationCheckStatus
     lastRunAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
     lastEvidenceId?: StringNullableFilter<"IntegrationCheck"> | string | null
+    expectedNextRunAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
+    lastSuccessfulRunAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
+    consecutiveFailures?: IntFilter<"IntegrationCheck"> | number
+    healthState?: EnumCheckHealthStateFilter<"IntegrationCheck"> | $Enums.CheckHealthState
+    healthChangedAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
+    healthReason?: StringNullableFilter<"IntegrationCheck"> | string | null
     createdAt?: DateTimeFilter<"IntegrationCheck"> | Date | string
     updatedAt?: DateTimeFilter<"IntegrationCheck"> | Date | string
     connection?: XOR<IntegrationConnectionScalarRelationFilter, IntegrationConnectionWhereInput>
     integration?: XOR<IntegrationScalarRelationFilter, IntegrationWhereInput>
     controls?: IntegrationCheckControlListRelationFilter
     results?: IntegrationCheckResultListRelationFilter
+    coverageGaps?: EvidenceCoverageGapListRelationFilter
   }
 
   export type IntegrationCheckOrderByWithRelationInput = {
@@ -16258,12 +17902,19 @@ export namespace Prisma {
     lastStatus?: SortOrder
     lastRunAt?: SortOrderInput | SortOrder
     lastEvidenceId?: SortOrderInput | SortOrder
+    expectedNextRunAt?: SortOrderInput | SortOrder
+    lastSuccessfulRunAt?: SortOrderInput | SortOrder
+    consecutiveFailures?: SortOrder
+    healthState?: SortOrder
+    healthChangedAt?: SortOrderInput | SortOrder
+    healthReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     connection?: IntegrationConnectionOrderByWithRelationInput
     integration?: IntegrationOrderByWithRelationInput
     controls?: IntegrationCheckControlOrderByRelationAggregateInput
     results?: IntegrationCheckResultOrderByRelationAggregateInput
+    coverageGaps?: EvidenceCoverageGapOrderByRelationAggregateInput
   }
 
   export type IntegrationCheckWhereUniqueInput = Prisma.AtLeast<{
@@ -16288,12 +17939,19 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFilter<"IntegrationCheck"> | $Enums.IntegrationCheckStatus
     lastRunAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
     lastEvidenceId?: StringNullableFilter<"IntegrationCheck"> | string | null
+    expectedNextRunAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
+    lastSuccessfulRunAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
+    consecutiveFailures?: IntFilter<"IntegrationCheck"> | number
+    healthState?: EnumCheckHealthStateFilter<"IntegrationCheck"> | $Enums.CheckHealthState
+    healthChangedAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
+    healthReason?: StringNullableFilter<"IntegrationCheck"> | string | null
     createdAt?: DateTimeFilter<"IntegrationCheck"> | Date | string
     updatedAt?: DateTimeFilter<"IntegrationCheck"> | Date | string
     connection?: XOR<IntegrationConnectionScalarRelationFilter, IntegrationConnectionWhereInput>
     integration?: XOR<IntegrationScalarRelationFilter, IntegrationWhereInput>
     controls?: IntegrationCheckControlListRelationFilter
     results?: IntegrationCheckResultListRelationFilter
+    coverageGaps?: EvidenceCoverageGapListRelationFilter
   }, "id" | "connectionId_manifestKey">
 
   export type IntegrationCheckOrderByWithAggregationInput = {
@@ -16314,11 +17972,19 @@ export namespace Prisma {
     lastStatus?: SortOrder
     lastRunAt?: SortOrderInput | SortOrder
     lastEvidenceId?: SortOrderInput | SortOrder
+    expectedNextRunAt?: SortOrderInput | SortOrder
+    lastSuccessfulRunAt?: SortOrderInput | SortOrder
+    consecutiveFailures?: SortOrder
+    healthState?: SortOrder
+    healthChangedAt?: SortOrderInput | SortOrder
+    healthReason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: IntegrationCheckCountOrderByAggregateInput
+    _avg?: IntegrationCheckAvgOrderByAggregateInput
     _max?: IntegrationCheckMaxOrderByAggregateInput
     _min?: IntegrationCheckMinOrderByAggregateInput
+    _sum?: IntegrationCheckSumOrderByAggregateInput
   }
 
   export type IntegrationCheckScalarWhereWithAggregatesInput = {
@@ -16342,6 +18008,12 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusWithAggregatesFilter<"IntegrationCheck"> | $Enums.IntegrationCheckStatus
     lastRunAt?: DateTimeNullableWithAggregatesFilter<"IntegrationCheck"> | Date | string | null
     lastEvidenceId?: StringNullableWithAggregatesFilter<"IntegrationCheck"> | string | null
+    expectedNextRunAt?: DateTimeNullableWithAggregatesFilter<"IntegrationCheck"> | Date | string | null
+    lastSuccessfulRunAt?: DateTimeNullableWithAggregatesFilter<"IntegrationCheck"> | Date | string | null
+    consecutiveFailures?: IntWithAggregatesFilter<"IntegrationCheck"> | number
+    healthState?: EnumCheckHealthStateWithAggregatesFilter<"IntegrationCheck"> | $Enums.CheckHealthState
+    healthChangedAt?: DateTimeNullableWithAggregatesFilter<"IntegrationCheck"> | Date | string | null
+    healthReason?: StringNullableWithAggregatesFilter<"IntegrationCheck"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"IntegrationCheck"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"IntegrationCheck"> | Date | string
   }
@@ -16355,6 +18027,10 @@ export namespace Prisma {
     integrationCheckId?: StringFilter<"IntegrationCheckControl"> | string
     connectionId?: StringFilter<"IntegrationCheckControl"> | string
     controlId?: StringFilter<"IntegrationCheckControl"> | string
+    isEnabled?: BoolFilter<"IntegrationCheckControl"> | boolean
+    disabledReason?: EnumIntegrationCheckControlDisabledReasonNullableFilter<"IntegrationCheckControl"> | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: DateTimeNullableFilter<"IntegrationCheckControl"> | Date | string | null
+    lastReconciledAt?: DateTimeFilter<"IntegrationCheckControl"> | Date | string
     createdAt?: DateTimeFilter<"IntegrationCheckControl"> | Date | string
     integrationCheck?: XOR<IntegrationCheckScalarRelationFilter, IntegrationCheckWhereInput>
     connection?: XOR<IntegrationConnectionScalarRelationFilter, IntegrationConnectionWhereInput>
@@ -16366,6 +18042,10 @@ export namespace Prisma {
     integrationCheckId?: SortOrder
     connectionId?: SortOrder
     controlId?: SortOrder
+    isEnabled?: SortOrder
+    disabledReason?: SortOrderInput | SortOrder
+    disabledAt?: SortOrderInput | SortOrder
+    lastReconciledAt?: SortOrder
     createdAt?: SortOrder
     integrationCheck?: IntegrationCheckOrderByWithRelationInput
     connection?: IntegrationConnectionOrderByWithRelationInput
@@ -16381,6 +18061,10 @@ export namespace Prisma {
     integrationCheckId?: StringFilter<"IntegrationCheckControl"> | string
     connectionId?: StringFilter<"IntegrationCheckControl"> | string
     controlId?: StringFilter<"IntegrationCheckControl"> | string
+    isEnabled?: BoolFilter<"IntegrationCheckControl"> | boolean
+    disabledReason?: EnumIntegrationCheckControlDisabledReasonNullableFilter<"IntegrationCheckControl"> | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: DateTimeNullableFilter<"IntegrationCheckControl"> | Date | string | null
+    lastReconciledAt?: DateTimeFilter<"IntegrationCheckControl"> | Date | string
     createdAt?: DateTimeFilter<"IntegrationCheckControl"> | Date | string
     integrationCheck?: XOR<IntegrationCheckScalarRelationFilter, IntegrationCheckWhereInput>
     connection?: XOR<IntegrationConnectionScalarRelationFilter, IntegrationConnectionWhereInput>
@@ -16392,6 +18076,10 @@ export namespace Prisma {
     integrationCheckId?: SortOrder
     connectionId?: SortOrder
     controlId?: SortOrder
+    isEnabled?: SortOrder
+    disabledReason?: SortOrderInput | SortOrder
+    disabledAt?: SortOrderInput | SortOrder
+    lastReconciledAt?: SortOrder
     createdAt?: SortOrder
     _count?: IntegrationCheckControlCountOrderByAggregateInput
     _max?: IntegrationCheckControlMaxOrderByAggregateInput
@@ -16407,6 +18095,10 @@ export namespace Prisma {
     integrationCheckId?: StringWithAggregatesFilter<"IntegrationCheckControl"> | string
     connectionId?: StringWithAggregatesFilter<"IntegrationCheckControl"> | string
     controlId?: StringWithAggregatesFilter<"IntegrationCheckControl"> | string
+    isEnabled?: BoolWithAggregatesFilter<"IntegrationCheckControl"> | boolean
+    disabledReason?: EnumIntegrationCheckControlDisabledReasonNullableWithAggregatesFilter<"IntegrationCheckControl"> | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: DateTimeNullableWithAggregatesFilter<"IntegrationCheckControl"> | Date | string | null
+    lastReconciledAt?: DateTimeWithAggregatesFilter<"IntegrationCheckControl"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"IntegrationCheckControl"> | Date | string
   }
 
@@ -16493,6 +18185,98 @@ export namespace Prisma {
     durationMs?: IntNullableWithAggregatesFilter<"IntegrationCheckResult"> | number | null
     evidenceId?: StringNullableWithAggregatesFilter<"IntegrationCheckResult"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"IntegrationCheckResult"> | Date | string
+  }
+
+  export type EvidenceCoverageGapWhereInput = {
+    AND?: EvidenceCoverageGapWhereInput | EvidenceCoverageGapWhereInput[]
+    OR?: EvidenceCoverageGapWhereInput[]
+    NOT?: EvidenceCoverageGapWhereInput | EvidenceCoverageGapWhereInput[]
+    id?: StringFilter<"EvidenceCoverageGap"> | string
+    tenantId?: StringFilter<"EvidenceCoverageGap"> | string
+    integrationCheckId?: StringFilter<"EvidenceCoverageGap"> | string
+    affectedControlIds?: StringNullableListFilter<"EvidenceCoverageGap">
+    reason?: EnumCoverageGapReasonFilter<"EvidenceCoverageGap"> | $Enums.CoverageGapReason
+    startedAt?: DateTimeFilter<"EvidenceCoverageGap"> | Date | string
+    endedAt?: DateTimeNullableFilter<"EvidenceCoverageGap"> | Date | string | null
+    lastErrorMessage?: StringNullableFilter<"EvidenceCoverageGap"> | string | null
+    retryCount?: IntFilter<"EvidenceCoverageGap"> | number
+    controlWeaknessId?: StringNullableFilter<"EvidenceCoverageGap"> | string | null
+    lastEscalatedAt?: DateTimeNullableFilter<"EvidenceCoverageGap"> | Date | string | null
+    escalationCount?: IntFilter<"EvidenceCoverageGap"> | number
+    integrationCheck?: XOR<IntegrationCheckScalarRelationFilter, IntegrationCheckWhereInput>
+  }
+
+  export type EvidenceCoverageGapOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    integrationCheckId?: SortOrder
+    affectedControlIds?: SortOrder
+    reason?: SortOrder
+    startedAt?: SortOrder
+    endedAt?: SortOrderInput | SortOrder
+    lastErrorMessage?: SortOrderInput | SortOrder
+    retryCount?: SortOrder
+    controlWeaknessId?: SortOrderInput | SortOrder
+    lastEscalatedAt?: SortOrderInput | SortOrder
+    escalationCount?: SortOrder
+    integrationCheck?: IntegrationCheckOrderByWithRelationInput
+  }
+
+  export type EvidenceCoverageGapWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EvidenceCoverageGapWhereInput | EvidenceCoverageGapWhereInput[]
+    OR?: EvidenceCoverageGapWhereInput[]
+    NOT?: EvidenceCoverageGapWhereInput | EvidenceCoverageGapWhereInput[]
+    tenantId?: StringFilter<"EvidenceCoverageGap"> | string
+    integrationCheckId?: StringFilter<"EvidenceCoverageGap"> | string
+    affectedControlIds?: StringNullableListFilter<"EvidenceCoverageGap">
+    reason?: EnumCoverageGapReasonFilter<"EvidenceCoverageGap"> | $Enums.CoverageGapReason
+    startedAt?: DateTimeFilter<"EvidenceCoverageGap"> | Date | string
+    endedAt?: DateTimeNullableFilter<"EvidenceCoverageGap"> | Date | string | null
+    lastErrorMessage?: StringNullableFilter<"EvidenceCoverageGap"> | string | null
+    retryCount?: IntFilter<"EvidenceCoverageGap"> | number
+    controlWeaknessId?: StringNullableFilter<"EvidenceCoverageGap"> | string | null
+    lastEscalatedAt?: DateTimeNullableFilter<"EvidenceCoverageGap"> | Date | string | null
+    escalationCount?: IntFilter<"EvidenceCoverageGap"> | number
+    integrationCheck?: XOR<IntegrationCheckScalarRelationFilter, IntegrationCheckWhereInput>
+  }, "id">
+
+  export type EvidenceCoverageGapOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    integrationCheckId?: SortOrder
+    affectedControlIds?: SortOrder
+    reason?: SortOrder
+    startedAt?: SortOrder
+    endedAt?: SortOrderInput | SortOrder
+    lastErrorMessage?: SortOrderInput | SortOrder
+    retryCount?: SortOrder
+    controlWeaknessId?: SortOrderInput | SortOrder
+    lastEscalatedAt?: SortOrderInput | SortOrder
+    escalationCount?: SortOrder
+    _count?: EvidenceCoverageGapCountOrderByAggregateInput
+    _avg?: EvidenceCoverageGapAvgOrderByAggregateInput
+    _max?: EvidenceCoverageGapMaxOrderByAggregateInput
+    _min?: EvidenceCoverageGapMinOrderByAggregateInput
+    _sum?: EvidenceCoverageGapSumOrderByAggregateInput
+  }
+
+  export type EvidenceCoverageGapScalarWhereWithAggregatesInput = {
+    AND?: EvidenceCoverageGapScalarWhereWithAggregatesInput | EvidenceCoverageGapScalarWhereWithAggregatesInput[]
+    OR?: EvidenceCoverageGapScalarWhereWithAggregatesInput[]
+    NOT?: EvidenceCoverageGapScalarWhereWithAggregatesInput | EvidenceCoverageGapScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EvidenceCoverageGap"> | string
+    tenantId?: StringWithAggregatesFilter<"EvidenceCoverageGap"> | string
+    integrationCheckId?: StringWithAggregatesFilter<"EvidenceCoverageGap"> | string
+    affectedControlIds?: StringNullableListFilter<"EvidenceCoverageGap">
+    reason?: EnumCoverageGapReasonWithAggregatesFilter<"EvidenceCoverageGap"> | $Enums.CoverageGapReason
+    startedAt?: DateTimeWithAggregatesFilter<"EvidenceCoverageGap"> | Date | string
+    endedAt?: DateTimeNullableWithAggregatesFilter<"EvidenceCoverageGap"> | Date | string | null
+    lastErrorMessage?: StringNullableWithAggregatesFilter<"EvidenceCoverageGap"> | string | null
+    retryCount?: IntWithAggregatesFilter<"EvidenceCoverageGap"> | number
+    controlWeaknessId?: StringNullableWithAggregatesFilter<"EvidenceCoverageGap"> | string | null
+    lastEscalatedAt?: DateTimeNullableWithAggregatesFilter<"EvidenceCoverageGap"> | Date | string | null
+    escalationCount?: IntWithAggregatesFilter<"EvidenceCoverageGap"> | number
   }
 
   export type IntegrationWhereInput = {
@@ -17225,6 +19009,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     integration: IntegrationCreateNestedOneWithoutConnectionsInput
@@ -17247,6 +19033,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: CollectionJobUncheckedCreateNestedManyWithoutConnectionInput
@@ -17267,6 +19055,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     integration?: IntegrationUpdateOneRequiredWithoutConnectionsNestedInput
@@ -17289,6 +19079,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: CollectionJobUncheckedUpdateManyWithoutConnectionNestedInput
@@ -17310,6 +19102,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17325,6 +19119,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17341,6 +19137,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17361,12 +19159,19 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     connection: IntegrationConnectionCreateNestedOneWithoutChecksInput
     integration: IntegrationCreateNestedOneWithoutChecksInput
     controls?: IntegrationCheckControlCreateNestedManyWithoutIntegrationCheckInput
     results?: IntegrationCheckResultCreateNestedManyWithoutIntegrationCheckInput
+    coverageGaps?: EvidenceCoverageGapCreateNestedManyWithoutIntegrationCheckInput
   }
 
   export type IntegrationCheckUncheckedCreateInput = {
@@ -17387,10 +19192,17 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     controls?: IntegrationCheckControlUncheckedCreateNestedManyWithoutIntegrationCheckInput
     results?: IntegrationCheckResultUncheckedCreateNestedManyWithoutIntegrationCheckInput
+    coverageGaps?: EvidenceCoverageGapUncheckedCreateNestedManyWithoutIntegrationCheckInput
   }
 
   export type IntegrationCheckUpdateInput = {
@@ -17409,12 +19221,19 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     connection?: IntegrationConnectionUpdateOneRequiredWithoutChecksNestedInput
     integration?: IntegrationUpdateOneRequiredWithoutChecksNestedInput
     controls?: IntegrationCheckControlUpdateManyWithoutIntegrationCheckNestedInput
     results?: IntegrationCheckResultUpdateManyWithoutIntegrationCheckNestedInput
+    coverageGaps?: EvidenceCoverageGapUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationCheckUncheckedUpdateInput = {
@@ -17435,10 +19254,17 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     controls?: IntegrationCheckControlUncheckedUpdateManyWithoutIntegrationCheckNestedInput
     results?: IntegrationCheckResultUncheckedUpdateManyWithoutIntegrationCheckNestedInput
+    coverageGaps?: EvidenceCoverageGapUncheckedUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationCheckCreateManyInput = {
@@ -17459,6 +19285,12 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17479,6 +19311,12 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17501,6 +19339,12 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17509,6 +19353,10 @@ export namespace Prisma {
     id?: string
     tenantId: string
     controlId: string
+    isEnabled?: boolean
+    disabledReason?: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: Date | string | null
+    lastReconciledAt?: Date | string
     createdAt?: Date | string
     integrationCheck: IntegrationCheckCreateNestedOneWithoutControlsInput
     connection: IntegrationConnectionCreateNestedOneWithoutCheckControlsInput
@@ -17520,6 +19368,10 @@ export namespace Prisma {
     integrationCheckId: string
     connectionId: string
     controlId: string
+    isEnabled?: boolean
+    disabledReason?: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: Date | string | null
+    lastReconciledAt?: Date | string
     createdAt?: Date | string
   }
 
@@ -17527,6 +19379,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     controlId?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    disabledReason?: NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReconciledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     integrationCheck?: IntegrationCheckUpdateOneRequiredWithoutControlsNestedInput
     connection?: IntegrationConnectionUpdateOneRequiredWithoutCheckControlsNestedInput
@@ -17538,6 +19394,10 @@ export namespace Prisma {
     integrationCheckId?: StringFieldUpdateOperationsInput | string
     connectionId?: StringFieldUpdateOperationsInput | string
     controlId?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    disabledReason?: NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReconciledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17547,6 +19407,10 @@ export namespace Prisma {
     integrationCheckId: string
     connectionId: string
     controlId: string
+    isEnabled?: boolean
+    disabledReason?: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: Date | string | null
+    lastReconciledAt?: Date | string
     createdAt?: Date | string
   }
 
@@ -17554,6 +19418,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     controlId?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    disabledReason?: NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReconciledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17563,6 +19431,10 @@ export namespace Prisma {
     integrationCheckId?: StringFieldUpdateOperationsInput | string
     connectionId?: StringFieldUpdateOperationsInput | string
     controlId?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    disabledReason?: NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReconciledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17653,6 +19525,110 @@ export namespace Prisma {
     durationMs?: NullableIntFieldUpdateOperationsInput | number | null
     evidenceId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EvidenceCoverageGapCreateInput = {
+    id?: string
+    tenantId: string
+    affectedControlIds?: EvidenceCoverageGapCreateaffectedControlIdsInput | string[]
+    reason: $Enums.CoverageGapReason
+    startedAt?: Date | string
+    endedAt?: Date | string | null
+    lastErrorMessage?: string | null
+    retryCount?: number
+    controlWeaknessId?: string | null
+    lastEscalatedAt?: Date | string | null
+    escalationCount?: number
+    integrationCheck: IntegrationCheckCreateNestedOneWithoutCoverageGapsInput
+  }
+
+  export type EvidenceCoverageGapUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    integrationCheckId: string
+    affectedControlIds?: EvidenceCoverageGapCreateaffectedControlIdsInput | string[]
+    reason: $Enums.CoverageGapReason
+    startedAt?: Date | string
+    endedAt?: Date | string | null
+    lastErrorMessage?: string | null
+    retryCount?: number
+    controlWeaknessId?: string | null
+    lastEscalatedAt?: Date | string | null
+    escalationCount?: number
+  }
+
+  export type EvidenceCoverageGapUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    affectedControlIds?: EvidenceCoverageGapUpdateaffectedControlIdsInput | string[]
+    reason?: EnumCoverageGapReasonFieldUpdateOperationsInput | $Enums.CoverageGapReason
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    retryCount?: IntFieldUpdateOperationsInput | number
+    controlWeaknessId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastEscalatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    escalationCount?: IntFieldUpdateOperationsInput | number
+    integrationCheck?: IntegrationCheckUpdateOneRequiredWithoutCoverageGapsNestedInput
+  }
+
+  export type EvidenceCoverageGapUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    integrationCheckId?: StringFieldUpdateOperationsInput | string
+    affectedControlIds?: EvidenceCoverageGapUpdateaffectedControlIdsInput | string[]
+    reason?: EnumCoverageGapReasonFieldUpdateOperationsInput | $Enums.CoverageGapReason
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    retryCount?: IntFieldUpdateOperationsInput | number
+    controlWeaknessId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastEscalatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    escalationCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EvidenceCoverageGapCreateManyInput = {
+    id?: string
+    tenantId: string
+    integrationCheckId: string
+    affectedControlIds?: EvidenceCoverageGapCreateaffectedControlIdsInput | string[]
+    reason: $Enums.CoverageGapReason
+    startedAt?: Date | string
+    endedAt?: Date | string | null
+    lastErrorMessage?: string | null
+    retryCount?: number
+    controlWeaknessId?: string | null
+    lastEscalatedAt?: Date | string | null
+    escalationCount?: number
+  }
+
+  export type EvidenceCoverageGapUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    affectedControlIds?: EvidenceCoverageGapUpdateaffectedControlIdsInput | string[]
+    reason?: EnumCoverageGapReasonFieldUpdateOperationsInput | $Enums.CoverageGapReason
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    retryCount?: IntFieldUpdateOperationsInput | number
+    controlWeaknessId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastEscalatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    escalationCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EvidenceCoverageGapUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    integrationCheckId?: StringFieldUpdateOperationsInput | string
+    affectedControlIds?: EvidenceCoverageGapUpdateaffectedControlIdsInput | string[]
+    reason?: EnumCoverageGapReasonFieldUpdateOperationsInput | $Enums.CoverageGapReason
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    retryCount?: IntFieldUpdateOperationsInput | number
+    controlWeaknessId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastEscalatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    escalationCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntegrationCreateInput = {
@@ -18715,6 +20691,8 @@ export namespace Prisma {
     lastErrorMessage?: SortOrder
     syncFrequencyMinutes?: SortOrder
     isActive?: SortOrder
+    manifestVersion?: SortOrder
+    lastReconciledAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18734,6 +20712,8 @@ export namespace Prisma {
     lastErrorMessage?: SortOrder
     syncFrequencyMinutes?: SortOrder
     isActive?: SortOrder
+    manifestVersion?: SortOrder
+    lastReconciledAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18749,6 +20729,8 @@ export namespace Prisma {
     lastErrorMessage?: SortOrder
     syncFrequencyMinutes?: SortOrder
     isActive?: SortOrder
+    manifestVersion?: SortOrder
+    lastReconciledAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18789,9 +20771,26 @@ export namespace Prisma {
     not?: NestedEnumIntegrationCheckStatusFilter<$PrismaModel> | $Enums.IntegrationCheckStatus
   }
 
+  export type EnumCheckHealthStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.CheckHealthState | EnumCheckHealthStateFieldRefInput<$PrismaModel>
+    in?: $Enums.CheckHealthState[] | ListEnumCheckHealthStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CheckHealthState[] | ListEnumCheckHealthStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumCheckHealthStateFilter<$PrismaModel> | $Enums.CheckHealthState
+  }
+
   export type IntegrationConnectionScalarRelationFilter = {
     is?: IntegrationConnectionWhereInput
     isNot?: IntegrationConnectionWhereInput
+  }
+
+  export type EvidenceCoverageGapListRelationFilter = {
+    every?: EvidenceCoverageGapWhereInput
+    some?: EvidenceCoverageGapWhereInput
+    none?: EvidenceCoverageGapWhereInput
+  }
+
+  export type EvidenceCoverageGapOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type IntegrationCheckConnectionIdManifestKeyCompoundUniqueInput = {
@@ -18817,8 +20816,18 @@ export namespace Prisma {
     lastStatus?: SortOrder
     lastRunAt?: SortOrder
     lastEvidenceId?: SortOrder
+    expectedNextRunAt?: SortOrder
+    lastSuccessfulRunAt?: SortOrder
+    consecutiveFailures?: SortOrder
+    healthState?: SortOrder
+    healthChangedAt?: SortOrder
+    healthReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type IntegrationCheckAvgOrderByAggregateInput = {
+    consecutiveFailures?: SortOrder
   }
 
   export type IntegrationCheckMaxOrderByAggregateInput = {
@@ -18838,6 +20847,12 @@ export namespace Prisma {
     lastStatus?: SortOrder
     lastRunAt?: SortOrder
     lastEvidenceId?: SortOrder
+    expectedNextRunAt?: SortOrder
+    lastSuccessfulRunAt?: SortOrder
+    consecutiveFailures?: SortOrder
+    healthState?: SortOrder
+    healthChangedAt?: SortOrder
+    healthReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18859,8 +20874,18 @@ export namespace Prisma {
     lastStatus?: SortOrder
     lastRunAt?: SortOrder
     lastEvidenceId?: SortOrder
+    expectedNextRunAt?: SortOrder
+    lastSuccessfulRunAt?: SortOrder
+    consecutiveFailures?: SortOrder
+    healthState?: SortOrder
+    healthChangedAt?: SortOrder
+    healthReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type IntegrationCheckSumOrderByAggregateInput = {
+    consecutiveFailures?: SortOrder
   }
 
   export type EnumIntegrationCheckSeverityWithAggregatesFilter<$PrismaModel = never> = {
@@ -18883,6 +20908,23 @@ export namespace Prisma {
     _max?: NestedEnumIntegrationCheckStatusFilter<$PrismaModel>
   }
 
+  export type EnumCheckHealthStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CheckHealthState | EnumCheckHealthStateFieldRefInput<$PrismaModel>
+    in?: $Enums.CheckHealthState[] | ListEnumCheckHealthStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CheckHealthState[] | ListEnumCheckHealthStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumCheckHealthStateWithAggregatesFilter<$PrismaModel> | $Enums.CheckHealthState
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCheckHealthStateFilter<$PrismaModel>
+    _max?: NestedEnumCheckHealthStateFilter<$PrismaModel>
+  }
+
+  export type EnumIntegrationCheckControlDisabledReasonNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationCheckControlDisabledReason | EnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    in?: $Enums.IntegrationCheckControlDisabledReason[] | ListEnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.IntegrationCheckControlDisabledReason[] | ListEnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumIntegrationCheckControlDisabledReasonNullableFilter<$PrismaModel> | $Enums.IntegrationCheckControlDisabledReason | null
+  }
+
   export type IntegrationCheckScalarRelationFilter = {
     is?: IntegrationCheckWhereInput
     isNot?: IntegrationCheckWhereInput
@@ -18899,6 +20941,10 @@ export namespace Prisma {
     integrationCheckId?: SortOrder
     connectionId?: SortOrder
     controlId?: SortOrder
+    isEnabled?: SortOrder
+    disabledReason?: SortOrder
+    disabledAt?: SortOrder
+    lastReconciledAt?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -18908,6 +20954,10 @@ export namespace Prisma {
     integrationCheckId?: SortOrder
     connectionId?: SortOrder
     controlId?: SortOrder
+    isEnabled?: SortOrder
+    disabledReason?: SortOrder
+    disabledAt?: SortOrder
+    lastReconciledAt?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -18917,7 +20967,21 @@ export namespace Prisma {
     integrationCheckId?: SortOrder
     connectionId?: SortOrder
     controlId?: SortOrder
+    isEnabled?: SortOrder
+    disabledReason?: SortOrder
+    disabledAt?: SortOrder
+    lastReconciledAt?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type EnumIntegrationCheckControlDisabledReasonNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationCheckControlDisabledReason | EnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    in?: $Enums.IntegrationCheckControlDisabledReason[] | ListEnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.IntegrationCheckControlDisabledReason[] | ListEnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumIntegrationCheckControlDisabledReasonNullableWithAggregatesFilter<$PrismaModel> | $Enums.IntegrationCheckControlDisabledReason | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumIntegrationCheckControlDisabledReasonNullableFilter<$PrismaModel>
+    _max?: NestedEnumIntegrationCheckControlDisabledReasonNullableFilter<$PrismaModel>
   }
 
   export type IntegrationCheckResultCountOrderByAggregateInput = {
@@ -18963,6 +21027,76 @@ export namespace Prisma {
 
   export type IntegrationCheckResultSumOrderByAggregateInput = {
     durationMs?: SortOrder
+  }
+
+  export type EnumCoverageGapReasonFilter<$PrismaModel = never> = {
+    equals?: $Enums.CoverageGapReason | EnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    in?: $Enums.CoverageGapReason[] | ListEnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CoverageGapReason[] | ListEnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    not?: NestedEnumCoverageGapReasonFilter<$PrismaModel> | $Enums.CoverageGapReason
+  }
+
+  export type EvidenceCoverageGapCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    integrationCheckId?: SortOrder
+    affectedControlIds?: SortOrder
+    reason?: SortOrder
+    startedAt?: SortOrder
+    endedAt?: SortOrder
+    lastErrorMessage?: SortOrder
+    retryCount?: SortOrder
+    controlWeaknessId?: SortOrder
+    lastEscalatedAt?: SortOrder
+    escalationCount?: SortOrder
+  }
+
+  export type EvidenceCoverageGapAvgOrderByAggregateInput = {
+    retryCount?: SortOrder
+    escalationCount?: SortOrder
+  }
+
+  export type EvidenceCoverageGapMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    integrationCheckId?: SortOrder
+    reason?: SortOrder
+    startedAt?: SortOrder
+    endedAt?: SortOrder
+    lastErrorMessage?: SortOrder
+    retryCount?: SortOrder
+    controlWeaknessId?: SortOrder
+    lastEscalatedAt?: SortOrder
+    escalationCount?: SortOrder
+  }
+
+  export type EvidenceCoverageGapMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    integrationCheckId?: SortOrder
+    reason?: SortOrder
+    startedAt?: SortOrder
+    endedAt?: SortOrder
+    lastErrorMessage?: SortOrder
+    retryCount?: SortOrder
+    controlWeaknessId?: SortOrder
+    lastEscalatedAt?: SortOrder
+    escalationCount?: SortOrder
+  }
+
+  export type EvidenceCoverageGapSumOrderByAggregateInput = {
+    retryCount?: SortOrder
+    escalationCount?: SortOrder
+  }
+
+  export type EnumCoverageGapReasonWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CoverageGapReason | EnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    in?: $Enums.CoverageGapReason[] | ListEnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CoverageGapReason[] | ListEnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    not?: NestedEnumCoverageGapReasonWithAggregatesFilter<$PrismaModel> | $Enums.CoverageGapReason
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCoverageGapReasonFilter<$PrismaModel>
+    _max?: NestedEnumCoverageGapReasonFilter<$PrismaModel>
   }
 
   export type EnumAuthTypeFilter<$PrismaModel = never> = {
@@ -19765,6 +21899,13 @@ export namespace Prisma {
     connect?: IntegrationCheckResultWhereUniqueInput | IntegrationCheckResultWhereUniqueInput[]
   }
 
+  export type EvidenceCoverageGapCreateNestedManyWithoutIntegrationCheckInput = {
+    create?: XOR<EvidenceCoverageGapCreateWithoutIntegrationCheckInput, EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput> | EvidenceCoverageGapCreateWithoutIntegrationCheckInput[] | EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput[]
+    connectOrCreate?: EvidenceCoverageGapCreateOrConnectWithoutIntegrationCheckInput | EvidenceCoverageGapCreateOrConnectWithoutIntegrationCheckInput[]
+    createMany?: EvidenceCoverageGapCreateManyIntegrationCheckInputEnvelope
+    connect?: EvidenceCoverageGapWhereUniqueInput | EvidenceCoverageGapWhereUniqueInput[]
+  }
+
   export type IntegrationCheckControlUncheckedCreateNestedManyWithoutIntegrationCheckInput = {
     create?: XOR<IntegrationCheckControlCreateWithoutIntegrationCheckInput, IntegrationCheckControlUncheckedCreateWithoutIntegrationCheckInput> | IntegrationCheckControlCreateWithoutIntegrationCheckInput[] | IntegrationCheckControlUncheckedCreateWithoutIntegrationCheckInput[]
     connectOrCreate?: IntegrationCheckControlCreateOrConnectWithoutIntegrationCheckInput | IntegrationCheckControlCreateOrConnectWithoutIntegrationCheckInput[]
@@ -19779,12 +21920,23 @@ export namespace Prisma {
     connect?: IntegrationCheckResultWhereUniqueInput | IntegrationCheckResultWhereUniqueInput[]
   }
 
+  export type EvidenceCoverageGapUncheckedCreateNestedManyWithoutIntegrationCheckInput = {
+    create?: XOR<EvidenceCoverageGapCreateWithoutIntegrationCheckInput, EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput> | EvidenceCoverageGapCreateWithoutIntegrationCheckInput[] | EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput[]
+    connectOrCreate?: EvidenceCoverageGapCreateOrConnectWithoutIntegrationCheckInput | EvidenceCoverageGapCreateOrConnectWithoutIntegrationCheckInput[]
+    createMany?: EvidenceCoverageGapCreateManyIntegrationCheckInputEnvelope
+    connect?: EvidenceCoverageGapWhereUniqueInput | EvidenceCoverageGapWhereUniqueInput[]
+  }
+
   export type EnumIntegrationCheckSeverityFieldUpdateOperationsInput = {
     set?: $Enums.IntegrationCheckSeverity
   }
 
   export type EnumIntegrationCheckStatusFieldUpdateOperationsInput = {
     set?: $Enums.IntegrationCheckStatus
+  }
+
+  export type EnumCheckHealthStateFieldUpdateOperationsInput = {
+    set?: $Enums.CheckHealthState
   }
 
   export type IntegrationConnectionUpdateOneRequiredWithoutChecksNestedInput = {
@@ -19831,6 +21983,20 @@ export namespace Prisma {
     deleteMany?: IntegrationCheckResultScalarWhereInput | IntegrationCheckResultScalarWhereInput[]
   }
 
+  export type EvidenceCoverageGapUpdateManyWithoutIntegrationCheckNestedInput = {
+    create?: XOR<EvidenceCoverageGapCreateWithoutIntegrationCheckInput, EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput> | EvidenceCoverageGapCreateWithoutIntegrationCheckInput[] | EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput[]
+    connectOrCreate?: EvidenceCoverageGapCreateOrConnectWithoutIntegrationCheckInput | EvidenceCoverageGapCreateOrConnectWithoutIntegrationCheckInput[]
+    upsert?: EvidenceCoverageGapUpsertWithWhereUniqueWithoutIntegrationCheckInput | EvidenceCoverageGapUpsertWithWhereUniqueWithoutIntegrationCheckInput[]
+    createMany?: EvidenceCoverageGapCreateManyIntegrationCheckInputEnvelope
+    set?: EvidenceCoverageGapWhereUniqueInput | EvidenceCoverageGapWhereUniqueInput[]
+    disconnect?: EvidenceCoverageGapWhereUniqueInput | EvidenceCoverageGapWhereUniqueInput[]
+    delete?: EvidenceCoverageGapWhereUniqueInput | EvidenceCoverageGapWhereUniqueInput[]
+    connect?: EvidenceCoverageGapWhereUniqueInput | EvidenceCoverageGapWhereUniqueInput[]
+    update?: EvidenceCoverageGapUpdateWithWhereUniqueWithoutIntegrationCheckInput | EvidenceCoverageGapUpdateWithWhereUniqueWithoutIntegrationCheckInput[]
+    updateMany?: EvidenceCoverageGapUpdateManyWithWhereWithoutIntegrationCheckInput | EvidenceCoverageGapUpdateManyWithWhereWithoutIntegrationCheckInput[]
+    deleteMany?: EvidenceCoverageGapScalarWhereInput | EvidenceCoverageGapScalarWhereInput[]
+  }
+
   export type IntegrationCheckControlUncheckedUpdateManyWithoutIntegrationCheckNestedInput = {
     create?: XOR<IntegrationCheckControlCreateWithoutIntegrationCheckInput, IntegrationCheckControlUncheckedCreateWithoutIntegrationCheckInput> | IntegrationCheckControlCreateWithoutIntegrationCheckInput[] | IntegrationCheckControlUncheckedCreateWithoutIntegrationCheckInput[]
     connectOrCreate?: IntegrationCheckControlCreateOrConnectWithoutIntegrationCheckInput | IntegrationCheckControlCreateOrConnectWithoutIntegrationCheckInput[]
@@ -19859,6 +22025,20 @@ export namespace Prisma {
     deleteMany?: IntegrationCheckResultScalarWhereInput | IntegrationCheckResultScalarWhereInput[]
   }
 
+  export type EvidenceCoverageGapUncheckedUpdateManyWithoutIntegrationCheckNestedInput = {
+    create?: XOR<EvidenceCoverageGapCreateWithoutIntegrationCheckInput, EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput> | EvidenceCoverageGapCreateWithoutIntegrationCheckInput[] | EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput[]
+    connectOrCreate?: EvidenceCoverageGapCreateOrConnectWithoutIntegrationCheckInput | EvidenceCoverageGapCreateOrConnectWithoutIntegrationCheckInput[]
+    upsert?: EvidenceCoverageGapUpsertWithWhereUniqueWithoutIntegrationCheckInput | EvidenceCoverageGapUpsertWithWhereUniqueWithoutIntegrationCheckInput[]
+    createMany?: EvidenceCoverageGapCreateManyIntegrationCheckInputEnvelope
+    set?: EvidenceCoverageGapWhereUniqueInput | EvidenceCoverageGapWhereUniqueInput[]
+    disconnect?: EvidenceCoverageGapWhereUniqueInput | EvidenceCoverageGapWhereUniqueInput[]
+    delete?: EvidenceCoverageGapWhereUniqueInput | EvidenceCoverageGapWhereUniqueInput[]
+    connect?: EvidenceCoverageGapWhereUniqueInput | EvidenceCoverageGapWhereUniqueInput[]
+    update?: EvidenceCoverageGapUpdateWithWhereUniqueWithoutIntegrationCheckInput | EvidenceCoverageGapUpdateWithWhereUniqueWithoutIntegrationCheckInput[]
+    updateMany?: EvidenceCoverageGapUpdateManyWithWhereWithoutIntegrationCheckInput | EvidenceCoverageGapUpdateManyWithWhereWithoutIntegrationCheckInput[]
+    deleteMany?: EvidenceCoverageGapScalarWhereInput | EvidenceCoverageGapScalarWhereInput[]
+  }
+
   export type IntegrationCheckCreateNestedOneWithoutControlsInput = {
     create?: XOR<IntegrationCheckCreateWithoutControlsInput, IntegrationCheckUncheckedCreateWithoutControlsInput>
     connectOrCreate?: IntegrationCheckCreateOrConnectWithoutControlsInput
@@ -19869,6 +22049,10 @@ export namespace Prisma {
     create?: XOR<IntegrationConnectionCreateWithoutCheckControlsInput, IntegrationConnectionUncheckedCreateWithoutCheckControlsInput>
     connectOrCreate?: IntegrationConnectionCreateOrConnectWithoutCheckControlsInput
     connect?: IntegrationConnectionWhereUniqueInput
+  }
+
+  export type NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput = {
+    set?: $Enums.IntegrationCheckControlDisabledReason | null
   }
 
   export type IntegrationCheckUpdateOneRequiredWithoutControlsNestedInput = {
@@ -19913,6 +22097,33 @@ export namespace Prisma {
     upsert?: IntegrationConnectionUpsertWithoutCheckResultsInput
     connect?: IntegrationConnectionWhereUniqueInput
     update?: XOR<XOR<IntegrationConnectionUpdateToOneWithWhereWithoutCheckResultsInput, IntegrationConnectionUpdateWithoutCheckResultsInput>, IntegrationConnectionUncheckedUpdateWithoutCheckResultsInput>
+  }
+
+  export type EvidenceCoverageGapCreateaffectedControlIdsInput = {
+    set: string[]
+  }
+
+  export type IntegrationCheckCreateNestedOneWithoutCoverageGapsInput = {
+    create?: XOR<IntegrationCheckCreateWithoutCoverageGapsInput, IntegrationCheckUncheckedCreateWithoutCoverageGapsInput>
+    connectOrCreate?: IntegrationCheckCreateOrConnectWithoutCoverageGapsInput
+    connect?: IntegrationCheckWhereUniqueInput
+  }
+
+  export type EvidenceCoverageGapUpdateaffectedControlIdsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type EnumCoverageGapReasonFieldUpdateOperationsInput = {
+    set?: $Enums.CoverageGapReason
+  }
+
+  export type IntegrationCheckUpdateOneRequiredWithoutCoverageGapsNestedInput = {
+    create?: XOR<IntegrationCheckCreateWithoutCoverageGapsInput, IntegrationCheckUncheckedCreateWithoutCoverageGapsInput>
+    connectOrCreate?: IntegrationCheckCreateOrConnectWithoutCoverageGapsInput
+    upsert?: IntegrationCheckUpsertWithoutCoverageGapsInput
+    connect?: IntegrationCheckWhereUniqueInput
+    update?: XOR<XOR<IntegrationCheckUpdateToOneWithWhereWithoutCoverageGapsInput, IntegrationCheckUpdateWithoutCoverageGapsInput>, IntegrationCheckUncheckedUpdateWithoutCoverageGapsInput>
   }
 
   export type IntegrationCreatecapabilitiesInput = {
@@ -20473,6 +22684,13 @@ export namespace Prisma {
     not?: NestedEnumIntegrationCheckStatusFilter<$PrismaModel> | $Enums.IntegrationCheckStatus
   }
 
+  export type NestedEnumCheckHealthStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.CheckHealthState | EnumCheckHealthStateFieldRefInput<$PrismaModel>
+    in?: $Enums.CheckHealthState[] | ListEnumCheckHealthStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CheckHealthState[] | ListEnumCheckHealthStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumCheckHealthStateFilter<$PrismaModel> | $Enums.CheckHealthState
+  }
+
   export type NestedEnumIntegrationCheckSeverityWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.IntegrationCheckSeverity | EnumIntegrationCheckSeverityFieldRefInput<$PrismaModel>
     in?: $Enums.IntegrationCheckSeverity[] | ListEnumIntegrationCheckSeverityFieldRefInput<$PrismaModel>
@@ -20491,6 +22709,50 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumIntegrationCheckStatusFilter<$PrismaModel>
     _max?: NestedEnumIntegrationCheckStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCheckHealthStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CheckHealthState | EnumCheckHealthStateFieldRefInput<$PrismaModel>
+    in?: $Enums.CheckHealthState[] | ListEnumCheckHealthStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CheckHealthState[] | ListEnumCheckHealthStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumCheckHealthStateWithAggregatesFilter<$PrismaModel> | $Enums.CheckHealthState
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCheckHealthStateFilter<$PrismaModel>
+    _max?: NestedEnumCheckHealthStateFilter<$PrismaModel>
+  }
+
+  export type NestedEnumIntegrationCheckControlDisabledReasonNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationCheckControlDisabledReason | EnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    in?: $Enums.IntegrationCheckControlDisabledReason[] | ListEnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.IntegrationCheckControlDisabledReason[] | ListEnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumIntegrationCheckControlDisabledReasonNullableFilter<$PrismaModel> | $Enums.IntegrationCheckControlDisabledReason | null
+  }
+
+  export type NestedEnumIntegrationCheckControlDisabledReasonNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationCheckControlDisabledReason | EnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    in?: $Enums.IntegrationCheckControlDisabledReason[] | ListEnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.IntegrationCheckControlDisabledReason[] | ListEnumIntegrationCheckControlDisabledReasonFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumIntegrationCheckControlDisabledReasonNullableWithAggregatesFilter<$PrismaModel> | $Enums.IntegrationCheckControlDisabledReason | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumIntegrationCheckControlDisabledReasonNullableFilter<$PrismaModel>
+    _max?: NestedEnumIntegrationCheckControlDisabledReasonNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCoverageGapReasonFilter<$PrismaModel = never> = {
+    equals?: $Enums.CoverageGapReason | EnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    in?: $Enums.CoverageGapReason[] | ListEnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CoverageGapReason[] | ListEnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    not?: NestedEnumCoverageGapReasonFilter<$PrismaModel> | $Enums.CoverageGapReason
+  }
+
+  export type NestedEnumCoverageGapReasonWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CoverageGapReason | EnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    in?: $Enums.CoverageGapReason[] | ListEnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CoverageGapReason[] | ListEnumCoverageGapReasonFieldRefInput<$PrismaModel>
+    not?: NestedEnumCoverageGapReasonWithAggregatesFilter<$PrismaModel> | $Enums.CoverageGapReason
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCoverageGapReasonFilter<$PrismaModel>
+    _max?: NestedEnumCoverageGapReasonFilter<$PrismaModel>
   }
 
   export type NestedEnumAuthTypeFilter<$PrismaModel = never> = {
@@ -20773,11 +23035,18 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     integration: IntegrationCreateNestedOneWithoutChecksInput
     controls?: IntegrationCheckControlCreateNestedManyWithoutIntegrationCheckInput
     results?: IntegrationCheckResultCreateNestedManyWithoutIntegrationCheckInput
+    coverageGaps?: EvidenceCoverageGapCreateNestedManyWithoutIntegrationCheckInput
   }
 
   export type IntegrationCheckUncheckedCreateWithoutConnectionInput = {
@@ -20797,10 +23066,17 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     controls?: IntegrationCheckControlUncheckedCreateNestedManyWithoutIntegrationCheckInput
     results?: IntegrationCheckResultUncheckedCreateNestedManyWithoutIntegrationCheckInput
+    coverageGaps?: EvidenceCoverageGapUncheckedCreateNestedManyWithoutIntegrationCheckInput
   }
 
   export type IntegrationCheckCreateOrConnectWithoutConnectionInput = {
@@ -20817,6 +23093,10 @@ export namespace Prisma {
     id?: string
     tenantId: string
     controlId: string
+    isEnabled?: boolean
+    disabledReason?: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: Date | string | null
+    lastReconciledAt?: Date | string
     createdAt?: Date | string
     integrationCheck: IntegrationCheckCreateNestedOneWithoutControlsInput
   }
@@ -20826,6 +23106,10 @@ export namespace Prisma {
     tenantId: string
     integrationCheckId: string
     controlId: string
+    isEnabled?: boolean
+    disabledReason?: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: Date | string | null
+    lastReconciledAt?: Date | string
     createdAt?: Date | string
   }
 
@@ -21017,6 +23301,12 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFilter<"IntegrationCheck"> | $Enums.IntegrationCheckStatus
     lastRunAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
     lastEvidenceId?: StringNullableFilter<"IntegrationCheck"> | string | null
+    expectedNextRunAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
+    lastSuccessfulRunAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
+    consecutiveFailures?: IntFilter<"IntegrationCheck"> | number
+    healthState?: EnumCheckHealthStateFilter<"IntegrationCheck"> | $Enums.CheckHealthState
+    healthChangedAt?: DateTimeNullableFilter<"IntegrationCheck"> | Date | string | null
+    healthReason?: StringNullableFilter<"IntegrationCheck"> | string | null
     createdAt?: DateTimeFilter<"IntegrationCheck"> | Date | string
     updatedAt?: DateTimeFilter<"IntegrationCheck"> | Date | string
   }
@@ -21046,6 +23336,10 @@ export namespace Prisma {
     integrationCheckId?: StringFilter<"IntegrationCheckControl"> | string
     connectionId?: StringFilter<"IntegrationCheckControl"> | string
     controlId?: StringFilter<"IntegrationCheckControl"> | string
+    isEnabled?: BoolFilter<"IntegrationCheckControl"> | boolean
+    disabledReason?: EnumIntegrationCheckControlDisabledReasonNullableFilter<"IntegrationCheckControl"> | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: DateTimeNullableFilter<"IntegrationCheckControl"> | Date | string | null
+    lastReconciledAt?: DateTimeFilter<"IntegrationCheckControl"> | Date | string
     createdAt?: DateTimeFilter<"IntegrationCheckControl"> | Date | string
   }
 
@@ -21092,6 +23386,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     integration: IntegrationCreateNestedOneWithoutConnectionsInput
@@ -21113,6 +23409,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: CollectionJobUncheckedCreateNestedManyWithoutConnectionInput
@@ -21163,6 +23461,10 @@ export namespace Prisma {
     id?: string
     tenantId: string
     controlId: string
+    isEnabled?: boolean
+    disabledReason?: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: Date | string | null
+    lastReconciledAt?: Date | string
     createdAt?: Date | string
     connection: IntegrationConnectionCreateNestedOneWithoutCheckControlsInput
   }
@@ -21172,6 +23474,10 @@ export namespace Prisma {
     tenantId: string
     connectionId: string
     controlId: string
+    isEnabled?: boolean
+    disabledReason?: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: Date | string | null
+    lastReconciledAt?: Date | string
     createdAt?: Date | string
   }
 
@@ -21219,6 +23525,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EvidenceCoverageGapCreateWithoutIntegrationCheckInput = {
+    id?: string
+    tenantId: string
+    affectedControlIds?: EvidenceCoverageGapCreateaffectedControlIdsInput | string[]
+    reason: $Enums.CoverageGapReason
+    startedAt?: Date | string
+    endedAt?: Date | string | null
+    lastErrorMessage?: string | null
+    retryCount?: number
+    controlWeaknessId?: string | null
+    lastEscalatedAt?: Date | string | null
+    escalationCount?: number
+  }
+
+  export type EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput = {
+    id?: string
+    tenantId: string
+    affectedControlIds?: EvidenceCoverageGapCreateaffectedControlIdsInput | string[]
+    reason: $Enums.CoverageGapReason
+    startedAt?: Date | string
+    endedAt?: Date | string | null
+    lastErrorMessage?: string | null
+    retryCount?: number
+    controlWeaknessId?: string | null
+    lastEscalatedAt?: Date | string | null
+    escalationCount?: number
+  }
+
+  export type EvidenceCoverageGapCreateOrConnectWithoutIntegrationCheckInput = {
+    where: EvidenceCoverageGapWhereUniqueInput
+    create: XOR<EvidenceCoverageGapCreateWithoutIntegrationCheckInput, EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput>
+  }
+
+  export type EvidenceCoverageGapCreateManyIntegrationCheckInputEnvelope = {
+    data: EvidenceCoverageGapCreateManyIntegrationCheckInput | EvidenceCoverageGapCreateManyIntegrationCheckInput[]
+    skipDuplicates?: boolean
+  }
+
   export type IntegrationConnectionUpsertWithoutChecksInput = {
     update: XOR<IntegrationConnectionUpdateWithoutChecksInput, IntegrationConnectionUncheckedUpdateWithoutChecksInput>
     create: XOR<IntegrationConnectionCreateWithoutChecksInput, IntegrationConnectionUncheckedCreateWithoutChecksInput>
@@ -21241,6 +23585,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     integration?: IntegrationUpdateOneRequiredWithoutConnectionsNestedInput
@@ -21262,6 +23608,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: CollectionJobUncheckedUpdateManyWithoutConnectionNestedInput
@@ -21341,6 +23689,40 @@ export namespace Prisma {
     data: XOR<IntegrationCheckResultUpdateManyMutationInput, IntegrationCheckResultUncheckedUpdateManyWithoutIntegrationCheckInput>
   }
 
+  export type EvidenceCoverageGapUpsertWithWhereUniqueWithoutIntegrationCheckInput = {
+    where: EvidenceCoverageGapWhereUniqueInput
+    update: XOR<EvidenceCoverageGapUpdateWithoutIntegrationCheckInput, EvidenceCoverageGapUncheckedUpdateWithoutIntegrationCheckInput>
+    create: XOR<EvidenceCoverageGapCreateWithoutIntegrationCheckInput, EvidenceCoverageGapUncheckedCreateWithoutIntegrationCheckInput>
+  }
+
+  export type EvidenceCoverageGapUpdateWithWhereUniqueWithoutIntegrationCheckInput = {
+    where: EvidenceCoverageGapWhereUniqueInput
+    data: XOR<EvidenceCoverageGapUpdateWithoutIntegrationCheckInput, EvidenceCoverageGapUncheckedUpdateWithoutIntegrationCheckInput>
+  }
+
+  export type EvidenceCoverageGapUpdateManyWithWhereWithoutIntegrationCheckInput = {
+    where: EvidenceCoverageGapScalarWhereInput
+    data: XOR<EvidenceCoverageGapUpdateManyMutationInput, EvidenceCoverageGapUncheckedUpdateManyWithoutIntegrationCheckInput>
+  }
+
+  export type EvidenceCoverageGapScalarWhereInput = {
+    AND?: EvidenceCoverageGapScalarWhereInput | EvidenceCoverageGapScalarWhereInput[]
+    OR?: EvidenceCoverageGapScalarWhereInput[]
+    NOT?: EvidenceCoverageGapScalarWhereInput | EvidenceCoverageGapScalarWhereInput[]
+    id?: StringFilter<"EvidenceCoverageGap"> | string
+    tenantId?: StringFilter<"EvidenceCoverageGap"> | string
+    integrationCheckId?: StringFilter<"EvidenceCoverageGap"> | string
+    affectedControlIds?: StringNullableListFilter<"EvidenceCoverageGap">
+    reason?: EnumCoverageGapReasonFilter<"EvidenceCoverageGap"> | $Enums.CoverageGapReason
+    startedAt?: DateTimeFilter<"EvidenceCoverageGap"> | Date | string
+    endedAt?: DateTimeNullableFilter<"EvidenceCoverageGap"> | Date | string | null
+    lastErrorMessage?: StringNullableFilter<"EvidenceCoverageGap"> | string | null
+    retryCount?: IntFilter<"EvidenceCoverageGap"> | number
+    controlWeaknessId?: StringNullableFilter<"EvidenceCoverageGap"> | string | null
+    lastEscalatedAt?: DateTimeNullableFilter<"EvidenceCoverageGap"> | Date | string | null
+    escalationCount?: IntFilter<"EvidenceCoverageGap"> | number
+  }
+
   export type IntegrationCheckCreateWithoutControlsInput = {
     id?: string
     tenantId: string
@@ -21357,11 +23739,18 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     connection: IntegrationConnectionCreateNestedOneWithoutChecksInput
     integration: IntegrationCreateNestedOneWithoutChecksInput
     results?: IntegrationCheckResultCreateNestedManyWithoutIntegrationCheckInput
+    coverageGaps?: EvidenceCoverageGapCreateNestedManyWithoutIntegrationCheckInput
   }
 
   export type IntegrationCheckUncheckedCreateWithoutControlsInput = {
@@ -21382,9 +23771,16 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     results?: IntegrationCheckResultUncheckedCreateNestedManyWithoutIntegrationCheckInput
+    coverageGaps?: EvidenceCoverageGapUncheckedCreateNestedManyWithoutIntegrationCheckInput
   }
 
   export type IntegrationCheckCreateOrConnectWithoutControlsInput = {
@@ -21403,6 +23799,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     integration: IntegrationCreateNestedOneWithoutConnectionsInput
@@ -21424,6 +23822,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: CollectionJobUncheckedCreateNestedManyWithoutConnectionInput
@@ -21464,11 +23864,18 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     connection?: IntegrationConnectionUpdateOneRequiredWithoutChecksNestedInput
     integration?: IntegrationUpdateOneRequiredWithoutChecksNestedInput
     results?: IntegrationCheckResultUpdateManyWithoutIntegrationCheckNestedInput
+    coverageGaps?: EvidenceCoverageGapUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationCheckUncheckedUpdateWithoutControlsInput = {
@@ -21489,9 +23896,16 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     results?: IntegrationCheckResultUncheckedUpdateManyWithoutIntegrationCheckNestedInput
+    coverageGaps?: EvidenceCoverageGapUncheckedUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationConnectionUpsertWithoutCheckControlsInput = {
@@ -21516,6 +23930,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     integration?: IntegrationUpdateOneRequiredWithoutConnectionsNestedInput
@@ -21537,6 +23953,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: CollectionJobUncheckedUpdateManyWithoutConnectionNestedInput
@@ -21561,11 +23979,18 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     connection: IntegrationConnectionCreateNestedOneWithoutChecksInput
     integration: IntegrationCreateNestedOneWithoutChecksInput
     controls?: IntegrationCheckControlCreateNestedManyWithoutIntegrationCheckInput
+    coverageGaps?: EvidenceCoverageGapCreateNestedManyWithoutIntegrationCheckInput
   }
 
   export type IntegrationCheckUncheckedCreateWithoutResultsInput = {
@@ -21586,9 +24011,16 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     controls?: IntegrationCheckControlUncheckedCreateNestedManyWithoutIntegrationCheckInput
+    coverageGaps?: EvidenceCoverageGapUncheckedCreateNestedManyWithoutIntegrationCheckInput
   }
 
   export type IntegrationCheckCreateOrConnectWithoutResultsInput = {
@@ -21607,6 +24039,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     integration: IntegrationCreateNestedOneWithoutConnectionsInput
@@ -21628,6 +24062,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: CollectionJobUncheckedCreateNestedManyWithoutConnectionInput
@@ -21668,11 +24104,18 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     connection?: IntegrationConnectionUpdateOneRequiredWithoutChecksNestedInput
     integration?: IntegrationUpdateOneRequiredWithoutChecksNestedInput
     controls?: IntegrationCheckControlUpdateManyWithoutIntegrationCheckNestedInput
+    coverageGaps?: EvidenceCoverageGapUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationCheckUncheckedUpdateWithoutResultsInput = {
@@ -21693,9 +24136,16 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     controls?: IntegrationCheckControlUncheckedUpdateManyWithoutIntegrationCheckNestedInput
+    coverageGaps?: EvidenceCoverageGapUncheckedUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationConnectionUpsertWithoutCheckResultsInput = {
@@ -21720,6 +24170,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     integration?: IntegrationUpdateOneRequiredWithoutConnectionsNestedInput
@@ -21741,12 +24193,150 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: CollectionJobUncheckedUpdateManyWithoutConnectionNestedInput
     syncLogs?: SyncLogUncheckedUpdateManyWithoutConnectionNestedInput
     checks?: IntegrationCheckUncheckedUpdateManyWithoutConnectionNestedInput
     checkControls?: IntegrationCheckControlUncheckedUpdateManyWithoutConnectionNestedInput
+  }
+
+  export type IntegrationCheckCreateWithoutCoverageGapsInput = {
+    id?: string
+    tenantId: string
+    manifestKey: string
+    title: string
+    description?: string | null
+    severity?: $Enums.IntegrationCheckSeverity
+    schedule?: string
+    isEnabled?: boolean
+    runner?: string
+    spec?: NullableJsonNullValueInput | InputJsonValue
+    aiPrompt?: string | null
+    aiModel?: string | null
+    lastStatus?: $Enums.IntegrationCheckStatus
+    lastRunAt?: Date | string | null
+    lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    connection: IntegrationConnectionCreateNestedOneWithoutChecksInput
+    integration: IntegrationCreateNestedOneWithoutChecksInput
+    controls?: IntegrationCheckControlCreateNestedManyWithoutIntegrationCheckInput
+    results?: IntegrationCheckResultCreateNestedManyWithoutIntegrationCheckInput
+  }
+
+  export type IntegrationCheckUncheckedCreateWithoutCoverageGapsInput = {
+    id?: string
+    tenantId: string
+    connectionId: string
+    integrationId: string
+    manifestKey: string
+    title: string
+    description?: string | null
+    severity?: $Enums.IntegrationCheckSeverity
+    schedule?: string
+    isEnabled?: boolean
+    runner?: string
+    spec?: NullableJsonNullValueInput | InputJsonValue
+    aiPrompt?: string | null
+    aiModel?: string | null
+    lastStatus?: $Enums.IntegrationCheckStatus
+    lastRunAt?: Date | string | null
+    lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    controls?: IntegrationCheckControlUncheckedCreateNestedManyWithoutIntegrationCheckInput
+    results?: IntegrationCheckResultUncheckedCreateNestedManyWithoutIntegrationCheckInput
+  }
+
+  export type IntegrationCheckCreateOrConnectWithoutCoverageGapsInput = {
+    where: IntegrationCheckWhereUniqueInput
+    create: XOR<IntegrationCheckCreateWithoutCoverageGapsInput, IntegrationCheckUncheckedCreateWithoutCoverageGapsInput>
+  }
+
+  export type IntegrationCheckUpsertWithoutCoverageGapsInput = {
+    update: XOR<IntegrationCheckUpdateWithoutCoverageGapsInput, IntegrationCheckUncheckedUpdateWithoutCoverageGapsInput>
+    create: XOR<IntegrationCheckCreateWithoutCoverageGapsInput, IntegrationCheckUncheckedCreateWithoutCoverageGapsInput>
+    where?: IntegrationCheckWhereInput
+  }
+
+  export type IntegrationCheckUpdateToOneWithWhereWithoutCoverageGapsInput = {
+    where?: IntegrationCheckWhereInput
+    data: XOR<IntegrationCheckUpdateWithoutCoverageGapsInput, IntegrationCheckUncheckedUpdateWithoutCoverageGapsInput>
+  }
+
+  export type IntegrationCheckUpdateWithoutCoverageGapsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    manifestKey?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumIntegrationCheckSeverityFieldUpdateOperationsInput | $Enums.IntegrationCheckSeverity
+    schedule?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    runner?: StringFieldUpdateOperationsInput | string
+    spec?: NullableJsonNullValueInput | InputJsonValue
+    aiPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
+    lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    connection?: IntegrationConnectionUpdateOneRequiredWithoutChecksNestedInput
+    integration?: IntegrationUpdateOneRequiredWithoutChecksNestedInput
+    controls?: IntegrationCheckControlUpdateManyWithoutIntegrationCheckNestedInput
+    results?: IntegrationCheckResultUpdateManyWithoutIntegrationCheckNestedInput
+  }
+
+  export type IntegrationCheckUncheckedUpdateWithoutCoverageGapsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    connectionId?: StringFieldUpdateOperationsInput | string
+    integrationId?: StringFieldUpdateOperationsInput | string
+    manifestKey?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    severity?: EnumIntegrationCheckSeverityFieldUpdateOperationsInput | $Enums.IntegrationCheckSeverity
+    schedule?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    runner?: StringFieldUpdateOperationsInput | string
+    spec?: NullableJsonNullValueInput | InputJsonValue
+    aiPrompt?: NullableStringFieldUpdateOperationsInput | string | null
+    aiModel?: NullableStringFieldUpdateOperationsInput | string | null
+    lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
+    lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    controls?: IntegrationCheckControlUncheckedUpdateManyWithoutIntegrationCheckNestedInput
+    results?: IntegrationCheckResultUncheckedUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationConnectionCreateWithoutIntegrationInput = {
@@ -21760,6 +24350,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: CollectionJobCreateNestedManyWithoutConnectionInput
@@ -21780,6 +24372,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: CollectionJobUncheckedCreateNestedManyWithoutConnectionInput
@@ -21815,11 +24409,18 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     connection: IntegrationConnectionCreateNestedOneWithoutChecksInput
     controls?: IntegrationCheckControlCreateNestedManyWithoutIntegrationCheckInput
     results?: IntegrationCheckResultCreateNestedManyWithoutIntegrationCheckInput
+    coverageGaps?: EvidenceCoverageGapCreateNestedManyWithoutIntegrationCheckInput
   }
 
   export type IntegrationCheckUncheckedCreateWithoutIntegrationInput = {
@@ -21839,10 +24440,17 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     controls?: IntegrationCheckControlUncheckedCreateNestedManyWithoutIntegrationCheckInput
     results?: IntegrationCheckResultUncheckedCreateNestedManyWithoutIntegrationCheckInput
+    coverageGaps?: EvidenceCoverageGapUncheckedCreateNestedManyWithoutIntegrationCheckInput
   }
 
   export type IntegrationCheckCreateOrConnectWithoutIntegrationInput = {
@@ -21886,6 +24494,8 @@ export namespace Prisma {
     lastErrorMessage?: StringNullableFilter<"IntegrationConnection"> | string | null
     syncFrequencyMinutes?: IntFilter<"IntegrationConnection"> | number
     isActive?: BoolFilter<"IntegrationConnection"> | boolean
+    manifestVersion?: StringNullableFilter<"IntegrationConnection"> | string | null
+    lastReconciledAt?: DateTimeNullableFilter<"IntegrationConnection"> | Date | string | null
     createdAt?: DateTimeFilter<"IntegrationConnection"> | Date | string
     updatedAt?: DateTimeFilter<"IntegrationConnection"> | Date | string
   }
@@ -21917,6 +24527,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     integration: IntegrationCreateNestedOneWithoutConnectionsInput
@@ -21938,6 +24550,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     syncLogs?: SyncLogUncheckedCreateNestedManyWithoutConnectionInput
@@ -22015,6 +24629,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     integration?: IntegrationUpdateOneRequiredWithoutConnectionsNestedInput
@@ -22036,6 +24652,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     syncLogs?: SyncLogUncheckedUpdateManyWithoutConnectionNestedInput
@@ -22318,6 +24936,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     integration: IntegrationCreateNestedOneWithoutConnectionsInput
@@ -22339,6 +24959,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     jobs?: CollectionJobUncheckedCreateNestedManyWithoutConnectionInput
@@ -22374,6 +24996,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     integration?: IntegrationUpdateOneRequiredWithoutConnectionsNestedInput
@@ -22395,6 +25019,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: CollectionJobUncheckedUpdateManyWithoutConnectionNestedInput
@@ -22448,6 +25074,12 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -22457,6 +25089,10 @@ export namespace Prisma {
     tenantId: string
     integrationCheckId: string
     controlId: string
+    isEnabled?: boolean
+    disabledReason?: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: Date | string | null
+    lastReconciledAt?: Date | string
     createdAt?: Date | string
   }
 
@@ -22574,11 +25210,18 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     integration?: IntegrationUpdateOneRequiredWithoutChecksNestedInput
     controls?: IntegrationCheckControlUpdateManyWithoutIntegrationCheckNestedInput
     results?: IntegrationCheckResultUpdateManyWithoutIntegrationCheckNestedInput
+    coverageGaps?: EvidenceCoverageGapUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationCheckUncheckedUpdateWithoutConnectionInput = {
@@ -22598,10 +25241,17 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     controls?: IntegrationCheckControlUncheckedUpdateManyWithoutIntegrationCheckNestedInput
     results?: IntegrationCheckResultUncheckedUpdateManyWithoutIntegrationCheckNestedInput
+    coverageGaps?: EvidenceCoverageGapUncheckedUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationCheckUncheckedUpdateManyWithoutConnectionInput = {
@@ -22621,6 +25271,12 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22629,6 +25285,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     controlId?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    disabledReason?: NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReconciledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     integrationCheck?: IntegrationCheckUpdateOneRequiredWithoutControlsNestedInput
   }
@@ -22638,6 +25298,10 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     integrationCheckId?: StringFieldUpdateOperationsInput | string
     controlId?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    disabledReason?: NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReconciledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22646,6 +25310,10 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     integrationCheckId?: StringFieldUpdateOperationsInput | string
     controlId?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    disabledReason?: NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReconciledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22690,6 +25358,10 @@ export namespace Prisma {
     tenantId: string
     connectionId: string
     controlId: string
+    isEnabled?: boolean
+    disabledReason?: $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: Date | string | null
+    lastReconciledAt?: Date | string
     createdAt?: Date | string
   }
 
@@ -22705,10 +25377,28 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type EvidenceCoverageGapCreateManyIntegrationCheckInput = {
+    id?: string
+    tenantId: string
+    affectedControlIds?: EvidenceCoverageGapCreateaffectedControlIdsInput | string[]
+    reason: $Enums.CoverageGapReason
+    startedAt?: Date | string
+    endedAt?: Date | string | null
+    lastErrorMessage?: string | null
+    retryCount?: number
+    controlWeaknessId?: string | null
+    lastEscalatedAt?: Date | string | null
+    escalationCount?: number
+  }
+
   export type IntegrationCheckControlUpdateWithoutIntegrationCheckInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     controlId?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    disabledReason?: NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReconciledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     connection?: IntegrationConnectionUpdateOneRequiredWithoutCheckControlsNestedInput
   }
@@ -22718,6 +25408,10 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     connectionId?: StringFieldUpdateOperationsInput | string
     controlId?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    disabledReason?: NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReconciledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22726,6 +25420,10 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     connectionId?: StringFieldUpdateOperationsInput | string
     controlId?: StringFieldUpdateOperationsInput | string
+    isEnabled?: BoolFieldUpdateOperationsInput | boolean
+    disabledReason?: NullableEnumIntegrationCheckControlDisabledReasonFieldUpdateOperationsInput | $Enums.IntegrationCheckControlDisabledReason | null
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastReconciledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22765,6 +25463,48 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EvidenceCoverageGapUpdateWithoutIntegrationCheckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    affectedControlIds?: EvidenceCoverageGapUpdateaffectedControlIdsInput | string[]
+    reason?: EnumCoverageGapReasonFieldUpdateOperationsInput | $Enums.CoverageGapReason
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    retryCount?: IntFieldUpdateOperationsInput | number
+    controlWeaknessId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastEscalatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    escalationCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EvidenceCoverageGapUncheckedUpdateWithoutIntegrationCheckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    affectedControlIds?: EvidenceCoverageGapUpdateaffectedControlIdsInput | string[]
+    reason?: EnumCoverageGapReasonFieldUpdateOperationsInput | $Enums.CoverageGapReason
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    retryCount?: IntFieldUpdateOperationsInput | number
+    controlWeaknessId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastEscalatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    escalationCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EvidenceCoverageGapUncheckedUpdateManyWithoutIntegrationCheckInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    affectedControlIds?: EvidenceCoverageGapUpdateaffectedControlIdsInput | string[]
+    reason?: EnumCoverageGapReasonFieldUpdateOperationsInput | $Enums.CoverageGapReason
+    startedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
+    retryCount?: IntFieldUpdateOperationsInput | number
+    controlWeaknessId?: NullableStringFieldUpdateOperationsInput | string | null
+    lastEscalatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    escalationCount?: IntFieldUpdateOperationsInput | number
+  }
+
   export type IntegrationConnectionCreateManyIntegrationInput = {
     id?: string
     tenantId: string
@@ -22776,6 +25516,8 @@ export namespace Prisma {
     lastErrorMessage?: string | null
     syncFrequencyMinutes?: number
     isActive?: boolean
+    manifestVersion?: string | null
+    lastReconciledAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -22797,6 +25539,12 @@ export namespace Prisma {
     lastStatus?: $Enums.IntegrationCheckStatus
     lastRunAt?: Date | string | null
     lastEvidenceId?: string | null
+    expectedNextRunAt?: Date | string | null
+    lastSuccessfulRunAt?: Date | string | null
+    consecutiveFailures?: number
+    healthState?: $Enums.CheckHealthState
+    healthChangedAt?: Date | string | null
+    healthReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -22812,6 +25560,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: CollectionJobUpdateManyWithoutConnectionNestedInput
@@ -22832,6 +25582,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     jobs?: CollectionJobUncheckedUpdateManyWithoutConnectionNestedInput
@@ -22852,6 +25604,8 @@ export namespace Prisma {
     lastErrorMessage?: NullableStringFieldUpdateOperationsInput | string | null
     syncFrequencyMinutes?: IntFieldUpdateOperationsInput | number
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    manifestVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    lastReconciledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22872,11 +25626,18 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     connection?: IntegrationConnectionUpdateOneRequiredWithoutChecksNestedInput
     controls?: IntegrationCheckControlUpdateManyWithoutIntegrationCheckNestedInput
     results?: IntegrationCheckResultUpdateManyWithoutIntegrationCheckNestedInput
+    coverageGaps?: EvidenceCoverageGapUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationCheckUncheckedUpdateWithoutIntegrationInput = {
@@ -22896,10 +25657,17 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     controls?: IntegrationCheckControlUncheckedUpdateManyWithoutIntegrationCheckNestedInput
     results?: IntegrationCheckResultUncheckedUpdateManyWithoutIntegrationCheckNestedInput
+    coverageGaps?: EvidenceCoverageGapUncheckedUpdateManyWithoutIntegrationCheckNestedInput
   }
 
   export type IntegrationCheckUncheckedUpdateManyWithoutIntegrationInput = {
@@ -22919,6 +25687,12 @@ export namespace Prisma {
     lastStatus?: EnumIntegrationCheckStatusFieldUpdateOperationsInput | $Enums.IntegrationCheckStatus
     lastRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastEvidenceId?: NullableStringFieldUpdateOperationsInput | string | null
+    expectedNextRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastSuccessfulRunAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    consecutiveFailures?: IntFieldUpdateOperationsInput | number
+    healthState?: EnumCheckHealthStateFieldUpdateOperationsInput | $Enums.CheckHealthState
+    healthChangedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    healthReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

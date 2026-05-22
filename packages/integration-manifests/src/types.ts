@@ -57,9 +57,44 @@ export const CheckSchema = z.object({
   controlMappings: z.array(FrameworkRefSchema).default([]),
 });
 
+/**
+ * Capability schema for richer "collection-style" outputs emitted by
+ * provider runtime classes (e.g. a GitHub member-list with 2FA stats,
+ * an Okta password policy snapshot). A capability is distinct from a
+ * check: capabilities collect data, checks assert against it. Both
+ * declare their framework refs the same way so the binder treats them
+ * uniformly when resolving to tenant `Control` ids.
+ */
+export const CapabilitySchema = z.object({
+  /**
+   * Stable identifier persisted as IntegrationCheck.manifestKey when a
+   * capability-derived evidence row is created. Matches the historical
+   * `EvidenceResult.sourceType` value to make backfill trivial.
+   */
+  key: z.string().regex(/^[a-z0-9_.-]+$/),
+  title: z.string(),
+  description: z.string(),
+  /**
+   * Severity tier used as the baseline for evidence rows produced by
+   * this capability. Provider classes may upgrade severity at runtime
+   * based on data (e.g. "members without 2FA" → high), this is just
+   * the resting tier the UI shows when no findings exist.
+   */
+  defaultSeverity: z.enum(["low", "medium", "high", "critical", "info"]).default("info"),
+  /** Framework requirements this capability contributes evidence for. */
+  controlMappings: z.array(FrameworkRefSchema).default([]),
+});
+
 export const ManifestSchema = z.object({
   /** Connector slug, e.g. "aws", "github". Lowercase + alphanumeric. */
   connector: z.string().regex(/^[a-z0-9_-]+$/),
+  /**
+   * Semantic version of the manifest itself. Used by the collector to
+   * detect manifest version bumps and trigger reconciliation; bumped
+   * whenever a `controlMappings` change would alter which tenant
+   * Controls a connection should be bound to.
+   */
+  version: z.string().default("1.0.0"),
   displayName: z.string(),
   description: z.string(),
   /** SVG/PNG hint for the UI tile. Resolved from a CDN at render time. */
@@ -68,7 +103,15 @@ export const ManifestSchema = z.object({
   /** Auth scheme; informs the UI's connect modal layout. */
   authType: z.enum(["aws_iam", "oauth2", "api_key", "service_account", "personal_access_token"]),
   configFields: z.array(ConfigFieldSchema),
-  checks: z.array(CheckSchema),
+  /** Binary assertions executed by the runner (HTTP/AWS SDK/OAuth/Playwright). */
+  checks: z.array(CheckSchema).default([]),
+  /**
+   * Richer evidence collections produced by the provider runtime class
+   * (`IntegrationConnector.collectEvidence`). Capabilities share the
+   * manifest-key / framework-ref contract with checks, so the binder
+   * and resolver treat them identically.
+   */
+  capabilities: z.array(CapabilitySchema).default([]),
 });
 
 export type FrameworkRef = z.infer<typeof FrameworkRefSchema>;
@@ -86,10 +129,12 @@ export type ConfigField = z.infer<typeof ConfigFieldSchema>;
  * `ParsedManifest` below — those are the post-`schema.parse(...)` types.
  */
 export type Check = z.input<typeof CheckSchema>;
+export type Capability = z.input<typeof CapabilitySchema>;
 export type Manifest = z.input<typeof ManifestSchema>;
 
 /** Runtime (post-parse) manifest types — defaults are filled in. */
 export type ParsedCheck = z.output<typeof CheckSchema>;
+export type ParsedCapability = z.output<typeof CapabilitySchema>;
 export type ParsedManifest = z.output<typeof ManifestSchema>;
 
 /** Result envelope written to the SQS results queue. */

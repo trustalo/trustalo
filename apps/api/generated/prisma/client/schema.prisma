@@ -2695,14 +2695,36 @@ enum TenantStatus {
   cancelled
 }
 
+// Controls how aggressive the collector should be when binding an
+// integration to tenant Controls on connect.
+//
+//   auto    — Persist IntegrationCheckControl rows immediately with
+//             isEnabled=true. Evidence flows as soon as the next
+//             collection job runs.
+//   suggest — Persist rows with isEnabled=false +
+//             disabledReason=pending_confirmation so the UI can show a
+//             preview ("Connecting GitHub will contribute to 12
+//             controls"). User confirms via
+//             POST /connections/:id/bindings/confirm to flip them on.
+//   off     — Don't bind at all; the user wires controls manually.
+//
+// Default is `suggest` to keep auditor scrutiny in the loop while
+// still showing the unified preview UX.
+enum IntegrationAutoBindMode {
+  auto
+  suggest
+  off
+}
+
 model Tenant {
-  id        String       @id @default(cuid())
-  name      String
-  slug      String       @unique
-  plan      TenantPlan   @default(free)
-  status    TenantStatus @default(active)
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  id                      String                  @id @default(cuid())
+  name                    String
+  slug                    String                  @unique
+  plan                    TenantPlan              @default(free)
+  status                  TenantStatus            @default(active)
+  integrationAutoBindMode IntegrationAutoBindMode @default(suggest)
+  createdAt               DateTime                @default(now())
+  updatedAt               DateTime                @updatedAt
 
   settings                      TenantSettings?
   memberships                   Membership[]

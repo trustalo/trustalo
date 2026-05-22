@@ -2,6 +2,7 @@ import type { Manifest } from "../types.js";
 
 export const githubManifest: Manifest = {
   connector: "github",
+  version: "1.0.0",
   displayName: "GitHub",
   description:
     "Verifies organization-level security: 2FA enforcement, branch protection on default branches, secret scanning, dependency review.",
@@ -71,6 +72,60 @@ export const githubManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.28" },
+      ],
+    },
+  ],
+  capabilities: [
+    {
+      key: "github.org.members",
+      title: "Organization members",
+      description: "Org members with 2FA enrolment status.",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "soc2", requirement: "CC6.3" },
+        { framework: "iso27001", requirement: "A.9.4.2" },
+      ],
+    },
+    {
+      key: "github.repos.visibility",
+      title: "Repository visibility inventory",
+      description: "Public/private/archived split across all repos.",
+      defaultSeverity: "medium",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "soc2", requirement: "CC6.7" },
+        { framework: "iso27001", requirement: "A.9.4.1" },
+      ],
+    },
+    {
+      key: "github.repos.branch_protection",
+      title: "Default-branch protection coverage",
+      description: "Per-repo default branch protection status (sampled).",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC8.1" },
+        { framework: "iso27001", requirement: "A.14.2.2" },
+      ],
+    },
+    {
+      key: "github.security.dependabot",
+      title: "Dependabot alerts",
+      description: "Open Dependabot alerts and critical-severity counts.",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC7.1" },
+        { framework: "iso27001", requirement: "A.12.6.1" },
+      ],
+    },
+    {
+      key: "github.security.secret_scanning",
+      title: "Secret scanning alerts",
+      description: "Open secret-scanning alerts across sampled repos.",
+      defaultSeverity: "critical",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "iso27001", requirement: "A.9.4.3" },
       ],
     },
   ],

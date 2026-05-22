@@ -119,6 +119,7 @@ export class GoogleWorkspaceProvider implements IntegrationProvider {
       results.push({
         title: "Google Workspace 2-Step Verification",
         description: `${users.length} users, ${usersWithout2sv} without 2-Step Verification, ${suspendedUsers} suspended`,
+        manifestKey: "google_workspace.users.2sv",
         sourceType: "google_workspace.users.2sv",
         sourceId: `gws-2sv-${client.domain}`,
         rawData: {
@@ -142,6 +143,7 @@ export class GoogleWorkspaceProvider implements IntegrationProvider {
       results.push({
         title: "Google Workspace User Inventory",
         description: `${users.length} users in ${client.domain}`,
+        manifestKey: "google_workspace.users.inventory",
         sourceType: "google_workspace.users.inventory",
         sourceId: `gws-users-${client.domain}`,
         rawData: {
@@ -168,6 +170,7 @@ export class GoogleWorkspaceProvider implements IntegrationProvider {
       results.push({
         title: "Google Workspace Groups",
         description: `${groups.length} groups configured`,
+        manifestKey: "google_workspace.groups.inventory",
         sourceType: "google_workspace.groups.inventory",
         sourceId: `gws-groups-${client.domain}`,
         rawData: {
@@ -198,6 +201,7 @@ export class GoogleWorkspaceProvider implements IntegrationProvider {
       results.push({
         title: "Google Workspace Admin Activity",
         description: `${activities.length} admin activities in the last 7 days`,
+        manifestKey: "google_workspace.logs.admin_activity",
         sourceType: "google_workspace.logs.admin_activity",
         sourceId: `gws-admin-activity-${client.domain}-${now.toISOString().split("T")[0]}`,
         rawData: {
@@ -228,6 +232,7 @@ export class GoogleWorkspaceProvider implements IntegrationProvider {
       results.push({
         title: "Google Workspace Failed Logins",
         description: `${loginEvents.length} failed login attempts in the last 24 hours`,
+        manifestKey: "google_workspace.logs.login_failures",
         sourceType: "google_workspace.logs.login_failures",
         sourceId: `gws-login-failures-${client.domain}-${now.toISOString().split("T")[0]}`,
         rawData: { totalFailures: loginEvents.length },

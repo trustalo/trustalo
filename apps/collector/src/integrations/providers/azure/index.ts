@@ -128,6 +128,7 @@ export class AzureProvider implements IntegrationProvider {
       results.push({
         title: "Azure Network Security Groups",
         description: `${nsgs.length} NSGs found, ${openNsgs.length} with unrestricted inbound rules`,
+        manifestKey: "azure.network.nsgs",
         sourceType: "azure.network.nsgs",
         sourceId: `azure-nsgs-${client.subscriptionId}`,
         rawData: {
@@ -159,6 +160,7 @@ export class AzureProvider implements IntegrationProvider {
       results.push({
         title: "Azure Storage Account Security",
         description: `${accounts.length} storage accounts, ${insecureAccounts.length} with potential security issues`,
+        manifestKey: "azure.storage.accounts",
         sourceType: "azure.storage.accounts",
         sourceId: `azure-storage-${client.subscriptionId}`,
         rawData: {
@@ -194,6 +196,7 @@ export class AzureProvider implements IntegrationProvider {
       results.push({
         title: "Azure Key Vault Configuration",
         description: `${vaults.length} key vaults configured`,
+        manifestKey: "azure.keyvault.config",
         sourceType: "azure.keyvault.config",
         sourceId: `azure-keyvault-${client.subscriptionId}`,
         rawData: {
@@ -231,6 +234,7 @@ export class AzureProvider implements IntegrationProvider {
       results.push({
         title: "Azure Policy Compliance",
         description: `${nonCompliantResources} non-compliant resources`,
+        manifestKey: "azure.policy.compliance",
         sourceType: "azure.policy.compliance",
         sourceId: `azure-policy-${client.subscriptionId}`,
         rawData: { nonCompliantResources, summary },
@@ -255,6 +259,7 @@ export class AzureProvider implements IntegrationProvider {
       results.push({
         title: "Azure AD Users",
         description: `${users.length} users, ${disabledUsers.length} disabled accounts`,
+        manifestKey: "azure.ad.users",
         sourceType: "azure.ad.users",
         sourceId: `azure-ad-users-${client.tenantId}`,
         rawData: {
@@ -286,6 +291,7 @@ export class AzureProvider implements IntegrationProvider {
       results.push({
         title: "Azure Diagnostic Settings",
         description: `${settings.length} diagnostic settings configured at subscription level`,
+        manifestKey: "azure.monitor.diagnostic_settings",
         sourceType: "azure.monitor.diagnostic_settings",
         sourceId: `azure-diag-${client.subscriptionId}`,
         rawData: {

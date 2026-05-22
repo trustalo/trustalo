@@ -84,6 +84,7 @@ export class GitHubProvider implements IntegrationProvider {
       results.push({
         title: "GitHub Organization Members",
         description: `${members.length} members, ${membersWithout2fa} without 2FA enabled`,
+        manifestKey: "github.org.members",
         sourceType: "github.org.members",
         sourceId: `github-members-${organization}`,
         rawData: {
@@ -112,6 +113,7 @@ export class GitHubProvider implements IntegrationProvider {
       results.push({
         title: "GitHub Repository Visibility",
         description: `${repos.length} repos: ${publicRepos.length} public, ${repos.length - publicRepos.length} private, ${archivedRepos.length} archived`,
+        manifestKey: "github.repos.visibility",
         sourceType: "github.repos.visibility",
         sourceId: `github-repos-${organization}`,
         rawData: {
@@ -163,6 +165,7 @@ export class GitHubProvider implements IntegrationProvider {
       results.push({
         title: "GitHub Branch Protection",
         description: `${protectedCount} of ${activeRepos.length} sampled repos have branch protection on default branch`,
+        manifestKey: "github.repos.branch_protection",
         sourceType: "github.repos.branch_protection",
         sourceId: `github-branch-protection-${organization}`,
         rawData: {
@@ -199,6 +202,7 @@ export class GitHubProvider implements IntegrationProvider {
       results.push({
         title: "GitHub Dependabot Alerts",
         description: `${totalDependabotAlerts} open Dependabot alerts across sampled repos, ${criticalAlerts} critical`,
+        manifestKey: "github.security.dependabot",
         sourceType: "github.security.dependabot",
         sourceId: `github-dependabot-${organization}`,
         rawData: { totalAlerts: totalDependabotAlerts, criticalAlerts },
@@ -226,6 +230,7 @@ export class GitHubProvider implements IntegrationProvider {
       results.push({
         title: "GitHub Secret Scanning Alerts",
         description: `${totalSecretAlerts} open secret scanning alerts across sampled repos`,
+        manifestKey: "github.security.secret_scanning",
         sourceType: "github.security.secret_scanning",
         sourceId: `github-secret-scanning-${organization}`,
         rawData: { totalAlerts: totalSecretAlerts },

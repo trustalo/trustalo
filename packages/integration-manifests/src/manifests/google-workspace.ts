@@ -1,7 +1,10 @@
 import type { Manifest } from "../types.js";
 
 export const googleWorkspaceManifest: Manifest = {
-  connector: "google_workspace",
+  // Matches `Integration.id` in the collector seed; also the slug the
+  // provider runtime class registers under in `register.ts`.
+  connector: "google-workspace",
+  version: "1.0.0",
   displayName: "Google Workspace",
   description:
     "Checks domain-wide password policy, 2-step verification enforcement, and admin audit logging.",
@@ -61,6 +64,56 @@ export const googleWorkspaceManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.2" },
         { framework: "iso27001", requirement: "A.8.15" },
+      ],
+    },
+  ],
+  capabilities: [
+    {
+      key: "google_workspace.users.2sv",
+      title: "User 2-Step Verification status",
+      description: "Per-user 2SV enrolment and suspension status.",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "soc2", requirement: "CC6.3" },
+        { framework: "iso27001", requirement: "A.9.4.2" },
+      ],
+    },
+    {
+      key: "google_workspace.users.inventory",
+      title: "User directory inventory",
+      description: "Full list of users with role + last-login metadata.",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "iso27001", requirement: "A.9.2.1" },
+      ],
+    },
+    {
+      key: "google_workspace.groups.inventory",
+      title: "Group inventory",
+      description: "Domain groups with membership counts for access reviews.",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "iso27001", requirement: "A.9.2.3" },
+      ],
+    },
+    {
+      key: "google_workspace.logs.admin_activity",
+      title: "Admin activity audit log",
+      description: "Reports API admin events from the last 7 days.",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC7.2" },
+        { framework: "iso27001", requirement: "A.12.4.1" },
+      ],
+    },
+    {
+      key: "google_workspace.logs.login_failures",
+      title: "Failed login attempts",
+      description: "Failed sign-in events in the last 24 hours.",
+      defaultSeverity: "medium",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC7.2" },
+        { framework: "iso27001", requirement: "A.12.4.1" },
       ],
     },
   ],

@@ -260,6 +260,7 @@ export class BitbucketProvider implements IntegrationProvider {
     return {
       title: "Bitbucket workspace members",
       description: `${members.length} user(s) with workspace access (access review).`,
+      manifestKey: "bitbucket.workspace.members",
       sourceType: "bitbucket.workspace.members",
       sourceId: `bitbucket-members-${client.workspace}`,
       rawData: { memberCount: members.length, members: members.slice(0, 500) },
@@ -296,6 +297,7 @@ export class BitbucketProvider implements IntegrationProvider {
     return {
       title: "Bitbucket repository visibility",
       description: `${repos.length} repo(s); ${publicRepos.length} public.`,
+      manifestKey: "bitbucket.repos.visibility",
       sourceType: "bitbucket.repos.visibility",
       sourceId: `bitbucket-repos-${client.workspace}`,
       rawData: {
@@ -374,6 +376,7 @@ export class BitbucketProvider implements IntegrationProvider {
     return {
       title: "Bitbucket branch restrictions",
       description: `${restrictions.length} restriction rule(s) across repositories.`,
+      manifestKey: "bitbucket.repos.branch_restrictions",
       sourceType: "bitbucket.repos.branch_restrictions",
       sourceId: `bitbucket-branch-${client.workspace}`,
       rawData: { restrictionCount: restrictions.length, restrictions: restrictions.slice(0, 500) },
@@ -422,6 +425,7 @@ export class BitbucketProvider implements IntegrationProvider {
     return {
       title: "Bitbucket default reviewers",
       description: `${reviewerConfigs.length} repo(s) checked; ${withoutReviewers.length} with no default reviewers.`,
+      manifestKey: "bitbucket.repos.default_reviewers",
       sourceType: "bitbucket.repos.default_reviewers",
       sourceId: `bitbucket-reviewers-${client.workspace}`,
       rawData: {

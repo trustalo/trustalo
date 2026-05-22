@@ -23,6 +23,20 @@ enum IntegrationCheckSeverity {
   critical
 }
 
+// Operational health of an automated check. Independent of the
+// assertion outcome (`IntegrationCheckStatus`): a check can be
+// `IntegrationCheckStatus.fail` (customer environment is non-compliant)
+// while still being `CheckHealthState.healthy` (we got a clean result).
+// `degraded`/`failing`/`overdue` mean we *lost visibility* — that's
+// what surfaces as `automationHealth` on the API-side control view.
+enum CheckHealthState {
+  healthy
+  degraded
+  overdue
+  failing
+  paused
+}
+
 model IntegrationCheck {
   id            String                   @id @default(cuid())
   tenantId      String
@@ -53,6 +67,25 @@ model IntegrationCheck {
   lastStatus    IntegrationCheckStatus   @default(pending)
   lastRunAt     DateTime?
   lastEvidenceId String?
+
+  // ── Health / overdue tracking ─────────────────────────────────────
+  // Wall-clock instant we expect the next successful run by. Filled
+  // when a check is scheduled, used by the overdue detector cron.
+  expectedNextRunAt   DateTime?
+  // Most recent successful run; drives the "last successful collection"
+  // metric on dashboards.
+  lastSuccessfulRunAt DateTime?
+  // Counter the runner increments per consecutive non-retriable failure
+  // and resets on the next success. 0/1/2 = degraded, 3+ = failing.
+  consecutiveFailures Int               @default(0)
+  // Operational health (see `CheckHealthState`). Updated by the runner
+  // after each result and by the overdue-detector cron.
+  healthState         CheckHealthState  @default(healthy)
+  healthChangedAt     DateTime?
+  // Short human-readable explanation surfaced in the UI ("3 consecutive
+  // 401s — credentials likely rotated").
+  healthReason        String?
+
   createdAt     DateTime                 @default(now())
   updatedAt     DateTime                 @updatedAt
 
@@ -60,21 +93,51 @@ model IntegrationCheck {
   integration Integration               @relation(fields: [integrationId], references: [id])
   controls    IntegrationCheckControl[]
   results     IntegrationCheckResult[]
+  coverageGaps EvidenceCoverageGap[]
 
   @@unique([connectionId, manifestKey])
   @@index([tenantId])
   @@index([lastStatus])
+  @@index([healthState])
+  @@index([expectedNextRunAt])
 }
 
-// Many-to-many: one check can satisfy multiple controls. `controlId` is
-// an opaque string id from the API service (no FK).
+// Many-to-many: one check can satisfy multiple controls. `controlId`
+// is an opaque string id from the API service (no FK). Reconciliation
+// state is tracked here, not by deleting rows, so auditors can see
+// "this binding existed from X to Y" via `disabledAt` + `disabledReason`.
+enum IntegrationCheckControlDisabledReason {
+  // Binding awaiting user confirmation (tenant policy = "suggest").
+  pending_confirmation
+  // User explicitly disabled the binding from the UI.
+  user_disabled
+  // Tenant set the Control status to `not_applicable`.
+  control_not_applicable
+  // Control no longer exists (hard-deleted from the API).
+  control_deleted
+  // FrameworkInstance the control was assigned through was disabled.
+  framework_disabled
+  // FrameworkRef no longer resolves to this control (e.g. the
+  // ControlRequirementAssignment was changed under PUT /controls/:id/mappings).
+  ref_unmapped
+  // The owning manifest check/capability was removed in a manifest
+  // version bump.
+  manifest_removed
+}
+
 model IntegrationCheckControl {
   id                 String   @id @default(cuid())
   tenantId           String
   integrationCheckId String
   connectionId       String
   controlId          String
-  createdAt          DateTime @default(now())
+  // Reconciler-managed lifecycle. Disabled rows are kept for audit
+  // history; the runner only attaches Evidence to enabled bindings.
+  isEnabled          Boolean                                @default(true)
+  disabledReason     IntegrationCheckControlDisabledReason?
+  disabledAt         DateTime?
+  lastReconciledAt   DateTime                               @default(now())
+  createdAt          DateTime                               @default(now())
 
   integrationCheck IntegrationCheck      @relation(fields: [integrationCheckId], references: [id], onDelete: Cascade)
   connection       IntegrationConnection @relation(fields: [connectionId], references: [id], onDelete: Cascade)
@@ -82,6 +145,7 @@ model IntegrationCheckControl {
   @@unique([integrationCheckId, controlId])
   @@index([tenantId])
   @@index([controlId])
+  @@index([tenantId, isEnabled])
 }
 
 model IntegrationCheckResult {
@@ -104,4 +168,61 @@ model IntegrationCheckResult {
   @@index([tenantId, createdAt])
   @@index([integrationCheckId, createdAt])
   @@index([status])
+}
+
+// Why an EvidenceCoverageGap was opened. The runner classifies the
+// thrown error via `classifyError()`; the overdue detector uses
+// `schedule_missed`; the binder uses `manifest_removed`. Audit-side
+// queries filter by reason to distinguish "we can't reach the
+// customer's environment" from "we're throttled" from "we paused
+// ourselves".
+enum CoverageGapReason {
+  connection_error
+  credentials_invalid
+  rate_limited
+  check_runtime_error
+  schedule_missed
+  manifest_removed
+  paused_by_user
+}
+
+// A continuous window in which automated evidence collection failed
+// or was skipped for an `IntegrationCheck`. Opens when an operational
+// failure occurs after retry-exhaust (or immediately for
+// non-retriable errors), closes on the next successful run. Survives
+// binding churn — `affectedControlIds` is a snapshot of the
+// IntegrationCheckControl set at gap-open time so auditors can ask
+// "which controls lost coverage during this window?" without joining
+// against current bindings.
+model EvidenceCoverageGap {
+  id                 String              @id @default(cuid())
+  tenantId           String
+  integrationCheckId String
+  // Snapshot at gap-open time. Re-querying live bindings would lose
+  // history if the tenant disabled a framework while the gap was
+  // open.
+  affectedControlIds String[]
+  reason             CoverageGapReason
+  startedAt          DateTime            @default(now())
+  endedAt            DateTime?
+  // Last error the runner / detector observed before the gap closed.
+  // Surfaced verbatim in the recommended-action UI string.
+  lastErrorMessage   String?
+  // Per-run counter. Distinct from `IntegrationCheck.consecutiveFailures`
+  // because a gap may straddle multiple retry cycles.
+  retryCount         Int                 @default(0)
+  // Set by the gap-escalator when an API-side ControlWeakness is auto-
+  // created. Used to prevent duplicate weaknesses on the next tick.
+  controlWeaknessId  String?
+  // Set by the hourly gap-escalator. Used to debounce escalations
+  // (we don't want to notify hourly forever) and to track how many
+  // notification rounds a gap has triggered for SRE dashboards.
+  lastEscalatedAt    DateTime?
+  escalationCount    Int                 @default(0)
+
+  integrationCheck IntegrationCheck @relation(fields: [integrationCheckId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, endedAt])
+  @@index([integrationCheckId, startedAt])
+  @@index([tenantId, reason, endedAt])
 }

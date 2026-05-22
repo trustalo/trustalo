@@ -140,6 +140,7 @@ export class AWSProvider implements IntegrationProvider {
       results.push({
         title: "IAM User MFA Status",
         description: `${users.length} IAM users found, ${usersWithoutMfa} without MFA enabled`,
+        manifestKey: "aws.iam.mfa_status",
         sourceType: "aws.iam.mfa_status",
         sourceId: `aws-iam-mfa-${options.tenantId}`,
         rawData: {
@@ -166,6 +167,7 @@ export class AWSProvider implements IntegrationProvider {
       results.push({
         title: "IAM Password Policy",
         description: `Min length: ${policy?.MinimumPasswordLength}, require symbols: ${policy?.RequireSymbols}, max age: ${policy?.MaxPasswordAge} days`,
+        manifestKey: "aws.iam.password_policy",
         sourceType: "aws.iam.password_policy",
         sourceId: `aws-iam-password-policy-${options.tenantId}`,
         rawData: { ...policy },
@@ -183,6 +185,7 @@ export class AWSProvider implements IntegrationProvider {
       results.push({
         title: "IAM Roles Inventory",
         description: `${rolesResp.Roles?.length ?? 0} IAM roles configured`,
+        manifestKey: "aws.iam.roles",
         sourceType: "aws.iam.roles",
         sourceId: `aws-iam-roles-${options.tenantId}`,
         rawData: {
@@ -222,6 +225,7 @@ export class AWSProvider implements IntegrationProvider {
       results.push({
         title: "CloudTrail Configuration",
         description: `${trails.length} trails configured, ${allLogging ? "all logging" : "some not logging"}`,
+        manifestKey: "aws.cloudtrail.config",
         sourceType: "aws.cloudtrail.config",
         sourceId: `aws-cloudtrail-${options.tenantId}`,
         rawData: { totalTrails: trails.length, trails: trailStatuses },
@@ -269,6 +273,7 @@ export class AWSProvider implements IntegrationProvider {
       results.push({
         title: "S3 Bucket Security",
         description: `${buckets.length} buckets: ${unencrypted} without encryption, ${publicBuckets} without public access block`,
+        manifestKey: "aws.s3.security",
         sourceType: "aws.s3.security",
         sourceId: `aws-s3-security-${options.tenantId}`,
         rawData: {
@@ -300,6 +305,7 @@ export class AWSProvider implements IntegrationProvider {
       results.push({
         title: "VPC Security Groups",
         description: `${groups.length} security groups, ${openGroups.length} with unrestricted inbound rules (0.0.0.0/0)`,
+        manifestKey: "aws.ec2.security_groups",
         sourceType: "aws.ec2.security_groups",
         sourceId: `aws-sg-${options.tenantId}`,
         rawData: {
@@ -322,6 +328,7 @@ export class AWSProvider implements IntegrationProvider {
       results.push({
         title: "VPC Flow Logs",
         description: `${flowLogs.length} flow logs configured`,
+        manifestKey: "aws.ec2.flow_logs",
         sourceType: "aws.ec2.flow_logs",
         sourceId: `aws-flowlogs-${options.tenantId}`,
         rawData: {

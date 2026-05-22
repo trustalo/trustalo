@@ -1053,6 +1053,7 @@ exports.Prisma.TenantScalarFieldEnum = {
   slug: 'slug',
   plan: 'plan',
   status: 'status',
+  integrationAutoBindMode: 'integrationAutoBindMode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -2143,6 +2144,12 @@ exports.TenantStatus = exports.$Enums.TenantStatus = {
   active: 'active',
   suspended: 'suspended',
   cancelled: 'cancelled'
+};
+
+exports.IntegrationAutoBindMode = exports.$Enums.IntegrationAutoBindMode = {
+  auto: 'auto',
+  suggest: 'suggest',
+  off: 'off'
 };
 
 exports.TrainingType = exports.$Enums.TrainingType = {

@@ -157,6 +157,8 @@ exports.Prisma.IntegrationConnectionScalarFieldEnum = {
   lastErrorMessage: 'lastErrorMessage',
   syncFrequencyMinutes: 'syncFrequencyMinutes',
   isActive: 'isActive',
+  manifestVersion: 'manifestVersion',
+  lastReconciledAt: 'lastReconciledAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -179,6 +181,12 @@ exports.Prisma.IntegrationCheckScalarFieldEnum = {
   lastStatus: 'lastStatus',
   lastRunAt: 'lastRunAt',
   lastEvidenceId: 'lastEvidenceId',
+  expectedNextRunAt: 'expectedNextRunAt',
+  lastSuccessfulRunAt: 'lastSuccessfulRunAt',
+  consecutiveFailures: 'consecutiveFailures',
+  healthState: 'healthState',
+  healthChangedAt: 'healthChangedAt',
+  healthReason: 'healthReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -189,6 +197,10 @@ exports.Prisma.IntegrationCheckControlScalarFieldEnum = {
   integrationCheckId: 'integrationCheckId',
   connectionId: 'connectionId',
   controlId: 'controlId',
+  isEnabled: 'isEnabled',
+  disabledReason: 'disabledReason',
+  disabledAt: 'disabledAt',
+  lastReconciledAt: 'lastReconciledAt',
   createdAt: 'createdAt'
 };
 
@@ -203,6 +215,21 @@ exports.Prisma.IntegrationCheckResultScalarFieldEnum = {
   durationMs: 'durationMs',
   evidenceId: 'evidenceId',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.EvidenceCoverageGapScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  integrationCheckId: 'integrationCheckId',
+  affectedControlIds: 'affectedControlIds',
+  reason: 'reason',
+  startedAt: 'startedAt',
+  endedAt: 'endedAt',
+  lastErrorMessage: 'lastErrorMessage',
+  retryCount: 'retryCount',
+  controlWeaknessId: 'controlWeaknessId',
+  lastEscalatedAt: 'lastEscalatedAt',
+  escalationCount: 'escalationCount'
 };
 
 exports.Prisma.IntegrationScalarFieldEnum = {
@@ -355,6 +382,34 @@ exports.IntegrationCheckStatus = exports.$Enums.IntegrationCheckStatus = {
   pending: 'pending'
 };
 
+exports.CheckHealthState = exports.$Enums.CheckHealthState = {
+  healthy: 'healthy',
+  degraded: 'degraded',
+  overdue: 'overdue',
+  failing: 'failing',
+  paused: 'paused'
+};
+
+exports.IntegrationCheckControlDisabledReason = exports.$Enums.IntegrationCheckControlDisabledReason = {
+  pending_confirmation: 'pending_confirmation',
+  user_disabled: 'user_disabled',
+  control_not_applicable: 'control_not_applicable',
+  control_deleted: 'control_deleted',
+  framework_disabled: 'framework_disabled',
+  ref_unmapped: 'ref_unmapped',
+  manifest_removed: 'manifest_removed'
+};
+
+exports.CoverageGapReason = exports.$Enums.CoverageGapReason = {
+  connection_error: 'connection_error',
+  credentials_invalid: 'credentials_invalid',
+  rate_limited: 'rate_limited',
+  check_runtime_error: 'check_runtime_error',
+  schedule_missed: 'schedule_missed',
+  manifest_removed: 'manifest_removed',
+  paused_by_user: 'paused_by_user'
+};
+
 exports.AuthType = exports.$Enums.AuthType = {
   oauth2: 'oauth2',
   api_key: 'api_key',
@@ -428,6 +483,7 @@ exports.Prisma.ModelName = {
   IntegrationCheck: 'IntegrationCheck',
   IntegrationCheckControl: 'IntegrationCheckControl',
   IntegrationCheckResult: 'IntegrationCheckResult',
+  EvidenceCoverageGap: 'EvidenceCoverageGap',
   Integration: 'Integration',
   CollectionJob: 'CollectionJob',
   CollectionJobRun: 'CollectionJobRun',

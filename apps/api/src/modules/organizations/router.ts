@@ -6,7 +6,10 @@ import { authorize } from "../../middleware/authorize.js";
 import { authService } from "../auth/service.js";
 
 const patchOrgBody = z.object({
-  name: z.string().min(1),
+  name: z.string().min(1).optional(),
+  // Tenant-level policy controlling how the collector binds an
+  // integration to Controls on connect (see Tenant.prisma).
+  integrationAutoBindMode: z.enum(["auto", "suggest", "off"]).optional(),
 });
 
 const securityDefaultsSchema = z
@@ -68,9 +71,23 @@ organizationsRouter.patch("/", authorize("settings:write"), async (req, res, nex
     const tenantId = (req as any).auth.tenantId as string;
     const body = patchOrgBody.parse(req.body);
 
+    const updateData: Prisma.TenantUpdateInput = {};
+    if (body.name !== undefined) updateData.name = body.name;
+    if (body.integrationAutoBindMode !== undefined) {
+      updateData.integrationAutoBindMode = body.integrationAutoBindMode;
+    }
+
+    if (Object.keys(updateData).length === 0) {
+      res.status(400).json({
+        success: false,
+        error: { code: "EMPTY_PATCH", message: "No supported fields supplied" },
+      });
+      return;
+    }
+
     const org = await prisma.tenant.update({
       where: { id: tenantId },
-      data: { name: body.name },
+      data: updateData,
     });
 
     res.json({ success: true, data: org });

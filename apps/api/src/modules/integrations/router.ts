@@ -139,6 +139,14 @@ integrationsRouter.get("/:id", (req, res) =>
   proxy(req, res, `/connections/${encodeURIComponent(req.params.id ?? "")}`),
 );
 
+// Per-connection health rollup (IntegrationCheck health states + open
+// gap counts). The collector exposes it under `/internal/...`, so we
+// forward to that namespace explicitly rather than the public
+// `/connections/...` one.
+integrationsRouter.get("/:id/health", (req, res) =>
+  proxy(req, res, `/internal/connections/${encodeURIComponent(req.params.id ?? "")}/health`),
+);
+
 // ── Routes pending a collector implementation ──────────────────────
 //
 // These are kept as 503 stubs with a stable error code so callers can

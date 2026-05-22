@@ -136,6 +136,7 @@ export class OktaProvider implements IntegrationProvider {
       results.push({
         title: "Okta User MFA Enrollment",
         description: `${users.length} active users, ${mfaEnrolled} with MFA enrolled, ${usersWithoutMfa} without MFA`,
+        manifestKey: "okta.users.mfa",
         sourceType: "okta.users.mfa",
         sourceId: `okta-mfa-${client.domain}`,
         rawData: { totalUsers: users.length, mfaEnrolled, usersWithoutMfa },
@@ -147,6 +148,7 @@ export class OktaProvider implements IntegrationProvider {
       results.push({
         title: "Okta User Inventory",
         description: `${users.length} active users in the organization`,
+        manifestKey: "okta.users.inventory",
         sourceType: "okta.users.inventory",
         sourceId: `okta-users-${client.domain}`,
         rawData: {
@@ -173,6 +175,7 @@ export class OktaProvider implements IntegrationProvider {
       results.push({
         title: "Okta Groups",
         description: `${groups.length} groups configured`,
+        manifestKey: "okta.groups.inventory",
         sourceType: "okta.groups.inventory",
         sourceId: `okta-groups-${client.domain}`,
         rawData: {
@@ -199,6 +202,7 @@ export class OktaProvider implements IntegrationProvider {
       results.push({
         title: "Okta Sign-On Policies",
         description: `${policies.length} sign-on policies configured`,
+        manifestKey: "okta.policies.sign_on",
         sourceType: "okta.policies.sign_on",
         sourceId: `okta-policies-${client.domain}`,
         rawData: {
@@ -226,6 +230,7 @@ export class OktaProvider implements IntegrationProvider {
       results.push({
         title: "Okta Password Policies",
         description: `${passwordPolicies.length} password policies configured`,
+        manifestKey: "okta.policies.password",
         sourceType: "okta.policies.password",
         sourceId: `okta-password-policies-${client.domain}`,
         rawData: {
@@ -257,6 +262,7 @@ export class OktaProvider implements IntegrationProvider {
       results.push({
         title: "Okta System Log Events",
         description: `${events.length} security-relevant events in the last 24 hours`,
+        manifestKey: "okta.logs.security_events",
         sourceType: "okta.logs.security_events",
         sourceId: `okta-logs-${client.domain}-${now.toISOString().split("T")[0]}`,
         rawData: {

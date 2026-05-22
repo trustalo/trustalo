@@ -125,6 +125,7 @@ export class Auth0Provider implements IntegrationProvider {
       results.push({
         title: "Auth0 User MFA Enrollment",
         description: `${total} total users, ${mfaEnrolled} of ${users.length} sampled have MFA enrolled`,
+        manifestKey: "auth0.users.mfa",
         sourceType: "auth0.users.mfa",
         sourceId: `auth0-mfa-${client.domain}`,
         rawData: { totalUsers: total, sampledUsers: users.length, mfaEnrolled },
@@ -136,6 +137,7 @@ export class Auth0Provider implements IntegrationProvider {
       results.push({
         title: "Auth0 User Inventory",
         description: `${total} total users in tenant`,
+        manifestKey: "auth0.users.inventory",
         sourceType: "auth0.users.inventory",
         sourceId: `auth0-users-${client.domain}`,
         rawData: {
@@ -165,6 +167,7 @@ export class Auth0Provider implements IntegrationProvider {
       results.push({
         title: "Auth0 Identity Connections",
         description: `${connections.length} identity connections configured`,
+        manifestKey: "auth0.connections.inventory",
         sourceType: "auth0.connections.inventory",
         sourceId: `auth0-connections-${client.domain}`,
         rawData: {
@@ -190,6 +193,7 @@ export class Auth0Provider implements IntegrationProvider {
       results.push({
         title: "Auth0 Rules",
         description: `${rules.length} rules configured`,
+        manifestKey: "auth0.rules.inventory",
         sourceType: "auth0.rules.inventory",
         sourceId: `auth0-rules-${client.domain}`,
         rawData: {
@@ -220,6 +224,7 @@ export class Auth0Provider implements IntegrationProvider {
       results.push({
         title: "Auth0 Actions",
         description: `${actions.length} deployed actions`,
+        manifestKey: "auth0.actions.inventory",
         sourceType: "auth0.actions.inventory",
         sourceId: `auth0-actions-${client.domain}`,
         rawData: {
@@ -247,6 +252,7 @@ export class Auth0Provider implements IntegrationProvider {
       results.push({
         title: "Auth0 Tenant Security Settings",
         description: "Tenant-level security configuration",
+        manifestKey: "auth0.tenant.settings",
         sourceType: "auth0.tenant.settings",
         sourceId: `auth0-tenant-${client.domain}`,
         rawData: {
@@ -278,6 +284,7 @@ export class Auth0Provider implements IntegrationProvider {
       results.push({
         title: "Auth0 Security Events",
         description: `${logs.length} security-relevant events (failures, suspicious activity)`,
+        manifestKey: "auth0.logs.security",
         sourceType: "auth0.logs.security",
         sourceId: `auth0-logs-${client.domain}-${now.toISOString().split("T")[0]}`,
         rawData: {

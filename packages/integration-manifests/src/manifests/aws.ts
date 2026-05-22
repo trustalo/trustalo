@@ -7,6 +7,7 @@ import type { Manifest } from "../types.js";
  */
 export const awsManifest: Manifest = {
   connector: "aws",
+  version: "1.0.0",
   displayName: "Amazon Web Services",
   description:
     "Continuously verifies AWS account-level controls (root MFA, IAM password policy, CloudTrail, S3 public access).",
@@ -85,6 +86,79 @@ export const awsManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.7" },
         { framework: "iso27001", requirement: "A.5.10" },
+      ],
+    },
+  ],
+  capabilities: [
+    {
+      key: "aws.iam.mfa_status",
+      title: "IAM user MFA enrolment",
+      description: "Per-user MFA enrolment across the account.",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "soc2", requirement: "CC6.3" },
+        { framework: "iso27001", requirement: "A.9.4.2" },
+      ],
+    },
+    {
+      key: "aws.iam.password_policy",
+      title: "IAM password policy",
+      description: "Account-wide IAM password policy snapshot.",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "iso27001", requirement: "A.9.4.3" },
+      ],
+    },
+    {
+      key: "aws.iam.roles",
+      title: "IAM role inventory",
+      description: "All IAM roles configured in the account.",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "iso27001", requirement: "A.9.2.3" },
+      ],
+    },
+    {
+      key: "aws.cloudtrail.config",
+      title: "CloudTrail configuration",
+      description: "Trail inventory plus logging status per trail.",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC7.2" },
+        { framework: "iso27001", requirement: "A.12.4.1" },
+      ],
+    },
+    {
+      key: "aws.s3.security",
+      title: "S3 bucket security posture",
+      description: "Per-bucket encryption + public access block coverage.",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "soc2", requirement: "CC6.7" },
+        { framework: "iso27001", requirement: "A.10.1.1" },
+      ],
+    },
+    {
+      key: "aws.ec2.security_groups",
+      title: "EC2 security groups",
+      description: "Security groups with their ingress rules.",
+      defaultSeverity: "high",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC6.1" },
+        { framework: "soc2", requirement: "CC6.6" },
+        { framework: "iso27001", requirement: "A.13.1.1" },
+      ],
+    },
+    {
+      key: "aws.ec2.flow_logs",
+      title: "VPC flow logs",
+      description: "VPC flow log configuration inventory.",
+      defaultSeverity: "medium",
+      controlMappings: [
+        { framework: "soc2", requirement: "CC7.2" },
+        { framework: "iso27001", requirement: "A.12.4.1" },
       ],
     },
   ],

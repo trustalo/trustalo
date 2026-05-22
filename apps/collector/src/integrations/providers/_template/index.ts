@@ -89,11 +89,13 @@ export class TemplateProvider implements IntegrationProvider {
     // results.push({
     //   title: "MFA enabled for all users",
     //   description: "All 42 users have MFA enabled",
+    //   // manifestKey MUST match a `capabilities[].key` declared in the
+    //   // connector's manifest in `@trustalo/integration-manifests`.
+    //   manifestKey: "template.users.mfa",
     //   sourceType: "template.users.mfa",
     //   sourceId: "unique-id-from-provider",
     //   rawData: { /* raw API response */ },
     //   severity: "info",
-    //   controlMapping: ["CC6.1", "IA-2"],
     //   collectedAt: new Date(),
     // });
 

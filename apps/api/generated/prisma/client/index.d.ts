@@ -1393,6 +1393,15 @@ export const TenantStatus: {
 export type TenantStatus = (typeof TenantStatus)[keyof typeof TenantStatus]
 
 
+export const IntegrationAutoBindMode: {
+  auto: 'auto',
+  suggest: 'suggest',
+  off: 'off'
+};
+
+export type IntegrationAutoBindMode = (typeof IntegrationAutoBindMode)[keyof typeof IntegrationAutoBindMode]
+
+
 export const TrainingType: {
   security_awareness: 'security_awareness',
   compliance: 'compliance',
@@ -1979,6 +1988,10 @@ export const TenantPlan: typeof $Enums.TenantPlan
 export type TenantStatus = $Enums.TenantStatus
 
 export const TenantStatus: typeof $Enums.TenantStatus
+
+export type IntegrationAutoBindMode = $Enums.IntegrationAutoBindMode
+
+export const IntegrationAutoBindMode: typeof $Enums.IntegrationAutoBindMode
 
 export type TrainingType = $Enums.TrainingType
 
@@ -80659,6 +80672,7 @@ export namespace Prisma {
     slug: string | null
     plan: $Enums.TenantPlan | null
     status: $Enums.TenantStatus | null
+    integrationAutoBindMode: $Enums.IntegrationAutoBindMode | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -80669,6 +80683,7 @@ export namespace Prisma {
     slug: string | null
     plan: $Enums.TenantPlan | null
     status: $Enums.TenantStatus | null
+    integrationAutoBindMode: $Enums.IntegrationAutoBindMode | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -80679,6 +80694,7 @@ export namespace Prisma {
     slug: number
     plan: number
     status: number
+    integrationAutoBindMode: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -80691,6 +80707,7 @@ export namespace Prisma {
     slug?: true
     plan?: true
     status?: true
+    integrationAutoBindMode?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -80701,6 +80718,7 @@ export namespace Prisma {
     slug?: true
     plan?: true
     status?: true
+    integrationAutoBindMode?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -80711,6 +80729,7 @@ export namespace Prisma {
     slug?: true
     plan?: true
     status?: true
+    integrationAutoBindMode?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -80794,6 +80813,7 @@ export namespace Prisma {
     slug: string
     plan: $Enums.TenantPlan
     status: $Enums.TenantStatus
+    integrationAutoBindMode: $Enums.IntegrationAutoBindMode
     createdAt: Date
     updatedAt: Date
     _count: TenantCountAggregateOutputType | null
@@ -80821,6 +80841,7 @@ export namespace Prisma {
     slug?: boolean
     plan?: boolean
     status?: boolean
+    integrationAutoBindMode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     settings?: boolean | Tenant$settingsArgs<ExtArgs>
@@ -80897,6 +80918,7 @@ export namespace Prisma {
     slug?: boolean
     plan?: boolean
     status?: boolean
+    integrationAutoBindMode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["tenant"]>
@@ -80907,6 +80929,7 @@ export namespace Prisma {
     slug?: boolean
     plan?: boolean
     status?: boolean
+    integrationAutoBindMode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["tenant"]>
@@ -80917,11 +80940,12 @@ export namespace Prisma {
     slug?: boolean
     plan?: boolean
     status?: boolean
+    integrationAutoBindMode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "plan" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "plan" | "status" | "integrationAutoBindMode" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     settings?: boolean | Tenant$settingsArgs<ExtArgs>
     memberships?: boolean | Tenant$membershipsArgs<ExtArgs>
@@ -81068,6 +81092,7 @@ export namespace Prisma {
       slug: string
       plan: $Enums.TenantPlan
       status: $Enums.TenantStatus
+      integrationAutoBindMode: $Enums.IntegrationAutoBindMode
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["tenant"]>
@@ -81563,6 +81588,7 @@ export namespace Prisma {
     readonly slug: FieldRef<"Tenant", 'String'>
     readonly plan: FieldRef<"Tenant", 'TenantPlan'>
     readonly status: FieldRef<"Tenant", 'TenantStatus'>
+    readonly integrationAutoBindMode: FieldRef<"Tenant", 'IntegrationAutoBindMode'>
     readonly createdAt: FieldRef<"Tenant", 'DateTime'>
     readonly updatedAt: FieldRef<"Tenant", 'DateTime'>
   }
@@ -116348,6 +116374,7 @@ export namespace Prisma {
     slug: 'slug',
     plan: 'plan',
     status: 'status',
+    integrationAutoBindMode: 'integrationAutoBindMode',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -118146,6 +118173,20 @@ export namespace Prisma {
    * Reference to a field of type 'TenantStatus[]'
    */
   export type ListEnumTenantStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TenantStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'IntegrationAutoBindMode'
+   */
+  export type EnumIntegrationAutoBindModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationAutoBindMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'IntegrationAutoBindMode[]'
+   */
+  export type ListEnumIntegrationAutoBindModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IntegrationAutoBindMode[]'>
     
 
 
@@ -124397,6 +124438,7 @@ export namespace Prisma {
     slug?: StringFilter<"Tenant"> | string
     plan?: EnumTenantPlanFilter<"Tenant"> | $Enums.TenantPlan
     status?: EnumTenantStatusFilter<"Tenant"> | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFilter<"Tenant"> | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
     settings?: XOR<TenantSettingsNullableScalarRelationFilter, TenantSettingsWhereInput> | null
@@ -124472,6 +124514,7 @@ export namespace Prisma {
     slug?: SortOrder
     plan?: SortOrder
     status?: SortOrder
+    integrationAutoBindMode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     settings?: TenantSettingsOrderByWithRelationInput
@@ -124550,6 +124593,7 @@ export namespace Prisma {
     name?: StringFilter<"Tenant"> | string
     plan?: EnumTenantPlanFilter<"Tenant"> | $Enums.TenantPlan
     status?: EnumTenantStatusFilter<"Tenant"> | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFilter<"Tenant"> | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeFilter<"Tenant"> | Date | string
     settings?: XOR<TenantSettingsNullableScalarRelationFilter, TenantSettingsWhereInput> | null
@@ -124625,6 +124669,7 @@ export namespace Prisma {
     slug?: SortOrder
     plan?: SortOrder
     status?: SortOrder
+    integrationAutoBindMode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TenantCountOrderByAggregateInput
@@ -124641,6 +124686,7 @@ export namespace Prisma {
     slug?: StringWithAggregatesFilter<"Tenant"> | string
     plan?: EnumTenantPlanWithAggregatesFilter<"Tenant"> | $Enums.TenantPlan
     status?: EnumTenantStatusWithAggregatesFilter<"Tenant"> | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeWithAggregatesFilter<"Tenant"> | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
   }
@@ -133759,6 +133805,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -133834,6 +133881,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -133909,6 +133957,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -133984,6 +134033,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -134059,6 +134109,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -134069,6 +134120,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -134079,6 +134131,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -142370,6 +142423,13 @@ export namespace Prisma {
     not?: NestedEnumTenantStatusFilter<$PrismaModel> | $Enums.TenantStatus
   }
 
+  export type EnumIntegrationAutoBindModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationAutoBindMode | EnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    in?: $Enums.IntegrationAutoBindMode[] | ListEnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.IntegrationAutoBindMode[] | ListEnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumIntegrationAutoBindModeFilter<$PrismaModel> | $Enums.IntegrationAutoBindMode
+  }
+
   export type TenantSettingsNullableScalarRelationFilter = {
     is?: TenantSettingsWhereInput | null
     isNot?: TenantSettingsWhereInput | null
@@ -142676,6 +142736,7 @@ export namespace Prisma {
     slug?: SortOrder
     plan?: SortOrder
     status?: SortOrder
+    integrationAutoBindMode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -142686,6 +142747,7 @@ export namespace Prisma {
     slug?: SortOrder
     plan?: SortOrder
     status?: SortOrder
+    integrationAutoBindMode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -142696,6 +142758,7 @@ export namespace Prisma {
     slug?: SortOrder
     plan?: SortOrder
     status?: SortOrder
+    integrationAutoBindMode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -142718,6 +142781,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTenantStatusFilter<$PrismaModel>
     _max?: NestedEnumTenantStatusFilter<$PrismaModel>
+  }
+
+  export type EnumIntegrationAutoBindModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationAutoBindMode | EnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    in?: $Enums.IntegrationAutoBindMode[] | ListEnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.IntegrationAutoBindMode[] | ListEnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumIntegrationAutoBindModeWithAggregatesFilter<$PrismaModel> | $Enums.IntegrationAutoBindMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumIntegrationAutoBindModeFilter<$PrismaModel>
+    _max?: NestedEnumIntegrationAutoBindModeFilter<$PrismaModel>
   }
 
   export type TenantSettingsCountOrderByAggregateInput = {
@@ -149867,6 +149940,10 @@ export namespace Prisma {
 
   export type EnumTenantStatusFieldUpdateOperationsInput = {
     set?: $Enums.TenantStatus
+  }
+
+  export type EnumIntegrationAutoBindModeFieldUpdateOperationsInput = {
+    set?: $Enums.IntegrationAutoBindMode
   }
 
   export type TenantSettingsUpdateOneWithoutTenantNestedInput = {
@@ -157589,6 +157666,13 @@ export namespace Prisma {
     not?: NestedEnumTenantStatusFilter<$PrismaModel> | $Enums.TenantStatus
   }
 
+  export type NestedEnumIntegrationAutoBindModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationAutoBindMode | EnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    in?: $Enums.IntegrationAutoBindMode[] | ListEnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.IntegrationAutoBindMode[] | ListEnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumIntegrationAutoBindModeFilter<$PrismaModel> | $Enums.IntegrationAutoBindMode
+  }
+
   export type NestedEnumTenantPlanWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.TenantPlan | EnumTenantPlanFieldRefInput<$PrismaModel>
     in?: $Enums.TenantPlan[] | ListEnumTenantPlanFieldRefInput<$PrismaModel>
@@ -157607,6 +157691,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTenantStatusFilter<$PrismaModel>
     _max?: NestedEnumTenantStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumIntegrationAutoBindModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.IntegrationAutoBindMode | EnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    in?: $Enums.IntegrationAutoBindMode[] | ListEnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.IntegrationAutoBindMode[] | ListEnumIntegrationAutoBindModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumIntegrationAutoBindModeWithAggregatesFilter<$PrismaModel> | $Enums.IntegrationAutoBindMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumIntegrationAutoBindModeFilter<$PrismaModel>
+    _max?: NestedEnumIntegrationAutoBindModeFilter<$PrismaModel>
   }
 
   export type NestedEnumTrainingTypeFilter<$PrismaModel = never> = {
@@ -158053,6 +158147,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -158127,6 +158222,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -158217,6 +158313,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -158291,6 +158388,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -158365,6 +158463,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -158439,6 +158538,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -158529,6 +158629,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -158603,6 +158704,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -158677,6 +158779,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -158751,6 +158854,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -159130,6 +159234,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -159204,6 +159309,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -159583,6 +159689,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -159657,6 +159764,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -160074,6 +160182,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -160148,6 +160257,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -160516,6 +160626,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -160590,6 +160701,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -161001,6 +161113,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -161075,6 +161188,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -161527,6 +161641,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -161601,6 +161716,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -162018,6 +162134,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -162092,6 +162209,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -162460,6 +162578,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -162534,6 +162653,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -162906,6 +163026,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -162980,6 +163101,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -163348,6 +163470,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -163422,6 +163545,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -163617,6 +163741,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -163691,6 +163816,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -163913,6 +164039,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -163987,6 +164114,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -164314,6 +164442,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -164388,6 +164517,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -164705,6 +164835,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -164779,6 +164910,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -165059,6 +165191,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -165133,6 +165266,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -165354,6 +165488,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -165428,6 +165563,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -165777,6 +165913,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -165851,6 +165988,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -166161,6 +166299,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -166235,6 +166374,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -166503,6 +166643,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -166577,6 +166718,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -166841,6 +166983,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -166915,6 +167058,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -167183,6 +167327,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -167257,6 +167402,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -167521,6 +167667,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -167595,6 +167742,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -167685,6 +167833,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -167759,6 +167908,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -167833,6 +167983,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -167907,6 +168058,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -167997,6 +168149,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -168071,6 +168224,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -168145,6 +168299,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -168219,6 +168374,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -168341,6 +168497,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -168415,6 +168572,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -168580,6 +168738,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -168654,6 +168813,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -168780,6 +168940,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -168854,6 +169015,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -168961,6 +169123,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -169035,6 +169198,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -169150,6 +169314,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -169224,6 +169389,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -169329,6 +169495,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -169403,6 +169570,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -169937,6 +170105,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -170011,6 +170180,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -170577,6 +170747,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -170651,6 +170822,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -171070,6 +171242,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -171144,6 +171317,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -171565,6 +171739,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -171639,6 +171814,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -172058,6 +172234,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -172132,6 +172309,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -172692,6 +172870,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -172766,6 +172945,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -172961,6 +173141,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -173035,6 +173216,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -173554,6 +173736,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -173628,6 +173811,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -173831,6 +174015,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -173905,6 +174090,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -174110,6 +174296,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -174184,6 +174371,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -174584,6 +174772,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -174658,6 +174847,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -175096,6 +175286,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -175170,6 +175361,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -175448,6 +175640,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -175522,6 +175715,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -175743,6 +175937,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -175817,6 +176012,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -176182,6 +176378,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -176256,6 +176453,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -177573,6 +177771,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -177647,6 +177846,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -177968,6 +178168,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -178042,6 +178243,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -178329,6 +178531,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -178403,6 +178606,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -178952,6 +179156,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -179026,6 +179231,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -179398,6 +179604,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -179472,6 +179679,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -179662,6 +179870,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -179736,6 +179945,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -179810,6 +180020,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -179884,6 +180095,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -180449,6 +180661,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -180523,6 +180736,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -180981,6 +181195,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -181055,6 +181270,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -181490,6 +181706,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -181564,6 +181781,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -182001,6 +182219,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -182075,6 +182294,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -182510,6 +182730,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -182584,6 +182805,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -183021,6 +183243,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -183095,6 +183318,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -183389,6 +183613,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -183463,6 +183688,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -183728,6 +183954,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -183802,6 +184029,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -184082,6 +184310,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -184156,6 +184385,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -184432,6 +184662,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -184506,6 +184737,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -184960,6 +185192,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -185034,6 +185267,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -185449,6 +185683,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -185523,6 +185758,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -185809,6 +186045,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -185883,6 +186120,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -186099,6 +186337,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -186173,6 +186412,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -186502,6 +186742,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -186576,6 +186817,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -186907,6 +187149,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -186981,6 +187224,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -187530,6 +187774,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -187604,6 +187849,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -188234,6 +188480,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -188308,6 +188555,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -188636,6 +188884,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -188710,6 +188959,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -189022,6 +189272,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -189096,6 +189347,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -189424,6 +189676,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -189498,6 +189751,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -189719,6 +189973,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -189793,6 +190048,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -189883,6 +190139,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -189957,6 +190214,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -190122,6 +190380,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -190196,6 +190455,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -190524,6 +190784,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -190598,6 +190859,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -190819,6 +191081,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -190893,6 +191156,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -191213,6 +191477,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -191287,6 +191552,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -191642,6 +191908,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -191716,6 +191983,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -192139,6 +192407,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -192213,6 +192482,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -192668,6 +192938,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -192742,6 +193013,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -192916,6 +193188,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -192990,6 +193263,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -193064,6 +193338,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -193138,6 +193413,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -193228,6 +193504,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -193302,6 +193579,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -197850,6 +198128,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipCreateNestedManyWithoutTenantInput
@@ -197924,6 +198203,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
@@ -198014,6 +198294,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
@@ -198088,6 +198369,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
@@ -198162,6 +198444,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -198236,6 +198519,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -198398,6 +198682,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -198472,6 +198757,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -198754,6 +199040,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -198828,6 +199115,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -199106,6 +199394,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -199180,6 +199469,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -199289,6 +199579,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -199363,6 +199654,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -199562,6 +199854,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -199636,6 +199929,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -200211,6 +200505,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -200285,6 +200580,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -200587,6 +200883,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -200661,6 +200958,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -200927,6 +201225,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -201001,6 +201300,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -201191,6 +201491,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -201265,6 +201566,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -201387,6 +201689,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -201461,6 +201764,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -201729,6 +202033,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -201803,6 +202108,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -202067,6 +202373,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -202141,6 +202448,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -202268,6 +202576,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -202342,6 +202651,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -202459,6 +202769,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -202533,6 +202844,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -202708,6 +203020,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -202782,6 +203095,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -202915,6 +203229,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -202989,6 +203304,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -203255,6 +203571,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -203329,6 +203646,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -207280,6 +207598,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -207354,6 +207673,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -207591,6 +207911,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -207665,6 +207986,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -207739,6 +208061,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -207813,6 +208136,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -207985,6 +208309,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -208059,6 +208384,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -208165,6 +208491,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -208239,6 +208566,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -208370,6 +208698,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -208444,6 +208773,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -208565,6 +208895,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -208639,6 +208970,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -208911,6 +209243,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -208985,6 +209318,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -209415,6 +209749,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -209489,6 +209824,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -209905,6 +210241,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -209979,6 +210316,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -210284,6 +210622,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -210358,6 +210697,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -210715,6 +211055,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -210789,6 +211130,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -211185,6 +211527,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -211259,6 +211602,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -211509,6 +211853,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -211583,6 +211928,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -211880,6 +212226,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -211954,6 +212301,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -212258,6 +212606,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -212332,6 +212681,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
@@ -212553,6 +212903,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
@@ -212627,6 +212978,7 @@ export namespace Prisma {
     slug: string
     plan?: $Enums.TenantPlan
     status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
     createdAt?: Date | string
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
@@ -212999,6 +213351,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
@@ -213073,6 +213426,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
     status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput

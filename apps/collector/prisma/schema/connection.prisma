@@ -24,6 +24,14 @@ model IntegrationConnection {
   lastErrorMessage     String?
   syncFrequencyMinutes Int              @default(1440)
   isActive             Boolean          @default(true)
+  // Snapshot of the manifest version the connection was last
+  // reconciled against. The reconciler compares this with the loaded
+  // manifest's `version` to detect manifest version bumps that require
+  // re-binding (e.g. a new check was added to GitHub).
+  manifestVersion      String?
+  // Stamp the reconciler updates on every successful tick. Drives the
+  // nightly safety-net query ("find connections not reconciled in 24h").
+  lastReconciledAt     DateTime?
   createdAt            DateTime         @default(now())
   updatedAt            DateTime         @updatedAt
 
@@ -38,4 +46,5 @@ model IntegrationConnection {
   @@index([tenantId])
   @@index([tenantId, status])
   @@index([secretId])
+  @@index([lastReconciledAt])
 }

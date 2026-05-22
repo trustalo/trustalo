@@ -203,6 +203,231 @@ export function listConnectionsForOrg(tenantId: string): Promise<CollectorConnec
   return request<CollectorConnectionSummary[]>("GET", "/internal/connections", tenantId);
 }
 
+/**
+ * One bound connection as returned by
+ * `GET /internal/controls/:controlId/connections`. The list is one row
+ * per *connection*, with the contributing manifestKeys rolled up.
+ */
+export interface BoundConnectionSummary {
+  id: string;
+  name: string;
+  status: string;
+  isActive: boolean;
+  integrationSlug: string;
+  integrationName: string;
+  manifestKeys: string[];
+}
+
+/**
+ * Fetch the IntegrationConnections currently bound to the given
+ * control via materialised `IntegrationCheckControl` rows.
+ *
+ * Used as the default for `agentToolConnectionIds` when the user
+ * hasn't explicitly chosen tool connections — the unified binding
+ * pipeline removes the "pick connections by hand" step.
+ */
+export function listBoundConnectionsForControl(
+  tenantId: string,
+  controlId: string,
+): Promise<BoundConnectionSummary[]> {
+  return request<BoundConnectionSummary[]>(
+    "GET",
+    `/internal/controls/${encodeURIComponent(controlId)}/connections`,
+    tenantId,
+  );
+}
+
+/**
+ * Reason hint forwarded to the collector's reconciler when the API
+ * fires a drift event. Mirrors the Prisma
+ * `IntegrationCheckControlDisabledReason` enum, but kept as a string
+ * here so the API doesn't need to import the collector's Prisma
+ * client just to call the endpoint.
+ */
+export type ReconcileTriggerReason =
+  | "pending_confirmation"
+  | "user_disabled"
+  | "control_not_applicable"
+  | "control_deleted"
+  | "framework_disabled"
+  | "ref_unmapped"
+  | "manifest_removed";
+
+export interface ReconcileBindingsResultWire {
+  connectionId: string;
+  manifestVersion: string | null;
+  added: Array<{ controlId: string; manifestKey: string }>;
+  reEnabled: Array<{ controlId: string; manifestKey: string }>;
+  disabled: Array<{
+    controlId: string;
+    manifestKey: string;
+    reason: ReconcileTriggerReason;
+  }>;
+  unchanged: number;
+}
+
+/**
+ * Trigger a binding reconcile for either a specific connection (when
+ * `connectionId` is provided) or every active connection in the
+ * tenant (when omitted). Used by framework / control lifecycle hooks
+ * in the API and by the nightly cron.
+ *
+ * Best-effort by design: API mutation handlers should not 5xx because
+ * the collector is temporarily unreachable, so callers typically wrap
+ * this in a try/catch and log on failure.
+ */
+export function reconcileConnectionBindings(
+  tenantId: string,
+  opts: {
+    connectionId?: string;
+    triggerReason?: ReconcileTriggerReason;
+  } = {},
+): Promise<{ connections: ReconcileBindingsResultWire[]; totalConnections: number }> {
+  return request<{ connections: ReconcileBindingsResultWire[]; totalConnections: number }>(
+    "POST",
+    "/internal/connections/reconcile-bindings",
+    tenantId,
+    opts,
+  );
+}
+
+// ── Automation health ──────────────────────────────────────────────
+//
+// Read-only rollups for the API to embed on `GET /controls/:id` and
+// expose under the auditor timeline. The collector owns the raw data
+// (`IntegrationCheck`, `EvidenceCoverageGap`); the API stays a thin
+// proxy. All three calls are best-effort — if the collector is
+// unreachable, the API should still return the control payload
+// without `automationHealth`.
+
+export type HealthState = "healthy" | "degraded" | "overdue" | "failing" | "paused";
+
+export interface ControlAutomationHealth {
+  state: HealthState | "no_automation";
+  totalChecks: number;
+  healthyChecks: number;
+  oldestLastSuccessAt: string | null;
+  openGapCount: number;
+  openGapSeverity: "low" | "medium" | "high" | "critical" | null;
+  recentGaps: Array<{
+    id: string;
+    reason: string;
+    openedAt: string;
+    openedForMs: number;
+    lastErrorMessage: string | null;
+  }>;
+}
+
+export function getControlAutomationHealth(
+  tenantId: string,
+  controlId: string,
+): Promise<ControlAutomationHealth> {
+  return request<ControlAutomationHealth>(
+    "GET",
+    `/internal/controls/${encodeURIComponent(controlId)}/automation-health`,
+    tenantId,
+  );
+}
+
+export interface ConnectionHealthSummary {
+  connectionId: string;
+  state: HealthState | "no_checks";
+  totalChecks: number;
+  checksByState: Record<HealthState, number>;
+  openGapCount: number;
+  openGapsByReason: Record<string, number>;
+  lastSyncAt: string | null;
+}
+
+export function getConnectionHealth(
+  tenantId: string,
+  connectionId: string,
+): Promise<ConnectionHealthSummary> {
+  return request<ConnectionHealthSummary>(
+    "GET",
+    `/internal/connections/${encodeURIComponent(connectionId)}/health`,
+    tenantId,
+  );
+}
+
+export interface ControlEvidenceCoverage {
+  controlId: string;
+  windowStart: string;
+  windowEnd: string;
+  gaps: Array<{
+    id: string;
+    integrationCheckId: string;
+    manifestKey: string;
+    reason: string;
+    startedAt: string;
+    endedAt: string | null;
+    durationMs: number;
+    lastErrorMessage: string | null;
+  }>;
+  uptime: number;
+}
+
+export function getControlEvidenceCoverage(
+  tenantId: string,
+  controlId: string,
+  windowDays?: number,
+): Promise<ControlEvidenceCoverage> {
+  const path = `/internal/controls/${encodeURIComponent(controlId)}/evidence-coverage${
+    windowDays ? `?windowDays=${windowDays}` : ""
+  }`;
+  return request<ControlEvidenceCoverage>("GET", path, tenantId);
+}
+
+// ── Platform health (cross-tenant SRE rollup) ─────────────────────
+//
+// Cross-tenant aggregate used to detect platform-wide outages of a
+// specific provider. The collector endpoint is unscoped — no
+// `X-Organization-Id` required — so we call it through a dedicated
+// helper that *doesn't* set that header.
+
+export interface PlatformCoverageHealth {
+  totalOpenGaps: number;
+  generatedAt: string;
+  providers: Array<{
+    providerId: string;
+    providerName: string;
+    openGaps: number;
+    byReason: Record<string, number>;
+    bySeverity: { low: number; medium: number; high: number; critical: number };
+    earliestStartedAt: string;
+  }>;
+}
+
+export async function getPlatformCoverageHealth(): Promise<PlatformCoverageHealth> {
+  const path = "/internal/health/coverage-gaps";
+  const signature = signServiceRequest({
+    caller: "api",
+    method: "GET",
+    path,
+    body: "",
+  });
+  const res = await fetch(`${COLLECTOR_BASE_URL}${path}`, {
+    method: "GET",
+    headers: toHeaderRecord(signature),
+  });
+  if (!res.ok) {
+    throw new CollectorRequestError(
+      res.status,
+      `Collector platform-health request failed: ${res.status} ${res.statusText}`,
+      "PLATFORM_HEALTH_UPSTREAM",
+    );
+  }
+  const body = (await res.json()) as { success: boolean; data: PlatformCoverageHealth };
+  if (!body.success) {
+    throw new CollectorRequestError(
+      502,
+      "Collector returned non-success envelope",
+      "PLATFORM_HEALTH_UPSTREAM",
+    );
+  }
+  return body.data;
+}
+
 // ── Agent runs ─────────────────────────────────────────────────────
 
 export interface CreateAgentRunInput {

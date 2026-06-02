@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/scripts/copy-worktree-env.sh\"",
+            "statusMessage": "Syncing worktree .env files",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

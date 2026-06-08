@@ -10,7 +10,7 @@ You grant the Project a perpetual, worldwide, non-exclusive, royalty-free, irrev
 
 This license includes the right for the Project to:
 
-- include the Contribution in the Trustalo software project under the [Trustalo Source-Available Commercial License](LICENSE) (the "Core License") or the [Trustalo Enterprise License](LICENSE_EE) (the "EE License"), at the Project's discretion;
+- include the Contribution in the Trustalo software project under the [Trustalo Sustainable Use License](LICENSE) (the "Core License") or the [Trustalo Enterprise License](LICENSE_EE) (the "EE License"), at the Project's discretion;
 - relicense the Trustalo software project (including your Contribution) under different terms in the future, including a more restrictive proprietary license or a more permissive open-source license, without seeking your further permission;
 - commercialize the Contribution as part of paid Trustalo products, Trustalo Cloud, Trustalo Enterprise Licenses, or any other revenue stream the Project chooses to operate.
 

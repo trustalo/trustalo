@@ -8,7 +8,7 @@ It is the operator- and contributor-facing companion to the binding legal text i
 
 ## TL;DR
 
-- Trustalo is **dual-licensed**. The core is source-available and free for organizations under USD 1 M revenue **and** funding. A subset of files — "EE Files" — are paywalled and require a paid Trustalo Enterprise License for any production use, **regardless of org size**.
+- Trustalo is **dual-licensed**. The core is source-available and free to run in production for **any organization, regardless of size, revenue, or funding** (redistribution remains reserved to Trustalo — see [`LICENSE`](../LICENSE)). A subset of files — "EE Files" — are paywalled and require a paid Trustalo Enterprise License for any production use, **regardless of org size**.
 - An EE File is any file whose filename contains `.ee.` (e.g. `sso.ee.ts`, `multi-tenant.ee.tsx`) **or** any file located under a directory named `ee` or matching `**/ee/**`.
 - The runtime gate is a single helper, `assertEnterpriseLicense(featureId)`, that validates a signed license key from the `TRUSTALO_LICENSE_KEY` env var. EE feature code MUST call it before doing any work.
 - The license key is an Ed25519-signed JWT-like token issued by Trustalo. The public verification key ships with the codebase; the signing key never leaves Trustalo.
@@ -25,6 +25,7 @@ The following capabilities are designated EE from v1.0 onward.
 | **SSO / SAML / advanced auth** | `sso` | Enterprise buying signal; high integration burden; not needed by SMBs | `packages/auth-provider-saml.ee/` _(scaffolded; SAML protocol logic to follow)_, `apps/api/src/modules/directory-sync/*.ee.ts` |
 | **Multi-org / multi-tenant partner portal** | `multi-tenant` | Used by MSSPs, audit firms, and consultancies who serve multiple client orgs from one deployment | _(planned — `apps/api/src/modules/multi-tenant.ee/`, `apps/web/src/app/(partner).ee/`)_ |
 | **AI accelerators** | `ai`, `ai-premium` | LLM inference is expensive, and the AI surface is a primary commercial differentiator; the only AI capabilities that stay free are defence-in-depth utilities (PII scrubbing) and a basic asset-classification bootstrap | See [§1.1 AI scope split](#11-ai-scope-split-free-vs-ee) below |
+| **Trust Center (publish/admin)** | `trust-center` | The public Trust Center page stays free so prospects can view it; publishing and administering what it exposes is an Enterprise capability | Router-level gate in `apps/api/src/modules/trust-center/router.ts` (`assertEnterpriseLicense("trust-center")`); the public read endpoints stay ungated |
 
 > **Note — Trustalo ships dual-licensed from day one.** The Core License and Enterprise License are both v1.0 of this project's first public release. There is no pre-existing free grant on EE features to undo: any file matching the EE convention is paywalled from the very first commit it lands in.
 
@@ -158,6 +159,8 @@ export type FeatureId =
   | "multi-tenant"
   | "ai" // umbrella entitlement for the AI accelerator surface
   | "ai-premium" // reserved for premium-model / agentic sub-features
+  | "ai-metered" // Trustalo-managed LiteLLM routing + metered billing
+  | "trust-center" // Trust Center publish/admin (public read side ungated)
   | (string & {});
 
 export interface LicenseClaims {

@@ -1,4 +1,4 @@
-Trustalo Source-Available Commercial License v1.0
+Trustalo Sustainable Use License v1.0
 
 Copyright (c) Trustalo Project Contributors
 All rights reserved.
@@ -12,9 +12,8 @@ This repository is licensed under a dual-license structure:
      path contains "/ee/", are designated "EE Files" and are NOT licensed
      under the terms below. Use of EE Files in any Production environment
      requires a valid Trustalo Enterprise License whose terms are set out
-     in the file "LICENSE_EE" at the repository root, regardless of
-     whether the user otherwise qualifies as a Qualified Organization
-     under this License.
+     in the file "LICENSE_EE" at the repository root, regardless of any
+     free-use grant under this License.
   b) All other source code, build artifacts, configuration, and
      documentation in this repository (collectively, the "Licensed Work"
      as defined below) are licensed under the terms set out below.
@@ -53,14 +52,6 @@ public or private code repository, container registry, package registry,
 artifact store, or mirror constitutes Distribution, regardless of whether
 access is restricted to the Licensee's personnel.
 
-"Qualified Organization" means an organization that has BOTH:
-  a) annual gross revenue below USD 1,000,000; and
-  b) total external funding raised below USD 1,000,000.
-
-"Commercial License" means a separate written license agreement granted by
-the Licensor that explicitly permits Production Use by organizations that
-are not Qualified Organizations.
-
 2. License Grant
 
 Subject to this License, you may install, execute, copy (solely as
@@ -69,19 +60,19 @@ purposes within your own infrastructure), modify, and create derivative
 works of the Licensed Work for your own Internal Use. This grant covers:
   a) development, testing, evaluation, learning, and non-production
      purposes by anyone; and
-  b) Production Use by Qualified Organizations or by organizations that
-     hold a Commercial License.
+  b) Production Use by any organization, regardless of size, revenue,
+     or funding, and at no charge.
 
 Modifications and derivative works are permitted solely for the
 Licensee's Internal Use and must not be Distributed.
 
-3. Commercial Trigger
+3. No Charge for Production Use
 
-If an organization meets or exceeds either threshold below, it is not a
-Qualified Organization and must obtain a Commercial License before any
-Production Use:
-  a) annual gross revenue of USD 1,000,000 or more; or
-  b) total external funding raised of USD 1,000,000 or more.
+Production Use of the Licensed Work is granted free of charge to any
+organization, regardless of annual revenue, funding raised, headcount, or
+any other characteristic. No separate commercial license is required for
+Production Use of the Licensed Work. Production Use of EE Files remains
+governed exclusively by the Trustalo Enterprise License (see LICENSE_EE).
 
 4. No Distribution
 
@@ -115,12 +106,10 @@ different terms.
 
 Except as expressly permitted by this License, you may not:
   a) Distribute the Licensed Work in violation of Section 4;
-  b) use the Licensed Work in Production Use if you are not a Qualified
-     Organization and do not hold a Commercial License;
-  c) represent this License as an open source license approved by OSI;
-  d) use Licensor names, logos, or trademarks except for factual
+  b) represent this License as an open source license approved by OSI;
+  c) use Licensor names, logos, or trademarks except for factual
      attribution;
-  e) remove, obscure, or alter any copyright, attribution, or license
+  d) remove, obscure, or alter any copyright, attribution, or license
      notices contained in the Licensed Work.
 
 7. Termination

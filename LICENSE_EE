@@ -11,8 +11,8 @@ Files" in the Trustalo repository. EE Files are:
      contains "/ee/".
 
 Capitalized terms not defined in this License have the meanings given
-to them in the Trustalo Source-Available Commercial License (the "Core
-License") set out in the file "LICENSE" at the repository root.
+to them in the Trustalo Sustainable Use License (the "Core License") set
+out in the file "LICENSE" at the repository root.
 
 1. License Grant
 
@@ -29,12 +29,11 @@ and create derivative works of the EE Files solely for the purposes of:
 
 2. No Free Production Tier
 
-The Qualified Organization free Production Use grant in the Core
-License DOES NOT apply to EE Files. Production Use of EE Files
-requires a paid, written Trustalo Enterprise License agreement,
-regardless of your organization's revenue, funding, or any other
-characteristic that would otherwise qualify you for a free tier under
-the Core License.
+The free Production Use grant in the Core License DOES NOT apply to EE
+Files. Production Use of EE Files requires a paid, written Trustalo
+Enterprise License agreement, regardless of your organization's size or
+any other characteristic that would otherwise grant free use under the
+Core License.
 
 3. License Key Enforcement
 

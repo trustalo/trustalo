@@ -39,6 +39,12 @@ export type FeatureId =
   // → feature) and are responsible for paying upstream providers
   // directly.
   | "ai-metered"
+  // Trust Center publishing / administration. The public Trust Center
+  // page (read side) is always free so prospects can view it; gating
+  // applies only to the publish/admin endpoints, enforced by a
+  // router-level `assertEnterpriseLicense("trust-center")` in
+  // apps/api/src/modules/trust-center/router.ts.
+  | "trust-center"
   | (string & {});
 
 export type LicenseTier = "enterprise" | "developer";

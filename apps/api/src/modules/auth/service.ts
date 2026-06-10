@@ -20,7 +20,7 @@ import {
 } from "@trustalo/auth";
 import type { JwtConfig } from "@trustalo/auth";
 import { extractLocalCredential } from "@trustalo/auth-provider-local";
-import type { MembershipRole } from "../../../generated/prisma/client/index.js";
+import type { PersonRole } from "../../../generated/prisma/client/index.js";
 import { getActiveAuthProvider } from "./provider-bootstrap.js";
 import { getJwtSecret } from "../../config/security.js";
 
@@ -203,12 +203,14 @@ export class AuthService {
       },
     });
 
-    const membership = await prisma.membership.findUniqueOrThrow({
-      where: { userId_tenantId: { userId, tenantId } },
+    // People replaces Membership: resolve the caller's Person for this tenant.
+    // Returned as `membership` to preserve the /auth/me response contract.
+    const person = await prisma.person.findFirstOrThrow({
+      where: { userId, tenantId },
       include: { tenant: true },
     });
 
-    return { user, membership };
+    return { user, membership: person };
   }
 
   /**
@@ -218,7 +220,7 @@ export class AuthService {
   async inviteUser(
     tenantId: string,
     inviterUserId: string,
-    input: { email: string; role: MembershipRole },
+    input: { email: string; role: PersonRole },
   ) {
     void inviterUserId; // reserved for audit logs
     const provider = await getActiveAuthProvider();
@@ -257,21 +259,29 @@ export class AuthService {
       });
     }
 
-    const membership = await prisma.membership.upsert({
-      where: { userId_tenantId: { userId: user.id, tenantId } },
-      update: {},
-      create: {
-        userId: user.id,
-        tenantId,
-        role: input.role,
-        status: "invited",
-        invitedAt: new Date(),
-      },
-    });
+    // Upsert the Person (replaces Membership). findFirst+create rather than an
+    // upsert-by-compound-unique because (tenantId, userId) has a nullable
+    // userId. `membershipId` in the return keeps the invite response contract.
+    let person = await prisma.person.findFirst({ where: { tenantId, userId: user.id } });
+    if (!person) {
+      person = await prisma.person.create({
+        data: {
+          tenantId,
+          userId: user.id,
+          email,
+          fullName: user.name,
+          role: input.role,
+          status: "invited",
+          source: "invite",
+          invitedAt: new Date(),
+        },
+      });
+    }
 
     return {
       userId: user.id,
-      membershipId: membership.id,
+      membershipId: person.id,
+      personId: person.id,
       status: "invited",
       inviteEmailSent,
       provider: provider.id,
@@ -350,12 +360,15 @@ export class AuthService {
       //    create the Organization. For invited users, the membership is
       //    expected to already exist (in "invited" status) — promote it to
       //    "active" on first login.
-      let membership = await tx.membership.findFirst({
+      // People replaces Membership. Cross-tenant lookup by userId on the base
+      // `tx` client (Person is an INTENTIONAL_EXCEPTION — not auto-tenant-scoped
+      // — so login can find the user's Person in whichever tenant they belong to).
+      let person = await tx.person.findFirst({
         where: { userId: user.id, status: { in: ["active", "invited"] } },
         include: { tenant: true },
       });
 
-      if (!membership) {
+      if (!person) {
         if (flow.mode !== "register") {
           throw new AuthError(
             403,
@@ -367,19 +380,22 @@ export class AuthService {
         const organization = await tx.tenant.create({
           data: { name: flow.organizationName, slug },
         });
-        membership = await tx.membership.create({
+        person = await tx.person.create({
           data: {
             userId: user.id,
             tenantId: organization.id,
+            email: user.email,
+            fullName: user.name,
             role: "owner",
             status: "active",
+            source: "self_register",
             joinedAt: new Date(),
           },
           include: { tenant: true },
         });
-      } else if (membership.status === "invited") {
-        membership = await tx.membership.update({
-          where: { id: membership.id },
+      } else if (person.status === "invited") {
+        person = await tx.person.update({
+          where: { id: person.id },
           data: { status: "active", joinedAt: new Date() },
           include: { tenant: true },
         });
@@ -390,19 +406,19 @@ export class AuthService {
         data: { lastLoginAt: new Date() },
       });
 
-      return { user, membership };
+      return { user, person };
     });
 
     const permissions =
-      result.membership.permissions.length > 0
-        ? result.membership.permissions
-        : getPermissionsForRole(result.membership.role);
+      result.person.permissions.length > 0
+        ? result.person.permissions
+        : getPermissionsForRole(result.person.role);
 
     const token = signToken(
       {
         userId: result.user.id,
-        tenantId: result.membership.tenantId,
-        role: result.membership.role,
+        tenantId: result.person.tenantId,
+        role: result.person.role,
         permissions,
       },
       jwtConfig,
@@ -412,9 +428,9 @@ export class AuthService {
       token,
       user: { id: result.user.id, email: result.user.email, name: result.user.name },
       organization: {
-        id: result.membership.tenant.id,
-        name: result.membership.tenant.name,
-        slug: result.membership.tenant.slug,
+        id: result.person.tenant.id,
+        name: result.person.tenant.name,
+        slug: result.person.tenant.slug,
       },
     };
   }

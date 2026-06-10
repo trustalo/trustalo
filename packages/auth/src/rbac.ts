@@ -38,6 +38,15 @@ const ALL_PERMISSIONS = [
   "integrations:manage",
   "privacy:read",
   "privacy:write",
+  "people:read",
+  "people:write",
+  // Self-service scope for the default `member` role: view own profile +
+  // devices and acknowledge assigned policies / complete assigned training.
+  // `self:read` gates the read side of the /people/me self-portal; `self:write`
+  // gates self-mutations that only ever touch the CALLER's own rows
+  // (acknowledge a policy, mark own training complete) — never another person.
+  "self:read",
+  "self:write",
 ] as const;
 
 const READ_ONLY_PERMISSIONS = ALL_PERMISSIONS.filter((p) => p.endsWith(":read"));
@@ -76,6 +85,8 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "training:write",
     "privacy:read",
     "privacy:write",
+    "people:read",
+    "people:write",
   ],
 
   auditor: [...READ_ONLY_PERMISSIONS, "evidence:approve", "audits:write"],
@@ -95,6 +106,11 @@ export const ROLE_PERMISSIONS: Record<string, string[]> = {
     "evidence:write",
     "vendors:write",
   ],
+
+  // Default role for every Person. Rank-and-file / vendor-contact self-service
+  // only: view own profile + devices and acknowledge assigned policies /
+  // complete assigned training (those read paths scope to the caller).
+  member: ["self:read", "self:write"],
 };
 
 export function hasPermission(userPermissions: string[], required: string): boolean {

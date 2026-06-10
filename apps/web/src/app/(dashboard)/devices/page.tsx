@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { Badge, type BadgeVariant } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -86,7 +87,12 @@ export default function DevicesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Devices</h1>
+        <Link href="/assets" className="text-sm text-neutral-500 hover:text-neutral-800">
+          ← Back to Assets
+        </Link>
+        <h1 className="mt-2 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
+          Devices
+        </h1>
         <p className="mt-1 text-sm text-neutral-500">
           Endpoint posture reported by the Trustalo device agent. Each device maps to a Computer
           asset and its assigned person.

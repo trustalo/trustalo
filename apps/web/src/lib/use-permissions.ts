@@ -74,7 +74,6 @@ export const NAV_PERMISSIONS: Record<string, string | null> = {
   Tasks: null,
   "My Compliance": "self:read",
   People: "people:read",
-  Devices: "assets:read",
   Frameworks: "frameworks:read",
   Controls: "controls:read",
   Policies: "policies:read",

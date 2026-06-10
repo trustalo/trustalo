@@ -130,13 +130,6 @@ const RISK_TRUST_ITEMS: NavItem[] = [
     ),
   },
   {
-    label: "Devices",
-    href: "/devices",
-    icon: (
-      <Icon d="M9.75 17h4.5M5 3h14a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zM8 21h8" />
-    ),
-  },
-  {
     label: "Incidents",
     href: "/incidents",
     icon: (

@@ -29,7 +29,14 @@ import { isOriginAllowed } from "../config/security.js";
  */
 const SAFE_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 
-const EXEMPT_PATH_PREFIXES = ["/internal/", "/health"] as const;
+const EXEMPT_PATH_PREFIXES = [
+  "/internal/",
+  "/health",
+  // Device-agent routes authenticate via an enrollment token or a per-device
+  // HMAC signature (no cookies), so they have no CSRF surface — same
+  // rationale as /internal.
+  "/api/v1/devices/agent/",
+] as const;
 
 function originFromReferer(referer: string): string | null {
   try {

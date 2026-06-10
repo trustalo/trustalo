@@ -1,0 +1,11 @@
+{
+  "apiUrl": "http://localhost:15002",
+  "webUrl": "http://localhost:15000",
+  "authMethod": "basic",
+  "checkInIntervalSeconds": 3600,
+  "dev": {
+    "email": "you@example.com",
+    "password": "",
+    "enrollmentToken": ""
+  }
+}

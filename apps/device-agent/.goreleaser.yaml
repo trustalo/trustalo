@@ -1,0 +1,44 @@
+# goreleaser config for the Trustalo device-agent daemon (agentd).
+#
+# The pure-Go daemon cross-compiles for every target here (CGO off). The tray
+# (cgo) and the signed OS installers — macOS .pkg (notarized), Windows .msi
+# (Authenticode), Linux .deb/.rpm — are produced on native CI runners with the
+# appropriate C toolchains and signing certs (see .github/workflows/agent.yml).
+# Signing certs are an ops prerequisite and are intentionally not wired here.
+version: 2
+project_name: trustalo-agent
+
+builds:
+  - id: agentd
+    main: ./cmd/agentd
+    binary: trustalo-agentd
+    env:
+      - CGO_ENABLED=0
+    goos: [linux, windows, darwin]
+    goarch: [amd64, arm64]
+    ldflags:
+      - -s -w
+      - -X github.com/trustalo/trustalo/apps/device-agent/internal/config.Version={{ .Version }}
+
+archives:
+  - id: agentd
+    ids: [agentd]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: checksums.txt
+
+nfpms:
+  - id: agentd-linux
+    package_name: trustalo-agent
+    ids: [agentd]
+    formats: [deb, rpm]
+    maintainer: "Trustalo <support@trustalo.io>"
+    description: "Trustalo endpoint device-posture agent."
+    license: "Trustalo Sustainable Use License"
+    bindir: /usr/local/bin
+
+# Releases are cut by CI (with signing); `goreleaser release --snapshot` is used
+# locally for unsigned dry runs.
+release:
+  disable: true

@@ -134,6 +134,26 @@ export type ControlEvidenceCollectionConfig = $Result.DefaultSelection<Prisma.$C
  */
 export type ControlWeakness = $Result.DefaultSelection<Prisma.$ControlWeaknessPayload>
 /**
+ * Model DeviceEnrollmentToken
+ * 
+ */
+export type DeviceEnrollmentToken = $Result.DefaultSelection<Prisma.$DeviceEnrollmentTokenPayload>
+/**
+ * Model Device
+ * 
+ */
+export type Device = $Result.DefaultSelection<Prisma.$DevicePayload>
+/**
+ * Model DevicePostureSnapshot
+ * 
+ */
+export type DevicePostureSnapshot = $Result.DefaultSelection<Prisma.$DevicePostureSnapshotPayload>
+/**
+ * Model DeviceNonce
+ * 
+ */
+export type DeviceNonce = $Result.DefaultSelection<Prisma.$DeviceNoncePayload>
+/**
  * Model Evidence
  * 
  */
@@ -816,6 +836,45 @@ export const ControlWeaknessRemediabilityDecision: {
 };
 
 export type ControlWeaknessRemediabilityDecision = (typeof ControlWeaknessRemediabilityDecision)[keyof typeof ControlWeaknessRemediabilityDecision]
+
+
+export const DeviceEnrollmentTokenStatus: {
+  active: 'active',
+  consumed: 'consumed',
+  revoked: 'revoked',
+  expired: 'expired'
+};
+
+export type DeviceEnrollmentTokenStatus = (typeof DeviceEnrollmentTokenStatus)[keyof typeof DeviceEnrollmentTokenStatus]
+
+
+export const DevicePlatform: {
+  macos: 'macos',
+  windows: 'windows',
+  linux: 'linux'
+};
+
+export type DevicePlatform = (typeof DevicePlatform)[keyof typeof DevicePlatform]
+
+
+export const DeviceStatus: {
+  pending: 'pending',
+  active: 'active',
+  stale: 'stale',
+  revoked: 'revoked',
+  retired: 'retired'
+};
+
+export type DeviceStatus = (typeof DeviceStatus)[keyof typeof DeviceStatus]
+
+
+export const PostureSignalState: {
+  pass: 'pass',
+  fail: 'fail',
+  unknown: 'unknown'
+};
+
+export type PostureSignalState = (typeof PostureSignalState)[keyof typeof PostureSignalState]
 
 
 export const EvidenceType: {
@@ -1785,6 +1844,22 @@ export type ControlWeaknessRemediabilityDecision = $Enums.ControlWeaknessRemedia
 
 export const ControlWeaknessRemediabilityDecision: typeof $Enums.ControlWeaknessRemediabilityDecision
 
+export type DeviceEnrollmentTokenStatus = $Enums.DeviceEnrollmentTokenStatus
+
+export const DeviceEnrollmentTokenStatus: typeof $Enums.DeviceEnrollmentTokenStatus
+
+export type DevicePlatform = $Enums.DevicePlatform
+
+export const DevicePlatform: typeof $Enums.DevicePlatform
+
+export type DeviceStatus = $Enums.DeviceStatus
+
+export const DeviceStatus: typeof $Enums.DeviceStatus
+
+export type PostureSignalState = $Enums.PostureSignalState
+
+export const PostureSignalState: typeof $Enums.PostureSignalState
+
 export type EvidenceType = $Enums.EvidenceType
 
 export const EvidenceType: typeof $Enums.EvidenceType
@@ -2449,6 +2524,46 @@ export class PrismaClient<
     * ```
     */
   get controlWeakness(): Prisma.ControlWeaknessDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.deviceEnrollmentToken`: Exposes CRUD operations for the **DeviceEnrollmentToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DeviceEnrollmentTokens
+    * const deviceEnrollmentTokens = await prisma.deviceEnrollmentToken.findMany()
+    * ```
+    */
+  get deviceEnrollmentToken(): Prisma.DeviceEnrollmentTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.device`: Exposes CRUD operations for the **Device** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Devices
+    * const devices = await prisma.device.findMany()
+    * ```
+    */
+  get device(): Prisma.DeviceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.devicePostureSnapshot`: Exposes CRUD operations for the **DevicePostureSnapshot** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DevicePostureSnapshots
+    * const devicePostureSnapshots = await prisma.devicePostureSnapshot.findMany()
+    * ```
+    */
+  get devicePostureSnapshot(): Prisma.DevicePostureSnapshotDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.deviceNonce`: Exposes CRUD operations for the **DeviceNonce** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DeviceNonces
+    * const deviceNonces = await prisma.deviceNonce.findMany()
+    * ```
+    */
+  get deviceNonce(): Prisma.DeviceNonceDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.evidence`: Exposes CRUD operations for the **Evidence** model.
@@ -3477,6 +3592,10 @@ export namespace Prisma {
     Control: 'Control',
     ControlEvidenceCollectionConfig: 'ControlEvidenceCollectionConfig',
     ControlWeakness: 'ControlWeakness',
+    DeviceEnrollmentToken: 'DeviceEnrollmentToken',
+    Device: 'Device',
+    DevicePostureSnapshot: 'DevicePostureSnapshot',
+    DeviceNonce: 'DeviceNonce',
     Evidence: 'Evidence',
     Framework: 'Framework',
     FrameworkInstance: 'FrameworkInstance',
@@ -3549,7 +3668,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "tenantBillingConfig" | "tenantLiteLLMKey" | "creditWallet" | "creditTransaction" | "liteLLMSpendEvent" | "tenantAIUsageMonth" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
+      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "tenantBillingConfig" | "tenantLiteLLMKey" | "creditWallet" | "creditTransaction" | "liteLLMSpendEvent" | "tenantAIUsageMonth" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "deviceEnrollmentToken" | "device" | "devicePostureSnapshot" | "deviceNonce" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5326,6 +5445,302 @@ export namespace Prisma {
           count: {
             args: Prisma.ControlWeaknessCountArgs<ExtArgs>
             result: $Utils.Optional<ControlWeaknessCountAggregateOutputType> | number
+          }
+        }
+      }
+      DeviceEnrollmentToken: {
+        payload: Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>
+        fields: Prisma.DeviceEnrollmentTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeviceEnrollmentTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeviceEnrollmentTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.DeviceEnrollmentTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeviceEnrollmentTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload>
+          }
+          findMany: {
+            args: Prisma.DeviceEnrollmentTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload>[]
+          }
+          create: {
+            args: Prisma.DeviceEnrollmentTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload>
+          }
+          createMany: {
+            args: Prisma.DeviceEnrollmentTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DeviceEnrollmentTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.DeviceEnrollmentTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload>
+          }
+          update: {
+            args: Prisma.DeviceEnrollmentTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.DeviceEnrollmentTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeviceEnrollmentTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DeviceEnrollmentTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.DeviceEnrollmentTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceEnrollmentTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.DeviceEnrollmentTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeviceEnrollmentToken>
+          }
+          groupBy: {
+            args: Prisma.DeviceEnrollmentTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeviceEnrollmentTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeviceEnrollmentTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<DeviceEnrollmentTokenCountAggregateOutputType> | number
+          }
+        }
+      }
+      Device: {
+        payload: Prisma.$DevicePayload<ExtArgs>
+        fields: Prisma.DeviceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeviceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeviceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          findFirst: {
+            args: Prisma.DeviceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeviceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          findMany: {
+            args: Prisma.DeviceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>[]
+          }
+          create: {
+            args: Prisma.DeviceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          createMany: {
+            args: Prisma.DeviceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DeviceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>[]
+          }
+          delete: {
+            args: Prisma.DeviceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          update: {
+            args: Prisma.DeviceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          deleteMany: {
+            args: Prisma.DeviceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeviceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DeviceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>[]
+          }
+          upsert: {
+            args: Prisma.DeviceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePayload>
+          }
+          aggregate: {
+            args: Prisma.DeviceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDevice>
+          }
+          groupBy: {
+            args: Prisma.DeviceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeviceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeviceCountArgs<ExtArgs>
+            result: $Utils.Optional<DeviceCountAggregateOutputType> | number
+          }
+        }
+      }
+      DevicePostureSnapshot: {
+        payload: Prisma.$DevicePostureSnapshotPayload<ExtArgs>
+        fields: Prisma.DevicePostureSnapshotFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DevicePostureSnapshotFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DevicePostureSnapshotFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload>
+          }
+          findFirst: {
+            args: Prisma.DevicePostureSnapshotFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DevicePostureSnapshotFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload>
+          }
+          findMany: {
+            args: Prisma.DevicePostureSnapshotFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload>[]
+          }
+          create: {
+            args: Prisma.DevicePostureSnapshotCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload>
+          }
+          createMany: {
+            args: Prisma.DevicePostureSnapshotCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DevicePostureSnapshotCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload>[]
+          }
+          delete: {
+            args: Prisma.DevicePostureSnapshotDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload>
+          }
+          update: {
+            args: Prisma.DevicePostureSnapshotUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload>
+          }
+          deleteMany: {
+            args: Prisma.DevicePostureSnapshotDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DevicePostureSnapshotUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DevicePostureSnapshotUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload>[]
+          }
+          upsert: {
+            args: Prisma.DevicePostureSnapshotUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DevicePostureSnapshotPayload>
+          }
+          aggregate: {
+            args: Prisma.DevicePostureSnapshotAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDevicePostureSnapshot>
+          }
+          groupBy: {
+            args: Prisma.DevicePostureSnapshotGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DevicePostureSnapshotGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DevicePostureSnapshotCountArgs<ExtArgs>
+            result: $Utils.Optional<DevicePostureSnapshotCountAggregateOutputType> | number
+          }
+        }
+      }
+      DeviceNonce: {
+        payload: Prisma.$DeviceNoncePayload<ExtArgs>
+        fields: Prisma.DeviceNonceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeviceNonceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeviceNonceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload>
+          }
+          findFirst: {
+            args: Prisma.DeviceNonceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeviceNonceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload>
+          }
+          findMany: {
+            args: Prisma.DeviceNonceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload>[]
+          }
+          create: {
+            args: Prisma.DeviceNonceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload>
+          }
+          createMany: {
+            args: Prisma.DeviceNonceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DeviceNonceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload>[]
+          }
+          delete: {
+            args: Prisma.DeviceNonceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload>
+          }
+          update: {
+            args: Prisma.DeviceNonceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload>
+          }
+          deleteMany: {
+            args: Prisma.DeviceNonceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeviceNonceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DeviceNonceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload>[]
+          }
+          upsert: {
+            args: Prisma.DeviceNonceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceNoncePayload>
+          }
+          aggregate: {
+            args: Prisma.DeviceNonceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeviceNonce>
+          }
+          groupBy: {
+            args: Prisma.DeviceNonceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeviceNonceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeviceNonceCountArgs<ExtArgs>
+            result: $Utils.Optional<DeviceNonceCountAggregateOutputType> | number
           }
         }
       }
@@ -9679,6 +10094,10 @@ export namespace Prisma {
     control?: ControlOmit
     controlEvidenceCollectionConfig?: ControlEvidenceCollectionConfigOmit
     controlWeakness?: ControlWeaknessOmit
+    deviceEnrollmentToken?: DeviceEnrollmentTokenOmit
+    device?: DeviceOmit
+    devicePostureSnapshot?: DevicePostureSnapshotOmit
+    deviceNonce?: DeviceNonceOmit
     evidence?: EvidenceOmit
     framework?: FrameworkOmit
     frameworkInstance?: FrameworkInstanceOmit
@@ -10075,6 +10494,77 @@ export namespace Prisma {
    */
   export type ControlCountOutputTypeCountWeaknessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ControlWeaknessWhereInput
+  }
+
+
+  /**
+   * Count Type DeviceEnrollmentTokenCountOutputType
+   */
+
+  export type DeviceEnrollmentTokenCountOutputType = {
+    devices: number
+  }
+
+  export type DeviceEnrollmentTokenCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    devices?: boolean | DeviceEnrollmentTokenCountOutputTypeCountDevicesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DeviceEnrollmentTokenCountOutputType without action
+   */
+  export type DeviceEnrollmentTokenCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentTokenCountOutputType
+     */
+    select?: DeviceEnrollmentTokenCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DeviceEnrollmentTokenCountOutputType without action
+   */
+  export type DeviceEnrollmentTokenCountOutputTypeCountDevicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceWhereInput
+  }
+
+
+  /**
+   * Count Type DeviceCountOutputType
+   */
+
+  export type DeviceCountOutputType = {
+    snapshots: number
+    nonces: number
+  }
+
+  export type DeviceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    snapshots?: boolean | DeviceCountOutputTypeCountSnapshotsArgs
+    nonces?: boolean | DeviceCountOutputTypeCountNoncesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DeviceCountOutputType without action
+   */
+  export type DeviceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceCountOutputType
+     */
+    select?: DeviceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DeviceCountOutputType without action
+   */
+  export type DeviceCountOutputTypeCountSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DevicePostureSnapshotWhereInput
+  }
+
+  /**
+   * DeviceCountOutputType without action
+   */
+  export type DeviceCountOutputTypeCountNoncesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceNonceWhereInput
   }
 
 
@@ -10729,6 +11219,9 @@ export namespace Prisma {
     directorySyncConfigs: number
     directorySyncRuns: number
     externalIdentityMappings: number
+    devices: number
+    deviceEnrollmentTokens: number
+    devicePostureSnapshots: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10791,6 +11284,9 @@ export namespace Prisma {
     directorySyncConfigs?: boolean | TenantCountOutputTypeCountDirectorySyncConfigsArgs
     directorySyncRuns?: boolean | TenantCountOutputTypeCountDirectorySyncRunsArgs
     externalIdentityMappings?: boolean | TenantCountOutputTypeCountExternalIdentityMappingsArgs
+    devices?: boolean | TenantCountOutputTypeCountDevicesArgs
+    deviceEnrollmentTokens?: boolean | TenantCountOutputTypeCountDeviceEnrollmentTokensArgs
+    devicePostureSnapshots?: boolean | TenantCountOutputTypeCountDevicePostureSnapshotsArgs
   }
 
   // Custom InputTypes
@@ -11217,6 +11713,27 @@ export namespace Prisma {
     where?: ExternalIdentityMappingWhereInput
   }
 
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDevicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDeviceEnrollmentTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceEnrollmentTokenWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDevicePostureSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DevicePostureSnapshotWhereInput
+  }
+
 
   /**
    * Count Type TrainingProgramCountOutputType
@@ -11540,6 +12057,8 @@ export namespace Prisma {
     reviewedAnswers: number
     questionnaireImportJobs: number
     externalIdentityMappings: number
+    deviceTokensCreated: number
+    devicesEnrolled: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11598,6 +12117,8 @@ export namespace Prisma {
     reviewedAnswers?: boolean | UserCountOutputTypeCountReviewedAnswersArgs
     questionnaireImportJobs?: boolean | UserCountOutputTypeCountQuestionnaireImportJobsArgs
     externalIdentityMappings?: boolean | UserCountOutputTypeCountExternalIdentityMappingsArgs
+    deviceTokensCreated?: boolean | UserCountOutputTypeCountDeviceTokensCreatedArgs
+    devicesEnrolled?: boolean | UserCountOutputTypeCountDevicesEnrolledArgs
   }
 
   // Custom InputTypes
@@ -11994,6 +12515,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountExternalIdentityMappingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExternalIdentityMappingWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDeviceTokensCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceEnrollmentTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDevicesEnrolledArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceWhereInput
   }
 
 
@@ -19760,6 +20295,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     owner?: boolean | Asset$ownerArgs<ExtArgs>
     deletedBy?: boolean | Asset$deletedByArgs<ExtArgs>
+    device?: boolean | Asset$deviceArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
   export type AssetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -19824,6 +20360,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     owner?: boolean | Asset$ownerArgs<ExtArgs>
     deletedBy?: boolean | Asset$deletedByArgs<ExtArgs>
+    device?: boolean | Asset$deviceArgs<ExtArgs>
   }
   export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -19842,6 +20379,7 @@ export namespace Prisma {
       tenant: Prisma.$TenantPayload<ExtArgs>
       owner: Prisma.$UserPayload<ExtArgs> | null
       deletedBy: Prisma.$UserPayload<ExtArgs> | null
+      device: Prisma.$DevicePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -20255,6 +20793,7 @@ export namespace Prisma {
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     owner<T extends Asset$ownerArgs<ExtArgs> = {}>(args?: Subset<T, Asset$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     deletedBy<T extends Asset$deletedByArgs<ExtArgs> = {}>(args?: Subset<T, Asset$deletedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    device<T extends Asset$deviceArgs<ExtArgs> = {}>(args?: Subset<T, Asset$deviceArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20734,6 +21273,25 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * Asset.device
+   */
+  export type Asset$deviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    where?: DeviceWhereInput
   }
 
   /**
@@ -41460,6 +42018,4979 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ControlWeaknessInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DeviceEnrollmentToken
+   */
+
+  export type AggregateDeviceEnrollmentToken = {
+    _count: DeviceEnrollmentTokenCountAggregateOutputType | null
+    _avg: DeviceEnrollmentTokenAvgAggregateOutputType | null
+    _sum: DeviceEnrollmentTokenSumAggregateOutputType | null
+    _min: DeviceEnrollmentTokenMinAggregateOutputType | null
+    _max: DeviceEnrollmentTokenMaxAggregateOutputType | null
+  }
+
+  export type DeviceEnrollmentTokenAvgAggregateOutputType = {
+    maxUses: number | null
+    useCount: number | null
+  }
+
+  export type DeviceEnrollmentTokenSumAggregateOutputType = {
+    maxUses: number | null
+    useCount: number | null
+  }
+
+  export type DeviceEnrollmentTokenMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    tokenHash: string | null
+    label: string | null
+    status: $Enums.DeviceEnrollmentTokenStatus | null
+    maxUses: number | null
+    useCount: number | null
+    expiresAt: Date | null
+    createdById: string | null
+    consumedAt: Date | null
+    revokedAt: Date | null
+    revokedById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DeviceEnrollmentTokenMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    tokenHash: string | null
+    label: string | null
+    status: $Enums.DeviceEnrollmentTokenStatus | null
+    maxUses: number | null
+    useCount: number | null
+    expiresAt: Date | null
+    createdById: string | null
+    consumedAt: Date | null
+    revokedAt: Date | null
+    revokedById: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DeviceEnrollmentTokenCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    tokenHash: number
+    label: number
+    status: number
+    maxUses: number
+    useCount: number
+    expiresAt: number
+    createdById: number
+    consumedAt: number
+    revokedAt: number
+    revokedById: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DeviceEnrollmentTokenAvgAggregateInputType = {
+    maxUses?: true
+    useCount?: true
+  }
+
+  export type DeviceEnrollmentTokenSumAggregateInputType = {
+    maxUses?: true
+    useCount?: true
+  }
+
+  export type DeviceEnrollmentTokenMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    tokenHash?: true
+    label?: true
+    status?: true
+    maxUses?: true
+    useCount?: true
+    expiresAt?: true
+    createdById?: true
+    consumedAt?: true
+    revokedAt?: true
+    revokedById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DeviceEnrollmentTokenMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    tokenHash?: true
+    label?: true
+    status?: true
+    maxUses?: true
+    useCount?: true
+    expiresAt?: true
+    createdById?: true
+    consumedAt?: true
+    revokedAt?: true
+    revokedById?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DeviceEnrollmentTokenCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    tokenHash?: true
+    label?: true
+    status?: true
+    maxUses?: true
+    useCount?: true
+    expiresAt?: true
+    createdById?: true
+    consumedAt?: true
+    revokedAt?: true
+    revokedById?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DeviceEnrollmentTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceEnrollmentToken to aggregate.
+     */
+    where?: DeviceEnrollmentTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceEnrollmentTokens to fetch.
+     */
+    orderBy?: DeviceEnrollmentTokenOrderByWithRelationInput | DeviceEnrollmentTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeviceEnrollmentTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceEnrollmentTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceEnrollmentTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DeviceEnrollmentTokens
+    **/
+    _count?: true | DeviceEnrollmentTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DeviceEnrollmentTokenAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DeviceEnrollmentTokenSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeviceEnrollmentTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeviceEnrollmentTokenMaxAggregateInputType
+  }
+
+  export type GetDeviceEnrollmentTokenAggregateType<T extends DeviceEnrollmentTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeviceEnrollmentToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeviceEnrollmentToken[P]>
+      : GetScalarType<T[P], AggregateDeviceEnrollmentToken[P]>
+  }
+
+
+
+
+  export type DeviceEnrollmentTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceEnrollmentTokenWhereInput
+    orderBy?: DeviceEnrollmentTokenOrderByWithAggregationInput | DeviceEnrollmentTokenOrderByWithAggregationInput[]
+    by: DeviceEnrollmentTokenScalarFieldEnum[] | DeviceEnrollmentTokenScalarFieldEnum
+    having?: DeviceEnrollmentTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeviceEnrollmentTokenCountAggregateInputType | true
+    _avg?: DeviceEnrollmentTokenAvgAggregateInputType
+    _sum?: DeviceEnrollmentTokenSumAggregateInputType
+    _min?: DeviceEnrollmentTokenMinAggregateInputType
+    _max?: DeviceEnrollmentTokenMaxAggregateInputType
+  }
+
+  export type DeviceEnrollmentTokenGroupByOutputType = {
+    id: string
+    tenantId: string
+    tokenHash: string
+    label: string | null
+    status: $Enums.DeviceEnrollmentTokenStatus
+    maxUses: number
+    useCount: number
+    expiresAt: Date
+    createdById: string | null
+    consumedAt: Date | null
+    revokedAt: Date | null
+    revokedById: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: DeviceEnrollmentTokenCountAggregateOutputType | null
+    _avg: DeviceEnrollmentTokenAvgAggregateOutputType | null
+    _sum: DeviceEnrollmentTokenSumAggregateOutputType | null
+    _min: DeviceEnrollmentTokenMinAggregateOutputType | null
+    _max: DeviceEnrollmentTokenMaxAggregateOutputType | null
+  }
+
+  type GetDeviceEnrollmentTokenGroupByPayload<T extends DeviceEnrollmentTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeviceEnrollmentTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeviceEnrollmentTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeviceEnrollmentTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], DeviceEnrollmentTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeviceEnrollmentTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    tokenHash?: boolean
+    label?: boolean
+    status?: boolean
+    maxUses?: boolean
+    useCount?: boolean
+    expiresAt?: boolean
+    createdById?: boolean
+    consumedAt?: boolean
+    revokedAt?: boolean
+    revokedById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    createdBy?: boolean | DeviceEnrollmentToken$createdByArgs<ExtArgs>
+    devices?: boolean | DeviceEnrollmentToken$devicesArgs<ExtArgs>
+    _count?: boolean | DeviceEnrollmentTokenCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceEnrollmentToken"]>
+
+  export type DeviceEnrollmentTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    tokenHash?: boolean
+    label?: boolean
+    status?: boolean
+    maxUses?: boolean
+    useCount?: boolean
+    expiresAt?: boolean
+    createdById?: boolean
+    consumedAt?: boolean
+    revokedAt?: boolean
+    revokedById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    createdBy?: boolean | DeviceEnrollmentToken$createdByArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceEnrollmentToken"]>
+
+  export type DeviceEnrollmentTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    tokenHash?: boolean
+    label?: boolean
+    status?: boolean
+    maxUses?: boolean
+    useCount?: boolean
+    expiresAt?: boolean
+    createdById?: boolean
+    consumedAt?: boolean
+    revokedAt?: boolean
+    revokedById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    createdBy?: boolean | DeviceEnrollmentToken$createdByArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceEnrollmentToken"]>
+
+  export type DeviceEnrollmentTokenSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    tokenHash?: boolean
+    label?: boolean
+    status?: boolean
+    maxUses?: boolean
+    useCount?: boolean
+    expiresAt?: boolean
+    createdById?: boolean
+    consumedAt?: boolean
+    revokedAt?: boolean
+    revokedById?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DeviceEnrollmentTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "tokenHash" | "label" | "status" | "maxUses" | "useCount" | "expiresAt" | "createdById" | "consumedAt" | "revokedAt" | "revokedById" | "createdAt" | "updatedAt", ExtArgs["result"]["deviceEnrollmentToken"]>
+  export type DeviceEnrollmentTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    createdBy?: boolean | DeviceEnrollmentToken$createdByArgs<ExtArgs>
+    devices?: boolean | DeviceEnrollmentToken$devicesArgs<ExtArgs>
+    _count?: boolean | DeviceEnrollmentTokenCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DeviceEnrollmentTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    createdBy?: boolean | DeviceEnrollmentToken$createdByArgs<ExtArgs>
+  }
+  export type DeviceEnrollmentTokenIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    createdBy?: boolean | DeviceEnrollmentToken$createdByArgs<ExtArgs>
+  }
+
+  export type $DeviceEnrollmentTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DeviceEnrollmentToken"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      createdBy: Prisma.$UserPayload<ExtArgs> | null
+      devices: Prisma.$DevicePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      tokenHash: string
+      label: string | null
+      status: $Enums.DeviceEnrollmentTokenStatus
+      maxUses: number
+      useCount: number
+      expiresAt: Date
+      createdById: string | null
+      consumedAt: Date | null
+      revokedAt: Date | null
+      revokedById: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["deviceEnrollmentToken"]>
+    composites: {}
+  }
+
+  type DeviceEnrollmentTokenGetPayload<S extends boolean | null | undefined | DeviceEnrollmentTokenDefaultArgs> = $Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload, S>
+
+  type DeviceEnrollmentTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeviceEnrollmentTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeviceEnrollmentTokenCountAggregateInputType | true
+    }
+
+  export interface DeviceEnrollmentTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DeviceEnrollmentToken'], meta: { name: 'DeviceEnrollmentToken' } }
+    /**
+     * Find zero or one DeviceEnrollmentToken that matches the filter.
+     * @param {DeviceEnrollmentTokenFindUniqueArgs} args - Arguments to find a DeviceEnrollmentToken
+     * @example
+     * // Get one DeviceEnrollmentToken
+     * const deviceEnrollmentToken = await prisma.deviceEnrollmentToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeviceEnrollmentTokenFindUniqueArgs>(args: SelectSubset<T, DeviceEnrollmentTokenFindUniqueArgs<ExtArgs>>): Prisma__DeviceEnrollmentTokenClient<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DeviceEnrollmentToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeviceEnrollmentTokenFindUniqueOrThrowArgs} args - Arguments to find a DeviceEnrollmentToken
+     * @example
+     * // Get one DeviceEnrollmentToken
+     * const deviceEnrollmentToken = await prisma.deviceEnrollmentToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeviceEnrollmentTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, DeviceEnrollmentTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeviceEnrollmentTokenClient<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceEnrollmentToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceEnrollmentTokenFindFirstArgs} args - Arguments to find a DeviceEnrollmentToken
+     * @example
+     * // Get one DeviceEnrollmentToken
+     * const deviceEnrollmentToken = await prisma.deviceEnrollmentToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeviceEnrollmentTokenFindFirstArgs>(args?: SelectSubset<T, DeviceEnrollmentTokenFindFirstArgs<ExtArgs>>): Prisma__DeviceEnrollmentTokenClient<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceEnrollmentToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceEnrollmentTokenFindFirstOrThrowArgs} args - Arguments to find a DeviceEnrollmentToken
+     * @example
+     * // Get one DeviceEnrollmentToken
+     * const deviceEnrollmentToken = await prisma.deviceEnrollmentToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeviceEnrollmentTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, DeviceEnrollmentTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeviceEnrollmentTokenClient<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DeviceEnrollmentTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceEnrollmentTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DeviceEnrollmentTokens
+     * const deviceEnrollmentTokens = await prisma.deviceEnrollmentToken.findMany()
+     * 
+     * // Get first 10 DeviceEnrollmentTokens
+     * const deviceEnrollmentTokens = await prisma.deviceEnrollmentToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deviceEnrollmentTokenWithIdOnly = await prisma.deviceEnrollmentToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeviceEnrollmentTokenFindManyArgs>(args?: SelectSubset<T, DeviceEnrollmentTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DeviceEnrollmentToken.
+     * @param {DeviceEnrollmentTokenCreateArgs} args - Arguments to create a DeviceEnrollmentToken.
+     * @example
+     * // Create one DeviceEnrollmentToken
+     * const DeviceEnrollmentToken = await prisma.deviceEnrollmentToken.create({
+     *   data: {
+     *     // ... data to create a DeviceEnrollmentToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeviceEnrollmentTokenCreateArgs>(args: SelectSubset<T, DeviceEnrollmentTokenCreateArgs<ExtArgs>>): Prisma__DeviceEnrollmentTokenClient<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DeviceEnrollmentTokens.
+     * @param {DeviceEnrollmentTokenCreateManyArgs} args - Arguments to create many DeviceEnrollmentTokens.
+     * @example
+     * // Create many DeviceEnrollmentTokens
+     * const deviceEnrollmentToken = await prisma.deviceEnrollmentToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeviceEnrollmentTokenCreateManyArgs>(args?: SelectSubset<T, DeviceEnrollmentTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DeviceEnrollmentTokens and returns the data saved in the database.
+     * @param {DeviceEnrollmentTokenCreateManyAndReturnArgs} args - Arguments to create many DeviceEnrollmentTokens.
+     * @example
+     * // Create many DeviceEnrollmentTokens
+     * const deviceEnrollmentToken = await prisma.deviceEnrollmentToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DeviceEnrollmentTokens and only return the `id`
+     * const deviceEnrollmentTokenWithIdOnly = await prisma.deviceEnrollmentToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DeviceEnrollmentTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, DeviceEnrollmentTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DeviceEnrollmentToken.
+     * @param {DeviceEnrollmentTokenDeleteArgs} args - Arguments to delete one DeviceEnrollmentToken.
+     * @example
+     * // Delete one DeviceEnrollmentToken
+     * const DeviceEnrollmentToken = await prisma.deviceEnrollmentToken.delete({
+     *   where: {
+     *     // ... filter to delete one DeviceEnrollmentToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeviceEnrollmentTokenDeleteArgs>(args: SelectSubset<T, DeviceEnrollmentTokenDeleteArgs<ExtArgs>>): Prisma__DeviceEnrollmentTokenClient<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DeviceEnrollmentToken.
+     * @param {DeviceEnrollmentTokenUpdateArgs} args - Arguments to update one DeviceEnrollmentToken.
+     * @example
+     * // Update one DeviceEnrollmentToken
+     * const deviceEnrollmentToken = await prisma.deviceEnrollmentToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeviceEnrollmentTokenUpdateArgs>(args: SelectSubset<T, DeviceEnrollmentTokenUpdateArgs<ExtArgs>>): Prisma__DeviceEnrollmentTokenClient<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DeviceEnrollmentTokens.
+     * @param {DeviceEnrollmentTokenDeleteManyArgs} args - Arguments to filter DeviceEnrollmentTokens to delete.
+     * @example
+     * // Delete a few DeviceEnrollmentTokens
+     * const { count } = await prisma.deviceEnrollmentToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeviceEnrollmentTokenDeleteManyArgs>(args?: SelectSubset<T, DeviceEnrollmentTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeviceEnrollmentTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceEnrollmentTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DeviceEnrollmentTokens
+     * const deviceEnrollmentToken = await prisma.deviceEnrollmentToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeviceEnrollmentTokenUpdateManyArgs>(args: SelectSubset<T, DeviceEnrollmentTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeviceEnrollmentTokens and returns the data updated in the database.
+     * @param {DeviceEnrollmentTokenUpdateManyAndReturnArgs} args - Arguments to update many DeviceEnrollmentTokens.
+     * @example
+     * // Update many DeviceEnrollmentTokens
+     * const deviceEnrollmentToken = await prisma.deviceEnrollmentToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DeviceEnrollmentTokens and only return the `id`
+     * const deviceEnrollmentTokenWithIdOnly = await prisma.deviceEnrollmentToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DeviceEnrollmentTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, DeviceEnrollmentTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DeviceEnrollmentToken.
+     * @param {DeviceEnrollmentTokenUpsertArgs} args - Arguments to update or create a DeviceEnrollmentToken.
+     * @example
+     * // Update or create a DeviceEnrollmentToken
+     * const deviceEnrollmentToken = await prisma.deviceEnrollmentToken.upsert({
+     *   create: {
+     *     // ... data to create a DeviceEnrollmentToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DeviceEnrollmentToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeviceEnrollmentTokenUpsertArgs>(args: SelectSubset<T, DeviceEnrollmentTokenUpsertArgs<ExtArgs>>): Prisma__DeviceEnrollmentTokenClient<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DeviceEnrollmentTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceEnrollmentTokenCountArgs} args - Arguments to filter DeviceEnrollmentTokens to count.
+     * @example
+     * // Count the number of DeviceEnrollmentTokens
+     * const count = await prisma.deviceEnrollmentToken.count({
+     *   where: {
+     *     // ... the filter for the DeviceEnrollmentTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeviceEnrollmentTokenCountArgs>(
+      args?: Subset<T, DeviceEnrollmentTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeviceEnrollmentTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DeviceEnrollmentToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceEnrollmentTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeviceEnrollmentTokenAggregateArgs>(args: Subset<T, DeviceEnrollmentTokenAggregateArgs>): Prisma.PrismaPromise<GetDeviceEnrollmentTokenAggregateType<T>>
+
+    /**
+     * Group by DeviceEnrollmentToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceEnrollmentTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeviceEnrollmentTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeviceEnrollmentTokenGroupByArgs['orderBy'] }
+        : { orderBy?: DeviceEnrollmentTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeviceEnrollmentTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeviceEnrollmentTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DeviceEnrollmentToken model
+   */
+  readonly fields: DeviceEnrollmentTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DeviceEnrollmentToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeviceEnrollmentTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    createdBy<T extends DeviceEnrollmentToken$createdByArgs<ExtArgs> = {}>(args?: Subset<T, DeviceEnrollmentToken$createdByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    devices<T extends DeviceEnrollmentToken$devicesArgs<ExtArgs> = {}>(args?: Subset<T, DeviceEnrollmentToken$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DeviceEnrollmentToken model
+   */
+  interface DeviceEnrollmentTokenFieldRefs {
+    readonly id: FieldRef<"DeviceEnrollmentToken", 'String'>
+    readonly tenantId: FieldRef<"DeviceEnrollmentToken", 'String'>
+    readonly tokenHash: FieldRef<"DeviceEnrollmentToken", 'String'>
+    readonly label: FieldRef<"DeviceEnrollmentToken", 'String'>
+    readonly status: FieldRef<"DeviceEnrollmentToken", 'DeviceEnrollmentTokenStatus'>
+    readonly maxUses: FieldRef<"DeviceEnrollmentToken", 'Int'>
+    readonly useCount: FieldRef<"DeviceEnrollmentToken", 'Int'>
+    readonly expiresAt: FieldRef<"DeviceEnrollmentToken", 'DateTime'>
+    readonly createdById: FieldRef<"DeviceEnrollmentToken", 'String'>
+    readonly consumedAt: FieldRef<"DeviceEnrollmentToken", 'DateTime'>
+    readonly revokedAt: FieldRef<"DeviceEnrollmentToken", 'DateTime'>
+    readonly revokedById: FieldRef<"DeviceEnrollmentToken", 'String'>
+    readonly createdAt: FieldRef<"DeviceEnrollmentToken", 'DateTime'>
+    readonly updatedAt: FieldRef<"DeviceEnrollmentToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DeviceEnrollmentToken findUnique
+   */
+  export type DeviceEnrollmentTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceEnrollmentToken to fetch.
+     */
+    where: DeviceEnrollmentTokenWhereUniqueInput
+  }
+
+  /**
+   * DeviceEnrollmentToken findUniqueOrThrow
+   */
+  export type DeviceEnrollmentTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceEnrollmentToken to fetch.
+     */
+    where: DeviceEnrollmentTokenWhereUniqueInput
+  }
+
+  /**
+   * DeviceEnrollmentToken findFirst
+   */
+  export type DeviceEnrollmentTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceEnrollmentToken to fetch.
+     */
+    where?: DeviceEnrollmentTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceEnrollmentTokens to fetch.
+     */
+    orderBy?: DeviceEnrollmentTokenOrderByWithRelationInput | DeviceEnrollmentTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceEnrollmentTokens.
+     */
+    cursor?: DeviceEnrollmentTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceEnrollmentTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceEnrollmentTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceEnrollmentTokens.
+     */
+    distinct?: DeviceEnrollmentTokenScalarFieldEnum | DeviceEnrollmentTokenScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceEnrollmentToken findFirstOrThrow
+   */
+  export type DeviceEnrollmentTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceEnrollmentToken to fetch.
+     */
+    where?: DeviceEnrollmentTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceEnrollmentTokens to fetch.
+     */
+    orderBy?: DeviceEnrollmentTokenOrderByWithRelationInput | DeviceEnrollmentTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceEnrollmentTokens.
+     */
+    cursor?: DeviceEnrollmentTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceEnrollmentTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceEnrollmentTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceEnrollmentTokens.
+     */
+    distinct?: DeviceEnrollmentTokenScalarFieldEnum | DeviceEnrollmentTokenScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceEnrollmentToken findMany
+   */
+  export type DeviceEnrollmentTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceEnrollmentTokens to fetch.
+     */
+    where?: DeviceEnrollmentTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceEnrollmentTokens to fetch.
+     */
+    orderBy?: DeviceEnrollmentTokenOrderByWithRelationInput | DeviceEnrollmentTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DeviceEnrollmentTokens.
+     */
+    cursor?: DeviceEnrollmentTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceEnrollmentTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceEnrollmentTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceEnrollmentTokens.
+     */
+    distinct?: DeviceEnrollmentTokenScalarFieldEnum | DeviceEnrollmentTokenScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceEnrollmentToken create
+   */
+  export type DeviceEnrollmentTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DeviceEnrollmentToken.
+     */
+    data: XOR<DeviceEnrollmentTokenCreateInput, DeviceEnrollmentTokenUncheckedCreateInput>
+  }
+
+  /**
+   * DeviceEnrollmentToken createMany
+   */
+  export type DeviceEnrollmentTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DeviceEnrollmentTokens.
+     */
+    data: DeviceEnrollmentTokenCreateManyInput | DeviceEnrollmentTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeviceEnrollmentToken createManyAndReturn
+   */
+  export type DeviceEnrollmentTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many DeviceEnrollmentTokens.
+     */
+    data: DeviceEnrollmentTokenCreateManyInput | DeviceEnrollmentTokenCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DeviceEnrollmentToken update
+   */
+  export type DeviceEnrollmentTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DeviceEnrollmentToken.
+     */
+    data: XOR<DeviceEnrollmentTokenUpdateInput, DeviceEnrollmentTokenUncheckedUpdateInput>
+    /**
+     * Choose, which DeviceEnrollmentToken to update.
+     */
+    where: DeviceEnrollmentTokenWhereUniqueInput
+  }
+
+  /**
+   * DeviceEnrollmentToken updateMany
+   */
+  export type DeviceEnrollmentTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DeviceEnrollmentTokens.
+     */
+    data: XOR<DeviceEnrollmentTokenUpdateManyMutationInput, DeviceEnrollmentTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which DeviceEnrollmentTokens to update
+     */
+    where?: DeviceEnrollmentTokenWhereInput
+    /**
+     * Limit how many DeviceEnrollmentTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceEnrollmentToken updateManyAndReturn
+   */
+  export type DeviceEnrollmentTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update DeviceEnrollmentTokens.
+     */
+    data: XOR<DeviceEnrollmentTokenUpdateManyMutationInput, DeviceEnrollmentTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which DeviceEnrollmentTokens to update
+     */
+    where?: DeviceEnrollmentTokenWhereInput
+    /**
+     * Limit how many DeviceEnrollmentTokens to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DeviceEnrollmentToken upsert
+   */
+  export type DeviceEnrollmentTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DeviceEnrollmentToken to update in case it exists.
+     */
+    where: DeviceEnrollmentTokenWhereUniqueInput
+    /**
+     * In case the DeviceEnrollmentToken found by the `where` argument doesn't exist, create a new DeviceEnrollmentToken with this data.
+     */
+    create: XOR<DeviceEnrollmentTokenCreateInput, DeviceEnrollmentTokenUncheckedCreateInput>
+    /**
+     * In case the DeviceEnrollmentToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeviceEnrollmentTokenUpdateInput, DeviceEnrollmentTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * DeviceEnrollmentToken delete
+   */
+  export type DeviceEnrollmentTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    /**
+     * Filter which DeviceEnrollmentToken to delete.
+     */
+    where: DeviceEnrollmentTokenWhereUniqueInput
+  }
+
+  /**
+   * DeviceEnrollmentToken deleteMany
+   */
+  export type DeviceEnrollmentTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceEnrollmentTokens to delete
+     */
+    where?: DeviceEnrollmentTokenWhereInput
+    /**
+     * Limit how many DeviceEnrollmentTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceEnrollmentToken.createdBy
+   */
+  export type DeviceEnrollmentToken$createdByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * DeviceEnrollmentToken.devices
+   */
+  export type DeviceEnrollmentToken$devicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    where?: DeviceWhereInput
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    cursor?: DeviceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceEnrollmentToken without action
+   */
+  export type DeviceEnrollmentTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Device
+   */
+
+  export type AggregateDevice = {
+    _count: DeviceCountAggregateOutputType | null
+    _avg: DeviceAvgAggregateOutputType | null
+    _sum: DeviceSumAggregateOutputType | null
+    _min: DeviceMinAggregateOutputType | null
+    _max: DeviceMaxAggregateOutputType | null
+  }
+
+  export type DeviceAvgAggregateOutputType = {
+    secretKeyId: number | null
+    checkInIntervalSeconds: number | null
+  }
+
+  export type DeviceSumAggregateOutputType = {
+    secretKeyId: number | null
+    checkInIntervalSeconds: number | null
+  }
+
+  export type DeviceMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    assetId: string | null
+    secretEnc: string | null
+    secretKeyId: number | null
+    platform: $Enums.DevicePlatform | null
+    osVersion: string | null
+    agentVersion: string | null
+    hostname: string | null
+    hardwareId: string | null
+    status: $Enums.DeviceStatus | null
+    enrolledById: string | null
+    enrolledAt: Date | null
+    lastSeenAt: Date | null
+    checkInIntervalSeconds: number | null
+    diskEncryption: $Enums.PostureSignalState | null
+    firewall: $Enums.PostureSignalState | null
+    screenLock: $Enums.PostureSignalState | null
+    antivirus: $Enums.PostureSignalState | null
+    agentHealthy: boolean | null
+    lastPostureAt: Date | null
+    enrollmentTokenId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DeviceMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    assetId: string | null
+    secretEnc: string | null
+    secretKeyId: number | null
+    platform: $Enums.DevicePlatform | null
+    osVersion: string | null
+    agentVersion: string | null
+    hostname: string | null
+    hardwareId: string | null
+    status: $Enums.DeviceStatus | null
+    enrolledById: string | null
+    enrolledAt: Date | null
+    lastSeenAt: Date | null
+    checkInIntervalSeconds: number | null
+    diskEncryption: $Enums.PostureSignalState | null
+    firewall: $Enums.PostureSignalState | null
+    screenLock: $Enums.PostureSignalState | null
+    antivirus: $Enums.PostureSignalState | null
+    agentHealthy: boolean | null
+    lastPostureAt: Date | null
+    enrollmentTokenId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DeviceCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    assetId: number
+    secretEnc: number
+    secretKeyId: number
+    platform: number
+    osVersion: number
+    agentVersion: number
+    hostname: number
+    hardwareId: number
+    status: number
+    enrolledById: number
+    enrolledAt: number
+    lastSeenAt: number
+    checkInIntervalSeconds: number
+    diskEncryption: number
+    firewall: number
+    screenLock: number
+    antivirus: number
+    agentHealthy: number
+    lastPostureAt: number
+    latestPosture: number
+    enrollmentTokenId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DeviceAvgAggregateInputType = {
+    secretKeyId?: true
+    checkInIntervalSeconds?: true
+  }
+
+  export type DeviceSumAggregateInputType = {
+    secretKeyId?: true
+    checkInIntervalSeconds?: true
+  }
+
+  export type DeviceMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    assetId?: true
+    secretEnc?: true
+    secretKeyId?: true
+    platform?: true
+    osVersion?: true
+    agentVersion?: true
+    hostname?: true
+    hardwareId?: true
+    status?: true
+    enrolledById?: true
+    enrolledAt?: true
+    lastSeenAt?: true
+    checkInIntervalSeconds?: true
+    diskEncryption?: true
+    firewall?: true
+    screenLock?: true
+    antivirus?: true
+    agentHealthy?: true
+    lastPostureAt?: true
+    enrollmentTokenId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DeviceMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    assetId?: true
+    secretEnc?: true
+    secretKeyId?: true
+    platform?: true
+    osVersion?: true
+    agentVersion?: true
+    hostname?: true
+    hardwareId?: true
+    status?: true
+    enrolledById?: true
+    enrolledAt?: true
+    lastSeenAt?: true
+    checkInIntervalSeconds?: true
+    diskEncryption?: true
+    firewall?: true
+    screenLock?: true
+    antivirus?: true
+    agentHealthy?: true
+    lastPostureAt?: true
+    enrollmentTokenId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DeviceCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    assetId?: true
+    secretEnc?: true
+    secretKeyId?: true
+    platform?: true
+    osVersion?: true
+    agentVersion?: true
+    hostname?: true
+    hardwareId?: true
+    status?: true
+    enrolledById?: true
+    enrolledAt?: true
+    lastSeenAt?: true
+    checkInIntervalSeconds?: true
+    diskEncryption?: true
+    firewall?: true
+    screenLock?: true
+    antivirus?: true
+    agentHealthy?: true
+    lastPostureAt?: true
+    latestPosture?: true
+    enrollmentTokenId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DeviceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Device to aggregate.
+     */
+    where?: DeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Devices to fetch.
+     */
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Devices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Devices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Devices
+    **/
+    _count?: true | DeviceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DeviceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DeviceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeviceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeviceMaxAggregateInputType
+  }
+
+  export type GetDeviceAggregateType<T extends DeviceAggregateArgs> = {
+        [P in keyof T & keyof AggregateDevice]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDevice[P]>
+      : GetScalarType<T[P], AggregateDevice[P]>
+  }
+
+
+
+
+  export type DeviceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceWhereInput
+    orderBy?: DeviceOrderByWithAggregationInput | DeviceOrderByWithAggregationInput[]
+    by: DeviceScalarFieldEnum[] | DeviceScalarFieldEnum
+    having?: DeviceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeviceCountAggregateInputType | true
+    _avg?: DeviceAvgAggregateInputType
+    _sum?: DeviceSumAggregateInputType
+    _min?: DeviceMinAggregateInputType
+    _max?: DeviceMaxAggregateInputType
+  }
+
+  export type DeviceGroupByOutputType = {
+    id: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId: number
+    platform: $Enums.DevicePlatform
+    osVersion: string | null
+    agentVersion: string | null
+    hostname: string | null
+    hardwareId: string | null
+    status: $Enums.DeviceStatus
+    enrolledById: string | null
+    enrolledAt: Date
+    lastSeenAt: Date | null
+    checkInIntervalSeconds: number
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    lastPostureAt: Date | null
+    latestPosture: JsonValue | null
+    enrollmentTokenId: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: DeviceCountAggregateOutputType | null
+    _avg: DeviceAvgAggregateOutputType | null
+    _sum: DeviceSumAggregateOutputType | null
+    _min: DeviceMinAggregateOutputType | null
+    _max: DeviceMaxAggregateOutputType | null
+  }
+
+  type GetDeviceGroupByPayload<T extends DeviceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeviceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeviceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeviceGroupByOutputType[P]>
+            : GetScalarType<T[P], DeviceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeviceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    assetId?: boolean
+    secretEnc?: boolean
+    secretKeyId?: boolean
+    platform?: boolean
+    osVersion?: boolean
+    agentVersion?: boolean
+    hostname?: boolean
+    hardwareId?: boolean
+    status?: boolean
+    enrolledById?: boolean
+    enrolledAt?: boolean
+    lastSeenAt?: boolean
+    checkInIntervalSeconds?: boolean
+    diskEncryption?: boolean
+    firewall?: boolean
+    screenLock?: boolean
+    antivirus?: boolean
+    agentHealthy?: boolean
+    lastPostureAt?: boolean
+    latestPosture?: boolean
+    enrollmentTokenId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+    enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
+    snapshots?: boolean | Device$snapshotsArgs<ExtArgs>
+    nonces?: boolean | Device$noncesArgs<ExtArgs>
+    _count?: boolean | DeviceCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["device"]>
+
+  export type DeviceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    assetId?: boolean
+    secretEnc?: boolean
+    secretKeyId?: boolean
+    platform?: boolean
+    osVersion?: boolean
+    agentVersion?: boolean
+    hostname?: boolean
+    hardwareId?: boolean
+    status?: boolean
+    enrolledById?: boolean
+    enrolledAt?: boolean
+    lastSeenAt?: boolean
+    checkInIntervalSeconds?: boolean
+    diskEncryption?: boolean
+    firewall?: boolean
+    screenLock?: boolean
+    antivirus?: boolean
+    agentHealthy?: boolean
+    lastPostureAt?: boolean
+    latestPosture?: boolean
+    enrollmentTokenId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+    enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
+  }, ExtArgs["result"]["device"]>
+
+  export type DeviceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    assetId?: boolean
+    secretEnc?: boolean
+    secretKeyId?: boolean
+    platform?: boolean
+    osVersion?: boolean
+    agentVersion?: boolean
+    hostname?: boolean
+    hardwareId?: boolean
+    status?: boolean
+    enrolledById?: boolean
+    enrolledAt?: boolean
+    lastSeenAt?: boolean
+    checkInIntervalSeconds?: boolean
+    diskEncryption?: boolean
+    firewall?: boolean
+    screenLock?: boolean
+    antivirus?: boolean
+    agentHealthy?: boolean
+    lastPostureAt?: boolean
+    latestPosture?: boolean
+    enrollmentTokenId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+    enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
+  }, ExtArgs["result"]["device"]>
+
+  export type DeviceSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    assetId?: boolean
+    secretEnc?: boolean
+    secretKeyId?: boolean
+    platform?: boolean
+    osVersion?: boolean
+    agentVersion?: boolean
+    hostname?: boolean
+    hardwareId?: boolean
+    status?: boolean
+    enrolledById?: boolean
+    enrolledAt?: boolean
+    lastSeenAt?: boolean
+    checkInIntervalSeconds?: boolean
+    diskEncryption?: boolean
+    firewall?: boolean
+    screenLock?: boolean
+    antivirus?: boolean
+    agentHealthy?: boolean
+    lastPostureAt?: boolean
+    latestPosture?: boolean
+    enrollmentTokenId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DeviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "assetId" | "secretEnc" | "secretKeyId" | "platform" | "osVersion" | "agentVersion" | "hostname" | "hardwareId" | "status" | "enrolledById" | "enrolledAt" | "lastSeenAt" | "checkInIntervalSeconds" | "diskEncryption" | "firewall" | "screenLock" | "antivirus" | "agentHealthy" | "lastPostureAt" | "latestPosture" | "enrollmentTokenId" | "createdAt" | "updatedAt", ExtArgs["result"]["device"]>
+  export type DeviceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+    enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
+    snapshots?: boolean | Device$snapshotsArgs<ExtArgs>
+    nonces?: boolean | Device$noncesArgs<ExtArgs>
+    _count?: boolean | DeviceCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DeviceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+    enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
+  }
+  export type DeviceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    asset?: boolean | AssetDefaultArgs<ExtArgs>
+    enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
+  }
+
+  export type $DevicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Device"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      asset: Prisma.$AssetPayload<ExtArgs>
+      enrolledBy: Prisma.$UserPayload<ExtArgs> | null
+      enrollmentToken: Prisma.$DeviceEnrollmentTokenPayload<ExtArgs> | null
+      snapshots: Prisma.$DevicePostureSnapshotPayload<ExtArgs>[]
+      nonces: Prisma.$DeviceNoncePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      assetId: string
+      secretEnc: string
+      secretKeyId: number
+      platform: $Enums.DevicePlatform
+      osVersion: string | null
+      agentVersion: string | null
+      hostname: string | null
+      hardwareId: string | null
+      status: $Enums.DeviceStatus
+      enrolledById: string | null
+      enrolledAt: Date
+      lastSeenAt: Date | null
+      checkInIntervalSeconds: number
+      diskEncryption: $Enums.PostureSignalState
+      firewall: $Enums.PostureSignalState
+      screenLock: $Enums.PostureSignalState
+      antivirus: $Enums.PostureSignalState
+      agentHealthy: boolean
+      lastPostureAt: Date | null
+      latestPosture: Prisma.JsonValue | null
+      enrollmentTokenId: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["device"]>
+    composites: {}
+  }
+
+  type DeviceGetPayload<S extends boolean | null | undefined | DeviceDefaultArgs> = $Result.GetResult<Prisma.$DevicePayload, S>
+
+  type DeviceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeviceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeviceCountAggregateInputType | true
+    }
+
+  export interface DeviceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Device'], meta: { name: 'Device' } }
+    /**
+     * Find zero or one Device that matches the filter.
+     * @param {DeviceFindUniqueArgs} args - Arguments to find a Device
+     * @example
+     * // Get one Device
+     * const device = await prisma.device.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeviceFindUniqueArgs>(args: SelectSubset<T, DeviceFindUniqueArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Device that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeviceFindUniqueOrThrowArgs} args - Arguments to find a Device
+     * @example
+     * // Get one Device
+     * const device = await prisma.device.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeviceFindUniqueOrThrowArgs>(args: SelectSubset<T, DeviceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Device that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceFindFirstArgs} args - Arguments to find a Device
+     * @example
+     * // Get one Device
+     * const device = await prisma.device.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeviceFindFirstArgs>(args?: SelectSubset<T, DeviceFindFirstArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Device that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceFindFirstOrThrowArgs} args - Arguments to find a Device
+     * @example
+     * // Get one Device
+     * const device = await prisma.device.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeviceFindFirstOrThrowArgs>(args?: SelectSubset<T, DeviceFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Devices that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Devices
+     * const devices = await prisma.device.findMany()
+     * 
+     * // Get first 10 Devices
+     * const devices = await prisma.device.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deviceWithIdOnly = await prisma.device.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeviceFindManyArgs>(args?: SelectSubset<T, DeviceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Device.
+     * @param {DeviceCreateArgs} args - Arguments to create a Device.
+     * @example
+     * // Create one Device
+     * const Device = await prisma.device.create({
+     *   data: {
+     *     // ... data to create a Device
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeviceCreateArgs>(args: SelectSubset<T, DeviceCreateArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Devices.
+     * @param {DeviceCreateManyArgs} args - Arguments to create many Devices.
+     * @example
+     * // Create many Devices
+     * const device = await prisma.device.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeviceCreateManyArgs>(args?: SelectSubset<T, DeviceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Devices and returns the data saved in the database.
+     * @param {DeviceCreateManyAndReturnArgs} args - Arguments to create many Devices.
+     * @example
+     * // Create many Devices
+     * const device = await prisma.device.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Devices and only return the `id`
+     * const deviceWithIdOnly = await prisma.device.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DeviceCreateManyAndReturnArgs>(args?: SelectSubset<T, DeviceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Device.
+     * @param {DeviceDeleteArgs} args - Arguments to delete one Device.
+     * @example
+     * // Delete one Device
+     * const Device = await prisma.device.delete({
+     *   where: {
+     *     // ... filter to delete one Device
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeviceDeleteArgs>(args: SelectSubset<T, DeviceDeleteArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Device.
+     * @param {DeviceUpdateArgs} args - Arguments to update one Device.
+     * @example
+     * // Update one Device
+     * const device = await prisma.device.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeviceUpdateArgs>(args: SelectSubset<T, DeviceUpdateArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Devices.
+     * @param {DeviceDeleteManyArgs} args - Arguments to filter Devices to delete.
+     * @example
+     * // Delete a few Devices
+     * const { count } = await prisma.device.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeviceDeleteManyArgs>(args?: SelectSubset<T, DeviceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Devices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Devices
+     * const device = await prisma.device.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeviceUpdateManyArgs>(args: SelectSubset<T, DeviceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Devices and returns the data updated in the database.
+     * @param {DeviceUpdateManyAndReturnArgs} args - Arguments to update many Devices.
+     * @example
+     * // Update many Devices
+     * const device = await prisma.device.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Devices and only return the `id`
+     * const deviceWithIdOnly = await prisma.device.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DeviceUpdateManyAndReturnArgs>(args: SelectSubset<T, DeviceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Device.
+     * @param {DeviceUpsertArgs} args - Arguments to update or create a Device.
+     * @example
+     * // Update or create a Device
+     * const device = await prisma.device.upsert({
+     *   create: {
+     *     // ... data to create a Device
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Device we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeviceUpsertArgs>(args: SelectSubset<T, DeviceUpsertArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Devices.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceCountArgs} args - Arguments to filter Devices to count.
+     * @example
+     * // Count the number of Devices
+     * const count = await prisma.device.count({
+     *   where: {
+     *     // ... the filter for the Devices we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeviceCountArgs>(
+      args?: Subset<T, DeviceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeviceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Device.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeviceAggregateArgs>(args: Subset<T, DeviceAggregateArgs>): Prisma.PrismaPromise<GetDeviceAggregateType<T>>
+
+    /**
+     * Group by Device.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeviceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeviceGroupByArgs['orderBy'] }
+        : { orderBy?: DeviceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeviceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeviceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Device model
+   */
+  readonly fields: DeviceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Device.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeviceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    asset<T extends AssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetDefaultArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    enrolledBy<T extends Device$enrolledByArgs<ExtArgs> = {}>(args?: Subset<T, Device$enrolledByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    enrollmentToken<T extends Device$enrollmentTokenArgs<ExtArgs> = {}>(args?: Subset<T, Device$enrollmentTokenArgs<ExtArgs>>): Prisma__DeviceEnrollmentTokenClient<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    snapshots<T extends Device$snapshotsArgs<ExtArgs> = {}>(args?: Subset<T, Device$snapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    nonces<T extends Device$noncesArgs<ExtArgs> = {}>(args?: Subset<T, Device$noncesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Device model
+   */
+  interface DeviceFieldRefs {
+    readonly id: FieldRef<"Device", 'String'>
+    readonly tenantId: FieldRef<"Device", 'String'>
+    readonly assetId: FieldRef<"Device", 'String'>
+    readonly secretEnc: FieldRef<"Device", 'String'>
+    readonly secretKeyId: FieldRef<"Device", 'Int'>
+    readonly platform: FieldRef<"Device", 'DevicePlatform'>
+    readonly osVersion: FieldRef<"Device", 'String'>
+    readonly agentVersion: FieldRef<"Device", 'String'>
+    readonly hostname: FieldRef<"Device", 'String'>
+    readonly hardwareId: FieldRef<"Device", 'String'>
+    readonly status: FieldRef<"Device", 'DeviceStatus'>
+    readonly enrolledById: FieldRef<"Device", 'String'>
+    readonly enrolledAt: FieldRef<"Device", 'DateTime'>
+    readonly lastSeenAt: FieldRef<"Device", 'DateTime'>
+    readonly checkInIntervalSeconds: FieldRef<"Device", 'Int'>
+    readonly diskEncryption: FieldRef<"Device", 'PostureSignalState'>
+    readonly firewall: FieldRef<"Device", 'PostureSignalState'>
+    readonly screenLock: FieldRef<"Device", 'PostureSignalState'>
+    readonly antivirus: FieldRef<"Device", 'PostureSignalState'>
+    readonly agentHealthy: FieldRef<"Device", 'Boolean'>
+    readonly lastPostureAt: FieldRef<"Device", 'DateTime'>
+    readonly latestPosture: FieldRef<"Device", 'Json'>
+    readonly enrollmentTokenId: FieldRef<"Device", 'String'>
+    readonly createdAt: FieldRef<"Device", 'DateTime'>
+    readonly updatedAt: FieldRef<"Device", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Device findUnique
+   */
+  export type DeviceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which Device to fetch.
+     */
+    where: DeviceWhereUniqueInput
+  }
+
+  /**
+   * Device findUniqueOrThrow
+   */
+  export type DeviceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which Device to fetch.
+     */
+    where: DeviceWhereUniqueInput
+  }
+
+  /**
+   * Device findFirst
+   */
+  export type DeviceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which Device to fetch.
+     */
+    where?: DeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Devices to fetch.
+     */
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Devices.
+     */
+    cursor?: DeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Devices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Devices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Devices.
+     */
+    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+  }
+
+  /**
+   * Device findFirstOrThrow
+   */
+  export type DeviceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which Device to fetch.
+     */
+    where?: DeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Devices to fetch.
+     */
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Devices.
+     */
+    cursor?: DeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Devices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Devices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Devices.
+     */
+    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+  }
+
+  /**
+   * Device findMany
+   */
+  export type DeviceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter, which Devices to fetch.
+     */
+    where?: DeviceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Devices to fetch.
+     */
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Devices.
+     */
+    cursor?: DeviceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Devices from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Devices.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Devices.
+     */
+    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+  }
+
+  /**
+   * Device create
+   */
+  export type DeviceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Device.
+     */
+    data: XOR<DeviceCreateInput, DeviceUncheckedCreateInput>
+  }
+
+  /**
+   * Device createMany
+   */
+  export type DeviceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Devices.
+     */
+    data: DeviceCreateManyInput | DeviceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Device createManyAndReturn
+   */
+  export type DeviceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * The data used to create many Devices.
+     */
+    data: DeviceCreateManyInput | DeviceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Device update
+   */
+  export type DeviceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Device.
+     */
+    data: XOR<DeviceUpdateInput, DeviceUncheckedUpdateInput>
+    /**
+     * Choose, which Device to update.
+     */
+    where: DeviceWhereUniqueInput
+  }
+
+  /**
+   * Device updateMany
+   */
+  export type DeviceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Devices.
+     */
+    data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyInput>
+    /**
+     * Filter which Devices to update
+     */
+    where?: DeviceWhereInput
+    /**
+     * Limit how many Devices to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Device updateManyAndReturn
+   */
+  export type DeviceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * The data used to update Devices.
+     */
+    data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyInput>
+    /**
+     * Filter which Devices to update
+     */
+    where?: DeviceWhereInput
+    /**
+     * Limit how many Devices to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Device upsert
+   */
+  export type DeviceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Device to update in case it exists.
+     */
+    where: DeviceWhereUniqueInput
+    /**
+     * In case the Device found by the `where` argument doesn't exist, create a new Device with this data.
+     */
+    create: XOR<DeviceCreateInput, DeviceUncheckedCreateInput>
+    /**
+     * In case the Device was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeviceUpdateInput, DeviceUncheckedUpdateInput>
+  }
+
+  /**
+   * Device delete
+   */
+  export type DeviceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    /**
+     * Filter which Device to delete.
+     */
+    where: DeviceWhereUniqueInput
+  }
+
+  /**
+   * Device deleteMany
+   */
+  export type DeviceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Devices to delete
+     */
+    where?: DeviceWhereInput
+    /**
+     * Limit how many Devices to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Device.enrolledBy
+   */
+  export type Device$enrolledByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Device.enrollmentToken
+   */
+  export type Device$enrollmentTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    where?: DeviceEnrollmentTokenWhereInput
+  }
+
+  /**
+   * Device.snapshots
+   */
+  export type Device$snapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    where?: DevicePostureSnapshotWhereInput
+    orderBy?: DevicePostureSnapshotOrderByWithRelationInput | DevicePostureSnapshotOrderByWithRelationInput[]
+    cursor?: DevicePostureSnapshotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DevicePostureSnapshotScalarFieldEnum | DevicePostureSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * Device.nonces
+   */
+  export type Device$noncesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
+    where?: DeviceNonceWhereInput
+    orderBy?: DeviceNonceOrderByWithRelationInput | DeviceNonceOrderByWithRelationInput[]
+    cursor?: DeviceNonceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceNonceScalarFieldEnum | DeviceNonceScalarFieldEnum[]
+  }
+
+  /**
+   * Device without action
+   */
+  export type DeviceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DevicePostureSnapshot
+   */
+
+  export type AggregateDevicePostureSnapshot = {
+    _count: DevicePostureSnapshotCountAggregateOutputType | null
+    _min: DevicePostureSnapshotMinAggregateOutputType | null
+    _max: DevicePostureSnapshotMaxAggregateOutputType | null
+  }
+
+  export type DevicePostureSnapshotMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    deviceId: string | null
+    diskEncryption: $Enums.PostureSignalState | null
+    firewall: $Enums.PostureSignalState | null
+    screenLock: $Enums.PostureSignalState | null
+    antivirus: $Enums.PostureSignalState | null
+    agentHealthy: boolean | null
+    osVersion: string | null
+    agentVersion: string | null
+    collectedAt: Date | null
+    receivedAt: Date | null
+  }
+
+  export type DevicePostureSnapshotMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    deviceId: string | null
+    diskEncryption: $Enums.PostureSignalState | null
+    firewall: $Enums.PostureSignalState | null
+    screenLock: $Enums.PostureSignalState | null
+    antivirus: $Enums.PostureSignalState | null
+    agentHealthy: boolean | null
+    osVersion: string | null
+    agentVersion: string | null
+    collectedAt: Date | null
+    receivedAt: Date | null
+  }
+
+  export type DevicePostureSnapshotCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    deviceId: number
+    diskEncryption: number
+    firewall: number
+    screenLock: number
+    antivirus: number
+    agentHealthy: number
+    osVersion: number
+    agentVersion: number
+    raw: number
+    collectedAt: number
+    receivedAt: number
+    _all: number
+  }
+
+
+  export type DevicePostureSnapshotMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    deviceId?: true
+    diskEncryption?: true
+    firewall?: true
+    screenLock?: true
+    antivirus?: true
+    agentHealthy?: true
+    osVersion?: true
+    agentVersion?: true
+    collectedAt?: true
+    receivedAt?: true
+  }
+
+  export type DevicePostureSnapshotMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    deviceId?: true
+    diskEncryption?: true
+    firewall?: true
+    screenLock?: true
+    antivirus?: true
+    agentHealthy?: true
+    osVersion?: true
+    agentVersion?: true
+    collectedAt?: true
+    receivedAt?: true
+  }
+
+  export type DevicePostureSnapshotCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    deviceId?: true
+    diskEncryption?: true
+    firewall?: true
+    screenLock?: true
+    antivirus?: true
+    agentHealthy?: true
+    osVersion?: true
+    agentVersion?: true
+    raw?: true
+    collectedAt?: true
+    receivedAt?: true
+    _all?: true
+  }
+
+  export type DevicePostureSnapshotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DevicePostureSnapshot to aggregate.
+     */
+    where?: DevicePostureSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DevicePostureSnapshots to fetch.
+     */
+    orderBy?: DevicePostureSnapshotOrderByWithRelationInput | DevicePostureSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DevicePostureSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DevicePostureSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DevicePostureSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DevicePostureSnapshots
+    **/
+    _count?: true | DevicePostureSnapshotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DevicePostureSnapshotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DevicePostureSnapshotMaxAggregateInputType
+  }
+
+  export type GetDevicePostureSnapshotAggregateType<T extends DevicePostureSnapshotAggregateArgs> = {
+        [P in keyof T & keyof AggregateDevicePostureSnapshot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDevicePostureSnapshot[P]>
+      : GetScalarType<T[P], AggregateDevicePostureSnapshot[P]>
+  }
+
+
+
+
+  export type DevicePostureSnapshotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DevicePostureSnapshotWhereInput
+    orderBy?: DevicePostureSnapshotOrderByWithAggregationInput | DevicePostureSnapshotOrderByWithAggregationInput[]
+    by: DevicePostureSnapshotScalarFieldEnum[] | DevicePostureSnapshotScalarFieldEnum
+    having?: DevicePostureSnapshotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DevicePostureSnapshotCountAggregateInputType | true
+    _min?: DevicePostureSnapshotMinAggregateInputType
+    _max?: DevicePostureSnapshotMaxAggregateInputType
+  }
+
+  export type DevicePostureSnapshotGroupByOutputType = {
+    id: string
+    tenantId: string
+    deviceId: string
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    osVersion: string | null
+    agentVersion: string | null
+    raw: JsonValue | null
+    collectedAt: Date
+    receivedAt: Date
+    _count: DevicePostureSnapshotCountAggregateOutputType | null
+    _min: DevicePostureSnapshotMinAggregateOutputType | null
+    _max: DevicePostureSnapshotMaxAggregateOutputType | null
+  }
+
+  type GetDevicePostureSnapshotGroupByPayload<T extends DevicePostureSnapshotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DevicePostureSnapshotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DevicePostureSnapshotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DevicePostureSnapshotGroupByOutputType[P]>
+            : GetScalarType<T[P], DevicePostureSnapshotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DevicePostureSnapshotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    deviceId?: boolean
+    diskEncryption?: boolean
+    firewall?: boolean
+    screenLock?: boolean
+    antivirus?: boolean
+    agentHealthy?: boolean
+    osVersion?: boolean
+    agentVersion?: boolean
+    raw?: boolean
+    collectedAt?: boolean
+    receivedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["devicePostureSnapshot"]>
+
+  export type DevicePostureSnapshotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    deviceId?: boolean
+    diskEncryption?: boolean
+    firewall?: boolean
+    screenLock?: boolean
+    antivirus?: boolean
+    agentHealthy?: boolean
+    osVersion?: boolean
+    agentVersion?: boolean
+    raw?: boolean
+    collectedAt?: boolean
+    receivedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["devicePostureSnapshot"]>
+
+  export type DevicePostureSnapshotSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    deviceId?: boolean
+    diskEncryption?: boolean
+    firewall?: boolean
+    screenLock?: boolean
+    antivirus?: boolean
+    agentHealthy?: boolean
+    osVersion?: boolean
+    agentVersion?: boolean
+    raw?: boolean
+    collectedAt?: boolean
+    receivedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["devicePostureSnapshot"]>
+
+  export type DevicePostureSnapshotSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    deviceId?: boolean
+    diskEncryption?: boolean
+    firewall?: boolean
+    screenLock?: boolean
+    antivirus?: boolean
+    agentHealthy?: boolean
+    osVersion?: boolean
+    agentVersion?: boolean
+    raw?: boolean
+    collectedAt?: boolean
+    receivedAt?: boolean
+  }
+
+  export type DevicePostureSnapshotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "deviceId" | "diskEncryption" | "firewall" | "screenLock" | "antivirus" | "agentHealthy" | "osVersion" | "agentVersion" | "raw" | "collectedAt" | "receivedAt", ExtArgs["result"]["devicePostureSnapshot"]>
+  export type DevicePostureSnapshotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }
+  export type DevicePostureSnapshotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }
+  export type DevicePostureSnapshotIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }
+
+  export type $DevicePostureSnapshotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DevicePostureSnapshot"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      device: Prisma.$DevicePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      deviceId: string
+      diskEncryption: $Enums.PostureSignalState
+      firewall: $Enums.PostureSignalState
+      screenLock: $Enums.PostureSignalState
+      antivirus: $Enums.PostureSignalState
+      agentHealthy: boolean
+      osVersion: string | null
+      agentVersion: string | null
+      raw: Prisma.JsonValue | null
+      collectedAt: Date
+      receivedAt: Date
+    }, ExtArgs["result"]["devicePostureSnapshot"]>
+    composites: {}
+  }
+
+  type DevicePostureSnapshotGetPayload<S extends boolean | null | undefined | DevicePostureSnapshotDefaultArgs> = $Result.GetResult<Prisma.$DevicePostureSnapshotPayload, S>
+
+  type DevicePostureSnapshotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DevicePostureSnapshotFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DevicePostureSnapshotCountAggregateInputType | true
+    }
+
+  export interface DevicePostureSnapshotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DevicePostureSnapshot'], meta: { name: 'DevicePostureSnapshot' } }
+    /**
+     * Find zero or one DevicePostureSnapshot that matches the filter.
+     * @param {DevicePostureSnapshotFindUniqueArgs} args - Arguments to find a DevicePostureSnapshot
+     * @example
+     * // Get one DevicePostureSnapshot
+     * const devicePostureSnapshot = await prisma.devicePostureSnapshot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DevicePostureSnapshotFindUniqueArgs>(args: SelectSubset<T, DevicePostureSnapshotFindUniqueArgs<ExtArgs>>): Prisma__DevicePostureSnapshotClient<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DevicePostureSnapshot that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DevicePostureSnapshotFindUniqueOrThrowArgs} args - Arguments to find a DevicePostureSnapshot
+     * @example
+     * // Get one DevicePostureSnapshot
+     * const devicePostureSnapshot = await prisma.devicePostureSnapshot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DevicePostureSnapshotFindUniqueOrThrowArgs>(args: SelectSubset<T, DevicePostureSnapshotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DevicePostureSnapshotClient<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DevicePostureSnapshot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DevicePostureSnapshotFindFirstArgs} args - Arguments to find a DevicePostureSnapshot
+     * @example
+     * // Get one DevicePostureSnapshot
+     * const devicePostureSnapshot = await prisma.devicePostureSnapshot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DevicePostureSnapshotFindFirstArgs>(args?: SelectSubset<T, DevicePostureSnapshotFindFirstArgs<ExtArgs>>): Prisma__DevicePostureSnapshotClient<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DevicePostureSnapshot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DevicePostureSnapshotFindFirstOrThrowArgs} args - Arguments to find a DevicePostureSnapshot
+     * @example
+     * // Get one DevicePostureSnapshot
+     * const devicePostureSnapshot = await prisma.devicePostureSnapshot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DevicePostureSnapshotFindFirstOrThrowArgs>(args?: SelectSubset<T, DevicePostureSnapshotFindFirstOrThrowArgs<ExtArgs>>): Prisma__DevicePostureSnapshotClient<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DevicePostureSnapshots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DevicePostureSnapshotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DevicePostureSnapshots
+     * const devicePostureSnapshots = await prisma.devicePostureSnapshot.findMany()
+     * 
+     * // Get first 10 DevicePostureSnapshots
+     * const devicePostureSnapshots = await prisma.devicePostureSnapshot.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const devicePostureSnapshotWithIdOnly = await prisma.devicePostureSnapshot.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DevicePostureSnapshotFindManyArgs>(args?: SelectSubset<T, DevicePostureSnapshotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DevicePostureSnapshot.
+     * @param {DevicePostureSnapshotCreateArgs} args - Arguments to create a DevicePostureSnapshot.
+     * @example
+     * // Create one DevicePostureSnapshot
+     * const DevicePostureSnapshot = await prisma.devicePostureSnapshot.create({
+     *   data: {
+     *     // ... data to create a DevicePostureSnapshot
+     *   }
+     * })
+     * 
+     */
+    create<T extends DevicePostureSnapshotCreateArgs>(args: SelectSubset<T, DevicePostureSnapshotCreateArgs<ExtArgs>>): Prisma__DevicePostureSnapshotClient<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DevicePostureSnapshots.
+     * @param {DevicePostureSnapshotCreateManyArgs} args - Arguments to create many DevicePostureSnapshots.
+     * @example
+     * // Create many DevicePostureSnapshots
+     * const devicePostureSnapshot = await prisma.devicePostureSnapshot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DevicePostureSnapshotCreateManyArgs>(args?: SelectSubset<T, DevicePostureSnapshotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DevicePostureSnapshots and returns the data saved in the database.
+     * @param {DevicePostureSnapshotCreateManyAndReturnArgs} args - Arguments to create many DevicePostureSnapshots.
+     * @example
+     * // Create many DevicePostureSnapshots
+     * const devicePostureSnapshot = await prisma.devicePostureSnapshot.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DevicePostureSnapshots and only return the `id`
+     * const devicePostureSnapshotWithIdOnly = await prisma.devicePostureSnapshot.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DevicePostureSnapshotCreateManyAndReturnArgs>(args?: SelectSubset<T, DevicePostureSnapshotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DevicePostureSnapshot.
+     * @param {DevicePostureSnapshotDeleteArgs} args - Arguments to delete one DevicePostureSnapshot.
+     * @example
+     * // Delete one DevicePostureSnapshot
+     * const DevicePostureSnapshot = await prisma.devicePostureSnapshot.delete({
+     *   where: {
+     *     // ... filter to delete one DevicePostureSnapshot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DevicePostureSnapshotDeleteArgs>(args: SelectSubset<T, DevicePostureSnapshotDeleteArgs<ExtArgs>>): Prisma__DevicePostureSnapshotClient<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DevicePostureSnapshot.
+     * @param {DevicePostureSnapshotUpdateArgs} args - Arguments to update one DevicePostureSnapshot.
+     * @example
+     * // Update one DevicePostureSnapshot
+     * const devicePostureSnapshot = await prisma.devicePostureSnapshot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DevicePostureSnapshotUpdateArgs>(args: SelectSubset<T, DevicePostureSnapshotUpdateArgs<ExtArgs>>): Prisma__DevicePostureSnapshotClient<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DevicePostureSnapshots.
+     * @param {DevicePostureSnapshotDeleteManyArgs} args - Arguments to filter DevicePostureSnapshots to delete.
+     * @example
+     * // Delete a few DevicePostureSnapshots
+     * const { count } = await prisma.devicePostureSnapshot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DevicePostureSnapshotDeleteManyArgs>(args?: SelectSubset<T, DevicePostureSnapshotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DevicePostureSnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DevicePostureSnapshotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DevicePostureSnapshots
+     * const devicePostureSnapshot = await prisma.devicePostureSnapshot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DevicePostureSnapshotUpdateManyArgs>(args: SelectSubset<T, DevicePostureSnapshotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DevicePostureSnapshots and returns the data updated in the database.
+     * @param {DevicePostureSnapshotUpdateManyAndReturnArgs} args - Arguments to update many DevicePostureSnapshots.
+     * @example
+     * // Update many DevicePostureSnapshots
+     * const devicePostureSnapshot = await prisma.devicePostureSnapshot.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DevicePostureSnapshots and only return the `id`
+     * const devicePostureSnapshotWithIdOnly = await prisma.devicePostureSnapshot.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DevicePostureSnapshotUpdateManyAndReturnArgs>(args: SelectSubset<T, DevicePostureSnapshotUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DevicePostureSnapshot.
+     * @param {DevicePostureSnapshotUpsertArgs} args - Arguments to update or create a DevicePostureSnapshot.
+     * @example
+     * // Update or create a DevicePostureSnapshot
+     * const devicePostureSnapshot = await prisma.devicePostureSnapshot.upsert({
+     *   create: {
+     *     // ... data to create a DevicePostureSnapshot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DevicePostureSnapshot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DevicePostureSnapshotUpsertArgs>(args: SelectSubset<T, DevicePostureSnapshotUpsertArgs<ExtArgs>>): Prisma__DevicePostureSnapshotClient<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DevicePostureSnapshots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DevicePostureSnapshotCountArgs} args - Arguments to filter DevicePostureSnapshots to count.
+     * @example
+     * // Count the number of DevicePostureSnapshots
+     * const count = await prisma.devicePostureSnapshot.count({
+     *   where: {
+     *     // ... the filter for the DevicePostureSnapshots we want to count
+     *   }
+     * })
+    **/
+    count<T extends DevicePostureSnapshotCountArgs>(
+      args?: Subset<T, DevicePostureSnapshotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DevicePostureSnapshotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DevicePostureSnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DevicePostureSnapshotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DevicePostureSnapshotAggregateArgs>(args: Subset<T, DevicePostureSnapshotAggregateArgs>): Prisma.PrismaPromise<GetDevicePostureSnapshotAggregateType<T>>
+
+    /**
+     * Group by DevicePostureSnapshot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DevicePostureSnapshotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DevicePostureSnapshotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DevicePostureSnapshotGroupByArgs['orderBy'] }
+        : { orderBy?: DevicePostureSnapshotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DevicePostureSnapshotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDevicePostureSnapshotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DevicePostureSnapshot model
+   */
+  readonly fields: DevicePostureSnapshotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DevicePostureSnapshot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DevicePostureSnapshotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    device<T extends DeviceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DeviceDefaultArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DevicePostureSnapshot model
+   */
+  interface DevicePostureSnapshotFieldRefs {
+    readonly id: FieldRef<"DevicePostureSnapshot", 'String'>
+    readonly tenantId: FieldRef<"DevicePostureSnapshot", 'String'>
+    readonly deviceId: FieldRef<"DevicePostureSnapshot", 'String'>
+    readonly diskEncryption: FieldRef<"DevicePostureSnapshot", 'PostureSignalState'>
+    readonly firewall: FieldRef<"DevicePostureSnapshot", 'PostureSignalState'>
+    readonly screenLock: FieldRef<"DevicePostureSnapshot", 'PostureSignalState'>
+    readonly antivirus: FieldRef<"DevicePostureSnapshot", 'PostureSignalState'>
+    readonly agentHealthy: FieldRef<"DevicePostureSnapshot", 'Boolean'>
+    readonly osVersion: FieldRef<"DevicePostureSnapshot", 'String'>
+    readonly agentVersion: FieldRef<"DevicePostureSnapshot", 'String'>
+    readonly raw: FieldRef<"DevicePostureSnapshot", 'Json'>
+    readonly collectedAt: FieldRef<"DevicePostureSnapshot", 'DateTime'>
+    readonly receivedAt: FieldRef<"DevicePostureSnapshot", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DevicePostureSnapshot findUnique
+   */
+  export type DevicePostureSnapshotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which DevicePostureSnapshot to fetch.
+     */
+    where: DevicePostureSnapshotWhereUniqueInput
+  }
+
+  /**
+   * DevicePostureSnapshot findUniqueOrThrow
+   */
+  export type DevicePostureSnapshotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which DevicePostureSnapshot to fetch.
+     */
+    where: DevicePostureSnapshotWhereUniqueInput
+  }
+
+  /**
+   * DevicePostureSnapshot findFirst
+   */
+  export type DevicePostureSnapshotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which DevicePostureSnapshot to fetch.
+     */
+    where?: DevicePostureSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DevicePostureSnapshots to fetch.
+     */
+    orderBy?: DevicePostureSnapshotOrderByWithRelationInput | DevicePostureSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DevicePostureSnapshots.
+     */
+    cursor?: DevicePostureSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DevicePostureSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DevicePostureSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DevicePostureSnapshots.
+     */
+    distinct?: DevicePostureSnapshotScalarFieldEnum | DevicePostureSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * DevicePostureSnapshot findFirstOrThrow
+   */
+  export type DevicePostureSnapshotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which DevicePostureSnapshot to fetch.
+     */
+    where?: DevicePostureSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DevicePostureSnapshots to fetch.
+     */
+    orderBy?: DevicePostureSnapshotOrderByWithRelationInput | DevicePostureSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DevicePostureSnapshots.
+     */
+    cursor?: DevicePostureSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DevicePostureSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DevicePostureSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DevicePostureSnapshots.
+     */
+    distinct?: DevicePostureSnapshotScalarFieldEnum | DevicePostureSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * DevicePostureSnapshot findMany
+   */
+  export type DevicePostureSnapshotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter, which DevicePostureSnapshots to fetch.
+     */
+    where?: DevicePostureSnapshotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DevicePostureSnapshots to fetch.
+     */
+    orderBy?: DevicePostureSnapshotOrderByWithRelationInput | DevicePostureSnapshotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DevicePostureSnapshots.
+     */
+    cursor?: DevicePostureSnapshotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DevicePostureSnapshots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DevicePostureSnapshots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DevicePostureSnapshots.
+     */
+    distinct?: DevicePostureSnapshotScalarFieldEnum | DevicePostureSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * DevicePostureSnapshot create
+   */
+  export type DevicePostureSnapshotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DevicePostureSnapshot.
+     */
+    data: XOR<DevicePostureSnapshotCreateInput, DevicePostureSnapshotUncheckedCreateInput>
+  }
+
+  /**
+   * DevicePostureSnapshot createMany
+   */
+  export type DevicePostureSnapshotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DevicePostureSnapshots.
+     */
+    data: DevicePostureSnapshotCreateManyInput | DevicePostureSnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DevicePostureSnapshot createManyAndReturn
+   */
+  export type DevicePostureSnapshotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * The data used to create many DevicePostureSnapshots.
+     */
+    data: DevicePostureSnapshotCreateManyInput | DevicePostureSnapshotCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DevicePostureSnapshot update
+   */
+  export type DevicePostureSnapshotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DevicePostureSnapshot.
+     */
+    data: XOR<DevicePostureSnapshotUpdateInput, DevicePostureSnapshotUncheckedUpdateInput>
+    /**
+     * Choose, which DevicePostureSnapshot to update.
+     */
+    where: DevicePostureSnapshotWhereUniqueInput
+  }
+
+  /**
+   * DevicePostureSnapshot updateMany
+   */
+  export type DevicePostureSnapshotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DevicePostureSnapshots.
+     */
+    data: XOR<DevicePostureSnapshotUpdateManyMutationInput, DevicePostureSnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which DevicePostureSnapshots to update
+     */
+    where?: DevicePostureSnapshotWhereInput
+    /**
+     * Limit how many DevicePostureSnapshots to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DevicePostureSnapshot updateManyAndReturn
+   */
+  export type DevicePostureSnapshotUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * The data used to update DevicePostureSnapshots.
+     */
+    data: XOR<DevicePostureSnapshotUpdateManyMutationInput, DevicePostureSnapshotUncheckedUpdateManyInput>
+    /**
+     * Filter which DevicePostureSnapshots to update
+     */
+    where?: DevicePostureSnapshotWhereInput
+    /**
+     * Limit how many DevicePostureSnapshots to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DevicePostureSnapshot upsert
+   */
+  export type DevicePostureSnapshotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DevicePostureSnapshot to update in case it exists.
+     */
+    where: DevicePostureSnapshotWhereUniqueInput
+    /**
+     * In case the DevicePostureSnapshot found by the `where` argument doesn't exist, create a new DevicePostureSnapshot with this data.
+     */
+    create: XOR<DevicePostureSnapshotCreateInput, DevicePostureSnapshotUncheckedCreateInput>
+    /**
+     * In case the DevicePostureSnapshot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DevicePostureSnapshotUpdateInput, DevicePostureSnapshotUncheckedUpdateInput>
+  }
+
+  /**
+   * DevicePostureSnapshot delete
+   */
+  export type DevicePostureSnapshotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    /**
+     * Filter which DevicePostureSnapshot to delete.
+     */
+    where: DevicePostureSnapshotWhereUniqueInput
+  }
+
+  /**
+   * DevicePostureSnapshot deleteMany
+   */
+  export type DevicePostureSnapshotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DevicePostureSnapshots to delete
+     */
+    where?: DevicePostureSnapshotWhereInput
+    /**
+     * Limit how many DevicePostureSnapshots to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DevicePostureSnapshot without action
+   */
+  export type DevicePostureSnapshotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DeviceNonce
+   */
+
+  export type AggregateDeviceNonce = {
+    _count: DeviceNonceCountAggregateOutputType | null
+    _min: DeviceNonceMinAggregateOutputType | null
+    _max: DeviceNonceMaxAggregateOutputType | null
+  }
+
+  export type DeviceNonceMinAggregateOutputType = {
+    id: string | null
+    deviceId: string | null
+    nonce: string | null
+    seenAt: Date | null
+  }
+
+  export type DeviceNonceMaxAggregateOutputType = {
+    id: string | null
+    deviceId: string | null
+    nonce: string | null
+    seenAt: Date | null
+  }
+
+  export type DeviceNonceCountAggregateOutputType = {
+    id: number
+    deviceId: number
+    nonce: number
+    seenAt: number
+    _all: number
+  }
+
+
+  export type DeviceNonceMinAggregateInputType = {
+    id?: true
+    deviceId?: true
+    nonce?: true
+    seenAt?: true
+  }
+
+  export type DeviceNonceMaxAggregateInputType = {
+    id?: true
+    deviceId?: true
+    nonce?: true
+    seenAt?: true
+  }
+
+  export type DeviceNonceCountAggregateInputType = {
+    id?: true
+    deviceId?: true
+    nonce?: true
+    seenAt?: true
+    _all?: true
+  }
+
+  export type DeviceNonceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceNonce to aggregate.
+     */
+    where?: DeviceNonceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceNonces to fetch.
+     */
+    orderBy?: DeviceNonceOrderByWithRelationInput | DeviceNonceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeviceNonceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceNonces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceNonces.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DeviceNonces
+    **/
+    _count?: true | DeviceNonceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeviceNonceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeviceNonceMaxAggregateInputType
+  }
+
+  export type GetDeviceNonceAggregateType<T extends DeviceNonceAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeviceNonce]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeviceNonce[P]>
+      : GetScalarType<T[P], AggregateDeviceNonce[P]>
+  }
+
+
+
+
+  export type DeviceNonceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceNonceWhereInput
+    orderBy?: DeviceNonceOrderByWithAggregationInput | DeviceNonceOrderByWithAggregationInput[]
+    by: DeviceNonceScalarFieldEnum[] | DeviceNonceScalarFieldEnum
+    having?: DeviceNonceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeviceNonceCountAggregateInputType | true
+    _min?: DeviceNonceMinAggregateInputType
+    _max?: DeviceNonceMaxAggregateInputType
+  }
+
+  export type DeviceNonceGroupByOutputType = {
+    id: string
+    deviceId: string
+    nonce: string
+    seenAt: Date
+    _count: DeviceNonceCountAggregateOutputType | null
+    _min: DeviceNonceMinAggregateOutputType | null
+    _max: DeviceNonceMaxAggregateOutputType | null
+  }
+
+  type GetDeviceNonceGroupByPayload<T extends DeviceNonceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeviceNonceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeviceNonceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeviceNonceGroupByOutputType[P]>
+            : GetScalarType<T[P], DeviceNonceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeviceNonceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deviceId?: boolean
+    nonce?: boolean
+    seenAt?: boolean
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceNonce"]>
+
+  export type DeviceNonceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deviceId?: boolean
+    nonce?: boolean
+    seenAt?: boolean
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceNonce"]>
+
+  export type DeviceNonceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deviceId?: boolean
+    nonce?: boolean
+    seenAt?: boolean
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceNonce"]>
+
+  export type DeviceNonceSelectScalar = {
+    id?: boolean
+    deviceId?: boolean
+    nonce?: boolean
+    seenAt?: boolean
+  }
+
+  export type DeviceNonceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "deviceId" | "nonce" | "seenAt", ExtArgs["result"]["deviceNonce"]>
+  export type DeviceNonceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }
+  export type DeviceNonceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }
+  export type DeviceNonceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    device?: boolean | DeviceDefaultArgs<ExtArgs>
+  }
+
+  export type $DeviceNoncePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DeviceNonce"
+    objects: {
+      device: Prisma.$DevicePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      deviceId: string
+      nonce: string
+      seenAt: Date
+    }, ExtArgs["result"]["deviceNonce"]>
+    composites: {}
+  }
+
+  type DeviceNonceGetPayload<S extends boolean | null | undefined | DeviceNonceDefaultArgs> = $Result.GetResult<Prisma.$DeviceNoncePayload, S>
+
+  type DeviceNonceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeviceNonceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeviceNonceCountAggregateInputType | true
+    }
+
+  export interface DeviceNonceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DeviceNonce'], meta: { name: 'DeviceNonce' } }
+    /**
+     * Find zero or one DeviceNonce that matches the filter.
+     * @param {DeviceNonceFindUniqueArgs} args - Arguments to find a DeviceNonce
+     * @example
+     * // Get one DeviceNonce
+     * const deviceNonce = await prisma.deviceNonce.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeviceNonceFindUniqueArgs>(args: SelectSubset<T, DeviceNonceFindUniqueArgs<ExtArgs>>): Prisma__DeviceNonceClient<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DeviceNonce that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeviceNonceFindUniqueOrThrowArgs} args - Arguments to find a DeviceNonce
+     * @example
+     * // Get one DeviceNonce
+     * const deviceNonce = await prisma.deviceNonce.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeviceNonceFindUniqueOrThrowArgs>(args: SelectSubset<T, DeviceNonceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeviceNonceClient<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceNonce that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceNonceFindFirstArgs} args - Arguments to find a DeviceNonce
+     * @example
+     * // Get one DeviceNonce
+     * const deviceNonce = await prisma.deviceNonce.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeviceNonceFindFirstArgs>(args?: SelectSubset<T, DeviceNonceFindFirstArgs<ExtArgs>>): Prisma__DeviceNonceClient<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceNonce that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceNonceFindFirstOrThrowArgs} args - Arguments to find a DeviceNonce
+     * @example
+     * // Get one DeviceNonce
+     * const deviceNonce = await prisma.deviceNonce.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeviceNonceFindFirstOrThrowArgs>(args?: SelectSubset<T, DeviceNonceFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeviceNonceClient<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DeviceNonces that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceNonceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DeviceNonces
+     * const deviceNonces = await prisma.deviceNonce.findMany()
+     * 
+     * // Get first 10 DeviceNonces
+     * const deviceNonces = await prisma.deviceNonce.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deviceNonceWithIdOnly = await prisma.deviceNonce.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeviceNonceFindManyArgs>(args?: SelectSubset<T, DeviceNonceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DeviceNonce.
+     * @param {DeviceNonceCreateArgs} args - Arguments to create a DeviceNonce.
+     * @example
+     * // Create one DeviceNonce
+     * const DeviceNonce = await prisma.deviceNonce.create({
+     *   data: {
+     *     // ... data to create a DeviceNonce
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeviceNonceCreateArgs>(args: SelectSubset<T, DeviceNonceCreateArgs<ExtArgs>>): Prisma__DeviceNonceClient<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DeviceNonces.
+     * @param {DeviceNonceCreateManyArgs} args - Arguments to create many DeviceNonces.
+     * @example
+     * // Create many DeviceNonces
+     * const deviceNonce = await prisma.deviceNonce.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeviceNonceCreateManyArgs>(args?: SelectSubset<T, DeviceNonceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DeviceNonces and returns the data saved in the database.
+     * @param {DeviceNonceCreateManyAndReturnArgs} args - Arguments to create many DeviceNonces.
+     * @example
+     * // Create many DeviceNonces
+     * const deviceNonce = await prisma.deviceNonce.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DeviceNonces and only return the `id`
+     * const deviceNonceWithIdOnly = await prisma.deviceNonce.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DeviceNonceCreateManyAndReturnArgs>(args?: SelectSubset<T, DeviceNonceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DeviceNonce.
+     * @param {DeviceNonceDeleteArgs} args - Arguments to delete one DeviceNonce.
+     * @example
+     * // Delete one DeviceNonce
+     * const DeviceNonce = await prisma.deviceNonce.delete({
+     *   where: {
+     *     // ... filter to delete one DeviceNonce
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeviceNonceDeleteArgs>(args: SelectSubset<T, DeviceNonceDeleteArgs<ExtArgs>>): Prisma__DeviceNonceClient<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DeviceNonce.
+     * @param {DeviceNonceUpdateArgs} args - Arguments to update one DeviceNonce.
+     * @example
+     * // Update one DeviceNonce
+     * const deviceNonce = await prisma.deviceNonce.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeviceNonceUpdateArgs>(args: SelectSubset<T, DeviceNonceUpdateArgs<ExtArgs>>): Prisma__DeviceNonceClient<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DeviceNonces.
+     * @param {DeviceNonceDeleteManyArgs} args - Arguments to filter DeviceNonces to delete.
+     * @example
+     * // Delete a few DeviceNonces
+     * const { count } = await prisma.deviceNonce.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeviceNonceDeleteManyArgs>(args?: SelectSubset<T, DeviceNonceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeviceNonces.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceNonceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DeviceNonces
+     * const deviceNonce = await prisma.deviceNonce.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeviceNonceUpdateManyArgs>(args: SelectSubset<T, DeviceNonceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeviceNonces and returns the data updated in the database.
+     * @param {DeviceNonceUpdateManyAndReturnArgs} args - Arguments to update many DeviceNonces.
+     * @example
+     * // Update many DeviceNonces
+     * const deviceNonce = await prisma.deviceNonce.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DeviceNonces and only return the `id`
+     * const deviceNonceWithIdOnly = await prisma.deviceNonce.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DeviceNonceUpdateManyAndReturnArgs>(args: SelectSubset<T, DeviceNonceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DeviceNonce.
+     * @param {DeviceNonceUpsertArgs} args - Arguments to update or create a DeviceNonce.
+     * @example
+     * // Update or create a DeviceNonce
+     * const deviceNonce = await prisma.deviceNonce.upsert({
+     *   create: {
+     *     // ... data to create a DeviceNonce
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DeviceNonce we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeviceNonceUpsertArgs>(args: SelectSubset<T, DeviceNonceUpsertArgs<ExtArgs>>): Prisma__DeviceNonceClient<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DeviceNonces.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceNonceCountArgs} args - Arguments to filter DeviceNonces to count.
+     * @example
+     * // Count the number of DeviceNonces
+     * const count = await prisma.deviceNonce.count({
+     *   where: {
+     *     // ... the filter for the DeviceNonces we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeviceNonceCountArgs>(
+      args?: Subset<T, DeviceNonceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeviceNonceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DeviceNonce.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceNonceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeviceNonceAggregateArgs>(args: Subset<T, DeviceNonceAggregateArgs>): Prisma.PrismaPromise<GetDeviceNonceAggregateType<T>>
+
+    /**
+     * Group by DeviceNonce.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceNonceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeviceNonceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeviceNonceGroupByArgs['orderBy'] }
+        : { orderBy?: DeviceNonceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeviceNonceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeviceNonceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DeviceNonce model
+   */
+  readonly fields: DeviceNonceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DeviceNonce.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeviceNonceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    device<T extends DeviceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DeviceDefaultArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DeviceNonce model
+   */
+  interface DeviceNonceFieldRefs {
+    readonly id: FieldRef<"DeviceNonce", 'String'>
+    readonly deviceId: FieldRef<"DeviceNonce", 'String'>
+    readonly nonce: FieldRef<"DeviceNonce", 'String'>
+    readonly seenAt: FieldRef<"DeviceNonce", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DeviceNonce findUnique
+   */
+  export type DeviceNonceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceNonce to fetch.
+     */
+    where: DeviceNonceWhereUniqueInput
+  }
+
+  /**
+   * DeviceNonce findUniqueOrThrow
+   */
+  export type DeviceNonceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceNonce to fetch.
+     */
+    where: DeviceNonceWhereUniqueInput
+  }
+
+  /**
+   * DeviceNonce findFirst
+   */
+  export type DeviceNonceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceNonce to fetch.
+     */
+    where?: DeviceNonceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceNonces to fetch.
+     */
+    orderBy?: DeviceNonceOrderByWithRelationInput | DeviceNonceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceNonces.
+     */
+    cursor?: DeviceNonceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceNonces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceNonces.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceNonces.
+     */
+    distinct?: DeviceNonceScalarFieldEnum | DeviceNonceScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceNonce findFirstOrThrow
+   */
+  export type DeviceNonceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceNonce to fetch.
+     */
+    where?: DeviceNonceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceNonces to fetch.
+     */
+    orderBy?: DeviceNonceOrderByWithRelationInput | DeviceNonceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceNonces.
+     */
+    cursor?: DeviceNonceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceNonces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceNonces.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceNonces.
+     */
+    distinct?: DeviceNonceScalarFieldEnum | DeviceNonceScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceNonce findMany
+   */
+  export type DeviceNonceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceNonces to fetch.
+     */
+    where?: DeviceNonceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceNonces to fetch.
+     */
+    orderBy?: DeviceNonceOrderByWithRelationInput | DeviceNonceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DeviceNonces.
+     */
+    cursor?: DeviceNonceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceNonces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceNonces.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceNonces.
+     */
+    distinct?: DeviceNonceScalarFieldEnum | DeviceNonceScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceNonce create
+   */
+  export type DeviceNonceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DeviceNonce.
+     */
+    data: XOR<DeviceNonceCreateInput, DeviceNonceUncheckedCreateInput>
+  }
+
+  /**
+   * DeviceNonce createMany
+   */
+  export type DeviceNonceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DeviceNonces.
+     */
+    data: DeviceNonceCreateManyInput | DeviceNonceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeviceNonce createManyAndReturn
+   */
+  export type DeviceNonceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * The data used to create many DeviceNonces.
+     */
+    data: DeviceNonceCreateManyInput | DeviceNonceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DeviceNonce update
+   */
+  export type DeviceNonceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DeviceNonce.
+     */
+    data: XOR<DeviceNonceUpdateInput, DeviceNonceUncheckedUpdateInput>
+    /**
+     * Choose, which DeviceNonce to update.
+     */
+    where: DeviceNonceWhereUniqueInput
+  }
+
+  /**
+   * DeviceNonce updateMany
+   */
+  export type DeviceNonceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DeviceNonces.
+     */
+    data: XOR<DeviceNonceUpdateManyMutationInput, DeviceNonceUncheckedUpdateManyInput>
+    /**
+     * Filter which DeviceNonces to update
+     */
+    where?: DeviceNonceWhereInput
+    /**
+     * Limit how many DeviceNonces to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceNonce updateManyAndReturn
+   */
+  export type DeviceNonceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * The data used to update DeviceNonces.
+     */
+    data: XOR<DeviceNonceUpdateManyMutationInput, DeviceNonceUncheckedUpdateManyInput>
+    /**
+     * Filter which DeviceNonces to update
+     */
+    where?: DeviceNonceWhereInput
+    /**
+     * Limit how many DeviceNonces to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DeviceNonce upsert
+   */
+  export type DeviceNonceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DeviceNonce to update in case it exists.
+     */
+    where: DeviceNonceWhereUniqueInput
+    /**
+     * In case the DeviceNonce found by the `where` argument doesn't exist, create a new DeviceNonce with this data.
+     */
+    create: XOR<DeviceNonceCreateInput, DeviceNonceUncheckedCreateInput>
+    /**
+     * In case the DeviceNonce was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeviceNonceUpdateInput, DeviceNonceUncheckedUpdateInput>
+  }
+
+  /**
+   * DeviceNonce delete
+   */
+  export type DeviceNonceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
+    /**
+     * Filter which DeviceNonce to delete.
+     */
+    where: DeviceNonceWhereUniqueInput
+  }
+
+  /**
+   * DeviceNonce deleteMany
+   */
+  export type DeviceNonceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceNonces to delete
+     */
+    where?: DeviceNonceWhereInput
+    /**
+     * Limit how many DeviceNonces to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceNonce without action
+   */
+  export type DeviceNonceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceNonce
+     */
+    select?: DeviceNonceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceNonce
+     */
+    omit?: DeviceNonceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceNonceInclude<ExtArgs> | null
   }
 
 
@@ -80906,6 +86437,9 @@ export namespace Prisma {
     directorySyncConfigs?: boolean | Tenant$directorySyncConfigsArgs<ExtArgs>
     directorySyncRuns?: boolean | Tenant$directorySyncRunsArgs<ExtArgs>
     externalIdentityMappings?: boolean | Tenant$externalIdentityMappingsArgs<ExtArgs>
+    devices?: boolean | Tenant$devicesArgs<ExtArgs>
+    deviceEnrollmentTokens?: boolean | Tenant$deviceEnrollmentTokensArgs<ExtArgs>
+    devicePostureSnapshots?: boolean | Tenant$devicePostureSnapshotsArgs<ExtArgs>
     billingConfig?: boolean | Tenant$billingConfigArgs<ExtArgs>
     litellmKey?: boolean | Tenant$litellmKeyArgs<ExtArgs>
     creditWallet?: boolean | Tenant$creditWalletArgs<ExtArgs>
@@ -81009,6 +86543,9 @@ export namespace Prisma {
     directorySyncConfigs?: boolean | Tenant$directorySyncConfigsArgs<ExtArgs>
     directorySyncRuns?: boolean | Tenant$directorySyncRunsArgs<ExtArgs>
     externalIdentityMappings?: boolean | Tenant$externalIdentityMappingsArgs<ExtArgs>
+    devices?: boolean | Tenant$devicesArgs<ExtArgs>
+    deviceEnrollmentTokens?: boolean | Tenant$deviceEnrollmentTokensArgs<ExtArgs>
+    devicePostureSnapshots?: boolean | Tenant$devicePostureSnapshotsArgs<ExtArgs>
     billingConfig?: boolean | Tenant$billingConfigArgs<ExtArgs>
     litellmKey?: boolean | Tenant$litellmKeyArgs<ExtArgs>
     creditWallet?: boolean | Tenant$creditWalletArgs<ExtArgs>
@@ -81082,6 +86619,9 @@ export namespace Prisma {
       directorySyncConfigs: Prisma.$DirectorySyncConfigPayload<ExtArgs>[]
       directorySyncRuns: Prisma.$DirectorySyncRunPayload<ExtArgs>[]
       externalIdentityMappings: Prisma.$ExternalIdentityMappingPayload<ExtArgs>[]
+      devices: Prisma.$DevicePayload<ExtArgs>[]
+      deviceEnrollmentTokens: Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>[]
+      devicePostureSnapshots: Prisma.$DevicePostureSnapshotPayload<ExtArgs>[]
       billingConfig: Prisma.$TenantBillingConfigPayload<ExtArgs> | null
       litellmKey: Prisma.$TenantLiteLLMKeyPayload<ExtArgs> | null
       creditWallet: Prisma.$CreditWalletPayload<ExtArgs> | null
@@ -81551,6 +87091,9 @@ export namespace Prisma {
     directorySyncConfigs<T extends Tenant$directorySyncConfigsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$directorySyncConfigsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncConfigPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     directorySyncRuns<T extends Tenant$directorySyncRunsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$directorySyncRunsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectorySyncRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     externalIdentityMappings<T extends Tenant$externalIdentityMappingsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$externalIdentityMappingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    devices<T extends Tenant$devicesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    deviceEnrollmentTokens<T extends Tenant$deviceEnrollmentTokensArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$deviceEnrollmentTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    devicePostureSnapshots<T extends Tenant$devicePostureSnapshotsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$devicePostureSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     billingConfig<T extends Tenant$billingConfigArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$billingConfigArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     litellmKey<T extends Tenant$litellmKeyArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$litellmKeyArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     creditWallet<T extends Tenant$creditWalletArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$creditWalletArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -83454,6 +88997,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ExternalIdentityMappingScalarFieldEnum | ExternalIdentityMappingScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.devices
+   */
+  export type Tenant$devicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    where?: DeviceWhereInput
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    cursor?: DeviceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.deviceEnrollmentTokens
+   */
+  export type Tenant$deviceEnrollmentTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    where?: DeviceEnrollmentTokenWhereInput
+    orderBy?: DeviceEnrollmentTokenOrderByWithRelationInput | DeviceEnrollmentTokenOrderByWithRelationInput[]
+    cursor?: DeviceEnrollmentTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceEnrollmentTokenScalarFieldEnum | DeviceEnrollmentTokenScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.devicePostureSnapshots
+   */
+  export type Tenant$devicePostureSnapshotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DevicePostureSnapshot
+     */
+    select?: DevicePostureSnapshotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DevicePostureSnapshot
+     */
+    omit?: DevicePostureSnapshotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DevicePostureSnapshotInclude<ExtArgs> | null
+    where?: DevicePostureSnapshotWhereInput
+    orderBy?: DevicePostureSnapshotOrderByWithRelationInput | DevicePostureSnapshotOrderByWithRelationInput[]
+    cursor?: DevicePostureSnapshotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DevicePostureSnapshotScalarFieldEnum | DevicePostureSnapshotScalarFieldEnum[]
   }
 
   /**
@@ -99047,6 +104662,8 @@ export namespace Prisma {
     reviewedAnswers?: boolean | User$reviewedAnswersArgs<ExtArgs>
     questionnaireImportJobs?: boolean | User$questionnaireImportJobsArgs<ExtArgs>
     externalIdentityMappings?: boolean | User$externalIdentityMappingsArgs<ExtArgs>
+    deviceTokensCreated?: boolean | User$deviceTokensCreatedArgs<ExtArgs>
+    devicesEnrolled?: boolean | User$devicesEnrolledArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -99149,6 +104766,8 @@ export namespace Prisma {
     reviewedAnswers?: boolean | User$reviewedAnswersArgs<ExtArgs>
     questionnaireImportJobs?: boolean | User$questionnaireImportJobsArgs<ExtArgs>
     externalIdentityMappings?: boolean | User$externalIdentityMappingsArgs<ExtArgs>
+    deviceTokensCreated?: boolean | User$deviceTokensCreatedArgs<ExtArgs>
+    devicesEnrolled?: boolean | User$devicesEnrolledArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -99212,6 +104831,8 @@ export namespace Prisma {
       reviewedAnswers: Prisma.$AnswerPayload<ExtArgs>[]
       questionnaireImportJobs: Prisma.$QuestionnaireImportJobPayload<ExtArgs>[]
       externalIdentityMappings: Prisma.$ExternalIdentityMappingPayload<ExtArgs>[]
+      deviceTokensCreated: Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>[]
+      devicesEnrolled: Prisma.$DevicePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -99674,6 +105295,8 @@ export namespace Prisma {
     reviewedAnswers<T extends User$reviewedAnswersArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewedAnswersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AnswerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     questionnaireImportJobs<T extends User$questionnaireImportJobsArgs<ExtArgs> = {}>(args?: Subset<T, User$questionnaireImportJobsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionnaireImportJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     externalIdentityMappings<T extends User$externalIdentityMappingsArgs<ExtArgs> = {}>(args?: Subset<T, User$externalIdentityMappingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    deviceTokensCreated<T extends User$deviceTokensCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$deviceTokensCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    devicesEnrolled<T extends User$devicesEnrolledArgs<ExtArgs> = {}>(args?: Subset<T, User$devicesEnrolledArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -101424,6 +107047,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ExternalIdentityMappingScalarFieldEnum | ExternalIdentityMappingScalarFieldEnum[]
+  }
+
+  /**
+   * User.deviceTokensCreated
+   */
+  export type User$deviceTokensCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceEnrollmentToken
+     */
+    select?: DeviceEnrollmentTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceEnrollmentToken
+     */
+    omit?: DeviceEnrollmentTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceEnrollmentTokenInclude<ExtArgs> | null
+    where?: DeviceEnrollmentTokenWhereInput
+    orderBy?: DeviceEnrollmentTokenOrderByWithRelationInput | DeviceEnrollmentTokenOrderByWithRelationInput[]
+    cursor?: DeviceEnrollmentTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceEnrollmentTokenScalarFieldEnum | DeviceEnrollmentTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User.devicesEnrolled
+   */
+  export type User$devicesEnrolledArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    where?: DeviceWhereInput
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    cursor?: DeviceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
   }
 
   /**
@@ -115730,6 +121401,86 @@ export namespace Prisma {
   export type ControlWeaknessScalarFieldEnum = (typeof ControlWeaknessScalarFieldEnum)[keyof typeof ControlWeaknessScalarFieldEnum]
 
 
+  export const DeviceEnrollmentTokenScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    tokenHash: 'tokenHash',
+    label: 'label',
+    status: 'status',
+    maxUses: 'maxUses',
+    useCount: 'useCount',
+    expiresAt: 'expiresAt',
+    createdById: 'createdById',
+    consumedAt: 'consumedAt',
+    revokedAt: 'revokedAt',
+    revokedById: 'revokedById',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DeviceEnrollmentTokenScalarFieldEnum = (typeof DeviceEnrollmentTokenScalarFieldEnum)[keyof typeof DeviceEnrollmentTokenScalarFieldEnum]
+
+
+  export const DeviceScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    assetId: 'assetId',
+    secretEnc: 'secretEnc',
+    secretKeyId: 'secretKeyId',
+    platform: 'platform',
+    osVersion: 'osVersion',
+    agentVersion: 'agentVersion',
+    hostname: 'hostname',
+    hardwareId: 'hardwareId',
+    status: 'status',
+    enrolledById: 'enrolledById',
+    enrolledAt: 'enrolledAt',
+    lastSeenAt: 'lastSeenAt',
+    checkInIntervalSeconds: 'checkInIntervalSeconds',
+    diskEncryption: 'diskEncryption',
+    firewall: 'firewall',
+    screenLock: 'screenLock',
+    antivirus: 'antivirus',
+    agentHealthy: 'agentHealthy',
+    lastPostureAt: 'lastPostureAt',
+    latestPosture: 'latestPosture',
+    enrollmentTokenId: 'enrollmentTokenId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DeviceScalarFieldEnum = (typeof DeviceScalarFieldEnum)[keyof typeof DeviceScalarFieldEnum]
+
+
+  export const DevicePostureSnapshotScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    deviceId: 'deviceId',
+    diskEncryption: 'diskEncryption',
+    firewall: 'firewall',
+    screenLock: 'screenLock',
+    antivirus: 'antivirus',
+    agentHealthy: 'agentHealthy',
+    osVersion: 'osVersion',
+    agentVersion: 'agentVersion',
+    raw: 'raw',
+    collectedAt: 'collectedAt',
+    receivedAt: 'receivedAt'
+  };
+
+  export type DevicePostureSnapshotScalarFieldEnum = (typeof DevicePostureSnapshotScalarFieldEnum)[keyof typeof DevicePostureSnapshotScalarFieldEnum]
+
+
+  export const DeviceNonceScalarFieldEnum: {
+    id: 'id',
+    deviceId: 'deviceId',
+    nonce: 'nonce',
+    seenAt: 'seenAt'
+  };
+
+  export type DeviceNonceScalarFieldEnum = (typeof DeviceNonceScalarFieldEnum)[keyof typeof DeviceNonceScalarFieldEnum]
+
+
   export const EvidenceScalarFieldEnum: {
     id: 'id',
     tenantId: 'tenantId',
@@ -117445,6 +123196,62 @@ export namespace Prisma {
    * Reference to a field of type 'ControlWeaknessRemediabilityDecision[]'
    */
   export type ListEnumControlWeaknessRemediabilityDecisionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ControlWeaknessRemediabilityDecision[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DeviceEnrollmentTokenStatus'
+   */
+  export type EnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeviceEnrollmentTokenStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'DeviceEnrollmentTokenStatus[]'
+   */
+  export type ListEnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeviceEnrollmentTokenStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DevicePlatform'
+   */
+  export type EnumDevicePlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DevicePlatform'>
+    
+
+
+  /**
+   * Reference to a field of type 'DevicePlatform[]'
+   */
+  export type ListEnumDevicePlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DevicePlatform[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DeviceStatus'
+   */
+  export type EnumDeviceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeviceStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'DeviceStatus[]'
+   */
+  export type ListEnumDeviceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeviceStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PostureSignalState'
+   */
+  export type EnumPostureSignalStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostureSignalState'>
+    
+
+
+  /**
+   * Reference to a field of type 'PostureSignalState[]'
+   */
+  export type ListEnumPostureSignalStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostureSignalState[]'>
     
 
 
@@ -119191,6 +124998,7 @@ export namespace Prisma {
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     deletedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    device?: XOR<DeviceNullableScalarRelationFilter, DeviceWhereInput> | null
   }
 
   export type AssetOrderByWithRelationInput = {
@@ -119211,6 +125019,7 @@ export namespace Prisma {
     tenant?: TenantOrderByWithRelationInput
     owner?: UserOrderByWithRelationInput
     deletedBy?: UserOrderByWithRelationInput
+    device?: DeviceOrderByWithRelationInput
   }
 
   export type AssetWhereUniqueInput = Prisma.AtLeast<{
@@ -119234,6 +125043,7 @@ export namespace Prisma {
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     deletedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    device?: XOR<DeviceNullableScalarRelationFilter, DeviceWhereInput> | null
   }, "id">
 
   export type AssetOrderByWithAggregationInput = {
@@ -120946,6 +126756,435 @@ export namespace Prisma {
     assigneeId?: StringNullableWithAggregatesFilter<"ControlWeakness"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"ControlWeakness"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ControlWeakness"> | Date | string
+  }
+
+  export type DeviceEnrollmentTokenWhereInput = {
+    AND?: DeviceEnrollmentTokenWhereInput | DeviceEnrollmentTokenWhereInput[]
+    OR?: DeviceEnrollmentTokenWhereInput[]
+    NOT?: DeviceEnrollmentTokenWhereInput | DeviceEnrollmentTokenWhereInput[]
+    id?: StringFilter<"DeviceEnrollmentToken"> | string
+    tenantId?: StringFilter<"DeviceEnrollmentToken"> | string
+    tokenHash?: StringFilter<"DeviceEnrollmentToken"> | string
+    label?: StringNullableFilter<"DeviceEnrollmentToken"> | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFilter<"DeviceEnrollmentToken"> | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFilter<"DeviceEnrollmentToken"> | number
+    useCount?: IntFilter<"DeviceEnrollmentToken"> | number
+    expiresAt?: DateTimeFilter<"DeviceEnrollmentToken"> | Date | string
+    createdById?: StringNullableFilter<"DeviceEnrollmentToken"> | string | null
+    consumedAt?: DateTimeNullableFilter<"DeviceEnrollmentToken"> | Date | string | null
+    revokedAt?: DateTimeNullableFilter<"DeviceEnrollmentToken"> | Date | string | null
+    revokedById?: StringNullableFilter<"DeviceEnrollmentToken"> | string | null
+    createdAt?: DateTimeFilter<"DeviceEnrollmentToken"> | Date | string
+    updatedAt?: DateTimeFilter<"DeviceEnrollmentToken"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    devices?: DeviceListRelationFilter
+  }
+
+  export type DeviceEnrollmentTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    tokenHash?: SortOrder
+    label?: SortOrderInput | SortOrder
+    status?: SortOrder
+    maxUses?: SortOrder
+    useCount?: SortOrder
+    expiresAt?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    consumedAt?: SortOrderInput | SortOrder
+    revokedAt?: SortOrderInput | SortOrder
+    revokedById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    createdBy?: UserOrderByWithRelationInput
+    devices?: DeviceOrderByRelationAggregateInput
+  }
+
+  export type DeviceEnrollmentTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tokenHash?: string
+    AND?: DeviceEnrollmentTokenWhereInput | DeviceEnrollmentTokenWhereInput[]
+    OR?: DeviceEnrollmentTokenWhereInput[]
+    NOT?: DeviceEnrollmentTokenWhereInput | DeviceEnrollmentTokenWhereInput[]
+    tenantId?: StringFilter<"DeviceEnrollmentToken"> | string
+    label?: StringNullableFilter<"DeviceEnrollmentToken"> | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFilter<"DeviceEnrollmentToken"> | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFilter<"DeviceEnrollmentToken"> | number
+    useCount?: IntFilter<"DeviceEnrollmentToken"> | number
+    expiresAt?: DateTimeFilter<"DeviceEnrollmentToken"> | Date | string
+    createdById?: StringNullableFilter<"DeviceEnrollmentToken"> | string | null
+    consumedAt?: DateTimeNullableFilter<"DeviceEnrollmentToken"> | Date | string | null
+    revokedAt?: DateTimeNullableFilter<"DeviceEnrollmentToken"> | Date | string | null
+    revokedById?: StringNullableFilter<"DeviceEnrollmentToken"> | string | null
+    createdAt?: DateTimeFilter<"DeviceEnrollmentToken"> | Date | string
+    updatedAt?: DateTimeFilter<"DeviceEnrollmentToken"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    devices?: DeviceListRelationFilter
+  }, "id" | "tokenHash">
+
+  export type DeviceEnrollmentTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    tokenHash?: SortOrder
+    label?: SortOrderInput | SortOrder
+    status?: SortOrder
+    maxUses?: SortOrder
+    useCount?: SortOrder
+    expiresAt?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    consumedAt?: SortOrderInput | SortOrder
+    revokedAt?: SortOrderInput | SortOrder
+    revokedById?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DeviceEnrollmentTokenCountOrderByAggregateInput
+    _avg?: DeviceEnrollmentTokenAvgOrderByAggregateInput
+    _max?: DeviceEnrollmentTokenMaxOrderByAggregateInput
+    _min?: DeviceEnrollmentTokenMinOrderByAggregateInput
+    _sum?: DeviceEnrollmentTokenSumOrderByAggregateInput
+  }
+
+  export type DeviceEnrollmentTokenScalarWhereWithAggregatesInput = {
+    AND?: DeviceEnrollmentTokenScalarWhereWithAggregatesInput | DeviceEnrollmentTokenScalarWhereWithAggregatesInput[]
+    OR?: DeviceEnrollmentTokenScalarWhereWithAggregatesInput[]
+    NOT?: DeviceEnrollmentTokenScalarWhereWithAggregatesInput | DeviceEnrollmentTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DeviceEnrollmentToken"> | string
+    tenantId?: StringWithAggregatesFilter<"DeviceEnrollmentToken"> | string
+    tokenHash?: StringWithAggregatesFilter<"DeviceEnrollmentToken"> | string
+    label?: StringNullableWithAggregatesFilter<"DeviceEnrollmentToken"> | string | null
+    status?: EnumDeviceEnrollmentTokenStatusWithAggregatesFilter<"DeviceEnrollmentToken"> | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntWithAggregatesFilter<"DeviceEnrollmentToken"> | number
+    useCount?: IntWithAggregatesFilter<"DeviceEnrollmentToken"> | number
+    expiresAt?: DateTimeWithAggregatesFilter<"DeviceEnrollmentToken"> | Date | string
+    createdById?: StringNullableWithAggregatesFilter<"DeviceEnrollmentToken"> | string | null
+    consumedAt?: DateTimeNullableWithAggregatesFilter<"DeviceEnrollmentToken"> | Date | string | null
+    revokedAt?: DateTimeNullableWithAggregatesFilter<"DeviceEnrollmentToken"> | Date | string | null
+    revokedById?: StringNullableWithAggregatesFilter<"DeviceEnrollmentToken"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DeviceEnrollmentToken"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DeviceEnrollmentToken"> | Date | string
+  }
+
+  export type DeviceWhereInput = {
+    AND?: DeviceWhereInput | DeviceWhereInput[]
+    OR?: DeviceWhereInput[]
+    NOT?: DeviceWhereInput | DeviceWhereInput[]
+    id?: StringFilter<"Device"> | string
+    tenantId?: StringFilter<"Device"> | string
+    assetId?: StringFilter<"Device"> | string
+    secretEnc?: StringFilter<"Device"> | string
+    secretKeyId?: IntFilter<"Device"> | number
+    platform?: EnumDevicePlatformFilter<"Device"> | $Enums.DevicePlatform
+    osVersion?: StringNullableFilter<"Device"> | string | null
+    agentVersion?: StringNullableFilter<"Device"> | string | null
+    hostname?: StringNullableFilter<"Device"> | string | null
+    hardwareId?: StringNullableFilter<"Device"> | string | null
+    status?: EnumDeviceStatusFilter<"Device"> | $Enums.DeviceStatus
+    enrolledById?: StringNullableFilter<"Device"> | string | null
+    enrolledAt?: DateTimeFilter<"Device"> | Date | string
+    lastSeenAt?: DateTimeNullableFilter<"Device"> | Date | string | null
+    checkInIntervalSeconds?: IntFilter<"Device"> | number
+    diskEncryption?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    agentHealthy?: BoolFilter<"Device"> | boolean
+    lastPostureAt?: DateTimeNullableFilter<"Device"> | Date | string | null
+    latestPosture?: JsonNullableFilter<"Device">
+    enrollmentTokenId?: StringNullableFilter<"Device"> | string | null
+    createdAt?: DateTimeFilter<"Device"> | Date | string
+    updatedAt?: DateTimeFilter<"Device"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
+    enrolledBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    enrollmentToken?: XOR<DeviceEnrollmentTokenNullableScalarRelationFilter, DeviceEnrollmentTokenWhereInput> | null
+    snapshots?: DevicePostureSnapshotListRelationFilter
+    nonces?: DeviceNonceListRelationFilter
+  }
+
+  export type DeviceOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    assetId?: SortOrder
+    secretEnc?: SortOrder
+    secretKeyId?: SortOrder
+    platform?: SortOrder
+    osVersion?: SortOrderInput | SortOrder
+    agentVersion?: SortOrderInput | SortOrder
+    hostname?: SortOrderInput | SortOrder
+    hardwareId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    enrolledById?: SortOrderInput | SortOrder
+    enrolledAt?: SortOrder
+    lastSeenAt?: SortOrderInput | SortOrder
+    checkInIntervalSeconds?: SortOrder
+    diskEncryption?: SortOrder
+    firewall?: SortOrder
+    screenLock?: SortOrder
+    antivirus?: SortOrder
+    agentHealthy?: SortOrder
+    lastPostureAt?: SortOrderInput | SortOrder
+    latestPosture?: SortOrderInput | SortOrder
+    enrollmentTokenId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    asset?: AssetOrderByWithRelationInput
+    enrolledBy?: UserOrderByWithRelationInput
+    enrollmentToken?: DeviceEnrollmentTokenOrderByWithRelationInput
+    snapshots?: DevicePostureSnapshotOrderByRelationAggregateInput
+    nonces?: DeviceNonceOrderByRelationAggregateInput
+  }
+
+  export type DeviceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    assetId?: string
+    AND?: DeviceWhereInput | DeviceWhereInput[]
+    OR?: DeviceWhereInput[]
+    NOT?: DeviceWhereInput | DeviceWhereInput[]
+    tenantId?: StringFilter<"Device"> | string
+    secretEnc?: StringFilter<"Device"> | string
+    secretKeyId?: IntFilter<"Device"> | number
+    platform?: EnumDevicePlatformFilter<"Device"> | $Enums.DevicePlatform
+    osVersion?: StringNullableFilter<"Device"> | string | null
+    agentVersion?: StringNullableFilter<"Device"> | string | null
+    hostname?: StringNullableFilter<"Device"> | string | null
+    hardwareId?: StringNullableFilter<"Device"> | string | null
+    status?: EnumDeviceStatusFilter<"Device"> | $Enums.DeviceStatus
+    enrolledById?: StringNullableFilter<"Device"> | string | null
+    enrolledAt?: DateTimeFilter<"Device"> | Date | string
+    lastSeenAt?: DateTimeNullableFilter<"Device"> | Date | string | null
+    checkInIntervalSeconds?: IntFilter<"Device"> | number
+    diskEncryption?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    agentHealthy?: BoolFilter<"Device"> | boolean
+    lastPostureAt?: DateTimeNullableFilter<"Device"> | Date | string | null
+    latestPosture?: JsonNullableFilter<"Device">
+    enrollmentTokenId?: StringNullableFilter<"Device"> | string | null
+    createdAt?: DateTimeFilter<"Device"> | Date | string
+    updatedAt?: DateTimeFilter<"Device"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
+    enrolledBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    enrollmentToken?: XOR<DeviceEnrollmentTokenNullableScalarRelationFilter, DeviceEnrollmentTokenWhereInput> | null
+    snapshots?: DevicePostureSnapshotListRelationFilter
+    nonces?: DeviceNonceListRelationFilter
+  }, "id" | "assetId">
+
+  export type DeviceOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    assetId?: SortOrder
+    secretEnc?: SortOrder
+    secretKeyId?: SortOrder
+    platform?: SortOrder
+    osVersion?: SortOrderInput | SortOrder
+    agentVersion?: SortOrderInput | SortOrder
+    hostname?: SortOrderInput | SortOrder
+    hardwareId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    enrolledById?: SortOrderInput | SortOrder
+    enrolledAt?: SortOrder
+    lastSeenAt?: SortOrderInput | SortOrder
+    checkInIntervalSeconds?: SortOrder
+    diskEncryption?: SortOrder
+    firewall?: SortOrder
+    screenLock?: SortOrder
+    antivirus?: SortOrder
+    agentHealthy?: SortOrder
+    lastPostureAt?: SortOrderInput | SortOrder
+    latestPosture?: SortOrderInput | SortOrder
+    enrollmentTokenId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DeviceCountOrderByAggregateInput
+    _avg?: DeviceAvgOrderByAggregateInput
+    _max?: DeviceMaxOrderByAggregateInput
+    _min?: DeviceMinOrderByAggregateInput
+    _sum?: DeviceSumOrderByAggregateInput
+  }
+
+  export type DeviceScalarWhereWithAggregatesInput = {
+    AND?: DeviceScalarWhereWithAggregatesInput | DeviceScalarWhereWithAggregatesInput[]
+    OR?: DeviceScalarWhereWithAggregatesInput[]
+    NOT?: DeviceScalarWhereWithAggregatesInput | DeviceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Device"> | string
+    tenantId?: StringWithAggregatesFilter<"Device"> | string
+    assetId?: StringWithAggregatesFilter<"Device"> | string
+    secretEnc?: StringWithAggregatesFilter<"Device"> | string
+    secretKeyId?: IntWithAggregatesFilter<"Device"> | number
+    platform?: EnumDevicePlatformWithAggregatesFilter<"Device"> | $Enums.DevicePlatform
+    osVersion?: StringNullableWithAggregatesFilter<"Device"> | string | null
+    agentVersion?: StringNullableWithAggregatesFilter<"Device"> | string | null
+    hostname?: StringNullableWithAggregatesFilter<"Device"> | string | null
+    hardwareId?: StringNullableWithAggregatesFilter<"Device"> | string | null
+    status?: EnumDeviceStatusWithAggregatesFilter<"Device"> | $Enums.DeviceStatus
+    enrolledById?: StringNullableWithAggregatesFilter<"Device"> | string | null
+    enrolledAt?: DateTimeWithAggregatesFilter<"Device"> | Date | string
+    lastSeenAt?: DateTimeNullableWithAggregatesFilter<"Device"> | Date | string | null
+    checkInIntervalSeconds?: IntWithAggregatesFilter<"Device"> | number
+    diskEncryption?: EnumPostureSignalStateWithAggregatesFilter<"Device"> | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateWithAggregatesFilter<"Device"> | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateWithAggregatesFilter<"Device"> | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateWithAggregatesFilter<"Device"> | $Enums.PostureSignalState
+    agentHealthy?: BoolWithAggregatesFilter<"Device"> | boolean
+    lastPostureAt?: DateTimeNullableWithAggregatesFilter<"Device"> | Date | string | null
+    latestPosture?: JsonNullableWithAggregatesFilter<"Device">
+    enrollmentTokenId?: StringNullableWithAggregatesFilter<"Device"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Device"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Device"> | Date | string
+  }
+
+  export type DevicePostureSnapshotWhereInput = {
+    AND?: DevicePostureSnapshotWhereInput | DevicePostureSnapshotWhereInput[]
+    OR?: DevicePostureSnapshotWhereInput[]
+    NOT?: DevicePostureSnapshotWhereInput | DevicePostureSnapshotWhereInput[]
+    id?: StringFilter<"DevicePostureSnapshot"> | string
+    tenantId?: StringFilter<"DevicePostureSnapshot"> | string
+    deviceId?: StringFilter<"DevicePostureSnapshot"> | string
+    diskEncryption?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    agentHealthy?: BoolFilter<"DevicePostureSnapshot"> | boolean
+    osVersion?: StringNullableFilter<"DevicePostureSnapshot"> | string | null
+    agentVersion?: StringNullableFilter<"DevicePostureSnapshot"> | string | null
+    raw?: JsonNullableFilter<"DevicePostureSnapshot">
+    collectedAt?: DateTimeFilter<"DevicePostureSnapshot"> | Date | string
+    receivedAt?: DateTimeFilter<"DevicePostureSnapshot"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
+  }
+
+  export type DevicePostureSnapshotOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    deviceId?: SortOrder
+    diskEncryption?: SortOrder
+    firewall?: SortOrder
+    screenLock?: SortOrder
+    antivirus?: SortOrder
+    agentHealthy?: SortOrder
+    osVersion?: SortOrderInput | SortOrder
+    agentVersion?: SortOrderInput | SortOrder
+    raw?: SortOrderInput | SortOrder
+    collectedAt?: SortOrder
+    receivedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    device?: DeviceOrderByWithRelationInput
+  }
+
+  export type DevicePostureSnapshotWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DevicePostureSnapshotWhereInput | DevicePostureSnapshotWhereInput[]
+    OR?: DevicePostureSnapshotWhereInput[]
+    NOT?: DevicePostureSnapshotWhereInput | DevicePostureSnapshotWhereInput[]
+    tenantId?: StringFilter<"DevicePostureSnapshot"> | string
+    deviceId?: StringFilter<"DevicePostureSnapshot"> | string
+    diskEncryption?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    agentHealthy?: BoolFilter<"DevicePostureSnapshot"> | boolean
+    osVersion?: StringNullableFilter<"DevicePostureSnapshot"> | string | null
+    agentVersion?: StringNullableFilter<"DevicePostureSnapshot"> | string | null
+    raw?: JsonNullableFilter<"DevicePostureSnapshot">
+    collectedAt?: DateTimeFilter<"DevicePostureSnapshot"> | Date | string
+    receivedAt?: DateTimeFilter<"DevicePostureSnapshot"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
+  }, "id">
+
+  export type DevicePostureSnapshotOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    deviceId?: SortOrder
+    diskEncryption?: SortOrder
+    firewall?: SortOrder
+    screenLock?: SortOrder
+    antivirus?: SortOrder
+    agentHealthy?: SortOrder
+    osVersion?: SortOrderInput | SortOrder
+    agentVersion?: SortOrderInput | SortOrder
+    raw?: SortOrderInput | SortOrder
+    collectedAt?: SortOrder
+    receivedAt?: SortOrder
+    _count?: DevicePostureSnapshotCountOrderByAggregateInput
+    _max?: DevicePostureSnapshotMaxOrderByAggregateInput
+    _min?: DevicePostureSnapshotMinOrderByAggregateInput
+  }
+
+  export type DevicePostureSnapshotScalarWhereWithAggregatesInput = {
+    AND?: DevicePostureSnapshotScalarWhereWithAggregatesInput | DevicePostureSnapshotScalarWhereWithAggregatesInput[]
+    OR?: DevicePostureSnapshotScalarWhereWithAggregatesInput[]
+    NOT?: DevicePostureSnapshotScalarWhereWithAggregatesInput | DevicePostureSnapshotScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DevicePostureSnapshot"> | string
+    tenantId?: StringWithAggregatesFilter<"DevicePostureSnapshot"> | string
+    deviceId?: StringWithAggregatesFilter<"DevicePostureSnapshot"> | string
+    diskEncryption?: EnumPostureSignalStateWithAggregatesFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateWithAggregatesFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateWithAggregatesFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateWithAggregatesFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    agentHealthy?: BoolWithAggregatesFilter<"DevicePostureSnapshot"> | boolean
+    osVersion?: StringNullableWithAggregatesFilter<"DevicePostureSnapshot"> | string | null
+    agentVersion?: StringNullableWithAggregatesFilter<"DevicePostureSnapshot"> | string | null
+    raw?: JsonNullableWithAggregatesFilter<"DevicePostureSnapshot">
+    collectedAt?: DateTimeWithAggregatesFilter<"DevicePostureSnapshot"> | Date | string
+    receivedAt?: DateTimeWithAggregatesFilter<"DevicePostureSnapshot"> | Date | string
+  }
+
+  export type DeviceNonceWhereInput = {
+    AND?: DeviceNonceWhereInput | DeviceNonceWhereInput[]
+    OR?: DeviceNonceWhereInput[]
+    NOT?: DeviceNonceWhereInput | DeviceNonceWhereInput[]
+    id?: StringFilter<"DeviceNonce"> | string
+    deviceId?: StringFilter<"DeviceNonce"> | string
+    nonce?: StringFilter<"DeviceNonce"> | string
+    seenAt?: DateTimeFilter<"DeviceNonce"> | Date | string
+    device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
+  }
+
+  export type DeviceNonceOrderByWithRelationInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    nonce?: SortOrder
+    seenAt?: SortOrder
+    device?: DeviceOrderByWithRelationInput
+  }
+
+  export type DeviceNonceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    deviceId_nonce?: DeviceNonceDeviceIdNonceCompoundUniqueInput
+    AND?: DeviceNonceWhereInput | DeviceNonceWhereInput[]
+    OR?: DeviceNonceWhereInput[]
+    NOT?: DeviceNonceWhereInput | DeviceNonceWhereInput[]
+    deviceId?: StringFilter<"DeviceNonce"> | string
+    nonce?: StringFilter<"DeviceNonce"> | string
+    seenAt?: DateTimeFilter<"DeviceNonce"> | Date | string
+    device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
+  }, "id" | "deviceId_nonce">
+
+  export type DeviceNonceOrderByWithAggregationInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    nonce?: SortOrder
+    seenAt?: SortOrder
+    _count?: DeviceNonceCountOrderByAggregateInput
+    _max?: DeviceNonceMaxOrderByAggregateInput
+    _min?: DeviceNonceMinOrderByAggregateInput
+  }
+
+  export type DeviceNonceScalarWhereWithAggregatesInput = {
+    AND?: DeviceNonceScalarWhereWithAggregatesInput | DeviceNonceScalarWhereWithAggregatesInput[]
+    OR?: DeviceNonceScalarWhereWithAggregatesInput[]
+    NOT?: DeviceNonceScalarWhereWithAggregatesInput | DeviceNonceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DeviceNonce"> | string
+    deviceId?: StringWithAggregatesFilter<"DeviceNonce"> | string
+    nonce?: StringWithAggregatesFilter<"DeviceNonce"> | string
+    seenAt?: DateTimeWithAggregatesFilter<"DeviceNonce"> | Date | string
   }
 
   export type EvidenceWhereInput = {
@@ -124503,6 +130742,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigListRelationFilter
     directorySyncRuns?: DirectorySyncRunListRelationFilter
     externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
+    devices?: DeviceListRelationFilter
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenListRelationFilter
+    devicePostureSnapshots?: DevicePostureSnapshotListRelationFilter
     billingConfig?: XOR<TenantBillingConfigNullableScalarRelationFilter, TenantBillingConfigWhereInput> | null
     litellmKey?: XOR<TenantLiteLLMKeyNullableScalarRelationFilter, TenantLiteLLMKeyWhereInput> | null
     creditWallet?: XOR<CreditWalletNullableScalarRelationFilter, CreditWalletWhereInput> | null
@@ -124579,6 +130821,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigOrderByRelationAggregateInput
     directorySyncRuns?: DirectorySyncRunOrderByRelationAggregateInput
     externalIdentityMappings?: ExternalIdentityMappingOrderByRelationAggregateInput
+    devices?: DeviceOrderByRelationAggregateInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenOrderByRelationAggregateInput
+    devicePostureSnapshots?: DevicePostureSnapshotOrderByRelationAggregateInput
     billingConfig?: TenantBillingConfigOrderByWithRelationInput
     litellmKey?: TenantLiteLLMKeyOrderByWithRelationInput
     creditWallet?: CreditWalletOrderByWithRelationInput
@@ -124658,6 +130903,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigListRelationFilter
     directorySyncRuns?: DirectorySyncRunListRelationFilter
     externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
+    devices?: DeviceListRelationFilter
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenListRelationFilter
+    devicePostureSnapshots?: DevicePostureSnapshotListRelationFilter
     billingConfig?: XOR<TenantBillingConfigNullableScalarRelationFilter, TenantBillingConfigWhereInput> | null
     litellmKey?: XOR<TenantLiteLLMKeyNullableScalarRelationFilter, TenantLiteLLMKeyWhereInput> | null
     creditWallet?: XOR<CreditWalletNullableScalarRelationFilter, CreditWalletWhereInput> | null
@@ -125856,6 +132104,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerListRelationFilter
     questionnaireImportJobs?: QuestionnaireImportJobListRelationFilter
     externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
+    deviceTokensCreated?: DeviceEnrollmentTokenListRelationFilter
+    devicesEnrolled?: DeviceListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -125925,6 +132175,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerOrderByRelationAggregateInput
     questionnaireImportJobs?: QuestionnaireImportJobOrderByRelationAggregateInput
     externalIdentityMappings?: ExternalIdentityMappingOrderByRelationAggregateInput
+    deviceTokensCreated?: DeviceEnrollmentTokenOrderByRelationAggregateInput
+    devicesEnrolled?: DeviceOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -125998,6 +132250,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerListRelationFilter
     questionnaireImportJobs?: QuestionnaireImportJobListRelationFilter
     externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
+    deviceTokensCreated?: DeviceEnrollmentTokenListRelationFilter
+    devicesEnrolled?: DeviceListRelationFilter
   }, "id" | "email" | "authProvider_externalId">
 
   export type UserOrderByWithAggregationInput = {
@@ -127983,6 +134237,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutAssetsInput
     owner?: UserCreateNestedOneWithoutOwnedAssetsInput
     deletedBy?: UserCreateNestedOneWithoutDeletedAssetsInput
+    device?: DeviceCreateNestedOneWithoutAssetInput
   }
 
   export type AssetUncheckedCreateInput = {
@@ -128000,6 +134255,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    device?: DeviceUncheckedCreateNestedOneWithoutAssetInput
   }
 
   export type AssetUpdateInput = {
@@ -128017,6 +134273,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutAssetsNestedInput
     owner?: UserUpdateOneWithoutOwnedAssetsNestedInput
     deletedBy?: UserUpdateOneWithoutDeletedAssetsNestedInput
+    device?: DeviceUpdateOneWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateInput = {
@@ -128034,6 +134291,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    device?: DeviceUncheckedUpdateOneWithoutAssetNestedInput
   }
 
   export type AssetCreateManyInput = {
@@ -129944,6 +136202,485 @@ export namespace Prisma {
     assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceEnrollmentTokenCreateInput = {
+    id?: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDeviceEnrollmentTokensInput
+    createdBy?: UserCreateNestedOneWithoutDeviceTokensCreatedInput
+    devices?: DeviceCreateNestedManyWithoutEnrollmentTokenInput
+  }
+
+  export type DeviceEnrollmentTokenUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    createdById?: string | null
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    devices?: DeviceUncheckedCreateNestedManyWithoutEnrollmentTokenInput
+  }
+
+  export type DeviceEnrollmentTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDeviceEnrollmentTokensNestedInput
+    createdBy?: UserUpdateOneWithoutDeviceTokensCreatedNestedInput
+    devices?: DeviceUpdateManyWithoutEnrollmentTokenNestedInput
+  }
+
+  export type DeviceEnrollmentTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    devices?: DeviceUncheckedUpdateManyWithoutEnrollmentTokenNestedInput
+  }
+
+  export type DeviceEnrollmentTokenCreateManyInput = {
+    id?: string
+    tenantId: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    createdById?: string | null
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceEnrollmentTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceEnrollmentTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceCreateInput = {
+    id?: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDevicesInput
+    asset: AssetCreateNestedOneWithoutDeviceInput
+    enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
+    snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    snapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceUncheckedCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
+    asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
+    enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
+    snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUncheckedUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceCreateManyInput = {
+    id?: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DevicePostureSnapshotCreateInput = {
+    id?: string
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    osVersion?: string | null
+    agentVersion?: string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt: Date | string
+    receivedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDevicePostureSnapshotsInput
+    device: DeviceCreateNestedOneWithoutSnapshotsInput
+  }
+
+  export type DevicePostureSnapshotUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    deviceId: string
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    osVersion?: string | null
+    agentVersion?: string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt: Date | string
+    receivedAt?: Date | string
+  }
+
+  export type DevicePostureSnapshotUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDevicePostureSnapshotsNestedInput
+    device?: DeviceUpdateOneRequiredWithoutSnapshotsNestedInput
+  }
+
+  export type DevicePostureSnapshotUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DevicePostureSnapshotCreateManyInput = {
+    id?: string
+    tenantId: string
+    deviceId: string
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    osVersion?: string | null
+    agentVersion?: string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt: Date | string
+    receivedAt?: Date | string
+  }
+
+  export type DevicePostureSnapshotUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DevicePostureSnapshotUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceNonceCreateInput = {
+    id?: string
+    nonce: string
+    seenAt?: Date | string
+    device: DeviceCreateNestedOneWithoutNoncesInput
+  }
+
+  export type DeviceNonceUncheckedCreateInput = {
+    id?: string
+    deviceId: string
+    nonce: string
+    seenAt?: Date | string
+  }
+
+  export type DeviceNonceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nonce?: StringFieldUpdateOperationsInput | string
+    seenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    device?: DeviceUpdateOneRequiredWithoutNoncesNestedInput
+  }
+
+  export type DeviceNonceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    nonce?: StringFieldUpdateOperationsInput | string
+    seenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceNonceCreateManyInput = {
+    id?: string
+    deviceId: string
+    nonce: string
+    seenAt?: Date | string
+  }
+
+  export type DeviceNonceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nonce?: StringFieldUpdateOperationsInput | string
+    seenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceNonceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    nonce?: StringFieldUpdateOperationsInput | string
+    seenAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EvidenceCreateInput = {
@@ -133870,6 +140607,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -133946,6 +140686,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -134022,6 +140765,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -134098,6 +140844,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -135366,6 +142115,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -135435,6 +142186,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUpdateInput = {
@@ -135504,6 +142257,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -135573,6 +142328,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -137749,6 +144506,11 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type DeviceNullableScalarRelationFilter = {
+    is?: DeviceWhereInput | null
+    isNot?: DeviceWhereInput | null
+  }
+
   export type AssetCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
@@ -139422,6 +146184,344 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel>
     _max?: NestedEnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel>
+  }
+
+  export type EnumDeviceEnrollmentTokenStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceEnrollmentTokenStatus | EnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceEnrollmentTokenStatus[] | ListEnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceEnrollmentTokenStatus[] | ListEnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceEnrollmentTokenStatusFilter<$PrismaModel> | $Enums.DeviceEnrollmentTokenStatus
+  }
+
+  export type DeviceListRelationFilter = {
+    every?: DeviceWhereInput
+    some?: DeviceWhereInput
+    none?: DeviceWhereInput
+  }
+
+  export type DeviceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DeviceEnrollmentTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    tokenHash?: SortOrder
+    label?: SortOrder
+    status?: SortOrder
+    maxUses?: SortOrder
+    useCount?: SortOrder
+    expiresAt?: SortOrder
+    createdById?: SortOrder
+    consumedAt?: SortOrder
+    revokedAt?: SortOrder
+    revokedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeviceEnrollmentTokenAvgOrderByAggregateInput = {
+    maxUses?: SortOrder
+    useCount?: SortOrder
+  }
+
+  export type DeviceEnrollmentTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    tokenHash?: SortOrder
+    label?: SortOrder
+    status?: SortOrder
+    maxUses?: SortOrder
+    useCount?: SortOrder
+    expiresAt?: SortOrder
+    createdById?: SortOrder
+    consumedAt?: SortOrder
+    revokedAt?: SortOrder
+    revokedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeviceEnrollmentTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    tokenHash?: SortOrder
+    label?: SortOrder
+    status?: SortOrder
+    maxUses?: SortOrder
+    useCount?: SortOrder
+    expiresAt?: SortOrder
+    createdById?: SortOrder
+    consumedAt?: SortOrder
+    revokedAt?: SortOrder
+    revokedById?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeviceEnrollmentTokenSumOrderByAggregateInput = {
+    maxUses?: SortOrder
+    useCount?: SortOrder
+  }
+
+  export type EnumDeviceEnrollmentTokenStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceEnrollmentTokenStatus | EnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceEnrollmentTokenStatus[] | ListEnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceEnrollmentTokenStatus[] | ListEnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceEnrollmentTokenStatusWithAggregatesFilter<$PrismaModel> | $Enums.DeviceEnrollmentTokenStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDeviceEnrollmentTokenStatusFilter<$PrismaModel>
+    _max?: NestedEnumDeviceEnrollmentTokenStatusFilter<$PrismaModel>
+  }
+
+  export type EnumDevicePlatformFilter<$PrismaModel = never> = {
+    equals?: $Enums.DevicePlatform | EnumDevicePlatformFieldRefInput<$PrismaModel>
+    in?: $Enums.DevicePlatform[] | ListEnumDevicePlatformFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DevicePlatform[] | ListEnumDevicePlatformFieldRefInput<$PrismaModel>
+    not?: NestedEnumDevicePlatformFilter<$PrismaModel> | $Enums.DevicePlatform
+  }
+
+  export type EnumDeviceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceStatus | EnumDeviceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceStatus[] | ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceStatus[] | ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceStatusFilter<$PrismaModel> | $Enums.DeviceStatus
+  }
+
+  export type EnumPostureSignalStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostureSignalState | EnumPostureSignalStateFieldRefInput<$PrismaModel>
+    in?: $Enums.PostureSignalState[] | ListEnumPostureSignalStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostureSignalState[] | ListEnumPostureSignalStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostureSignalStateFilter<$PrismaModel> | $Enums.PostureSignalState
+  }
+
+  export type AssetScalarRelationFilter = {
+    is?: AssetWhereInput
+    isNot?: AssetWhereInput
+  }
+
+  export type DeviceEnrollmentTokenNullableScalarRelationFilter = {
+    is?: DeviceEnrollmentTokenWhereInput | null
+    isNot?: DeviceEnrollmentTokenWhereInput | null
+  }
+
+  export type DevicePostureSnapshotListRelationFilter = {
+    every?: DevicePostureSnapshotWhereInput
+    some?: DevicePostureSnapshotWhereInput
+    none?: DevicePostureSnapshotWhereInput
+  }
+
+  export type DeviceNonceListRelationFilter = {
+    every?: DeviceNonceWhereInput
+    some?: DeviceNonceWhereInput
+    none?: DeviceNonceWhereInput
+  }
+
+  export type DevicePostureSnapshotOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DeviceNonceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DeviceCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    assetId?: SortOrder
+    secretEnc?: SortOrder
+    secretKeyId?: SortOrder
+    platform?: SortOrder
+    osVersion?: SortOrder
+    agentVersion?: SortOrder
+    hostname?: SortOrder
+    hardwareId?: SortOrder
+    status?: SortOrder
+    enrolledById?: SortOrder
+    enrolledAt?: SortOrder
+    lastSeenAt?: SortOrder
+    checkInIntervalSeconds?: SortOrder
+    diskEncryption?: SortOrder
+    firewall?: SortOrder
+    screenLock?: SortOrder
+    antivirus?: SortOrder
+    agentHealthy?: SortOrder
+    lastPostureAt?: SortOrder
+    latestPosture?: SortOrder
+    enrollmentTokenId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeviceAvgOrderByAggregateInput = {
+    secretKeyId?: SortOrder
+    checkInIntervalSeconds?: SortOrder
+  }
+
+  export type DeviceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    assetId?: SortOrder
+    secretEnc?: SortOrder
+    secretKeyId?: SortOrder
+    platform?: SortOrder
+    osVersion?: SortOrder
+    agentVersion?: SortOrder
+    hostname?: SortOrder
+    hardwareId?: SortOrder
+    status?: SortOrder
+    enrolledById?: SortOrder
+    enrolledAt?: SortOrder
+    lastSeenAt?: SortOrder
+    checkInIntervalSeconds?: SortOrder
+    diskEncryption?: SortOrder
+    firewall?: SortOrder
+    screenLock?: SortOrder
+    antivirus?: SortOrder
+    agentHealthy?: SortOrder
+    lastPostureAt?: SortOrder
+    enrollmentTokenId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeviceMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    assetId?: SortOrder
+    secretEnc?: SortOrder
+    secretKeyId?: SortOrder
+    platform?: SortOrder
+    osVersion?: SortOrder
+    agentVersion?: SortOrder
+    hostname?: SortOrder
+    hardwareId?: SortOrder
+    status?: SortOrder
+    enrolledById?: SortOrder
+    enrolledAt?: SortOrder
+    lastSeenAt?: SortOrder
+    checkInIntervalSeconds?: SortOrder
+    diskEncryption?: SortOrder
+    firewall?: SortOrder
+    screenLock?: SortOrder
+    antivirus?: SortOrder
+    agentHealthy?: SortOrder
+    lastPostureAt?: SortOrder
+    enrollmentTokenId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DeviceSumOrderByAggregateInput = {
+    secretKeyId?: SortOrder
+    checkInIntervalSeconds?: SortOrder
+  }
+
+  export type EnumDevicePlatformWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DevicePlatform | EnumDevicePlatformFieldRefInput<$PrismaModel>
+    in?: $Enums.DevicePlatform[] | ListEnumDevicePlatformFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DevicePlatform[] | ListEnumDevicePlatformFieldRefInput<$PrismaModel>
+    not?: NestedEnumDevicePlatformWithAggregatesFilter<$PrismaModel> | $Enums.DevicePlatform
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDevicePlatformFilter<$PrismaModel>
+    _max?: NestedEnumDevicePlatformFilter<$PrismaModel>
+  }
+
+  export type EnumDeviceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceStatus | EnumDeviceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceStatus[] | ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceStatus[] | ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceStatusWithAggregatesFilter<$PrismaModel> | $Enums.DeviceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDeviceStatusFilter<$PrismaModel>
+    _max?: NestedEnumDeviceStatusFilter<$PrismaModel>
+  }
+
+  export type EnumPostureSignalStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostureSignalState | EnumPostureSignalStateFieldRefInput<$PrismaModel>
+    in?: $Enums.PostureSignalState[] | ListEnumPostureSignalStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostureSignalState[] | ListEnumPostureSignalStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostureSignalStateWithAggregatesFilter<$PrismaModel> | $Enums.PostureSignalState
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPostureSignalStateFilter<$PrismaModel>
+    _max?: NestedEnumPostureSignalStateFilter<$PrismaModel>
+  }
+
+  export type DeviceScalarRelationFilter = {
+    is?: DeviceWhereInput
+    isNot?: DeviceWhereInput
+  }
+
+  export type DevicePostureSnapshotCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    deviceId?: SortOrder
+    diskEncryption?: SortOrder
+    firewall?: SortOrder
+    screenLock?: SortOrder
+    antivirus?: SortOrder
+    agentHealthy?: SortOrder
+    osVersion?: SortOrder
+    agentVersion?: SortOrder
+    raw?: SortOrder
+    collectedAt?: SortOrder
+    receivedAt?: SortOrder
+  }
+
+  export type DevicePostureSnapshotMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    deviceId?: SortOrder
+    diskEncryption?: SortOrder
+    firewall?: SortOrder
+    screenLock?: SortOrder
+    antivirus?: SortOrder
+    agentHealthy?: SortOrder
+    osVersion?: SortOrder
+    agentVersion?: SortOrder
+    collectedAt?: SortOrder
+    receivedAt?: SortOrder
+  }
+
+  export type DevicePostureSnapshotMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    deviceId?: SortOrder
+    diskEncryption?: SortOrder
+    firewall?: SortOrder
+    screenLock?: SortOrder
+    antivirus?: SortOrder
+    agentHealthy?: SortOrder
+    osVersion?: SortOrder
+    agentVersion?: SortOrder
+    collectedAt?: SortOrder
+    receivedAt?: SortOrder
+  }
+
+  export type DeviceNonceDeviceIdNonceCompoundUniqueInput = {
+    deviceId: string
+    nonce: string
+  }
+
+  export type DeviceNonceCountOrderByAggregateInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    nonce?: SortOrder
+    seenAt?: SortOrder
+  }
+
+  export type DeviceNonceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    nonce?: SortOrder
+    seenAt?: SortOrder
+  }
+
+  export type DeviceNonceMinOrderByAggregateInput = {
+    id?: SortOrder
+    deviceId?: SortOrder
+    nonce?: SortOrder
+    seenAt?: SortOrder
   }
 
   export type EnumEvidenceTypeFilter<$PrismaModel = never> = {
@@ -142607,6 +149707,12 @@ export namespace Prisma {
     none?: ExternalIdentityMappingWhereInput
   }
 
+  export type DeviceEnrollmentTokenListRelationFilter = {
+    every?: DeviceEnrollmentTokenWhereInput
+    some?: DeviceEnrollmentTokenWhereInput
+    none?: DeviceEnrollmentTokenWhereInput
+  }
+
   export type TenantBillingConfigNullableScalarRelationFilter = {
     is?: TenantBillingConfigWhereInput | null
     isNot?: TenantBillingConfigWhereInput | null
@@ -142727,6 +149833,10 @@ export namespace Prisma {
   }
 
   export type ExternalIdentityMappingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DeviceEnrollmentTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -145008,6 +152118,18 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type DeviceCreateNestedOneWithoutAssetInput = {
+    create?: XOR<DeviceCreateWithoutAssetInput, DeviceUncheckedCreateWithoutAssetInput>
+    connectOrCreate?: DeviceCreateOrConnectWithoutAssetInput
+    connect?: DeviceWhereUniqueInput
+  }
+
+  export type DeviceUncheckedCreateNestedOneWithoutAssetInput = {
+    create?: XOR<DeviceCreateWithoutAssetInput, DeviceUncheckedCreateWithoutAssetInput>
+    connectOrCreate?: DeviceCreateOrConnectWithoutAssetInput
+    connect?: DeviceWhereUniqueInput
+  }
+
   export type EnumAssetTypeFieldUpdateOperationsInput = {
     set?: $Enums.AssetType
   }
@@ -145046,6 +152168,26 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDeletedAssetsInput, UserUpdateWithoutDeletedAssetsInput>, UserUncheckedUpdateWithoutDeletedAssetsInput>
+  }
+
+  export type DeviceUpdateOneWithoutAssetNestedInput = {
+    create?: XOR<DeviceCreateWithoutAssetInput, DeviceUncheckedCreateWithoutAssetInput>
+    connectOrCreate?: DeviceCreateOrConnectWithoutAssetInput
+    upsert?: DeviceUpsertWithoutAssetInput
+    disconnect?: DeviceWhereInput | boolean
+    delete?: DeviceWhereInput | boolean
+    connect?: DeviceWhereUniqueInput
+    update?: XOR<XOR<DeviceUpdateToOneWithWhereWithoutAssetInput, DeviceUpdateWithoutAssetInput>, DeviceUncheckedUpdateWithoutAssetInput>
+  }
+
+  export type DeviceUncheckedUpdateOneWithoutAssetNestedInput = {
+    create?: XOR<DeviceCreateWithoutAssetInput, DeviceUncheckedCreateWithoutAssetInput>
+    connectOrCreate?: DeviceCreateOrConnectWithoutAssetInput
+    upsert?: DeviceUpsertWithoutAssetInput
+    disconnect?: DeviceWhereInput | boolean
+    delete?: DeviceWhereInput | boolean
+    connect?: DeviceWhereUniqueInput
+    update?: XOR<XOR<DeviceUpdateToOneWithWhereWithoutAssetInput, DeviceUpdateWithoutAssetInput>, DeviceUncheckedUpdateWithoutAssetInput>
   }
 
   export type TenantCreateNestedOneWithoutAuditsInput = {
@@ -146181,6 +153323,280 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedControlWeaknessesInput, UserUpdateWithoutAssignedControlWeaknessesInput>, UserUncheckedUpdateWithoutAssignedControlWeaknessesInput>
+  }
+
+  export type TenantCreateNestedOneWithoutDeviceEnrollmentTokensInput = {
+    create?: XOR<TenantCreateWithoutDeviceEnrollmentTokensInput, TenantUncheckedCreateWithoutDeviceEnrollmentTokensInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDeviceEnrollmentTokensInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDeviceTokensCreatedInput = {
+    create?: XOR<UserCreateWithoutDeviceTokensCreatedInput, UserUncheckedCreateWithoutDeviceTokensCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDeviceTokensCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DeviceCreateNestedManyWithoutEnrollmentTokenInput = {
+    create?: XOR<DeviceCreateWithoutEnrollmentTokenInput, DeviceUncheckedCreateWithoutEnrollmentTokenInput> | DeviceCreateWithoutEnrollmentTokenInput[] | DeviceUncheckedCreateWithoutEnrollmentTokenInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutEnrollmentTokenInput | DeviceCreateOrConnectWithoutEnrollmentTokenInput[]
+    createMany?: DeviceCreateManyEnrollmentTokenInputEnvelope
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+  }
+
+  export type DeviceUncheckedCreateNestedManyWithoutEnrollmentTokenInput = {
+    create?: XOR<DeviceCreateWithoutEnrollmentTokenInput, DeviceUncheckedCreateWithoutEnrollmentTokenInput> | DeviceCreateWithoutEnrollmentTokenInput[] | DeviceUncheckedCreateWithoutEnrollmentTokenInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutEnrollmentTokenInput | DeviceCreateOrConnectWithoutEnrollmentTokenInput[]
+    createMany?: DeviceCreateManyEnrollmentTokenInputEnvelope
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+  }
+
+  export type EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput = {
+    set?: $Enums.DeviceEnrollmentTokenStatus
+  }
+
+  export type TenantUpdateOneRequiredWithoutDeviceEnrollmentTokensNestedInput = {
+    create?: XOR<TenantCreateWithoutDeviceEnrollmentTokensInput, TenantUncheckedCreateWithoutDeviceEnrollmentTokensInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDeviceEnrollmentTokensInput
+    upsert?: TenantUpsertWithoutDeviceEnrollmentTokensInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDeviceEnrollmentTokensInput, TenantUpdateWithoutDeviceEnrollmentTokensInput>, TenantUncheckedUpdateWithoutDeviceEnrollmentTokensInput>
+  }
+
+  export type UserUpdateOneWithoutDeviceTokensCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutDeviceTokensCreatedInput, UserUncheckedCreateWithoutDeviceTokensCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDeviceTokensCreatedInput
+    upsert?: UserUpsertWithoutDeviceTokensCreatedInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDeviceTokensCreatedInput, UserUpdateWithoutDeviceTokensCreatedInput>, UserUncheckedUpdateWithoutDeviceTokensCreatedInput>
+  }
+
+  export type DeviceUpdateManyWithoutEnrollmentTokenNestedInput = {
+    create?: XOR<DeviceCreateWithoutEnrollmentTokenInput, DeviceUncheckedCreateWithoutEnrollmentTokenInput> | DeviceCreateWithoutEnrollmentTokenInput[] | DeviceUncheckedCreateWithoutEnrollmentTokenInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutEnrollmentTokenInput | DeviceCreateOrConnectWithoutEnrollmentTokenInput[]
+    upsert?: DeviceUpsertWithWhereUniqueWithoutEnrollmentTokenInput | DeviceUpsertWithWhereUniqueWithoutEnrollmentTokenInput[]
+    createMany?: DeviceCreateManyEnrollmentTokenInputEnvelope
+    set?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    disconnect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    delete?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    update?: DeviceUpdateWithWhereUniqueWithoutEnrollmentTokenInput | DeviceUpdateWithWhereUniqueWithoutEnrollmentTokenInput[]
+    updateMany?: DeviceUpdateManyWithWhereWithoutEnrollmentTokenInput | DeviceUpdateManyWithWhereWithoutEnrollmentTokenInput[]
+    deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+  }
+
+  export type DeviceUncheckedUpdateManyWithoutEnrollmentTokenNestedInput = {
+    create?: XOR<DeviceCreateWithoutEnrollmentTokenInput, DeviceUncheckedCreateWithoutEnrollmentTokenInput> | DeviceCreateWithoutEnrollmentTokenInput[] | DeviceUncheckedCreateWithoutEnrollmentTokenInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutEnrollmentTokenInput | DeviceCreateOrConnectWithoutEnrollmentTokenInput[]
+    upsert?: DeviceUpsertWithWhereUniqueWithoutEnrollmentTokenInput | DeviceUpsertWithWhereUniqueWithoutEnrollmentTokenInput[]
+    createMany?: DeviceCreateManyEnrollmentTokenInputEnvelope
+    set?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    disconnect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    delete?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    update?: DeviceUpdateWithWhereUniqueWithoutEnrollmentTokenInput | DeviceUpdateWithWhereUniqueWithoutEnrollmentTokenInput[]
+    updateMany?: DeviceUpdateManyWithWhereWithoutEnrollmentTokenInput | DeviceUpdateManyWithWhereWithoutEnrollmentTokenInput[]
+    deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutDevicesInput = {
+    create?: XOR<TenantCreateWithoutDevicesInput, TenantUncheckedCreateWithoutDevicesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDevicesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type AssetCreateNestedOneWithoutDeviceInput = {
+    create?: XOR<AssetCreateWithoutDeviceInput, AssetUncheckedCreateWithoutDeviceInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutDeviceInput
+    connect?: AssetWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDevicesEnrolledInput = {
+    create?: XOR<UserCreateWithoutDevicesEnrolledInput, UserUncheckedCreateWithoutDevicesEnrolledInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDevicesEnrolledInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput = {
+    create?: XOR<DeviceEnrollmentTokenCreateWithoutDevicesInput, DeviceEnrollmentTokenUncheckedCreateWithoutDevicesInput>
+    connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutDevicesInput
+    connect?: DeviceEnrollmentTokenWhereUniqueInput
+  }
+
+  export type DevicePostureSnapshotCreateNestedManyWithoutDeviceInput = {
+    create?: XOR<DevicePostureSnapshotCreateWithoutDeviceInput, DevicePostureSnapshotUncheckedCreateWithoutDeviceInput> | DevicePostureSnapshotCreateWithoutDeviceInput[] | DevicePostureSnapshotUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DevicePostureSnapshotCreateOrConnectWithoutDeviceInput | DevicePostureSnapshotCreateOrConnectWithoutDeviceInput[]
+    createMany?: DevicePostureSnapshotCreateManyDeviceInputEnvelope
+    connect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+  }
+
+  export type DeviceNonceCreateNestedManyWithoutDeviceInput = {
+    create?: XOR<DeviceNonceCreateWithoutDeviceInput, DeviceNonceUncheckedCreateWithoutDeviceInput> | DeviceNonceCreateWithoutDeviceInput[] | DeviceNonceUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DeviceNonceCreateOrConnectWithoutDeviceInput | DeviceNonceCreateOrConnectWithoutDeviceInput[]
+    createMany?: DeviceNonceCreateManyDeviceInputEnvelope
+    connect?: DeviceNonceWhereUniqueInput | DeviceNonceWhereUniqueInput[]
+  }
+
+  export type DevicePostureSnapshotUncheckedCreateNestedManyWithoutDeviceInput = {
+    create?: XOR<DevicePostureSnapshotCreateWithoutDeviceInput, DevicePostureSnapshotUncheckedCreateWithoutDeviceInput> | DevicePostureSnapshotCreateWithoutDeviceInput[] | DevicePostureSnapshotUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DevicePostureSnapshotCreateOrConnectWithoutDeviceInput | DevicePostureSnapshotCreateOrConnectWithoutDeviceInput[]
+    createMany?: DevicePostureSnapshotCreateManyDeviceInputEnvelope
+    connect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+  }
+
+  export type DeviceNonceUncheckedCreateNestedManyWithoutDeviceInput = {
+    create?: XOR<DeviceNonceCreateWithoutDeviceInput, DeviceNonceUncheckedCreateWithoutDeviceInput> | DeviceNonceCreateWithoutDeviceInput[] | DeviceNonceUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DeviceNonceCreateOrConnectWithoutDeviceInput | DeviceNonceCreateOrConnectWithoutDeviceInput[]
+    createMany?: DeviceNonceCreateManyDeviceInputEnvelope
+    connect?: DeviceNonceWhereUniqueInput | DeviceNonceWhereUniqueInput[]
+  }
+
+  export type EnumDevicePlatformFieldUpdateOperationsInput = {
+    set?: $Enums.DevicePlatform
+  }
+
+  export type EnumDeviceStatusFieldUpdateOperationsInput = {
+    set?: $Enums.DeviceStatus
+  }
+
+  export type EnumPostureSignalStateFieldUpdateOperationsInput = {
+    set?: $Enums.PostureSignalState
+  }
+
+  export type TenantUpdateOneRequiredWithoutDevicesNestedInput = {
+    create?: XOR<TenantCreateWithoutDevicesInput, TenantUncheckedCreateWithoutDevicesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDevicesInput
+    upsert?: TenantUpsertWithoutDevicesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDevicesInput, TenantUpdateWithoutDevicesInput>, TenantUncheckedUpdateWithoutDevicesInput>
+  }
+
+  export type AssetUpdateOneRequiredWithoutDeviceNestedInput = {
+    create?: XOR<AssetCreateWithoutDeviceInput, AssetUncheckedCreateWithoutDeviceInput>
+    connectOrCreate?: AssetCreateOrConnectWithoutDeviceInput
+    upsert?: AssetUpsertWithoutDeviceInput
+    connect?: AssetWhereUniqueInput
+    update?: XOR<XOR<AssetUpdateToOneWithWhereWithoutDeviceInput, AssetUpdateWithoutDeviceInput>, AssetUncheckedUpdateWithoutDeviceInput>
+  }
+
+  export type UserUpdateOneWithoutDevicesEnrolledNestedInput = {
+    create?: XOR<UserCreateWithoutDevicesEnrolledInput, UserUncheckedCreateWithoutDevicesEnrolledInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDevicesEnrolledInput
+    upsert?: UserUpsertWithoutDevicesEnrolledInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDevicesEnrolledInput, UserUpdateWithoutDevicesEnrolledInput>, UserUncheckedUpdateWithoutDevicesEnrolledInput>
+  }
+
+  export type DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput = {
+    create?: XOR<DeviceEnrollmentTokenCreateWithoutDevicesInput, DeviceEnrollmentTokenUncheckedCreateWithoutDevicesInput>
+    connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutDevicesInput
+    upsert?: DeviceEnrollmentTokenUpsertWithoutDevicesInput
+    disconnect?: DeviceEnrollmentTokenWhereInput | boolean
+    delete?: DeviceEnrollmentTokenWhereInput | boolean
+    connect?: DeviceEnrollmentTokenWhereUniqueInput
+    update?: XOR<XOR<DeviceEnrollmentTokenUpdateToOneWithWhereWithoutDevicesInput, DeviceEnrollmentTokenUpdateWithoutDevicesInput>, DeviceEnrollmentTokenUncheckedUpdateWithoutDevicesInput>
+  }
+
+  export type DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput = {
+    create?: XOR<DevicePostureSnapshotCreateWithoutDeviceInput, DevicePostureSnapshotUncheckedCreateWithoutDeviceInput> | DevicePostureSnapshotCreateWithoutDeviceInput[] | DevicePostureSnapshotUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DevicePostureSnapshotCreateOrConnectWithoutDeviceInput | DevicePostureSnapshotCreateOrConnectWithoutDeviceInput[]
+    upsert?: DevicePostureSnapshotUpsertWithWhereUniqueWithoutDeviceInput | DevicePostureSnapshotUpsertWithWhereUniqueWithoutDeviceInput[]
+    createMany?: DevicePostureSnapshotCreateManyDeviceInputEnvelope
+    set?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    disconnect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    delete?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    connect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    update?: DevicePostureSnapshotUpdateWithWhereUniqueWithoutDeviceInput | DevicePostureSnapshotUpdateWithWhereUniqueWithoutDeviceInput[]
+    updateMany?: DevicePostureSnapshotUpdateManyWithWhereWithoutDeviceInput | DevicePostureSnapshotUpdateManyWithWhereWithoutDeviceInput[]
+    deleteMany?: DevicePostureSnapshotScalarWhereInput | DevicePostureSnapshotScalarWhereInput[]
+  }
+
+  export type DeviceNonceUpdateManyWithoutDeviceNestedInput = {
+    create?: XOR<DeviceNonceCreateWithoutDeviceInput, DeviceNonceUncheckedCreateWithoutDeviceInput> | DeviceNonceCreateWithoutDeviceInput[] | DeviceNonceUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DeviceNonceCreateOrConnectWithoutDeviceInput | DeviceNonceCreateOrConnectWithoutDeviceInput[]
+    upsert?: DeviceNonceUpsertWithWhereUniqueWithoutDeviceInput | DeviceNonceUpsertWithWhereUniqueWithoutDeviceInput[]
+    createMany?: DeviceNonceCreateManyDeviceInputEnvelope
+    set?: DeviceNonceWhereUniqueInput | DeviceNonceWhereUniqueInput[]
+    disconnect?: DeviceNonceWhereUniqueInput | DeviceNonceWhereUniqueInput[]
+    delete?: DeviceNonceWhereUniqueInput | DeviceNonceWhereUniqueInput[]
+    connect?: DeviceNonceWhereUniqueInput | DeviceNonceWhereUniqueInput[]
+    update?: DeviceNonceUpdateWithWhereUniqueWithoutDeviceInput | DeviceNonceUpdateWithWhereUniqueWithoutDeviceInput[]
+    updateMany?: DeviceNonceUpdateManyWithWhereWithoutDeviceInput | DeviceNonceUpdateManyWithWhereWithoutDeviceInput[]
+    deleteMany?: DeviceNonceScalarWhereInput | DeviceNonceScalarWhereInput[]
+  }
+
+  export type DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceNestedInput = {
+    create?: XOR<DevicePostureSnapshotCreateWithoutDeviceInput, DevicePostureSnapshotUncheckedCreateWithoutDeviceInput> | DevicePostureSnapshotCreateWithoutDeviceInput[] | DevicePostureSnapshotUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DevicePostureSnapshotCreateOrConnectWithoutDeviceInput | DevicePostureSnapshotCreateOrConnectWithoutDeviceInput[]
+    upsert?: DevicePostureSnapshotUpsertWithWhereUniqueWithoutDeviceInput | DevicePostureSnapshotUpsertWithWhereUniqueWithoutDeviceInput[]
+    createMany?: DevicePostureSnapshotCreateManyDeviceInputEnvelope
+    set?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    disconnect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    delete?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    connect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    update?: DevicePostureSnapshotUpdateWithWhereUniqueWithoutDeviceInput | DevicePostureSnapshotUpdateWithWhereUniqueWithoutDeviceInput[]
+    updateMany?: DevicePostureSnapshotUpdateManyWithWhereWithoutDeviceInput | DevicePostureSnapshotUpdateManyWithWhereWithoutDeviceInput[]
+    deleteMany?: DevicePostureSnapshotScalarWhereInput | DevicePostureSnapshotScalarWhereInput[]
+  }
+
+  export type DeviceNonceUncheckedUpdateManyWithoutDeviceNestedInput = {
+    create?: XOR<DeviceNonceCreateWithoutDeviceInput, DeviceNonceUncheckedCreateWithoutDeviceInput> | DeviceNonceCreateWithoutDeviceInput[] | DeviceNonceUncheckedCreateWithoutDeviceInput[]
+    connectOrCreate?: DeviceNonceCreateOrConnectWithoutDeviceInput | DeviceNonceCreateOrConnectWithoutDeviceInput[]
+    upsert?: DeviceNonceUpsertWithWhereUniqueWithoutDeviceInput | DeviceNonceUpsertWithWhereUniqueWithoutDeviceInput[]
+    createMany?: DeviceNonceCreateManyDeviceInputEnvelope
+    set?: DeviceNonceWhereUniqueInput | DeviceNonceWhereUniqueInput[]
+    disconnect?: DeviceNonceWhereUniqueInput | DeviceNonceWhereUniqueInput[]
+    delete?: DeviceNonceWhereUniqueInput | DeviceNonceWhereUniqueInput[]
+    connect?: DeviceNonceWhereUniqueInput | DeviceNonceWhereUniqueInput[]
+    update?: DeviceNonceUpdateWithWhereUniqueWithoutDeviceInput | DeviceNonceUpdateWithWhereUniqueWithoutDeviceInput[]
+    updateMany?: DeviceNonceUpdateManyWithWhereWithoutDeviceInput | DeviceNonceUpdateManyWithWhereWithoutDeviceInput[]
+    deleteMany?: DeviceNonceScalarWhereInput | DeviceNonceScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutDevicePostureSnapshotsInput = {
+    create?: XOR<TenantCreateWithoutDevicePostureSnapshotsInput, TenantUncheckedCreateWithoutDevicePostureSnapshotsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDevicePostureSnapshotsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type DeviceCreateNestedOneWithoutSnapshotsInput = {
+    create?: XOR<DeviceCreateWithoutSnapshotsInput, DeviceUncheckedCreateWithoutSnapshotsInput>
+    connectOrCreate?: DeviceCreateOrConnectWithoutSnapshotsInput
+    connect?: DeviceWhereUniqueInput
+  }
+
+  export type TenantUpdateOneRequiredWithoutDevicePostureSnapshotsNestedInput = {
+    create?: XOR<TenantCreateWithoutDevicePostureSnapshotsInput, TenantUncheckedCreateWithoutDevicePostureSnapshotsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDevicePostureSnapshotsInput
+    upsert?: TenantUpsertWithoutDevicePostureSnapshotsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDevicePostureSnapshotsInput, TenantUpdateWithoutDevicePostureSnapshotsInput>, TenantUncheckedUpdateWithoutDevicePostureSnapshotsInput>
+  }
+
+  export type DeviceUpdateOneRequiredWithoutSnapshotsNestedInput = {
+    create?: XOR<DeviceCreateWithoutSnapshotsInput, DeviceUncheckedCreateWithoutSnapshotsInput>
+    connectOrCreate?: DeviceCreateOrConnectWithoutSnapshotsInput
+    upsert?: DeviceUpsertWithoutSnapshotsInput
+    connect?: DeviceWhereUniqueInput
+    update?: XOR<XOR<DeviceUpdateToOneWithWhereWithoutSnapshotsInput, DeviceUpdateWithoutSnapshotsInput>, DeviceUncheckedUpdateWithoutSnapshotsInput>
+  }
+
+  export type DeviceCreateNestedOneWithoutNoncesInput = {
+    create?: XOR<DeviceCreateWithoutNoncesInput, DeviceUncheckedCreateWithoutNoncesInput>
+    connectOrCreate?: DeviceCreateOrConnectWithoutNoncesInput
+    connect?: DeviceWhereUniqueInput
+  }
+
+  export type DeviceUpdateOneRequiredWithoutNoncesNestedInput = {
+    create?: XOR<DeviceCreateWithoutNoncesInput, DeviceUncheckedCreateWithoutNoncesInput>
+    connectOrCreate?: DeviceCreateOrConnectWithoutNoncesInput
+    upsert?: DeviceUpsertWithoutNoncesInput
+    connect?: DeviceWhereUniqueInput
+    update?: XOR<XOR<DeviceUpdateToOneWithWhereWithoutNoncesInput, DeviceUpdateWithoutNoncesInput>, DeviceUncheckedUpdateWithoutNoncesInput>
   }
 
   export type EvidenceCreatetagsInput = {
@@ -149467,6 +156883,27 @@ export namespace Prisma {
     connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
   }
 
+  export type DeviceCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DeviceCreateWithoutTenantInput, DeviceUncheckedCreateWithoutTenantInput> | DeviceCreateWithoutTenantInput[] | DeviceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutTenantInput | DeviceCreateOrConnectWithoutTenantInput[]
+    createMany?: DeviceCreateManyTenantInputEnvelope
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+  }
+
+  export type DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DeviceEnrollmentTokenCreateWithoutTenantInput, DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput> | DeviceEnrollmentTokenCreateWithoutTenantInput[] | DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutTenantInput | DeviceEnrollmentTokenCreateOrConnectWithoutTenantInput[]
+    createMany?: DeviceEnrollmentTokenCreateManyTenantInputEnvelope
+    connect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+  }
+
+  export type DevicePostureSnapshotCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DevicePostureSnapshotCreateWithoutTenantInput, DevicePostureSnapshotUncheckedCreateWithoutTenantInput> | DevicePostureSnapshotCreateWithoutTenantInput[] | DevicePostureSnapshotUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DevicePostureSnapshotCreateOrConnectWithoutTenantInput | DevicePostureSnapshotCreateOrConnectWithoutTenantInput[]
+    createMany?: DevicePostureSnapshotCreateManyTenantInputEnvelope
+    connect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+  }
+
   export type TenantBillingConfigCreateNestedOneWithoutTenantInput = {
     create?: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantBillingConfigCreateOrConnectWithoutTenantInput
@@ -149914,6 +157351,27 @@ export namespace Prisma {
     connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutTenantInput | ExternalIdentityMappingCreateOrConnectWithoutTenantInput[]
     createMany?: ExternalIdentityMappingCreateManyTenantInputEnvelope
     connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+  }
+
+  export type DeviceUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DeviceCreateWithoutTenantInput, DeviceUncheckedCreateWithoutTenantInput> | DeviceCreateWithoutTenantInput[] | DeviceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutTenantInput | DeviceCreateOrConnectWithoutTenantInput[]
+    createMany?: DeviceCreateManyTenantInputEnvelope
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+  }
+
+  export type DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DeviceEnrollmentTokenCreateWithoutTenantInput, DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput> | DeviceEnrollmentTokenCreateWithoutTenantInput[] | DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutTenantInput | DeviceEnrollmentTokenCreateOrConnectWithoutTenantInput[]
+    createMany?: DeviceEnrollmentTokenCreateManyTenantInputEnvelope
+    connect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+  }
+
+  export type DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DevicePostureSnapshotCreateWithoutTenantInput, DevicePostureSnapshotUncheckedCreateWithoutTenantInput> | DevicePostureSnapshotCreateWithoutTenantInput[] | DevicePostureSnapshotUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DevicePostureSnapshotCreateOrConnectWithoutTenantInput | DevicePostureSnapshotCreateOrConnectWithoutTenantInput[]
+    createMany?: DevicePostureSnapshotCreateManyTenantInputEnvelope
+    connect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
   }
 
   export type TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput = {
@@ -150802,6 +158260,48 @@ export namespace Prisma {
     deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
   }
 
+  export type DeviceUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DeviceCreateWithoutTenantInput, DeviceUncheckedCreateWithoutTenantInput> | DeviceCreateWithoutTenantInput[] | DeviceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutTenantInput | DeviceCreateOrConnectWithoutTenantInput[]
+    upsert?: DeviceUpsertWithWhereUniqueWithoutTenantInput | DeviceUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DeviceCreateManyTenantInputEnvelope
+    set?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    disconnect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    delete?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    update?: DeviceUpdateWithWhereUniqueWithoutTenantInput | DeviceUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DeviceUpdateManyWithWhereWithoutTenantInput | DeviceUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+  }
+
+  export type DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DeviceEnrollmentTokenCreateWithoutTenantInput, DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput> | DeviceEnrollmentTokenCreateWithoutTenantInput[] | DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutTenantInput | DeviceEnrollmentTokenCreateOrConnectWithoutTenantInput[]
+    upsert?: DeviceEnrollmentTokenUpsertWithWhereUniqueWithoutTenantInput | DeviceEnrollmentTokenUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DeviceEnrollmentTokenCreateManyTenantInputEnvelope
+    set?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    disconnect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    delete?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    connect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    update?: DeviceEnrollmentTokenUpdateWithWhereUniqueWithoutTenantInput | DeviceEnrollmentTokenUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DeviceEnrollmentTokenUpdateManyWithWhereWithoutTenantInput | DeviceEnrollmentTokenUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DeviceEnrollmentTokenScalarWhereInput | DeviceEnrollmentTokenScalarWhereInput[]
+  }
+
+  export type DevicePostureSnapshotUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DevicePostureSnapshotCreateWithoutTenantInput, DevicePostureSnapshotUncheckedCreateWithoutTenantInput> | DevicePostureSnapshotCreateWithoutTenantInput[] | DevicePostureSnapshotUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DevicePostureSnapshotCreateOrConnectWithoutTenantInput | DevicePostureSnapshotCreateOrConnectWithoutTenantInput[]
+    upsert?: DevicePostureSnapshotUpsertWithWhereUniqueWithoutTenantInput | DevicePostureSnapshotUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DevicePostureSnapshotCreateManyTenantInputEnvelope
+    set?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    disconnect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    delete?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    connect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    update?: DevicePostureSnapshotUpdateWithWhereUniqueWithoutTenantInput | DevicePostureSnapshotUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DevicePostureSnapshotUpdateManyWithWhereWithoutTenantInput | DevicePostureSnapshotUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DevicePostureSnapshotScalarWhereInput | DevicePostureSnapshotScalarWhereInput[]
+  }
+
   export type TenantBillingConfigUpdateOneWithoutTenantNestedInput = {
     create?: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantBillingConfigCreateOrConnectWithoutTenantInput
@@ -151686,6 +159186,48 @@ export namespace Prisma {
     update?: ExternalIdentityMappingUpdateWithWhereUniqueWithoutTenantInput | ExternalIdentityMappingUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: ExternalIdentityMappingUpdateManyWithWhereWithoutTenantInput | ExternalIdentityMappingUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
+  }
+
+  export type DeviceUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DeviceCreateWithoutTenantInput, DeviceUncheckedCreateWithoutTenantInput> | DeviceCreateWithoutTenantInput[] | DeviceUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutTenantInput | DeviceCreateOrConnectWithoutTenantInput[]
+    upsert?: DeviceUpsertWithWhereUniqueWithoutTenantInput | DeviceUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DeviceCreateManyTenantInputEnvelope
+    set?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    disconnect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    delete?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    update?: DeviceUpdateWithWhereUniqueWithoutTenantInput | DeviceUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DeviceUpdateManyWithWhereWithoutTenantInput | DeviceUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+  }
+
+  export type DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DeviceEnrollmentTokenCreateWithoutTenantInput, DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput> | DeviceEnrollmentTokenCreateWithoutTenantInput[] | DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutTenantInput | DeviceEnrollmentTokenCreateOrConnectWithoutTenantInput[]
+    upsert?: DeviceEnrollmentTokenUpsertWithWhereUniqueWithoutTenantInput | DeviceEnrollmentTokenUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DeviceEnrollmentTokenCreateManyTenantInputEnvelope
+    set?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    disconnect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    delete?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    connect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    update?: DeviceEnrollmentTokenUpdateWithWhereUniqueWithoutTenantInput | DeviceEnrollmentTokenUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DeviceEnrollmentTokenUpdateManyWithWhereWithoutTenantInput | DeviceEnrollmentTokenUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DeviceEnrollmentTokenScalarWhereInput | DeviceEnrollmentTokenScalarWhereInput[]
+  }
+
+  export type DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DevicePostureSnapshotCreateWithoutTenantInput, DevicePostureSnapshotUncheckedCreateWithoutTenantInput> | DevicePostureSnapshotCreateWithoutTenantInput[] | DevicePostureSnapshotUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DevicePostureSnapshotCreateOrConnectWithoutTenantInput | DevicePostureSnapshotCreateOrConnectWithoutTenantInput[]
+    upsert?: DevicePostureSnapshotUpsertWithWhereUniqueWithoutTenantInput | DevicePostureSnapshotUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DevicePostureSnapshotCreateManyTenantInputEnvelope
+    set?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    disconnect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    delete?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    connect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+    update?: DevicePostureSnapshotUpdateWithWhereUniqueWithoutTenantInput | DevicePostureSnapshotUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DevicePostureSnapshotUpdateManyWithWhereWithoutTenantInput | DevicePostureSnapshotUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DevicePostureSnapshotScalarWhereInput | DevicePostureSnapshotScalarWhereInput[]
   }
 
   export type TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput = {
@@ -153015,6 +160557,20 @@ export namespace Prisma {
     connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
   }
 
+  export type DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<DeviceEnrollmentTokenCreateWithoutCreatedByInput, DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput> | DeviceEnrollmentTokenCreateWithoutCreatedByInput[] | DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutCreatedByInput | DeviceEnrollmentTokenCreateOrConnectWithoutCreatedByInput[]
+    createMany?: DeviceEnrollmentTokenCreateManyCreatedByInputEnvelope
+    connect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+  }
+
+  export type DeviceCreateNestedManyWithoutEnrolledByInput = {
+    create?: XOR<DeviceCreateWithoutEnrolledByInput, DeviceUncheckedCreateWithoutEnrolledByInput> | DeviceCreateWithoutEnrolledByInput[] | DeviceUncheckedCreateWithoutEnrolledByInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutEnrolledByInput | DeviceCreateOrConnectWithoutEnrolledByInput[]
+    createMany?: DeviceCreateManyEnrolledByInputEnvelope
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+  }
+
   export type MembershipUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
@@ -153398,6 +160954,20 @@ export namespace Prisma {
     connectOrCreate?: ExternalIdentityMappingCreateOrConnectWithoutUserInput | ExternalIdentityMappingCreateOrConnectWithoutUserInput[]
     createMany?: ExternalIdentityMappingCreateManyUserInputEnvelope
     connect?: ExternalIdentityMappingWhereUniqueInput | ExternalIdentityMappingWhereUniqueInput[]
+  }
+
+  export type DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<DeviceEnrollmentTokenCreateWithoutCreatedByInput, DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput> | DeviceEnrollmentTokenCreateWithoutCreatedByInput[] | DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutCreatedByInput | DeviceEnrollmentTokenCreateOrConnectWithoutCreatedByInput[]
+    createMany?: DeviceEnrollmentTokenCreateManyCreatedByInputEnvelope
+    connect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+  }
+
+  export type DeviceUncheckedCreateNestedManyWithoutEnrolledByInput = {
+    create?: XOR<DeviceCreateWithoutEnrolledByInput, DeviceUncheckedCreateWithoutEnrolledByInput> | DeviceCreateWithoutEnrolledByInput[] | DeviceUncheckedCreateWithoutEnrolledByInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutEnrolledByInput | DeviceCreateOrConnectWithoutEnrolledByInput[]
+    createMany?: DeviceCreateManyEnrolledByInputEnvelope
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
   }
 
   export type MembershipUpdateManyWithoutUserNestedInput = {
@@ -154170,6 +161740,34 @@ export namespace Prisma {
     deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
   }
 
+  export type DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<DeviceEnrollmentTokenCreateWithoutCreatedByInput, DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput> | DeviceEnrollmentTokenCreateWithoutCreatedByInput[] | DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutCreatedByInput | DeviceEnrollmentTokenCreateOrConnectWithoutCreatedByInput[]
+    upsert?: DeviceEnrollmentTokenUpsertWithWhereUniqueWithoutCreatedByInput | DeviceEnrollmentTokenUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: DeviceEnrollmentTokenCreateManyCreatedByInputEnvelope
+    set?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    disconnect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    delete?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    connect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    update?: DeviceEnrollmentTokenUpdateWithWhereUniqueWithoutCreatedByInput | DeviceEnrollmentTokenUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: DeviceEnrollmentTokenUpdateManyWithWhereWithoutCreatedByInput | DeviceEnrollmentTokenUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: DeviceEnrollmentTokenScalarWhereInput | DeviceEnrollmentTokenScalarWhereInput[]
+  }
+
+  export type DeviceUpdateManyWithoutEnrolledByNestedInput = {
+    create?: XOR<DeviceCreateWithoutEnrolledByInput, DeviceUncheckedCreateWithoutEnrolledByInput> | DeviceCreateWithoutEnrolledByInput[] | DeviceUncheckedCreateWithoutEnrolledByInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutEnrolledByInput | DeviceCreateOrConnectWithoutEnrolledByInput[]
+    upsert?: DeviceUpsertWithWhereUniqueWithoutEnrolledByInput | DeviceUpsertWithWhereUniqueWithoutEnrolledByInput[]
+    createMany?: DeviceCreateManyEnrolledByInputEnvelope
+    set?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    disconnect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    delete?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    update?: DeviceUpdateWithWhereUniqueWithoutEnrolledByInput | DeviceUpdateWithWhereUniqueWithoutEnrolledByInput[]
+    updateMany?: DeviceUpdateManyWithWhereWithoutEnrolledByInput | DeviceUpdateManyWithWhereWithoutEnrolledByInput[]
+    deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+  }
+
   export type MembershipUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
@@ -154938,6 +162536,34 @@ export namespace Prisma {
     update?: ExternalIdentityMappingUpdateWithWhereUniqueWithoutUserInput | ExternalIdentityMappingUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ExternalIdentityMappingUpdateManyWithWhereWithoutUserInput | ExternalIdentityMappingUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ExternalIdentityMappingScalarWhereInput | ExternalIdentityMappingScalarWhereInput[]
+  }
+
+  export type DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<DeviceEnrollmentTokenCreateWithoutCreatedByInput, DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput> | DeviceEnrollmentTokenCreateWithoutCreatedByInput[] | DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutCreatedByInput | DeviceEnrollmentTokenCreateOrConnectWithoutCreatedByInput[]
+    upsert?: DeviceEnrollmentTokenUpsertWithWhereUniqueWithoutCreatedByInput | DeviceEnrollmentTokenUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: DeviceEnrollmentTokenCreateManyCreatedByInputEnvelope
+    set?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    disconnect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    delete?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    connect?: DeviceEnrollmentTokenWhereUniqueInput | DeviceEnrollmentTokenWhereUniqueInput[]
+    update?: DeviceEnrollmentTokenUpdateWithWhereUniqueWithoutCreatedByInput | DeviceEnrollmentTokenUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: DeviceEnrollmentTokenUpdateManyWithWhereWithoutCreatedByInput | DeviceEnrollmentTokenUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: DeviceEnrollmentTokenScalarWhereInput | DeviceEnrollmentTokenScalarWhereInput[]
+  }
+
+  export type DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput = {
+    create?: XOR<DeviceCreateWithoutEnrolledByInput, DeviceUncheckedCreateWithoutEnrolledByInput> | DeviceCreateWithoutEnrolledByInput[] | DeviceUncheckedCreateWithoutEnrolledByInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutEnrolledByInput | DeviceCreateOrConnectWithoutEnrolledByInput[]
+    upsert?: DeviceUpsertWithWhereUniqueWithoutEnrolledByInput | DeviceUpsertWithWhereUniqueWithoutEnrolledByInput[]
+    createMany?: DeviceCreateManyEnrolledByInputEnvelope
+    set?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    disconnect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    delete?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    update?: DeviceUpdateWithWhereUniqueWithoutEnrolledByInput | DeviceUpdateWithWhereUniqueWithoutEnrolledByInput[]
+    updateMany?: DeviceUpdateManyWithWhereWithoutEnrolledByInput | DeviceUpdateManyWithWhereWithoutEnrolledByInput[]
+    deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
   }
 
   export type MembershipCreatepermissionsInput = {
@@ -156787,6 +164413,74 @@ export namespace Prisma {
     _max?: NestedEnumControlWeaknessRemediabilityDecisionFilter<$PrismaModel>
   }
 
+  export type NestedEnumDeviceEnrollmentTokenStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceEnrollmentTokenStatus | EnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceEnrollmentTokenStatus[] | ListEnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceEnrollmentTokenStatus[] | ListEnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceEnrollmentTokenStatusFilter<$PrismaModel> | $Enums.DeviceEnrollmentTokenStatus
+  }
+
+  export type NestedEnumDeviceEnrollmentTokenStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceEnrollmentTokenStatus | EnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceEnrollmentTokenStatus[] | ListEnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceEnrollmentTokenStatus[] | ListEnumDeviceEnrollmentTokenStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceEnrollmentTokenStatusWithAggregatesFilter<$PrismaModel> | $Enums.DeviceEnrollmentTokenStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDeviceEnrollmentTokenStatusFilter<$PrismaModel>
+    _max?: NestedEnumDeviceEnrollmentTokenStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDevicePlatformFilter<$PrismaModel = never> = {
+    equals?: $Enums.DevicePlatform | EnumDevicePlatformFieldRefInput<$PrismaModel>
+    in?: $Enums.DevicePlatform[] | ListEnumDevicePlatformFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DevicePlatform[] | ListEnumDevicePlatformFieldRefInput<$PrismaModel>
+    not?: NestedEnumDevicePlatformFilter<$PrismaModel> | $Enums.DevicePlatform
+  }
+
+  export type NestedEnumDeviceStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceStatus | EnumDeviceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceStatus[] | ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceStatus[] | ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceStatusFilter<$PrismaModel> | $Enums.DeviceStatus
+  }
+
+  export type NestedEnumPostureSignalStateFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostureSignalState | EnumPostureSignalStateFieldRefInput<$PrismaModel>
+    in?: $Enums.PostureSignalState[] | ListEnumPostureSignalStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostureSignalState[] | ListEnumPostureSignalStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostureSignalStateFilter<$PrismaModel> | $Enums.PostureSignalState
+  }
+
+  export type NestedEnumDevicePlatformWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DevicePlatform | EnumDevicePlatformFieldRefInput<$PrismaModel>
+    in?: $Enums.DevicePlatform[] | ListEnumDevicePlatformFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DevicePlatform[] | ListEnumDevicePlatformFieldRefInput<$PrismaModel>
+    not?: NestedEnumDevicePlatformWithAggregatesFilter<$PrismaModel> | $Enums.DevicePlatform
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDevicePlatformFilter<$PrismaModel>
+    _max?: NestedEnumDevicePlatformFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDeviceStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceStatus | EnumDeviceStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceStatus[] | ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceStatus[] | ListEnumDeviceStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceStatusWithAggregatesFilter<$PrismaModel> | $Enums.DeviceStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDeviceStatusFilter<$PrismaModel>
+    _max?: NestedEnumDeviceStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPostureSignalStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PostureSignalState | EnumPostureSignalStateFieldRefInput<$PrismaModel>
+    in?: $Enums.PostureSignalState[] | ListEnumPostureSignalStateFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PostureSignalState[] | ListEnumPostureSignalStateFieldRefInput<$PrismaModel>
+    not?: NestedEnumPostureSignalStateWithAggregatesFilter<$PrismaModel> | $Enums.PostureSignalState
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPostureSignalStateFilter<$PrismaModel>
+    _max?: NestedEnumPostureSignalStateFilter<$PrismaModel>
+  }
+
   export type NestedEnumEvidenceTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.EvidenceType | EnumEvidenceTypeFieldRefInput<$PrismaModel>
     in?: $Enums.EvidenceType[] | ListEnumEvidenceTypeFieldRefInput<$PrismaModel>
@@ -158211,6 +165905,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -158286,6 +165983,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -158377,6 +166077,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -158452,6 +166155,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -158527,6 +166233,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -158602,6 +166311,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -158693,6 +166405,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -158768,6 +166483,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -158843,6 +166561,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -158918,6 +166639,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -158994,6 +166718,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutOwnedAiSystemsInput = {
@@ -159062,6 +166788,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutOwnedAiSystemsInput = {
@@ -159298,6 +167026,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -159373,6 +167104,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -159455,6 +167189,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedAiSystemsInput = {
@@ -159523,6 +167259,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type AIRiskAssessmentUpsertWithWhereUniqueWithoutAiSystemInput = {
@@ -159753,6 +167491,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -159828,6 +167569,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -159904,6 +167648,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAiRiskAssessmentsInput = {
@@ -159972,6 +167718,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAiRiskAssessmentsInput = {
@@ -160045,6 +167793,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAiRiskApprovalsInput = {
@@ -160113,6 +167863,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAiRiskApprovalsInput = {
@@ -160246,6 +167998,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -160321,6 +168076,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -160403,6 +168161,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiRiskAssessmentsInput = {
@@ -160471,6 +168231,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutAiRiskApprovalsInput = {
@@ -160550,6 +168312,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiRiskApprovalsInput = {
@@ -160618,6 +168382,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutAiIncidentsInput = {
@@ -160690,6 +168456,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -160765,6 +168534,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -160880,6 +168652,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutReportedAiIncidentsInput = {
@@ -160948,6 +168722,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutReportedAiIncidentsInput = {
@@ -161021,6 +168797,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedAiIncidentsInput = {
@@ -161089,6 +168867,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedAiIncidentsInput = {
@@ -161177,6 +168957,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -161252,6 +169035,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -161379,6 +169165,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedAiIncidentsInput = {
@@ -161447,6 +169235,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutAssignedAiIncidentsInput = {
@@ -161526,6 +169316,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedAiIncidentsInput = {
@@ -161594,6 +169386,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type AISystemCreateWithoutImpactAssessmentsInput = {
@@ -161705,6 +169499,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -161780,6 +169577,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -161856,6 +169656,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAiImpactAssessmentsInput = {
@@ -161924,6 +169726,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAiImpactAssessmentsInput = {
@@ -161997,6 +169801,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAiImpactApprovalsInput = {
@@ -162065,6 +169871,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAiImpactApprovalsInput = {
@@ -162198,6 +170006,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -162273,6 +170084,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -162355,6 +170169,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiImpactAssessmentsInput = {
@@ -162423,6 +170239,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutAiImpactApprovalsInput = {
@@ -162502,6 +170320,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiImpactApprovalsInput = {
@@ -162570,6 +170390,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutAssetsInput = {
@@ -162642,6 +170464,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -162717,6 +170542,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -162793,6 +170621,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutOwnedAssetsInput = {
@@ -162861,6 +170691,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutOwnedAssetsInput = {
@@ -162934,6 +170766,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutDeletedAssetsInput = {
@@ -163002,11 +170836,76 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutDeletedAssetsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutDeletedAssetsInput, UserUncheckedCreateWithoutDeletedAssetsInput>
+  }
+
+  export type DeviceCreateWithoutAssetInput = {
+    id?: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDevicesInput
+    enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
+    snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUncheckedCreateWithoutAssetInput = {
+    id?: string
+    tenantId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    snapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceUncheckedCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceCreateOrConnectWithoutAssetInput = {
+    where: DeviceWhereUniqueInput
+    create: XOR<DeviceCreateWithoutAssetInput, DeviceUncheckedCreateWithoutAssetInput>
   }
 
   export type TenantUpsertWithoutAssetsInput = {
@@ -163090,6 +170989,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -163165,6 +171067,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -163247,6 +171152,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedAssetsInput = {
@@ -163315,6 +171222,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutDeletedAssetsInput = {
@@ -163394,6 +171303,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDeletedAssetsInput = {
@@ -163462,6 +171373,77 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+  }
+
+  export type DeviceUpsertWithoutAssetInput = {
+    update: XOR<DeviceUpdateWithoutAssetInput, DeviceUncheckedUpdateWithoutAssetInput>
+    create: XOR<DeviceCreateWithoutAssetInput, DeviceUncheckedCreateWithoutAssetInput>
+    where?: DeviceWhereInput
+  }
+
+  export type DeviceUpdateToOneWithWhereWithoutAssetInput = {
+    where?: DeviceWhereInput
+    data: XOR<DeviceUpdateWithoutAssetInput, DeviceUncheckedUpdateWithoutAssetInput>
+  }
+
+  export type DeviceUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
+    enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
+    snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateWithoutAssetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUncheckedUpdateManyWithoutDeviceNestedInput
   }
 
   export type TenantCreateWithoutAuditsInput = {
@@ -163534,6 +171516,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -163609,6 +171594,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -163805,6 +171793,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -163880,6 +171871,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -164103,6 +172097,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -164178,6 +172175,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -164301,6 +172301,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedAuditFindingsInput = {
@@ -164369,6 +172371,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedAuditFindingsInput = {
@@ -164506,6 +172510,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -164581,6 +172588,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -164716,6 +172726,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedAuditFindingsInput = {
@@ -164784,6 +172796,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type AuditCreateWithoutDocumentsInput = {
@@ -164899,6 +172913,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -164974,6 +172991,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -165050,6 +173070,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutUploadedAuditDocumentsInput = {
@@ -165118,6 +173140,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutUploadedAuditDocumentsInput = {
@@ -165255,6 +173279,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -165330,6 +173357,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -165412,6 +173442,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUploadedAuditDocumentsInput = {
@@ -165480,6 +173512,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutBcpsInput = {
@@ -165552,6 +173586,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -165627,6 +173664,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -165703,6 +173743,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutOwnedBcpsInput = {
@@ -165771,6 +173813,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutOwnedBcpsInput = {
@@ -165977,6 +174021,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -166052,6 +174099,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -166134,6 +174184,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedBcpsInput = {
@@ -166202,6 +174254,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type BusinessImpactAnalysisUpsertWithWhereUniqueWithoutBcpInput = {
@@ -166363,6 +174417,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -166438,6 +174495,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -166551,6 +174611,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutOwnedBiasInput = {
@@ -166619,6 +174681,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutOwnedBiasInput = {
@@ -166707,6 +174771,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -166782,6 +174849,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -166907,6 +174977,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedBiasInput = {
@@ -166975,6 +175047,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutBcpExercisesInput = {
@@ -167047,6 +175121,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -167122,6 +175199,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -167235,6 +175315,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutFacilitatedBcpExercisesInput = {
@@ -167303,6 +175385,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutFacilitatedBcpExercisesInput = {
@@ -167391,6 +175475,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -167466,6 +175553,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -167591,6 +175681,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFacilitatedBcpExercisesInput = {
@@ -167659,6 +175751,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutBillingConfigInput = {
@@ -167732,6 +175826,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
@@ -167807,6 +175904,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
@@ -167898,6 +175998,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
@@ -167973,6 +176076,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
@@ -168048,6 +176154,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
@@ -168123,6 +176232,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
@@ -168214,6 +176326,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
@@ -168289,6 +176404,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
@@ -168364,6 +176482,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
   }
@@ -168439,6 +176560,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
   }
@@ -168562,6 +176686,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
   }
@@ -168637,6 +176764,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
   }
@@ -168802,6 +176932,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -168877,6 +177010,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -169004,6 +177140,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -169079,6 +177218,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -169187,6 +177329,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -169262,6 +177407,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -169378,6 +177526,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -169453,6 +177604,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -169559,6 +177713,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -169634,6 +177791,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -169710,6 +177870,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutOwnedControlsInput = {
@@ -169778,6 +177940,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutOwnedControlsInput = {
@@ -170169,6 +178333,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -170244,6 +178411,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -170326,6 +178496,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedControlsInput = {
@@ -170394,6 +178566,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type ControlRequirementAssignmentUpsertWithWhereUniqueWithoutControlInput = {
@@ -170811,6 +178985,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -170886,6 +179063,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -171009,6 +179189,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutReportedControlWeaknessesInput = {
@@ -171077,6 +179259,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutReportedControlWeaknessesInput = {
@@ -171150,6 +179334,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedControlWeaknessesInput = {
@@ -171218,6 +179404,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedControlWeaknessesInput = {
@@ -171306,6 +179494,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -171381,6 +179572,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -171516,6 +179710,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedControlWeaknessesInput = {
@@ -171584,6 +179780,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutAssignedControlWeaknessesInput = {
@@ -171663,6 +179861,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedControlWeaknessesInput = {
@@ -171731,6 +179931,2254 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+  }
+
+  export type TenantCreateWithoutDeviceEnrollmentTokensInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDeviceEnrollmentTokensInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDeviceEnrollmentTokensInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDeviceEnrollmentTokensInput, TenantUncheckedCreateWithoutDeviceEnrollmentTokensInput>
+  }
+
+  export type UserCreateWithoutDeviceTokensCreatedInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipCreateNestedManyWithoutUserInput
+    ownedControls?: ControlCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIACreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
+    assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+  }
+
+  export type UserUncheckedCreateWithoutDeviceTokensCreatedInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
+    ownedControls?: ControlUncheckedCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyUncheckedCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskUncheckedCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskUncheckedCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetUncheckedCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetUncheckedCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentUncheckedCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineUncheckedCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingUncheckedCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemUncheckedCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentUncheckedCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIAUncheckedCreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+  }
+
+  export type UserCreateOrConnectWithoutDeviceTokensCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDeviceTokensCreatedInput, UserUncheckedCreateWithoutDeviceTokensCreatedInput>
+  }
+
+  export type DeviceCreateWithoutEnrollmentTokenInput = {
+    id?: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDevicesInput
+    asset: AssetCreateNestedOneWithoutDeviceInput
+    enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUncheckedCreateWithoutEnrollmentTokenInput = {
+    id?: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    snapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceUncheckedCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceCreateOrConnectWithoutEnrollmentTokenInput = {
+    where: DeviceWhereUniqueInput
+    create: XOR<DeviceCreateWithoutEnrollmentTokenInput, DeviceUncheckedCreateWithoutEnrollmentTokenInput>
+  }
+
+  export type DeviceCreateManyEnrollmentTokenInputEnvelope = {
+    data: DeviceCreateManyEnrollmentTokenInput | DeviceCreateManyEnrollmentTokenInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutDeviceEnrollmentTokensInput = {
+    update: XOR<TenantUpdateWithoutDeviceEnrollmentTokensInput, TenantUncheckedUpdateWithoutDeviceEnrollmentTokensInput>
+    create: XOR<TenantCreateWithoutDeviceEnrollmentTokensInput, TenantUncheckedCreateWithoutDeviceEnrollmentTokensInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDeviceEnrollmentTokensInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDeviceEnrollmentTokensInput, TenantUncheckedUpdateWithoutDeviceEnrollmentTokensInput>
+  }
+
+  export type TenantUpdateWithoutDeviceEnrollmentTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDeviceEnrollmentTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type UserUpsertWithoutDeviceTokensCreatedInput = {
+    update: XOR<UserUpdateWithoutDeviceTokensCreatedInput, UserUncheckedUpdateWithoutDeviceTokensCreatedInput>
+    create: XOR<UserCreateWithoutDeviceTokensCreatedInput, UserUncheckedCreateWithoutDeviceTokensCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDeviceTokensCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDeviceTokensCreatedInput, UserUncheckedUpdateWithoutDeviceTokensCreatedInput>
+  }
+
+  export type UserUpdateWithoutDeviceTokensCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
+    assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDeviceTokensCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUncheckedUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUncheckedUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUncheckedUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUncheckedUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUncheckedUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUncheckedUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUncheckedUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUncheckedUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUncheckedUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUncheckedUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+  }
+
+  export type DeviceUpsertWithWhereUniqueWithoutEnrollmentTokenInput = {
+    where: DeviceWhereUniqueInput
+    update: XOR<DeviceUpdateWithoutEnrollmentTokenInput, DeviceUncheckedUpdateWithoutEnrollmentTokenInput>
+    create: XOR<DeviceCreateWithoutEnrollmentTokenInput, DeviceUncheckedCreateWithoutEnrollmentTokenInput>
+  }
+
+  export type DeviceUpdateWithWhereUniqueWithoutEnrollmentTokenInput = {
+    where: DeviceWhereUniqueInput
+    data: XOR<DeviceUpdateWithoutEnrollmentTokenInput, DeviceUncheckedUpdateWithoutEnrollmentTokenInput>
+  }
+
+  export type DeviceUpdateManyWithWhereWithoutEnrollmentTokenInput = {
+    where: DeviceScalarWhereInput
+    data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyWithoutEnrollmentTokenInput>
+  }
+
+  export type DeviceScalarWhereInput = {
+    AND?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+    OR?: DeviceScalarWhereInput[]
+    NOT?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+    id?: StringFilter<"Device"> | string
+    tenantId?: StringFilter<"Device"> | string
+    assetId?: StringFilter<"Device"> | string
+    secretEnc?: StringFilter<"Device"> | string
+    secretKeyId?: IntFilter<"Device"> | number
+    platform?: EnumDevicePlatformFilter<"Device"> | $Enums.DevicePlatform
+    osVersion?: StringNullableFilter<"Device"> | string | null
+    agentVersion?: StringNullableFilter<"Device"> | string | null
+    hostname?: StringNullableFilter<"Device"> | string | null
+    hardwareId?: StringNullableFilter<"Device"> | string | null
+    status?: EnumDeviceStatusFilter<"Device"> | $Enums.DeviceStatus
+    enrolledById?: StringNullableFilter<"Device"> | string | null
+    enrolledAt?: DateTimeFilter<"Device"> | Date | string
+    lastSeenAt?: DateTimeNullableFilter<"Device"> | Date | string | null
+    checkInIntervalSeconds?: IntFilter<"Device"> | number
+    diskEncryption?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFilter<"Device"> | $Enums.PostureSignalState
+    agentHealthy?: BoolFilter<"Device"> | boolean
+    lastPostureAt?: DateTimeNullableFilter<"Device"> | Date | string | null
+    latestPosture?: JsonNullableFilter<"Device">
+    enrollmentTokenId?: StringNullableFilter<"Device"> | string | null
+    createdAt?: DateTimeFilter<"Device"> | Date | string
+    updatedAt?: DateTimeFilter<"Device"> | Date | string
+  }
+
+  export type TenantCreateWithoutDevicesInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDevicesInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDevicesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDevicesInput, TenantUncheckedCreateWithoutDevicesInput>
+  }
+
+  export type AssetCreateWithoutDeviceInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.AssetType
+    classification?: $Enums.AssetClassification
+    deletedAt?: Date | string | null
+    location?: string | null
+    status?: $Enums.AssetStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutAssetsInput
+    owner?: UserCreateNestedOneWithoutOwnedAssetsInput
+    deletedBy?: UserCreateNestedOneWithoutDeletedAssetsInput
+  }
+
+  export type AssetUncheckedCreateWithoutDeviceInput = {
+    id?: string
+    tenantId: string
+    name: string
+    description?: string | null
+    type: $Enums.AssetType
+    classification?: $Enums.AssetClassification
+    ownerId?: string | null
+    deletedById?: string | null
+    deletedAt?: Date | string | null
+    location?: string | null
+    status?: $Enums.AssetStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssetCreateOrConnectWithoutDeviceInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutDeviceInput, AssetUncheckedCreateWithoutDeviceInput>
+  }
+
+  export type UserCreateWithoutDevicesEnrolledInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipCreateNestedManyWithoutUserInput
+    ownedControls?: ControlCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIACreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
+    assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutDevicesEnrolledInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
+    ownedControls?: ControlUncheckedCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyUncheckedCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskUncheckedCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskUncheckedCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetUncheckedCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetUncheckedCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentUncheckedCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineUncheckedCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingUncheckedCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemUncheckedCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentUncheckedCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIAUncheckedCreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutDevicesEnrolledInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDevicesEnrolledInput, UserUncheckedCreateWithoutDevicesEnrolledInput>
+  }
+
+  export type DeviceEnrollmentTokenCreateWithoutDevicesInput = {
+    id?: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDeviceEnrollmentTokensInput
+    createdBy?: UserCreateNestedOneWithoutDeviceTokensCreatedInput
+  }
+
+  export type DeviceEnrollmentTokenUncheckedCreateWithoutDevicesInput = {
+    id?: string
+    tenantId: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    createdById?: string | null
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceEnrollmentTokenCreateOrConnectWithoutDevicesInput = {
+    where: DeviceEnrollmentTokenWhereUniqueInput
+    create: XOR<DeviceEnrollmentTokenCreateWithoutDevicesInput, DeviceEnrollmentTokenUncheckedCreateWithoutDevicesInput>
+  }
+
+  export type DevicePostureSnapshotCreateWithoutDeviceInput = {
+    id?: string
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    osVersion?: string | null
+    agentVersion?: string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt: Date | string
+    receivedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDevicePostureSnapshotsInput
+  }
+
+  export type DevicePostureSnapshotUncheckedCreateWithoutDeviceInput = {
+    id?: string
+    tenantId: string
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    osVersion?: string | null
+    agentVersion?: string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt: Date | string
+    receivedAt?: Date | string
+  }
+
+  export type DevicePostureSnapshotCreateOrConnectWithoutDeviceInput = {
+    where: DevicePostureSnapshotWhereUniqueInput
+    create: XOR<DevicePostureSnapshotCreateWithoutDeviceInput, DevicePostureSnapshotUncheckedCreateWithoutDeviceInput>
+  }
+
+  export type DevicePostureSnapshotCreateManyDeviceInputEnvelope = {
+    data: DevicePostureSnapshotCreateManyDeviceInput | DevicePostureSnapshotCreateManyDeviceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DeviceNonceCreateWithoutDeviceInput = {
+    id?: string
+    nonce: string
+    seenAt?: Date | string
+  }
+
+  export type DeviceNonceUncheckedCreateWithoutDeviceInput = {
+    id?: string
+    nonce: string
+    seenAt?: Date | string
+  }
+
+  export type DeviceNonceCreateOrConnectWithoutDeviceInput = {
+    where: DeviceNonceWhereUniqueInput
+    create: XOR<DeviceNonceCreateWithoutDeviceInput, DeviceNonceUncheckedCreateWithoutDeviceInput>
+  }
+
+  export type DeviceNonceCreateManyDeviceInputEnvelope = {
+    data: DeviceNonceCreateManyDeviceInput | DeviceNonceCreateManyDeviceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutDevicesInput = {
+    update: XOR<TenantUpdateWithoutDevicesInput, TenantUncheckedUpdateWithoutDevicesInput>
+    create: XOR<TenantCreateWithoutDevicesInput, TenantUncheckedCreateWithoutDevicesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDevicesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDevicesInput, TenantUncheckedUpdateWithoutDevicesInput>
+  }
+
+  export type TenantUpdateWithoutDevicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDevicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type AssetUpsertWithoutDeviceInput = {
+    update: XOR<AssetUpdateWithoutDeviceInput, AssetUncheckedUpdateWithoutDeviceInput>
+    create: XOR<AssetCreateWithoutDeviceInput, AssetUncheckedCreateWithoutDeviceInput>
+    where?: AssetWhereInput
+  }
+
+  export type AssetUpdateToOneWithWhereWithoutDeviceInput = {
+    where?: AssetWhereInput
+    data: XOR<AssetUpdateWithoutDeviceInput, AssetUncheckedUpdateWithoutDeviceInput>
+  }
+
+  export type AssetUpdateWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutAssetsNestedInput
+    owner?: UserUpdateOneWithoutOwnedAssetsNestedInput
+    deletedBy?: UserUpdateOneWithoutDeletedAssetsNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutDevicesEnrolledInput = {
+    update: XOR<UserUpdateWithoutDevicesEnrolledInput, UserUncheckedUpdateWithoutDevicesEnrolledInput>
+    create: XOR<UserCreateWithoutDevicesEnrolledInput, UserUncheckedCreateWithoutDevicesEnrolledInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDevicesEnrolledInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDevicesEnrolledInput, UserUncheckedUpdateWithoutDevicesEnrolledInput>
+  }
+
+  export type UserUpdateWithoutDevicesEnrolledInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
+    assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDevicesEnrolledInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUncheckedUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUncheckedUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUncheckedUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUncheckedUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUncheckedUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUncheckedUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUncheckedUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUncheckedUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUncheckedUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUncheckedUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type DeviceEnrollmentTokenUpsertWithoutDevicesInput = {
+    update: XOR<DeviceEnrollmentTokenUpdateWithoutDevicesInput, DeviceEnrollmentTokenUncheckedUpdateWithoutDevicesInput>
+    create: XOR<DeviceEnrollmentTokenCreateWithoutDevicesInput, DeviceEnrollmentTokenUncheckedCreateWithoutDevicesInput>
+    where?: DeviceEnrollmentTokenWhereInput
+  }
+
+  export type DeviceEnrollmentTokenUpdateToOneWithWhereWithoutDevicesInput = {
+    where?: DeviceEnrollmentTokenWhereInput
+    data: XOR<DeviceEnrollmentTokenUpdateWithoutDevicesInput, DeviceEnrollmentTokenUncheckedUpdateWithoutDevicesInput>
+  }
+
+  export type DeviceEnrollmentTokenUpdateWithoutDevicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDeviceEnrollmentTokensNestedInput
+    createdBy?: UserUpdateOneWithoutDeviceTokensCreatedNestedInput
+  }
+
+  export type DeviceEnrollmentTokenUncheckedUpdateWithoutDevicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DevicePostureSnapshotUpsertWithWhereUniqueWithoutDeviceInput = {
+    where: DevicePostureSnapshotWhereUniqueInput
+    update: XOR<DevicePostureSnapshotUpdateWithoutDeviceInput, DevicePostureSnapshotUncheckedUpdateWithoutDeviceInput>
+    create: XOR<DevicePostureSnapshotCreateWithoutDeviceInput, DevicePostureSnapshotUncheckedCreateWithoutDeviceInput>
+  }
+
+  export type DevicePostureSnapshotUpdateWithWhereUniqueWithoutDeviceInput = {
+    where: DevicePostureSnapshotWhereUniqueInput
+    data: XOR<DevicePostureSnapshotUpdateWithoutDeviceInput, DevicePostureSnapshotUncheckedUpdateWithoutDeviceInput>
+  }
+
+  export type DevicePostureSnapshotUpdateManyWithWhereWithoutDeviceInput = {
+    where: DevicePostureSnapshotScalarWhereInput
+    data: XOR<DevicePostureSnapshotUpdateManyMutationInput, DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceInput>
+  }
+
+  export type DevicePostureSnapshotScalarWhereInput = {
+    AND?: DevicePostureSnapshotScalarWhereInput | DevicePostureSnapshotScalarWhereInput[]
+    OR?: DevicePostureSnapshotScalarWhereInput[]
+    NOT?: DevicePostureSnapshotScalarWhereInput | DevicePostureSnapshotScalarWhereInput[]
+    id?: StringFilter<"DevicePostureSnapshot"> | string
+    tenantId?: StringFilter<"DevicePostureSnapshot"> | string
+    deviceId?: StringFilter<"DevicePostureSnapshot"> | string
+    diskEncryption?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFilter<"DevicePostureSnapshot"> | $Enums.PostureSignalState
+    agentHealthy?: BoolFilter<"DevicePostureSnapshot"> | boolean
+    osVersion?: StringNullableFilter<"DevicePostureSnapshot"> | string | null
+    agentVersion?: StringNullableFilter<"DevicePostureSnapshot"> | string | null
+    raw?: JsonNullableFilter<"DevicePostureSnapshot">
+    collectedAt?: DateTimeFilter<"DevicePostureSnapshot"> | Date | string
+    receivedAt?: DateTimeFilter<"DevicePostureSnapshot"> | Date | string
+  }
+
+  export type DeviceNonceUpsertWithWhereUniqueWithoutDeviceInput = {
+    where: DeviceNonceWhereUniqueInput
+    update: XOR<DeviceNonceUpdateWithoutDeviceInput, DeviceNonceUncheckedUpdateWithoutDeviceInput>
+    create: XOR<DeviceNonceCreateWithoutDeviceInput, DeviceNonceUncheckedCreateWithoutDeviceInput>
+  }
+
+  export type DeviceNonceUpdateWithWhereUniqueWithoutDeviceInput = {
+    where: DeviceNonceWhereUniqueInput
+    data: XOR<DeviceNonceUpdateWithoutDeviceInput, DeviceNonceUncheckedUpdateWithoutDeviceInput>
+  }
+
+  export type DeviceNonceUpdateManyWithWhereWithoutDeviceInput = {
+    where: DeviceNonceScalarWhereInput
+    data: XOR<DeviceNonceUpdateManyMutationInput, DeviceNonceUncheckedUpdateManyWithoutDeviceInput>
+  }
+
+  export type DeviceNonceScalarWhereInput = {
+    AND?: DeviceNonceScalarWhereInput | DeviceNonceScalarWhereInput[]
+    OR?: DeviceNonceScalarWhereInput[]
+    NOT?: DeviceNonceScalarWhereInput | DeviceNonceScalarWhereInput[]
+    id?: StringFilter<"DeviceNonce"> | string
+    deviceId?: StringFilter<"DeviceNonce"> | string
+    nonce?: StringFilter<"DeviceNonce"> | string
+    seenAt?: DateTimeFilter<"DeviceNonce"> | Date | string
+  }
+
+  export type TenantCreateWithoutDevicePostureSnapshotsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDevicePostureSnapshotsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDevicePostureSnapshotsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDevicePostureSnapshotsInput, TenantUncheckedCreateWithoutDevicePostureSnapshotsInput>
+  }
+
+  export type DeviceCreateWithoutSnapshotsInput = {
+    id?: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDevicesInput
+    asset: AssetCreateNestedOneWithoutDeviceInput
+    enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
+    nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUncheckedCreateWithoutSnapshotsInput = {
+    id?: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    nonces?: DeviceNonceUncheckedCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceCreateOrConnectWithoutSnapshotsInput = {
+    where: DeviceWhereUniqueInput
+    create: XOR<DeviceCreateWithoutSnapshotsInput, DeviceUncheckedCreateWithoutSnapshotsInput>
+  }
+
+  export type TenantUpsertWithoutDevicePostureSnapshotsInput = {
+    update: XOR<TenantUpdateWithoutDevicePostureSnapshotsInput, TenantUncheckedUpdateWithoutDevicePostureSnapshotsInput>
+    create: XOR<TenantCreateWithoutDevicePostureSnapshotsInput, TenantUncheckedCreateWithoutDevicePostureSnapshotsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDevicePostureSnapshotsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDevicePostureSnapshotsInput, TenantUncheckedUpdateWithoutDevicePostureSnapshotsInput>
+  }
+
+  export type TenantUpdateWithoutDevicePostureSnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDevicePostureSnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type DeviceUpsertWithoutSnapshotsInput = {
+    update: XOR<DeviceUpdateWithoutSnapshotsInput, DeviceUncheckedUpdateWithoutSnapshotsInput>
+    create: XOR<DeviceCreateWithoutSnapshotsInput, DeviceUncheckedCreateWithoutSnapshotsInput>
+    where?: DeviceWhereInput
+  }
+
+  export type DeviceUpdateToOneWithWhereWithoutSnapshotsInput = {
+    where?: DeviceWhereInput
+    data: XOR<DeviceUpdateWithoutSnapshotsInput, DeviceUncheckedUpdateWithoutSnapshotsInput>
+  }
+
+  export type DeviceUpdateWithoutSnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
+    asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
+    enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
+    nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateWithoutSnapshotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nonces?: DeviceNonceUncheckedUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceCreateWithoutNoncesInput = {
+    id?: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDevicesInput
+    asset: AssetCreateNestedOneWithoutDeviceInput
+    enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
+    snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUncheckedCreateWithoutNoncesInput = {
+    id?: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    snapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceCreateOrConnectWithoutNoncesInput = {
+    where: DeviceWhereUniqueInput
+    create: XOR<DeviceCreateWithoutNoncesInput, DeviceUncheckedCreateWithoutNoncesInput>
+  }
+
+  export type DeviceUpsertWithoutNoncesInput = {
+    update: XOR<DeviceUpdateWithoutNoncesInput, DeviceUncheckedUpdateWithoutNoncesInput>
+    create: XOR<DeviceCreateWithoutNoncesInput, DeviceUncheckedCreateWithoutNoncesInput>
+    where?: DeviceWhereInput
+  }
+
+  export type DeviceUpdateToOneWithWhereWithoutNoncesInput = {
+    where?: DeviceWhereInput
+    data: XOR<DeviceUpdateWithoutNoncesInput, DeviceUncheckedUpdateWithoutNoncesInput>
+  }
+
+  export type DeviceUpdateWithoutNoncesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
+    asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
+    enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
+    snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateWithoutNoncesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceNestedInput
   }
 
   export type TenantCreateWithoutEvidenceInput = {
@@ -171803,6 +182251,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -171878,6 +182329,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -172001,6 +182455,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutSubmittedControlEvidenceInput = {
@@ -172069,6 +182525,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutSubmittedControlEvidenceInput = {
@@ -172142,6 +182600,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutReviewedControlEvidenceInput = {
@@ -172210,6 +182670,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutReviewedControlEvidenceInput = {
@@ -172298,6 +182760,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -172373,6 +182838,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -172508,6 +182976,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubmittedControlEvidenceInput = {
@@ -172576,6 +183046,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutReviewedControlEvidenceInput = {
@@ -172655,6 +183127,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedControlEvidenceInput = {
@@ -172723,6 +183197,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type FrameworkInstanceCreateWithoutFrameworkInput = {
@@ -172934,6 +183410,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -173009,6 +183488,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -173205,6 +183687,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -173280,6 +183765,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -173800,6 +184288,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -173875,6 +184366,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -174079,6 +184573,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -174154,6 +184651,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -174360,6 +184860,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -174435,6 +184938,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -174511,6 +185017,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -174579,6 +185087,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -174652,6 +185162,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedIncidentsInput = {
@@ -174720,6 +185232,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedIncidentsInput = {
@@ -174836,6 +185350,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -174911,6 +185428,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -174993,6 +185513,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -175061,6 +185583,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutAssignedIncidentsInput = {
@@ -175140,6 +185664,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedIncidentsInput = {
@@ -175208,6 +185734,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type IncidentTimelineUpsertWithWhereUniqueWithoutIncidentInput = {
@@ -175350,6 +185878,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -175425,6 +185956,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -175501,6 +186035,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutIncidentTimelineActionsInput = {
@@ -175569,6 +186105,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutIncidentTimelineActionsInput = {
@@ -175704,6 +186242,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -175779,6 +186320,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -175861,6 +186405,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIncidentTimelineActionsInput = {
@@ -175929,6 +186475,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutPoliciesInput = {
@@ -176001,6 +186549,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -176076,6 +186627,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -176152,6 +186706,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutOwnedPoliciesInput = {
@@ -176220,6 +186776,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutOwnedPoliciesInput = {
@@ -176442,6 +187000,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -176517,6 +187078,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -176599,6 +187163,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedPoliciesInput = {
@@ -176667,6 +187233,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type PolicyVersionUpsertWithWhereUniqueWithoutPolicyInput = {
@@ -176889,6 +187457,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutCreatedPolicyVersionsInput = {
@@ -176957,6 +187527,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutCreatedPolicyVersionsInput = {
@@ -177030,6 +187602,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutApprovedPolicyVersionsInput = {
@@ -177098,6 +187672,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutApprovedPolicyVersionsInput = {
@@ -177303,6 +187879,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedPolicyVersionsInput = {
@@ -177371,6 +187949,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutApprovedPolicyVersionsInput = {
@@ -177450,6 +188030,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedPolicyVersionsInput = {
@@ -177518,6 +188100,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type PolicyAcknowledgmentUpsertWithWhereUniqueWithoutPolicyVersionInput = {
@@ -177690,6 +188274,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutPolicyAcknowledgmentsInput = {
@@ -177758,6 +188344,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutPolicyAcknowledgmentsInput = {
@@ -177835,6 +188423,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -177910,6 +188501,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -178081,6 +188675,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPolicyAcknowledgmentsInput = {
@@ -178149,6 +188745,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantUpsertWithoutPolicyAcksInput = {
@@ -178232,6 +188830,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -178307,6 +188908,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -178450,6 +189054,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutPolicyCommentsInput = {
@@ -178518,6 +189124,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutPolicyCommentsInput = {
@@ -178595,6 +189203,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -178670,6 +189281,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -178746,6 +189360,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutResolvedCommentsInput = {
@@ -178814,6 +189430,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutResolvedCommentsInput = {
@@ -179069,6 +189687,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPolicyCommentsInput = {
@@ -179137,6 +189757,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantUpsertWithoutPolicyCommentsInput = {
@@ -179220,6 +189842,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -179295,6 +189920,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -179377,6 +190005,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutResolvedCommentsInput = {
@@ -179445,6 +190075,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type PolicyCommentUpsertWithoutRepliesInput = {
@@ -179668,6 +190300,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -179743,6 +190378,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -179934,6 +190572,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -180009,6 +190650,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -180084,6 +190728,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -180159,6 +190806,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -180235,6 +190885,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutOwnedProcessingActivitiesInput = {
@@ -180303,6 +190955,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutOwnedProcessingActivitiesInput = {
@@ -180725,6 +191379,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -180800,6 +191457,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -180882,6 +191542,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedProcessingActivitiesInput = {
@@ -180950,6 +191612,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type DPIAUpsertWithWhereUniqueWithoutProcessingActivityInput = {
@@ -181259,6 +191923,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -181334,6 +192001,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -181473,6 +192143,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutDpiaAssessmentsInput = {
@@ -181541,6 +192213,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutDpiaAssessmentsInput = {
@@ -181614,6 +192288,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutDpiaApprovalsInput = {
@@ -181682,6 +192358,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutDpiaApprovalsInput = {
@@ -181770,6 +192448,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -181845,6 +192526,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -181996,6 +192680,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDpiaAssessmentsInput = {
@@ -182064,6 +192750,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutDpiaApprovalsInput = {
@@ -182143,6 +192831,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDpiaApprovalsInput = {
@@ -182211,6 +192901,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutDataBreachesInput = {
@@ -182283,6 +192975,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -182358,6 +193053,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -182497,6 +193195,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutReportedDataBreachesInput = {
@@ -182565,6 +193265,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutReportedDataBreachesInput = {
@@ -182638,6 +193340,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedDataBreachesInput = {
@@ -182706,6 +193410,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedDataBreachesInput = {
@@ -182794,6 +193500,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -182869,6 +193578,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -183020,6 +193732,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedDataBreachesInput = {
@@ -183088,6 +193802,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutAssignedDataBreachesInput = {
@@ -183167,6 +193883,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedDataBreachesInput = {
@@ -183235,6 +193953,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutDsarRequestsInput = {
@@ -183307,6 +194027,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -183382,6 +194105,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -183458,6 +194184,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedDsarRequestsInput = {
@@ -183526,6 +194254,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedDsarRequestsInput = {
@@ -183677,6 +194407,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -183752,6 +194485,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -183834,6 +194570,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedDsarRequestsInput = {
@@ -183902,6 +194640,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type ProcessingActivityUpsertWithWhereUniqueWithoutDsarsInput = {
@@ -184018,6 +194758,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -184093,6 +194836,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -184169,6 +194915,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutQuestionnaireImportJobsInput = {
@@ -184237,6 +194985,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutQuestionnaireImportJobsInput = {
@@ -184374,6 +195124,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -184449,6 +195202,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -184531,6 +195287,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutQuestionnaireImportJobsInput = {
@@ -184599,6 +195357,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type QuestionnaireUpsertWithoutImportJobsInput = {
@@ -184726,6 +195486,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -184801,6 +195564,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -184877,6 +195643,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutImportedQuestionnairesInput = {
@@ -184945,6 +195713,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutImportedQuestionnairesInput = {
@@ -185256,6 +196026,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -185331,6 +196104,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -185413,6 +196189,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutImportedQuestionnairesInput = {
@@ -185481,6 +196259,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type VendorUpsertWithoutQuestionnairesInput = {
@@ -185747,6 +196527,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -185822,6 +196605,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -186109,6 +196895,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -186184,6 +196973,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -186401,6 +197193,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -186476,6 +197271,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -186650,6 +197448,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutReviewedAnswersInput = {
@@ -186718,6 +197518,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutReviewedAnswersInput = {
@@ -186806,6 +197608,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -186881,6 +197686,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -187073,6 +197881,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedAnswersInput = {
@@ -187141,6 +197951,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutRisksInput = {
@@ -187213,6 +198025,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -187288,6 +198103,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -187364,6 +198182,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutOwnedRisksInput = {
@@ -187432,6 +198252,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutOwnedRisksInput = {
@@ -187505,6 +198327,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutActionOwnedRisksInput = {
@@ -187573,6 +198397,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutActionOwnedRisksInput = {
@@ -187838,6 +198664,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -187913,6 +198742,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -187995,6 +198827,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedRisksInput = {
@@ -188063,6 +198897,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutActionOwnedRisksInput = {
@@ -188142,6 +198978,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutActionOwnedRisksInput = {
@@ -188210,6 +199048,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type ProcessingActivityUpsertWithoutRisksInput = {
@@ -188544,6 +199384,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -188619,6 +199462,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -188695,6 +199541,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutRiskAssessmentsInput = {
@@ -188763,6 +199611,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutRiskAssessmentsInput = {
@@ -188948,6 +199798,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -189023,6 +199876,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -189105,6 +199961,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRiskAssessmentsInput = {
@@ -189173,6 +200031,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type RiskCreateWithoutTreatmentsInput = {
@@ -189336,6 +200196,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -189411,6 +200274,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -189487,6 +200353,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutRiskTreatmentsInput = {
@@ -189555,6 +200423,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutRiskTreatmentsInput = {
@@ -189740,6 +200610,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -189815,6 +200688,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -189897,6 +200773,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRiskTreatmentsInput = {
@@ -189965,6 +200843,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutRiskRegisterConfigInput = {
@@ -190037,6 +200917,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -190112,6 +200995,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -190203,6 +201089,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -190278,6 +201167,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -190444,6 +201336,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -190519,6 +201414,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -190595,6 +201493,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutRiskMatrixChangesInput = {
@@ -190663,6 +201563,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutRiskMatrixChangesInput = {
@@ -190848,6 +201750,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -190923,6 +201828,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -191005,6 +201913,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRiskMatrixChangesInput = {
@@ -191073,6 +201983,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutTasksInput = {
@@ -191145,6 +202057,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -191220,6 +202135,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -191296,6 +202214,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedTasksInput = {
@@ -191364,6 +202284,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedTasksInput = {
@@ -191541,6 +202463,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -191616,6 +202541,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -191698,6 +202626,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedTasksInput = {
@@ -191766,6 +202696,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type ControlUpsertWithoutTasksInput = {
@@ -191972,6 +202904,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -192047,6 +202982,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -192123,6 +203061,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutSubmittedEvidenceInput = {
@@ -192191,6 +203131,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutSubmittedEvidenceInput = {
@@ -192264,6 +203206,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutApprovedEvidenceInput = {
@@ -192332,6 +203276,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutApprovedEvidenceInput = {
@@ -192471,6 +203417,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -192546,6 +203495,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -192628,6 +203580,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubmittedEvidenceInput = {
@@ -192696,6 +203650,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutApprovedEvidenceInput = {
@@ -192775,6 +203731,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedEvidenceInput = {
@@ -192843,6 +203801,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantContextCreateWithoutSupersededByInput = {
@@ -193002,6 +203962,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -193077,6 +204040,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -193252,6 +204218,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -193327,6 +204296,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -193402,6 +204374,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -193477,6 +204452,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -193568,6 +204546,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -193643,6 +204624,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -194322,6 +205306,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutOwnedAssetsInput
     deletedBy?: UserCreateNestedOneWithoutDeletedAssetsInput
+    device?: DeviceCreateNestedOneWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutTenantInput = {
@@ -194338,6 +205323,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    device?: DeviceUncheckedCreateNestedOneWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutTenantInput = {
@@ -196399,6 +207385,158 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DeviceCreateWithoutTenantInput = {
+    id?: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    asset: AssetCreateNestedOneWithoutDeviceInput
+    enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
+    snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUncheckedCreateWithoutTenantInput = {
+    id?: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    snapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceUncheckedCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceCreateOrConnectWithoutTenantInput = {
+    where: DeviceWhereUniqueInput
+    create: XOR<DeviceCreateWithoutTenantInput, DeviceUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DeviceCreateManyTenantInputEnvelope = {
+    data: DeviceCreateManyTenantInput | DeviceCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DeviceEnrollmentTokenCreateWithoutTenantInput = {
+    id?: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy?: UserCreateNestedOneWithoutDeviceTokensCreatedInput
+    devices?: DeviceCreateNestedManyWithoutEnrollmentTokenInput
+  }
+
+  export type DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput = {
+    id?: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    createdById?: string | null
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    devices?: DeviceUncheckedCreateNestedManyWithoutEnrollmentTokenInput
+  }
+
+  export type DeviceEnrollmentTokenCreateOrConnectWithoutTenantInput = {
+    where: DeviceEnrollmentTokenWhereUniqueInput
+    create: XOR<DeviceEnrollmentTokenCreateWithoutTenantInput, DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DeviceEnrollmentTokenCreateManyTenantInputEnvelope = {
+    data: DeviceEnrollmentTokenCreateManyTenantInput | DeviceEnrollmentTokenCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DevicePostureSnapshotCreateWithoutTenantInput = {
+    id?: string
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    osVersion?: string | null
+    agentVersion?: string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt: Date | string
+    receivedAt?: Date | string
+    device: DeviceCreateNestedOneWithoutSnapshotsInput
+  }
+
+  export type DevicePostureSnapshotUncheckedCreateWithoutTenantInput = {
+    id?: string
+    deviceId: string
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    osVersion?: string | null
+    agentVersion?: string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt: Date | string
+    receivedAt?: Date | string
+  }
+
+  export type DevicePostureSnapshotCreateOrConnectWithoutTenantInput = {
+    where: DevicePostureSnapshotWhereUniqueInput
+    create: XOR<DevicePostureSnapshotCreateWithoutTenantInput, DevicePostureSnapshotUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DevicePostureSnapshotCreateManyTenantInputEnvelope = {
+    data: DevicePostureSnapshotCreateManyTenantInput | DevicePostureSnapshotCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantBillingConfigCreateWithoutTenantInput = {
     id?: string
     mode?: $Enums.TenantBillingMode
@@ -198023,6 +209161,74 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ExternalIdentityMapping"> | Date | string
   }
 
+  export type DeviceUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DeviceWhereUniqueInput
+    update: XOR<DeviceUpdateWithoutTenantInput, DeviceUncheckedUpdateWithoutTenantInput>
+    create: XOR<DeviceCreateWithoutTenantInput, DeviceUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DeviceUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DeviceWhereUniqueInput
+    data: XOR<DeviceUpdateWithoutTenantInput, DeviceUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DeviceUpdateManyWithWhereWithoutTenantInput = {
+    where: DeviceScalarWhereInput
+    data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type DeviceEnrollmentTokenUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DeviceEnrollmentTokenWhereUniqueInput
+    update: XOR<DeviceEnrollmentTokenUpdateWithoutTenantInput, DeviceEnrollmentTokenUncheckedUpdateWithoutTenantInput>
+    create: XOR<DeviceEnrollmentTokenCreateWithoutTenantInput, DeviceEnrollmentTokenUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DeviceEnrollmentTokenUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DeviceEnrollmentTokenWhereUniqueInput
+    data: XOR<DeviceEnrollmentTokenUpdateWithoutTenantInput, DeviceEnrollmentTokenUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DeviceEnrollmentTokenUpdateManyWithWhereWithoutTenantInput = {
+    where: DeviceEnrollmentTokenScalarWhereInput
+    data: XOR<DeviceEnrollmentTokenUpdateManyMutationInput, DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type DeviceEnrollmentTokenScalarWhereInput = {
+    AND?: DeviceEnrollmentTokenScalarWhereInput | DeviceEnrollmentTokenScalarWhereInput[]
+    OR?: DeviceEnrollmentTokenScalarWhereInput[]
+    NOT?: DeviceEnrollmentTokenScalarWhereInput | DeviceEnrollmentTokenScalarWhereInput[]
+    id?: StringFilter<"DeviceEnrollmentToken"> | string
+    tenantId?: StringFilter<"DeviceEnrollmentToken"> | string
+    tokenHash?: StringFilter<"DeviceEnrollmentToken"> | string
+    label?: StringNullableFilter<"DeviceEnrollmentToken"> | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFilter<"DeviceEnrollmentToken"> | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFilter<"DeviceEnrollmentToken"> | number
+    useCount?: IntFilter<"DeviceEnrollmentToken"> | number
+    expiresAt?: DateTimeFilter<"DeviceEnrollmentToken"> | Date | string
+    createdById?: StringNullableFilter<"DeviceEnrollmentToken"> | string | null
+    consumedAt?: DateTimeNullableFilter<"DeviceEnrollmentToken"> | Date | string | null
+    revokedAt?: DateTimeNullableFilter<"DeviceEnrollmentToken"> | Date | string | null
+    revokedById?: StringNullableFilter<"DeviceEnrollmentToken"> | string | null
+    createdAt?: DateTimeFilter<"DeviceEnrollmentToken"> | Date | string
+    updatedAt?: DateTimeFilter<"DeviceEnrollmentToken"> | Date | string
+  }
+
+  export type DevicePostureSnapshotUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DevicePostureSnapshotWhereUniqueInput
+    update: XOR<DevicePostureSnapshotUpdateWithoutTenantInput, DevicePostureSnapshotUncheckedUpdateWithoutTenantInput>
+    create: XOR<DevicePostureSnapshotCreateWithoutTenantInput, DevicePostureSnapshotUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DevicePostureSnapshotUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DevicePostureSnapshotWhereUniqueInput
+    data: XOR<DevicePostureSnapshotUpdateWithoutTenantInput, DevicePostureSnapshotUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DevicePostureSnapshotUpdateManyWithWhereWithoutTenantInput = {
+    where: DevicePostureSnapshotScalarWhereInput
+    data: XOR<DevicePostureSnapshotUpdateManyMutationInput, DevicePostureSnapshotUncheckedUpdateManyWithoutTenantInput>
+  }
+
   export type TenantBillingConfigUpsertWithoutTenantInput = {
     update: XOR<TenantBillingConfigUpdateWithoutTenantInput, TenantBillingConfigUncheckedUpdateWithoutTenantInput>
     create: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
@@ -198192,6 +209398,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -198267,6 +209476,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -198358,6 +209570,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -198433,6 +209648,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -198508,6 +209726,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -198583,6 +209804,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -198746,6 +209970,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -198821,6 +210048,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -198959,6 +210189,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutTrainingCompletionsInput = {
@@ -199027,6 +210259,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutTrainingCompletionsInput = {
@@ -199104,6 +210338,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -199179,6 +210416,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -199307,6 +210547,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTrainingCompletionsInput = {
@@ -199375,6 +210617,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantUpsertWithoutTrainingCompletionsInput = {
@@ -199458,6 +210702,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -199533,6 +210780,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -199643,6 +210893,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -199718,6 +210971,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -199918,6 +211174,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -199993,6 +211252,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -200424,6 +211686,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutQuizAttemptsInput = {
@@ -200492,6 +211756,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutQuizAttemptsInput = {
@@ -200569,6 +211835,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -200644,6 +211913,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -200796,6 +212068,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -200864,6 +212138,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantUpsertWithoutQuizAttemptsInput = {
@@ -200947,6 +212223,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -201022,6 +212301,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -201289,6 +212571,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -201364,6 +212649,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -201555,6 +212843,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -201630,6 +212921,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -201753,6 +213047,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -201828,6 +213125,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -201941,6 +213241,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutPublishedTrustSnapshotsInput = {
@@ -202009,6 +213311,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutPublishedTrustSnapshotsInput = {
@@ -202097,6 +213401,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -202172,6 +213479,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -202297,6 +213607,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPublishedTrustSnapshotsInput = {
@@ -202365,6 +213677,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutTrustCenterEventsInput = {
@@ -202437,6 +213751,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -202512,6 +213829,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -202640,6 +213960,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -202715,6 +214038,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -202833,6 +214159,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -202908,6 +214237,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -203084,6 +214416,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -203159,6 +214494,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -203293,6 +214631,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -203368,6 +214709,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -203479,6 +214823,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutApprovedAccessRequestsInput = {
@@ -203547,6 +214893,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutApprovedAccessRequestsInput = {
@@ -203635,6 +214983,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -203710,6 +215061,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -203833,6 +215187,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedAccessRequestsInput = {
@@ -203901,6 +215257,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type MembershipCreateWithoutUserInput = {
@@ -204529,6 +215887,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutAssetsInput
     deletedBy?: UserCreateNestedOneWithoutDeletedAssetsInput
+    device?: DeviceCreateNestedOneWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutOwnerInput = {
@@ -204545,6 +215904,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    device?: DeviceUncheckedCreateNestedOneWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutOwnerInput = {
@@ -204571,6 +215931,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutAssetsInput
     owner?: UserCreateNestedOneWithoutOwnedAssetsInput
+    device?: DeviceCreateNestedOneWithoutAssetInput
   }
 
   export type AssetUncheckedCreateWithoutDeletedByInput = {
@@ -204587,6 +215948,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
+    device?: DeviceUncheckedCreateNestedOneWithoutAssetInput
   }
 
   export type AssetCreateOrConnectWithoutDeletedByInput = {
@@ -206571,6 +217933,118 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DeviceEnrollmentTokenCreateWithoutCreatedByInput = {
+    id?: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDeviceEnrollmentTokensInput
+    devices?: DeviceCreateNestedManyWithoutEnrollmentTokenInput
+  }
+
+  export type DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    tenantId: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    devices?: DeviceUncheckedCreateNestedManyWithoutEnrollmentTokenInput
+  }
+
+  export type DeviceEnrollmentTokenCreateOrConnectWithoutCreatedByInput = {
+    where: DeviceEnrollmentTokenWhereUniqueInput
+    create: XOR<DeviceEnrollmentTokenCreateWithoutCreatedByInput, DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type DeviceEnrollmentTokenCreateManyCreatedByInputEnvelope = {
+    data: DeviceEnrollmentTokenCreateManyCreatedByInput | DeviceEnrollmentTokenCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DeviceCreateWithoutEnrolledByInput = {
+    id?: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDevicesInput
+    asset: AssetCreateNestedOneWithoutDeviceInput
+    enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
+    snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUncheckedCreateWithoutEnrolledByInput = {
+    id?: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    snapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceUncheckedCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceCreateOrConnectWithoutEnrolledByInput = {
+    where: DeviceWhereUniqueInput
+    create: XOR<DeviceCreateWithoutEnrolledByInput, DeviceUncheckedCreateWithoutEnrolledByInput>
+  }
+
+  export type DeviceCreateManyEnrolledByInputEnvelope = {
+    data: DeviceCreateManyEnrolledByInput | DeviceCreateManyEnrolledByInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MembershipUpsertWithWhereUniqueWithoutUserInput = {
     where: MembershipWhereUniqueInput
     update: XOR<MembershipUpdateWithoutUserInput, MembershipUncheckedUpdateWithoutUserInput>
@@ -207451,6 +218925,38 @@ export namespace Prisma {
     data: XOR<ExternalIdentityMappingUpdateManyMutationInput, ExternalIdentityMappingUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type DeviceEnrollmentTokenUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: DeviceEnrollmentTokenWhereUniqueInput
+    update: XOR<DeviceEnrollmentTokenUpdateWithoutCreatedByInput, DeviceEnrollmentTokenUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<DeviceEnrollmentTokenCreateWithoutCreatedByInput, DeviceEnrollmentTokenUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type DeviceEnrollmentTokenUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: DeviceEnrollmentTokenWhereUniqueInput
+    data: XOR<DeviceEnrollmentTokenUpdateWithoutCreatedByInput, DeviceEnrollmentTokenUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type DeviceEnrollmentTokenUpdateManyWithWhereWithoutCreatedByInput = {
+    where: DeviceEnrollmentTokenScalarWhereInput
+    data: XOR<DeviceEnrollmentTokenUpdateManyMutationInput, DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type DeviceUpsertWithWhereUniqueWithoutEnrolledByInput = {
+    where: DeviceWhereUniqueInput
+    update: XOR<DeviceUpdateWithoutEnrolledByInput, DeviceUncheckedUpdateWithoutEnrolledByInput>
+    create: XOR<DeviceCreateWithoutEnrolledByInput, DeviceUncheckedCreateWithoutEnrolledByInput>
+  }
+
+  export type DeviceUpdateWithWhereUniqueWithoutEnrolledByInput = {
+    where: DeviceWhereUniqueInput
+    data: XOR<DeviceUpdateWithoutEnrolledByInput, DeviceUncheckedUpdateWithoutEnrolledByInput>
+  }
+
+  export type DeviceUpdateManyWithWhereWithoutEnrolledByInput = {
+    where: DeviceScalarWhereInput
+    data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyWithoutEnrolledByInput>
+  }
+
   export type UserCreateWithoutMembershipsInput = {
     id?: string
     email: string
@@ -207517,6 +219023,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -207585,6 +219093,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -207662,6 +219172,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -207737,6 +219250,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -207824,6 +219340,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -207892,6 +219410,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantUpsertWithoutMembershipsInput = {
@@ -207975,6 +219495,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -208050,6 +219573,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -208125,6 +219651,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -208200,6 +219729,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -208373,6 +219905,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -208448,6 +219983,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -208555,6 +220093,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -208630,6 +220171,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -208762,6 +220306,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -208837,6 +220384,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -208959,6 +220509,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -209034,6 +220587,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -209151,6 +220707,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutExternalIdentityMappingsInput = {
@@ -209219,6 +220777,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutExternalIdentityMappingsInput = {
@@ -209307,6 +220867,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -209382,6 +220945,9 @@ export namespace Prisma {
     controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -209511,6 +221077,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExternalIdentityMappingsInput = {
@@ -209579,6 +221147,8 @@ export namespace Prisma {
     importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type VendorCreateWithoutKnownVendorInput = {
@@ -209813,6 +221383,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -209888,6 +221461,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -210305,6 +221881,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -210380,6 +221959,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -210686,6 +222268,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -210761,6 +222346,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -210837,6 +222425,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutVendorAssessmentsInput = {
@@ -210905,6 +222495,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutVendorAssessmentsInput = {
@@ -211119,6 +222711,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -211194,6 +222789,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -211276,6 +222874,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVendorAssessmentsInput = {
@@ -211344,6 +222944,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type VendorResearchUpsertWithoutAssessmentsInput = {
@@ -211591,6 +223193,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -211666,6 +223271,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -211917,6 +223525,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -211992,6 +223603,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -212290,6 +223904,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -212365,6 +223982,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -212441,6 +224061,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutVendorDocumentsInput = {
@@ -212509,6 +224131,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutVendorDocumentsInput = {
@@ -212670,6 +224294,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -212745,6 +224372,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -212827,6 +224457,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVendorDocumentsInput = {
@@ -212895,6 +224527,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type TenantCreateWithoutVulnerabilitiesInput = {
@@ -212967,6 +224601,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -213042,6 +224679,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
     directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -213118,6 +224758,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutReportedVulnerabilitiesInput = {
@@ -213186,6 +224828,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutReportedVulnerabilitiesInput = {
@@ -213259,6 +224903,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserUncheckedCreateWithoutAssignedVulnerabilitiesInput = {
@@ -213327,6 +224973,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
   }
 
   export type UserCreateOrConnectWithoutAssignedVulnerabilitiesInput = {
@@ -213415,6 +225063,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -213490,6 +225141,9 @@ export namespace Prisma {
     directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
     directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -213572,6 +225226,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedVulnerabilitiesInput = {
@@ -213640,6 +225296,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUpsertWithoutAssignedVulnerabilitiesInput = {
@@ -213719,6 +225377,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedVulnerabilitiesInput = {
@@ -213787,6 +225447,8 @@ export namespace Prisma {
     reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
   export type AIRiskAssessmentCreateManyAiSystemInput = {
@@ -214833,6 +226495,202 @@ export namespace Prisma {
     assigneeId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceCreateManyEnrollmentTokenInput = {
+    id?: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceUpdateWithoutEnrollmentTokenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
+    asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
+    enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateWithoutEnrollmentTokenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUncheckedUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateManyWithoutEnrollmentTokenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DevicePostureSnapshotCreateManyDeviceInput = {
+    id?: string
+    tenantId: string
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    osVersion?: string | null
+    agentVersion?: string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt: Date | string
+    receivedAt?: Date | string
+  }
+
+  export type DeviceNonceCreateManyDeviceInput = {
+    id?: string
+    nonce: string
+    seenAt?: Date | string
+  }
+
+  export type DevicePostureSnapshotUpdateWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDevicePostureSnapshotsNestedInput
+  }
+
+  export type DevicePostureSnapshotUncheckedUpdateWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceNonceUpdateWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nonce?: StringFieldUpdateOperationsInput | string
+    seenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceNonceUncheckedUpdateWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nonce?: StringFieldUpdateOperationsInput | string
+    seenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceNonceUncheckedUpdateManyWithoutDeviceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nonce?: StringFieldUpdateOperationsInput | string
+    seenAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FrameworkInstanceCreateManyFrameworkInput = {
@@ -217830,6 +229688,64 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type DeviceCreateManyTenantInput = {
+    id?: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceEnrollmentTokenCreateManyTenantInput = {
+    id?: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    createdById?: string | null
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DevicePostureSnapshotCreateManyTenantInput = {
+    id?: string
+    deviceId: string
+    diskEncryption: $Enums.PostureSignalState
+    firewall: $Enums.PostureSignalState
+    screenLock: $Enums.PostureSignalState
+    antivirus: $Enums.PostureSignalState
+    agentHealthy: boolean
+    osVersion?: string | null
+    agentVersion?: string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt: Date | string
+    receivedAt?: Date | string
+  }
+
   export type MembershipUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
@@ -218544,6 +230460,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutOwnedAssetsNestedInput
     deletedBy?: UserUpdateOneWithoutDeletedAssetsNestedInput
+    device?: DeviceUpdateOneWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutTenantInput = {
@@ -218560,6 +230477,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    device?: DeviceUncheckedUpdateOneWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutTenantInput = {
@@ -220890,6 +232808,186 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DeviceUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
+    enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
+    snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUncheckedUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceEnrollmentTokenUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneWithoutDeviceTokensCreatedNestedInput
+    devices?: DeviceUpdateManyWithoutEnrollmentTokenNestedInput
+  }
+
+  export type DeviceEnrollmentTokenUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    devices?: DeviceUncheckedUpdateManyWithoutEnrollmentTokenNestedInput
+  }
+
+  export type DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DevicePostureSnapshotUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    device?: DeviceUpdateOneRequiredWithoutSnapshotsNestedInput
+  }
+
+  export type DevicePostureSnapshotUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DevicePostureSnapshotUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    raw?: NullableJsonNullValueInput | InputJsonValue
+    collectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TrainingCompletionCreateManyTrainingProgramInput = {
     id?: string
     userId: string
@@ -222426,6 +234524,49 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type DeviceEnrollmentTokenCreateManyCreatedByInput = {
+    id?: string
+    tenantId: string
+    tokenHash: string
+    label?: string | null
+    status?: $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: number
+    useCount?: number
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    revokedAt?: Date | string | null
+    revokedById?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceCreateManyEnrolledByInput = {
+    id?: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type MembershipUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
@@ -223142,6 +235283,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutAssetsNestedInput
     deletedBy?: UserUpdateOneWithoutDeletedAssetsNestedInput
+    device?: DeviceUpdateOneWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutOwnerInput = {
@@ -223158,6 +235300,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    device?: DeviceUncheckedUpdateOneWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutOwnerInput = {
@@ -223190,6 +235333,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutAssetsNestedInput
     owner?: UserUpdateOneWithoutOwnedAssetsNestedInput
+    device?: DeviceUpdateOneWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateWithoutDeletedByInput = {
@@ -223206,6 +235350,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    device?: DeviceUncheckedUpdateOneWithoutAssetNestedInput
   }
 
   export type AssetUncheckedUpdateManyWithoutDeletedByInput = {
@@ -225558,6 +237703,141 @@ export namespace Prisma {
     externalDisplayName?: NullableStringFieldUpdateOperationsInput | string | null
     externalGroupIds?: ExternalIdentityMappingUpdateexternalGroupIdsInput | string[]
     lastSeenAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceEnrollmentTokenUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDeviceEnrollmentTokensNestedInput
+    devices?: DeviceUpdateManyWithoutEnrollmentTokenNestedInput
+  }
+
+  export type DeviceEnrollmentTokenUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    devices?: DeviceUncheckedUpdateManyWithoutEnrollmentTokenNestedInput
+  }
+
+  export type DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    label?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceEnrollmentTokenStatusFieldUpdateOperationsInput | $Enums.DeviceEnrollmentTokenStatus
+    maxUses?: IntFieldUpdateOperationsInput | number
+    useCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedById?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceUpdateWithoutEnrolledByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
+    asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
+    enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
+    snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateWithoutEnrolledByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUncheckedUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateManyWithoutEnrolledByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

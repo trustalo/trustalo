@@ -502,6 +502,74 @@ exports.Prisma.ControlWeaknessScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DeviceEnrollmentTokenScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  tokenHash: 'tokenHash',
+  label: 'label',
+  status: 'status',
+  maxUses: 'maxUses',
+  useCount: 'useCount',
+  expiresAt: 'expiresAt',
+  createdById: 'createdById',
+  consumedAt: 'consumedAt',
+  revokedAt: 'revokedAt',
+  revokedById: 'revokedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DeviceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  assetId: 'assetId',
+  secretEnc: 'secretEnc',
+  secretKeyId: 'secretKeyId',
+  platform: 'platform',
+  osVersion: 'osVersion',
+  agentVersion: 'agentVersion',
+  hostname: 'hostname',
+  hardwareId: 'hardwareId',
+  status: 'status',
+  enrolledById: 'enrolledById',
+  enrolledAt: 'enrolledAt',
+  lastSeenAt: 'lastSeenAt',
+  checkInIntervalSeconds: 'checkInIntervalSeconds',
+  diskEncryption: 'diskEncryption',
+  firewall: 'firewall',
+  screenLock: 'screenLock',
+  antivirus: 'antivirus',
+  agentHealthy: 'agentHealthy',
+  lastPostureAt: 'lastPostureAt',
+  latestPosture: 'latestPosture',
+  enrollmentTokenId: 'enrollmentTokenId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DevicePostureSnapshotScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  deviceId: 'deviceId',
+  diskEncryption: 'diskEncryption',
+  firewall: 'firewall',
+  screenLock: 'screenLock',
+  antivirus: 'antivirus',
+  agentHealthy: 'agentHealthy',
+  osVersion: 'osVersion',
+  agentVersion: 'agentVersion',
+  raw: 'raw',
+  collectedAt: 'collectedAt',
+  receivedAt: 'receivedAt'
+};
+
+exports.Prisma.DeviceNonceScalarFieldEnum = {
+  id: 'id',
+  deviceId: 'deviceId',
+  nonce: 'nonce',
+  seenAt: 'seenAt'
+};
+
 exports.Prisma.EvidenceScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -1724,6 +1792,33 @@ exports.ControlWeaknessRemediabilityDecision = exports.$Enums.ControlWeaknessRem
   not_remediable_in_time: 'not_remediable_in_time'
 };
 
+exports.DeviceEnrollmentTokenStatus = exports.$Enums.DeviceEnrollmentTokenStatus = {
+  active: 'active',
+  consumed: 'consumed',
+  revoked: 'revoked',
+  expired: 'expired'
+};
+
+exports.DevicePlatform = exports.$Enums.DevicePlatform = {
+  macos: 'macos',
+  windows: 'windows',
+  linux: 'linux'
+};
+
+exports.DeviceStatus = exports.$Enums.DeviceStatus = {
+  pending: 'pending',
+  active: 'active',
+  stale: 'stale',
+  revoked: 'revoked',
+  retired: 'retired'
+};
+
+exports.PostureSignalState = exports.$Enums.PostureSignalState = {
+  pass: 'pass',
+  fail: 'fail',
+  unknown: 'unknown'
+};
+
 exports.EvidenceType = exports.$Enums.EvidenceType = {
   document: 'document',
   screenshot: 'screenshot',
@@ -2351,6 +2446,10 @@ exports.Prisma.ModelName = {
   Control: 'Control',
   ControlEvidenceCollectionConfig: 'ControlEvidenceCollectionConfig',
   ControlWeakness: 'ControlWeakness',
+  DeviceEnrollmentToken: 'DeviceEnrollmentToken',
+  Device: 'Device',
+  DevicePostureSnapshot: 'DevicePostureSnapshot',
+  DeviceNonce: 'DeviceNonce',
   Evidence: 'Evidence',
   Framework: 'Framework',
   FrameworkInstance: 'FrameworkInstance',

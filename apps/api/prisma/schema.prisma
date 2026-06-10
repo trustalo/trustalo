@@ -359,6 +359,7 @@ model Asset {
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   owner        User?        @relation("AssetOwner", fields: [ownerId], references: [id])
   deletedBy    User?        @relation("AssetDeletedBy", fields: [deletedById], references: [id])
+  device       Device?
 
   @@index([tenantId])
   @@index([tenantId, deletedAt, createdAt])
@@ -1074,6 +1075,174 @@ model ControlWeakness {
   @@index([severity])
   @@index([notificationDeadlineAt])
   @@index([discoveredAt])
+}
+
+// --- device.prisma ---
+// Endpoint device posture models. Powers the cross-platform device agent
+// (apps/device-agent): an agent installed on an employee computer enrolls
+// once, then heartbeats its security posture (disk encryption, firewall,
+// screen lock, antivirus, agent health). Each Device is 1:1 with a
+// "computer"-category Asset. Reported posture is INVENTORY telemetry and is
+// stored inline; the COMPLIANCE interpretation lands as advisory Evidence
+// (pending_review), never an auto-verdict. See docs/device-agent.md.
+
+enum DeviceEnrollmentTokenStatus {
+  active
+  consumed
+  revoked
+  expired
+}
+
+enum DevicePlatform {
+  macos
+  windows
+  linux
+}
+
+enum DeviceStatus {
+  pending // enrolled, no check-in yet
+  active // checked in within the heartbeat window
+  stale // missed the heartbeat window
+  revoked // credential revoked; check-ins are rejected
+  retired
+}
+
+// Tri-state per posture signal. `unknown` distinguishes "the agent could not
+// determine this" from a definitive pass/fail.
+enum PostureSignalState {
+  pass
+  fail
+  unknown
+}
+
+// Admin-minted, short-lived, consumable bearer credential used to authorize
+// non-interactive (MDM / mass-deploy) enrollment. Interactive installs use a
+// signed-in user JWT instead and never need one of these.
+model DeviceEnrollmentToken {
+  id        String                      @id @default(cuid())
+  tenantId  String
+  // SHA-256 of the raw token. The raw value is returned exactly once at
+  // creation and is never stored; enrollment looks it up by hash. This is a
+  // one-way HASH (not the crypto-envelope) on purpose: an enrollment token is
+  // only ever COMPARED, never used to recompute an HMAC — unlike
+  // Device.secretEnc below, which must be reversible.
+  tokenHash   String                      @unique
+  label       String?
+  status      DeviceEnrollmentTokenStatus @default(active)
+  maxUses     Int                         @default(1)
+  useCount    Int                         @default(0)
+  expiresAt   DateTime
+  createdById String?
+  consumedAt  DateTime?
+  revokedAt   DateTime?
+  revokedById String?
+  createdAt   DateTime                    @default(now())
+  updatedAt   DateTime                    @updatedAt
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy User?    @relation("DeviceTokenCreatedBy", fields: [createdById], references: [id])
+  devices   Device[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+}
+
+// Durable per-device identity, 1:1 with a "computer"-category Asset.
+model Device {
+  id       String @id @default(cuid())
+  tenantId String
+  assetId  String @unique
+  // Per-device HMAC secret, stored REVERSIBLY ENCRYPTED via the AES-256-GCM
+  // crypto-envelope (enc:v1:) — NOT a one-way hash — because the server must
+  // decrypt it to recompute and verify the HMAC of every check-in. Contrast
+  // with DeviceEnrollmentToken.tokenHash, which is only ever compared.
+  secretEnc   String
+  // Bumped on every secret rotation; the agent echoes its keyId so a request
+  // is verified against the right secret while a rotation propagates.
+  secretKeyId Int            @default(1)
+  platform    DevicePlatform
+  osVersion   String?
+  agentVersion String?
+  hostname     String?
+  // Stable hardware fingerprint (serial / machine GUID) the agent reports;
+  // used to detect re-enrollment of the same physical machine.
+  hardwareId   String?
+
+  status                 DeviceStatus @default(pending)
+  enrolledById           String?
+  enrolledAt             DateTime     @default(now())
+  lastSeenAt             DateTime?
+  // Expected heartbeat cadence; drives stale detection.
+  checkInIntervalSeconds Int          @default(3600)
+
+  // Inline latest posture (inventory telemetry — the device's own
+  // self-reported state). A compliance verdict is never stored here.
+  diskEncryption PostureSignalState @default(unknown)
+  firewall       PostureSignalState @default(unknown)
+  screenLock     PostureSignalState @default(unknown)
+  antivirus      PostureSignalState @default(unknown)
+  agentHealthy   Boolean            @default(true)
+  lastPostureAt  DateTime?
+  // Full raw posture blob from the most recent check-in (extra signals,
+  // versions, agent self-diagnostics) for the detail view.
+  latestPosture  Json?
+
+  enrollmentTokenId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant          Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  asset           Asset                   @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  enrolledBy      User?                   @relation("DeviceEnrolledBy", fields: [enrolledById], references: [id])
+  enrollmentToken DeviceEnrollmentToken?  @relation(fields: [enrollmentTokenId], references: [id])
+  snapshots       DevicePostureSnapshot[]
+  nonces          DeviceNonce[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, lastSeenAt])
+  @@index([tenantId, hardwareId])
+}
+
+// Append-only posture history (one row per check-in) for drift / audit trail.
+model DevicePostureSnapshot {
+  id             String             @id @default(cuid())
+  tenantId       String
+  deviceId       String
+  diskEncryption PostureSignalState
+  firewall       PostureSignalState
+  screenLock     PostureSignalState
+  antivirus      PostureSignalState
+  agentHealthy   Boolean
+  osVersion      String?
+  agentVersion   String?
+  raw            Json?
+  collectedAt    DateTime // agent-reported collection time
+  receivedAt     DateTime           @default(now()) // server receipt time
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  device Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, deviceId, collectedAt])
+}
+
+// Per-device check-in nonce ledger for replay defense. Intentionally has NO
+// tenantId: it is written/read by the device-auth middleware BEFORE a tenant
+// context exists (the request is authenticated by the per-device secret, and
+// the tenant is derived from the Device row afterwards), so it is accessed
+// via the un-scoped base client. Rows are pruned by the stale-device sweep
+// once older than the signature clock-skew window.
+model DeviceNonce {
+  id       String   @id @default(cuid())
+  deviceId String
+  nonce    String
+  seenAt   DateTime @default(now())
+
+  device Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  @@unique([deviceId, nonce])
+  @@index([seenAt])
 }
 
 // --- evidence.prisma ---
@@ -2788,6 +2957,9 @@ model Tenant {
   directorySyncConfigs          DirectorySyncConfig[]
   directorySyncRuns             DirectorySyncRun[]
   externalIdentityMappings      ExternalIdentityMapping[]
+  devices                       Device[]
+  deviceEnrollmentTokens        DeviceEnrollmentToken[]
+  devicePostureSnapshots        DevicePostureSnapshot[]
   // EE: managed LiteLLM routing + metered billing. See
   // prisma/schema/billing.ee.prisma.
   billingConfig                 TenantBillingConfig?
@@ -3242,6 +3414,8 @@ model User {
   reviewedAnswers        Answer[]            @relation("AnswerReviewer")
   questionnaireImportJobs QuestionnaireImportJob[] @relation("QuestionnaireImportJobCreator")
   externalIdentityMappings ExternalIdentityMapping[]
+  deviceTokensCreated      DeviceEnrollmentToken[] @relation("DeviceTokenCreatedBy")
+  devicesEnrolled          Device[]                @relation("DeviceEnrolledBy")
 }
 
 model Membership {

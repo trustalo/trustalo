@@ -1,0 +1,85 @@
+name: Device Agent
+
+on:
+  pull_request:
+    paths:
+      - "apps/device-agent/**"
+      - ".github/workflows/agent.yml"
+  push:
+    branches: [main]
+    paths:
+      - "apps/device-agent/**"
+
+defaults:
+  run:
+    working-directory: apps/device-agent
+
+jobs:
+  lint-test:
+    name: lint + vet + test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+          cache-dependency-path: apps/device-agent/go.sum
+      - name: gofmt
+        run: |
+          unformatted="$(gofmt -l .)"
+          if [ -n "$unformatted" ]; then echo "gofmt needed:"; echo "$unformatted"; exit 1; fi
+      - name: go vet
+        run: go vet ./...
+      - name: go test
+        run: go test ./...
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        continue-on-error: true # informational until a .golangci.yml is tuned
+        with:
+          working-directory: apps/device-agent
+          version: latest
+
+  cross-build-daemon:
+    name: build daemon (${{ matrix.target }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - darwin/amd64
+          - darwin/arm64
+          - windows/amd64
+          - windows/arm64
+          - linux/amd64
+          - linux/arm64
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+          cache-dependency-path: apps/device-agent/go.sum
+      - name: build agentd
+        run: |
+          GOOS="${{ matrix.target }}"; GOOS="${GOOS%/*}"
+          GOARCH="${{ matrix.target }}"; GOARCH="${GOARCH#*/}"
+          CGO_ENABLED=0 GOOS="$GOOS" GOARCH="$GOARCH" go build -o /dev/null ./cmd/agentd
+
+  build-tray:
+    # The tray uses cgo (Cocoa / Win32 / GTK-AppIndicator), so it is built
+    # natively on each OS rather than cross-compiled.
+    name: build tray (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+          cache-dependency-path: apps/device-agent/go.sum
+      - name: linux tray deps
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y gcc pkg-config libayatana-appindicator3-dev
+      - name: build tray
+        run: go build -o /dev/null ./cmd/tray

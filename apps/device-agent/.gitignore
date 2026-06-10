@@ -1,0 +1,8 @@
+# Build output
+/dist/
+
+# Local runtime state — NEVER commit device credentials, config, or status.
+credential.json
+agent.config.json
+status.json
+*.local.json

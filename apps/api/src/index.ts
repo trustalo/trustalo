@@ -35,6 +35,12 @@ import { integrationsRouter } from "./modules/integrations/router.js";
 import { questionnairesRouter } from "./modules/questionnaires/router.js";
 import { licenseRouter } from "./modules/license/router.js";
 import { internalRouter } from "./modules/internal/router.js";
+import { deviceAgentRouter } from "./modules/devices/agent-router.js";
+import { devicesAdminRouter } from "./modules/devices/admin-router.js";
+import {
+  startDeviceSweepScheduler,
+  stopDeviceSweepScheduler,
+} from "./modules/devices/scheduler.js";
 import { directorySyncRouter } from "./modules/directory-sync/router.ee.js";
 import {
   startDirectorySyncScheduler,
@@ -96,6 +102,11 @@ app.use("/internal", internalRouter);
 // contract.
 app.use("/api/v1/billing/webhooks", litellmWebhookRouter);
 
+// Device-agent routes authenticate with an enrollment token or a per-device
+// HMAC signature (not user JWTs), so — like /internal — they MUST be mounted
+// before the JWT `authenticate` middleware.
+app.use("/api/v1/devices/agent", deviceAgentRouter);
+
 app.use("/api/v1", authenticate);
 app.use("/api/v1/organizations", organizationsRouter);
 app.use("/api/v1/frameworks", frameworksRouter);
@@ -106,6 +117,7 @@ app.use("/api/v1/risks", risksRouter);
 app.use("/api/v1/evidence", evidenceRouter);
 app.use("/api/v1/vendors", vendorsRouter);
 app.use("/api/v1/assets", assetsRouter);
+app.use("/api/v1/devices", devicesAdminRouter);
 app.use("/api/v1/incidents", incidentsRouter);
 app.use("/api/v1/audits", auditsRouter);
 app.use("/api/v1/bcp", bcpRouter);
@@ -150,11 +162,15 @@ async function start() {
   startDirectorySyncScheduler().catch((err) =>
     console.error("[api] directory-sync scheduler failed to start:", err),
   );
+  startDeviceSweepScheduler().catch((err) =>
+    console.error("[api] device sweep scheduler failed to start:", err),
+  );
 }
 
 async function shutdown() {
   console.log("[api] Shutting down…");
   await stopDirectorySyncScheduler();
+  await stopDeviceSweepScheduler();
   await stopResearchResultsWorker();
   await disconnectMongo();
   await prisma.$disconnect();

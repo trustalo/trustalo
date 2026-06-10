@@ -110,6 +110,9 @@ model Tenant {
   directorySyncConfigs          DirectorySyncConfig[]
   directorySyncRuns             DirectorySyncRun[]
   externalIdentityMappings      ExternalIdentityMapping[]
+  devices                       Device[]
+  deviceEnrollmentTokens        DeviceEnrollmentToken[]
+  devicePostureSnapshots        DevicePostureSnapshot[]
   // EE: managed LiteLLM routing + metered billing. See
   // prisma/schema/billing.ee.prisma.
   billingConfig                 TenantBillingConfig?

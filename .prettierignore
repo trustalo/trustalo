@@ -22,6 +22,11 @@ coverage/
 **/*.generated.tsx
 **/*.generated.js
 
+# ---- Go (Prettier has no Go parser; the Go toolchain owns formatting) ----
+**/*.go
+**/go.mod
+**/go.sum
+
 # ---- Static / vendored assets ----
 public/
 *.min.js

@@ -69,6 +69,7 @@ model User {
   @@index([authProvider])
 
   memberships          Membership[]
+  people               Person[]
   ownedControls        Control[]        @relation("ControlOwner")
   ownedPolicies        Policy[]         @relation("PolicyOwner")
   createdPolicyVersions PolicyVersion[] @relation("PolicyVersionCreator")

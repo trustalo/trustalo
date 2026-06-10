@@ -50,6 +50,7 @@ model Tenant {
 
   settings                      TenantSettings?
   memberships                   Membership[]
+  people                        Person[]
   frameworkInstances            FrameworkInstance[]
   controls                      Control[]
   policies                      Policy[]

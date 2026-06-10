@@ -686,6 +686,30 @@ exports.Prisma.IncidentTimelineScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PersonScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  email: 'email',
+  fullName: 'fullName',
+  role: 'role',
+  permissions: 'permissions',
+  status: 'status',
+  kind: 'kind',
+  source: 'source',
+  jobTitle: 'jobTitle',
+  department: 'department',
+  employmentType: 'employmentType',
+  managerId: 'managerId',
+  location: 'location',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  invitedAt: 'invitedAt',
+  joinedAt: 'joinedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.PolicyScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -1887,6 +1911,39 @@ exports.IncidentStatus = exports.$Enums.IncidentStatus = {
   lessons_learned: 'lessons_learned'
 };
 
+exports.PersonRole = exports.$Enums.PersonRole = {
+  member: 'member',
+  owner: 'owner',
+  admin: 'admin',
+  compliance_manager: 'compliance_manager',
+  auditor: 'auditor',
+  viewer: 'viewer',
+  integration_admin: 'integration_admin',
+  dpo: 'dpo'
+};
+
+exports.PersonStatus = exports.$Enums.PersonStatus = {
+  invited: 'invited',
+  active: 'active',
+  suspended: 'suspended',
+  offboarded: 'offboarded'
+};
+
+exports.PersonKind = exports.$Enums.PersonKind = {
+  employee: 'employee',
+  contractor: 'contractor',
+  vendor_contact: 'vendor_contact',
+  service_account: 'service_account',
+  other: 'other'
+};
+
+exports.PersonSource = exports.$Enums.PersonSource = {
+  manual: 'manual',
+  invite: 'invite',
+  directory_sync: 'directory_sync',
+  self_register: 'self_register'
+};
+
 exports.PolicyStatus = exports.$Enums.PolicyStatus = {
   draft: 'draft',
   pending_approval: 'pending_approval',
@@ -2458,6 +2515,7 @@ exports.Prisma.ModelName = {
   ControlRequirementAssignment: 'ControlRequirementAssignment',
   Incident: 'Incident',
   IncidentTimeline: 'IncidentTimeline',
+  Person: 'Person',
   Policy: 'Policy',
   PolicyVersion: 'PolicyVersion',
   PolicyAcknowledgment: 'PolicyAcknowledgment',

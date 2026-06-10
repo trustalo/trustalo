@@ -1,0 +1,94 @@
+// People — the HR / personnel directory. A `Person` is the canonical
+// per-tenant record for anyone in scope for compliance (staff, contractors,
+// vendor contacts). It REPLACES the old `Membership` model: it carries the
+// org link, status, role-based access (role + permissions override — RBAC
+// semantics unchanged), AND HR attributes. A Person optionally links to a
+// `User` (login identity) — null for people who haven't been invited / never
+// log in. Devices and assets are assigned to a Person; training/policy
+// completions roll up via the linked User.
+//
+// The module, API (/api/v1/people), RBAC (people:*), nav and UI are all
+// "People"; a single row is a `Person`. See docs/people + the People plan.
+
+enum PersonStatus {
+  invited
+  active
+  suspended
+  offboarded
+}
+
+enum PersonKind {
+  employee
+  contractor
+  vendor_contact
+  service_account
+  other
+}
+
+enum PersonSource {
+  manual
+  invite
+  directory_sync
+  self_register
+}
+
+// Same string values as the console roles (so the rbac.ts role->permission map
+// is shared, keyed by string) plus `member`, the default. A fresh enum — NOT
+// the legacy `MembershipRole` — so the migration needs no transaction-unsafe
+// `ALTER TYPE ... ADD VALUE`, and the People role set can evolve as Membership
+// is retired.
+enum PersonRole {
+  member
+  owner
+  admin
+  compliance_manager
+  auditor
+  viewer
+  integration_admin
+  dpo
+}
+
+model Person {
+  id       String  @id @default(cuid())
+  tenantId String
+  // Login identity. Null for people who haven't been invited / never log in.
+  // Unique per tenant when set (Postgres treats NULLs as distinct, so many
+  // login-less people are allowed).
+  userId   String?
+
+  email    String
+  fullName String
+
+  // Role-based RBAC, identical semantics to the old Membership: effective
+  // permissions = `permissions` when non-empty, else getPermissionsForRole(role).
+  role        PersonRole     @default(member)
+  permissions String[]
+  status      PersonStatus   @default(invited)
+  kind        PersonKind     @default(employee)
+  source      PersonSource   @default(manual)
+
+  // HR attributes (populated over time; surfaced/edited in the People UI).
+  jobTitle       String?
+  department     String?
+  employmentType String?
+  managerId      String?
+  location       String?
+  startDate      DateTime?
+  endDate        DateTime?
+
+  invitedAt DateTime?
+  joinedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user    User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  manager Person?  @relation("PersonManager", fields: [managerId], references: [id])
+  reports Person[] @relation("PersonManager")
+
+  @@unique([tenantId, userId])
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([userId])
+}

@@ -92,6 +92,7 @@ export default function PersonProfilePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [tab, setTab] = useState<Tab>("Overview");
+  const [editOpen, setEditOpen] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -140,6 +141,13 @@ export default function PersonProfilePage() {
             {person.department ? ` · ${person.department}` : ""}
           </p>
         </div>
+        {canManage && (
+          <div className="flex gap-2">
+            <Button variant="secondary" onClick={() => setEditOpen(true)}>
+              Edit
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-wrap gap-1 border-b border-neutral-200 dark:border-neutral-800">
@@ -170,6 +178,17 @@ export default function PersonProfilePage() {
       {tab === "Training" && <TrainingTab person={person} />}
       {tab === "Policies" && <PoliciesTab person={person} />}
       {tab === "Access" && <AccessTab person={person} canManage={canManage} onChange={load} />}
+
+      {editOpen && (
+        <EditProfileModal
+          person={person}
+          onClose={() => setEditOpen(false)}
+          onDone={() => {
+            setEditOpen(false);
+            void load();
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -555,7 +574,6 @@ function AccessTab({
 }) {
   const [role, setRole] = useState<PersonRole>(person.role);
   const [busy, setBusy] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
   const isOwner = person.role === "owner";
 
   async function saveRole() {
@@ -633,25 +651,11 @@ function AccessTab({
             >
               Offboard
             </Button>
-            <Button size="sm" onClick={() => setEditOpen(true)}>
-              Edit profile
-            </Button>
           </div>
           <p className="mt-2 text-xs text-neutral-500">
             Offboarding seeds the offboarding checklist and revokes the person&apos;s devices.
           </p>
         </Card>
-      )}
-
-      {editOpen && (
-        <EditProfileModal
-          person={person}
-          onClose={() => setEditOpen(false)}
-          onDone={() => {
-            setEditOpen(false);
-            onChange();
-          }}
-        />
       )}
     </div>
   );

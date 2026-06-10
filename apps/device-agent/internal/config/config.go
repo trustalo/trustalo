@@ -9,6 +9,7 @@ package config
 import (
 	"encoding/json"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -70,6 +71,12 @@ func Load(path string) (Config, error) {
 	overlay("TRUSTALO_AGENT_EMAIL", &cfg.Dev.Email)
 	overlay("TRUSTALO_AGENT_PASSWORD", &cfg.Dev.Password)
 	overlay("TRUSTALO_ENROLLMENT_TOKEN", &cfg.Dev.EnrollmentToken)
+	// Optional: shorten the heartbeat for local loop testing.
+	if v := strings.TrimSpace(os.Getenv("TRUSTALO_CHECKIN_INTERVAL_SECONDS")); v != "" {
+		if n, err := strconv.Atoi(v); err == nil && n > 0 {
+			cfg.CheckInIntervalSeconds = n
+		}
+	}
 
 	cfg.APIURL = strings.TrimRight(cfg.APIURL, "/")
 	cfg.WebURL = strings.TrimRight(cfg.WebURL, "/")

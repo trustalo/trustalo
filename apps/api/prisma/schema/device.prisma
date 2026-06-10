@@ -90,6 +90,9 @@ model Device {
 
   status                 DeviceStatus @default(pending)
   enrolledById           String?
+  // The Person this device is assigned to (Phase C). Resolved from the
+  // enrolling user at enrollment; powers the per-person fleet posture rollup.
+  personId               String?
   enrolledAt             DateTime     @default(now())
   lastSeenAt             DateTime?
   // Expected heartbeat cadence; drives stale detection.
@@ -115,6 +118,7 @@ model Device {
   tenant          Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   asset           Asset                   @relation(fields: [assetId], references: [id], onDelete: Cascade)
   enrolledBy      User?                   @relation("DeviceEnrolledBy", fields: [enrolledById], references: [id])
+  person          Person?                 @relation(fields: [personId], references: [id], onDelete: SetNull)
   enrollmentToken DeviceEnrollmentToken?  @relation(fields: [enrollmentTokenId], references: [id])
   snapshots       DevicePostureSnapshot[]
   nonces          DeviceNonce[]
@@ -123,6 +127,7 @@ model Device {
   @@index([tenantId, status])
   @@index([tenantId, lastSeenAt])
   @@index([tenantId, hardwareId])
+  @@index([tenantId, personId])
 }
 
 // Append-only posture history (one row per check-in) for drift / audit trail.

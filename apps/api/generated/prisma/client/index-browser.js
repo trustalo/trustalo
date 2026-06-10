@@ -230,6 +230,7 @@ exports.Prisma.AssetScalarFieldEnum = {
   type: 'type',
   classification: 'classification',
   ownerId: 'ownerId',
+  assignedPersonId: 'assignedPersonId',
   deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   location: 'location',
@@ -532,6 +533,7 @@ exports.Prisma.DeviceScalarFieldEnum = {
   hardwareId: 'hardwareId',
   status: 'status',
   enrolledById: 'enrolledById',
+  personId: 'personId',
   enrolledAt: 'enrolledAt',
   lastSeenAt: 'lastSeenAt',
   checkInIntervalSeconds: 'checkInIntervalSeconds',
@@ -704,8 +706,40 @@ exports.Prisma.PersonScalarFieldEnum = {
   location: 'location',
   startDate: 'startDate',
   endDate: 'endDate',
+  vendorId: 'vendorId',
   invitedAt: 'invitedAt',
   joinedAt: 'joinedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BackgroundCheckScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  personId: 'personId',
+  type: 'type',
+  status: 'status',
+  provider: 'provider',
+  reference: 'reference',
+  adverseFindings: 'adverseFindings',
+  notes: 'notes',
+  requestedAt: 'requestedAt',
+  completedAt: 'completedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PersonChecklistItemScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  personId: 'personId',
+  kind: 'kind',
+  key: 'key',
+  label: 'label',
+  status: 'status',
+  dueAt: 'dueAt',
+  completedAt: 'completedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1944,6 +1978,35 @@ exports.PersonSource = exports.$Enums.PersonSource = {
   self_register: 'self_register'
 };
 
+exports.BackgroundCheckType = exports.$Enums.BackgroundCheckType = {
+  identity: 'identity',
+  criminal: 'criminal',
+  employment: 'employment',
+  education: 'education',
+  credit: 'credit',
+  reference: 'reference',
+  other: 'other'
+};
+
+exports.BackgroundCheckStatus = exports.$Enums.BackgroundCheckStatus = {
+  not_started: 'not_started',
+  in_progress: 'in_progress',
+  cleared: 'cleared',
+  flagged: 'flagged',
+  expired: 'expired'
+};
+
+exports.ChecklistKind = exports.$Enums.ChecklistKind = {
+  onboarding: 'onboarding',
+  offboarding: 'offboarding'
+};
+
+exports.ChecklistItemStatus = exports.$Enums.ChecklistItemStatus = {
+  pending: 'pending',
+  done: 'done',
+  na: 'na'
+};
+
 exports.PolicyStatus = exports.$Enums.PolicyStatus = {
   draft: 'draft',
   pending_approval: 'pending_approval',
@@ -2516,6 +2579,8 @@ exports.Prisma.ModelName = {
   Incident: 'Incident',
   IncidentTimeline: 'IncidentTimeline',
   Person: 'Person',
+  BackgroundCheck: 'BackgroundCheck',
+  PersonChecklistItem: 'PersonChecklistItem',
   Policy: 'Policy',
   PolicyVersion: 'PolicyVersion',
   PolicyAcknowledgment: 'PolicyAcknowledgment',

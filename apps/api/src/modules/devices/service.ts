@@ -15,6 +15,7 @@ import { Prisma } from "../../../generated/prisma/client/index.js";
 import { endpointAgentManifest } from "@trustalo/integration-manifests";
 import { resolveFrameworkRefs } from "../internal/control-binding.js";
 import { createAutomatedEvidence, type AutomatedEvidenceItem } from "../evidence/ingest-service.js";
+import { resolvePersonForUser } from "../people/service.js";
 import { generateDeviceSecret } from "../../lib/device-auth.js";
 import { encryptString } from "../../lib/crypto-envelope.js";
 import { AuditLog } from "../../mongodb/models/index.js";
@@ -150,10 +151,16 @@ export async function enrollDevice(input: EnrollDeviceInput): Promise<EnrollDevi
   const secretEnc = encryptString(secret);
   const computerName = input.hostname?.trim() || `${input.platform} device`;
 
+  // Resolve the enrolling user → their Person so the device (and its Computer
+  // Asset) is attached to a person for the per-person fleet posture rollup.
+  const personId = input.enrolledByUserId
+    ? await resolvePersonForUser(input.tenantId, input.enrolledByUserId)
+    : null;
+
   if (input.hardwareId) {
     const existing = await prisma.device.findFirst({
       where: { tenantId: input.tenantId, hardwareId: input.hardwareId },
-      select: { id: true },
+      select: { id: true, assetId: true },
     });
     if (existing) {
       const updated = await prisma.device.update({
@@ -169,9 +176,16 @@ export async function enrollDevice(input: EnrollDeviceInput): Promise<EnrollDevi
           enrolledById: input.enrolledByUserId ?? null,
           enrollmentTokenId: input.enrollmentTokenId ?? null,
           enrolledAt: new Date(),
+          ...(personId ? { personId } : {}),
         },
         select: { id: true, secretKeyId: true, checkInIntervalSeconds: true },
       });
+      if (personId) {
+        await prisma.asset.update({
+          where: { id: existing.assetId },
+          data: { assignedPersonId: personId },
+        });
+      }
       return {
         deviceId: updated.id,
         deviceSecret: secret,
@@ -189,6 +203,7 @@ export async function enrollDevice(input: EnrollDeviceInput): Promise<EnrollDevi
         name: computerName,
         type: "hardware",
         ownerId: input.enrolledByUserId ?? null,
+        assignedPersonId: personId ?? null,
         metadata: {
           category: "computer",
           hostname: input.hostname ?? null,
@@ -210,6 +225,7 @@ export async function enrollDevice(input: EnrollDeviceInput): Promise<EnrollDevi
         hardwareId: input.hardwareId ?? null,
         status: "pending",
         enrolledById: input.enrolledByUserId ?? null,
+        personId: personId ?? null,
         enrollmentTokenId: input.enrollmentTokenId ?? null,
       },
       select: { id: true, secretKeyId: true, checkInIntervalSeconds: true },

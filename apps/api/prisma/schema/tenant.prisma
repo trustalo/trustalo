@@ -51,6 +51,8 @@ model Tenant {
   settings                      TenantSettings?
   memberships                   Membership[]
   people                        Person[]
+  backgroundChecks              BackgroundCheck[]
+  personChecklistItems          PersonChecklistItem[]
   frameworkInstances            FrameworkInstance[]
   controls                      Control[]
   policies                      Policy[]

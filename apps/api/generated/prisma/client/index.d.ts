@@ -199,6 +199,16 @@ export type IncidentTimeline = $Result.DefaultSelection<Prisma.$IncidentTimeline
  */
 export type Person = $Result.DefaultSelection<Prisma.$PersonPayload>
 /**
+ * Model BackgroundCheck
+ * 
+ */
+export type BackgroundCheck = $Result.DefaultSelection<Prisma.$BackgroundCheckPayload>
+/**
+ * Model PersonChecklistItem
+ * 
+ */
+export type PersonChecklistItem = $Result.DefaultSelection<Prisma.$PersonChecklistItemPayload>
+/**
  * Model Policy
  * 
  */
@@ -1017,6 +1027,47 @@ export const PersonRole: {
 };
 
 export type PersonRole = (typeof PersonRole)[keyof typeof PersonRole]
+
+
+export const BackgroundCheckType: {
+  identity: 'identity',
+  criminal: 'criminal',
+  employment: 'employment',
+  education: 'education',
+  credit: 'credit',
+  reference: 'reference',
+  other: 'other'
+};
+
+export type BackgroundCheckType = (typeof BackgroundCheckType)[keyof typeof BackgroundCheckType]
+
+
+export const BackgroundCheckStatus: {
+  not_started: 'not_started',
+  in_progress: 'in_progress',
+  cleared: 'cleared',
+  flagged: 'flagged',
+  expired: 'expired'
+};
+
+export type BackgroundCheckStatus = (typeof BackgroundCheckStatus)[keyof typeof BackgroundCheckStatus]
+
+
+export const ChecklistKind: {
+  onboarding: 'onboarding',
+  offboarding: 'offboarding'
+};
+
+export type ChecklistKind = (typeof ChecklistKind)[keyof typeof ChecklistKind]
+
+
+export const ChecklistItemStatus: {
+  pending: 'pending',
+  done: 'done',
+  na: 'na'
+};
+
+export type ChecklistItemStatus = (typeof ChecklistItemStatus)[keyof typeof ChecklistItemStatus]
 
 
 export const PolicyStatus: {
@@ -1958,6 +2009,22 @@ export type PersonRole = $Enums.PersonRole
 
 export const PersonRole: typeof $Enums.PersonRole
 
+export type BackgroundCheckType = $Enums.BackgroundCheckType
+
+export const BackgroundCheckType: typeof $Enums.BackgroundCheckType
+
+export type BackgroundCheckStatus = $Enums.BackgroundCheckStatus
+
+export const BackgroundCheckStatus: typeof $Enums.BackgroundCheckStatus
+
+export type ChecklistKind = $Enums.ChecklistKind
+
+export const ChecklistKind: typeof $Enums.ChecklistKind
+
+export type ChecklistItemStatus = $Enums.ChecklistItemStatus
+
+export const ChecklistItemStatus: typeof $Enums.ChecklistItemStatus
+
 export type PolicyStatus = $Enums.PolicyStatus
 
 export const PolicyStatus: typeof $Enums.PolicyStatus
@@ -2720,6 +2787,26 @@ export class PrismaClient<
     * ```
     */
   get person(): Prisma.PersonDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.backgroundCheck`: Exposes CRUD operations for the **BackgroundCheck** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BackgroundChecks
+    * const backgroundChecks = await prisma.backgroundCheck.findMany()
+    * ```
+    */
+  get backgroundCheck(): Prisma.BackgroundCheckDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.personChecklistItem`: Exposes CRUD operations for the **PersonChecklistItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PersonChecklistItems
+    * const personChecklistItems = await prisma.personChecklistItem.findMany()
+    * ```
+    */
+  get personChecklistItem(): Prisma.PersonChecklistItemDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.policy`: Exposes CRUD operations for the **Policy** model.
@@ -3681,6 +3768,8 @@ export namespace Prisma {
     Incident: 'Incident',
     IncidentTimeline: 'IncidentTimeline',
     Person: 'Person',
+    BackgroundCheck: 'BackgroundCheck',
+    PersonChecklistItem: 'PersonChecklistItem',
     Policy: 'Policy',
     PolicyVersion: 'PolicyVersion',
     PolicyAcknowledgment: 'PolicyAcknowledgment',
@@ -3745,7 +3834,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "tenantBillingConfig" | "tenantLiteLLMKey" | "creditWallet" | "creditTransaction" | "liteLLMSpendEvent" | "tenantAIUsageMonth" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "deviceEnrollmentToken" | "device" | "devicePostureSnapshot" | "deviceNonce" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "person" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
+      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "tenantBillingConfig" | "tenantLiteLLMKey" | "creditWallet" | "creditTransaction" | "liteLLMSpendEvent" | "tenantAIUsageMonth" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "deviceEnrollmentToken" | "device" | "devicePostureSnapshot" | "deviceNonce" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "person" | "backgroundCheck" | "personChecklistItem" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6484,6 +6573,154 @@ export namespace Prisma {
           count: {
             args: Prisma.PersonCountArgs<ExtArgs>
             result: $Utils.Optional<PersonCountAggregateOutputType> | number
+          }
+        }
+      }
+      BackgroundCheck: {
+        payload: Prisma.$BackgroundCheckPayload<ExtArgs>
+        fields: Prisma.BackgroundCheckFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BackgroundCheckFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BackgroundCheckFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload>
+          }
+          findFirst: {
+            args: Prisma.BackgroundCheckFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BackgroundCheckFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload>
+          }
+          findMany: {
+            args: Prisma.BackgroundCheckFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload>[]
+          }
+          create: {
+            args: Prisma.BackgroundCheckCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload>
+          }
+          createMany: {
+            args: Prisma.BackgroundCheckCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BackgroundCheckCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload>[]
+          }
+          delete: {
+            args: Prisma.BackgroundCheckDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload>
+          }
+          update: {
+            args: Prisma.BackgroundCheckUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload>
+          }
+          deleteMany: {
+            args: Prisma.BackgroundCheckDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BackgroundCheckUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BackgroundCheckUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload>[]
+          }
+          upsert: {
+            args: Prisma.BackgroundCheckUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BackgroundCheckPayload>
+          }
+          aggregate: {
+            args: Prisma.BackgroundCheckAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBackgroundCheck>
+          }
+          groupBy: {
+            args: Prisma.BackgroundCheckGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BackgroundCheckGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BackgroundCheckCountArgs<ExtArgs>
+            result: $Utils.Optional<BackgroundCheckCountAggregateOutputType> | number
+          }
+        }
+      }
+      PersonChecklistItem: {
+        payload: Prisma.$PersonChecklistItemPayload<ExtArgs>
+        fields: Prisma.PersonChecklistItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PersonChecklistItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PersonChecklistItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload>
+          }
+          findFirst: {
+            args: Prisma.PersonChecklistItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PersonChecklistItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload>
+          }
+          findMany: {
+            args: Prisma.PersonChecklistItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload>[]
+          }
+          create: {
+            args: Prisma.PersonChecklistItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload>
+          }
+          createMany: {
+            args: Prisma.PersonChecklistItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PersonChecklistItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload>[]
+          }
+          delete: {
+            args: Prisma.PersonChecklistItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload>
+          }
+          update: {
+            args: Prisma.PersonChecklistItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.PersonChecklistItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PersonChecklistItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PersonChecklistItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.PersonChecklistItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PersonChecklistItemPayload>
+          }
+          aggregate: {
+            args: Prisma.PersonChecklistItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePersonChecklistItem>
+          }
+          groupBy: {
+            args: Prisma.PersonChecklistItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PersonChecklistItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PersonChecklistItemCountArgs<ExtArgs>
+            result: $Utils.Optional<PersonChecklistItemCountAggregateOutputType> | number
           }
         }
       }
@@ -10258,6 +10495,8 @@ export namespace Prisma {
     incident?: IncidentOmit
     incidentTimeline?: IncidentTimelineOmit
     person?: PersonOmit
+    backgroundCheck?: BackgroundCheckOmit
+    personChecklistItem?: PersonChecklistItemOmit
     policy?: PolicyOmit
     policyVersion?: PolicyVersionOmit
     policyAcknowledgment?: PolicyAcknowledgmentOmit
@@ -10886,10 +11125,18 @@ export namespace Prisma {
 
   export type PersonCountOutputType = {
     reports: number
+    backgroundChecks: number
+    checklistItems: number
+    devices: number
+    assignedAssets: number
   }
 
   export type PersonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reports?: boolean | PersonCountOutputTypeCountReportsArgs
+    backgroundChecks?: boolean | PersonCountOutputTypeCountBackgroundChecksArgs
+    checklistItems?: boolean | PersonCountOutputTypeCountChecklistItemsArgs
+    devices?: boolean | PersonCountOutputTypeCountDevicesArgs
+    assignedAssets?: boolean | PersonCountOutputTypeCountAssignedAssetsArgs
   }
 
   // Custom InputTypes
@@ -10908,6 +11155,34 @@ export namespace Prisma {
    */
   export type PersonCountOutputTypeCountReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PersonWhereInput
+  }
+
+  /**
+   * PersonCountOutputType without action
+   */
+  export type PersonCountOutputTypeCountBackgroundChecksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BackgroundCheckWhereInput
+  }
+
+  /**
+   * PersonCountOutputType without action
+   */
+  export type PersonCountOutputTypeCountChecklistItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PersonChecklistItemWhereInput
+  }
+
+  /**
+   * PersonCountOutputType without action
+   */
+  export type PersonCountOutputTypeCountDevicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceWhereInput
+  }
+
+  /**
+   * PersonCountOutputType without action
+   */
+  export type PersonCountOutputTypeCountAssignedAssetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AssetWhereInput
   }
 
 
@@ -11345,6 +11620,8 @@ export namespace Prisma {
   export type TenantCountOutputType = {
     memberships: number
     people: number
+    backgroundChecks: number
+    personChecklistItems: number
     frameworkInstances: number
     controls: number
     policies: number
@@ -11411,6 +11688,8 @@ export namespace Prisma {
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     memberships?: boolean | TenantCountOutputTypeCountMembershipsArgs
     people?: boolean | TenantCountOutputTypeCountPeopleArgs
+    backgroundChecks?: boolean | TenantCountOutputTypeCountBackgroundChecksArgs
+    personChecklistItems?: boolean | TenantCountOutputTypeCountPersonChecklistItemsArgs
     frameworkInstances?: boolean | TenantCountOutputTypeCountFrameworkInstancesArgs
     controls?: boolean | TenantCountOutputTypeCountControlsArgs
     policies?: boolean | TenantCountOutputTypeCountPoliciesArgs
@@ -11497,6 +11776,20 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountPeopleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PersonWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountBackgroundChecksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BackgroundCheckWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountPersonChecklistItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PersonChecklistItemWhereInput
   }
 
   /**
@@ -12822,6 +13115,7 @@ export namespace Prisma {
     contacts: number
     researches: number
     documents: number
+    people: number
     processingActivities: number
     questionnaires: number
   }
@@ -12831,6 +13125,7 @@ export namespace Prisma {
     contacts?: boolean | VendorCountOutputTypeCountContactsArgs
     researches?: boolean | VendorCountOutputTypeCountResearchesArgs
     documents?: boolean | VendorCountOutputTypeCountDocumentsArgs
+    people?: boolean | VendorCountOutputTypeCountPeopleArgs
     processingActivities?: boolean | VendorCountOutputTypeCountProcessingActivitiesArgs
     questionnaires?: boolean | VendorCountOutputTypeCountQuestionnairesArgs
   }
@@ -12872,6 +13167,13 @@ export namespace Prisma {
    */
   export type VendorCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VendorDocumentWhereInput
+  }
+
+  /**
+   * VendorCountOutputType without action
+   */
+  export type VendorCountOutputTypeCountPeopleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PersonWhereInput
   }
 
   /**
@@ -20279,6 +20581,7 @@ export namespace Prisma {
     type: $Enums.AssetType | null
     classification: $Enums.AssetClassification | null
     ownerId: string | null
+    assignedPersonId: string | null
     deletedById: string | null
     deletedAt: Date | null
     location: string | null
@@ -20295,6 +20598,7 @@ export namespace Prisma {
     type: $Enums.AssetType | null
     classification: $Enums.AssetClassification | null
     ownerId: string | null
+    assignedPersonId: string | null
     deletedById: string | null
     deletedAt: Date | null
     location: string | null
@@ -20311,6 +20615,7 @@ export namespace Prisma {
     type: number
     classification: number
     ownerId: number
+    assignedPersonId: number
     deletedById: number
     deletedAt: number
     location: number
@@ -20330,6 +20635,7 @@ export namespace Prisma {
     type?: true
     classification?: true
     ownerId?: true
+    assignedPersonId?: true
     deletedById?: true
     deletedAt?: true
     location?: true
@@ -20346,6 +20652,7 @@ export namespace Prisma {
     type?: true
     classification?: true
     ownerId?: true
+    assignedPersonId?: true
     deletedById?: true
     deletedAt?: true
     location?: true
@@ -20362,6 +20669,7 @@ export namespace Prisma {
     type?: true
     classification?: true
     ownerId?: true
+    assignedPersonId?: true
     deletedById?: true
     deletedAt?: true
     location?: true
@@ -20452,6 +20760,7 @@ export namespace Prisma {
     type: $Enums.AssetType
     classification: $Enums.AssetClassification
     ownerId: string | null
+    assignedPersonId: string | null
     deletedById: string | null
     deletedAt: Date | null
     location: string | null
@@ -20486,6 +20795,7 @@ export namespace Prisma {
     type?: boolean
     classification?: boolean
     ownerId?: boolean
+    assignedPersonId?: boolean
     deletedById?: boolean
     deletedAt?: boolean
     location?: boolean
@@ -20495,6 +20805,7 @@ export namespace Prisma {
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     owner?: boolean | Asset$ownerArgs<ExtArgs>
+    assignedPerson?: boolean | Asset$assignedPersonArgs<ExtArgs>
     deletedBy?: boolean | Asset$deletedByArgs<ExtArgs>
     device?: boolean | Asset$deviceArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
@@ -20507,6 +20818,7 @@ export namespace Prisma {
     type?: boolean
     classification?: boolean
     ownerId?: boolean
+    assignedPersonId?: boolean
     deletedById?: boolean
     deletedAt?: boolean
     location?: boolean
@@ -20516,6 +20828,7 @@ export namespace Prisma {
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     owner?: boolean | Asset$ownerArgs<ExtArgs>
+    assignedPerson?: boolean | Asset$assignedPersonArgs<ExtArgs>
     deletedBy?: boolean | Asset$deletedByArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
@@ -20527,6 +20840,7 @@ export namespace Prisma {
     type?: boolean
     classification?: boolean
     ownerId?: boolean
+    assignedPersonId?: boolean
     deletedById?: boolean
     deletedAt?: boolean
     location?: boolean
@@ -20536,6 +20850,7 @@ export namespace Prisma {
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     owner?: boolean | Asset$ownerArgs<ExtArgs>
+    assignedPerson?: boolean | Asset$assignedPersonArgs<ExtArgs>
     deletedBy?: boolean | Asset$deletedByArgs<ExtArgs>
   }, ExtArgs["result"]["asset"]>
 
@@ -20547,6 +20862,7 @@ export namespace Prisma {
     type?: boolean
     classification?: boolean
     ownerId?: boolean
+    assignedPersonId?: boolean
     deletedById?: boolean
     deletedAt?: boolean
     location?: boolean
@@ -20556,21 +20872,24 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "name" | "description" | "type" | "classification" | "ownerId" | "deletedById" | "deletedAt" | "location" | "status" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
+  export type AssetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "name" | "description" | "type" | "classification" | "ownerId" | "assignedPersonId" | "deletedById" | "deletedAt" | "location" | "status" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["asset"]>
   export type AssetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     owner?: boolean | Asset$ownerArgs<ExtArgs>
+    assignedPerson?: boolean | Asset$assignedPersonArgs<ExtArgs>
     deletedBy?: boolean | Asset$deletedByArgs<ExtArgs>
     device?: boolean | Asset$deviceArgs<ExtArgs>
   }
   export type AssetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     owner?: boolean | Asset$ownerArgs<ExtArgs>
+    assignedPerson?: boolean | Asset$assignedPersonArgs<ExtArgs>
     deletedBy?: boolean | Asset$deletedByArgs<ExtArgs>
   }
   export type AssetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     owner?: boolean | Asset$ownerArgs<ExtArgs>
+    assignedPerson?: boolean | Asset$assignedPersonArgs<ExtArgs>
     deletedBy?: boolean | Asset$deletedByArgs<ExtArgs>
   }
 
@@ -20579,6 +20898,7 @@ export namespace Prisma {
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs>
       owner: Prisma.$UserPayload<ExtArgs> | null
+      assignedPerson: Prisma.$PersonPayload<ExtArgs> | null
       deletedBy: Prisma.$UserPayload<ExtArgs> | null
       device: Prisma.$DevicePayload<ExtArgs> | null
     }
@@ -20590,6 +20910,7 @@ export namespace Prisma {
       type: $Enums.AssetType
       classification: $Enums.AssetClassification
       ownerId: string | null
+      assignedPersonId: string | null
       deletedById: string | null
       deletedAt: Date | null
       location: string | null
@@ -20993,6 +21314,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     owner<T extends Asset$ownerArgs<ExtArgs> = {}>(args?: Subset<T, Asset$ownerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    assignedPerson<T extends Asset$assignedPersonArgs<ExtArgs> = {}>(args?: Subset<T, Asset$assignedPersonArgs<ExtArgs>>): Prisma__PersonClient<$Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     deletedBy<T extends Asset$deletedByArgs<ExtArgs> = {}>(args?: Subset<T, Asset$deletedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     device<T extends Asset$deviceArgs<ExtArgs> = {}>(args?: Subset<T, Asset$deviceArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
@@ -21031,6 +21353,7 @@ export namespace Prisma {
     readonly type: FieldRef<"Asset", 'AssetType'>
     readonly classification: FieldRef<"Asset", 'AssetClassification'>
     readonly ownerId: FieldRef<"Asset", 'String'>
+    readonly assignedPersonId: FieldRef<"Asset", 'String'>
     readonly deletedById: FieldRef<"Asset", 'String'>
     readonly deletedAt: FieldRef<"Asset", 'DateTime'>
     readonly location: FieldRef<"Asset", 'String'>
@@ -21455,6 +21778,25 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * Asset.assignedPerson
+   */
+  export type Asset$assignedPersonArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Person
+     */
+    select?: PersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Person
+     */
+    omit?: PersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonInclude<ExtArgs> | null
+    where?: PersonWhereInput
   }
 
   /**
@@ -43532,6 +43874,7 @@ export namespace Prisma {
     hardwareId: string | null
     status: $Enums.DeviceStatus | null
     enrolledById: string | null
+    personId: string | null
     enrolledAt: Date | null
     lastSeenAt: Date | null
     checkInIntervalSeconds: number | null
@@ -43559,6 +43902,7 @@ export namespace Prisma {
     hardwareId: string | null
     status: $Enums.DeviceStatus | null
     enrolledById: string | null
+    personId: string | null
     enrolledAt: Date | null
     lastSeenAt: Date | null
     checkInIntervalSeconds: number | null
@@ -43586,6 +43930,7 @@ export namespace Prisma {
     hardwareId: number
     status: number
     enrolledById: number
+    personId: number
     enrolledAt: number
     lastSeenAt: number
     checkInIntervalSeconds: number
@@ -43626,6 +43971,7 @@ export namespace Prisma {
     hardwareId?: true
     status?: true
     enrolledById?: true
+    personId?: true
     enrolledAt?: true
     lastSeenAt?: true
     checkInIntervalSeconds?: true
@@ -43653,6 +43999,7 @@ export namespace Prisma {
     hardwareId?: true
     status?: true
     enrolledById?: true
+    personId?: true
     enrolledAt?: true
     lastSeenAt?: true
     checkInIntervalSeconds?: true
@@ -43680,6 +44027,7 @@ export namespace Prisma {
     hardwareId?: true
     status?: true
     enrolledById?: true
+    personId?: true
     enrolledAt?: true
     lastSeenAt?: true
     checkInIntervalSeconds?: true
@@ -43795,6 +44143,7 @@ export namespace Prisma {
     hardwareId: string | null
     status: $Enums.DeviceStatus
     enrolledById: string | null
+    personId: string | null
     enrolledAt: Date
     lastSeenAt: Date | null
     checkInIntervalSeconds: number
@@ -43842,6 +44191,7 @@ export namespace Prisma {
     hardwareId?: boolean
     status?: boolean
     enrolledById?: boolean
+    personId?: boolean
     enrolledAt?: boolean
     lastSeenAt?: boolean
     checkInIntervalSeconds?: boolean
@@ -43858,6 +44208,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    person?: boolean | Device$personArgs<ExtArgs>
     enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
     snapshots?: boolean | Device$snapshotsArgs<ExtArgs>
     nonces?: boolean | Device$noncesArgs<ExtArgs>
@@ -43877,6 +44228,7 @@ export namespace Prisma {
     hardwareId?: boolean
     status?: boolean
     enrolledById?: boolean
+    personId?: boolean
     enrolledAt?: boolean
     lastSeenAt?: boolean
     checkInIntervalSeconds?: boolean
@@ -43893,6 +44245,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    person?: boolean | Device$personArgs<ExtArgs>
     enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
   }, ExtArgs["result"]["device"]>
 
@@ -43909,6 +44262,7 @@ export namespace Prisma {
     hardwareId?: boolean
     status?: boolean
     enrolledById?: boolean
+    personId?: boolean
     enrolledAt?: boolean
     lastSeenAt?: boolean
     checkInIntervalSeconds?: boolean
@@ -43925,6 +44279,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    person?: boolean | Device$personArgs<ExtArgs>
     enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
   }, ExtArgs["result"]["device"]>
 
@@ -43941,6 +44296,7 @@ export namespace Prisma {
     hardwareId?: boolean
     status?: boolean
     enrolledById?: boolean
+    personId?: boolean
     enrolledAt?: boolean
     lastSeenAt?: boolean
     checkInIntervalSeconds?: boolean
@@ -43956,11 +44312,12 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type DeviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "assetId" | "secretEnc" | "secretKeyId" | "platform" | "osVersion" | "agentVersion" | "hostname" | "hardwareId" | "status" | "enrolledById" | "enrolledAt" | "lastSeenAt" | "checkInIntervalSeconds" | "diskEncryption" | "firewall" | "screenLock" | "antivirus" | "agentHealthy" | "lastPostureAt" | "latestPosture" | "enrollmentTokenId" | "createdAt" | "updatedAt", ExtArgs["result"]["device"]>
+  export type DeviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "assetId" | "secretEnc" | "secretKeyId" | "platform" | "osVersion" | "agentVersion" | "hostname" | "hardwareId" | "status" | "enrolledById" | "personId" | "enrolledAt" | "lastSeenAt" | "checkInIntervalSeconds" | "diskEncryption" | "firewall" | "screenLock" | "antivirus" | "agentHealthy" | "lastPostureAt" | "latestPosture" | "enrollmentTokenId" | "createdAt" | "updatedAt", ExtArgs["result"]["device"]>
   export type DeviceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    person?: boolean | Device$personArgs<ExtArgs>
     enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
     snapshots?: boolean | Device$snapshotsArgs<ExtArgs>
     nonces?: boolean | Device$noncesArgs<ExtArgs>
@@ -43970,12 +44327,14 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    person?: boolean | Device$personArgs<ExtArgs>
     enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
   }
   export type DeviceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     asset?: boolean | AssetDefaultArgs<ExtArgs>
     enrolledBy?: boolean | Device$enrolledByArgs<ExtArgs>
+    person?: boolean | Device$personArgs<ExtArgs>
     enrollmentToken?: boolean | Device$enrollmentTokenArgs<ExtArgs>
   }
 
@@ -43985,6 +44344,7 @@ export namespace Prisma {
       tenant: Prisma.$TenantPayload<ExtArgs>
       asset: Prisma.$AssetPayload<ExtArgs>
       enrolledBy: Prisma.$UserPayload<ExtArgs> | null
+      person: Prisma.$PersonPayload<ExtArgs> | null
       enrollmentToken: Prisma.$DeviceEnrollmentTokenPayload<ExtArgs> | null
       snapshots: Prisma.$DevicePostureSnapshotPayload<ExtArgs>[]
       nonces: Prisma.$DeviceNoncePayload<ExtArgs>[]
@@ -44002,6 +44362,7 @@ export namespace Prisma {
       hardwareId: string | null
       status: $Enums.DeviceStatus
       enrolledById: string | null
+      personId: string | null
       enrolledAt: Date
       lastSeenAt: Date | null
       checkInIntervalSeconds: number
@@ -44412,6 +44773,7 @@ export namespace Prisma {
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     asset<T extends AssetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AssetDefaultArgs<ExtArgs>>): Prisma__AssetClient<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     enrolledBy<T extends Device$enrolledByArgs<ExtArgs> = {}>(args?: Subset<T, Device$enrolledByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    person<T extends Device$personArgs<ExtArgs> = {}>(args?: Subset<T, Device$personArgs<ExtArgs>>): Prisma__PersonClient<$Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     enrollmentToken<T extends Device$enrollmentTokenArgs<ExtArgs> = {}>(args?: Subset<T, Device$enrollmentTokenArgs<ExtArgs>>): Prisma__DeviceEnrollmentTokenClient<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     snapshots<T extends Device$snapshotsArgs<ExtArgs> = {}>(args?: Subset<T, Device$snapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     nonces<T extends Device$noncesArgs<ExtArgs> = {}>(args?: Subset<T, Device$noncesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceNoncePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -44456,6 +44818,7 @@ export namespace Prisma {
     readonly hardwareId: FieldRef<"Device", 'String'>
     readonly status: FieldRef<"Device", 'DeviceStatus'>
     readonly enrolledById: FieldRef<"Device", 'String'>
+    readonly personId: FieldRef<"Device", 'String'>
     readonly enrolledAt: FieldRef<"Device", 'DateTime'>
     readonly lastSeenAt: FieldRef<"Device", 'DateTime'>
     readonly checkInIntervalSeconds: FieldRef<"Device", 'Int'>
@@ -44886,6 +45249,25 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * Device.person
+   */
+  export type Device$personArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Person
+     */
+    select?: PersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Person
+     */
+    omit?: PersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonInclude<ExtArgs> | null
+    where?: PersonWhereInput
   }
 
   /**
@@ -56867,6 +57249,7 @@ export namespace Prisma {
     location: string | null
     startDate: Date | null
     endDate: Date | null
+    vendorId: string | null
     invitedAt: Date | null
     joinedAt: Date | null
     createdAt: Date | null
@@ -56890,6 +57273,7 @@ export namespace Prisma {
     location: string | null
     startDate: Date | null
     endDate: Date | null
+    vendorId: string | null
     invitedAt: Date | null
     joinedAt: Date | null
     createdAt: Date | null
@@ -56914,6 +57298,7 @@ export namespace Prisma {
     location: number
     startDate: number
     endDate: number
+    vendorId: number
     invitedAt: number
     joinedAt: number
     createdAt: number
@@ -56939,6 +57324,7 @@ export namespace Prisma {
     location?: true
     startDate?: true
     endDate?: true
+    vendorId?: true
     invitedAt?: true
     joinedAt?: true
     createdAt?: true
@@ -56962,6 +57348,7 @@ export namespace Prisma {
     location?: true
     startDate?: true
     endDate?: true
+    vendorId?: true
     invitedAt?: true
     joinedAt?: true
     createdAt?: true
@@ -56986,6 +57373,7 @@ export namespace Prisma {
     location?: true
     startDate?: true
     endDate?: true
+    vendorId?: true
     invitedAt?: true
     joinedAt?: true
     createdAt?: true
@@ -57083,6 +57471,7 @@ export namespace Prisma {
     location: string | null
     startDate: Date | null
     endDate: Date | null
+    vendorId: string | null
     invitedAt: Date | null
     joinedAt: Date | null
     createdAt: Date
@@ -57124,6 +57513,7 @@ export namespace Prisma {
     location?: boolean
     startDate?: boolean
     endDate?: boolean
+    vendorId?: boolean
     invitedAt?: boolean
     joinedAt?: boolean
     createdAt?: boolean
@@ -57132,6 +57522,11 @@ export namespace Prisma {
     user?: boolean | Person$userArgs<ExtArgs>
     manager?: boolean | Person$managerArgs<ExtArgs>
     reports?: boolean | Person$reportsArgs<ExtArgs>
+    vendor?: boolean | Person$vendorArgs<ExtArgs>
+    backgroundChecks?: boolean | Person$backgroundChecksArgs<ExtArgs>
+    checklistItems?: boolean | Person$checklistItemsArgs<ExtArgs>
+    devices?: boolean | Person$devicesArgs<ExtArgs>
+    assignedAssets?: boolean | Person$assignedAssetsArgs<ExtArgs>
     _count?: boolean | PersonCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
 
@@ -57153,6 +57548,7 @@ export namespace Prisma {
     location?: boolean
     startDate?: boolean
     endDate?: boolean
+    vendorId?: boolean
     invitedAt?: boolean
     joinedAt?: boolean
     createdAt?: boolean
@@ -57160,6 +57556,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | Person$userArgs<ExtArgs>
     manager?: boolean | Person$managerArgs<ExtArgs>
+    vendor?: boolean | Person$vendorArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
 
   export type PersonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -57180,6 +57577,7 @@ export namespace Prisma {
     location?: boolean
     startDate?: boolean
     endDate?: boolean
+    vendorId?: boolean
     invitedAt?: boolean
     joinedAt?: boolean
     createdAt?: boolean
@@ -57187,6 +57585,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | Person$userArgs<ExtArgs>
     manager?: boolean | Person$managerArgs<ExtArgs>
+    vendor?: boolean | Person$vendorArgs<ExtArgs>
   }, ExtArgs["result"]["person"]>
 
   export type PersonSelectScalar = {
@@ -57207,29 +57606,37 @@ export namespace Prisma {
     location?: boolean
     startDate?: boolean
     endDate?: boolean
+    vendorId?: boolean
     invitedAt?: boolean
     joinedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PersonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "userId" | "email" | "fullName" | "role" | "permissions" | "status" | "kind" | "source" | "jobTitle" | "department" | "employmentType" | "managerId" | "location" | "startDate" | "endDate" | "invitedAt" | "joinedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["person"]>
+  export type PersonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "userId" | "email" | "fullName" | "role" | "permissions" | "status" | "kind" | "source" | "jobTitle" | "department" | "employmentType" | "managerId" | "location" | "startDate" | "endDate" | "vendorId" | "invitedAt" | "joinedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["person"]>
   export type PersonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | Person$userArgs<ExtArgs>
     manager?: boolean | Person$managerArgs<ExtArgs>
     reports?: boolean | Person$reportsArgs<ExtArgs>
+    vendor?: boolean | Person$vendorArgs<ExtArgs>
+    backgroundChecks?: boolean | Person$backgroundChecksArgs<ExtArgs>
+    checklistItems?: boolean | Person$checklistItemsArgs<ExtArgs>
+    devices?: boolean | Person$devicesArgs<ExtArgs>
+    assignedAssets?: boolean | Person$assignedAssetsArgs<ExtArgs>
     _count?: boolean | PersonCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PersonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | Person$userArgs<ExtArgs>
     manager?: boolean | Person$managerArgs<ExtArgs>
+    vendor?: boolean | Person$vendorArgs<ExtArgs>
   }
   export type PersonIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | Person$userArgs<ExtArgs>
     manager?: boolean | Person$managerArgs<ExtArgs>
+    vendor?: boolean | Person$vendorArgs<ExtArgs>
   }
 
   export type $PersonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -57239,6 +57646,11 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs> | null
       manager: Prisma.$PersonPayload<ExtArgs> | null
       reports: Prisma.$PersonPayload<ExtArgs>[]
+      vendor: Prisma.$VendorPayload<ExtArgs> | null
+      backgroundChecks: Prisma.$BackgroundCheckPayload<ExtArgs>[]
+      checklistItems: Prisma.$PersonChecklistItemPayload<ExtArgs>[]
+      devices: Prisma.$DevicePayload<ExtArgs>[]
+      assignedAssets: Prisma.$AssetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -57258,6 +57670,7 @@ export namespace Prisma {
       location: string | null
       startDate: Date | null
       endDate: Date | null
+      vendorId: string | null
       invitedAt: Date | null
       joinedAt: Date | null
       createdAt: Date
@@ -57660,6 +58073,11 @@ export namespace Prisma {
     user<T extends Person$userArgs<ExtArgs> = {}>(args?: Subset<T, Person$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     manager<T extends Person$managerArgs<ExtArgs> = {}>(args?: Subset<T, Person$managerArgs<ExtArgs>>): Prisma__PersonClient<$Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     reports<T extends Person$reportsArgs<ExtArgs> = {}>(args?: Subset<T, Person$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    vendor<T extends Person$vendorArgs<ExtArgs> = {}>(args?: Subset<T, Person$vendorArgs<ExtArgs>>): Prisma__VendorClient<$Result.GetResult<Prisma.$VendorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    backgroundChecks<T extends Person$backgroundChecksArgs<ExtArgs> = {}>(args?: Subset<T, Person$backgroundChecksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    checklistItems<T extends Person$checklistItemsArgs<ExtArgs> = {}>(args?: Subset<T, Person$checklistItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    devices<T extends Person$devicesArgs<ExtArgs> = {}>(args?: Subset<T, Person$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    assignedAssets<T extends Person$assignedAssetsArgs<ExtArgs> = {}>(args?: Subset<T, Person$assignedAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -57706,6 +58124,7 @@ export namespace Prisma {
     readonly location: FieldRef<"Person", 'String'>
     readonly startDate: FieldRef<"Person", 'DateTime'>
     readonly endDate: FieldRef<"Person", 'DateTime'>
+    readonly vendorId: FieldRef<"Person", 'String'>
     readonly invitedAt: FieldRef<"Person", 'DateTime'>
     readonly joinedAt: FieldRef<"Person", 'DateTime'>
     readonly createdAt: FieldRef<"Person", 'DateTime'>
@@ -58173,6 +58592,121 @@ export namespace Prisma {
   }
 
   /**
+   * Person.vendor
+   */
+  export type Person$vendorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Vendor
+     */
+    select?: VendorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Vendor
+     */
+    omit?: VendorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VendorInclude<ExtArgs> | null
+    where?: VendorWhereInput
+  }
+
+  /**
+   * Person.backgroundChecks
+   */
+  export type Person$backgroundChecksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    where?: BackgroundCheckWhereInput
+    orderBy?: BackgroundCheckOrderByWithRelationInput | BackgroundCheckOrderByWithRelationInput[]
+    cursor?: BackgroundCheckWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BackgroundCheckScalarFieldEnum | BackgroundCheckScalarFieldEnum[]
+  }
+
+  /**
+   * Person.checklistItems
+   */
+  export type Person$checklistItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    where?: PersonChecklistItemWhereInput
+    orderBy?: PersonChecklistItemOrderByWithRelationInput | PersonChecklistItemOrderByWithRelationInput[]
+    cursor?: PersonChecklistItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PersonChecklistItemScalarFieldEnum | PersonChecklistItemScalarFieldEnum[]
+  }
+
+  /**
+   * Person.devices
+   */
+  export type Person$devicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Device
+     */
+    select?: DeviceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Device
+     */
+    omit?: DeviceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceInclude<ExtArgs> | null
+    where?: DeviceWhereInput
+    orderBy?: DeviceOrderByWithRelationInput | DeviceOrderByWithRelationInput[]
+    cursor?: DeviceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+  }
+
+  /**
+   * Person.assignedAssets
+   */
+  export type Person$assignedAssetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Asset
+     */
+    select?: AssetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Asset
+     */
+    omit?: AssetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AssetInclude<ExtArgs> | null
+    where?: AssetWhereInput
+    orderBy?: AssetOrderByWithRelationInput | AssetOrderByWithRelationInput[]
+    cursor?: AssetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AssetScalarFieldEnum | AssetScalarFieldEnum[]
+  }
+
+  /**
    * Person without action
    */
   export type PersonDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -58188,6 +58722,2343 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PersonInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BackgroundCheck
+   */
+
+  export type AggregateBackgroundCheck = {
+    _count: BackgroundCheckCountAggregateOutputType | null
+    _min: BackgroundCheckMinAggregateOutputType | null
+    _max: BackgroundCheckMaxAggregateOutputType | null
+  }
+
+  export type BackgroundCheckMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    personId: string | null
+    type: $Enums.BackgroundCheckType | null
+    status: $Enums.BackgroundCheckStatus | null
+    provider: string | null
+    reference: string | null
+    adverseFindings: boolean | null
+    notes: string | null
+    requestedAt: Date | null
+    completedAt: Date | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BackgroundCheckMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    personId: string | null
+    type: $Enums.BackgroundCheckType | null
+    status: $Enums.BackgroundCheckStatus | null
+    provider: string | null
+    reference: string | null
+    adverseFindings: boolean | null
+    notes: string | null
+    requestedAt: Date | null
+    completedAt: Date | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BackgroundCheckCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    personId: number
+    type: number
+    status: number
+    provider: number
+    reference: number
+    adverseFindings: number
+    notes: number
+    requestedAt: number
+    completedAt: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BackgroundCheckMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    personId?: true
+    type?: true
+    status?: true
+    provider?: true
+    reference?: true
+    adverseFindings?: true
+    notes?: true
+    requestedAt?: true
+    completedAt?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BackgroundCheckMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    personId?: true
+    type?: true
+    status?: true
+    provider?: true
+    reference?: true
+    adverseFindings?: true
+    notes?: true
+    requestedAt?: true
+    completedAt?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BackgroundCheckCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    personId?: true
+    type?: true
+    status?: true
+    provider?: true
+    reference?: true
+    adverseFindings?: true
+    notes?: true
+    requestedAt?: true
+    completedAt?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BackgroundCheckAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BackgroundCheck to aggregate.
+     */
+    where?: BackgroundCheckWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BackgroundChecks to fetch.
+     */
+    orderBy?: BackgroundCheckOrderByWithRelationInput | BackgroundCheckOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BackgroundCheckWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BackgroundChecks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BackgroundChecks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BackgroundChecks
+    **/
+    _count?: true | BackgroundCheckCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BackgroundCheckMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BackgroundCheckMaxAggregateInputType
+  }
+
+  export type GetBackgroundCheckAggregateType<T extends BackgroundCheckAggregateArgs> = {
+        [P in keyof T & keyof AggregateBackgroundCheck]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBackgroundCheck[P]>
+      : GetScalarType<T[P], AggregateBackgroundCheck[P]>
+  }
+
+
+
+
+  export type BackgroundCheckGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BackgroundCheckWhereInput
+    orderBy?: BackgroundCheckOrderByWithAggregationInput | BackgroundCheckOrderByWithAggregationInput[]
+    by: BackgroundCheckScalarFieldEnum[] | BackgroundCheckScalarFieldEnum
+    having?: BackgroundCheckScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BackgroundCheckCountAggregateInputType | true
+    _min?: BackgroundCheckMinAggregateInputType
+    _max?: BackgroundCheckMaxAggregateInputType
+  }
+
+  export type BackgroundCheckGroupByOutputType = {
+    id: string
+    tenantId: string
+    personId: string
+    type: $Enums.BackgroundCheckType
+    status: $Enums.BackgroundCheckStatus
+    provider: string | null
+    reference: string | null
+    adverseFindings: boolean
+    notes: string | null
+    requestedAt: Date | null
+    completedAt: Date | null
+    expiresAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: BackgroundCheckCountAggregateOutputType | null
+    _min: BackgroundCheckMinAggregateOutputType | null
+    _max: BackgroundCheckMaxAggregateOutputType | null
+  }
+
+  type GetBackgroundCheckGroupByPayload<T extends BackgroundCheckGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BackgroundCheckGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BackgroundCheckGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BackgroundCheckGroupByOutputType[P]>
+            : GetScalarType<T[P], BackgroundCheckGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BackgroundCheckSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    personId?: boolean
+    type?: boolean
+    status?: boolean
+    provider?: boolean
+    reference?: boolean
+    adverseFindings?: boolean
+    notes?: boolean
+    requestedAt?: boolean
+    completedAt?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["backgroundCheck"]>
+
+  export type BackgroundCheckSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    personId?: boolean
+    type?: boolean
+    status?: boolean
+    provider?: boolean
+    reference?: boolean
+    adverseFindings?: boolean
+    notes?: boolean
+    requestedAt?: boolean
+    completedAt?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["backgroundCheck"]>
+
+  export type BackgroundCheckSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    personId?: boolean
+    type?: boolean
+    status?: boolean
+    provider?: boolean
+    reference?: boolean
+    adverseFindings?: boolean
+    notes?: boolean
+    requestedAt?: boolean
+    completedAt?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["backgroundCheck"]>
+
+  export type BackgroundCheckSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    personId?: boolean
+    type?: boolean
+    status?: boolean
+    provider?: boolean
+    reference?: boolean
+    adverseFindings?: boolean
+    notes?: boolean
+    requestedAt?: boolean
+    completedAt?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BackgroundCheckOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "personId" | "type" | "status" | "provider" | "reference" | "adverseFindings" | "notes" | "requestedAt" | "completedAt" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["backgroundCheck"]>
+  export type BackgroundCheckInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }
+  export type BackgroundCheckIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }
+  export type BackgroundCheckIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }
+
+  export type $BackgroundCheckPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BackgroundCheck"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      person: Prisma.$PersonPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      personId: string
+      type: $Enums.BackgroundCheckType
+      status: $Enums.BackgroundCheckStatus
+      provider: string | null
+      reference: string | null
+      adverseFindings: boolean
+      notes: string | null
+      requestedAt: Date | null
+      completedAt: Date | null
+      expiresAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["backgroundCheck"]>
+    composites: {}
+  }
+
+  type BackgroundCheckGetPayload<S extends boolean | null | undefined | BackgroundCheckDefaultArgs> = $Result.GetResult<Prisma.$BackgroundCheckPayload, S>
+
+  type BackgroundCheckCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BackgroundCheckFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BackgroundCheckCountAggregateInputType | true
+    }
+
+  export interface BackgroundCheckDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BackgroundCheck'], meta: { name: 'BackgroundCheck' } }
+    /**
+     * Find zero or one BackgroundCheck that matches the filter.
+     * @param {BackgroundCheckFindUniqueArgs} args - Arguments to find a BackgroundCheck
+     * @example
+     * // Get one BackgroundCheck
+     * const backgroundCheck = await prisma.backgroundCheck.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BackgroundCheckFindUniqueArgs>(args: SelectSubset<T, BackgroundCheckFindUniqueArgs<ExtArgs>>): Prisma__BackgroundCheckClient<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BackgroundCheck that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BackgroundCheckFindUniqueOrThrowArgs} args - Arguments to find a BackgroundCheck
+     * @example
+     * // Get one BackgroundCheck
+     * const backgroundCheck = await prisma.backgroundCheck.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BackgroundCheckFindUniqueOrThrowArgs>(args: SelectSubset<T, BackgroundCheckFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BackgroundCheckClient<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BackgroundCheck that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BackgroundCheckFindFirstArgs} args - Arguments to find a BackgroundCheck
+     * @example
+     * // Get one BackgroundCheck
+     * const backgroundCheck = await prisma.backgroundCheck.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BackgroundCheckFindFirstArgs>(args?: SelectSubset<T, BackgroundCheckFindFirstArgs<ExtArgs>>): Prisma__BackgroundCheckClient<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BackgroundCheck that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BackgroundCheckFindFirstOrThrowArgs} args - Arguments to find a BackgroundCheck
+     * @example
+     * // Get one BackgroundCheck
+     * const backgroundCheck = await prisma.backgroundCheck.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BackgroundCheckFindFirstOrThrowArgs>(args?: SelectSubset<T, BackgroundCheckFindFirstOrThrowArgs<ExtArgs>>): Prisma__BackgroundCheckClient<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BackgroundChecks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BackgroundCheckFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BackgroundChecks
+     * const backgroundChecks = await prisma.backgroundCheck.findMany()
+     * 
+     * // Get first 10 BackgroundChecks
+     * const backgroundChecks = await prisma.backgroundCheck.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const backgroundCheckWithIdOnly = await prisma.backgroundCheck.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BackgroundCheckFindManyArgs>(args?: SelectSubset<T, BackgroundCheckFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BackgroundCheck.
+     * @param {BackgroundCheckCreateArgs} args - Arguments to create a BackgroundCheck.
+     * @example
+     * // Create one BackgroundCheck
+     * const BackgroundCheck = await prisma.backgroundCheck.create({
+     *   data: {
+     *     // ... data to create a BackgroundCheck
+     *   }
+     * })
+     * 
+     */
+    create<T extends BackgroundCheckCreateArgs>(args: SelectSubset<T, BackgroundCheckCreateArgs<ExtArgs>>): Prisma__BackgroundCheckClient<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BackgroundChecks.
+     * @param {BackgroundCheckCreateManyArgs} args - Arguments to create many BackgroundChecks.
+     * @example
+     * // Create many BackgroundChecks
+     * const backgroundCheck = await prisma.backgroundCheck.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BackgroundCheckCreateManyArgs>(args?: SelectSubset<T, BackgroundCheckCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BackgroundChecks and returns the data saved in the database.
+     * @param {BackgroundCheckCreateManyAndReturnArgs} args - Arguments to create many BackgroundChecks.
+     * @example
+     * // Create many BackgroundChecks
+     * const backgroundCheck = await prisma.backgroundCheck.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BackgroundChecks and only return the `id`
+     * const backgroundCheckWithIdOnly = await prisma.backgroundCheck.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BackgroundCheckCreateManyAndReturnArgs>(args?: SelectSubset<T, BackgroundCheckCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BackgroundCheck.
+     * @param {BackgroundCheckDeleteArgs} args - Arguments to delete one BackgroundCheck.
+     * @example
+     * // Delete one BackgroundCheck
+     * const BackgroundCheck = await prisma.backgroundCheck.delete({
+     *   where: {
+     *     // ... filter to delete one BackgroundCheck
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BackgroundCheckDeleteArgs>(args: SelectSubset<T, BackgroundCheckDeleteArgs<ExtArgs>>): Prisma__BackgroundCheckClient<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BackgroundCheck.
+     * @param {BackgroundCheckUpdateArgs} args - Arguments to update one BackgroundCheck.
+     * @example
+     * // Update one BackgroundCheck
+     * const backgroundCheck = await prisma.backgroundCheck.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BackgroundCheckUpdateArgs>(args: SelectSubset<T, BackgroundCheckUpdateArgs<ExtArgs>>): Prisma__BackgroundCheckClient<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BackgroundChecks.
+     * @param {BackgroundCheckDeleteManyArgs} args - Arguments to filter BackgroundChecks to delete.
+     * @example
+     * // Delete a few BackgroundChecks
+     * const { count } = await prisma.backgroundCheck.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BackgroundCheckDeleteManyArgs>(args?: SelectSubset<T, BackgroundCheckDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BackgroundChecks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BackgroundCheckUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BackgroundChecks
+     * const backgroundCheck = await prisma.backgroundCheck.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BackgroundCheckUpdateManyArgs>(args: SelectSubset<T, BackgroundCheckUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BackgroundChecks and returns the data updated in the database.
+     * @param {BackgroundCheckUpdateManyAndReturnArgs} args - Arguments to update many BackgroundChecks.
+     * @example
+     * // Update many BackgroundChecks
+     * const backgroundCheck = await prisma.backgroundCheck.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BackgroundChecks and only return the `id`
+     * const backgroundCheckWithIdOnly = await prisma.backgroundCheck.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BackgroundCheckUpdateManyAndReturnArgs>(args: SelectSubset<T, BackgroundCheckUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BackgroundCheck.
+     * @param {BackgroundCheckUpsertArgs} args - Arguments to update or create a BackgroundCheck.
+     * @example
+     * // Update or create a BackgroundCheck
+     * const backgroundCheck = await prisma.backgroundCheck.upsert({
+     *   create: {
+     *     // ... data to create a BackgroundCheck
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BackgroundCheck we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BackgroundCheckUpsertArgs>(args: SelectSubset<T, BackgroundCheckUpsertArgs<ExtArgs>>): Prisma__BackgroundCheckClient<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BackgroundChecks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BackgroundCheckCountArgs} args - Arguments to filter BackgroundChecks to count.
+     * @example
+     * // Count the number of BackgroundChecks
+     * const count = await prisma.backgroundCheck.count({
+     *   where: {
+     *     // ... the filter for the BackgroundChecks we want to count
+     *   }
+     * })
+    **/
+    count<T extends BackgroundCheckCountArgs>(
+      args?: Subset<T, BackgroundCheckCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BackgroundCheckCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BackgroundCheck.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BackgroundCheckAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BackgroundCheckAggregateArgs>(args: Subset<T, BackgroundCheckAggregateArgs>): Prisma.PrismaPromise<GetBackgroundCheckAggregateType<T>>
+
+    /**
+     * Group by BackgroundCheck.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BackgroundCheckGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BackgroundCheckGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BackgroundCheckGroupByArgs['orderBy'] }
+        : { orderBy?: BackgroundCheckGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BackgroundCheckGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBackgroundCheckGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BackgroundCheck model
+   */
+  readonly fields: BackgroundCheckFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BackgroundCheck.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BackgroundCheckClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    person<T extends PersonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PersonDefaultArgs<ExtArgs>>): Prisma__PersonClient<$Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BackgroundCheck model
+   */
+  interface BackgroundCheckFieldRefs {
+    readonly id: FieldRef<"BackgroundCheck", 'String'>
+    readonly tenantId: FieldRef<"BackgroundCheck", 'String'>
+    readonly personId: FieldRef<"BackgroundCheck", 'String'>
+    readonly type: FieldRef<"BackgroundCheck", 'BackgroundCheckType'>
+    readonly status: FieldRef<"BackgroundCheck", 'BackgroundCheckStatus'>
+    readonly provider: FieldRef<"BackgroundCheck", 'String'>
+    readonly reference: FieldRef<"BackgroundCheck", 'String'>
+    readonly adverseFindings: FieldRef<"BackgroundCheck", 'Boolean'>
+    readonly notes: FieldRef<"BackgroundCheck", 'String'>
+    readonly requestedAt: FieldRef<"BackgroundCheck", 'DateTime'>
+    readonly completedAt: FieldRef<"BackgroundCheck", 'DateTime'>
+    readonly expiresAt: FieldRef<"BackgroundCheck", 'DateTime'>
+    readonly createdAt: FieldRef<"BackgroundCheck", 'DateTime'>
+    readonly updatedAt: FieldRef<"BackgroundCheck", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BackgroundCheck findUnique
+   */
+  export type BackgroundCheckFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    /**
+     * Filter, which BackgroundCheck to fetch.
+     */
+    where: BackgroundCheckWhereUniqueInput
+  }
+
+  /**
+   * BackgroundCheck findUniqueOrThrow
+   */
+  export type BackgroundCheckFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    /**
+     * Filter, which BackgroundCheck to fetch.
+     */
+    where: BackgroundCheckWhereUniqueInput
+  }
+
+  /**
+   * BackgroundCheck findFirst
+   */
+  export type BackgroundCheckFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    /**
+     * Filter, which BackgroundCheck to fetch.
+     */
+    where?: BackgroundCheckWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BackgroundChecks to fetch.
+     */
+    orderBy?: BackgroundCheckOrderByWithRelationInput | BackgroundCheckOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BackgroundChecks.
+     */
+    cursor?: BackgroundCheckWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BackgroundChecks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BackgroundChecks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BackgroundChecks.
+     */
+    distinct?: BackgroundCheckScalarFieldEnum | BackgroundCheckScalarFieldEnum[]
+  }
+
+  /**
+   * BackgroundCheck findFirstOrThrow
+   */
+  export type BackgroundCheckFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    /**
+     * Filter, which BackgroundCheck to fetch.
+     */
+    where?: BackgroundCheckWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BackgroundChecks to fetch.
+     */
+    orderBy?: BackgroundCheckOrderByWithRelationInput | BackgroundCheckOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BackgroundChecks.
+     */
+    cursor?: BackgroundCheckWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BackgroundChecks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BackgroundChecks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BackgroundChecks.
+     */
+    distinct?: BackgroundCheckScalarFieldEnum | BackgroundCheckScalarFieldEnum[]
+  }
+
+  /**
+   * BackgroundCheck findMany
+   */
+  export type BackgroundCheckFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    /**
+     * Filter, which BackgroundChecks to fetch.
+     */
+    where?: BackgroundCheckWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BackgroundChecks to fetch.
+     */
+    orderBy?: BackgroundCheckOrderByWithRelationInput | BackgroundCheckOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BackgroundChecks.
+     */
+    cursor?: BackgroundCheckWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BackgroundChecks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BackgroundChecks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BackgroundChecks.
+     */
+    distinct?: BackgroundCheckScalarFieldEnum | BackgroundCheckScalarFieldEnum[]
+  }
+
+  /**
+   * BackgroundCheck create
+   */
+  export type BackgroundCheckCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BackgroundCheck.
+     */
+    data: XOR<BackgroundCheckCreateInput, BackgroundCheckUncheckedCreateInput>
+  }
+
+  /**
+   * BackgroundCheck createMany
+   */
+  export type BackgroundCheckCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BackgroundChecks.
+     */
+    data: BackgroundCheckCreateManyInput | BackgroundCheckCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BackgroundCheck createManyAndReturn
+   */
+  export type BackgroundCheckCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * The data used to create many BackgroundChecks.
+     */
+    data: BackgroundCheckCreateManyInput | BackgroundCheckCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BackgroundCheck update
+   */
+  export type BackgroundCheckUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BackgroundCheck.
+     */
+    data: XOR<BackgroundCheckUpdateInput, BackgroundCheckUncheckedUpdateInput>
+    /**
+     * Choose, which BackgroundCheck to update.
+     */
+    where: BackgroundCheckWhereUniqueInput
+  }
+
+  /**
+   * BackgroundCheck updateMany
+   */
+  export type BackgroundCheckUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BackgroundChecks.
+     */
+    data: XOR<BackgroundCheckUpdateManyMutationInput, BackgroundCheckUncheckedUpdateManyInput>
+    /**
+     * Filter which BackgroundChecks to update
+     */
+    where?: BackgroundCheckWhereInput
+    /**
+     * Limit how many BackgroundChecks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BackgroundCheck updateManyAndReturn
+   */
+  export type BackgroundCheckUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * The data used to update BackgroundChecks.
+     */
+    data: XOR<BackgroundCheckUpdateManyMutationInput, BackgroundCheckUncheckedUpdateManyInput>
+    /**
+     * Filter which BackgroundChecks to update
+     */
+    where?: BackgroundCheckWhereInput
+    /**
+     * Limit how many BackgroundChecks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BackgroundCheck upsert
+   */
+  export type BackgroundCheckUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BackgroundCheck to update in case it exists.
+     */
+    where: BackgroundCheckWhereUniqueInput
+    /**
+     * In case the BackgroundCheck found by the `where` argument doesn't exist, create a new BackgroundCheck with this data.
+     */
+    create: XOR<BackgroundCheckCreateInput, BackgroundCheckUncheckedCreateInput>
+    /**
+     * In case the BackgroundCheck was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BackgroundCheckUpdateInput, BackgroundCheckUncheckedUpdateInput>
+  }
+
+  /**
+   * BackgroundCheck delete
+   */
+  export type BackgroundCheckDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    /**
+     * Filter which BackgroundCheck to delete.
+     */
+    where: BackgroundCheckWhereUniqueInput
+  }
+
+  /**
+   * BackgroundCheck deleteMany
+   */
+  export type BackgroundCheckDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BackgroundChecks to delete
+     */
+    where?: BackgroundCheckWhereInput
+    /**
+     * Limit how many BackgroundChecks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BackgroundCheck without action
+   */
+  export type BackgroundCheckDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PersonChecklistItem
+   */
+
+  export type AggregatePersonChecklistItem = {
+    _count: PersonChecklistItemCountAggregateOutputType | null
+    _min: PersonChecklistItemMinAggregateOutputType | null
+    _max: PersonChecklistItemMaxAggregateOutputType | null
+  }
+
+  export type PersonChecklistItemMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    personId: string | null
+    kind: $Enums.ChecklistKind | null
+    key: string | null
+    label: string | null
+    status: $Enums.ChecklistItemStatus | null
+    dueAt: Date | null
+    completedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PersonChecklistItemMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    personId: string | null
+    kind: $Enums.ChecklistKind | null
+    key: string | null
+    label: string | null
+    status: $Enums.ChecklistItemStatus | null
+    dueAt: Date | null
+    completedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PersonChecklistItemCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    personId: number
+    kind: number
+    key: number
+    label: number
+    status: number
+    dueAt: number
+    completedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PersonChecklistItemMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    personId?: true
+    kind?: true
+    key?: true
+    label?: true
+    status?: true
+    dueAt?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PersonChecklistItemMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    personId?: true
+    kind?: true
+    key?: true
+    label?: true
+    status?: true
+    dueAt?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PersonChecklistItemCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    personId?: true
+    kind?: true
+    key?: true
+    label?: true
+    status?: true
+    dueAt?: true
+    completedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PersonChecklistItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PersonChecklistItem to aggregate.
+     */
+    where?: PersonChecklistItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PersonChecklistItems to fetch.
+     */
+    orderBy?: PersonChecklistItemOrderByWithRelationInput | PersonChecklistItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PersonChecklistItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PersonChecklistItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PersonChecklistItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PersonChecklistItems
+    **/
+    _count?: true | PersonChecklistItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PersonChecklistItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PersonChecklistItemMaxAggregateInputType
+  }
+
+  export type GetPersonChecklistItemAggregateType<T extends PersonChecklistItemAggregateArgs> = {
+        [P in keyof T & keyof AggregatePersonChecklistItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePersonChecklistItem[P]>
+      : GetScalarType<T[P], AggregatePersonChecklistItem[P]>
+  }
+
+
+
+
+  export type PersonChecklistItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PersonChecklistItemWhereInput
+    orderBy?: PersonChecklistItemOrderByWithAggregationInput | PersonChecklistItemOrderByWithAggregationInput[]
+    by: PersonChecklistItemScalarFieldEnum[] | PersonChecklistItemScalarFieldEnum
+    having?: PersonChecklistItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PersonChecklistItemCountAggregateInputType | true
+    _min?: PersonChecklistItemMinAggregateInputType
+    _max?: PersonChecklistItemMaxAggregateInputType
+  }
+
+  export type PersonChecklistItemGroupByOutputType = {
+    id: string
+    tenantId: string
+    personId: string
+    kind: $Enums.ChecklistKind
+    key: string
+    label: string
+    status: $Enums.ChecklistItemStatus
+    dueAt: Date | null
+    completedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: PersonChecklistItemCountAggregateOutputType | null
+    _min: PersonChecklistItemMinAggregateOutputType | null
+    _max: PersonChecklistItemMaxAggregateOutputType | null
+  }
+
+  type GetPersonChecklistItemGroupByPayload<T extends PersonChecklistItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PersonChecklistItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PersonChecklistItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PersonChecklistItemGroupByOutputType[P]>
+            : GetScalarType<T[P], PersonChecklistItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PersonChecklistItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    personId?: boolean
+    kind?: boolean
+    key?: boolean
+    label?: boolean
+    status?: boolean
+    dueAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["personChecklistItem"]>
+
+  export type PersonChecklistItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    personId?: boolean
+    kind?: boolean
+    key?: boolean
+    label?: boolean
+    status?: boolean
+    dueAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["personChecklistItem"]>
+
+  export type PersonChecklistItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    personId?: boolean
+    kind?: boolean
+    key?: boolean
+    label?: boolean
+    status?: boolean
+    dueAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["personChecklistItem"]>
+
+  export type PersonChecklistItemSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    personId?: boolean
+    kind?: boolean
+    key?: boolean
+    label?: boolean
+    status?: boolean
+    dueAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PersonChecklistItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "personId" | "kind" | "key" | "label" | "status" | "dueAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["personChecklistItem"]>
+  export type PersonChecklistItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }
+  export type PersonChecklistItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }
+  export type PersonChecklistItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    person?: boolean | PersonDefaultArgs<ExtArgs>
+  }
+
+  export type $PersonChecklistItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PersonChecklistItem"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      person: Prisma.$PersonPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      personId: string
+      kind: $Enums.ChecklistKind
+      key: string
+      label: string
+      status: $Enums.ChecklistItemStatus
+      dueAt: Date | null
+      completedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["personChecklistItem"]>
+    composites: {}
+  }
+
+  type PersonChecklistItemGetPayload<S extends boolean | null | undefined | PersonChecklistItemDefaultArgs> = $Result.GetResult<Prisma.$PersonChecklistItemPayload, S>
+
+  type PersonChecklistItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PersonChecklistItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PersonChecklistItemCountAggregateInputType | true
+    }
+
+  export interface PersonChecklistItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PersonChecklistItem'], meta: { name: 'PersonChecklistItem' } }
+    /**
+     * Find zero or one PersonChecklistItem that matches the filter.
+     * @param {PersonChecklistItemFindUniqueArgs} args - Arguments to find a PersonChecklistItem
+     * @example
+     * // Get one PersonChecklistItem
+     * const personChecklistItem = await prisma.personChecklistItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PersonChecklistItemFindUniqueArgs>(args: SelectSubset<T, PersonChecklistItemFindUniqueArgs<ExtArgs>>): Prisma__PersonChecklistItemClient<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PersonChecklistItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PersonChecklistItemFindUniqueOrThrowArgs} args - Arguments to find a PersonChecklistItem
+     * @example
+     * // Get one PersonChecklistItem
+     * const personChecklistItem = await prisma.personChecklistItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PersonChecklistItemFindUniqueOrThrowArgs>(args: SelectSubset<T, PersonChecklistItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PersonChecklistItemClient<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PersonChecklistItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PersonChecklistItemFindFirstArgs} args - Arguments to find a PersonChecklistItem
+     * @example
+     * // Get one PersonChecklistItem
+     * const personChecklistItem = await prisma.personChecklistItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PersonChecklistItemFindFirstArgs>(args?: SelectSubset<T, PersonChecklistItemFindFirstArgs<ExtArgs>>): Prisma__PersonChecklistItemClient<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PersonChecklistItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PersonChecklistItemFindFirstOrThrowArgs} args - Arguments to find a PersonChecklistItem
+     * @example
+     * // Get one PersonChecklistItem
+     * const personChecklistItem = await prisma.personChecklistItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PersonChecklistItemFindFirstOrThrowArgs>(args?: SelectSubset<T, PersonChecklistItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__PersonChecklistItemClient<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PersonChecklistItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PersonChecklistItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PersonChecklistItems
+     * const personChecklistItems = await prisma.personChecklistItem.findMany()
+     * 
+     * // Get first 10 PersonChecklistItems
+     * const personChecklistItems = await prisma.personChecklistItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const personChecklistItemWithIdOnly = await prisma.personChecklistItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PersonChecklistItemFindManyArgs>(args?: SelectSubset<T, PersonChecklistItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PersonChecklistItem.
+     * @param {PersonChecklistItemCreateArgs} args - Arguments to create a PersonChecklistItem.
+     * @example
+     * // Create one PersonChecklistItem
+     * const PersonChecklistItem = await prisma.personChecklistItem.create({
+     *   data: {
+     *     // ... data to create a PersonChecklistItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends PersonChecklistItemCreateArgs>(args: SelectSubset<T, PersonChecklistItemCreateArgs<ExtArgs>>): Prisma__PersonChecklistItemClient<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PersonChecklistItems.
+     * @param {PersonChecklistItemCreateManyArgs} args - Arguments to create many PersonChecklistItems.
+     * @example
+     * // Create many PersonChecklistItems
+     * const personChecklistItem = await prisma.personChecklistItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PersonChecklistItemCreateManyArgs>(args?: SelectSubset<T, PersonChecklistItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PersonChecklistItems and returns the data saved in the database.
+     * @param {PersonChecklistItemCreateManyAndReturnArgs} args - Arguments to create many PersonChecklistItems.
+     * @example
+     * // Create many PersonChecklistItems
+     * const personChecklistItem = await prisma.personChecklistItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PersonChecklistItems and only return the `id`
+     * const personChecklistItemWithIdOnly = await prisma.personChecklistItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PersonChecklistItemCreateManyAndReturnArgs>(args?: SelectSubset<T, PersonChecklistItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PersonChecklistItem.
+     * @param {PersonChecklistItemDeleteArgs} args - Arguments to delete one PersonChecklistItem.
+     * @example
+     * // Delete one PersonChecklistItem
+     * const PersonChecklistItem = await prisma.personChecklistItem.delete({
+     *   where: {
+     *     // ... filter to delete one PersonChecklistItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PersonChecklistItemDeleteArgs>(args: SelectSubset<T, PersonChecklistItemDeleteArgs<ExtArgs>>): Prisma__PersonChecklistItemClient<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PersonChecklistItem.
+     * @param {PersonChecklistItemUpdateArgs} args - Arguments to update one PersonChecklistItem.
+     * @example
+     * // Update one PersonChecklistItem
+     * const personChecklistItem = await prisma.personChecklistItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PersonChecklistItemUpdateArgs>(args: SelectSubset<T, PersonChecklistItemUpdateArgs<ExtArgs>>): Prisma__PersonChecklistItemClient<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PersonChecklistItems.
+     * @param {PersonChecklistItemDeleteManyArgs} args - Arguments to filter PersonChecklistItems to delete.
+     * @example
+     * // Delete a few PersonChecklistItems
+     * const { count } = await prisma.personChecklistItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PersonChecklistItemDeleteManyArgs>(args?: SelectSubset<T, PersonChecklistItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PersonChecklistItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PersonChecklistItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PersonChecklistItems
+     * const personChecklistItem = await prisma.personChecklistItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PersonChecklistItemUpdateManyArgs>(args: SelectSubset<T, PersonChecklistItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PersonChecklistItems and returns the data updated in the database.
+     * @param {PersonChecklistItemUpdateManyAndReturnArgs} args - Arguments to update many PersonChecklistItems.
+     * @example
+     * // Update many PersonChecklistItems
+     * const personChecklistItem = await prisma.personChecklistItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PersonChecklistItems and only return the `id`
+     * const personChecklistItemWithIdOnly = await prisma.personChecklistItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PersonChecklistItemUpdateManyAndReturnArgs>(args: SelectSubset<T, PersonChecklistItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PersonChecklistItem.
+     * @param {PersonChecklistItemUpsertArgs} args - Arguments to update or create a PersonChecklistItem.
+     * @example
+     * // Update or create a PersonChecklistItem
+     * const personChecklistItem = await prisma.personChecklistItem.upsert({
+     *   create: {
+     *     // ... data to create a PersonChecklistItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PersonChecklistItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PersonChecklistItemUpsertArgs>(args: SelectSubset<T, PersonChecklistItemUpsertArgs<ExtArgs>>): Prisma__PersonChecklistItemClient<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PersonChecklistItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PersonChecklistItemCountArgs} args - Arguments to filter PersonChecklistItems to count.
+     * @example
+     * // Count the number of PersonChecklistItems
+     * const count = await prisma.personChecklistItem.count({
+     *   where: {
+     *     // ... the filter for the PersonChecklistItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends PersonChecklistItemCountArgs>(
+      args?: Subset<T, PersonChecklistItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PersonChecklistItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PersonChecklistItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PersonChecklistItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PersonChecklistItemAggregateArgs>(args: Subset<T, PersonChecklistItemAggregateArgs>): Prisma.PrismaPromise<GetPersonChecklistItemAggregateType<T>>
+
+    /**
+     * Group by PersonChecklistItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PersonChecklistItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PersonChecklistItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PersonChecklistItemGroupByArgs['orderBy'] }
+        : { orderBy?: PersonChecklistItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PersonChecklistItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPersonChecklistItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PersonChecklistItem model
+   */
+  readonly fields: PersonChecklistItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PersonChecklistItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PersonChecklistItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    person<T extends PersonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PersonDefaultArgs<ExtArgs>>): Prisma__PersonClient<$Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PersonChecklistItem model
+   */
+  interface PersonChecklistItemFieldRefs {
+    readonly id: FieldRef<"PersonChecklistItem", 'String'>
+    readonly tenantId: FieldRef<"PersonChecklistItem", 'String'>
+    readonly personId: FieldRef<"PersonChecklistItem", 'String'>
+    readonly kind: FieldRef<"PersonChecklistItem", 'ChecklistKind'>
+    readonly key: FieldRef<"PersonChecklistItem", 'String'>
+    readonly label: FieldRef<"PersonChecklistItem", 'String'>
+    readonly status: FieldRef<"PersonChecklistItem", 'ChecklistItemStatus'>
+    readonly dueAt: FieldRef<"PersonChecklistItem", 'DateTime'>
+    readonly completedAt: FieldRef<"PersonChecklistItem", 'DateTime'>
+    readonly createdAt: FieldRef<"PersonChecklistItem", 'DateTime'>
+    readonly updatedAt: FieldRef<"PersonChecklistItem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PersonChecklistItem findUnique
+   */
+  export type PersonChecklistItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    /**
+     * Filter, which PersonChecklistItem to fetch.
+     */
+    where: PersonChecklistItemWhereUniqueInput
+  }
+
+  /**
+   * PersonChecklistItem findUniqueOrThrow
+   */
+  export type PersonChecklistItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    /**
+     * Filter, which PersonChecklistItem to fetch.
+     */
+    where: PersonChecklistItemWhereUniqueInput
+  }
+
+  /**
+   * PersonChecklistItem findFirst
+   */
+  export type PersonChecklistItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    /**
+     * Filter, which PersonChecklistItem to fetch.
+     */
+    where?: PersonChecklistItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PersonChecklistItems to fetch.
+     */
+    orderBy?: PersonChecklistItemOrderByWithRelationInput | PersonChecklistItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PersonChecklistItems.
+     */
+    cursor?: PersonChecklistItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PersonChecklistItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PersonChecklistItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PersonChecklistItems.
+     */
+    distinct?: PersonChecklistItemScalarFieldEnum | PersonChecklistItemScalarFieldEnum[]
+  }
+
+  /**
+   * PersonChecklistItem findFirstOrThrow
+   */
+  export type PersonChecklistItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    /**
+     * Filter, which PersonChecklistItem to fetch.
+     */
+    where?: PersonChecklistItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PersonChecklistItems to fetch.
+     */
+    orderBy?: PersonChecklistItemOrderByWithRelationInput | PersonChecklistItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PersonChecklistItems.
+     */
+    cursor?: PersonChecklistItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PersonChecklistItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PersonChecklistItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PersonChecklistItems.
+     */
+    distinct?: PersonChecklistItemScalarFieldEnum | PersonChecklistItemScalarFieldEnum[]
+  }
+
+  /**
+   * PersonChecklistItem findMany
+   */
+  export type PersonChecklistItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    /**
+     * Filter, which PersonChecklistItems to fetch.
+     */
+    where?: PersonChecklistItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PersonChecklistItems to fetch.
+     */
+    orderBy?: PersonChecklistItemOrderByWithRelationInput | PersonChecklistItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PersonChecklistItems.
+     */
+    cursor?: PersonChecklistItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PersonChecklistItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PersonChecklistItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PersonChecklistItems.
+     */
+    distinct?: PersonChecklistItemScalarFieldEnum | PersonChecklistItemScalarFieldEnum[]
+  }
+
+  /**
+   * PersonChecklistItem create
+   */
+  export type PersonChecklistItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PersonChecklistItem.
+     */
+    data: XOR<PersonChecklistItemCreateInput, PersonChecklistItemUncheckedCreateInput>
+  }
+
+  /**
+   * PersonChecklistItem createMany
+   */
+  export type PersonChecklistItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PersonChecklistItems.
+     */
+    data: PersonChecklistItemCreateManyInput | PersonChecklistItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PersonChecklistItem createManyAndReturn
+   */
+  export type PersonChecklistItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many PersonChecklistItems.
+     */
+    data: PersonChecklistItemCreateManyInput | PersonChecklistItemCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PersonChecklistItem update
+   */
+  export type PersonChecklistItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PersonChecklistItem.
+     */
+    data: XOR<PersonChecklistItemUpdateInput, PersonChecklistItemUncheckedUpdateInput>
+    /**
+     * Choose, which PersonChecklistItem to update.
+     */
+    where: PersonChecklistItemWhereUniqueInput
+  }
+
+  /**
+   * PersonChecklistItem updateMany
+   */
+  export type PersonChecklistItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PersonChecklistItems.
+     */
+    data: XOR<PersonChecklistItemUpdateManyMutationInput, PersonChecklistItemUncheckedUpdateManyInput>
+    /**
+     * Filter which PersonChecklistItems to update
+     */
+    where?: PersonChecklistItemWhereInput
+    /**
+     * Limit how many PersonChecklistItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PersonChecklistItem updateManyAndReturn
+   */
+  export type PersonChecklistItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * The data used to update PersonChecklistItems.
+     */
+    data: XOR<PersonChecklistItemUpdateManyMutationInput, PersonChecklistItemUncheckedUpdateManyInput>
+    /**
+     * Filter which PersonChecklistItems to update
+     */
+    where?: PersonChecklistItemWhereInput
+    /**
+     * Limit how many PersonChecklistItems to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PersonChecklistItem upsert
+   */
+  export type PersonChecklistItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PersonChecklistItem to update in case it exists.
+     */
+    where: PersonChecklistItemWhereUniqueInput
+    /**
+     * In case the PersonChecklistItem found by the `where` argument doesn't exist, create a new PersonChecklistItem with this data.
+     */
+    create: XOR<PersonChecklistItemCreateInput, PersonChecklistItemUncheckedCreateInput>
+    /**
+     * In case the PersonChecklistItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PersonChecklistItemUpdateInput, PersonChecklistItemUncheckedUpdateInput>
+  }
+
+  /**
+   * PersonChecklistItem delete
+   */
+  export type PersonChecklistItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    /**
+     * Filter which PersonChecklistItem to delete.
+     */
+    where: PersonChecklistItemWhereUniqueInput
+  }
+
+  /**
+   * PersonChecklistItem deleteMany
+   */
+  export type PersonChecklistItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PersonChecklistItems to delete
+     */
+    where?: PersonChecklistItemWhereInput
+    /**
+     * Limit how many PersonChecklistItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PersonChecklistItem without action
+   */
+  export type PersonChecklistItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
   }
 
 
@@ -87930,6 +90801,8 @@ export namespace Prisma {
     settings?: boolean | Tenant$settingsArgs<ExtArgs>
     memberships?: boolean | Tenant$membershipsArgs<ExtArgs>
     people?: boolean | Tenant$peopleArgs<ExtArgs>
+    backgroundChecks?: boolean | Tenant$backgroundChecksArgs<ExtArgs>
+    personChecklistItems?: boolean | Tenant$personChecklistItemsArgs<ExtArgs>
     frameworkInstances?: boolean | Tenant$frameworkInstancesArgs<ExtArgs>
     controls?: boolean | Tenant$controlsArgs<ExtArgs>
     policies?: boolean | Tenant$policiesArgs<ExtArgs>
@@ -88037,6 +90910,8 @@ export namespace Prisma {
     settings?: boolean | Tenant$settingsArgs<ExtArgs>
     memberships?: boolean | Tenant$membershipsArgs<ExtArgs>
     people?: boolean | Tenant$peopleArgs<ExtArgs>
+    backgroundChecks?: boolean | Tenant$backgroundChecksArgs<ExtArgs>
+    personChecklistItems?: boolean | Tenant$personChecklistItemsArgs<ExtArgs>
     frameworkInstances?: boolean | Tenant$frameworkInstancesArgs<ExtArgs>
     controls?: boolean | Tenant$controlsArgs<ExtArgs>
     policies?: boolean | Tenant$policiesArgs<ExtArgs>
@@ -88114,6 +90989,8 @@ export namespace Prisma {
       settings: Prisma.$TenantSettingsPayload<ExtArgs> | null
       memberships: Prisma.$MembershipPayload<ExtArgs>[]
       people: Prisma.$PersonPayload<ExtArgs>[]
+      backgroundChecks: Prisma.$BackgroundCheckPayload<ExtArgs>[]
+      personChecklistItems: Prisma.$PersonChecklistItemPayload<ExtArgs>[]
       frameworkInstances: Prisma.$FrameworkInstancePayload<ExtArgs>[]
       controls: Prisma.$ControlPayload<ExtArgs>[]
       policies: Prisma.$PolicyPayload<ExtArgs>[]
@@ -88587,6 +91464,8 @@ export namespace Prisma {
     settings<T extends Tenant$settingsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$settingsArgs<ExtArgs>>): Prisma__TenantSettingsClient<$Result.GetResult<Prisma.$TenantSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     memberships<T extends Tenant$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     people<T extends Tenant$peopleArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$peopleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    backgroundChecks<T extends Tenant$backgroundChecksArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$backgroundChecksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BackgroundCheckPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    personChecklistItems<T extends Tenant$personChecklistItemsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$personChecklistItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonChecklistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     frameworkInstances<T extends Tenant$frameworkInstancesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$frameworkInstancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FrameworkInstancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     controls<T extends Tenant$controlsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$controlsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ControlPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     policies<T extends Tenant$policiesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$policiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PolicyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -89147,6 +92026,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PersonScalarFieldEnum | PersonScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.backgroundChecks
+   */
+  export type Tenant$backgroundChecksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BackgroundCheck
+     */
+    select?: BackgroundCheckSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BackgroundCheck
+     */
+    omit?: BackgroundCheckOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BackgroundCheckInclude<ExtArgs> | null
+    where?: BackgroundCheckWhereInput
+    orderBy?: BackgroundCheckOrderByWithRelationInput | BackgroundCheckOrderByWithRelationInput[]
+    cursor?: BackgroundCheckWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BackgroundCheckScalarFieldEnum | BackgroundCheckScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.personChecklistItems
+   */
+  export type Tenant$personChecklistItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PersonChecklistItem
+     */
+    select?: PersonChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PersonChecklistItem
+     */
+    omit?: PersonChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonChecklistItemInclude<ExtArgs> | null
+    where?: PersonChecklistItemWhereInput
+    orderBy?: PersonChecklistItemOrderByWithRelationInput | PersonChecklistItemOrderByWithRelationInput[]
+    cursor?: PersonChecklistItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PersonChecklistItemScalarFieldEnum | PersonChecklistItemScalarFieldEnum[]
   }
 
   /**
@@ -115141,6 +118068,7 @@ export namespace Prisma {
     contacts?: boolean | Vendor$contactsArgs<ExtArgs>
     researches?: boolean | Vendor$researchesArgs<ExtArgs>
     documents?: boolean | Vendor$documentsArgs<ExtArgs>
+    people?: boolean | Vendor$peopleArgs<ExtArgs>
     processingActivities?: boolean | Vendor$processingActivitiesArgs<ExtArgs>
     questionnaires?: boolean | Vendor$questionnairesArgs<ExtArgs>
     _count?: boolean | VendorCountOutputTypeDefaultArgs<ExtArgs>
@@ -115236,6 +118164,7 @@ export namespace Prisma {
     contacts?: boolean | Vendor$contactsArgs<ExtArgs>
     researches?: boolean | Vendor$researchesArgs<ExtArgs>
     documents?: boolean | Vendor$documentsArgs<ExtArgs>
+    people?: boolean | Vendor$peopleArgs<ExtArgs>
     processingActivities?: boolean | Vendor$processingActivitiesArgs<ExtArgs>
     questionnaires?: boolean | Vendor$questionnairesArgs<ExtArgs>
     _count?: boolean | VendorCountOutputTypeDefaultArgs<ExtArgs>
@@ -115258,6 +118187,7 @@ export namespace Prisma {
       contacts: Prisma.$VendorContactPayload<ExtArgs>[]
       researches: Prisma.$VendorResearchPayload<ExtArgs>[]
       documents: Prisma.$VendorDocumentPayload<ExtArgs>[]
+      people: Prisma.$PersonPayload<ExtArgs>[]
       processingActivities: Prisma.$ProcessingActivityPayload<ExtArgs>[]
       questionnaires: Prisma.$QuestionnairePayload<ExtArgs>[]
     }
@@ -115685,6 +118615,7 @@ export namespace Prisma {
     contacts<T extends Vendor$contactsArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     researches<T extends Vendor$researchesArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$researchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorResearchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends Vendor$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VendorDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    people<T extends Vendor$peopleArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$peopleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     processingActivities<T extends Vendor$processingActivitiesArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$processingActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProcessingActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     questionnaires<T extends Vendor$questionnairesArgs<ExtArgs> = {}>(args?: Subset<T, Vendor$questionnairesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionnairePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -116252,6 +119183,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VendorDocumentScalarFieldEnum | VendorDocumentScalarFieldEnum[]
+  }
+
+  /**
+   * Vendor.people
+   */
+  export type Vendor$peopleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Person
+     */
+    select?: PersonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Person
+     */
+    omit?: PersonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PersonInclude<ExtArgs> | null
+    where?: PersonWhereInput
+    orderBy?: PersonOrderByWithRelationInput | PersonOrderByWithRelationInput[]
+    cursor?: PersonWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PersonScalarFieldEnum | PersonScalarFieldEnum[]
   }
 
   /**
@@ -122683,6 +125638,7 @@ export namespace Prisma {
     type: 'type',
     classification: 'classification',
     ownerId: 'ownerId',
+    assignedPersonId: 'assignedPersonId',
     deletedById: 'deletedById',
     deletedAt: 'deletedAt',
     location: 'location',
@@ -123042,6 +125998,7 @@ export namespace Prisma {
     hardwareId: 'hardwareId',
     status: 'status',
     enrolledById: 'enrolledById',
+    personId: 'personId',
     enrolledAt: 'enrolledAt',
     lastSeenAt: 'lastSeenAt',
     checkInIntervalSeconds: 'checkInIntervalSeconds',
@@ -123247,6 +126204,7 @@ export namespace Prisma {
     location: 'location',
     startDate: 'startDate',
     endDate: 'endDate',
+    vendorId: 'vendorId',
     invitedAt: 'invitedAt',
     joinedAt: 'joinedAt',
     createdAt: 'createdAt',
@@ -123254,6 +126212,43 @@ export namespace Prisma {
   };
 
   export type PersonScalarFieldEnum = (typeof PersonScalarFieldEnum)[keyof typeof PersonScalarFieldEnum]
+
+
+  export const BackgroundCheckScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    personId: 'personId',
+    type: 'type',
+    status: 'status',
+    provider: 'provider',
+    reference: 'reference',
+    adverseFindings: 'adverseFindings',
+    notes: 'notes',
+    requestedAt: 'requestedAt',
+    completedAt: 'completedAt',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BackgroundCheckScalarFieldEnum = (typeof BackgroundCheckScalarFieldEnum)[keyof typeof BackgroundCheckScalarFieldEnum]
+
+
+  export const PersonChecklistItemScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    personId: 'personId',
+    kind: 'kind',
+    key: 'key',
+    label: 'label',
+    status: 'status',
+    dueAt: 'dueAt',
+    completedAt: 'completedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PersonChecklistItemScalarFieldEnum = (typeof PersonChecklistItemScalarFieldEnum)[keyof typeof PersonChecklistItemScalarFieldEnum]
 
 
   export const PolicyScalarFieldEnum: {
@@ -125059,6 +128054,62 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'BackgroundCheckType'
+   */
+  export type EnumBackgroundCheckTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BackgroundCheckType'>
+    
+
+
+  /**
+   * Reference to a field of type 'BackgroundCheckType[]'
+   */
+  export type ListEnumBackgroundCheckTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BackgroundCheckType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BackgroundCheckStatus'
+   */
+  export type EnumBackgroundCheckStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BackgroundCheckStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'BackgroundCheckStatus[]'
+   */
+  export type ListEnumBackgroundCheckStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BackgroundCheckStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ChecklistKind'
+   */
+  export type EnumChecklistKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChecklistKind'>
+    
+
+
+  /**
+   * Reference to a field of type 'ChecklistKind[]'
+   */
+  export type ListEnumChecklistKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChecklistKind[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ChecklistItemStatus'
+   */
+  export type EnumChecklistItemStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChecklistItemStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ChecklistItemStatus[]'
+   */
+  export type ListEnumChecklistItemStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChecklistItemStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'PolicyStatus'
    */
   export type EnumPolicyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PolicyStatus'>
@@ -126679,6 +129730,7 @@ export namespace Prisma {
     type?: EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
     classification?: EnumAssetClassificationFilter<"Asset"> | $Enums.AssetClassification
     ownerId?: StringNullableFilter<"Asset"> | string | null
+    assignedPersonId?: StringNullableFilter<"Asset"> | string | null
     deletedById?: StringNullableFilter<"Asset"> | string | null
     deletedAt?: DateTimeNullableFilter<"Asset"> | Date | string | null
     location?: StringNullableFilter<"Asset"> | string | null
@@ -126688,6 +129740,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    assignedPerson?: XOR<PersonNullableScalarRelationFilter, PersonWhereInput> | null
     deletedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     device?: XOR<DeviceNullableScalarRelationFilter, DeviceWhereInput> | null
   }
@@ -126700,6 +129753,7 @@ export namespace Prisma {
     type?: SortOrder
     classification?: SortOrder
     ownerId?: SortOrderInput | SortOrder
+    assignedPersonId?: SortOrderInput | SortOrder
     deletedById?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
@@ -126709,6 +129763,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
     owner?: UserOrderByWithRelationInput
+    assignedPerson?: PersonOrderByWithRelationInput
     deletedBy?: UserOrderByWithRelationInput
     device?: DeviceOrderByWithRelationInput
   }
@@ -126724,6 +129779,7 @@ export namespace Prisma {
     type?: EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
     classification?: EnumAssetClassificationFilter<"Asset"> | $Enums.AssetClassification
     ownerId?: StringNullableFilter<"Asset"> | string | null
+    assignedPersonId?: StringNullableFilter<"Asset"> | string | null
     deletedById?: StringNullableFilter<"Asset"> | string | null
     deletedAt?: DateTimeNullableFilter<"Asset"> | Date | string | null
     location?: StringNullableFilter<"Asset"> | string | null
@@ -126733,6 +129789,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Asset"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     owner?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    assignedPerson?: XOR<PersonNullableScalarRelationFilter, PersonWhereInput> | null
     deletedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     device?: XOR<DeviceNullableScalarRelationFilter, DeviceWhereInput> | null
   }, "id">
@@ -126745,6 +129802,7 @@ export namespace Prisma {
     type?: SortOrder
     classification?: SortOrder
     ownerId?: SortOrderInput | SortOrder
+    assignedPersonId?: SortOrderInput | SortOrder
     deletedById?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
@@ -126768,6 +129826,7 @@ export namespace Prisma {
     type?: EnumAssetTypeWithAggregatesFilter<"Asset"> | $Enums.AssetType
     classification?: EnumAssetClassificationWithAggregatesFilter<"Asset"> | $Enums.AssetClassification
     ownerId?: StringNullableWithAggregatesFilter<"Asset"> | string | null
+    assignedPersonId?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     deletedById?: StringNullableWithAggregatesFilter<"Asset"> | string | null
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Asset"> | Date | string | null
     location?: StringNullableWithAggregatesFilter<"Asset"> | string | null
@@ -128573,6 +131632,7 @@ export namespace Prisma {
     hardwareId?: StringNullableFilter<"Device"> | string | null
     status?: EnumDeviceStatusFilter<"Device"> | $Enums.DeviceStatus
     enrolledById?: StringNullableFilter<"Device"> | string | null
+    personId?: StringNullableFilter<"Device"> | string | null
     enrolledAt?: DateTimeFilter<"Device"> | Date | string
     lastSeenAt?: DateTimeNullableFilter<"Device"> | Date | string | null
     checkInIntervalSeconds?: IntFilter<"Device"> | number
@@ -128589,6 +131649,7 @@ export namespace Prisma {
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
     enrolledBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    person?: XOR<PersonNullableScalarRelationFilter, PersonWhereInput> | null
     enrollmentToken?: XOR<DeviceEnrollmentTokenNullableScalarRelationFilter, DeviceEnrollmentTokenWhereInput> | null
     snapshots?: DevicePostureSnapshotListRelationFilter
     nonces?: DeviceNonceListRelationFilter
@@ -128607,6 +131668,7 @@ export namespace Prisma {
     hardwareId?: SortOrderInput | SortOrder
     status?: SortOrder
     enrolledById?: SortOrderInput | SortOrder
+    personId?: SortOrderInput | SortOrder
     enrolledAt?: SortOrder
     lastSeenAt?: SortOrderInput | SortOrder
     checkInIntervalSeconds?: SortOrder
@@ -128623,6 +131685,7 @@ export namespace Prisma {
     tenant?: TenantOrderByWithRelationInput
     asset?: AssetOrderByWithRelationInput
     enrolledBy?: UserOrderByWithRelationInput
+    person?: PersonOrderByWithRelationInput
     enrollmentToken?: DeviceEnrollmentTokenOrderByWithRelationInput
     snapshots?: DevicePostureSnapshotOrderByRelationAggregateInput
     nonces?: DeviceNonceOrderByRelationAggregateInput
@@ -128644,6 +131707,7 @@ export namespace Prisma {
     hardwareId?: StringNullableFilter<"Device"> | string | null
     status?: EnumDeviceStatusFilter<"Device"> | $Enums.DeviceStatus
     enrolledById?: StringNullableFilter<"Device"> | string | null
+    personId?: StringNullableFilter<"Device"> | string | null
     enrolledAt?: DateTimeFilter<"Device"> | Date | string
     lastSeenAt?: DateTimeNullableFilter<"Device"> | Date | string | null
     checkInIntervalSeconds?: IntFilter<"Device"> | number
@@ -128660,6 +131724,7 @@ export namespace Prisma {
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     asset?: XOR<AssetScalarRelationFilter, AssetWhereInput>
     enrolledBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    person?: XOR<PersonNullableScalarRelationFilter, PersonWhereInput> | null
     enrollmentToken?: XOR<DeviceEnrollmentTokenNullableScalarRelationFilter, DeviceEnrollmentTokenWhereInput> | null
     snapshots?: DevicePostureSnapshotListRelationFilter
     nonces?: DeviceNonceListRelationFilter
@@ -128678,6 +131743,7 @@ export namespace Prisma {
     hardwareId?: SortOrderInput | SortOrder
     status?: SortOrder
     enrolledById?: SortOrderInput | SortOrder
+    personId?: SortOrderInput | SortOrder
     enrolledAt?: SortOrder
     lastSeenAt?: SortOrderInput | SortOrder
     checkInIntervalSeconds?: SortOrder
@@ -128714,6 +131780,7 @@ export namespace Prisma {
     hardwareId?: StringNullableWithAggregatesFilter<"Device"> | string | null
     status?: EnumDeviceStatusWithAggregatesFilter<"Device"> | $Enums.DeviceStatus
     enrolledById?: StringNullableWithAggregatesFilter<"Device"> | string | null
+    personId?: StringNullableWithAggregatesFilter<"Device"> | string | null
     enrolledAt?: DateTimeWithAggregatesFilter<"Device"> | Date | string
     lastSeenAt?: DateTimeNullableWithAggregatesFilter<"Device"> | Date | string | null
     checkInIntervalSeconds?: IntWithAggregatesFilter<"Device"> | number
@@ -129665,6 +132732,7 @@ export namespace Prisma {
     location?: StringNullableFilter<"Person"> | string | null
     startDate?: DateTimeNullableFilter<"Person"> | Date | string | null
     endDate?: DateTimeNullableFilter<"Person"> | Date | string | null
+    vendorId?: StringNullableFilter<"Person"> | string | null
     invitedAt?: DateTimeNullableFilter<"Person"> | Date | string | null
     joinedAt?: DateTimeNullableFilter<"Person"> | Date | string | null
     createdAt?: DateTimeFilter<"Person"> | Date | string
@@ -129673,6 +132741,11 @@ export namespace Prisma {
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     manager?: XOR<PersonNullableScalarRelationFilter, PersonWhereInput> | null
     reports?: PersonListRelationFilter
+    vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
+    backgroundChecks?: BackgroundCheckListRelationFilter
+    checklistItems?: PersonChecklistItemListRelationFilter
+    devices?: DeviceListRelationFilter
+    assignedAssets?: AssetListRelationFilter
   }
 
   export type PersonOrderByWithRelationInput = {
@@ -129693,6 +132766,7 @@ export namespace Prisma {
     location?: SortOrderInput | SortOrder
     startDate?: SortOrderInput | SortOrder
     endDate?: SortOrderInput | SortOrder
+    vendorId?: SortOrderInput | SortOrder
     invitedAt?: SortOrderInput | SortOrder
     joinedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -129701,6 +132775,11 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     manager?: PersonOrderByWithRelationInput
     reports?: PersonOrderByRelationAggregateInput
+    vendor?: VendorOrderByWithRelationInput
+    backgroundChecks?: BackgroundCheckOrderByRelationAggregateInput
+    checklistItems?: PersonChecklistItemOrderByRelationAggregateInput
+    devices?: DeviceOrderByRelationAggregateInput
+    assignedAssets?: AssetOrderByRelationAggregateInput
   }
 
   export type PersonWhereUniqueInput = Prisma.AtLeast<{
@@ -129726,6 +132805,7 @@ export namespace Prisma {
     location?: StringNullableFilter<"Person"> | string | null
     startDate?: DateTimeNullableFilter<"Person"> | Date | string | null
     endDate?: DateTimeNullableFilter<"Person"> | Date | string | null
+    vendorId?: StringNullableFilter<"Person"> | string | null
     invitedAt?: DateTimeNullableFilter<"Person"> | Date | string | null
     joinedAt?: DateTimeNullableFilter<"Person"> | Date | string | null
     createdAt?: DateTimeFilter<"Person"> | Date | string
@@ -129734,6 +132814,11 @@ export namespace Prisma {
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     manager?: XOR<PersonNullableScalarRelationFilter, PersonWhereInput> | null
     reports?: PersonListRelationFilter
+    vendor?: XOR<VendorNullableScalarRelationFilter, VendorWhereInput> | null
+    backgroundChecks?: BackgroundCheckListRelationFilter
+    checklistItems?: PersonChecklistItemListRelationFilter
+    devices?: DeviceListRelationFilter
+    assignedAssets?: AssetListRelationFilter
   }, "id" | "tenantId_userId" | "tenantId_email">
 
   export type PersonOrderByWithAggregationInput = {
@@ -129754,6 +132839,7 @@ export namespace Prisma {
     location?: SortOrderInput | SortOrder
     startDate?: SortOrderInput | SortOrder
     endDate?: SortOrderInput | SortOrder
+    vendorId?: SortOrderInput | SortOrder
     invitedAt?: SortOrderInput | SortOrder
     joinedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -129784,10 +132870,203 @@ export namespace Prisma {
     location?: StringNullableWithAggregatesFilter<"Person"> | string | null
     startDate?: DateTimeNullableWithAggregatesFilter<"Person"> | Date | string | null
     endDate?: DateTimeNullableWithAggregatesFilter<"Person"> | Date | string | null
+    vendorId?: StringNullableWithAggregatesFilter<"Person"> | string | null
     invitedAt?: DateTimeNullableWithAggregatesFilter<"Person"> | Date | string | null
     joinedAt?: DateTimeNullableWithAggregatesFilter<"Person"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Person"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Person"> | Date | string
+  }
+
+  export type BackgroundCheckWhereInput = {
+    AND?: BackgroundCheckWhereInput | BackgroundCheckWhereInput[]
+    OR?: BackgroundCheckWhereInput[]
+    NOT?: BackgroundCheckWhereInput | BackgroundCheckWhereInput[]
+    id?: StringFilter<"BackgroundCheck"> | string
+    tenantId?: StringFilter<"BackgroundCheck"> | string
+    personId?: StringFilter<"BackgroundCheck"> | string
+    type?: EnumBackgroundCheckTypeFilter<"BackgroundCheck"> | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFilter<"BackgroundCheck"> | $Enums.BackgroundCheckStatus
+    provider?: StringNullableFilter<"BackgroundCheck"> | string | null
+    reference?: StringNullableFilter<"BackgroundCheck"> | string | null
+    adverseFindings?: BoolFilter<"BackgroundCheck"> | boolean
+    notes?: StringNullableFilter<"BackgroundCheck"> | string | null
+    requestedAt?: DateTimeNullableFilter<"BackgroundCheck"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"BackgroundCheck"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"BackgroundCheck"> | Date | string | null
+    createdAt?: DateTimeFilter<"BackgroundCheck"> | Date | string
+    updatedAt?: DateTimeFilter<"BackgroundCheck"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    person?: XOR<PersonScalarRelationFilter, PersonWhereInput>
+  }
+
+  export type BackgroundCheckOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    personId?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    provider?: SortOrderInput | SortOrder
+    reference?: SortOrderInput | SortOrder
+    adverseFindings?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    requestedAt?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    person?: PersonOrderByWithRelationInput
+  }
+
+  export type BackgroundCheckWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BackgroundCheckWhereInput | BackgroundCheckWhereInput[]
+    OR?: BackgroundCheckWhereInput[]
+    NOT?: BackgroundCheckWhereInput | BackgroundCheckWhereInput[]
+    tenantId?: StringFilter<"BackgroundCheck"> | string
+    personId?: StringFilter<"BackgroundCheck"> | string
+    type?: EnumBackgroundCheckTypeFilter<"BackgroundCheck"> | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFilter<"BackgroundCheck"> | $Enums.BackgroundCheckStatus
+    provider?: StringNullableFilter<"BackgroundCheck"> | string | null
+    reference?: StringNullableFilter<"BackgroundCheck"> | string | null
+    adverseFindings?: BoolFilter<"BackgroundCheck"> | boolean
+    notes?: StringNullableFilter<"BackgroundCheck"> | string | null
+    requestedAt?: DateTimeNullableFilter<"BackgroundCheck"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"BackgroundCheck"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"BackgroundCheck"> | Date | string | null
+    createdAt?: DateTimeFilter<"BackgroundCheck"> | Date | string
+    updatedAt?: DateTimeFilter<"BackgroundCheck"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    person?: XOR<PersonScalarRelationFilter, PersonWhereInput>
+  }, "id">
+
+  export type BackgroundCheckOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    personId?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    provider?: SortOrderInput | SortOrder
+    reference?: SortOrderInput | SortOrder
+    adverseFindings?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    requestedAt?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BackgroundCheckCountOrderByAggregateInput
+    _max?: BackgroundCheckMaxOrderByAggregateInput
+    _min?: BackgroundCheckMinOrderByAggregateInput
+  }
+
+  export type BackgroundCheckScalarWhereWithAggregatesInput = {
+    AND?: BackgroundCheckScalarWhereWithAggregatesInput | BackgroundCheckScalarWhereWithAggregatesInput[]
+    OR?: BackgroundCheckScalarWhereWithAggregatesInput[]
+    NOT?: BackgroundCheckScalarWhereWithAggregatesInput | BackgroundCheckScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BackgroundCheck"> | string
+    tenantId?: StringWithAggregatesFilter<"BackgroundCheck"> | string
+    personId?: StringWithAggregatesFilter<"BackgroundCheck"> | string
+    type?: EnumBackgroundCheckTypeWithAggregatesFilter<"BackgroundCheck"> | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusWithAggregatesFilter<"BackgroundCheck"> | $Enums.BackgroundCheckStatus
+    provider?: StringNullableWithAggregatesFilter<"BackgroundCheck"> | string | null
+    reference?: StringNullableWithAggregatesFilter<"BackgroundCheck"> | string | null
+    adverseFindings?: BoolWithAggregatesFilter<"BackgroundCheck"> | boolean
+    notes?: StringNullableWithAggregatesFilter<"BackgroundCheck"> | string | null
+    requestedAt?: DateTimeNullableWithAggregatesFilter<"BackgroundCheck"> | Date | string | null
+    completedAt?: DateTimeNullableWithAggregatesFilter<"BackgroundCheck"> | Date | string | null
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"BackgroundCheck"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"BackgroundCheck"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BackgroundCheck"> | Date | string
+  }
+
+  export type PersonChecklistItemWhereInput = {
+    AND?: PersonChecklistItemWhereInput | PersonChecklistItemWhereInput[]
+    OR?: PersonChecklistItemWhereInput[]
+    NOT?: PersonChecklistItemWhereInput | PersonChecklistItemWhereInput[]
+    id?: StringFilter<"PersonChecklistItem"> | string
+    tenantId?: StringFilter<"PersonChecklistItem"> | string
+    personId?: StringFilter<"PersonChecklistItem"> | string
+    kind?: EnumChecklistKindFilter<"PersonChecklistItem"> | $Enums.ChecklistKind
+    key?: StringFilter<"PersonChecklistItem"> | string
+    label?: StringFilter<"PersonChecklistItem"> | string
+    status?: EnumChecklistItemStatusFilter<"PersonChecklistItem"> | $Enums.ChecklistItemStatus
+    dueAt?: DateTimeNullableFilter<"PersonChecklistItem"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"PersonChecklistItem"> | Date | string | null
+    createdAt?: DateTimeFilter<"PersonChecklistItem"> | Date | string
+    updatedAt?: DateTimeFilter<"PersonChecklistItem"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    person?: XOR<PersonScalarRelationFilter, PersonWhereInput>
+  }
+
+  export type PersonChecklistItemOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    personId?: SortOrder
+    kind?: SortOrder
+    key?: SortOrder
+    label?: SortOrder
+    status?: SortOrder
+    dueAt?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    person?: PersonOrderByWithRelationInput
+  }
+
+  export type PersonChecklistItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    personId_kind_key?: PersonChecklistItemPersonIdKindKeyCompoundUniqueInput
+    AND?: PersonChecklistItemWhereInput | PersonChecklistItemWhereInput[]
+    OR?: PersonChecklistItemWhereInput[]
+    NOT?: PersonChecklistItemWhereInput | PersonChecklistItemWhereInput[]
+    tenantId?: StringFilter<"PersonChecklistItem"> | string
+    personId?: StringFilter<"PersonChecklistItem"> | string
+    kind?: EnumChecklistKindFilter<"PersonChecklistItem"> | $Enums.ChecklistKind
+    key?: StringFilter<"PersonChecklistItem"> | string
+    label?: StringFilter<"PersonChecklistItem"> | string
+    status?: EnumChecklistItemStatusFilter<"PersonChecklistItem"> | $Enums.ChecklistItemStatus
+    dueAt?: DateTimeNullableFilter<"PersonChecklistItem"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"PersonChecklistItem"> | Date | string | null
+    createdAt?: DateTimeFilter<"PersonChecklistItem"> | Date | string
+    updatedAt?: DateTimeFilter<"PersonChecklistItem"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    person?: XOR<PersonScalarRelationFilter, PersonWhereInput>
+  }, "id" | "personId_kind_key">
+
+  export type PersonChecklistItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    personId?: SortOrder
+    kind?: SortOrder
+    key?: SortOrder
+    label?: SortOrder
+    status?: SortOrder
+    dueAt?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PersonChecklistItemCountOrderByAggregateInput
+    _max?: PersonChecklistItemMaxOrderByAggregateInput
+    _min?: PersonChecklistItemMinOrderByAggregateInput
+  }
+
+  export type PersonChecklistItemScalarWhereWithAggregatesInput = {
+    AND?: PersonChecklistItemScalarWhereWithAggregatesInput | PersonChecklistItemScalarWhereWithAggregatesInput[]
+    OR?: PersonChecklistItemScalarWhereWithAggregatesInput[]
+    NOT?: PersonChecklistItemScalarWhereWithAggregatesInput | PersonChecklistItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PersonChecklistItem"> | string
+    tenantId?: StringWithAggregatesFilter<"PersonChecklistItem"> | string
+    personId?: StringWithAggregatesFilter<"PersonChecklistItem"> | string
+    kind?: EnumChecklistKindWithAggregatesFilter<"PersonChecklistItem"> | $Enums.ChecklistKind
+    key?: StringWithAggregatesFilter<"PersonChecklistItem"> | string
+    label?: StringWithAggregatesFilter<"PersonChecklistItem"> | string
+    status?: EnumChecklistItemStatusWithAggregatesFilter<"PersonChecklistItem"> | $Enums.ChecklistItemStatus
+    dueAt?: DateTimeNullableWithAggregatesFilter<"PersonChecklistItem"> | Date | string | null
+    completedAt?: DateTimeNullableWithAggregatesFilter<"PersonChecklistItem"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PersonChecklistItem"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PersonChecklistItem"> | Date | string
   }
 
   export type PolicyWhereInput = {
@@ -132520,6 +135799,8 @@ export namespace Prisma {
     settings?: XOR<TenantSettingsNullableScalarRelationFilter, TenantSettingsWhereInput> | null
     memberships?: MembershipListRelationFilter
     people?: PersonListRelationFilter
+    backgroundChecks?: BackgroundCheckListRelationFilter
+    personChecklistItems?: PersonChecklistItemListRelationFilter
     frameworkInstances?: FrameworkInstanceListRelationFilter
     controls?: ControlListRelationFilter
     policies?: PolicyListRelationFilter
@@ -132600,6 +135881,8 @@ export namespace Prisma {
     settings?: TenantSettingsOrderByWithRelationInput
     memberships?: MembershipOrderByRelationAggregateInput
     people?: PersonOrderByRelationAggregateInput
+    backgroundChecks?: BackgroundCheckOrderByRelationAggregateInput
+    personChecklistItems?: PersonChecklistItemOrderByRelationAggregateInput
     frameworkInstances?: FrameworkInstanceOrderByRelationAggregateInput
     controls?: ControlOrderByRelationAggregateInput
     policies?: PolicyOrderByRelationAggregateInput
@@ -132683,6 +135966,8 @@ export namespace Prisma {
     settings?: XOR<TenantSettingsNullableScalarRelationFilter, TenantSettingsWhereInput> | null
     memberships?: MembershipListRelationFilter
     people?: PersonListRelationFilter
+    backgroundChecks?: BackgroundCheckListRelationFilter
+    personChecklistItems?: PersonChecklistItemListRelationFilter
     frameworkInstances?: FrameworkInstanceListRelationFilter
     controls?: ControlListRelationFilter
     policies?: PolicyListRelationFilter
@@ -134689,6 +137974,7 @@ export namespace Prisma {
     contacts?: VendorContactListRelationFilter
     researches?: VendorResearchListRelationFilter
     documents?: VendorDocumentListRelationFilter
+    people?: PersonListRelationFilter
     processingActivities?: ProcessingActivityListRelationFilter
     questionnaires?: QuestionnaireListRelationFilter
   }
@@ -134723,6 +138009,7 @@ export namespace Prisma {
     contacts?: VendorContactOrderByRelationAggregateInput
     researches?: VendorResearchOrderByRelationAggregateInput
     documents?: VendorDocumentOrderByRelationAggregateInput
+    people?: PersonOrderByRelationAggregateInput
     processingActivities?: ProcessingActivityOrderByRelationAggregateInput
     questionnaires?: QuestionnaireOrderByRelationAggregateInput
   }
@@ -134760,6 +138047,7 @@ export namespace Prisma {
     contacts?: VendorContactListRelationFilter
     researches?: VendorResearchListRelationFilter
     documents?: VendorDocumentListRelationFilter
+    people?: PersonListRelationFilter
     processingActivities?: ProcessingActivityListRelationFilter
     questionnaires?: QuestionnaireListRelationFilter
   }, "id">
@@ -136079,6 +139367,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutAssetsInput
     owner?: UserCreateNestedOneWithoutOwnedAssetsInput
+    assignedPerson?: PersonCreateNestedOneWithoutAssignedAssetsInput
     deletedBy?: UserCreateNestedOneWithoutDeletedAssetsInput
     device?: DeviceCreateNestedOneWithoutAssetInput
   }
@@ -136091,6 +139380,7 @@ export namespace Prisma {
     type: $Enums.AssetType
     classification?: $Enums.AssetClassification
     ownerId?: string | null
+    assignedPersonId?: string | null
     deletedById?: string | null
     deletedAt?: Date | string | null
     location?: string | null
@@ -136115,6 +139405,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutAssetsNestedInput
     owner?: UserUpdateOneWithoutOwnedAssetsNestedInput
+    assignedPerson?: PersonUpdateOneWithoutAssignedAssetsNestedInput
     deletedBy?: UserUpdateOneWithoutDeletedAssetsNestedInput
     device?: DeviceUpdateOneWithoutAssetNestedInput
   }
@@ -136127,6 +139418,7 @@ export namespace Prisma {
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -136145,6 +139437,7 @@ export namespace Prisma {
     type: $Enums.AssetType
     classification?: $Enums.AssetClassification
     ownerId?: string | null
+    assignedPersonId?: string | null
     deletedById?: string | null
     deletedAt?: Date | string | null
     location?: string | null
@@ -136176,6 +139469,7 @@ export namespace Prisma {
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -138193,6 +141487,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutDevicesInput
     asset: AssetCreateNestedOneWithoutDeviceInput
     enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    person?: PersonCreateNestedOneWithoutDevicesInput
     enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
     snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
     nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
@@ -138211,6 +141506,7 @@ export namespace Prisma {
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
     enrolledById?: string | null
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -138253,6 +141549,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
     asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
     enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    person?: PersonUpdateOneWithoutDevicesNestedInput
     enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
     snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
     nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
@@ -138271,6 +141568,7 @@ export namespace Prisma {
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
     enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -138301,6 +141599,7 @@ export namespace Prisma {
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
     enrolledById?: string | null
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -138353,6 +141652,7 @@ export namespace Prisma {
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
     enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -139374,6 +142674,11 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutPeopleInput
     manager?: PersonCreateNestedOneWithoutReportsInput
     reports?: PersonCreateNestedManyWithoutManagerInput
+    vendor?: VendorCreateNestedOneWithoutPeopleInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemCreateNestedManyWithoutPersonInput
+    devices?: DeviceCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetCreateNestedManyWithoutAssignedPersonInput
   }
 
   export type PersonUncheckedCreateInput = {
@@ -139394,11 +142699,16 @@ export namespace Prisma {
     location?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
+    vendorId?: string | null
     invitedAt?: Date | string | null
     joinedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: PersonUncheckedCreateNestedManyWithoutManagerInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutPersonInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetUncheckedCreateNestedManyWithoutAssignedPersonInput
   }
 
   export type PersonUpdateInput = {
@@ -139424,6 +142734,11 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutPeopleNestedInput
     manager?: PersonUpdateOneWithoutReportsNestedInput
     reports?: PersonUpdateManyWithoutManagerNestedInput
+    vendor?: VendorUpdateOneWithoutPeopleNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type PersonUncheckedUpdateInput = {
@@ -139444,11 +142759,16 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
     invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: PersonUncheckedUpdateManyWithoutManagerNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUncheckedUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type PersonCreateManyInput = {
@@ -139469,6 +142789,7 @@ export namespace Prisma {
     location?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
+    vendorId?: string | null
     invitedAt?: Date | string | null
     joinedAt?: Date | string | null
     createdAt?: Date | string
@@ -139514,8 +142835,222 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
     invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BackgroundCheckCreateInput = {
+    id?: string
+    type?: $Enums.BackgroundCheckType
+    status?: $Enums.BackgroundCheckStatus
+    provider?: string | null
+    reference?: string | null
+    adverseFindings?: boolean
+    notes?: string | null
+    requestedAt?: Date | string | null
+    completedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutBackgroundChecksInput
+    person: PersonCreateNestedOneWithoutBackgroundChecksInput
+  }
+
+  export type BackgroundCheckUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    personId: string
+    type?: $Enums.BackgroundCheckType
+    status?: $Enums.BackgroundCheckStatus
+    provider?: string | null
+    reference?: string | null
+    adverseFindings?: boolean
+    notes?: string | null
+    requestedAt?: Date | string | null
+    completedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BackgroundCheckUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBackgroundCheckTypeFieldUpdateOperationsInput | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFieldUpdateOperationsInput | $Enums.BackgroundCheckStatus
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    adverseFindings?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBackgroundChecksNestedInput
+    person?: PersonUpdateOneRequiredWithoutBackgroundChecksNestedInput
+  }
+
+  export type BackgroundCheckUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    personId?: StringFieldUpdateOperationsInput | string
+    type?: EnumBackgroundCheckTypeFieldUpdateOperationsInput | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFieldUpdateOperationsInput | $Enums.BackgroundCheckStatus
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    adverseFindings?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BackgroundCheckCreateManyInput = {
+    id?: string
+    tenantId: string
+    personId: string
+    type?: $Enums.BackgroundCheckType
+    status?: $Enums.BackgroundCheckStatus
+    provider?: string | null
+    reference?: string | null
+    adverseFindings?: boolean
+    notes?: string | null
+    requestedAt?: Date | string | null
+    completedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BackgroundCheckUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBackgroundCheckTypeFieldUpdateOperationsInput | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFieldUpdateOperationsInput | $Enums.BackgroundCheckStatus
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    adverseFindings?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BackgroundCheckUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    personId?: StringFieldUpdateOperationsInput | string
+    type?: EnumBackgroundCheckTypeFieldUpdateOperationsInput | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFieldUpdateOperationsInput | $Enums.BackgroundCheckStatus
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    adverseFindings?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PersonChecklistItemCreateInput = {
+    id?: string
+    kind: $Enums.ChecklistKind
+    key: string
+    label: string
+    status?: $Enums.ChecklistItemStatus
+    dueAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPersonChecklistItemsInput
+    person: PersonCreateNestedOneWithoutChecklistItemsInput
+  }
+
+  export type PersonChecklistItemUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    personId: string
+    kind: $Enums.ChecklistKind
+    key: string
+    label: string
+    status?: $Enums.ChecklistItemStatus
+    dueAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PersonChecklistItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumChecklistKindFieldUpdateOperationsInput | $Enums.ChecklistKind
+    key?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    status?: EnumChecklistItemStatusFieldUpdateOperationsInput | $Enums.ChecklistItemStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPersonChecklistItemsNestedInput
+    person?: PersonUpdateOneRequiredWithoutChecklistItemsNestedInput
+  }
+
+  export type PersonChecklistItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    personId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumChecklistKindFieldUpdateOperationsInput | $Enums.ChecklistKind
+    key?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    status?: EnumChecklistItemStatusFieldUpdateOperationsInput | $Enums.ChecklistItemStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PersonChecklistItemCreateManyInput = {
+    id?: string
+    tenantId: string
+    personId: string
+    kind: $Enums.ChecklistKind
+    key: string
+    label: string
+    status?: $Enums.ChecklistItemStatus
+    dueAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PersonChecklistItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumChecklistKindFieldUpdateOperationsInput | $Enums.ChecklistKind
+    key?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    status?: EnumChecklistItemStatusFieldUpdateOperationsInput | $Enums.ChecklistItemStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PersonChecklistItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    personId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumChecklistKindFieldUpdateOperationsInput | $Enums.ChecklistKind
+    key?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    status?: EnumChecklistItemStatusFieldUpdateOperationsInput | $Enums.ChecklistItemStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -142560,6 +146095,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -142640,6 +146177,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -142720,6 +146259,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -142800,6 +146341,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -145018,6 +148561,7 @@ export namespace Prisma {
     contacts?: VendorContactCreateNestedManyWithoutVendorInput
     researches?: VendorResearchCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentCreateNestedManyWithoutVendorInput
+    people?: PersonCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireCreateNestedManyWithoutVendorInput
   }
@@ -145050,6 +148594,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedCreateNestedManyWithoutVendorInput
     researches?: VendorResearchUncheckedCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentUncheckedCreateNestedManyWithoutVendorInput
+    people?: PersonUncheckedCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutVendorInput
   }
@@ -145082,6 +148627,7 @@ export namespace Prisma {
     contacts?: VendorContactUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUpdateManyWithoutVendorNestedInput
+    people?: PersonUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUpdateManyWithoutVendorNestedInput
   }
@@ -145114,6 +148660,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUncheckedUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUncheckedUpdateManyWithoutVendorNestedInput
+    people?: PersonUncheckedUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutVendorNestedInput
   }
@@ -146526,6 +150073,11 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type PersonNullableScalarRelationFilter = {
+    is?: PersonWhereInput | null
+    isNot?: PersonWhereInput | null
+  }
+
   export type DeviceNullableScalarRelationFilter = {
     is?: DeviceWhereInput | null
     isNot?: DeviceWhereInput | null
@@ -146539,6 +150091,7 @@ export namespace Prisma {
     type?: SortOrder
     classification?: SortOrder
     ownerId?: SortOrder
+    assignedPersonId?: SortOrder
     deletedById?: SortOrder
     deletedAt?: SortOrder
     location?: SortOrder
@@ -146556,6 +150109,7 @@ export namespace Prisma {
     type?: SortOrder
     classification?: SortOrder
     ownerId?: SortOrder
+    assignedPersonId?: SortOrder
     deletedById?: SortOrder
     deletedAt?: SortOrder
     location?: SortOrder
@@ -146572,6 +150126,7 @@ export namespace Prisma {
     type?: SortOrder
     classification?: SortOrder
     ownerId?: SortOrder
+    assignedPersonId?: SortOrder
     deletedById?: SortOrder
     deletedAt?: SortOrder
     location?: SortOrder
@@ -148358,6 +151913,7 @@ export namespace Prisma {
     hardwareId?: SortOrder
     status?: SortOrder
     enrolledById?: SortOrder
+    personId?: SortOrder
     enrolledAt?: SortOrder
     lastSeenAt?: SortOrder
     checkInIntervalSeconds?: SortOrder
@@ -148391,6 +151947,7 @@ export namespace Prisma {
     hardwareId?: SortOrder
     status?: SortOrder
     enrolledById?: SortOrder
+    personId?: SortOrder
     enrolledAt?: SortOrder
     lastSeenAt?: SortOrder
     checkInIntervalSeconds?: SortOrder
@@ -148418,6 +151975,7 @@ export namespace Prisma {
     hardwareId?: SortOrder
     status?: SortOrder
     enrolledById?: SortOrder
+    personId?: SortOrder
     enrolledAt?: SortOrder
     lastSeenAt?: SortOrder
     checkInIntervalSeconds?: SortOrder
@@ -149165,18 +152723,48 @@ export namespace Prisma {
     not?: NestedEnumPersonSourceFilter<$PrismaModel> | $Enums.PersonSource
   }
 
-  export type PersonNullableScalarRelationFilter = {
-    is?: PersonWhereInput | null
-    isNot?: PersonWhereInput | null
-  }
-
   export type PersonListRelationFilter = {
     every?: PersonWhereInput
     some?: PersonWhereInput
     none?: PersonWhereInput
   }
 
+  export type VendorNullableScalarRelationFilter = {
+    is?: VendorWhereInput | null
+    isNot?: VendorWhereInput | null
+  }
+
+  export type BackgroundCheckListRelationFilter = {
+    every?: BackgroundCheckWhereInput
+    some?: BackgroundCheckWhereInput
+    none?: BackgroundCheckWhereInput
+  }
+
+  export type PersonChecklistItemListRelationFilter = {
+    every?: PersonChecklistItemWhereInput
+    some?: PersonChecklistItemWhereInput
+    none?: PersonChecklistItemWhereInput
+  }
+
+  export type AssetListRelationFilter = {
+    every?: AssetWhereInput
+    some?: AssetWhereInput
+    none?: AssetWhereInput
+  }
+
   export type PersonOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BackgroundCheckOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PersonChecklistItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AssetOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -149208,6 +152796,7 @@ export namespace Prisma {
     location?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    vendorId?: SortOrder
     invitedAt?: SortOrder
     joinedAt?: SortOrder
     createdAt?: SortOrder
@@ -149231,6 +152820,7 @@ export namespace Prisma {
     location?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    vendorId?: SortOrder
     invitedAt?: SortOrder
     joinedAt?: SortOrder
     createdAt?: SortOrder
@@ -149254,6 +152844,7 @@ export namespace Prisma {
     location?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    vendorId?: SortOrder
     invitedAt?: SortOrder
     joinedAt?: SortOrder
     createdAt?: SortOrder
@@ -149298,6 +152889,178 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPersonSourceFilter<$PrismaModel>
     _max?: NestedEnumPersonSourceFilter<$PrismaModel>
+  }
+
+  export type EnumBackgroundCheckTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BackgroundCheckType | EnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BackgroundCheckType[] | ListEnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BackgroundCheckType[] | ListEnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBackgroundCheckTypeFilter<$PrismaModel> | $Enums.BackgroundCheckType
+  }
+
+  export type EnumBackgroundCheckStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.BackgroundCheckStatus | EnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BackgroundCheckStatus[] | ListEnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BackgroundCheckStatus[] | ListEnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBackgroundCheckStatusFilter<$PrismaModel> | $Enums.BackgroundCheckStatus
+  }
+
+  export type PersonScalarRelationFilter = {
+    is?: PersonWhereInput
+    isNot?: PersonWhereInput
+  }
+
+  export type BackgroundCheckCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    personId?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    provider?: SortOrder
+    reference?: SortOrder
+    adverseFindings?: SortOrder
+    notes?: SortOrder
+    requestedAt?: SortOrder
+    completedAt?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BackgroundCheckMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    personId?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    provider?: SortOrder
+    reference?: SortOrder
+    adverseFindings?: SortOrder
+    notes?: SortOrder
+    requestedAt?: SortOrder
+    completedAt?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BackgroundCheckMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    personId?: SortOrder
+    type?: SortOrder
+    status?: SortOrder
+    provider?: SortOrder
+    reference?: SortOrder
+    adverseFindings?: SortOrder
+    notes?: SortOrder
+    requestedAt?: SortOrder
+    completedAt?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumBackgroundCheckTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BackgroundCheckType | EnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BackgroundCheckType[] | ListEnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BackgroundCheckType[] | ListEnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBackgroundCheckTypeWithAggregatesFilter<$PrismaModel> | $Enums.BackgroundCheckType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBackgroundCheckTypeFilter<$PrismaModel>
+    _max?: NestedEnumBackgroundCheckTypeFilter<$PrismaModel>
+  }
+
+  export type EnumBackgroundCheckStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BackgroundCheckStatus | EnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BackgroundCheckStatus[] | ListEnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BackgroundCheckStatus[] | ListEnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBackgroundCheckStatusWithAggregatesFilter<$PrismaModel> | $Enums.BackgroundCheckStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBackgroundCheckStatusFilter<$PrismaModel>
+    _max?: NestedEnumBackgroundCheckStatusFilter<$PrismaModel>
+  }
+
+  export type EnumChecklistKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChecklistKind | EnumChecklistKindFieldRefInput<$PrismaModel>
+    in?: $Enums.ChecklistKind[] | ListEnumChecklistKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChecklistKind[] | ListEnumChecklistKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumChecklistKindFilter<$PrismaModel> | $Enums.ChecklistKind
+  }
+
+  export type EnumChecklistItemStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChecklistItemStatus | EnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ChecklistItemStatus[] | ListEnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChecklistItemStatus[] | ListEnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumChecklistItemStatusFilter<$PrismaModel> | $Enums.ChecklistItemStatus
+  }
+
+  export type PersonChecklistItemPersonIdKindKeyCompoundUniqueInput = {
+    personId: string
+    kind: $Enums.ChecklistKind
+    key: string
+  }
+
+  export type PersonChecklistItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    personId?: SortOrder
+    kind?: SortOrder
+    key?: SortOrder
+    label?: SortOrder
+    status?: SortOrder
+    dueAt?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PersonChecklistItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    personId?: SortOrder
+    kind?: SortOrder
+    key?: SortOrder
+    label?: SortOrder
+    status?: SortOrder
+    dueAt?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PersonChecklistItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    personId?: SortOrder
+    kind?: SortOrder
+    key?: SortOrder
+    label?: SortOrder
+    status?: SortOrder
+    dueAt?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumChecklistKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChecklistKind | EnumChecklistKindFieldRefInput<$PrismaModel>
+    in?: $Enums.ChecklistKind[] | ListEnumChecklistKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChecklistKind[] | ListEnumChecklistKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumChecklistKindWithAggregatesFilter<$PrismaModel> | $Enums.ChecklistKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumChecklistKindFilter<$PrismaModel>
+    _max?: NestedEnumChecklistKindFilter<$PrismaModel>
+  }
+
+  export type EnumChecklistItemStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChecklistItemStatus | EnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ChecklistItemStatus[] | ListEnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChecklistItemStatus[] | ListEnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumChecklistItemStatusWithAggregatesFilter<$PrismaModel> | $Enums.ChecklistItemStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumChecklistItemStatusFilter<$PrismaModel>
+    _max?: NestedEnumChecklistItemStatusFilter<$PrismaModel>
   }
 
   export type EnumPolicyStatusFilter<$PrismaModel = never> = {
@@ -150344,11 +154107,6 @@ export namespace Prisma {
     in?: $Enums.QuestionnaireStatus[] | ListEnumQuestionnaireStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.QuestionnaireStatus[] | ListEnumQuestionnaireStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumQuestionnaireStatusFilter<$PrismaModel> | $Enums.QuestionnaireStatus
-  }
-
-  export type VendorNullableScalarRelationFilter = {
-    is?: VendorWhereInput | null
-    isNot?: VendorWhereInput | null
   }
 
   export type QuestionListRelationFilter = {
@@ -151759,12 +155517,6 @@ export namespace Prisma {
     none?: VendorDocumentWhereInput
   }
 
-  export type AssetListRelationFilter = {
-    every?: AssetWhereInput
-    some?: AssetWhereInput
-    none?: AssetWhereInput
-  }
-
   export type IncidentListRelationFilter = {
     every?: IncidentWhereInput
     some?: IncidentWhereInput
@@ -151932,10 +155684,6 @@ export namespace Prisma {
   }
 
   export type VendorDocumentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type AssetOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -154295,6 +158043,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type PersonCreateNestedOneWithoutAssignedAssetsInput = {
+    create?: XOR<PersonCreateWithoutAssignedAssetsInput, PersonUncheckedCreateWithoutAssignedAssetsInput>
+    connectOrCreate?: PersonCreateOrConnectWithoutAssignedAssetsInput
+    connect?: PersonWhereUniqueInput
+  }
+
   export type UserCreateNestedOneWithoutDeletedAssetsInput = {
     create?: XOR<UserCreateWithoutDeletedAssetsInput, UserUncheckedCreateWithoutDeletedAssetsInput>
     connectOrCreate?: UserCreateOrConnectWithoutDeletedAssetsInput
@@ -154341,6 +158095,16 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOwnedAssetsInput, UserUpdateWithoutOwnedAssetsInput>, UserUncheckedUpdateWithoutOwnedAssetsInput>
+  }
+
+  export type PersonUpdateOneWithoutAssignedAssetsNestedInput = {
+    create?: XOR<PersonCreateWithoutAssignedAssetsInput, PersonUncheckedCreateWithoutAssignedAssetsInput>
+    connectOrCreate?: PersonCreateOrConnectWithoutAssignedAssetsInput
+    upsert?: PersonUpsertWithoutAssignedAssetsInput
+    disconnect?: PersonWhereInput | boolean
+    delete?: PersonWhereInput | boolean
+    connect?: PersonWhereUniqueInput
+    update?: XOR<XOR<PersonUpdateToOneWithWhereWithoutAssignedAssetsInput, PersonUpdateWithoutAssignedAssetsInput>, PersonUncheckedUpdateWithoutAssignedAssetsInput>
   }
 
   export type UserUpdateOneWithoutDeletedAssetsNestedInput = {
@@ -155602,6 +159366,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type PersonCreateNestedOneWithoutDevicesInput = {
+    create?: XOR<PersonCreateWithoutDevicesInput, PersonUncheckedCreateWithoutDevicesInput>
+    connectOrCreate?: PersonCreateOrConnectWithoutDevicesInput
+    connect?: PersonWhereUniqueInput
+  }
+
   export type DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput = {
     create?: XOR<DeviceEnrollmentTokenCreateWithoutDevicesInput, DeviceEnrollmentTokenUncheckedCreateWithoutDevicesInput>
     connectOrCreate?: DeviceEnrollmentTokenCreateOrConnectWithoutDevicesInput
@@ -155672,6 +159442,16 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDevicesEnrolledInput, UserUpdateWithoutDevicesEnrolledInput>, UserUncheckedUpdateWithoutDevicesEnrolledInput>
+  }
+
+  export type PersonUpdateOneWithoutDevicesNestedInput = {
+    create?: XOR<PersonCreateWithoutDevicesInput, PersonUncheckedCreateWithoutDevicesInput>
+    connectOrCreate?: PersonCreateOrConnectWithoutDevicesInput
+    upsert?: PersonUpsertWithoutDevicesInput
+    disconnect?: PersonWhereInput | boolean
+    delete?: PersonWhereInput | boolean
+    connect?: PersonWhereUniqueInput
+    update?: XOR<XOR<PersonUpdateToOneWithWhereWithoutDevicesInput, PersonUpdateWithoutDevicesInput>, PersonUncheckedUpdateWithoutDevicesInput>
   }
 
   export type DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput = {
@@ -156460,11 +160240,73 @@ export namespace Prisma {
     connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
   }
 
+  export type VendorCreateNestedOneWithoutPeopleInput = {
+    create?: XOR<VendorCreateWithoutPeopleInput, VendorUncheckedCreateWithoutPeopleInput>
+    connectOrCreate?: VendorCreateOrConnectWithoutPeopleInput
+    connect?: VendorWhereUniqueInput
+  }
+
+  export type BackgroundCheckCreateNestedManyWithoutPersonInput = {
+    create?: XOR<BackgroundCheckCreateWithoutPersonInput, BackgroundCheckUncheckedCreateWithoutPersonInput> | BackgroundCheckCreateWithoutPersonInput[] | BackgroundCheckUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: BackgroundCheckCreateOrConnectWithoutPersonInput | BackgroundCheckCreateOrConnectWithoutPersonInput[]
+    createMany?: BackgroundCheckCreateManyPersonInputEnvelope
+    connect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+  }
+
+  export type PersonChecklistItemCreateNestedManyWithoutPersonInput = {
+    create?: XOR<PersonChecklistItemCreateWithoutPersonInput, PersonChecklistItemUncheckedCreateWithoutPersonInput> | PersonChecklistItemCreateWithoutPersonInput[] | PersonChecklistItemUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: PersonChecklistItemCreateOrConnectWithoutPersonInput | PersonChecklistItemCreateOrConnectWithoutPersonInput[]
+    createMany?: PersonChecklistItemCreateManyPersonInputEnvelope
+    connect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+  }
+
+  export type DeviceCreateNestedManyWithoutPersonInput = {
+    create?: XOR<DeviceCreateWithoutPersonInput, DeviceUncheckedCreateWithoutPersonInput> | DeviceCreateWithoutPersonInput[] | DeviceUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutPersonInput | DeviceCreateOrConnectWithoutPersonInput[]
+    createMany?: DeviceCreateManyPersonInputEnvelope
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+  }
+
+  export type AssetCreateNestedManyWithoutAssignedPersonInput = {
+    create?: XOR<AssetCreateWithoutAssignedPersonInput, AssetUncheckedCreateWithoutAssignedPersonInput> | AssetCreateWithoutAssignedPersonInput[] | AssetUncheckedCreateWithoutAssignedPersonInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutAssignedPersonInput | AssetCreateOrConnectWithoutAssignedPersonInput[]
+    createMany?: AssetCreateManyAssignedPersonInputEnvelope
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+  }
+
   export type PersonUncheckedCreateNestedManyWithoutManagerInput = {
     create?: XOR<PersonCreateWithoutManagerInput, PersonUncheckedCreateWithoutManagerInput> | PersonCreateWithoutManagerInput[] | PersonUncheckedCreateWithoutManagerInput[]
     connectOrCreate?: PersonCreateOrConnectWithoutManagerInput | PersonCreateOrConnectWithoutManagerInput[]
     createMany?: PersonCreateManyManagerInputEnvelope
     connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+  }
+
+  export type BackgroundCheckUncheckedCreateNestedManyWithoutPersonInput = {
+    create?: XOR<BackgroundCheckCreateWithoutPersonInput, BackgroundCheckUncheckedCreateWithoutPersonInput> | BackgroundCheckCreateWithoutPersonInput[] | BackgroundCheckUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: BackgroundCheckCreateOrConnectWithoutPersonInput | BackgroundCheckCreateOrConnectWithoutPersonInput[]
+    createMany?: BackgroundCheckCreateManyPersonInputEnvelope
+    connect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+  }
+
+  export type PersonChecklistItemUncheckedCreateNestedManyWithoutPersonInput = {
+    create?: XOR<PersonChecklistItemCreateWithoutPersonInput, PersonChecklistItemUncheckedCreateWithoutPersonInput> | PersonChecklistItemCreateWithoutPersonInput[] | PersonChecklistItemUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: PersonChecklistItemCreateOrConnectWithoutPersonInput | PersonChecklistItemCreateOrConnectWithoutPersonInput[]
+    createMany?: PersonChecklistItemCreateManyPersonInputEnvelope
+    connect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+  }
+
+  export type DeviceUncheckedCreateNestedManyWithoutPersonInput = {
+    create?: XOR<DeviceCreateWithoutPersonInput, DeviceUncheckedCreateWithoutPersonInput> | DeviceCreateWithoutPersonInput[] | DeviceUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutPersonInput | DeviceCreateOrConnectWithoutPersonInput[]
+    createMany?: DeviceCreateManyPersonInputEnvelope
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+  }
+
+  export type AssetUncheckedCreateNestedManyWithoutAssignedPersonInput = {
+    create?: XOR<AssetCreateWithoutAssignedPersonInput, AssetUncheckedCreateWithoutAssignedPersonInput> | AssetCreateWithoutAssignedPersonInput[] | AssetUncheckedCreateWithoutAssignedPersonInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutAssignedPersonInput | AssetCreateOrConnectWithoutAssignedPersonInput[]
+    createMany?: AssetCreateManyAssignedPersonInputEnvelope
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
   }
 
   export type EnumPersonRoleFieldUpdateOperationsInput = {
@@ -156530,6 +160372,72 @@ export namespace Prisma {
     deleteMany?: PersonScalarWhereInput | PersonScalarWhereInput[]
   }
 
+  export type VendorUpdateOneWithoutPeopleNestedInput = {
+    create?: XOR<VendorCreateWithoutPeopleInput, VendorUncheckedCreateWithoutPeopleInput>
+    connectOrCreate?: VendorCreateOrConnectWithoutPeopleInput
+    upsert?: VendorUpsertWithoutPeopleInput
+    disconnect?: VendorWhereInput | boolean
+    delete?: VendorWhereInput | boolean
+    connect?: VendorWhereUniqueInput
+    update?: XOR<XOR<VendorUpdateToOneWithWhereWithoutPeopleInput, VendorUpdateWithoutPeopleInput>, VendorUncheckedUpdateWithoutPeopleInput>
+  }
+
+  export type BackgroundCheckUpdateManyWithoutPersonNestedInput = {
+    create?: XOR<BackgroundCheckCreateWithoutPersonInput, BackgroundCheckUncheckedCreateWithoutPersonInput> | BackgroundCheckCreateWithoutPersonInput[] | BackgroundCheckUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: BackgroundCheckCreateOrConnectWithoutPersonInput | BackgroundCheckCreateOrConnectWithoutPersonInput[]
+    upsert?: BackgroundCheckUpsertWithWhereUniqueWithoutPersonInput | BackgroundCheckUpsertWithWhereUniqueWithoutPersonInput[]
+    createMany?: BackgroundCheckCreateManyPersonInputEnvelope
+    set?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    disconnect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    delete?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    connect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    update?: BackgroundCheckUpdateWithWhereUniqueWithoutPersonInput | BackgroundCheckUpdateWithWhereUniqueWithoutPersonInput[]
+    updateMany?: BackgroundCheckUpdateManyWithWhereWithoutPersonInput | BackgroundCheckUpdateManyWithWhereWithoutPersonInput[]
+    deleteMany?: BackgroundCheckScalarWhereInput | BackgroundCheckScalarWhereInput[]
+  }
+
+  export type PersonChecklistItemUpdateManyWithoutPersonNestedInput = {
+    create?: XOR<PersonChecklistItemCreateWithoutPersonInput, PersonChecklistItemUncheckedCreateWithoutPersonInput> | PersonChecklistItemCreateWithoutPersonInput[] | PersonChecklistItemUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: PersonChecklistItemCreateOrConnectWithoutPersonInput | PersonChecklistItemCreateOrConnectWithoutPersonInput[]
+    upsert?: PersonChecklistItemUpsertWithWhereUniqueWithoutPersonInput | PersonChecklistItemUpsertWithWhereUniqueWithoutPersonInput[]
+    createMany?: PersonChecklistItemCreateManyPersonInputEnvelope
+    set?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    disconnect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    delete?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    connect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    update?: PersonChecklistItemUpdateWithWhereUniqueWithoutPersonInput | PersonChecklistItemUpdateWithWhereUniqueWithoutPersonInput[]
+    updateMany?: PersonChecklistItemUpdateManyWithWhereWithoutPersonInput | PersonChecklistItemUpdateManyWithWhereWithoutPersonInput[]
+    deleteMany?: PersonChecklistItemScalarWhereInput | PersonChecklistItemScalarWhereInput[]
+  }
+
+  export type DeviceUpdateManyWithoutPersonNestedInput = {
+    create?: XOR<DeviceCreateWithoutPersonInput, DeviceUncheckedCreateWithoutPersonInput> | DeviceCreateWithoutPersonInput[] | DeviceUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutPersonInput | DeviceCreateOrConnectWithoutPersonInput[]
+    upsert?: DeviceUpsertWithWhereUniqueWithoutPersonInput | DeviceUpsertWithWhereUniqueWithoutPersonInput[]
+    createMany?: DeviceCreateManyPersonInputEnvelope
+    set?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    disconnect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    delete?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    update?: DeviceUpdateWithWhereUniqueWithoutPersonInput | DeviceUpdateWithWhereUniqueWithoutPersonInput[]
+    updateMany?: DeviceUpdateManyWithWhereWithoutPersonInput | DeviceUpdateManyWithWhereWithoutPersonInput[]
+    deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+  }
+
+  export type AssetUpdateManyWithoutAssignedPersonNestedInput = {
+    create?: XOR<AssetCreateWithoutAssignedPersonInput, AssetUncheckedCreateWithoutAssignedPersonInput> | AssetCreateWithoutAssignedPersonInput[] | AssetUncheckedCreateWithoutAssignedPersonInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutAssignedPersonInput | AssetCreateOrConnectWithoutAssignedPersonInput[]
+    upsert?: AssetUpsertWithWhereUniqueWithoutAssignedPersonInput | AssetUpsertWithWhereUniqueWithoutAssignedPersonInput[]
+    createMany?: AssetCreateManyAssignedPersonInputEnvelope
+    set?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    disconnect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    delete?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    update?: AssetUpdateWithWhereUniqueWithoutAssignedPersonInput | AssetUpdateWithWhereUniqueWithoutAssignedPersonInput[]
+    updateMany?: AssetUpdateManyWithWhereWithoutAssignedPersonInput | AssetUpdateManyWithWhereWithoutAssignedPersonInput[]
+    deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
+  }
+
   export type PersonUncheckedUpdateManyWithoutManagerNestedInput = {
     create?: XOR<PersonCreateWithoutManagerInput, PersonUncheckedCreateWithoutManagerInput> | PersonCreateWithoutManagerInput[] | PersonUncheckedCreateWithoutManagerInput[]
     connectOrCreate?: PersonCreateOrConnectWithoutManagerInput | PersonCreateOrConnectWithoutManagerInput[]
@@ -156542,6 +160450,134 @@ export namespace Prisma {
     update?: PersonUpdateWithWhereUniqueWithoutManagerInput | PersonUpdateWithWhereUniqueWithoutManagerInput[]
     updateMany?: PersonUpdateManyWithWhereWithoutManagerInput | PersonUpdateManyWithWhereWithoutManagerInput[]
     deleteMany?: PersonScalarWhereInput | PersonScalarWhereInput[]
+  }
+
+  export type BackgroundCheckUncheckedUpdateManyWithoutPersonNestedInput = {
+    create?: XOR<BackgroundCheckCreateWithoutPersonInput, BackgroundCheckUncheckedCreateWithoutPersonInput> | BackgroundCheckCreateWithoutPersonInput[] | BackgroundCheckUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: BackgroundCheckCreateOrConnectWithoutPersonInput | BackgroundCheckCreateOrConnectWithoutPersonInput[]
+    upsert?: BackgroundCheckUpsertWithWhereUniqueWithoutPersonInput | BackgroundCheckUpsertWithWhereUniqueWithoutPersonInput[]
+    createMany?: BackgroundCheckCreateManyPersonInputEnvelope
+    set?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    disconnect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    delete?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    connect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    update?: BackgroundCheckUpdateWithWhereUniqueWithoutPersonInput | BackgroundCheckUpdateWithWhereUniqueWithoutPersonInput[]
+    updateMany?: BackgroundCheckUpdateManyWithWhereWithoutPersonInput | BackgroundCheckUpdateManyWithWhereWithoutPersonInput[]
+    deleteMany?: BackgroundCheckScalarWhereInput | BackgroundCheckScalarWhereInput[]
+  }
+
+  export type PersonChecklistItemUncheckedUpdateManyWithoutPersonNestedInput = {
+    create?: XOR<PersonChecklistItemCreateWithoutPersonInput, PersonChecklistItemUncheckedCreateWithoutPersonInput> | PersonChecklistItemCreateWithoutPersonInput[] | PersonChecklistItemUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: PersonChecklistItemCreateOrConnectWithoutPersonInput | PersonChecklistItemCreateOrConnectWithoutPersonInput[]
+    upsert?: PersonChecklistItemUpsertWithWhereUniqueWithoutPersonInput | PersonChecklistItemUpsertWithWhereUniqueWithoutPersonInput[]
+    createMany?: PersonChecklistItemCreateManyPersonInputEnvelope
+    set?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    disconnect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    delete?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    connect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    update?: PersonChecklistItemUpdateWithWhereUniqueWithoutPersonInput | PersonChecklistItemUpdateWithWhereUniqueWithoutPersonInput[]
+    updateMany?: PersonChecklistItemUpdateManyWithWhereWithoutPersonInput | PersonChecklistItemUpdateManyWithWhereWithoutPersonInput[]
+    deleteMany?: PersonChecklistItemScalarWhereInput | PersonChecklistItemScalarWhereInput[]
+  }
+
+  export type DeviceUncheckedUpdateManyWithoutPersonNestedInput = {
+    create?: XOR<DeviceCreateWithoutPersonInput, DeviceUncheckedCreateWithoutPersonInput> | DeviceCreateWithoutPersonInput[] | DeviceUncheckedCreateWithoutPersonInput[]
+    connectOrCreate?: DeviceCreateOrConnectWithoutPersonInput | DeviceCreateOrConnectWithoutPersonInput[]
+    upsert?: DeviceUpsertWithWhereUniqueWithoutPersonInput | DeviceUpsertWithWhereUniqueWithoutPersonInput[]
+    createMany?: DeviceCreateManyPersonInputEnvelope
+    set?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    disconnect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    delete?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+    update?: DeviceUpdateWithWhereUniqueWithoutPersonInput | DeviceUpdateWithWhereUniqueWithoutPersonInput[]
+    updateMany?: DeviceUpdateManyWithWhereWithoutPersonInput | DeviceUpdateManyWithWhereWithoutPersonInput[]
+    deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+  }
+
+  export type AssetUncheckedUpdateManyWithoutAssignedPersonNestedInput = {
+    create?: XOR<AssetCreateWithoutAssignedPersonInput, AssetUncheckedCreateWithoutAssignedPersonInput> | AssetCreateWithoutAssignedPersonInput[] | AssetUncheckedCreateWithoutAssignedPersonInput[]
+    connectOrCreate?: AssetCreateOrConnectWithoutAssignedPersonInput | AssetCreateOrConnectWithoutAssignedPersonInput[]
+    upsert?: AssetUpsertWithWhereUniqueWithoutAssignedPersonInput | AssetUpsertWithWhereUniqueWithoutAssignedPersonInput[]
+    createMany?: AssetCreateManyAssignedPersonInputEnvelope
+    set?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    disconnect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    delete?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    connect?: AssetWhereUniqueInput | AssetWhereUniqueInput[]
+    update?: AssetUpdateWithWhereUniqueWithoutAssignedPersonInput | AssetUpdateWithWhereUniqueWithoutAssignedPersonInput[]
+    updateMany?: AssetUpdateManyWithWhereWithoutAssignedPersonInput | AssetUpdateManyWithWhereWithoutAssignedPersonInput[]
+    deleteMany?: AssetScalarWhereInput | AssetScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutBackgroundChecksInput = {
+    create?: XOR<TenantCreateWithoutBackgroundChecksInput, TenantUncheckedCreateWithoutBackgroundChecksInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBackgroundChecksInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type PersonCreateNestedOneWithoutBackgroundChecksInput = {
+    create?: XOR<PersonCreateWithoutBackgroundChecksInput, PersonUncheckedCreateWithoutBackgroundChecksInput>
+    connectOrCreate?: PersonCreateOrConnectWithoutBackgroundChecksInput
+    connect?: PersonWhereUniqueInput
+  }
+
+  export type EnumBackgroundCheckTypeFieldUpdateOperationsInput = {
+    set?: $Enums.BackgroundCheckType
+  }
+
+  export type EnumBackgroundCheckStatusFieldUpdateOperationsInput = {
+    set?: $Enums.BackgroundCheckStatus
+  }
+
+  export type TenantUpdateOneRequiredWithoutBackgroundChecksNestedInput = {
+    create?: XOR<TenantCreateWithoutBackgroundChecksInput, TenantUncheckedCreateWithoutBackgroundChecksInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutBackgroundChecksInput
+    upsert?: TenantUpsertWithoutBackgroundChecksInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutBackgroundChecksInput, TenantUpdateWithoutBackgroundChecksInput>, TenantUncheckedUpdateWithoutBackgroundChecksInput>
+  }
+
+  export type PersonUpdateOneRequiredWithoutBackgroundChecksNestedInput = {
+    create?: XOR<PersonCreateWithoutBackgroundChecksInput, PersonUncheckedCreateWithoutBackgroundChecksInput>
+    connectOrCreate?: PersonCreateOrConnectWithoutBackgroundChecksInput
+    upsert?: PersonUpsertWithoutBackgroundChecksInput
+    connect?: PersonWhereUniqueInput
+    update?: XOR<XOR<PersonUpdateToOneWithWhereWithoutBackgroundChecksInput, PersonUpdateWithoutBackgroundChecksInput>, PersonUncheckedUpdateWithoutBackgroundChecksInput>
+  }
+
+  export type TenantCreateNestedOneWithoutPersonChecklistItemsInput = {
+    create?: XOR<TenantCreateWithoutPersonChecklistItemsInput, TenantUncheckedCreateWithoutPersonChecklistItemsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutPersonChecklistItemsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type PersonCreateNestedOneWithoutChecklistItemsInput = {
+    create?: XOR<PersonCreateWithoutChecklistItemsInput, PersonUncheckedCreateWithoutChecklistItemsInput>
+    connectOrCreate?: PersonCreateOrConnectWithoutChecklistItemsInput
+    connect?: PersonWhereUniqueInput
+  }
+
+  export type EnumChecklistKindFieldUpdateOperationsInput = {
+    set?: $Enums.ChecklistKind
+  }
+
+  export type EnumChecklistItemStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ChecklistItemStatus
+  }
+
+  export type TenantUpdateOneRequiredWithoutPersonChecklistItemsNestedInput = {
+    create?: XOR<TenantCreateWithoutPersonChecklistItemsInput, TenantUncheckedCreateWithoutPersonChecklistItemsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutPersonChecklistItemsInput
+    upsert?: TenantUpsertWithoutPersonChecklistItemsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutPersonChecklistItemsInput, TenantUpdateWithoutPersonChecklistItemsInput>, TenantUncheckedUpdateWithoutPersonChecklistItemsInput>
+  }
+
+  export type PersonUpdateOneRequiredWithoutChecklistItemsNestedInput = {
+    create?: XOR<PersonCreateWithoutChecklistItemsInput, PersonUncheckedCreateWithoutChecklistItemsInput>
+    connectOrCreate?: PersonCreateOrConnectWithoutChecklistItemsInput
+    upsert?: PersonUpsertWithoutChecklistItemsInput
+    connect?: PersonWhereUniqueInput
+    update?: XOR<XOR<PersonUpdateToOneWithWhereWithoutChecklistItemsInput, PersonUpdateWithoutChecklistItemsInput>, PersonUncheckedUpdateWithoutChecklistItemsInput>
   }
 
   export type TenantCreateNestedOneWithoutPoliciesInput = {
@@ -158768,6 +162804,20 @@ export namespace Prisma {
     connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
   }
 
+  export type BackgroundCheckCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BackgroundCheckCreateWithoutTenantInput, BackgroundCheckUncheckedCreateWithoutTenantInput> | BackgroundCheckCreateWithoutTenantInput[] | BackgroundCheckUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BackgroundCheckCreateOrConnectWithoutTenantInput | BackgroundCheckCreateOrConnectWithoutTenantInput[]
+    createMany?: BackgroundCheckCreateManyTenantInputEnvelope
+    connect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+  }
+
+  export type PersonChecklistItemCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PersonChecklistItemCreateWithoutTenantInput, PersonChecklistItemUncheckedCreateWithoutTenantInput> | PersonChecklistItemCreateWithoutTenantInput[] | PersonChecklistItemUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PersonChecklistItemCreateOrConnectWithoutTenantInput | PersonChecklistItemCreateOrConnectWithoutTenantInput[]
+    createMany?: PersonChecklistItemCreateManyTenantInputEnvelope
+    connect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+  }
+
   export type FrameworkInstanceCreateNestedManyWithoutTenantInput = {
     create?: XOR<FrameworkInstanceCreateWithoutTenantInput, FrameworkInstanceUncheckedCreateWithoutTenantInput> | FrameworkInstanceCreateWithoutTenantInput[] | FrameworkInstanceUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: FrameworkInstanceCreateOrConnectWithoutTenantInput | FrameworkInstanceCreateOrConnectWithoutTenantInput[]
@@ -159243,6 +163293,20 @@ export namespace Prisma {
     connectOrCreate?: PersonCreateOrConnectWithoutTenantInput | PersonCreateOrConnectWithoutTenantInput[]
     createMany?: PersonCreateManyTenantInputEnvelope
     connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+  }
+
+  export type BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<BackgroundCheckCreateWithoutTenantInput, BackgroundCheckUncheckedCreateWithoutTenantInput> | BackgroundCheckCreateWithoutTenantInput[] | BackgroundCheckUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BackgroundCheckCreateOrConnectWithoutTenantInput | BackgroundCheckCreateOrConnectWithoutTenantInput[]
+    createMany?: BackgroundCheckCreateManyTenantInputEnvelope
+    connect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+  }
+
+  export type PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PersonChecklistItemCreateWithoutTenantInput, PersonChecklistItemUncheckedCreateWithoutTenantInput> | PersonChecklistItemCreateWithoutTenantInput[] | PersonChecklistItemUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PersonChecklistItemCreateOrConnectWithoutTenantInput | PersonChecklistItemCreateOrConnectWithoutTenantInput[]
+    createMany?: PersonChecklistItemCreateManyTenantInputEnvelope
+    connect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
   }
 
   export type FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput = {
@@ -159750,6 +163814,34 @@ export namespace Prisma {
     update?: PersonUpdateWithWhereUniqueWithoutTenantInput | PersonUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: PersonUpdateManyWithWhereWithoutTenantInput | PersonUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: PersonScalarWhereInput | PersonScalarWhereInput[]
+  }
+
+  export type BackgroundCheckUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BackgroundCheckCreateWithoutTenantInput, BackgroundCheckUncheckedCreateWithoutTenantInput> | BackgroundCheckCreateWithoutTenantInput[] | BackgroundCheckUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BackgroundCheckCreateOrConnectWithoutTenantInput | BackgroundCheckCreateOrConnectWithoutTenantInput[]
+    upsert?: BackgroundCheckUpsertWithWhereUniqueWithoutTenantInput | BackgroundCheckUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BackgroundCheckCreateManyTenantInputEnvelope
+    set?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    disconnect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    delete?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    connect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    update?: BackgroundCheckUpdateWithWhereUniqueWithoutTenantInput | BackgroundCheckUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BackgroundCheckUpdateManyWithWhereWithoutTenantInput | BackgroundCheckUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BackgroundCheckScalarWhereInput | BackgroundCheckScalarWhereInput[]
+  }
+
+  export type PersonChecklistItemUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PersonChecklistItemCreateWithoutTenantInput, PersonChecklistItemUncheckedCreateWithoutTenantInput> | PersonChecklistItemCreateWithoutTenantInput[] | PersonChecklistItemUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PersonChecklistItemCreateOrConnectWithoutTenantInput | PersonChecklistItemCreateOrConnectWithoutTenantInput[]
+    upsert?: PersonChecklistItemUpsertWithWhereUniqueWithoutTenantInput | PersonChecklistItemUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PersonChecklistItemCreateManyTenantInputEnvelope
+    set?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    disconnect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    delete?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    connect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    update?: PersonChecklistItemUpdateWithWhereUniqueWithoutTenantInput | PersonChecklistItemUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PersonChecklistItemUpdateManyWithWhereWithoutTenantInput | PersonChecklistItemUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PersonChecklistItemScalarWhereInput | PersonChecklistItemScalarWhereInput[]
   }
 
   export type FrameworkInstanceUpdateManyWithoutTenantNestedInput = {
@@ -160692,6 +164784,34 @@ export namespace Prisma {
     update?: PersonUpdateWithWhereUniqueWithoutTenantInput | PersonUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: PersonUpdateManyWithWhereWithoutTenantInput | PersonUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: PersonScalarWhereInput | PersonScalarWhereInput[]
+  }
+
+  export type BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<BackgroundCheckCreateWithoutTenantInput, BackgroundCheckUncheckedCreateWithoutTenantInput> | BackgroundCheckCreateWithoutTenantInput[] | BackgroundCheckUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: BackgroundCheckCreateOrConnectWithoutTenantInput | BackgroundCheckCreateOrConnectWithoutTenantInput[]
+    upsert?: BackgroundCheckUpsertWithWhereUniqueWithoutTenantInput | BackgroundCheckUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: BackgroundCheckCreateManyTenantInputEnvelope
+    set?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    disconnect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    delete?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    connect?: BackgroundCheckWhereUniqueInput | BackgroundCheckWhereUniqueInput[]
+    update?: BackgroundCheckUpdateWithWhereUniqueWithoutTenantInput | BackgroundCheckUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: BackgroundCheckUpdateManyWithWhereWithoutTenantInput | BackgroundCheckUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: BackgroundCheckScalarWhereInput | BackgroundCheckScalarWhereInput[]
+  }
+
+  export type PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PersonChecklistItemCreateWithoutTenantInput, PersonChecklistItemUncheckedCreateWithoutTenantInput> | PersonChecklistItemCreateWithoutTenantInput[] | PersonChecklistItemUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PersonChecklistItemCreateOrConnectWithoutTenantInput | PersonChecklistItemCreateOrConnectWithoutTenantInput[]
+    upsert?: PersonChecklistItemUpsertWithWhereUniqueWithoutTenantInput | PersonChecklistItemUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PersonChecklistItemCreateManyTenantInputEnvelope
+    set?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    disconnect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    delete?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    connect?: PersonChecklistItemWhereUniqueInput | PersonChecklistItemWhereUniqueInput[]
+    update?: PersonChecklistItemUpdateWithWhereUniqueWithoutTenantInput | PersonChecklistItemUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PersonChecklistItemUpdateManyWithWhereWithoutTenantInput | PersonChecklistItemUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PersonChecklistItemScalarWhereInput | PersonChecklistItemScalarWhereInput[]
   }
 
   export type FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput = {
@@ -165338,6 +169458,13 @@ export namespace Prisma {
     connect?: VendorDocumentWhereUniqueInput | VendorDocumentWhereUniqueInput[]
   }
 
+  export type PersonCreateNestedManyWithoutVendorInput = {
+    create?: XOR<PersonCreateWithoutVendorInput, PersonUncheckedCreateWithoutVendorInput> | PersonCreateWithoutVendorInput[] | PersonUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: PersonCreateOrConnectWithoutVendorInput | PersonCreateOrConnectWithoutVendorInput[]
+    createMany?: PersonCreateManyVendorInputEnvelope
+    connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+  }
+
   export type ProcessingActivityCreateNestedManyWithoutVendorsInput = {
     create?: XOR<ProcessingActivityCreateWithoutVendorsInput, ProcessingActivityUncheckedCreateWithoutVendorsInput> | ProcessingActivityCreateWithoutVendorsInput[] | ProcessingActivityUncheckedCreateWithoutVendorsInput[]
     connectOrCreate?: ProcessingActivityCreateOrConnectWithoutVendorsInput | ProcessingActivityCreateOrConnectWithoutVendorsInput[]
@@ -165377,6 +169504,13 @@ export namespace Prisma {
     connectOrCreate?: VendorDocumentCreateOrConnectWithoutVendorInput | VendorDocumentCreateOrConnectWithoutVendorInput[]
     createMany?: VendorDocumentCreateManyVendorInputEnvelope
     connect?: VendorDocumentWhereUniqueInput | VendorDocumentWhereUniqueInput[]
+  }
+
+  export type PersonUncheckedCreateNestedManyWithoutVendorInput = {
+    create?: XOR<PersonCreateWithoutVendorInput, PersonUncheckedCreateWithoutVendorInput> | PersonCreateWithoutVendorInput[] | PersonUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: PersonCreateOrConnectWithoutVendorInput | PersonCreateOrConnectWithoutVendorInput[]
+    createMany?: PersonCreateManyVendorInputEnvelope
+    connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
   }
 
   export type ProcessingActivityUncheckedCreateNestedManyWithoutVendorsInput = {
@@ -165492,6 +169626,20 @@ export namespace Prisma {
     deleteMany?: VendorDocumentScalarWhereInput | VendorDocumentScalarWhereInput[]
   }
 
+  export type PersonUpdateManyWithoutVendorNestedInput = {
+    create?: XOR<PersonCreateWithoutVendorInput, PersonUncheckedCreateWithoutVendorInput> | PersonCreateWithoutVendorInput[] | PersonUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: PersonCreateOrConnectWithoutVendorInput | PersonCreateOrConnectWithoutVendorInput[]
+    upsert?: PersonUpsertWithWhereUniqueWithoutVendorInput | PersonUpsertWithWhereUniqueWithoutVendorInput[]
+    createMany?: PersonCreateManyVendorInputEnvelope
+    set?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+    disconnect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+    delete?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+    connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+    update?: PersonUpdateWithWhereUniqueWithoutVendorInput | PersonUpdateWithWhereUniqueWithoutVendorInput[]
+    updateMany?: PersonUpdateManyWithWhereWithoutVendorInput | PersonUpdateManyWithWhereWithoutVendorInput[]
+    deleteMany?: PersonScalarWhereInput | PersonScalarWhereInput[]
+  }
+
   export type ProcessingActivityUpdateManyWithoutVendorsNestedInput = {
     create?: XOR<ProcessingActivityCreateWithoutVendorsInput, ProcessingActivityUncheckedCreateWithoutVendorsInput> | ProcessingActivityCreateWithoutVendorsInput[] | ProcessingActivityUncheckedCreateWithoutVendorsInput[]
     connectOrCreate?: ProcessingActivityCreateOrConnectWithoutVendorsInput | ProcessingActivityCreateOrConnectWithoutVendorsInput[]
@@ -165573,6 +169721,20 @@ export namespace Prisma {
     update?: VendorDocumentUpdateWithWhereUniqueWithoutVendorInput | VendorDocumentUpdateWithWhereUniqueWithoutVendorInput[]
     updateMany?: VendorDocumentUpdateManyWithWhereWithoutVendorInput | VendorDocumentUpdateManyWithWhereWithoutVendorInput[]
     deleteMany?: VendorDocumentScalarWhereInput | VendorDocumentScalarWhereInput[]
+  }
+
+  export type PersonUncheckedUpdateManyWithoutVendorNestedInput = {
+    create?: XOR<PersonCreateWithoutVendorInput, PersonUncheckedCreateWithoutVendorInput> | PersonCreateWithoutVendorInput[] | PersonUncheckedCreateWithoutVendorInput[]
+    connectOrCreate?: PersonCreateOrConnectWithoutVendorInput | PersonCreateOrConnectWithoutVendorInput[]
+    upsert?: PersonUpsertWithWhereUniqueWithoutVendorInput | PersonUpsertWithWhereUniqueWithoutVendorInput[]
+    createMany?: PersonCreateManyVendorInputEnvelope
+    set?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+    disconnect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+    delete?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+    connect?: PersonWhereUniqueInput | PersonWhereUniqueInput[]
+    update?: PersonUpdateWithWhereUniqueWithoutVendorInput | PersonUpdateWithWhereUniqueWithoutVendorInput[]
+    updateMany?: PersonUpdateManyWithWhereWithoutVendorInput | PersonUpdateManyWithWhereWithoutVendorInput[]
+    deleteMany?: PersonScalarWhereInput | PersonScalarWhereInput[]
   }
 
   export type ProcessingActivityUncheckedUpdateManyWithoutVendorsNestedInput = {
@@ -167065,6 +171227,74 @@ export namespace Prisma {
     _max?: NestedEnumPersonSourceFilter<$PrismaModel>
   }
 
+  export type NestedEnumBackgroundCheckTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BackgroundCheckType | EnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BackgroundCheckType[] | ListEnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BackgroundCheckType[] | ListEnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBackgroundCheckTypeFilter<$PrismaModel> | $Enums.BackgroundCheckType
+  }
+
+  export type NestedEnumBackgroundCheckStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.BackgroundCheckStatus | EnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BackgroundCheckStatus[] | ListEnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BackgroundCheckStatus[] | ListEnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBackgroundCheckStatusFilter<$PrismaModel> | $Enums.BackgroundCheckStatus
+  }
+
+  export type NestedEnumBackgroundCheckTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BackgroundCheckType | EnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BackgroundCheckType[] | ListEnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BackgroundCheckType[] | ListEnumBackgroundCheckTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBackgroundCheckTypeWithAggregatesFilter<$PrismaModel> | $Enums.BackgroundCheckType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBackgroundCheckTypeFilter<$PrismaModel>
+    _max?: NestedEnumBackgroundCheckTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBackgroundCheckStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BackgroundCheckStatus | EnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.BackgroundCheckStatus[] | ListEnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BackgroundCheckStatus[] | ListEnumBackgroundCheckStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumBackgroundCheckStatusWithAggregatesFilter<$PrismaModel> | $Enums.BackgroundCheckStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBackgroundCheckStatusFilter<$PrismaModel>
+    _max?: NestedEnumBackgroundCheckStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumChecklistKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChecklistKind | EnumChecklistKindFieldRefInput<$PrismaModel>
+    in?: $Enums.ChecklistKind[] | ListEnumChecklistKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChecklistKind[] | ListEnumChecklistKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumChecklistKindFilter<$PrismaModel> | $Enums.ChecklistKind
+  }
+
+  export type NestedEnumChecklistItemStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChecklistItemStatus | EnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ChecklistItemStatus[] | ListEnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChecklistItemStatus[] | ListEnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumChecklistItemStatusFilter<$PrismaModel> | $Enums.ChecklistItemStatus
+  }
+
+  export type NestedEnumChecklistKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChecklistKind | EnumChecklistKindFieldRefInput<$PrismaModel>
+    in?: $Enums.ChecklistKind[] | ListEnumChecklistKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChecklistKind[] | ListEnumChecklistKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumChecklistKindWithAggregatesFilter<$PrismaModel> | $Enums.ChecklistKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumChecklistKindFilter<$PrismaModel>
+    _max?: NestedEnumChecklistKindFilter<$PrismaModel>
+  }
+
+  export type NestedEnumChecklistItemStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChecklistItemStatus | EnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ChecklistItemStatus[] | ListEnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChecklistItemStatus[] | ListEnumChecklistItemStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumChecklistItemStatusWithAggregatesFilter<$PrismaModel> | $Enums.ChecklistItemStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumChecklistItemStatusFilter<$PrismaModel>
+    _max?: NestedEnumChecklistItemStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumPolicyStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PolicyStatus | EnumPolicyStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PolicyStatus[] | ListEnumPolicyStatusFieldRefInput<$PrismaModel>
@@ -168295,6 +172525,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -168374,6 +172606,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -168469,6 +172703,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -168548,6 +172784,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -168627,6 +172865,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -168706,6 +172946,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -168801,6 +173043,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -168880,6 +173124,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -168959,6 +173205,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -169038,6 +173286,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -169428,6 +173678,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -169507,6 +173759,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -169897,6 +174151,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -169976,6 +174232,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -170410,6 +174668,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -170489,6 +174749,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -170874,6 +175136,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -170953,6 +175217,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -171381,6 +175647,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -171460,6 +175728,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -171929,6 +176199,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -172008,6 +176280,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -172442,6 +176716,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -172521,6 +176797,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -172906,6 +177184,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -172985,6 +177265,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -173204,6 +177486,69 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutOwnedAssetsInput, UserUncheckedCreateWithoutOwnedAssetsInput>
   }
 
+  export type PersonCreateWithoutAssignedAssetsInput = {
+    id?: string
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPeopleInput
+    user?: UserCreateNestedOneWithoutPeopleInput
+    manager?: PersonCreateNestedOneWithoutReportsInput
+    reports?: PersonCreateNestedManyWithoutManagerInput
+    vendor?: VendorCreateNestedOneWithoutPeopleInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemCreateNestedManyWithoutPersonInput
+    devices?: DeviceCreateNestedManyWithoutPersonInput
+  }
+
+  export type PersonUncheckedCreateWithoutAssignedAssetsInput = {
+    id?: string
+    tenantId: string
+    userId?: string | null
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    managerId?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    vendorId?: string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reports?: PersonUncheckedCreateNestedManyWithoutManagerInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutPersonInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutPersonInput
+  }
+
+  export type PersonCreateOrConnectWithoutAssignedAssetsInput = {
+    where: PersonWhereUniqueInput
+    create: XOR<PersonCreateWithoutAssignedAssetsInput, PersonUncheckedCreateWithoutAssignedAssetsInput>
+  }
+
   export type UserCreateWithoutDeletedAssetsInput = {
     id?: string
     email: string
@@ -173375,6 +177720,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutDevicesInput
     enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    person?: PersonCreateNestedOneWithoutDevicesInput
     enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
     snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
     nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
@@ -173392,6 +177738,7 @@ export namespace Prisma {
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
     enrolledById?: string | null
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -173437,6 +177784,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -173516,6 +177865,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -173736,6 +178087,75 @@ export namespace Prisma {
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
   }
 
+  export type PersonUpsertWithoutAssignedAssetsInput = {
+    update: XOR<PersonUpdateWithoutAssignedAssetsInput, PersonUncheckedUpdateWithoutAssignedAssetsInput>
+    create: XOR<PersonCreateWithoutAssignedAssetsInput, PersonUncheckedCreateWithoutAssignedAssetsInput>
+    where?: PersonWhereInput
+  }
+
+  export type PersonUpdateToOneWithWhereWithoutAssignedAssetsInput = {
+    where?: PersonWhereInput
+    data: XOR<PersonUpdateWithoutAssignedAssetsInput, PersonUncheckedUpdateWithoutAssignedAssetsInput>
+  }
+
+  export type PersonUpdateWithoutAssignedAssetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPeopleNestedInput
+    user?: UserUpdateOneWithoutPeopleNestedInput
+    manager?: PersonUpdateOneWithoutReportsNestedInput
+    reports?: PersonUpdateManyWithoutManagerNestedInput
+    vendor?: VendorUpdateOneWithoutPeopleNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUpdateManyWithoutPersonNestedInput
+  }
+
+  export type PersonUncheckedUpdateWithoutAssignedAssetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    managerId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reports?: PersonUncheckedUpdateManyWithoutManagerNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutPersonNestedInput
+  }
+
   export type UserUpsertWithoutDeletedAssetsInput = {
     update: XOR<UserUpdateWithoutDeletedAssetsInput, UserUncheckedUpdateWithoutDeletedAssetsInput>
     create: XOR<UserCreateWithoutDeletedAssetsInput, UserUncheckedCreateWithoutDeletedAssetsInput>
@@ -173924,6 +178344,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
     enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    person?: PersonUpdateOneWithoutDevicesNestedInput
     enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
     snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
     nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
@@ -173941,6 +178362,7 @@ export namespace Prisma {
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
     enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -173970,6 +178392,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -174049,6 +178473,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -174249,6 +178675,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -174328,6 +178756,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -174555,6 +178985,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -174634,6 +179066,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -174972,6 +179406,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -175051,6 +179487,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -175379,6 +179817,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -175458,6 +179898,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -175749,6 +180191,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -175828,6 +180272,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -176060,6 +180506,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -176139,6 +180587,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -176499,6 +180949,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -176578,6 +181030,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -176899,6 +181353,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -176978,6 +181434,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -177257,6 +181715,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -177336,6 +181796,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -177611,6 +182073,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -177690,6 +182154,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -177969,6 +182435,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -178048,6 +182516,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -178323,6 +182793,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -178402,6 +182874,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -178497,6 +182971,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -178576,6 +183052,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -178655,6 +183133,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -178734,6 +183214,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -178829,6 +183311,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -178908,6 +183392,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -178987,6 +183473,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -179066,6 +183554,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -179193,6 +183683,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -179272,6 +183764,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -179442,6 +183936,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -179521,6 +184017,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -179652,6 +184150,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -179731,6 +184231,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -179843,6 +184345,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -179922,6 +184426,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -180042,6 +184548,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -180121,6 +184629,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -180231,6 +184741,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
     policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
@@ -180310,6 +184822,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
     policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
@@ -180855,6 +185369,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
     policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
@@ -180934,6 +185450,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
     policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -181511,6 +186029,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -181590,6 +186110,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -182026,6 +186548,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -182105,6 +186629,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -182543,6 +187069,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -182622,6 +187150,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -182866,6 +187396,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutDevicesInput
     asset: AssetCreateNestedOneWithoutDeviceInput
     enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    person?: PersonCreateNestedOneWithoutDevicesInput
     snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
     nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
   }
@@ -182883,6 +187414,7 @@ export namespace Prisma {
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
     enrolledById?: string | null
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -182932,6 +187464,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -183011,6 +187545,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -183263,6 +187799,7 @@ export namespace Prisma {
     hardwareId?: StringNullableFilter<"Device"> | string | null
     status?: EnumDeviceStatusFilter<"Device"> | $Enums.DeviceStatus
     enrolledById?: StringNullableFilter<"Device"> | string | null
+    personId?: StringNullableFilter<"Device"> | string | null
     enrolledAt?: DateTimeFilter<"Device"> | Date | string
     lastSeenAt?: DateTimeNullableFilter<"Device"> | Date | string | null
     checkInIntervalSeconds?: IntFilter<"Device"> | number
@@ -183290,6 +187827,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -183369,6 +187908,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -183455,6 +187996,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutAssetsInput
     owner?: UserCreateNestedOneWithoutOwnedAssetsInput
+    assignedPerson?: PersonCreateNestedOneWithoutAssignedAssetsInput
     deletedBy?: UserCreateNestedOneWithoutDeletedAssetsInput
   }
 
@@ -183466,6 +188008,7 @@ export namespace Prisma {
     type: $Enums.AssetType
     classification?: $Enums.AssetClassification
     ownerId?: string | null
+    assignedPersonId?: string | null
     deletedById?: string | null
     deletedAt?: Date | string | null
     location?: string | null
@@ -183627,6 +188170,69 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutDevicesEnrolledInput, UserUncheckedCreateWithoutDevicesEnrolledInput>
   }
 
+  export type PersonCreateWithoutDevicesInput = {
+    id?: string
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPeopleInput
+    user?: UserCreateNestedOneWithoutPeopleInput
+    manager?: PersonCreateNestedOneWithoutReportsInput
+    reports?: PersonCreateNestedManyWithoutManagerInput
+    vendor?: VendorCreateNestedOneWithoutPeopleInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetCreateNestedManyWithoutAssignedPersonInput
+  }
+
+  export type PersonUncheckedCreateWithoutDevicesInput = {
+    id?: string
+    tenantId: string
+    userId?: string | null
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    managerId?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    vendorId?: string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reports?: PersonUncheckedCreateNestedManyWithoutManagerInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetUncheckedCreateNestedManyWithoutAssignedPersonInput
+  }
+
+  export type PersonCreateOrConnectWithoutDevicesInput = {
+    where: PersonWhereUniqueInput
+    create: XOR<PersonCreateWithoutDevicesInput, PersonUncheckedCreateWithoutDevicesInput>
+  }
+
   export type DeviceEnrollmentTokenCreateWithoutDevicesInput = {
     id?: string
     tokenHash: string
@@ -183751,6 +188357,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -183830,6 +188438,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -183922,6 +188532,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutAssetsNestedInput
     owner?: UserUpdateOneWithoutOwnedAssetsNestedInput
+    assignedPerson?: PersonUpdateOneWithoutAssignedAssetsNestedInput
     deletedBy?: UserUpdateOneWithoutDeletedAssetsNestedInput
   }
 
@@ -183933,6 +188544,7 @@ export namespace Prisma {
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -184095,6 +188707,75 @@ export namespace Prisma {
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
+  export type PersonUpsertWithoutDevicesInput = {
+    update: XOR<PersonUpdateWithoutDevicesInput, PersonUncheckedUpdateWithoutDevicesInput>
+    create: XOR<PersonCreateWithoutDevicesInput, PersonUncheckedCreateWithoutDevicesInput>
+    where?: PersonWhereInput
+  }
+
+  export type PersonUpdateToOneWithWhereWithoutDevicesInput = {
+    where?: PersonWhereInput
+    data: XOR<PersonUpdateWithoutDevicesInput, PersonUncheckedUpdateWithoutDevicesInput>
+  }
+
+  export type PersonUpdateWithoutDevicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPeopleNestedInput
+    user?: UserUpdateOneWithoutPeopleNestedInput
+    manager?: PersonUpdateOneWithoutReportsNestedInput
+    reports?: PersonUpdateManyWithoutManagerNestedInput
+    vendor?: VendorUpdateOneWithoutPeopleNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUpdateManyWithoutAssignedPersonNestedInput
+  }
+
+  export type PersonUncheckedUpdateWithoutDevicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    managerId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reports?: PersonUncheckedUpdateManyWithoutManagerNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUncheckedUpdateManyWithoutAssignedPersonNestedInput
+  }
+
   export type DeviceEnrollmentTokenUpsertWithoutDevicesInput = {
     update: XOR<DeviceEnrollmentTokenUpdateWithoutDevicesInput, DeviceEnrollmentTokenUncheckedUpdateWithoutDevicesInput>
     create: XOR<DeviceEnrollmentTokenCreateWithoutDevicesInput, DeviceEnrollmentTokenUncheckedCreateWithoutDevicesInput>
@@ -184213,6 +188894,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -184292,6 +188975,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -184389,6 +189074,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutDevicesInput
     asset: AssetCreateNestedOneWithoutDeviceInput
     enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    person?: PersonCreateNestedOneWithoutDevicesInput
     enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
     nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
   }
@@ -184406,6 +189092,7 @@ export namespace Prisma {
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
     enrolledById?: string | null
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -184450,6 +189137,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -184529,6 +189218,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -184632,6 +189323,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
     asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
     enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    person?: PersonUpdateOneWithoutDevicesNestedInput
     enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
     nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
   }
@@ -184649,6 +189341,7 @@ export namespace Prisma {
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
     enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -184690,6 +189383,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutDevicesInput
     asset: AssetCreateNestedOneWithoutDeviceInput
     enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    person?: PersonCreateNestedOneWithoutDevicesInput
     enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
     snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
   }
@@ -184707,6 +189401,7 @@ export namespace Prisma {
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
     enrolledById?: string | null
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -184764,6 +189459,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
     asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
     enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    person?: PersonUpdateOneWithoutDevicesNestedInput
     enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
     snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
   }
@@ -184781,6 +189477,7 @@ export namespace Prisma {
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
     enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -184809,6 +189506,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -184888,6 +189587,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -185324,6 +190025,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -185403,6 +190106,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -185980,6 +190685,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
     policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
@@ -186059,6 +190766,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
     policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
@@ -186259,6 +190968,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
     policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
@@ -186338,6 +191049,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
     policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -186862,6 +191575,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -186941,6 +191656,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -187149,6 +191866,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -187228,6 +191947,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -187438,6 +192159,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -187517,6 +192240,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -187934,6 +192659,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -188013,6 +192740,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -188468,6 +193197,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -188547,6 +193278,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -188836,6 +193569,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -188915,6 +193650,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -189146,6 +193883,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -189225,6 +193964,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -189467,6 +194208,11 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutPeopleInput
     user?: UserCreateNestedOneWithoutPeopleInput
     manager?: PersonCreateNestedOneWithoutReportsInput
+    vendor?: VendorCreateNestedOneWithoutPeopleInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemCreateNestedManyWithoutPersonInput
+    devices?: DeviceCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetCreateNestedManyWithoutAssignedPersonInput
   }
 
   export type PersonUncheckedCreateWithoutReportsInput = {
@@ -189487,10 +194233,15 @@ export namespace Prisma {
     location?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
+    vendorId?: string | null
     invitedAt?: Date | string | null
     joinedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutPersonInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetUncheckedCreateNestedManyWithoutAssignedPersonInput
   }
 
   export type PersonCreateOrConnectWithoutReportsInput = {
@@ -189520,6 +194271,11 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutPeopleInput
     user?: UserCreateNestedOneWithoutPeopleInput
     reports?: PersonCreateNestedManyWithoutManagerInput
+    vendor?: VendorCreateNestedOneWithoutPeopleInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemCreateNestedManyWithoutPersonInput
+    devices?: DeviceCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetCreateNestedManyWithoutAssignedPersonInput
   }
 
   export type PersonUncheckedCreateWithoutManagerInput = {
@@ -189539,11 +194295,16 @@ export namespace Prisma {
     location?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
+    vendorId?: string | null
     invitedAt?: Date | string | null
     joinedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: PersonUncheckedCreateNestedManyWithoutManagerInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutPersonInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetUncheckedCreateNestedManyWithoutAssignedPersonInput
   }
 
   export type PersonCreateOrConnectWithoutManagerInput = {
@@ -189553,6 +194314,269 @@ export namespace Prisma {
 
   export type PersonCreateManyManagerInputEnvelope = {
     data: PersonCreateManyManagerInput | PersonCreateManyManagerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VendorCreateWithoutPeopleInput = {
+    id?: string
+    name: string
+    description?: string | null
+    website?: string | null
+    category?: string | null
+    riskTier?: $Enums.VendorRiskTier
+    status?: $Enums.VendorStatus
+    dataProcessing?: boolean
+    isSubprocessor?: boolean
+    subprocessorPurpose?: string | null
+    dataTypesShared?: VendorCreatedataTypesSharedInput | string[]
+    dataLocations?: VendorCreatedataLocationsInput | string[]
+    dpaStatus?: $Enums.DpaStatus
+    dpaExpiresAt?: Date | string | null
+    contractStartDate?: Date | string | null
+    contractEndDate?: Date | string | null
+    researchFrequency?: $Enums.ResearchFrequency
+    lastResearchedAt?: Date | string | null
+    nextResearchAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutVendorsInput
+    knownVendor?: KnownVendorCreateNestedOneWithoutVendorsInput
+    assessments?: VendorAssessmentCreateNestedManyWithoutVendorInput
+    contacts?: VendorContactCreateNestedManyWithoutVendorInput
+    researches?: VendorResearchCreateNestedManyWithoutVendorInput
+    documents?: VendorDocumentCreateNestedManyWithoutVendorInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutVendorsInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutVendorInput
+  }
+
+  export type VendorUncheckedCreateWithoutPeopleInput = {
+    id?: string
+    tenantId: string
+    name: string
+    description?: string | null
+    website?: string | null
+    category?: string | null
+    riskTier?: $Enums.VendorRiskTier
+    status?: $Enums.VendorStatus
+    dataProcessing?: boolean
+    isSubprocessor?: boolean
+    subprocessorPurpose?: string | null
+    dataTypesShared?: VendorCreatedataTypesSharedInput | string[]
+    dataLocations?: VendorCreatedataLocationsInput | string[]
+    dpaStatus?: $Enums.DpaStatus
+    dpaExpiresAt?: Date | string | null
+    contractStartDate?: Date | string | null
+    contractEndDate?: Date | string | null
+    knownVendorId?: string | null
+    researchFrequency?: $Enums.ResearchFrequency
+    lastResearchedAt?: Date | string | null
+    nextResearchAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assessments?: VendorAssessmentUncheckedCreateNestedManyWithoutVendorInput
+    contacts?: VendorContactUncheckedCreateNestedManyWithoutVendorInput
+    researches?: VendorResearchUncheckedCreateNestedManyWithoutVendorInput
+    documents?: VendorDocumentUncheckedCreateNestedManyWithoutVendorInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutVendorsInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutVendorInput
+  }
+
+  export type VendorCreateOrConnectWithoutPeopleInput = {
+    where: VendorWhereUniqueInput
+    create: XOR<VendorCreateWithoutPeopleInput, VendorUncheckedCreateWithoutPeopleInput>
+  }
+
+  export type BackgroundCheckCreateWithoutPersonInput = {
+    id?: string
+    type?: $Enums.BackgroundCheckType
+    status?: $Enums.BackgroundCheckStatus
+    provider?: string | null
+    reference?: string | null
+    adverseFindings?: boolean
+    notes?: string | null
+    requestedAt?: Date | string | null
+    completedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutBackgroundChecksInput
+  }
+
+  export type BackgroundCheckUncheckedCreateWithoutPersonInput = {
+    id?: string
+    tenantId: string
+    type?: $Enums.BackgroundCheckType
+    status?: $Enums.BackgroundCheckStatus
+    provider?: string | null
+    reference?: string | null
+    adverseFindings?: boolean
+    notes?: string | null
+    requestedAt?: Date | string | null
+    completedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BackgroundCheckCreateOrConnectWithoutPersonInput = {
+    where: BackgroundCheckWhereUniqueInput
+    create: XOR<BackgroundCheckCreateWithoutPersonInput, BackgroundCheckUncheckedCreateWithoutPersonInput>
+  }
+
+  export type BackgroundCheckCreateManyPersonInputEnvelope = {
+    data: BackgroundCheckCreateManyPersonInput | BackgroundCheckCreateManyPersonInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PersonChecklistItemCreateWithoutPersonInput = {
+    id?: string
+    kind: $Enums.ChecklistKind
+    key: string
+    label: string
+    status?: $Enums.ChecklistItemStatus
+    dueAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPersonChecklistItemsInput
+  }
+
+  export type PersonChecklistItemUncheckedCreateWithoutPersonInput = {
+    id?: string
+    tenantId: string
+    kind: $Enums.ChecklistKind
+    key: string
+    label: string
+    status?: $Enums.ChecklistItemStatus
+    dueAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PersonChecklistItemCreateOrConnectWithoutPersonInput = {
+    where: PersonChecklistItemWhereUniqueInput
+    create: XOR<PersonChecklistItemCreateWithoutPersonInput, PersonChecklistItemUncheckedCreateWithoutPersonInput>
+  }
+
+  export type PersonChecklistItemCreateManyPersonInputEnvelope = {
+    data: PersonChecklistItemCreateManyPersonInput | PersonChecklistItemCreateManyPersonInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DeviceCreateWithoutPersonInput = {
+    id?: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDevicesInput
+    asset: AssetCreateNestedOneWithoutDeviceInput
+    enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
+    snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceUncheckedCreateWithoutPersonInput = {
+    id?: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    snapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutDeviceInput
+    nonces?: DeviceNonceUncheckedCreateNestedManyWithoutDeviceInput
+  }
+
+  export type DeviceCreateOrConnectWithoutPersonInput = {
+    where: DeviceWhereUniqueInput
+    create: XOR<DeviceCreateWithoutPersonInput, DeviceUncheckedCreateWithoutPersonInput>
+  }
+
+  export type DeviceCreateManyPersonInputEnvelope = {
+    data: DeviceCreateManyPersonInput | DeviceCreateManyPersonInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AssetCreateWithoutAssignedPersonInput = {
+    id?: string
+    name: string
+    description?: string | null
+    type: $Enums.AssetType
+    classification?: $Enums.AssetClassification
+    deletedAt?: Date | string | null
+    location?: string | null
+    status?: $Enums.AssetStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutAssetsInput
+    owner?: UserCreateNestedOneWithoutOwnedAssetsInput
+    deletedBy?: UserCreateNestedOneWithoutDeletedAssetsInput
+    device?: DeviceCreateNestedOneWithoutAssetInput
+  }
+
+  export type AssetUncheckedCreateWithoutAssignedPersonInput = {
+    id?: string
+    tenantId: string
+    name: string
+    description?: string | null
+    type: $Enums.AssetType
+    classification?: $Enums.AssetClassification
+    ownerId?: string | null
+    deletedById?: string | null
+    deletedAt?: Date | string | null
+    location?: string | null
+    status?: $Enums.AssetStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    device?: DeviceUncheckedCreateNestedOneWithoutAssetInput
+  }
+
+  export type AssetCreateOrConnectWithoutAssignedPersonInput = {
+    where: AssetWhereUniqueInput
+    create: XOR<AssetCreateWithoutAssignedPersonInput, AssetUncheckedCreateWithoutAssignedPersonInput>
+  }
+
+  export type AssetCreateManyAssignedPersonInputEnvelope = {
+    data: AssetCreateManyAssignedPersonInput | AssetCreateManyAssignedPersonInput[]
     skipDuplicates?: boolean
   }
 
@@ -189578,6 +194602,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -189657,6 +194683,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -189911,6 +194939,11 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutPeopleNestedInput
     user?: UserUpdateOneWithoutPeopleNestedInput
     manager?: PersonUpdateOneWithoutReportsNestedInput
+    vendor?: VendorUpdateOneWithoutPeopleNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type PersonUncheckedUpdateWithoutReportsInput = {
@@ -189931,10 +194964,15 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
     invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUncheckedUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type PersonUpsertWithWhereUniqueWithoutManagerInput = {
@@ -189974,10 +195012,1152 @@ export namespace Prisma {
     location?: StringNullableFilter<"Person"> | string | null
     startDate?: DateTimeNullableFilter<"Person"> | Date | string | null
     endDate?: DateTimeNullableFilter<"Person"> | Date | string | null
+    vendorId?: StringNullableFilter<"Person"> | string | null
     invitedAt?: DateTimeNullableFilter<"Person"> | Date | string | null
     joinedAt?: DateTimeNullableFilter<"Person"> | Date | string | null
     createdAt?: DateTimeFilter<"Person"> | Date | string
     updatedAt?: DateTimeFilter<"Person"> | Date | string
+  }
+
+  export type VendorUpsertWithoutPeopleInput = {
+    update: XOR<VendorUpdateWithoutPeopleInput, VendorUncheckedUpdateWithoutPeopleInput>
+    create: XOR<VendorCreateWithoutPeopleInput, VendorUncheckedCreateWithoutPeopleInput>
+    where?: VendorWhereInput
+  }
+
+  export type VendorUpdateToOneWithWhereWithoutPeopleInput = {
+    where?: VendorWhereInput
+    data: XOR<VendorUpdateWithoutPeopleInput, VendorUncheckedUpdateWithoutPeopleInput>
+  }
+
+  export type VendorUpdateWithoutPeopleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    riskTier?: EnumVendorRiskTierFieldUpdateOperationsInput | $Enums.VendorRiskTier
+    status?: EnumVendorStatusFieldUpdateOperationsInput | $Enums.VendorStatus
+    dataProcessing?: BoolFieldUpdateOperationsInput | boolean
+    isSubprocessor?: BoolFieldUpdateOperationsInput | boolean
+    subprocessorPurpose?: NullableStringFieldUpdateOperationsInput | string | null
+    dataTypesShared?: VendorUpdatedataTypesSharedInput | string[]
+    dataLocations?: VendorUpdatedataLocationsInput | string[]
+    dpaStatus?: EnumDpaStatusFieldUpdateOperationsInput | $Enums.DpaStatus
+    dpaExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contractStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contractEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    researchFrequency?: EnumResearchFrequencyFieldUpdateOperationsInput | $Enums.ResearchFrequency
+    lastResearchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextResearchAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutVendorsNestedInput
+    knownVendor?: KnownVendorUpdateOneWithoutVendorsNestedInput
+    assessments?: VendorAssessmentUpdateManyWithoutVendorNestedInput
+    contacts?: VendorContactUpdateManyWithoutVendorNestedInput
+    researches?: VendorResearchUpdateManyWithoutVendorNestedInput
+    documents?: VendorDocumentUpdateManyWithoutVendorNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutVendorsNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutVendorNestedInput
+  }
+
+  export type VendorUncheckedUpdateWithoutPeopleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    riskTier?: EnumVendorRiskTierFieldUpdateOperationsInput | $Enums.VendorRiskTier
+    status?: EnumVendorStatusFieldUpdateOperationsInput | $Enums.VendorStatus
+    dataProcessing?: BoolFieldUpdateOperationsInput | boolean
+    isSubprocessor?: BoolFieldUpdateOperationsInput | boolean
+    subprocessorPurpose?: NullableStringFieldUpdateOperationsInput | string | null
+    dataTypesShared?: VendorUpdatedataTypesSharedInput | string[]
+    dataLocations?: VendorUpdatedataLocationsInput | string[]
+    dpaStatus?: EnumDpaStatusFieldUpdateOperationsInput | $Enums.DpaStatus
+    dpaExpiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contractStartDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contractEndDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    knownVendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    researchFrequency?: EnumResearchFrequencyFieldUpdateOperationsInput | $Enums.ResearchFrequency
+    lastResearchedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextResearchAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assessments?: VendorAssessmentUncheckedUpdateManyWithoutVendorNestedInput
+    contacts?: VendorContactUncheckedUpdateManyWithoutVendorNestedInput
+    researches?: VendorResearchUncheckedUpdateManyWithoutVendorNestedInput
+    documents?: VendorDocumentUncheckedUpdateManyWithoutVendorNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutVendorsNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutVendorNestedInput
+  }
+
+  export type BackgroundCheckUpsertWithWhereUniqueWithoutPersonInput = {
+    where: BackgroundCheckWhereUniqueInput
+    update: XOR<BackgroundCheckUpdateWithoutPersonInput, BackgroundCheckUncheckedUpdateWithoutPersonInput>
+    create: XOR<BackgroundCheckCreateWithoutPersonInput, BackgroundCheckUncheckedCreateWithoutPersonInput>
+  }
+
+  export type BackgroundCheckUpdateWithWhereUniqueWithoutPersonInput = {
+    where: BackgroundCheckWhereUniqueInput
+    data: XOR<BackgroundCheckUpdateWithoutPersonInput, BackgroundCheckUncheckedUpdateWithoutPersonInput>
+  }
+
+  export type BackgroundCheckUpdateManyWithWhereWithoutPersonInput = {
+    where: BackgroundCheckScalarWhereInput
+    data: XOR<BackgroundCheckUpdateManyMutationInput, BackgroundCheckUncheckedUpdateManyWithoutPersonInput>
+  }
+
+  export type BackgroundCheckScalarWhereInput = {
+    AND?: BackgroundCheckScalarWhereInput | BackgroundCheckScalarWhereInput[]
+    OR?: BackgroundCheckScalarWhereInput[]
+    NOT?: BackgroundCheckScalarWhereInput | BackgroundCheckScalarWhereInput[]
+    id?: StringFilter<"BackgroundCheck"> | string
+    tenantId?: StringFilter<"BackgroundCheck"> | string
+    personId?: StringFilter<"BackgroundCheck"> | string
+    type?: EnumBackgroundCheckTypeFilter<"BackgroundCheck"> | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFilter<"BackgroundCheck"> | $Enums.BackgroundCheckStatus
+    provider?: StringNullableFilter<"BackgroundCheck"> | string | null
+    reference?: StringNullableFilter<"BackgroundCheck"> | string | null
+    adverseFindings?: BoolFilter<"BackgroundCheck"> | boolean
+    notes?: StringNullableFilter<"BackgroundCheck"> | string | null
+    requestedAt?: DateTimeNullableFilter<"BackgroundCheck"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"BackgroundCheck"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"BackgroundCheck"> | Date | string | null
+    createdAt?: DateTimeFilter<"BackgroundCheck"> | Date | string
+    updatedAt?: DateTimeFilter<"BackgroundCheck"> | Date | string
+  }
+
+  export type PersonChecklistItemUpsertWithWhereUniqueWithoutPersonInput = {
+    where: PersonChecklistItemWhereUniqueInput
+    update: XOR<PersonChecklistItemUpdateWithoutPersonInput, PersonChecklistItemUncheckedUpdateWithoutPersonInput>
+    create: XOR<PersonChecklistItemCreateWithoutPersonInput, PersonChecklistItemUncheckedCreateWithoutPersonInput>
+  }
+
+  export type PersonChecklistItemUpdateWithWhereUniqueWithoutPersonInput = {
+    where: PersonChecklistItemWhereUniqueInput
+    data: XOR<PersonChecklistItemUpdateWithoutPersonInput, PersonChecklistItemUncheckedUpdateWithoutPersonInput>
+  }
+
+  export type PersonChecklistItemUpdateManyWithWhereWithoutPersonInput = {
+    where: PersonChecklistItemScalarWhereInput
+    data: XOR<PersonChecklistItemUpdateManyMutationInput, PersonChecklistItemUncheckedUpdateManyWithoutPersonInput>
+  }
+
+  export type PersonChecklistItemScalarWhereInput = {
+    AND?: PersonChecklistItemScalarWhereInput | PersonChecklistItemScalarWhereInput[]
+    OR?: PersonChecklistItemScalarWhereInput[]
+    NOT?: PersonChecklistItemScalarWhereInput | PersonChecklistItemScalarWhereInput[]
+    id?: StringFilter<"PersonChecklistItem"> | string
+    tenantId?: StringFilter<"PersonChecklistItem"> | string
+    personId?: StringFilter<"PersonChecklistItem"> | string
+    kind?: EnumChecklistKindFilter<"PersonChecklistItem"> | $Enums.ChecklistKind
+    key?: StringFilter<"PersonChecklistItem"> | string
+    label?: StringFilter<"PersonChecklistItem"> | string
+    status?: EnumChecklistItemStatusFilter<"PersonChecklistItem"> | $Enums.ChecklistItemStatus
+    dueAt?: DateTimeNullableFilter<"PersonChecklistItem"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"PersonChecklistItem"> | Date | string | null
+    createdAt?: DateTimeFilter<"PersonChecklistItem"> | Date | string
+    updatedAt?: DateTimeFilter<"PersonChecklistItem"> | Date | string
+  }
+
+  export type DeviceUpsertWithWhereUniqueWithoutPersonInput = {
+    where: DeviceWhereUniqueInput
+    update: XOR<DeviceUpdateWithoutPersonInput, DeviceUncheckedUpdateWithoutPersonInput>
+    create: XOR<DeviceCreateWithoutPersonInput, DeviceUncheckedCreateWithoutPersonInput>
+  }
+
+  export type DeviceUpdateWithWhereUniqueWithoutPersonInput = {
+    where: DeviceWhereUniqueInput
+    data: XOR<DeviceUpdateWithoutPersonInput, DeviceUncheckedUpdateWithoutPersonInput>
+  }
+
+  export type DeviceUpdateManyWithWhereWithoutPersonInput = {
+    where: DeviceScalarWhereInput
+    data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyWithoutPersonInput>
+  }
+
+  export type AssetUpsertWithWhereUniqueWithoutAssignedPersonInput = {
+    where: AssetWhereUniqueInput
+    update: XOR<AssetUpdateWithoutAssignedPersonInput, AssetUncheckedUpdateWithoutAssignedPersonInput>
+    create: XOR<AssetCreateWithoutAssignedPersonInput, AssetUncheckedCreateWithoutAssignedPersonInput>
+  }
+
+  export type AssetUpdateWithWhereUniqueWithoutAssignedPersonInput = {
+    where: AssetWhereUniqueInput
+    data: XOR<AssetUpdateWithoutAssignedPersonInput, AssetUncheckedUpdateWithoutAssignedPersonInput>
+  }
+
+  export type AssetUpdateManyWithWhereWithoutAssignedPersonInput = {
+    where: AssetScalarWhereInput
+    data: XOR<AssetUpdateManyMutationInput, AssetUncheckedUpdateManyWithoutAssignedPersonInput>
+  }
+
+  export type AssetScalarWhereInput = {
+    AND?: AssetScalarWhereInput | AssetScalarWhereInput[]
+    OR?: AssetScalarWhereInput[]
+    NOT?: AssetScalarWhereInput | AssetScalarWhereInput[]
+    id?: StringFilter<"Asset"> | string
+    tenantId?: StringFilter<"Asset"> | string
+    name?: StringFilter<"Asset"> | string
+    description?: StringNullableFilter<"Asset"> | string | null
+    type?: EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
+    classification?: EnumAssetClassificationFilter<"Asset"> | $Enums.AssetClassification
+    ownerId?: StringNullableFilter<"Asset"> | string | null
+    assignedPersonId?: StringNullableFilter<"Asset"> | string | null
+    deletedById?: StringNullableFilter<"Asset"> | string | null
+    deletedAt?: DateTimeNullableFilter<"Asset"> | Date | string | null
+    location?: StringNullableFilter<"Asset"> | string | null
+    status?: EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
+    metadata?: JsonNullableFilter<"Asset">
+    createdAt?: DateTimeFilter<"Asset"> | Date | string
+    updatedAt?: DateTimeFilter<"Asset"> | Date | string
+  }
+
+  export type TenantCreateWithoutBackgroundChecksInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    people?: PersonCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutBackgroundChecksInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutBackgroundChecksInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutBackgroundChecksInput, TenantUncheckedCreateWithoutBackgroundChecksInput>
+  }
+
+  export type PersonCreateWithoutBackgroundChecksInput = {
+    id?: string
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPeopleInput
+    user?: UserCreateNestedOneWithoutPeopleInput
+    manager?: PersonCreateNestedOneWithoutReportsInput
+    reports?: PersonCreateNestedManyWithoutManagerInput
+    vendor?: VendorCreateNestedOneWithoutPeopleInput
+    checklistItems?: PersonChecklistItemCreateNestedManyWithoutPersonInput
+    devices?: DeviceCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetCreateNestedManyWithoutAssignedPersonInput
+  }
+
+  export type PersonUncheckedCreateWithoutBackgroundChecksInput = {
+    id?: string
+    tenantId: string
+    userId?: string | null
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    managerId?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    vendorId?: string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reports?: PersonUncheckedCreateNestedManyWithoutManagerInput
+    checklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutPersonInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetUncheckedCreateNestedManyWithoutAssignedPersonInput
+  }
+
+  export type PersonCreateOrConnectWithoutBackgroundChecksInput = {
+    where: PersonWhereUniqueInput
+    create: XOR<PersonCreateWithoutBackgroundChecksInput, PersonUncheckedCreateWithoutBackgroundChecksInput>
+  }
+
+  export type TenantUpsertWithoutBackgroundChecksInput = {
+    update: XOR<TenantUpdateWithoutBackgroundChecksInput, TenantUncheckedUpdateWithoutBackgroundChecksInput>
+    create: XOR<TenantCreateWithoutBackgroundChecksInput, TenantUncheckedCreateWithoutBackgroundChecksInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutBackgroundChecksInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutBackgroundChecksInput, TenantUncheckedUpdateWithoutBackgroundChecksInput>
+  }
+
+  export type TenantUpdateWithoutBackgroundChecksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    people?: PersonUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutBackgroundChecksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type PersonUpsertWithoutBackgroundChecksInput = {
+    update: XOR<PersonUpdateWithoutBackgroundChecksInput, PersonUncheckedUpdateWithoutBackgroundChecksInput>
+    create: XOR<PersonCreateWithoutBackgroundChecksInput, PersonUncheckedCreateWithoutBackgroundChecksInput>
+    where?: PersonWhereInput
+  }
+
+  export type PersonUpdateToOneWithWhereWithoutBackgroundChecksInput = {
+    where?: PersonWhereInput
+    data: XOR<PersonUpdateWithoutBackgroundChecksInput, PersonUncheckedUpdateWithoutBackgroundChecksInput>
+  }
+
+  export type PersonUpdateWithoutBackgroundChecksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPeopleNestedInput
+    user?: UserUpdateOneWithoutPeopleNestedInput
+    manager?: PersonUpdateOneWithoutReportsNestedInput
+    reports?: PersonUpdateManyWithoutManagerNestedInput
+    vendor?: VendorUpdateOneWithoutPeopleNestedInput
+    checklistItems?: PersonChecklistItemUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUpdateManyWithoutAssignedPersonNestedInput
+  }
+
+  export type PersonUncheckedUpdateWithoutBackgroundChecksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    managerId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reports?: PersonUncheckedUpdateManyWithoutManagerNestedInput
+    checklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUncheckedUpdateManyWithoutAssignedPersonNestedInput
+  }
+
+  export type TenantCreateWithoutPersonChecklistItemsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutPersonChecklistItemsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutPersonChecklistItemsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutPersonChecklistItemsInput, TenantUncheckedCreateWithoutPersonChecklistItemsInput>
+  }
+
+  export type PersonCreateWithoutChecklistItemsInput = {
+    id?: string
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPeopleInput
+    user?: UserCreateNestedOneWithoutPeopleInput
+    manager?: PersonCreateNestedOneWithoutReportsInput
+    reports?: PersonCreateNestedManyWithoutManagerInput
+    vendor?: VendorCreateNestedOneWithoutPeopleInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutPersonInput
+    devices?: DeviceCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetCreateNestedManyWithoutAssignedPersonInput
+  }
+
+  export type PersonUncheckedCreateWithoutChecklistItemsInput = {
+    id?: string
+    tenantId: string
+    userId?: string | null
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    managerId?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    vendorId?: string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reports?: PersonUncheckedCreateNestedManyWithoutManagerInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutPersonInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetUncheckedCreateNestedManyWithoutAssignedPersonInput
+  }
+
+  export type PersonCreateOrConnectWithoutChecklistItemsInput = {
+    where: PersonWhereUniqueInput
+    create: XOR<PersonCreateWithoutChecklistItemsInput, PersonUncheckedCreateWithoutChecklistItemsInput>
+  }
+
+  export type TenantUpsertWithoutPersonChecklistItemsInput = {
+    update: XOR<TenantUpdateWithoutPersonChecklistItemsInput, TenantUncheckedUpdateWithoutPersonChecklistItemsInput>
+    create: XOR<TenantCreateWithoutPersonChecklistItemsInput, TenantUncheckedCreateWithoutPersonChecklistItemsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutPersonChecklistItemsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutPersonChecklistItemsInput, TenantUncheckedUpdateWithoutPersonChecklistItemsInput>
+  }
+
+  export type TenantUpdateWithoutPersonChecklistItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutPersonChecklistItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type PersonUpsertWithoutChecklistItemsInput = {
+    update: XOR<PersonUpdateWithoutChecklistItemsInput, PersonUncheckedUpdateWithoutChecklistItemsInput>
+    create: XOR<PersonCreateWithoutChecklistItemsInput, PersonUncheckedCreateWithoutChecklistItemsInput>
+    where?: PersonWhereInput
+  }
+
+  export type PersonUpdateToOneWithWhereWithoutChecklistItemsInput = {
+    where?: PersonWhereInput
+    data: XOR<PersonUpdateWithoutChecklistItemsInput, PersonUncheckedUpdateWithoutChecklistItemsInput>
+  }
+
+  export type PersonUpdateWithoutChecklistItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPeopleNestedInput
+    user?: UserUpdateOneWithoutPeopleNestedInput
+    manager?: PersonUpdateOneWithoutReportsNestedInput
+    reports?: PersonUpdateManyWithoutManagerNestedInput
+    vendor?: VendorUpdateOneWithoutPeopleNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUpdateManyWithoutAssignedPersonNestedInput
+  }
+
+  export type PersonUncheckedUpdateWithoutChecklistItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    managerId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reports?: PersonUncheckedUpdateManyWithoutManagerNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUncheckedUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type TenantCreateWithoutPoliciesInput = {
@@ -189992,6 +196172,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
@@ -190071,6 +196253,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
@@ -190447,6 +196631,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
@@ -190526,6 +196712,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
@@ -191884,6 +198072,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -191963,6 +198153,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -192295,6 +198487,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -192374,6 +198568,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -192672,6 +198868,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -192751,6 +198949,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -193317,6 +199517,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -193396,6 +199598,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -193779,6 +199983,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -193858,6 +200064,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -194053,6 +200261,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -194132,6 +200342,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -194211,6 +200423,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -194290,6 +200504,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -194708,6 +200924,7 @@ export namespace Prisma {
     contacts?: VendorContactCreateNestedManyWithoutVendorInput
     researches?: VendorResearchCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentCreateNestedManyWithoutVendorInput
+    people?: PersonCreateNestedManyWithoutVendorInput
     questionnaires?: QuestionnaireCreateNestedManyWithoutVendorInput
   }
 
@@ -194739,6 +200956,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedCreateNestedManyWithoutVendorInput
     researches?: VendorResearchUncheckedCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentUncheckedCreateNestedManyWithoutVendorInput
+    people?: PersonUncheckedCreateNestedManyWithoutVendorInput
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutVendorInput
   }
 
@@ -194866,6 +201084,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -194945,6 +201165,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -195414,6 +201636,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -195493,6 +201717,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -195945,6 +202171,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -196024,6 +202252,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -196478,6 +202708,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -196557,6 +202789,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -197009,6 +203243,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -197088,6 +203324,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -197542,6 +203780,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -197621,6 +203861,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -197926,6 +204168,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -198005,6 +204249,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -198281,6 +204527,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -198360,6 +204608,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -198651,6 +204901,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -198730,6 +204982,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -199017,6 +205271,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -199096,6 +205352,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -199343,6 +205601,7 @@ export namespace Prisma {
     contacts?: VendorContactCreateNestedManyWithoutVendorInput
     researches?: VendorResearchCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentCreateNestedManyWithoutVendorInput
+    people?: PersonCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityCreateNestedManyWithoutVendorsInput
   }
 
@@ -199374,6 +205633,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedCreateNestedManyWithoutVendorInput
     researches?: VendorResearchUncheckedCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentUncheckedCreateNestedManyWithoutVendorInput
+    people?: PersonUncheckedCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutVendorsInput
   }
 
@@ -199561,6 +205821,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -199640,6 +205902,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -199899,6 +206163,7 @@ export namespace Prisma {
     contacts?: VendorContactUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUpdateManyWithoutVendorNestedInput
+    people?: PersonUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUpdateManyWithoutVendorsNestedInput
   }
 
@@ -199930,6 +206195,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUncheckedUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUncheckedUpdateManyWithoutVendorNestedInput
+    people?: PersonUncheckedUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutVendorsNestedInput
   }
 
@@ -200066,6 +206332,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -200145,6 +206413,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -200436,6 +206706,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -200515,6 +206787,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -200736,6 +207010,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -200815,6 +207091,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -201155,6 +207433,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -201234,6 +207514,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -201576,6 +207858,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -201655,6 +207939,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -202221,6 +208507,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -202300,6 +208588,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -202947,6 +209237,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -203026,6 +209318,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -203365,6 +209659,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -203444,6 +209740,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -203767,6 +210065,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -203846,6 +210146,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -204185,6 +210487,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -204264,6 +210568,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -204496,6 +210802,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -204575,6 +210883,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -204670,6 +210980,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -204749,6 +211061,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -204919,6 +211233,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -204998,6 +211314,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -205337,6 +211655,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -205416,6 +211736,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -205648,6 +211970,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -205727,6 +212051,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -206058,6 +212384,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -206137,6 +212465,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -206503,6 +212833,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -206582,6 +212914,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -207022,6 +213356,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -207101,6 +213437,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -207573,6 +213911,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -207652,6 +213992,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -207831,6 +214173,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -207910,6 +214254,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -207989,6 +214335,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -208068,6 +214416,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -208163,6 +214513,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -208242,6 +214594,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -208394,6 +214748,11 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutPeopleInput
     manager?: PersonCreateNestedOneWithoutReportsInput
     reports?: PersonCreateNestedManyWithoutManagerInput
+    vendor?: VendorCreateNestedOneWithoutPeopleInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemCreateNestedManyWithoutPersonInput
+    devices?: DeviceCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetCreateNestedManyWithoutAssignedPersonInput
   }
 
   export type PersonUncheckedCreateWithoutTenantInput = {
@@ -208413,11 +214772,16 @@ export namespace Prisma {
     location?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
+    vendorId?: string | null
     invitedAt?: Date | string | null
     joinedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: PersonUncheckedCreateNestedManyWithoutManagerInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutPersonInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetUncheckedCreateNestedManyWithoutAssignedPersonInput
   }
 
   export type PersonCreateOrConnectWithoutTenantInput = {
@@ -208427,6 +214791,84 @@ export namespace Prisma {
 
   export type PersonCreateManyTenantInputEnvelope = {
     data: PersonCreateManyTenantInput | PersonCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BackgroundCheckCreateWithoutTenantInput = {
+    id?: string
+    type?: $Enums.BackgroundCheckType
+    status?: $Enums.BackgroundCheckStatus
+    provider?: string | null
+    reference?: string | null
+    adverseFindings?: boolean
+    notes?: string | null
+    requestedAt?: Date | string | null
+    completedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    person: PersonCreateNestedOneWithoutBackgroundChecksInput
+  }
+
+  export type BackgroundCheckUncheckedCreateWithoutTenantInput = {
+    id?: string
+    personId: string
+    type?: $Enums.BackgroundCheckType
+    status?: $Enums.BackgroundCheckStatus
+    provider?: string | null
+    reference?: string | null
+    adverseFindings?: boolean
+    notes?: string | null
+    requestedAt?: Date | string | null
+    completedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BackgroundCheckCreateOrConnectWithoutTenantInput = {
+    where: BackgroundCheckWhereUniqueInput
+    create: XOR<BackgroundCheckCreateWithoutTenantInput, BackgroundCheckUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BackgroundCheckCreateManyTenantInputEnvelope = {
+    data: BackgroundCheckCreateManyTenantInput | BackgroundCheckCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PersonChecklistItemCreateWithoutTenantInput = {
+    id?: string
+    kind: $Enums.ChecklistKind
+    key: string
+    label: string
+    status?: $Enums.ChecklistItemStatus
+    dueAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    person: PersonCreateNestedOneWithoutChecklistItemsInput
+  }
+
+  export type PersonChecklistItemUncheckedCreateWithoutTenantInput = {
+    id?: string
+    personId: string
+    kind: $Enums.ChecklistKind
+    key: string
+    label: string
+    status?: $Enums.ChecklistItemStatus
+    dueAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PersonChecklistItemCreateOrConnectWithoutTenantInput = {
+    where: PersonChecklistItemWhereUniqueInput
+    create: XOR<PersonChecklistItemCreateWithoutTenantInput, PersonChecklistItemUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PersonChecklistItemCreateManyTenantInputEnvelope = {
+    data: PersonChecklistItemCreateManyTenantInput | PersonChecklistItemCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -208850,6 +215292,7 @@ export namespace Prisma {
     contacts?: VendorContactCreateNestedManyWithoutVendorInput
     researches?: VendorResearchCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentCreateNestedManyWithoutVendorInput
+    people?: PersonCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireCreateNestedManyWithoutVendorInput
   }
@@ -208881,6 +215324,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedCreateNestedManyWithoutVendorInput
     researches?: VendorResearchUncheckedCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentUncheckedCreateNestedManyWithoutVendorInput
+    people?: PersonUncheckedCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutVendorInput
   }
@@ -209040,6 +215484,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutOwnedAssetsInput
+    assignedPerson?: PersonCreateNestedOneWithoutAssignedAssetsInput
     deletedBy?: UserCreateNestedOneWithoutDeletedAssetsInput
     device?: DeviceCreateNestedOneWithoutAssetInput
   }
@@ -209051,6 +215496,7 @@ export namespace Prisma {
     type: $Enums.AssetType
     classification?: $Enums.AssetClassification
     ownerId?: string | null
+    assignedPersonId?: string | null
     deletedById?: string | null
     deletedAt?: Date | string | null
     location?: string | null
@@ -211144,6 +217590,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     asset: AssetCreateNestedOneWithoutDeviceInput
     enrolledBy?: UserCreateNestedOneWithoutDevicesEnrolledInput
+    person?: PersonCreateNestedOneWithoutDevicesInput
     enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
     snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
     nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
@@ -211161,6 +217608,7 @@ export namespace Prisma {
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
     enrolledById?: string | null
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -211434,6 +217882,38 @@ export namespace Prisma {
   export type PersonUpdateManyWithWhereWithoutTenantInput = {
     where: PersonScalarWhereInput
     data: XOR<PersonUpdateManyMutationInput, PersonUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type BackgroundCheckUpsertWithWhereUniqueWithoutTenantInput = {
+    where: BackgroundCheckWhereUniqueInput
+    update: XOR<BackgroundCheckUpdateWithoutTenantInput, BackgroundCheckUncheckedUpdateWithoutTenantInput>
+    create: XOR<BackgroundCheckCreateWithoutTenantInput, BackgroundCheckUncheckedCreateWithoutTenantInput>
+  }
+
+  export type BackgroundCheckUpdateWithWhereUniqueWithoutTenantInput = {
+    where: BackgroundCheckWhereUniqueInput
+    data: XOR<BackgroundCheckUpdateWithoutTenantInput, BackgroundCheckUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type BackgroundCheckUpdateManyWithWhereWithoutTenantInput = {
+    where: BackgroundCheckScalarWhereInput
+    data: XOR<BackgroundCheckUpdateManyMutationInput, BackgroundCheckUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type PersonChecklistItemUpsertWithWhereUniqueWithoutTenantInput = {
+    where: PersonChecklistItemWhereUniqueInput
+    update: XOR<PersonChecklistItemUpdateWithoutTenantInput, PersonChecklistItemUncheckedUpdateWithoutTenantInput>
+    create: XOR<PersonChecklistItemCreateWithoutTenantInput, PersonChecklistItemUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PersonChecklistItemUpdateWithWhereUniqueWithoutTenantInput = {
+    where: PersonChecklistItemWhereUniqueInput
+    data: XOR<PersonChecklistItemUpdateWithoutTenantInput, PersonChecklistItemUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type PersonChecklistItemUpdateManyWithWhereWithoutTenantInput = {
+    where: PersonChecklistItemScalarWhereInput
+    data: XOR<PersonChecklistItemUpdateManyMutationInput, PersonChecklistItemUncheckedUpdateManyWithoutTenantInput>
   }
 
   export type FrameworkInstanceUpsertWithWhereUniqueWithoutTenantInput = {
@@ -211765,26 +218245,6 @@ export namespace Prisma {
   export type AssetUpdateManyWithWhereWithoutTenantInput = {
     where: AssetScalarWhereInput
     data: XOR<AssetUpdateManyMutationInput, AssetUncheckedUpdateManyWithoutTenantInput>
-  }
-
-  export type AssetScalarWhereInput = {
-    AND?: AssetScalarWhereInput | AssetScalarWhereInput[]
-    OR?: AssetScalarWhereInput[]
-    NOT?: AssetScalarWhereInput | AssetScalarWhereInput[]
-    id?: StringFilter<"Asset"> | string
-    tenantId?: StringFilter<"Asset"> | string
-    name?: StringFilter<"Asset"> | string
-    description?: StringNullableFilter<"Asset"> | string | null
-    type?: EnumAssetTypeFilter<"Asset"> | $Enums.AssetType
-    classification?: EnumAssetClassificationFilter<"Asset"> | $Enums.AssetClassification
-    ownerId?: StringNullableFilter<"Asset"> | string | null
-    deletedById?: StringNullableFilter<"Asset"> | string | null
-    deletedAt?: DateTimeNullableFilter<"Asset"> | Date | string | null
-    location?: StringNullableFilter<"Asset"> | string | null
-    status?: EnumAssetStatusFilter<"Asset"> | $Enums.AssetStatus
-    metadata?: JsonNullableFilter<"Asset">
-    createdAt?: DateTimeFilter<"Asset"> | Date | string
-    updatedAt?: DateTimeFilter<"Asset"> | Date | string
   }
 
   export type IncidentUpsertWithWhereUniqueWithoutTenantInput = {
@@ -213090,6 +219550,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -213169,6 +219631,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -213264,6 +219728,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -213343,6 +219809,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -213423,6 +219891,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -213502,6 +219972,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -213669,6 +220141,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -213748,6 +220222,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -214041,6 +220517,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -214120,6 +220598,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -214409,6 +220889,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -214488,6 +220970,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -214602,6 +221086,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -214681,6 +221167,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -214885,6 +221373,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -214964,6 +221454,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -215550,6 +222042,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -215629,6 +222123,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -215942,6 +222438,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -216021,6 +222519,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -216292,6 +222792,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -216371,6 +222873,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -216566,6 +223070,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -216645,6 +223151,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -216772,6 +223280,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -216851,6 +223361,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -217130,6 +223642,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -217209,6 +223723,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -217484,6 +224000,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -217563,6 +224081,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -217695,6 +224215,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -217774,6 +224296,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -217896,6 +224420,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -217975,6 +224501,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -218155,6 +224683,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -218234,6 +224764,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -218372,6 +224904,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -218451,6 +224985,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -218728,6 +225264,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -218807,6 +225345,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -219124,6 +225664,11 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutPeopleInput
     manager?: PersonCreateNestedOneWithoutReportsInput
     reports?: PersonCreateNestedManyWithoutManagerInput
+    vendor?: VendorCreateNestedOneWithoutPeopleInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemCreateNestedManyWithoutPersonInput
+    devices?: DeviceCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetCreateNestedManyWithoutAssignedPersonInput
   }
 
   export type PersonUncheckedCreateWithoutUserInput = {
@@ -219143,11 +225688,16 @@ export namespace Prisma {
     location?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
+    vendorId?: string | null
     invitedAt?: Date | string | null
     joinedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: PersonUncheckedCreateNestedManyWithoutManagerInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutPersonInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetUncheckedCreateNestedManyWithoutAssignedPersonInput
   }
 
   export type PersonCreateOrConnectWithoutUserInput = {
@@ -219751,6 +226301,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutAssetsInput
+    assignedPerson?: PersonCreateNestedOneWithoutAssignedAssetsInput
     deletedBy?: UserCreateNestedOneWithoutDeletedAssetsInput
     device?: DeviceCreateNestedOneWithoutAssetInput
   }
@@ -219762,6 +226313,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.AssetType
     classification?: $Enums.AssetClassification
+    assignedPersonId?: string | null
     deletedById?: string | null
     deletedAt?: Date | string | null
     location?: string | null
@@ -219796,6 +226348,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutAssetsInput
     owner?: UserCreateNestedOneWithoutOwnedAssetsInput
+    assignedPerson?: PersonCreateNestedOneWithoutAssignedAssetsInput
     device?: DeviceCreateNestedOneWithoutAssetInput
   }
 
@@ -219807,6 +226360,7 @@ export namespace Prisma {
     type: $Enums.AssetType
     classification?: $Enums.AssetClassification
     ownerId?: string | null
+    assignedPersonId?: string | null
     deletedAt?: Date | string | null
     location?: string | null
     status?: $Enums.AssetStatus
@@ -221866,6 +228420,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutDevicesInput
     asset: AssetCreateNestedOneWithoutDeviceInput
+    person?: PersonCreateNestedOneWithoutDevicesInput
     enrollmentToken?: DeviceEnrollmentTokenCreateNestedOneWithoutDevicesInput
     snapshots?: DevicePostureSnapshotCreateNestedManyWithoutDeviceInput
     nonces?: DeviceNonceCreateNestedManyWithoutDeviceInput
@@ -221883,6 +228438,7 @@ export namespace Prisma {
     hostname?: string | null
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -222996,6 +229552,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -223075,6 +229633,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -223323,6 +229883,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -223402,6 +229964,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -223482,6 +230046,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -223561,6 +230127,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -223738,6 +230306,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -223817,6 +230387,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -223928,6 +230500,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -224007,6 +230581,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -224143,6 +230719,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -224222,6 +230800,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -224348,6 +230928,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -224427,6 +231009,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -224710,6 +231294,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -224789,6 +231375,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -225083,6 +231671,7 @@ export namespace Prisma {
     contacts?: VendorContactCreateNestedManyWithoutVendorInput
     researches?: VendorResearchCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentCreateNestedManyWithoutVendorInput
+    people?: PersonCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireCreateNestedManyWithoutVendorInput
   }
@@ -225114,6 +231703,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedCreateNestedManyWithoutVendorInput
     researches?: VendorResearchUncheckedCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentUncheckedCreateNestedManyWithoutVendorInput
+    people?: PersonUncheckedCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutVendorInput
   }
@@ -225230,6 +231820,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -225309,6 +231901,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -225590,6 +232184,74 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PersonCreateWithoutVendorInput = {
+    id?: string
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutPeopleInput
+    user?: UserCreateNestedOneWithoutPeopleInput
+    manager?: PersonCreateNestedOneWithoutReportsInput
+    reports?: PersonCreateNestedManyWithoutManagerInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemCreateNestedManyWithoutPersonInput
+    devices?: DeviceCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetCreateNestedManyWithoutAssignedPersonInput
+  }
+
+  export type PersonUncheckedCreateWithoutVendorInput = {
+    id?: string
+    tenantId: string
+    userId?: string | null
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    managerId?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    reports?: PersonUncheckedCreateNestedManyWithoutManagerInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutPersonInput
+    checklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutPersonInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutPersonInput
+    assignedAssets?: AssetUncheckedCreateNestedManyWithoutAssignedPersonInput
+  }
+
+  export type PersonCreateOrConnectWithoutVendorInput = {
+    where: PersonWhereUniqueInput
+    create: XOR<PersonCreateWithoutVendorInput, PersonUncheckedCreateWithoutVendorInput>
+  }
+
+  export type PersonCreateManyVendorInputEnvelope = {
+    data: PersonCreateManyVendorInput | PersonCreateManyVendorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProcessingActivityCreateWithoutVendorsInput = {
     id?: string
     name: string
@@ -225730,6 +232392,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -225809,6 +232473,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -226008,6 +232674,22 @@ export namespace Prisma {
     data: XOR<VendorDocumentUpdateManyMutationInput, VendorDocumentUncheckedUpdateManyWithoutVendorInput>
   }
 
+  export type PersonUpsertWithWhereUniqueWithoutVendorInput = {
+    where: PersonWhereUniqueInput
+    update: XOR<PersonUpdateWithoutVendorInput, PersonUncheckedUpdateWithoutVendorInput>
+    create: XOR<PersonCreateWithoutVendorInput, PersonUncheckedCreateWithoutVendorInput>
+  }
+
+  export type PersonUpdateWithWhereUniqueWithoutVendorInput = {
+    where: PersonWhereUniqueInput
+    data: XOR<PersonUpdateWithoutVendorInput, PersonUncheckedUpdateWithoutVendorInput>
+  }
+
+  export type PersonUpdateManyWithWhereWithoutVendorInput = {
+    where: PersonScalarWhereInput
+    data: XOR<PersonUpdateManyMutationInput, PersonUncheckedUpdateManyWithoutVendorInput>
+  }
+
   export type ProcessingActivityUpsertWithWhereUniqueWithoutVendorsInput = {
     where: ProcessingActivityWhereUniqueInput
     update: XOR<ProcessingActivityUpdateWithoutVendorsInput, ProcessingActivityUncheckedUpdateWithoutVendorsInput>
@@ -226067,6 +232749,7 @@ export namespace Prisma {
     contacts?: VendorContactCreateNestedManyWithoutVendorInput
     researches?: VendorResearchCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentCreateNestedManyWithoutVendorInput
+    people?: PersonCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireCreateNestedManyWithoutVendorInput
   }
@@ -226098,6 +232781,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedCreateNestedManyWithoutVendorInput
     researches?: VendorResearchUncheckedCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentUncheckedCreateNestedManyWithoutVendorInput
+    people?: PersonUncheckedCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutVendorInput
   }
@@ -226119,6 +232803,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -226198,6 +232884,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -226508,6 +233196,7 @@ export namespace Prisma {
     contacts?: VendorContactUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUpdateManyWithoutVendorNestedInput
+    people?: PersonUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUpdateManyWithoutVendorNestedInput
   }
@@ -226539,6 +233228,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUncheckedUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUncheckedUpdateManyWithoutVendorNestedInput
+    people?: PersonUncheckedUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutVendorNestedInput
   }
@@ -226566,6 +233256,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -226645,6 +233337,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -226951,6 +233645,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentCreateNestedManyWithoutVendorInput
     contacts?: VendorContactCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentCreateNestedManyWithoutVendorInput
+    people?: PersonCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireCreateNestedManyWithoutVendorInput
   }
@@ -226982,6 +233677,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentUncheckedCreateNestedManyWithoutVendorInput
     contacts?: VendorContactUncheckedCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentUncheckedCreateNestedManyWithoutVendorInput
+    people?: PersonUncheckedCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutVendorInput
   }
@@ -227052,6 +233748,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -227131,6 +233829,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -227273,6 +233973,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentUpdateManyWithoutVendorNestedInput
     contacts?: VendorContactUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUpdateManyWithoutVendorNestedInput
+    people?: PersonUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUpdateManyWithoutVendorNestedInput
   }
@@ -227304,6 +234005,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentUncheckedUpdateManyWithoutVendorNestedInput
     contacts?: VendorContactUncheckedUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUncheckedUpdateManyWithoutVendorNestedInput
+    people?: PersonUncheckedUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutVendorNestedInput
   }
@@ -227386,6 +234088,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -227465,6 +234169,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -227575,6 +234281,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentCreateNestedManyWithoutVendorInput
     researches?: VendorResearchCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentCreateNestedManyWithoutVendorInput
+    people?: PersonCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireCreateNestedManyWithoutVendorInput
   }
@@ -227606,6 +234313,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentUncheckedCreateNestedManyWithoutVendorInput
     researches?: VendorResearchUncheckedCreateNestedManyWithoutVendorInput
     documents?: VendorDocumentUncheckedCreateNestedManyWithoutVendorInput
+    people?: PersonUncheckedCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutVendorInput
   }
@@ -227653,6 +234361,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUpdateManyWithoutVendorNestedInput
+    people?: PersonUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUpdateManyWithoutVendorNestedInput
   }
@@ -227684,6 +234393,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentUncheckedUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUncheckedUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUncheckedUpdateManyWithoutVendorNestedInput
+    people?: PersonUncheckedUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutVendorNestedInput
   }
@@ -227715,6 +234425,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentCreateNestedManyWithoutVendorInput
     contacts?: VendorContactCreateNestedManyWithoutVendorInput
     researches?: VendorResearchCreateNestedManyWithoutVendorInput
+    people?: PersonCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireCreateNestedManyWithoutVendorInput
   }
@@ -227746,6 +234457,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentUncheckedCreateNestedManyWithoutVendorInput
     contacts?: VendorContactUncheckedCreateNestedManyWithoutVendorInput
     researches?: VendorResearchUncheckedCreateNestedManyWithoutVendorInput
+    people?: PersonUncheckedCreateNestedManyWithoutVendorInput
     processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutVendorsInput
     questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutVendorInput
   }
@@ -227767,6 +234479,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -227846,6 +234560,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -228103,6 +234819,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentUpdateManyWithoutVendorNestedInput
     contacts?: VendorContactUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUpdateManyWithoutVendorNestedInput
+    people?: PersonUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUpdateManyWithoutVendorNestedInput
   }
@@ -228134,6 +234851,7 @@ export namespace Prisma {
     assessments?: VendorAssessmentUncheckedUpdateManyWithoutVendorNestedInput
     contacts?: VendorContactUncheckedUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUncheckedUpdateManyWithoutVendorNestedInput
+    people?: PersonUncheckedUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutVendorNestedInput
   }
@@ -228161,6 +234879,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -228240,6 +234960,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -228472,6 +235194,8 @@ export namespace Prisma {
     settings?: TenantSettingsCreateNestedOneWithoutTenantInput
     memberships?: MembershipCreateNestedManyWithoutTenantInput
     people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
     controls?: ControlCreateNestedManyWithoutTenantInput
     policies?: PolicyCreateNestedManyWithoutTenantInput
@@ -228551,6 +235275,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
     people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
     frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
     controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
     policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
@@ -228940,6 +235666,8 @@ export namespace Prisma {
     settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUpdateManyWithoutTenantNestedInput
     people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
     controls?: ControlUpdateManyWithoutTenantNestedInput
     policies?: PolicyUpdateManyWithoutTenantNestedInput
@@ -229019,6 +235747,8 @@ export namespace Prisma {
     settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
     people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
     frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
     controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
     policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
@@ -230451,6 +237181,7 @@ export namespace Prisma {
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
     enrolledById?: string | null
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -230490,6 +237221,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
     asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
     enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    person?: PersonUpdateOneWithoutDevicesNestedInput
     snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
     nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
   }
@@ -230507,6 +237239,7 @@ export namespace Prisma {
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
     enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -230536,6 +237269,7 @@ export namespace Prisma {
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
     enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -230997,8 +237731,83 @@ export namespace Prisma {
     location?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
+    vendorId?: string | null
     invitedAt?: Date | string | null
     joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BackgroundCheckCreateManyPersonInput = {
+    id?: string
+    tenantId: string
+    type?: $Enums.BackgroundCheckType
+    status?: $Enums.BackgroundCheckStatus
+    provider?: string | null
+    reference?: string | null
+    adverseFindings?: boolean
+    notes?: string | null
+    requestedAt?: Date | string | null
+    completedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PersonChecklistItemCreateManyPersonInput = {
+    id?: string
+    tenantId: string
+    kind: $Enums.ChecklistKind
+    key: string
+    label: string
+    status?: $Enums.ChecklistItemStatus
+    dueAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DeviceCreateManyPersonInput = {
+    id?: string
+    tenantId: string
+    assetId: string
+    secretEnc: string
+    secretKeyId?: number
+    platform: $Enums.DevicePlatform
+    osVersion?: string | null
+    agentVersion?: string | null
+    hostname?: string | null
+    hardwareId?: string | null
+    status?: $Enums.DeviceStatus
+    enrolledById?: string | null
+    enrolledAt?: Date | string
+    lastSeenAt?: Date | string | null
+    checkInIntervalSeconds?: number
+    diskEncryption?: $Enums.PostureSignalState
+    firewall?: $Enums.PostureSignalState
+    screenLock?: $Enums.PostureSignalState
+    antivirus?: $Enums.PostureSignalState
+    agentHealthy?: boolean
+    lastPostureAt?: Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AssetCreateManyAssignedPersonInput = {
+    id?: string
+    tenantId: string
+    name: string
+    description?: string | null
+    type: $Enums.AssetType
+    classification?: $Enums.AssetClassification
+    ownerId?: string | null
+    deletedById?: string | null
+    deletedAt?: Date | string | null
+    location?: string | null
+    status?: $Enums.AssetStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -231025,6 +237834,11 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutPeopleNestedInput
     user?: UserUpdateOneWithoutPeopleNestedInput
     reports?: PersonUpdateManyWithoutManagerNestedInput
+    vendor?: VendorUpdateOneWithoutPeopleNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type PersonUncheckedUpdateWithoutManagerInput = {
@@ -231044,11 +237858,16 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
     invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: PersonUncheckedUpdateManyWithoutManagerNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUncheckedUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type PersonUncheckedUpdateManyWithoutManagerInput = {
@@ -231068,8 +237887,237 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
     invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BackgroundCheckUpdateWithoutPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBackgroundCheckTypeFieldUpdateOperationsInput | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFieldUpdateOperationsInput | $Enums.BackgroundCheckStatus
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    adverseFindings?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutBackgroundChecksNestedInput
+  }
+
+  export type BackgroundCheckUncheckedUpdateWithoutPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    type?: EnumBackgroundCheckTypeFieldUpdateOperationsInput | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFieldUpdateOperationsInput | $Enums.BackgroundCheckStatus
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    adverseFindings?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BackgroundCheckUncheckedUpdateManyWithoutPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    type?: EnumBackgroundCheckTypeFieldUpdateOperationsInput | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFieldUpdateOperationsInput | $Enums.BackgroundCheckStatus
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    adverseFindings?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PersonChecklistItemUpdateWithoutPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumChecklistKindFieldUpdateOperationsInput | $Enums.ChecklistKind
+    key?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    status?: EnumChecklistItemStatusFieldUpdateOperationsInput | $Enums.ChecklistItemStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPersonChecklistItemsNestedInput
+  }
+
+  export type PersonChecklistItemUncheckedUpdateWithoutPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumChecklistKindFieldUpdateOperationsInput | $Enums.ChecklistKind
+    key?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    status?: EnumChecklistItemStatusFieldUpdateOperationsInput | $Enums.ChecklistItemStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PersonChecklistItemUncheckedUpdateManyWithoutPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumChecklistKindFieldUpdateOperationsInput | $Enums.ChecklistKind
+    key?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    status?: EnumChecklistItemStatusFieldUpdateOperationsInput | $Enums.ChecklistItemStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceUpdateWithoutPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
+    asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
+    enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
+    snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateWithoutPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    snapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceNestedInput
+    nonces?: DeviceNonceUncheckedUpdateManyWithoutDeviceNestedInput
+  }
+
+  export type DeviceUncheckedUpdateManyWithoutPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    assetId?: StringFieldUpdateOperationsInput | string
+    secretEnc?: StringFieldUpdateOperationsInput | string
+    secretKeyId?: IntFieldUpdateOperationsInput | number
+    platform?: EnumDevicePlatformFieldUpdateOperationsInput | $Enums.DevicePlatform
+    osVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    agentVersion?: NullableStringFieldUpdateOperationsInput | string | null
+    hostname?: NullableStringFieldUpdateOperationsInput | string | null
+    hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    diskEncryption?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    firewall?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    screenLock?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    antivirus?: EnumPostureSignalStateFieldUpdateOperationsInput | $Enums.PostureSignalState
+    agentHealthy?: BoolFieldUpdateOperationsInput | boolean
+    lastPostureAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    latestPosture?: NullableJsonNullValueInput | InputJsonValue
+    enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AssetUpdateWithoutAssignedPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutAssetsNestedInput
+    owner?: UserUpdateOneWithoutOwnedAssetsNestedInput
+    deletedBy?: UserUpdateOneWithoutDeletedAssetsNestedInput
+    device?: DeviceUpdateOneWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateWithoutAssignedPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    device?: DeviceUncheckedUpdateOneWithoutAssetNestedInput
+  }
+
+  export type AssetUncheckedUpdateManyWithoutAssignedPersonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
+    classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedById?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -231768,6 +238816,7 @@ export namespace Prisma {
     contacts?: VendorContactUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUpdateManyWithoutVendorNestedInput
+    people?: PersonUpdateManyWithoutVendorNestedInput
     questionnaires?: QuestionnaireUpdateManyWithoutVendorNestedInput
   }
 
@@ -231799,6 +238848,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUncheckedUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUncheckedUpdateManyWithoutVendorNestedInput
+    people?: PersonUncheckedUpdateManyWithoutVendorNestedInput
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutVendorNestedInput
   }
 
@@ -232768,8 +239818,38 @@ export namespace Prisma {
     location?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
+    vendorId?: string | null
     invitedAt?: Date | string | null
     joinedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BackgroundCheckCreateManyTenantInput = {
+    id?: string
+    personId: string
+    type?: $Enums.BackgroundCheckType
+    status?: $Enums.BackgroundCheckStatus
+    provider?: string | null
+    reference?: string | null
+    adverseFindings?: boolean
+    notes?: string | null
+    requestedAt?: Date | string | null
+    completedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PersonChecklistItemCreateManyTenantInput = {
+    id?: string
+    personId: string
+    kind: $Enums.ChecklistKind
+    key: string
+    label: string
+    status?: $Enums.ChecklistItemStatus
+    dueAt?: Date | string | null
+    completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -232987,6 +240067,7 @@ export namespace Prisma {
     type: $Enums.AssetType
     classification?: $Enums.AssetClassification
     ownerId?: string | null
+    assignedPersonId?: string | null
     deletedById?: string | null
     deletedAt?: Date | string | null
     location?: string | null
@@ -233758,6 +240839,7 @@ export namespace Prisma {
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
     enrolledById?: string | null
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -233862,6 +240944,11 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutPeopleNestedInput
     manager?: PersonUpdateOneWithoutReportsNestedInput
     reports?: PersonUpdateManyWithoutManagerNestedInput
+    vendor?: VendorUpdateOneWithoutPeopleNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type PersonUncheckedUpdateWithoutTenantInput = {
@@ -233881,11 +240968,16 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
     invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: PersonUncheckedUpdateManyWithoutManagerNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUncheckedUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type PersonUncheckedUpdateManyWithoutTenantInput = {
@@ -233905,8 +240997,96 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
     invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BackgroundCheckUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumBackgroundCheckTypeFieldUpdateOperationsInput | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFieldUpdateOperationsInput | $Enums.BackgroundCheckStatus
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    adverseFindings?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    person?: PersonUpdateOneRequiredWithoutBackgroundChecksNestedInput
+  }
+
+  export type BackgroundCheckUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personId?: StringFieldUpdateOperationsInput | string
+    type?: EnumBackgroundCheckTypeFieldUpdateOperationsInput | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFieldUpdateOperationsInput | $Enums.BackgroundCheckStatus
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    adverseFindings?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BackgroundCheckUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personId?: StringFieldUpdateOperationsInput | string
+    type?: EnumBackgroundCheckTypeFieldUpdateOperationsInput | $Enums.BackgroundCheckType
+    status?: EnumBackgroundCheckStatusFieldUpdateOperationsInput | $Enums.BackgroundCheckStatus
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    reference?: NullableStringFieldUpdateOperationsInput | string | null
+    adverseFindings?: BoolFieldUpdateOperationsInput | boolean
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PersonChecklistItemUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: EnumChecklistKindFieldUpdateOperationsInput | $Enums.ChecklistKind
+    key?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    status?: EnumChecklistItemStatusFieldUpdateOperationsInput | $Enums.ChecklistItemStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    person?: PersonUpdateOneRequiredWithoutChecklistItemsNestedInput
+  }
+
+  export type PersonChecklistItemUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumChecklistKindFieldUpdateOperationsInput | $Enums.ChecklistKind
+    key?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    status?: EnumChecklistItemStatusFieldUpdateOperationsInput | $Enums.ChecklistItemStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PersonChecklistItemUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personId?: StringFieldUpdateOperationsInput | string
+    kind?: EnumChecklistKindFieldUpdateOperationsInput | $Enums.ChecklistKind
+    key?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    status?: EnumChecklistItemStatusFieldUpdateOperationsInput | $Enums.ChecklistItemStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -234363,6 +241543,7 @@ export namespace Prisma {
     contacts?: VendorContactUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUpdateManyWithoutVendorNestedInput
+    people?: PersonUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUpdateManyWithoutVendorNestedInput
   }
@@ -234394,6 +241575,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUncheckedUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUncheckedUpdateManyWithoutVendorNestedInput
+    people?: PersonUncheckedUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutVendorNestedInput
   }
@@ -234588,6 +241770,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutOwnedAssetsNestedInput
+    assignedPerson?: PersonUpdateOneWithoutAssignedAssetsNestedInput
     deletedBy?: UserUpdateOneWithoutDeletedAssetsNestedInput
     device?: DeviceUpdateOneWithoutAssetNestedInput
   }
@@ -234599,6 +241782,7 @@ export namespace Prisma {
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -234616,6 +241800,7 @@ export namespace Prisma {
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -236961,6 +244146,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
     enrolledBy?: UserUpdateOneWithoutDevicesEnrolledNestedInput
+    person?: PersonUpdateOneWithoutDevicesNestedInput
     enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
     snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
     nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
@@ -236978,6 +244164,7 @@ export namespace Prisma {
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
     enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -237007,6 +244194,7 @@ export namespace Prisma {
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
     enrolledById?: NullableStringFieldUpdateOperationsInput | string | null
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -237664,6 +244852,7 @@ export namespace Prisma {
     location?: string | null
     startDate?: Date | string | null
     endDate?: Date | string | null
+    vendorId?: string | null
     invitedAt?: Date | string | null
     joinedAt?: Date | string | null
     createdAt?: Date | string
@@ -237885,6 +245074,7 @@ export namespace Prisma {
     description?: string | null
     type: $Enums.AssetType
     classification?: $Enums.AssetClassification
+    assignedPersonId?: string | null
     deletedById?: string | null
     deletedAt?: Date | string | null
     location?: string | null
@@ -237902,6 +245092,7 @@ export namespace Prisma {
     type: $Enums.AssetType
     classification?: $Enums.AssetClassification
     ownerId?: string | null
+    assignedPersonId?: string | null
     deletedAt?: Date | string | null
     location?: string | null
     status?: $Enums.AssetStatus
@@ -238704,6 +245895,7 @@ export namespace Prisma {
     hostname?: string | null
     hardwareId?: string | null
     status?: $Enums.DeviceStatus
+    personId?: string | null
     enrolledAt?: Date | string
     lastSeenAt?: Date | string | null
     checkInIntervalSeconds?: number
@@ -238777,6 +245969,11 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutPeopleNestedInput
     manager?: PersonUpdateOneWithoutReportsNestedInput
     reports?: PersonUpdateManyWithoutManagerNestedInput
+    vendor?: VendorUpdateOneWithoutPeopleNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type PersonUncheckedUpdateWithoutUserInput = {
@@ -238796,11 +245993,16 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
     invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: PersonUncheckedUpdateManyWithoutManagerNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUncheckedUpdateManyWithoutAssignedPersonNestedInput
   }
 
   export type PersonUncheckedUpdateManyWithoutUserInput = {
@@ -238820,6 +246022,7 @@ export namespace Prisma {
     location?: NullableStringFieldUpdateOperationsInput | string | null
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    vendorId?: NullableStringFieldUpdateOperationsInput | string | null
     invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -239505,6 +246708,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutAssetsNestedInput
+    assignedPerson?: PersonUpdateOneWithoutAssignedAssetsNestedInput
     deletedBy?: UserUpdateOneWithoutDeletedAssetsNestedInput
     device?: DeviceUpdateOneWithoutAssetNestedInput
   }
@@ -239516,6 +246720,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
+    assignedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -239533,6 +246738,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
+    assignedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     deletedById?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
@@ -239556,6 +246762,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutAssetsNestedInput
     owner?: UserUpdateOneWithoutOwnedAssetsNestedInput
+    assignedPerson?: PersonUpdateOneWithoutAssignedAssetsNestedInput
     device?: DeviceUpdateOneWithoutAssetNestedInput
   }
 
@@ -239567,6 +246774,7 @@ export namespace Prisma {
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
@@ -239584,6 +246792,7 @@ export namespace Prisma {
     type?: EnumAssetTypeFieldUpdateOperationsInput | $Enums.AssetType
     classification?: EnumAssetClassificationFieldUpdateOperationsInput | $Enums.AssetClassification
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedPersonId?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumAssetStatusFieldUpdateOperationsInput | $Enums.AssetStatus
@@ -242004,6 +249213,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutDevicesNestedInput
     asset?: AssetUpdateOneRequiredWithoutDeviceNestedInput
+    person?: PersonUpdateOneWithoutDevicesNestedInput
     enrollmentToken?: DeviceEnrollmentTokenUpdateOneWithoutDevicesNestedInput
     snapshots?: DevicePostureSnapshotUpdateManyWithoutDeviceNestedInput
     nonces?: DeviceNonceUpdateManyWithoutDeviceNestedInput
@@ -242021,6 +249231,7 @@ export namespace Prisma {
     hostname?: NullableStringFieldUpdateOperationsInput | string | null
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -242050,6 +249261,7 @@ export namespace Prisma {
     hostname?: NullableStringFieldUpdateOperationsInput | string | null
     hardwareId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumDeviceStatusFieldUpdateOperationsInput | $Enums.DeviceStatus
+    personId?: NullableStringFieldUpdateOperationsInput | string | null
     enrolledAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastSeenAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     checkInIntervalSeconds?: IntFieldUpdateOperationsInput | number
@@ -242264,6 +249476,7 @@ export namespace Prisma {
     contacts?: VendorContactUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUpdateManyWithoutVendorNestedInput
+    people?: PersonUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUpdateManyWithoutVendorNestedInput
   }
@@ -242295,6 +249508,7 @@ export namespace Prisma {
     contacts?: VendorContactUncheckedUpdateManyWithoutVendorNestedInput
     researches?: VendorResearchUncheckedUpdateManyWithoutVendorNestedInput
     documents?: VendorDocumentUncheckedUpdateManyWithoutVendorNestedInput
+    people?: PersonUncheckedUpdateManyWithoutVendorNestedInput
     processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutVendorsNestedInput
     questionnaires?: QuestionnaireUncheckedUpdateManyWithoutVendorNestedInput
   }
@@ -242450,6 +249664,30 @@ export namespace Prisma {
     mimeType: string
     expiresAt?: Date | string | null
     uploadedById: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PersonCreateManyVendorInput = {
+    id?: string
+    tenantId: string
+    userId?: string | null
+    email: string
+    fullName: string
+    role?: $Enums.PersonRole
+    permissions?: PersonCreatepermissionsInput | string[]
+    status?: $Enums.PersonStatus
+    kind?: $Enums.PersonKind
+    source?: $Enums.PersonSource
+    jobTitle?: string | null
+    department?: string | null
+    employmentType?: string | null
+    managerId?: string | null
+    location?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    invitedAt?: Date | string | null
+    joinedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -242648,6 +249886,88 @@ export namespace Prisma {
     mimeType?: StringFieldUpdateOperationsInput | string
     expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     uploadedById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PersonUpdateWithoutVendorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutPeopleNestedInput
+    user?: UserUpdateOneWithoutPeopleNestedInput
+    manager?: PersonUpdateOneWithoutReportsNestedInput
+    reports?: PersonUpdateManyWithoutManagerNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUpdateManyWithoutAssignedPersonNestedInput
+  }
+
+  export type PersonUncheckedUpdateWithoutVendorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    managerId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reports?: PersonUncheckedUpdateManyWithoutManagerNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutPersonNestedInput
+    checklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutPersonNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutPersonNestedInput
+    assignedAssets?: AssetUncheckedUpdateManyWithoutAssignedPersonNestedInput
+  }
+
+  export type PersonUncheckedUpdateManyWithoutVendorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    role?: EnumPersonRoleFieldUpdateOperationsInput | $Enums.PersonRole
+    permissions?: PersonUpdatepermissionsInput | string[]
+    status?: EnumPersonStatusFieldUpdateOperationsInput | $Enums.PersonStatus
+    kind?: EnumPersonKindFieldUpdateOperationsInput | $Enums.PersonKind
+    source?: EnumPersonSourceFieldUpdateOperationsInput | $Enums.PersonSource
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    employmentType?: NullableStringFieldUpdateOperationsInput | string | null
+    managerId?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    invitedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    joinedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

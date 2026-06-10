@@ -76,6 +76,10 @@ model Person {
   startDate      DateTime?
   endDate        DateTime?
 
+  // Vendor-as-person link (Phase D): a vendor contact promoted to a Person so
+  // they can be vetted / acknowledge policies / take training like staff.
+  vendorId String?
+
   invitedAt DateTime?
   joinedAt  DateTime?
   createdAt DateTime  @default(now())
@@ -85,10 +89,103 @@ model Person {
   user    User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   manager Person?  @relation("PersonManager", fields: [managerId], references: [id])
   reports Person[] @relation("PersonManager")
+  vendor  Vendor?  @relation(fields: [vendorId], references: [id], onDelete: SetNull)
+
+  // HR / compliance sub-resources + asset associations (Phases B & C).
+  backgroundChecks BackgroundCheck[]
+  checklistItems   PersonChecklistItem[]
+  devices          Device[]
+  assignedAssets   Asset[]               @relation("AssetAssignedPerson")
 
   @@unique([tenantId, userId])
   @@unique([tenantId, email])
   @@index([tenantId])
   @@index([tenantId, status])
   @@index([userId])
+  @@index([tenantId, vendorId])
+}
+
+// ── Phase B: background checks ──────────────────────────────────────────
+// Pre-employment / periodic vetting record. Many per Person (history); the
+// latest per type is the current state. A `cleared` check emits advisory
+// Evidence (ISO 27001:2022 A.6.1 screening).
+
+enum BackgroundCheckType {
+  identity
+  criminal
+  employment
+  education
+  credit
+  reference
+  other
+}
+
+enum BackgroundCheckStatus {
+  not_started
+  in_progress
+  cleared
+  flagged
+  expired
+}
+
+model BackgroundCheck {
+  id              String                @id @default(cuid())
+  tenantId        String
+  personId        String
+  type            BackgroundCheckType   @default(identity)
+  status          BackgroundCheckStatus @default(not_started)
+  provider        String?
+  reference       String?
+  adverseFindings Boolean               @default(false)
+  notes           String?
+  requestedAt     DateTime?
+  completedAt     DateTime?
+  expiresAt       DateTime?
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([personId])
+  @@index([tenantId, status])
+  @@index([tenantId, expiresAt])
+}
+
+// ── Phase B: onboarding / offboarding checklists ────────────────────────
+// Templated task items seeded on status transitions (invited→active seeds
+// onboarding; →offboarded seeds offboarding). Completing the offboarding set
+// emits advisory Evidence (A.6.5 termination/change of employment).
+
+enum ChecklistKind {
+  onboarding
+  offboarding
+}
+
+enum ChecklistItemStatus {
+  pending
+  done
+  na
+}
+
+model PersonChecklistItem {
+  id          String              @id @default(cuid())
+  tenantId    String
+  personId    String
+  kind        ChecklistKind
+  key         String
+  label       String
+  status      ChecklistItemStatus @default(pending)
+  dueAt       DateTime?
+  completedAt DateTime?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [id], onDelete: Cascade)
+
+  @@unique([personId, kind, key])
+  @@index([tenantId])
+  @@index([personId, kind])
 }

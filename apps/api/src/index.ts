@@ -11,6 +11,7 @@ import { csrfProtection } from "./middleware/csrf.js";
 import { frameworksRouter } from "./modules/frameworks/router.js";
 import { authRouter } from "./modules/auth/router.js";
 import { organizationsRouter } from "./modules/organizations/router.js";
+import { peopleRouter } from "./modules/people/router.js";
 import { controlsRouter } from "./modules/controls/router.js";
 import { controlWeaknessesRouter } from "./modules/control-weaknesses/router.js";
 import { policiesRouter } from "./modules/policies/router.js";
@@ -109,6 +110,7 @@ app.use("/api/v1/devices/agent", deviceAgentRouter);
 
 app.use("/api/v1", authenticate);
 app.use("/api/v1/organizations", organizationsRouter);
+app.use("/api/v1/people", peopleRouter);
 app.use("/api/v1/frameworks", frameworksRouter);
 app.use("/api/v1/controls", controlsRouter);
 app.use("/api/v1/control-weaknesses", controlWeaknessesRouter);

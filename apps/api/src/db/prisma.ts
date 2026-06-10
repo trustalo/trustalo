@@ -43,6 +43,11 @@ export function prismaWithTenant(tenantId: string) {
           "Device",
           "DeviceEnrollmentToken",
           "DevicePostureSnapshot",
+          // People HR/compliance sub-resources. `Person` itself is an
+          // INTENTIONAL_EXCEPTION (login resolves it across tenants), but these
+          // child records are strictly per-tenant and safe to auto-scope.
+          "BackgroundCheck",
+          "PersonChecklistItem",
           "Incident",
           "IncidentTimeline",
           "Audit",

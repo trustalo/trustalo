@@ -341,29 +341,34 @@ enum AssetStatus {
 }
 
 model Asset {
-  id             String              @id @default(cuid())
-  tenantId       String
-  name           String
-  description    String?
-  type           AssetType
-  classification AssetClassification @default(internal)
-  ownerId        String?
-  deletedById    String?
-  deletedAt      DateTime?
-  location       String?
-  status         AssetStatus         @default(active)
-  metadata       Json?
-  createdAt      DateTime            @default(now())
-  updatedAt      DateTime            @updatedAt
+  id               String              @id @default(cuid())
+  tenantId         String
+  name             String
+  description      String?
+  type             AssetType
+  classification   AssetClassification @default(internal)
+  ownerId          String?
+  // Person this asset is assigned to (Phase C, additive — `ownerId` stays the
+  // User-level owner). For Computer assets this is the device's assigned Person.
+  assignedPersonId String?
+  deletedById      String?
+  deletedAt        DateTime?
+  location         String?
+  status           AssetStatus         @default(active)
+  metadata         Json?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
 
-  tenant    Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  owner     User?   @relation("AssetOwner", fields: [ownerId], references: [id])
-  deletedBy User?   @relation("AssetDeletedBy", fields: [deletedById], references: [id])
-  device    Device?
+  tenant         Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  owner          User?   @relation("AssetOwner", fields: [ownerId], references: [id])
+  assignedPerson Person? @relation("AssetAssignedPerson", fields: [assignedPersonId], references: [id], onDelete: SetNull)
+  deletedBy      User?   @relation("AssetDeletedBy", fields: [deletedById], references: [id])
+  device         Device?
 
   @@index([tenantId])
   @@index([tenantId, deletedAt, createdAt])
   @@index([tenantId, status, deletedAt])
+  @@index([tenantId, assignedPersonId])
 }
 
 // --- audit.prisma ---
@@ -1170,6 +1175,9 @@ model Device {
 
   status                 DeviceStatus @default(pending)
   enrolledById           String?
+  // The Person this device is assigned to (Phase C). Resolved from the
+  // enrolling user at enrollment; powers the per-person fleet posture rollup.
+  personId               String?
   enrolledAt             DateTime     @default(now())
   lastSeenAt             DateTime?
   // Expected heartbeat cadence; drives stale detection.
@@ -1195,6 +1203,7 @@ model Device {
   tenant          Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   asset           Asset                   @relation(fields: [assetId], references: [id], onDelete: Cascade)
   enrolledBy      User?                   @relation("DeviceEnrolledBy", fields: [enrolledById], references: [id])
+  person          Person?                 @relation(fields: [personId], references: [id], onDelete: SetNull)
   enrollmentToken DeviceEnrollmentToken?  @relation(fields: [enrollmentTokenId], references: [id])
   snapshots       DevicePostureSnapshot[]
   nonces          DeviceNonce[]
@@ -1203,6 +1212,7 @@ model Device {
   @@index([tenantId, status])
   @@index([tenantId, lastSeenAt])
   @@index([tenantId, hardwareId])
+  @@index([tenantId, personId])
 }
 
 // Append-only posture history (one row per check-in) for drift / audit trail.
@@ -1591,6 +1601,10 @@ model Person {
   startDate      DateTime?
   endDate        DateTime?
 
+  // Vendor-as-person link (Phase D): a vendor contact promoted to a Person so
+  // they can be vetted / acknowledge policies / take training like staff.
+  vendorId String?
+
   invitedAt DateTime?
   joinedAt  DateTime?
   createdAt DateTime  @default(now())
@@ -1600,12 +1614,105 @@ model Person {
   user    User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   manager Person?  @relation("PersonManager", fields: [managerId], references: [id])
   reports Person[] @relation("PersonManager")
+  vendor  Vendor?  @relation(fields: [vendorId], references: [id], onDelete: SetNull)
+
+  // HR / compliance sub-resources + asset associations (Phases B & C).
+  backgroundChecks BackgroundCheck[]
+  checklistItems   PersonChecklistItem[]
+  devices          Device[]
+  assignedAssets   Asset[]               @relation("AssetAssignedPerson")
 
   @@unique([tenantId, userId])
   @@unique([tenantId, email])
   @@index([tenantId])
   @@index([tenantId, status])
   @@index([userId])
+  @@index([tenantId, vendorId])
+}
+
+// ── Phase B: background checks ──────────────────────────────────────────
+// Pre-employment / periodic vetting record. Many per Person (history); the
+// latest per type is the current state. A `cleared` check emits advisory
+// Evidence (ISO 27001:2022 A.6.1 screening).
+
+enum BackgroundCheckType {
+  identity
+  criminal
+  employment
+  education
+  credit
+  reference
+  other
+}
+
+enum BackgroundCheckStatus {
+  not_started
+  in_progress
+  cleared
+  flagged
+  expired
+}
+
+model BackgroundCheck {
+  id              String                @id @default(cuid())
+  tenantId        String
+  personId        String
+  type            BackgroundCheckType   @default(identity)
+  status          BackgroundCheckStatus @default(not_started)
+  provider        String?
+  reference       String?
+  adverseFindings Boolean               @default(false)
+  notes           String?
+  requestedAt     DateTime?
+  completedAt     DateTime?
+  expiresAt       DateTime?
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([personId])
+  @@index([tenantId, status])
+  @@index([tenantId, expiresAt])
+}
+
+// ── Phase B: onboarding / offboarding checklists ────────────────────────
+// Templated task items seeded on status transitions (invited→active seeds
+// onboarding; →offboarded seeds offboarding). Completing the offboarding set
+// emits advisory Evidence (A.6.5 termination/change of employment).
+
+enum ChecklistKind {
+  onboarding
+  offboarding
+}
+
+enum ChecklistItemStatus {
+  pending
+  done
+  na
+}
+
+model PersonChecklistItem {
+  id          String              @id @default(cuid())
+  tenantId    String
+  personId    String
+  kind        ChecklistKind
+  key         String
+  label       String
+  status      ChecklistItemStatus @default(pending)
+  dueAt       DateTime?
+  completedAt DateTime?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [id], onDelete: Cascade)
+
+  @@unique([personId, kind, key])
+  @@index([tenantId])
+  @@index([personId, kind])
 }
 
 // --- policy.prisma ---
@@ -2994,6 +3101,8 @@ model Tenant {
   settings                      TenantSettings?
   memberships                   Membership[]
   people                        Person[]
+  backgroundChecks              BackgroundCheck[]
+  personChecklistItems          PersonChecklistItem[]
   frameworkInstances            FrameworkInstance[]
   controls                      Control[]
   policies                      Policy[]
@@ -3706,6 +3815,9 @@ model Vendor {
   contacts             VendorContact[]
   researches           VendorResearch[]
   documents            VendorDocument[]
+  // Vendor contacts promoted to People (Phase D) so they can be vetted /
+  // acknowledge policies / take training like staff.
+  people               Person[]
   // M:M link to GDPR Processing Activities for which this vendor processes
   // personal data on the controller's behalf (Art. 28 sub-processor view).
   processingActivities ProcessingActivity[] @relation("VendorProcessingActivities")

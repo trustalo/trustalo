@@ -45,6 +45,8 @@ const deviceSelect = {
   agentHealthy: true,
   assetId: true,
   asset: { select: { id: true, name: true } },
+  personId: true,
+  person: { select: { id: true, fullName: true, email: true } },
 } as const;
 
 // ── Self-enrollment (any authenticated user; no asset permission) ────

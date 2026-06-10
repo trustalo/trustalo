@@ -95,6 +95,9 @@ model Vendor {
   contacts     VendorContact[]
   researches   VendorResearch[]
   documents    VendorDocument[]
+  // Vendor contacts promoted to People (Phase D) so they can be vetted /
+  // acknowledge policies / take training like staff.
+  people       Person[]
   // M:M link to GDPR Processing Activities for which this vendor processes
   // personal data on the controller's behalf (Art. 28 sub-processor view).
   processingActivities ProcessingActivity[] @relation("VendorProcessingActivities")

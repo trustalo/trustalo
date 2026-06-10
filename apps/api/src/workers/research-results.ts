@@ -91,13 +91,15 @@ async function processResearchResult(body: VendorResearchResultMessage): Promise
         where: { id: body.vendorId },
         include: {
           tenant: {
-            include: { memberships: { where: { role: "owner" }, take: 1 } },
+            // People replaced Membership: the tenant owner is the Person with
+            // role=owner; assessedById needs that person's linked userId.
+            include: { people: { where: { role: "owner" }, take: 1 } },
           },
         },
       });
 
       if (vendor) {
-        const assessorId = vendor.tenant?.memberships?.[0]?.userId;
+        const assessorId = vendor.tenant?.people?.[0]?.userId;
         if (assessorId) {
           await prisma.vendorAssessment.create({
             data: {

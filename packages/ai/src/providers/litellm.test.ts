@@ -23,7 +23,7 @@ describe("createLiteLLMProvider", () => {
     let capturedUrl = "";
     let capturedBody = "";
 
-    globalThis.fetch = (async (input, init) => {
+    globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
       if (input instanceof Request) {
         capturedUrl = input.url;
         capturedBody = await input.clone().text();

@@ -154,6 +154,11 @@ export type DevicePostureSnapshot = $Result.DefaultSelection<Prisma.$DevicePostu
  */
 export type DeviceNonce = $Result.DefaultSelection<Prisma.$DeviceNoncePayload>
 /**
+ * Model DeviceAuthCode
+ * 
+ */
+export type DeviceAuthCode = $Result.DefaultSelection<Prisma.$DeviceAuthCodePayload>
+/**
  * Model Evidence
  * 
  */
@@ -2699,6 +2704,16 @@ export class PrismaClient<
   get deviceNonce(): Prisma.DeviceNonceDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.deviceAuthCode`: Exposes CRUD operations for the **DeviceAuthCode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DeviceAuthCodes
+    * const deviceAuthCodes = await prisma.deviceAuthCode.findMany()
+    * ```
+    */
+  get deviceAuthCode(): Prisma.DeviceAuthCodeDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.evidence`: Exposes CRUD operations for the **Evidence** model.
     * Example usage:
     * ```ts
@@ -3759,6 +3774,7 @@ export namespace Prisma {
     Device: 'Device',
     DevicePostureSnapshot: 'DevicePostureSnapshot',
     DeviceNonce: 'DeviceNonce',
+    DeviceAuthCode: 'DeviceAuthCode',
     Evidence: 'Evidence',
     Framework: 'Framework',
     FrameworkInstance: 'FrameworkInstance',
@@ -3834,7 +3850,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "tenantBillingConfig" | "tenantLiteLLMKey" | "creditWallet" | "creditTransaction" | "liteLLMSpendEvent" | "tenantAIUsageMonth" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "deviceEnrollmentToken" | "device" | "devicePostureSnapshot" | "deviceNonce" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "person" | "backgroundCheck" | "personChecklistItem" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
+      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "tenantBillingConfig" | "tenantLiteLLMKey" | "creditWallet" | "creditTransaction" | "liteLLMSpendEvent" | "tenantAIUsageMonth" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "deviceEnrollmentToken" | "device" | "devicePostureSnapshot" | "deviceNonce" | "deviceAuthCode" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "person" | "backgroundCheck" | "personChecklistItem" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "membership" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -5907,6 +5923,80 @@ export namespace Prisma {
           count: {
             args: Prisma.DeviceNonceCountArgs<ExtArgs>
             result: $Utils.Optional<DeviceNonceCountAggregateOutputType> | number
+          }
+        }
+      }
+      DeviceAuthCode: {
+        payload: Prisma.$DeviceAuthCodePayload<ExtArgs>
+        fields: Prisma.DeviceAuthCodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DeviceAuthCodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DeviceAuthCodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload>
+          }
+          findFirst: {
+            args: Prisma.DeviceAuthCodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DeviceAuthCodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload>
+          }
+          findMany: {
+            args: Prisma.DeviceAuthCodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload>[]
+          }
+          create: {
+            args: Prisma.DeviceAuthCodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload>
+          }
+          createMany: {
+            args: Prisma.DeviceAuthCodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DeviceAuthCodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload>[]
+          }
+          delete: {
+            args: Prisma.DeviceAuthCodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload>
+          }
+          update: {
+            args: Prisma.DeviceAuthCodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload>
+          }
+          deleteMany: {
+            args: Prisma.DeviceAuthCodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DeviceAuthCodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DeviceAuthCodeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload>[]
+          }
+          upsert: {
+            args: Prisma.DeviceAuthCodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DeviceAuthCodePayload>
+          }
+          aggregate: {
+            args: Prisma.DeviceAuthCodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeviceAuthCode>
+          }
+          groupBy: {
+            args: Prisma.DeviceAuthCodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DeviceAuthCodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DeviceAuthCodeCountArgs<ExtArgs>
+            result: $Utils.Optional<DeviceAuthCodeCountAggregateOutputType> | number
           }
         }
       }
@@ -10486,6 +10576,7 @@ export namespace Prisma {
     device?: DeviceOmit
     devicePostureSnapshot?: DevicePostureSnapshotOmit
     deviceNonce?: DeviceNonceOmit
+    deviceAuthCode?: DeviceAuthCodeOmit
     evidence?: EvidenceOmit
     framework?: FrameworkOmit
     frameworkInstance?: FrameworkInstanceOmit
@@ -11683,6 +11774,7 @@ export namespace Prisma {
     devices: number
     deviceEnrollmentTokens: number
     devicePostureSnapshots: number
+    deviceAuthCodes: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11751,6 +11843,7 @@ export namespace Prisma {
     devices?: boolean | TenantCountOutputTypeCountDevicesArgs
     deviceEnrollmentTokens?: boolean | TenantCountOutputTypeCountDeviceEnrollmentTokensArgs
     devicePostureSnapshots?: boolean | TenantCountOutputTypeCountDevicePostureSnapshotsArgs
+    deviceAuthCodes?: boolean | TenantCountOutputTypeCountDeviceAuthCodesArgs
   }
 
   // Custom InputTypes
@@ -12219,6 +12312,13 @@ export namespace Prisma {
     where?: DevicePostureSnapshotWhereInput
   }
 
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDeviceAuthCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceAuthCodeWhereInput
+  }
+
 
   /**
    * Count Type TrainingProgramCountOutputType
@@ -12545,6 +12645,7 @@ export namespace Prisma {
     externalIdentityMappings: number
     deviceTokensCreated: number
     devicesEnrolled: number
+    deviceAuthCodes: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12606,6 +12707,7 @@ export namespace Prisma {
     externalIdentityMappings?: boolean | UserCountOutputTypeCountExternalIdentityMappingsArgs
     deviceTokensCreated?: boolean | UserCountOutputTypeCountDeviceTokensCreatedArgs
     devicesEnrolled?: boolean | UserCountOutputTypeCountDevicesEnrolledArgs
+    deviceAuthCodes?: boolean | UserCountOutputTypeCountDeviceAuthCodesArgs
   }
 
   // Custom InputTypes
@@ -13023,6 +13125,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountDevicesEnrolledArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DeviceWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDeviceAuthCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceAuthCodeWhereInput
   }
 
 
@@ -47574,6 +47683,1129 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: DeviceNonceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DeviceAuthCode
+   */
+
+  export type AggregateDeviceAuthCode = {
+    _count: DeviceAuthCodeCountAggregateOutputType | null
+    _min: DeviceAuthCodeMinAggregateOutputType | null
+    _max: DeviceAuthCodeMaxAggregateOutputType | null
+  }
+
+  export type DeviceAuthCodeMinAggregateOutputType = {
+    id: string | null
+    code: string | null
+    userId: string | null
+    tenantId: string | null
+    codeChallenge: string | null
+    redirectUri: string | null
+    expiresAt: Date | null
+    consumedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type DeviceAuthCodeMaxAggregateOutputType = {
+    id: string | null
+    code: string | null
+    userId: string | null
+    tenantId: string | null
+    codeChallenge: string | null
+    redirectUri: string | null
+    expiresAt: Date | null
+    consumedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type DeviceAuthCodeCountAggregateOutputType = {
+    id: number
+    code: number
+    userId: number
+    tenantId: number
+    codeChallenge: number
+    redirectUri: number
+    expiresAt: number
+    consumedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DeviceAuthCodeMinAggregateInputType = {
+    id?: true
+    code?: true
+    userId?: true
+    tenantId?: true
+    codeChallenge?: true
+    redirectUri?: true
+    expiresAt?: true
+    consumedAt?: true
+    createdAt?: true
+  }
+
+  export type DeviceAuthCodeMaxAggregateInputType = {
+    id?: true
+    code?: true
+    userId?: true
+    tenantId?: true
+    codeChallenge?: true
+    redirectUri?: true
+    expiresAt?: true
+    consumedAt?: true
+    createdAt?: true
+  }
+
+  export type DeviceAuthCodeCountAggregateInputType = {
+    id?: true
+    code?: true
+    userId?: true
+    tenantId?: true
+    codeChallenge?: true
+    redirectUri?: true
+    expiresAt?: true
+    consumedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DeviceAuthCodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceAuthCode to aggregate.
+     */
+    where?: DeviceAuthCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceAuthCodes to fetch.
+     */
+    orderBy?: DeviceAuthCodeOrderByWithRelationInput | DeviceAuthCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DeviceAuthCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceAuthCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceAuthCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DeviceAuthCodes
+    **/
+    _count?: true | DeviceAuthCodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DeviceAuthCodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DeviceAuthCodeMaxAggregateInputType
+  }
+
+  export type GetDeviceAuthCodeAggregateType<T extends DeviceAuthCodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeviceAuthCode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeviceAuthCode[P]>
+      : GetScalarType<T[P], AggregateDeviceAuthCode[P]>
+  }
+
+
+
+
+  export type DeviceAuthCodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DeviceAuthCodeWhereInput
+    orderBy?: DeviceAuthCodeOrderByWithAggregationInput | DeviceAuthCodeOrderByWithAggregationInput[]
+    by: DeviceAuthCodeScalarFieldEnum[] | DeviceAuthCodeScalarFieldEnum
+    having?: DeviceAuthCodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DeviceAuthCodeCountAggregateInputType | true
+    _min?: DeviceAuthCodeMinAggregateInputType
+    _max?: DeviceAuthCodeMaxAggregateInputType
+  }
+
+  export type DeviceAuthCodeGroupByOutputType = {
+    id: string
+    code: string
+    userId: string
+    tenantId: string
+    codeChallenge: string
+    redirectUri: string
+    expiresAt: Date
+    consumedAt: Date | null
+    createdAt: Date
+    _count: DeviceAuthCodeCountAggregateOutputType | null
+    _min: DeviceAuthCodeMinAggregateOutputType | null
+    _max: DeviceAuthCodeMaxAggregateOutputType | null
+  }
+
+  type GetDeviceAuthCodeGroupByPayload<T extends DeviceAuthCodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DeviceAuthCodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DeviceAuthCodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DeviceAuthCodeGroupByOutputType[P]>
+            : GetScalarType<T[P], DeviceAuthCodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DeviceAuthCodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    userId?: boolean
+    tenantId?: boolean
+    codeChallenge?: boolean
+    redirectUri?: boolean
+    expiresAt?: boolean
+    consumedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceAuthCode"]>
+
+  export type DeviceAuthCodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    userId?: boolean
+    tenantId?: boolean
+    codeChallenge?: boolean
+    redirectUri?: boolean
+    expiresAt?: boolean
+    consumedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceAuthCode"]>
+
+  export type DeviceAuthCodeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    code?: boolean
+    userId?: boolean
+    tenantId?: boolean
+    codeChallenge?: boolean
+    redirectUri?: boolean
+    expiresAt?: boolean
+    consumedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deviceAuthCode"]>
+
+  export type DeviceAuthCodeSelectScalar = {
+    id?: boolean
+    code?: boolean
+    userId?: boolean
+    tenantId?: boolean
+    codeChallenge?: boolean
+    redirectUri?: boolean
+    expiresAt?: boolean
+    consumedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type DeviceAuthCodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "userId" | "tenantId" | "codeChallenge" | "redirectUri" | "expiresAt" | "consumedAt" | "createdAt", ExtArgs["result"]["deviceAuthCode"]>
+  export type DeviceAuthCodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type DeviceAuthCodeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type DeviceAuthCodeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $DeviceAuthCodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DeviceAuthCode"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      code: string
+      userId: string
+      tenantId: string
+      codeChallenge: string
+      redirectUri: string
+      expiresAt: Date
+      consumedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["deviceAuthCode"]>
+    composites: {}
+  }
+
+  type DeviceAuthCodeGetPayload<S extends boolean | null | undefined | DeviceAuthCodeDefaultArgs> = $Result.GetResult<Prisma.$DeviceAuthCodePayload, S>
+
+  type DeviceAuthCodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DeviceAuthCodeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DeviceAuthCodeCountAggregateInputType | true
+    }
+
+  export interface DeviceAuthCodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DeviceAuthCode'], meta: { name: 'DeviceAuthCode' } }
+    /**
+     * Find zero or one DeviceAuthCode that matches the filter.
+     * @param {DeviceAuthCodeFindUniqueArgs} args - Arguments to find a DeviceAuthCode
+     * @example
+     * // Get one DeviceAuthCode
+     * const deviceAuthCode = await prisma.deviceAuthCode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DeviceAuthCodeFindUniqueArgs>(args: SelectSubset<T, DeviceAuthCodeFindUniqueArgs<ExtArgs>>): Prisma__DeviceAuthCodeClient<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DeviceAuthCode that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DeviceAuthCodeFindUniqueOrThrowArgs} args - Arguments to find a DeviceAuthCode
+     * @example
+     * // Get one DeviceAuthCode
+     * const deviceAuthCode = await prisma.deviceAuthCode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DeviceAuthCodeFindUniqueOrThrowArgs>(args: SelectSubset<T, DeviceAuthCodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DeviceAuthCodeClient<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceAuthCode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceAuthCodeFindFirstArgs} args - Arguments to find a DeviceAuthCode
+     * @example
+     * // Get one DeviceAuthCode
+     * const deviceAuthCode = await prisma.deviceAuthCode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DeviceAuthCodeFindFirstArgs>(args?: SelectSubset<T, DeviceAuthCodeFindFirstArgs<ExtArgs>>): Prisma__DeviceAuthCodeClient<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DeviceAuthCode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceAuthCodeFindFirstOrThrowArgs} args - Arguments to find a DeviceAuthCode
+     * @example
+     * // Get one DeviceAuthCode
+     * const deviceAuthCode = await prisma.deviceAuthCode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DeviceAuthCodeFindFirstOrThrowArgs>(args?: SelectSubset<T, DeviceAuthCodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__DeviceAuthCodeClient<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DeviceAuthCodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceAuthCodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DeviceAuthCodes
+     * const deviceAuthCodes = await prisma.deviceAuthCode.findMany()
+     * 
+     * // Get first 10 DeviceAuthCodes
+     * const deviceAuthCodes = await prisma.deviceAuthCode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const deviceAuthCodeWithIdOnly = await prisma.deviceAuthCode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DeviceAuthCodeFindManyArgs>(args?: SelectSubset<T, DeviceAuthCodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DeviceAuthCode.
+     * @param {DeviceAuthCodeCreateArgs} args - Arguments to create a DeviceAuthCode.
+     * @example
+     * // Create one DeviceAuthCode
+     * const DeviceAuthCode = await prisma.deviceAuthCode.create({
+     *   data: {
+     *     // ... data to create a DeviceAuthCode
+     *   }
+     * })
+     * 
+     */
+    create<T extends DeviceAuthCodeCreateArgs>(args: SelectSubset<T, DeviceAuthCodeCreateArgs<ExtArgs>>): Prisma__DeviceAuthCodeClient<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DeviceAuthCodes.
+     * @param {DeviceAuthCodeCreateManyArgs} args - Arguments to create many DeviceAuthCodes.
+     * @example
+     * // Create many DeviceAuthCodes
+     * const deviceAuthCode = await prisma.deviceAuthCode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DeviceAuthCodeCreateManyArgs>(args?: SelectSubset<T, DeviceAuthCodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DeviceAuthCodes and returns the data saved in the database.
+     * @param {DeviceAuthCodeCreateManyAndReturnArgs} args - Arguments to create many DeviceAuthCodes.
+     * @example
+     * // Create many DeviceAuthCodes
+     * const deviceAuthCode = await prisma.deviceAuthCode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DeviceAuthCodes and only return the `id`
+     * const deviceAuthCodeWithIdOnly = await prisma.deviceAuthCode.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DeviceAuthCodeCreateManyAndReturnArgs>(args?: SelectSubset<T, DeviceAuthCodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DeviceAuthCode.
+     * @param {DeviceAuthCodeDeleteArgs} args - Arguments to delete one DeviceAuthCode.
+     * @example
+     * // Delete one DeviceAuthCode
+     * const DeviceAuthCode = await prisma.deviceAuthCode.delete({
+     *   where: {
+     *     // ... filter to delete one DeviceAuthCode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DeviceAuthCodeDeleteArgs>(args: SelectSubset<T, DeviceAuthCodeDeleteArgs<ExtArgs>>): Prisma__DeviceAuthCodeClient<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DeviceAuthCode.
+     * @param {DeviceAuthCodeUpdateArgs} args - Arguments to update one DeviceAuthCode.
+     * @example
+     * // Update one DeviceAuthCode
+     * const deviceAuthCode = await prisma.deviceAuthCode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DeviceAuthCodeUpdateArgs>(args: SelectSubset<T, DeviceAuthCodeUpdateArgs<ExtArgs>>): Prisma__DeviceAuthCodeClient<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DeviceAuthCodes.
+     * @param {DeviceAuthCodeDeleteManyArgs} args - Arguments to filter DeviceAuthCodes to delete.
+     * @example
+     * // Delete a few DeviceAuthCodes
+     * const { count } = await prisma.deviceAuthCode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DeviceAuthCodeDeleteManyArgs>(args?: SelectSubset<T, DeviceAuthCodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeviceAuthCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceAuthCodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DeviceAuthCodes
+     * const deviceAuthCode = await prisma.deviceAuthCode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DeviceAuthCodeUpdateManyArgs>(args: SelectSubset<T, DeviceAuthCodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DeviceAuthCodes and returns the data updated in the database.
+     * @param {DeviceAuthCodeUpdateManyAndReturnArgs} args - Arguments to update many DeviceAuthCodes.
+     * @example
+     * // Update many DeviceAuthCodes
+     * const deviceAuthCode = await prisma.deviceAuthCode.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DeviceAuthCodes and only return the `id`
+     * const deviceAuthCodeWithIdOnly = await prisma.deviceAuthCode.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DeviceAuthCodeUpdateManyAndReturnArgs>(args: SelectSubset<T, DeviceAuthCodeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DeviceAuthCode.
+     * @param {DeviceAuthCodeUpsertArgs} args - Arguments to update or create a DeviceAuthCode.
+     * @example
+     * // Update or create a DeviceAuthCode
+     * const deviceAuthCode = await prisma.deviceAuthCode.upsert({
+     *   create: {
+     *     // ... data to create a DeviceAuthCode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DeviceAuthCode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DeviceAuthCodeUpsertArgs>(args: SelectSubset<T, DeviceAuthCodeUpsertArgs<ExtArgs>>): Prisma__DeviceAuthCodeClient<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DeviceAuthCodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceAuthCodeCountArgs} args - Arguments to filter DeviceAuthCodes to count.
+     * @example
+     * // Count the number of DeviceAuthCodes
+     * const count = await prisma.deviceAuthCode.count({
+     *   where: {
+     *     // ... the filter for the DeviceAuthCodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends DeviceAuthCodeCountArgs>(
+      args?: Subset<T, DeviceAuthCodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DeviceAuthCodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DeviceAuthCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceAuthCodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DeviceAuthCodeAggregateArgs>(args: Subset<T, DeviceAuthCodeAggregateArgs>): Prisma.PrismaPromise<GetDeviceAuthCodeAggregateType<T>>
+
+    /**
+     * Group by DeviceAuthCode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DeviceAuthCodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DeviceAuthCodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DeviceAuthCodeGroupByArgs['orderBy'] }
+        : { orderBy?: DeviceAuthCodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DeviceAuthCodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDeviceAuthCodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DeviceAuthCode model
+   */
+  readonly fields: DeviceAuthCodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DeviceAuthCode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DeviceAuthCodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DeviceAuthCode model
+   */
+  interface DeviceAuthCodeFieldRefs {
+    readonly id: FieldRef<"DeviceAuthCode", 'String'>
+    readonly code: FieldRef<"DeviceAuthCode", 'String'>
+    readonly userId: FieldRef<"DeviceAuthCode", 'String'>
+    readonly tenantId: FieldRef<"DeviceAuthCode", 'String'>
+    readonly codeChallenge: FieldRef<"DeviceAuthCode", 'String'>
+    readonly redirectUri: FieldRef<"DeviceAuthCode", 'String'>
+    readonly expiresAt: FieldRef<"DeviceAuthCode", 'DateTime'>
+    readonly consumedAt: FieldRef<"DeviceAuthCode", 'DateTime'>
+    readonly createdAt: FieldRef<"DeviceAuthCode", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DeviceAuthCode findUnique
+   */
+  export type DeviceAuthCodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceAuthCode to fetch.
+     */
+    where: DeviceAuthCodeWhereUniqueInput
+  }
+
+  /**
+   * DeviceAuthCode findUniqueOrThrow
+   */
+  export type DeviceAuthCodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceAuthCode to fetch.
+     */
+    where: DeviceAuthCodeWhereUniqueInput
+  }
+
+  /**
+   * DeviceAuthCode findFirst
+   */
+  export type DeviceAuthCodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceAuthCode to fetch.
+     */
+    where?: DeviceAuthCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceAuthCodes to fetch.
+     */
+    orderBy?: DeviceAuthCodeOrderByWithRelationInput | DeviceAuthCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceAuthCodes.
+     */
+    cursor?: DeviceAuthCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceAuthCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceAuthCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceAuthCodes.
+     */
+    distinct?: DeviceAuthCodeScalarFieldEnum | DeviceAuthCodeScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceAuthCode findFirstOrThrow
+   */
+  export type DeviceAuthCodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceAuthCode to fetch.
+     */
+    where?: DeviceAuthCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceAuthCodes to fetch.
+     */
+    orderBy?: DeviceAuthCodeOrderByWithRelationInput | DeviceAuthCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DeviceAuthCodes.
+     */
+    cursor?: DeviceAuthCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceAuthCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceAuthCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceAuthCodes.
+     */
+    distinct?: DeviceAuthCodeScalarFieldEnum | DeviceAuthCodeScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceAuthCode findMany
+   */
+  export type DeviceAuthCodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    /**
+     * Filter, which DeviceAuthCodes to fetch.
+     */
+    where?: DeviceAuthCodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DeviceAuthCodes to fetch.
+     */
+    orderBy?: DeviceAuthCodeOrderByWithRelationInput | DeviceAuthCodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DeviceAuthCodes.
+     */
+    cursor?: DeviceAuthCodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DeviceAuthCodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DeviceAuthCodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DeviceAuthCodes.
+     */
+    distinct?: DeviceAuthCodeScalarFieldEnum | DeviceAuthCodeScalarFieldEnum[]
+  }
+
+  /**
+   * DeviceAuthCode create
+   */
+  export type DeviceAuthCodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DeviceAuthCode.
+     */
+    data: XOR<DeviceAuthCodeCreateInput, DeviceAuthCodeUncheckedCreateInput>
+  }
+
+  /**
+   * DeviceAuthCode createMany
+   */
+  export type DeviceAuthCodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DeviceAuthCodes.
+     */
+    data: DeviceAuthCodeCreateManyInput | DeviceAuthCodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DeviceAuthCode createManyAndReturn
+   */
+  export type DeviceAuthCodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * The data used to create many DeviceAuthCodes.
+     */
+    data: DeviceAuthCodeCreateManyInput | DeviceAuthCodeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DeviceAuthCode update
+   */
+  export type DeviceAuthCodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DeviceAuthCode.
+     */
+    data: XOR<DeviceAuthCodeUpdateInput, DeviceAuthCodeUncheckedUpdateInput>
+    /**
+     * Choose, which DeviceAuthCode to update.
+     */
+    where: DeviceAuthCodeWhereUniqueInput
+  }
+
+  /**
+   * DeviceAuthCode updateMany
+   */
+  export type DeviceAuthCodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DeviceAuthCodes.
+     */
+    data: XOR<DeviceAuthCodeUpdateManyMutationInput, DeviceAuthCodeUncheckedUpdateManyInput>
+    /**
+     * Filter which DeviceAuthCodes to update
+     */
+    where?: DeviceAuthCodeWhereInput
+    /**
+     * Limit how many DeviceAuthCodes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceAuthCode updateManyAndReturn
+   */
+  export type DeviceAuthCodeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * The data used to update DeviceAuthCodes.
+     */
+    data: XOR<DeviceAuthCodeUpdateManyMutationInput, DeviceAuthCodeUncheckedUpdateManyInput>
+    /**
+     * Filter which DeviceAuthCodes to update
+     */
+    where?: DeviceAuthCodeWhereInput
+    /**
+     * Limit how many DeviceAuthCodes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DeviceAuthCode upsert
+   */
+  export type DeviceAuthCodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DeviceAuthCode to update in case it exists.
+     */
+    where: DeviceAuthCodeWhereUniqueInput
+    /**
+     * In case the DeviceAuthCode found by the `where` argument doesn't exist, create a new DeviceAuthCode with this data.
+     */
+    create: XOR<DeviceAuthCodeCreateInput, DeviceAuthCodeUncheckedCreateInput>
+    /**
+     * In case the DeviceAuthCode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DeviceAuthCodeUpdateInput, DeviceAuthCodeUncheckedUpdateInput>
+  }
+
+  /**
+   * DeviceAuthCode delete
+   */
+  export type DeviceAuthCodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    /**
+     * Filter which DeviceAuthCode to delete.
+     */
+    where: DeviceAuthCodeWhereUniqueInput
+  }
+
+  /**
+   * DeviceAuthCode deleteMany
+   */
+  export type DeviceAuthCodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DeviceAuthCodes to delete
+     */
+    where?: DeviceAuthCodeWhereInput
+    /**
+     * Limit how many DeviceAuthCodes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DeviceAuthCode without action
+   */
+  export type DeviceAuthCodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
   }
 
 
@@ -90866,6 +92098,7 @@ export namespace Prisma {
     devices?: boolean | Tenant$devicesArgs<ExtArgs>
     deviceEnrollmentTokens?: boolean | Tenant$deviceEnrollmentTokensArgs<ExtArgs>
     devicePostureSnapshots?: boolean | Tenant$devicePostureSnapshotsArgs<ExtArgs>
+    deviceAuthCodes?: boolean | Tenant$deviceAuthCodesArgs<ExtArgs>
     billingConfig?: boolean | Tenant$billingConfigArgs<ExtArgs>
     litellmKey?: boolean | Tenant$litellmKeyArgs<ExtArgs>
     creditWallet?: boolean | Tenant$creditWalletArgs<ExtArgs>
@@ -90975,6 +92208,7 @@ export namespace Prisma {
     devices?: boolean | Tenant$devicesArgs<ExtArgs>
     deviceEnrollmentTokens?: boolean | Tenant$deviceEnrollmentTokensArgs<ExtArgs>
     devicePostureSnapshots?: boolean | Tenant$devicePostureSnapshotsArgs<ExtArgs>
+    deviceAuthCodes?: boolean | Tenant$deviceAuthCodesArgs<ExtArgs>
     billingConfig?: boolean | Tenant$billingConfigArgs<ExtArgs>
     litellmKey?: boolean | Tenant$litellmKeyArgs<ExtArgs>
     creditWallet?: boolean | Tenant$creditWalletArgs<ExtArgs>
@@ -91054,6 +92288,7 @@ export namespace Prisma {
       devices: Prisma.$DevicePayload<ExtArgs>[]
       deviceEnrollmentTokens: Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>[]
       devicePostureSnapshots: Prisma.$DevicePostureSnapshotPayload<ExtArgs>[]
+      deviceAuthCodes: Prisma.$DeviceAuthCodePayload<ExtArgs>[]
       billingConfig: Prisma.$TenantBillingConfigPayload<ExtArgs> | null
       litellmKey: Prisma.$TenantLiteLLMKeyPayload<ExtArgs> | null
       creditWallet: Prisma.$CreditWalletPayload<ExtArgs> | null
@@ -91529,6 +92764,7 @@ export namespace Prisma {
     devices<T extends Tenant$devicesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$devicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     deviceEnrollmentTokens<T extends Tenant$deviceEnrollmentTokensArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$deviceEnrollmentTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     devicePostureSnapshots<T extends Tenant$devicePostureSnapshotsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$devicePostureSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    deviceAuthCodes<T extends Tenant$deviceAuthCodesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$deviceAuthCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     billingConfig<T extends Tenant$billingConfigArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$billingConfigArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     litellmKey<T extends Tenant$litellmKeyArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$litellmKeyArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     creditWallet<T extends Tenant$creditWalletArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$creditWalletArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -93576,6 +94812,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DevicePostureSnapshotScalarFieldEnum | DevicePostureSnapshotScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.deviceAuthCodes
+   */
+  export type Tenant$deviceAuthCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    where?: DeviceAuthCodeWhereInput
+    orderBy?: DeviceAuthCodeOrderByWithRelationInput | DeviceAuthCodeOrderByWithRelationInput[]
+    cursor?: DeviceAuthCodeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceAuthCodeScalarFieldEnum | DeviceAuthCodeScalarFieldEnum[]
   }
 
   /**
@@ -109172,6 +110432,7 @@ export namespace Prisma {
     externalIdentityMappings?: boolean | User$externalIdentityMappingsArgs<ExtArgs>
     deviceTokensCreated?: boolean | User$deviceTokensCreatedArgs<ExtArgs>
     devicesEnrolled?: boolean | User$devicesEnrolledArgs<ExtArgs>
+    deviceAuthCodes?: boolean | User$deviceAuthCodesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -109277,6 +110538,7 @@ export namespace Prisma {
     externalIdentityMappings?: boolean | User$externalIdentityMappingsArgs<ExtArgs>
     deviceTokensCreated?: boolean | User$deviceTokensCreatedArgs<ExtArgs>
     devicesEnrolled?: boolean | User$devicesEnrolledArgs<ExtArgs>
+    deviceAuthCodes?: boolean | User$deviceAuthCodesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -109343,6 +110605,7 @@ export namespace Prisma {
       externalIdentityMappings: Prisma.$ExternalIdentityMappingPayload<ExtArgs>[]
       deviceTokensCreated: Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>[]
       devicesEnrolled: Prisma.$DevicePayload<ExtArgs>[]
+      deviceAuthCodes: Prisma.$DeviceAuthCodePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -109808,6 +111071,7 @@ export namespace Prisma {
     externalIdentityMappings<T extends User$externalIdentityMappingsArgs<ExtArgs> = {}>(args?: Subset<T, User$externalIdentityMappingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ExternalIdentityMappingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     deviceTokensCreated<T extends User$deviceTokensCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$deviceTokensCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     devicesEnrolled<T extends User$devicesEnrolledArgs<ExtArgs> = {}>(args?: Subset<T, User$devicesEnrolledArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    deviceAuthCodes<T extends User$deviceAuthCodesArgs<ExtArgs> = {}>(args?: Subset<T, User$deviceAuthCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -111630,6 +112894,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DeviceScalarFieldEnum | DeviceScalarFieldEnum[]
+  }
+
+  /**
+   * User.deviceAuthCodes
+   */
+  export type User$deviceAuthCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DeviceAuthCode
+     */
+    select?: DeviceAuthCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DeviceAuthCode
+     */
+    omit?: DeviceAuthCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DeviceAuthCodeInclude<ExtArgs> | null
+    where?: DeviceAuthCodeWhereInput
+    orderBy?: DeviceAuthCodeOrderByWithRelationInput | DeviceAuthCodeOrderByWithRelationInput[]
+    cursor?: DeviceAuthCodeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DeviceAuthCodeScalarFieldEnum | DeviceAuthCodeScalarFieldEnum[]
   }
 
   /**
@@ -126046,6 +127334,21 @@ export namespace Prisma {
   export type DeviceNonceScalarFieldEnum = (typeof DeviceNonceScalarFieldEnum)[keyof typeof DeviceNonceScalarFieldEnum]
 
 
+  export const DeviceAuthCodeScalarFieldEnum: {
+    id: 'id',
+    code: 'code',
+    userId: 'userId',
+    tenantId: 'tenantId',
+    codeChallenge: 'codeChallenge',
+    redirectUri: 'redirectUri',
+    expiresAt: 'expiresAt',
+    consumedAt: 'consumedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type DeviceAuthCodeScalarFieldEnum = (typeof DeviceAuthCodeScalarFieldEnum)[keyof typeof DeviceAuthCodeScalarFieldEnum]
+
+
   export const EvidenceScalarFieldEnum: {
     id: 'id',
     tenantId: 'tenantId',
@@ -131945,6 +133248,84 @@ export namespace Prisma {
     seenAt?: DateTimeWithAggregatesFilter<"DeviceNonce"> | Date | string
   }
 
+  export type DeviceAuthCodeWhereInput = {
+    AND?: DeviceAuthCodeWhereInput | DeviceAuthCodeWhereInput[]
+    OR?: DeviceAuthCodeWhereInput[]
+    NOT?: DeviceAuthCodeWhereInput | DeviceAuthCodeWhereInput[]
+    id?: StringFilter<"DeviceAuthCode"> | string
+    code?: StringFilter<"DeviceAuthCode"> | string
+    userId?: StringFilter<"DeviceAuthCode"> | string
+    tenantId?: StringFilter<"DeviceAuthCode"> | string
+    codeChallenge?: StringFilter<"DeviceAuthCode"> | string
+    redirectUri?: StringFilter<"DeviceAuthCode"> | string
+    expiresAt?: DateTimeFilter<"DeviceAuthCode"> | Date | string
+    consumedAt?: DateTimeNullableFilter<"DeviceAuthCode"> | Date | string | null
+    createdAt?: DateTimeFilter<"DeviceAuthCode"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }
+
+  export type DeviceAuthCodeOrderByWithRelationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    codeChallenge?: SortOrder
+    redirectUri?: SortOrder
+    expiresAt?: SortOrder
+    consumedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type DeviceAuthCodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    code?: string
+    AND?: DeviceAuthCodeWhereInput | DeviceAuthCodeWhereInput[]
+    OR?: DeviceAuthCodeWhereInput[]
+    NOT?: DeviceAuthCodeWhereInput | DeviceAuthCodeWhereInput[]
+    userId?: StringFilter<"DeviceAuthCode"> | string
+    tenantId?: StringFilter<"DeviceAuthCode"> | string
+    codeChallenge?: StringFilter<"DeviceAuthCode"> | string
+    redirectUri?: StringFilter<"DeviceAuthCode"> | string
+    expiresAt?: DateTimeFilter<"DeviceAuthCode"> | Date | string
+    consumedAt?: DateTimeNullableFilter<"DeviceAuthCode"> | Date | string | null
+    createdAt?: DateTimeFilter<"DeviceAuthCode"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }, "id" | "code">
+
+  export type DeviceAuthCodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    code?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    codeChallenge?: SortOrder
+    redirectUri?: SortOrder
+    expiresAt?: SortOrder
+    consumedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: DeviceAuthCodeCountOrderByAggregateInput
+    _max?: DeviceAuthCodeMaxOrderByAggregateInput
+    _min?: DeviceAuthCodeMinOrderByAggregateInput
+  }
+
+  export type DeviceAuthCodeScalarWhereWithAggregatesInput = {
+    AND?: DeviceAuthCodeScalarWhereWithAggregatesInput | DeviceAuthCodeScalarWhereWithAggregatesInput[]
+    OR?: DeviceAuthCodeScalarWhereWithAggregatesInput[]
+    NOT?: DeviceAuthCodeScalarWhereWithAggregatesInput | DeviceAuthCodeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DeviceAuthCode"> | string
+    code?: StringWithAggregatesFilter<"DeviceAuthCode"> | string
+    userId?: StringWithAggregatesFilter<"DeviceAuthCode"> | string
+    tenantId?: StringWithAggregatesFilter<"DeviceAuthCode"> | string
+    codeChallenge?: StringWithAggregatesFilter<"DeviceAuthCode"> | string
+    redirectUri?: StringWithAggregatesFilter<"DeviceAuthCode"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"DeviceAuthCode"> | Date | string
+    consumedAt?: DateTimeNullableWithAggregatesFilter<"DeviceAuthCode"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DeviceAuthCode"> | Date | string
+  }
+
   export type EvidenceWhereInput = {
     AND?: EvidenceWhereInput | EvidenceWhereInput[]
     OR?: EvidenceWhereInput[]
@@ -135864,6 +137245,7 @@ export namespace Prisma {
     devices?: DeviceListRelationFilter
     deviceEnrollmentTokens?: DeviceEnrollmentTokenListRelationFilter
     devicePostureSnapshots?: DevicePostureSnapshotListRelationFilter
+    deviceAuthCodes?: DeviceAuthCodeListRelationFilter
     billingConfig?: XOR<TenantBillingConfigNullableScalarRelationFilter, TenantBillingConfigWhereInput> | null
     litellmKey?: XOR<TenantLiteLLMKeyNullableScalarRelationFilter, TenantLiteLLMKeyWhereInput> | null
     creditWallet?: XOR<CreditWalletNullableScalarRelationFilter, CreditWalletWhereInput> | null
@@ -135946,6 +137328,7 @@ export namespace Prisma {
     devices?: DeviceOrderByRelationAggregateInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenOrderByRelationAggregateInput
     devicePostureSnapshots?: DevicePostureSnapshotOrderByRelationAggregateInput
+    deviceAuthCodes?: DeviceAuthCodeOrderByRelationAggregateInput
     billingConfig?: TenantBillingConfigOrderByWithRelationInput
     litellmKey?: TenantLiteLLMKeyOrderByWithRelationInput
     creditWallet?: CreditWalletOrderByWithRelationInput
@@ -136031,6 +137414,7 @@ export namespace Prisma {
     devices?: DeviceListRelationFilter
     deviceEnrollmentTokens?: DeviceEnrollmentTokenListRelationFilter
     devicePostureSnapshots?: DevicePostureSnapshotListRelationFilter
+    deviceAuthCodes?: DeviceAuthCodeListRelationFilter
     billingConfig?: XOR<TenantBillingConfigNullableScalarRelationFilter, TenantBillingConfigWhereInput> | null
     litellmKey?: XOR<TenantLiteLLMKeyNullableScalarRelationFilter, TenantLiteLLMKeyWhereInput> | null
     creditWallet?: XOR<CreditWalletNullableScalarRelationFilter, CreditWalletWhereInput> | null
@@ -137232,6 +138616,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
     deviceTokensCreated?: DeviceEnrollmentTokenListRelationFilter
     devicesEnrolled?: DeviceListRelationFilter
+    deviceAuthCodes?: DeviceAuthCodeListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -137304,6 +138689,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingOrderByRelationAggregateInput
     deviceTokensCreated?: DeviceEnrollmentTokenOrderByRelationAggregateInput
     devicesEnrolled?: DeviceOrderByRelationAggregateInput
+    deviceAuthCodes?: DeviceAuthCodeOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -137380,6 +138766,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingListRelationFilter
     deviceTokensCreated?: DeviceEnrollmentTokenListRelationFilter
     devicesEnrolled?: DeviceListRelationFilter
+    deviceAuthCodes?: DeviceAuthCodeListRelationFilter
   }, "id" | "email" | "authProvider_externalId">
 
   export type UserOrderByWithAggregationInput = {
@@ -141826,6 +143213,88 @@ export namespace Prisma {
     seenAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DeviceAuthCodeCreateInput = {
+    id?: string
+    code: string
+    codeChallenge: string
+    redirectUri: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutDeviceAuthCodesInput
+    tenant: TenantCreateNestedOneWithoutDeviceAuthCodesInput
+  }
+
+  export type DeviceAuthCodeUncheckedCreateInput = {
+    id?: string
+    code: string
+    userId: string
+    tenantId: string
+    codeChallenge: string
+    redirectUri: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type DeviceAuthCodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    codeChallenge?: StringFieldUpdateOperationsInput | string
+    redirectUri?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDeviceAuthCodesNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutDeviceAuthCodesNestedInput
+  }
+
+  export type DeviceAuthCodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    codeChallenge?: StringFieldUpdateOperationsInput | string
+    redirectUri?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceAuthCodeCreateManyInput = {
+    id?: string
+    code: string
+    userId: string
+    tenantId: string
+    codeChallenge: string
+    redirectUri: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type DeviceAuthCodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    codeChallenge?: StringFieldUpdateOperationsInput | string
+    redirectUri?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceAuthCodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    codeChallenge?: StringFieldUpdateOperationsInput | string
+    redirectUri?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type EvidenceCreateInput = {
     id?: string
     title: string
@@ -146160,6 +147629,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -146242,6 +147712,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -146324,6 +147795,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -146406,6 +147878,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -147677,6 +149150,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -147749,6 +149223,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -147821,6 +149296,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -147893,6 +149369,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -152102,6 +153579,42 @@ export namespace Prisma {
     seenAt?: SortOrder
   }
 
+  export type DeviceAuthCodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    codeChallenge?: SortOrder
+    redirectUri?: SortOrder
+    expiresAt?: SortOrder
+    consumedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DeviceAuthCodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    codeChallenge?: SortOrder
+    redirectUri?: SortOrder
+    expiresAt?: SortOrder
+    consumedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DeviceAuthCodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    code?: SortOrder
+    userId?: SortOrder
+    tenantId?: SortOrder
+    codeChallenge?: SortOrder
+    redirectUri?: SortOrder
+    expiresAt?: SortOrder
+    consumedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type EnumEvidenceTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.EvidenceType | EnumEvidenceTypeFieldRefInput<$PrismaModel>
     in?: $Enums.EvidenceType[] | ListEnumEvidenceTypeFieldRefInput<$PrismaModel>
@@ -155648,6 +157161,12 @@ export namespace Prisma {
     none?: DeviceEnrollmentTokenWhereInput
   }
 
+  export type DeviceAuthCodeListRelationFilter = {
+    every?: DeviceAuthCodeWhereInput
+    some?: DeviceAuthCodeWhereInput
+    none?: DeviceAuthCodeWhereInput
+  }
+
   export type TenantBillingConfigNullableScalarRelationFilter = {
     is?: TenantBillingConfigWhereInput | null
     isNot?: TenantBillingConfigWhereInput | null
@@ -155768,6 +157287,10 @@ export namespace Prisma {
   }
 
   export type DeviceEnrollmentTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DeviceAuthCodeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -159562,6 +161085,34 @@ export namespace Prisma {
     update?: XOR<XOR<DeviceUpdateToOneWithWhereWithoutNoncesInput, DeviceUpdateWithoutNoncesInput>, DeviceUncheckedUpdateWithoutNoncesInput>
   }
 
+  export type UserCreateNestedOneWithoutDeviceAuthCodesInput = {
+    create?: XOR<UserCreateWithoutDeviceAuthCodesInput, UserUncheckedCreateWithoutDeviceAuthCodesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDeviceAuthCodesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TenantCreateNestedOneWithoutDeviceAuthCodesInput = {
+    create?: XOR<TenantCreateWithoutDeviceAuthCodesInput, TenantUncheckedCreateWithoutDeviceAuthCodesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDeviceAuthCodesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutDeviceAuthCodesNestedInput = {
+    create?: XOR<UserCreateWithoutDeviceAuthCodesInput, UserUncheckedCreateWithoutDeviceAuthCodesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDeviceAuthCodesInput
+    upsert?: UserUpsertWithoutDeviceAuthCodesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDeviceAuthCodesInput, UserUpdateWithoutDeviceAuthCodesInput>, UserUncheckedUpdateWithoutDeviceAuthCodesInput>
+  }
+
+  export type TenantUpdateOneRequiredWithoutDeviceAuthCodesNestedInput = {
+    create?: XOR<TenantCreateWithoutDeviceAuthCodesInput, TenantUncheckedCreateWithoutDeviceAuthCodesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDeviceAuthCodesInput
+    upsert?: TenantUpsertWithoutDeviceAuthCodesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDeviceAuthCodesInput, TenantUpdateWithoutDeviceAuthCodesInput>, TenantUncheckedUpdateWithoutDeviceAuthCodesInput>
+  }
+
   export type EvidenceCreatetagsInput = {
     set: string[]
   }
@@ -163257,6 +164808,13 @@ export namespace Prisma {
     connect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
   }
 
+  export type DeviceAuthCodeCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DeviceAuthCodeCreateWithoutTenantInput, DeviceAuthCodeUncheckedCreateWithoutTenantInput> | DeviceAuthCodeCreateWithoutTenantInput[] | DeviceAuthCodeUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceAuthCodeCreateOrConnectWithoutTenantInput | DeviceAuthCodeCreateOrConnectWithoutTenantInput[]
+    createMany?: DeviceAuthCodeCreateManyTenantInputEnvelope
+    connect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+  }
+
   export type TenantBillingConfigCreateNestedOneWithoutTenantInput = {
     create?: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantBillingConfigCreateOrConnectWithoutTenantInput
@@ -163746,6 +165304,13 @@ export namespace Prisma {
     connectOrCreate?: DevicePostureSnapshotCreateOrConnectWithoutTenantInput | DevicePostureSnapshotCreateOrConnectWithoutTenantInput[]
     createMany?: DevicePostureSnapshotCreateManyTenantInputEnvelope
     connect?: DevicePostureSnapshotWhereUniqueInput | DevicePostureSnapshotWhereUniqueInput[]
+  }
+
+  export type DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DeviceAuthCodeCreateWithoutTenantInput, DeviceAuthCodeUncheckedCreateWithoutTenantInput> | DeviceAuthCodeCreateWithoutTenantInput[] | DeviceAuthCodeUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceAuthCodeCreateOrConnectWithoutTenantInput | DeviceAuthCodeCreateOrConnectWithoutTenantInput[]
+    createMany?: DeviceAuthCodeCreateManyTenantInputEnvelope
+    connect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
   }
 
   export type TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput = {
@@ -164718,6 +166283,20 @@ export namespace Prisma {
     deleteMany?: DevicePostureSnapshotScalarWhereInput | DevicePostureSnapshotScalarWhereInput[]
   }
 
+  export type DeviceAuthCodeUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DeviceAuthCodeCreateWithoutTenantInput, DeviceAuthCodeUncheckedCreateWithoutTenantInput> | DeviceAuthCodeCreateWithoutTenantInput[] | DeviceAuthCodeUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceAuthCodeCreateOrConnectWithoutTenantInput | DeviceAuthCodeCreateOrConnectWithoutTenantInput[]
+    upsert?: DeviceAuthCodeUpsertWithWhereUniqueWithoutTenantInput | DeviceAuthCodeUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DeviceAuthCodeCreateManyTenantInputEnvelope
+    set?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    disconnect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    delete?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    connect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    update?: DeviceAuthCodeUpdateWithWhereUniqueWithoutTenantInput | DeviceAuthCodeUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DeviceAuthCodeUpdateManyWithWhereWithoutTenantInput | DeviceAuthCodeUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DeviceAuthCodeScalarWhereInput | DeviceAuthCodeScalarWhereInput[]
+  }
+
   export type TenantBillingConfigUpdateOneWithoutTenantNestedInput = {
     create?: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantBillingConfigCreateOrConnectWithoutTenantInput
@@ -165686,6 +167265,20 @@ export namespace Prisma {
     update?: DevicePostureSnapshotUpdateWithWhereUniqueWithoutTenantInput | DevicePostureSnapshotUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: DevicePostureSnapshotUpdateManyWithWhereWithoutTenantInput | DevicePostureSnapshotUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: DevicePostureSnapshotScalarWhereInput | DevicePostureSnapshotScalarWhereInput[]
+  }
+
+  export type DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DeviceAuthCodeCreateWithoutTenantInput, DeviceAuthCodeUncheckedCreateWithoutTenantInput> | DeviceAuthCodeCreateWithoutTenantInput[] | DeviceAuthCodeUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DeviceAuthCodeCreateOrConnectWithoutTenantInput | DeviceAuthCodeCreateOrConnectWithoutTenantInput[]
+    upsert?: DeviceAuthCodeUpsertWithWhereUniqueWithoutTenantInput | DeviceAuthCodeUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DeviceAuthCodeCreateManyTenantInputEnvelope
+    set?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    disconnect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    delete?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    connect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    update?: DeviceAuthCodeUpdateWithWhereUniqueWithoutTenantInput | DeviceAuthCodeUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DeviceAuthCodeUpdateManyWithWhereWithoutTenantInput | DeviceAuthCodeUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DeviceAuthCodeScalarWhereInput | DeviceAuthCodeScalarWhereInput[]
   }
 
   export type TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput = {
@@ -167036,6 +168629,13 @@ export namespace Prisma {
     connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
   }
 
+  export type DeviceAuthCodeCreateNestedManyWithoutUserInput = {
+    create?: XOR<DeviceAuthCodeCreateWithoutUserInput, DeviceAuthCodeUncheckedCreateWithoutUserInput> | DeviceAuthCodeCreateWithoutUserInput[] | DeviceAuthCodeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeviceAuthCodeCreateOrConnectWithoutUserInput | DeviceAuthCodeCreateOrConnectWithoutUserInput[]
+    createMany?: DeviceAuthCodeCreateManyUserInputEnvelope
+    connect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+  }
+
   export type MembershipUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
@@ -167440,6 +169040,13 @@ export namespace Prisma {
     connectOrCreate?: DeviceCreateOrConnectWithoutEnrolledByInput | DeviceCreateOrConnectWithoutEnrolledByInput[]
     createMany?: DeviceCreateManyEnrolledByInputEnvelope
     connect?: DeviceWhereUniqueInput | DeviceWhereUniqueInput[]
+  }
+
+  export type DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DeviceAuthCodeCreateWithoutUserInput, DeviceAuthCodeUncheckedCreateWithoutUserInput> | DeviceAuthCodeCreateWithoutUserInput[] | DeviceAuthCodeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeviceAuthCodeCreateOrConnectWithoutUserInput | DeviceAuthCodeCreateOrConnectWithoutUserInput[]
+    createMany?: DeviceAuthCodeCreateManyUserInputEnvelope
+    connect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
   }
 
   export type MembershipUpdateManyWithoutUserNestedInput = {
@@ -168254,6 +169861,20 @@ export namespace Prisma {
     deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
   }
 
+  export type DeviceAuthCodeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DeviceAuthCodeCreateWithoutUserInput, DeviceAuthCodeUncheckedCreateWithoutUserInput> | DeviceAuthCodeCreateWithoutUserInput[] | DeviceAuthCodeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeviceAuthCodeCreateOrConnectWithoutUserInput | DeviceAuthCodeCreateOrConnectWithoutUserInput[]
+    upsert?: DeviceAuthCodeUpsertWithWhereUniqueWithoutUserInput | DeviceAuthCodeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DeviceAuthCodeCreateManyUserInputEnvelope
+    set?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    disconnect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    delete?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    connect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    update?: DeviceAuthCodeUpdateWithWhereUniqueWithoutUserInput | DeviceAuthCodeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DeviceAuthCodeUpdateManyWithWhereWithoutUserInput | DeviceAuthCodeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DeviceAuthCodeScalarWhereInput | DeviceAuthCodeScalarWhereInput[]
+  }
+
   export type MembershipUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
@@ -169064,6 +170685,20 @@ export namespace Prisma {
     update?: DeviceUpdateWithWhereUniqueWithoutEnrolledByInput | DeviceUpdateWithWhereUniqueWithoutEnrolledByInput[]
     updateMany?: DeviceUpdateManyWithWhereWithoutEnrolledByInput | DeviceUpdateManyWithWhereWithoutEnrolledByInput[]
     deleteMany?: DeviceScalarWhereInput | DeviceScalarWhereInput[]
+  }
+
+  export type DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DeviceAuthCodeCreateWithoutUserInput, DeviceAuthCodeUncheckedCreateWithoutUserInput> | DeviceAuthCodeCreateWithoutUserInput[] | DeviceAuthCodeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DeviceAuthCodeCreateOrConnectWithoutUserInput | DeviceAuthCodeCreateOrConnectWithoutUserInput[]
+    upsert?: DeviceAuthCodeUpsertWithWhereUniqueWithoutUserInput | DeviceAuthCodeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DeviceAuthCodeCreateManyUserInputEnvelope
+    set?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    disconnect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    delete?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    connect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+    update?: DeviceAuthCodeUpdateWithWhereUniqueWithoutUserInput | DeviceAuthCodeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DeviceAuthCodeUpdateManyWithWhereWithoutUserInput | DeviceAuthCodeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DeviceAuthCodeScalarWhereInput | DeviceAuthCodeScalarWhereInput[]
   }
 
   export type MembershipCreatepermissionsInput = {
@@ -172589,6 +174224,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -172670,6 +174306,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -172767,6 +174404,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -172848,6 +174486,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -172929,6 +174568,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -173010,6 +174650,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -173107,6 +174748,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -173188,6 +174830,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -173269,6 +174912,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -173350,6 +174994,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -173429,6 +175074,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedAiSystemsInput = {
@@ -173500,6 +175146,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedAiSystemsInput = {
@@ -173742,6 +175389,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -173823,6 +175471,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -173908,6 +175557,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedAiSystemsInput = {
@@ -173979,6 +175629,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AIRiskAssessmentUpsertWithWhereUniqueWithoutAiSystemInput = {
@@ -174215,6 +175866,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -174296,6 +175948,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -174375,6 +176028,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiRiskAssessmentsInput = {
@@ -174446,6 +176100,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiRiskAssessmentsInput = {
@@ -174522,6 +176177,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiRiskApprovalsInput = {
@@ -174593,6 +176249,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiRiskApprovalsInput = {
@@ -174732,6 +176389,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -174813,6 +176471,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -174898,6 +176557,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiRiskAssessmentsInput = {
@@ -174969,6 +176629,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAiRiskApprovalsInput = {
@@ -175051,6 +176712,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiRiskApprovalsInput = {
@@ -175122,6 +176784,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutAiIncidentsInput = {
@@ -175200,6 +176863,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -175281,6 +176945,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -175399,6 +177064,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedAiIncidentsInput = {
@@ -175470,6 +177136,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedAiIncidentsInput = {
@@ -175546,6 +177213,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedAiIncidentsInput = {
@@ -175617,6 +177285,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedAiIncidentsInput = {
@@ -175711,6 +177380,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -175792,6 +177462,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -175922,6 +177593,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedAiIncidentsInput = {
@@ -175993,6 +177665,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAssignedAiIncidentsInput = {
@@ -176075,6 +177748,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedAiIncidentsInput = {
@@ -176146,6 +177820,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AISystemCreateWithoutImpactAssessmentsInput = {
@@ -176263,6 +177938,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -176344,6 +178020,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -176423,6 +178100,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiImpactAssessmentsInput = {
@@ -176494,6 +178172,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiImpactAssessmentsInput = {
@@ -176570,6 +178249,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiImpactApprovalsInput = {
@@ -176641,6 +178321,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiImpactApprovalsInput = {
@@ -176780,6 +178461,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -176861,6 +178543,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -176946,6 +178629,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiImpactAssessmentsInput = {
@@ -177017,6 +178701,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAiImpactApprovalsInput = {
@@ -177099,6 +178784,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiImpactApprovalsInput = {
@@ -177170,6 +178856,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutAssetsInput = {
@@ -177248,6 +178935,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -177329,6 +179017,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -177408,6 +179097,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedAssetsInput = {
@@ -177479,6 +179169,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedAssetsInput = {
@@ -177618,6 +179309,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDeletedAssetsInput = {
@@ -177689,6 +179381,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDeletedAssetsInput = {
@@ -177848,6 +179541,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -177929,6 +179623,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -178014,6 +179709,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedAssetsInput = {
@@ -178085,6 +179781,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PersonUpsertWithoutAssignedAssetsInput = {
@@ -178236,6 +179933,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDeletedAssetsInput = {
@@ -178307,6 +180005,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DeviceUpsertWithoutAssetInput = {
@@ -178456,6 +180155,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -178537,6 +180237,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -178739,6 +180440,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -178820,6 +180522,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -179049,6 +180752,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -179130,6 +180834,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -179256,6 +180961,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedAuditFindingsInput = {
@@ -179327,6 +181033,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedAuditFindingsInput = {
@@ -179470,6 +181177,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -179551,6 +181259,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -179689,6 +181398,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedAuditFindingsInput = {
@@ -179760,6 +181470,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AuditCreateWithoutDocumentsInput = {
@@ -179881,6 +181592,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -179962,6 +181674,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -180041,6 +181754,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUploadedAuditDocumentsInput = {
@@ -180112,6 +181826,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUploadedAuditDocumentsInput = {
@@ -180255,6 +181970,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -180336,6 +182052,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -180421,6 +182138,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUploadedAuditDocumentsInput = {
@@ -180492,6 +182210,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutBcpsInput = {
@@ -180570,6 +182289,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -180651,6 +182371,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -180730,6 +182451,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedBcpsInput = {
@@ -180801,6 +182523,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedBcpsInput = {
@@ -181013,6 +182736,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -181094,6 +182818,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -181179,6 +182904,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedBcpsInput = {
@@ -181250,6 +182976,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BusinessImpactAnalysisUpsertWithWhereUniqueWithoutBcpInput = {
@@ -181417,6 +183144,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -181498,6 +183226,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -181614,6 +183343,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedBiasInput = {
@@ -181685,6 +183415,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedBiasInput = {
@@ -181779,6 +183510,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -181860,6 +183592,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -181988,6 +183721,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedBiasInput = {
@@ -182059,6 +183793,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutBcpExercisesInput = {
@@ -182137,6 +183872,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -182218,6 +183954,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -182334,6 +184071,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFacilitatedBcpExercisesInput = {
@@ -182405,6 +184143,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFacilitatedBcpExercisesInput = {
@@ -182499,6 +184238,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -182580,6 +184320,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -182708,6 +184449,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFacilitatedBcpExercisesInput = {
@@ -182779,6 +184521,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutBillingConfigInput = {
@@ -182858,6 +184601,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
@@ -182939,6 +184683,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
@@ -183036,6 +184781,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
@@ -183117,6 +184863,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
@@ -183198,6 +184945,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
@@ -183279,6 +185027,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
@@ -183376,6 +185125,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
@@ -183457,6 +185207,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
@@ -183538,6 +185289,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
   }
@@ -183619,6 +185371,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
   }
@@ -183748,6 +185501,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
   }
@@ -183829,6 +185583,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
   }
@@ -184000,6 +185755,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -184081,6 +185837,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -184214,6 +185971,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -184295,6 +186053,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -184409,6 +186168,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -184490,6 +186250,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -184612,6 +186373,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -184693,6 +186455,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -184805,6 +186568,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -184886,6 +186650,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -184965,6 +186730,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedControlsInput = {
@@ -185036,6 +186802,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedControlsInput = {
@@ -185433,6 +187200,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -185514,6 +187282,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -185599,6 +187368,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedControlsInput = {
@@ -185670,6 +187440,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ControlRequirementAssignmentUpsertWithWhereUniqueWithoutControlInput = {
@@ -186093,6 +187864,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -186174,6 +187946,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -186300,6 +188073,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedControlWeaknessesInput = {
@@ -186371,6 +188145,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedControlWeaknessesInput = {
@@ -186447,6 +188222,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedControlWeaknessesInput = {
@@ -186518,6 +188294,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedControlWeaknessesInput = {
@@ -186612,6 +188389,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -186693,6 +188471,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -186831,6 +188610,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedControlWeaknessesInput = {
@@ -186902,6 +188682,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAssignedControlWeaknessesInput = {
@@ -186984,6 +188765,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedControlWeaknessesInput = {
@@ -187055,6 +188837,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutDeviceEnrollmentTokensInput = {
@@ -187133,6 +188916,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
     devices?: DeviceCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -187214,6 +188998,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -187293,6 +189078,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDeviceTokensCreatedInput = {
@@ -187364,6 +189150,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDeviceTokensCreatedInput = {
@@ -187528,6 +189315,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -187609,6 +189397,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -187694,6 +189483,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDeviceTokensCreatedInput = {
@@ -187765,6 +189555,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DeviceUpsertWithWhereUniqueWithoutEnrollmentTokenInput = {
@@ -187891,6 +189682,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -187972,6 +189764,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -188092,6 +189885,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDevicesEnrolledInput = {
@@ -188163,6 +189957,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDevicesEnrolledInput = {
@@ -188421,6 +190216,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -188502,6 +190298,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -188634,6 +190431,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDevicesEnrolledInput = {
@@ -188705,6 +190503,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PersonUpsertWithoutDevicesInput = {
@@ -188958,6 +190757,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -189039,6 +190839,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -189201,6 +191002,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -189282,6 +191084,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -189494,6 +191297,654 @@ export namespace Prisma {
     snapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutDeviceNestedInput
   }
 
+  export type UserCreateWithoutDeviceAuthCodesInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipCreateNestedManyWithoutUserInput
+    people?: PersonCreateNestedManyWithoutUserInput
+    ownedControls?: ControlCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIACreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIACreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessCreateNestedManyWithoutAssigneeInput
+    assignedDsarRequests?: DSARRequestCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+  }
+
+  export type UserUncheckedCreateWithoutDeviceAuthCodesInput = {
+    id?: string
+    email: string
+    name: string
+    passwordHash?: string | null
+    authProvider?: string | null
+    externalId?: string | null
+    avatarUrl?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
+    people?: PersonUncheckedCreateNestedManyWithoutUserInput
+    ownedControls?: ControlUncheckedCreateNestedManyWithoutOwnerInput
+    ownedPolicies?: PolicyUncheckedCreateNestedManyWithoutOwnerInput
+    createdPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutCreatedByInput
+    approvedPolicyVersions?: PolicyVersionUncheckedCreateNestedManyWithoutApprovedByInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutUserInput
+    ownedRisks?: RiskUncheckedCreateNestedManyWithoutOwnerInput
+    actionOwnedRisks?: RiskUncheckedCreateNestedManyWithoutActionOwnerInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutResponsibleInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutChangedByInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedAssets?: AssetUncheckedCreateNestedManyWithoutOwnerInput
+    deletedAssets?: AssetUncheckedCreateNestedManyWithoutDeletedByInput
+    reportedIncidents?: IncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedIncidents?: IncidentUncheckedCreateNestedManyWithoutAssignedToInput
+    incidentTimelineActions?: IncidentTimelineUncheckedCreateNestedManyWithoutPerformedByInput
+    assignedAuditFindings?: AuditFindingUncheckedCreateNestedManyWithoutAssignedToInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    ownedBcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutOwnerInput
+    ownedBias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutOwnerInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutFacilitatorInput
+    ownedAiSystems?: AISystemUncheckedCreateNestedManyWithoutOwnerInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutAssessedByInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutReportedByInput
+    assignedAiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedTasks?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    submittedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    approvedEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutApprovedByInput
+    submittedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutSubmittedByInput
+    reviewedControlEvidence?: EvidenceUncheckedCreateNestedManyWithoutReviewedByInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutUserInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutUserInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutUserInput
+    resolvedComments?: PolicyCommentUncheckedCreateNestedManyWithoutResolvedByInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutApprovedByInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutPublishedByInput
+    reportedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutReportedByInput
+    assignedVulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutAssignedToInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutOwnerInput
+    dpiaAssessments?: DPIAUncheckedCreateNestedManyWithoutAssessedByInput
+    dpiaApprovals?: DPIAUncheckedCreateNestedManyWithoutApprovedByInput
+    reportedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutReportedByInput
+    assignedDataBreaches?: DataBreachUncheckedCreateNestedManyWithoutAssigneeInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutReportedByInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutAssigneeInput
+    assignedDsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutAssigneeInput
+    importedQuestionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutImportedByInput
+    reviewedAnswers?: AnswerUncheckedCreateNestedManyWithoutReviewedByInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
+    devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+  }
+
+  export type UserCreateOrConnectWithoutDeviceAuthCodesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDeviceAuthCodesInput, UserUncheckedCreateWithoutDeviceAuthCodesInput>
+  }
+
+  export type TenantCreateWithoutDeviceAuthCodesInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    memberships?: MembershipCreateNestedManyWithoutTenantInput
+    people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDeviceAuthCodesInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutTenantInput
+    people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDeviceAuthCodesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDeviceAuthCodesInput, TenantUncheckedCreateWithoutDeviceAuthCodesInput>
+  }
+
+  export type UserUpsertWithoutDeviceAuthCodesInput = {
+    update: XOR<UserUpdateWithoutDeviceAuthCodesInput, UserUncheckedUpdateWithoutDeviceAuthCodesInput>
+    create: XOR<UserCreateWithoutDeviceAuthCodesInput, UserUncheckedCreateWithoutDeviceAuthCodesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDeviceAuthCodesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDeviceAuthCodesInput, UserUncheckedUpdateWithoutDeviceAuthCodesInput>
+  }
+
+  export type UserUpdateWithoutDeviceAuthCodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
+    people?: PersonUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUpdateManyWithoutAssigneeNestedInput
+    assignedDsarRequests?: DSARRequestUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDeviceAuthCodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    authProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
+    people?: PersonUncheckedUpdateManyWithoutUserNestedInput
+    ownedControls?: ControlUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedPolicies?: PolicyUncheckedUpdateManyWithoutOwnerNestedInput
+    createdPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutCreatedByNestedInput
+    approvedPolicyVersions?: PolicyVersionUncheckedUpdateManyWithoutApprovedByNestedInput
+    policyAcknowledgments?: PolicyAcknowledgmentUncheckedUpdateManyWithoutUserNestedInput
+    ownedRisks?: RiskUncheckedUpdateManyWithoutOwnerNestedInput
+    actionOwnedRisks?: RiskUncheckedUpdateManyWithoutActionOwnerNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutResponsibleNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutChangedByNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedAssets?: AssetUncheckedUpdateManyWithoutOwnerNestedInput
+    deletedAssets?: AssetUncheckedUpdateManyWithoutDeletedByNestedInput
+    reportedIncidents?: IncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedIncidents?: IncidentUncheckedUpdateManyWithoutAssignedToNestedInput
+    incidentTimelineActions?: IncidentTimelineUncheckedUpdateManyWithoutPerformedByNestedInput
+    assignedAuditFindings?: AuditFindingUncheckedUpdateManyWithoutAssignedToNestedInput
+    uploadedAuditDocuments?: AuditDocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    ownedBcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedBias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutOwnerNestedInput
+    facilitatedBcpExercises?: BCPExerciseUncheckedUpdateManyWithoutFacilitatorNestedInput
+    ownedAiSystems?: AISystemUncheckedUpdateManyWithoutOwnerNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiRiskApprovals?: AIRiskAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutAssessedByNestedInput
+    aiImpactApprovals?: AIImpactAssessmentUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedAiIncidents?: AIIncidentUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    submittedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    approvedEvidence?: TaskEvidenceUncheckedUpdateManyWithoutApprovedByNestedInput
+    submittedControlEvidence?: EvidenceUncheckedUpdateManyWithoutSubmittedByNestedInput
+    reviewedControlEvidence?: EvidenceUncheckedUpdateManyWithoutReviewedByNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutUserNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutUserNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutUserNestedInput
+    resolvedComments?: PolicyCommentUncheckedUpdateManyWithoutResolvedByNestedInput
+    approvedAccessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutApprovedByNestedInput
+    publishedTrustSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutPublishedByNestedInput
+    reportedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedVulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutAssignedToNestedInput
+    ownedProcessingActivities?: ProcessingActivityUncheckedUpdateManyWithoutOwnerNestedInput
+    dpiaAssessments?: DPIAUncheckedUpdateManyWithoutAssessedByNestedInput
+    dpiaApprovals?: DPIAUncheckedUpdateManyWithoutApprovedByNestedInput
+    reportedDataBreaches?: DataBreachUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedDataBreaches?: DataBreachUncheckedUpdateManyWithoutAssigneeNestedInput
+    reportedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutReportedByNestedInput
+    assignedControlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutAssigneeNestedInput
+    assignedDsarRequests?: DSARRequestUncheckedUpdateManyWithoutAssigneeNestedInput
+    importedQuestionnaires?: QuestionnaireUncheckedUpdateManyWithoutImportedByNestedInput
+    reviewedAnswers?: AnswerUncheckedUpdateManyWithoutReviewedByNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
+    deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+    devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+  }
+
+  export type TenantUpsertWithoutDeviceAuthCodesInput = {
+    update: XOR<TenantUpdateWithoutDeviceAuthCodesInput, TenantUncheckedUpdateWithoutDeviceAuthCodesInput>
+    create: XOR<TenantCreateWithoutDeviceAuthCodesInput, TenantUncheckedCreateWithoutDeviceAuthCodesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDeviceAuthCodesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDeviceAuthCodesInput, TenantUncheckedUpdateWithoutDeviceAuthCodesInput>
+  }
+
+  export type TenantUpdateWithoutDeviceAuthCodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUpdateManyWithoutTenantNestedInput
+    people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDeviceAuthCodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
+    people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
   export type TenantCreateWithoutEvidenceInput = {
     id?: string
     name: string
@@ -189570,6 +192021,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -189651,6 +192103,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -189777,6 +192230,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubmittedControlEvidenceInput = {
@@ -189848,6 +192302,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubmittedControlEvidenceInput = {
@@ -189924,6 +192379,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewedControlEvidenceInput = {
@@ -189995,6 +192451,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewedControlEvidenceInput = {
@@ -190089,6 +192546,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -190170,6 +192628,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -190308,6 +192767,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubmittedControlEvidenceInput = {
@@ -190379,6 +192839,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReviewedControlEvidenceInput = {
@@ -190461,6 +192922,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedControlEvidenceInput = {
@@ -190532,6 +192994,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FrameworkInstanceCreateWithoutFrameworkInput = {
@@ -190749,6 +193212,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -190830,6 +193294,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -191032,6 +193497,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -191113,6 +193579,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -191639,6 +194106,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -191720,6 +194188,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -191930,6 +194399,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -192011,6 +194481,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -192223,6 +194694,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -192304,6 +194776,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -192383,6 +194856,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedIncidentsInput = {
@@ -192454,6 +194928,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedIncidentsInput = {
@@ -192530,6 +195005,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedIncidentsInput = {
@@ -192601,6 +195077,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedIncidentsInput = {
@@ -192723,6 +195200,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -192804,6 +195282,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -192889,6 +195368,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedIncidentsInput = {
@@ -192960,6 +195440,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAssignedIncidentsInput = {
@@ -193042,6 +195523,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedIncidentsInput = {
@@ -193113,6 +195595,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type IncidentTimelineUpsertWithWhereUniqueWithoutIncidentInput = {
@@ -193261,6 +195744,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -193342,6 +195826,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -193421,6 +195906,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutIncidentTimelineActionsInput = {
@@ -193492,6 +195978,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutIncidentTimelineActionsInput = {
@@ -193633,6 +196120,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -193714,6 +196202,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -193799,6 +196288,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutIncidentTimelineActionsInput = {
@@ -193870,6 +196360,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutPeopleInput = {
@@ -193948,6 +196439,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -194029,6 +196521,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -194108,6 +196601,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPeopleInput = {
@@ -194179,6 +196673,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPeopleInput = {
@@ -194667,6 +197162,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -194748,6 +197244,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -194833,6 +197330,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPeopleInput = {
@@ -194904,6 +197402,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PersonUpsertWithoutReportsInput = {
@@ -195292,6 +197791,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -195373,6 +197873,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -195533,6 +198034,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -195614,6 +198116,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -195764,6 +198267,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -195845,6 +198349,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -196005,6 +198510,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -196086,6 +198592,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -196236,6 +198743,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -196317,6 +198825,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -196396,6 +198905,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedPoliciesInput = {
@@ -196467,6 +198977,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedPoliciesInput = {
@@ -196695,6 +199206,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -196776,6 +199288,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -196861,6 +199374,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedPoliciesInput = {
@@ -196932,6 +199446,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PolicyVersionUpsertWithWhereUniqueWithoutPolicyInput = {
@@ -197157,6 +199672,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCreatedPolicyVersionsInput = {
@@ -197228,6 +199744,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCreatedPolicyVersionsInput = {
@@ -197304,6 +199821,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApprovedPolicyVersionsInput = {
@@ -197375,6 +199893,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApprovedPolicyVersionsInput = {
@@ -197583,6 +200102,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCreatedPolicyVersionsInput = {
@@ -197654,6 +200174,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutApprovedPolicyVersionsInput = {
@@ -197736,6 +200257,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedPolicyVersionsInput = {
@@ -197807,6 +200329,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PolicyAcknowledgmentUpsertWithWhereUniqueWithoutPolicyVersionInput = {
@@ -197982,6 +200505,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPolicyAcknowledgmentsInput = {
@@ -198053,6 +200577,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPolicyAcknowledgmentsInput = {
@@ -198136,6 +200661,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -198217,6 +200743,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -198391,6 +200918,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPolicyAcknowledgmentsInput = {
@@ -198462,6 +200990,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutPolicyAcksInput = {
@@ -198551,6 +201080,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -198632,6 +201162,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -198778,6 +201309,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPolicyCommentsInput = {
@@ -198849,6 +201381,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPolicyCommentsInput = {
@@ -198932,6 +201465,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -199013,6 +201547,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -199092,6 +201627,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutResolvedCommentsInput = {
@@ -199163,6 +201699,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutResolvedCommentsInput = {
@@ -199421,6 +201958,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPolicyCommentsInput = {
@@ -199492,6 +202030,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutPolicyCommentsInput = {
@@ -199581,6 +202120,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -199662,6 +202202,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -199747,6 +202288,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutResolvedCommentsInput = {
@@ -199818,6 +202360,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PolicyCommentUpsertWithoutRepliesInput = {
@@ -200047,6 +202590,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -200128,6 +202672,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -200325,6 +202870,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -200406,6 +202952,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -200487,6 +203034,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -200568,6 +203116,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -200647,6 +203196,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedProcessingActivitiesInput = {
@@ -200718,6 +203268,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedProcessingActivitiesInput = {
@@ -201148,6 +203699,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -201229,6 +203781,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -201314,6 +203867,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedProcessingActivitiesInput = {
@@ -201385,6 +203939,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DPIAUpsertWithWhereUniqueWithoutProcessingActivityInput = {
@@ -201700,6 +204255,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -201781,6 +204337,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -201923,6 +204480,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDpiaAssessmentsInput = {
@@ -201994,6 +204552,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDpiaAssessmentsInput = {
@@ -202070,6 +204629,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDpiaApprovalsInput = {
@@ -202141,6 +204701,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDpiaApprovalsInput = {
@@ -202235,6 +204796,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -202316,6 +204878,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -202470,6 +205033,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDpiaAssessmentsInput = {
@@ -202541,6 +205105,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutDpiaApprovalsInput = {
@@ -202623,6 +205188,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDpiaApprovalsInput = {
@@ -202694,6 +205260,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutDataBreachesInput = {
@@ -202772,6 +205339,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -202853,6 +205421,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -202995,6 +205564,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedDataBreachesInput = {
@@ -203066,6 +205636,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedDataBreachesInput = {
@@ -203142,6 +205713,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedDataBreachesInput = {
@@ -203213,6 +205785,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedDataBreachesInput = {
@@ -203307,6 +205880,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -203388,6 +205962,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -203542,6 +206117,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedDataBreachesInput = {
@@ -203613,6 +206189,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAssignedDataBreachesInput = {
@@ -203695,6 +206272,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedDataBreachesInput = {
@@ -203766,6 +206344,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutDsarRequestsInput = {
@@ -203844,6 +206423,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -203925,6 +206505,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -204004,6 +206585,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedDsarRequestsInput = {
@@ -204075,6 +206657,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedDsarRequestsInput = {
@@ -204232,6 +206815,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -204313,6 +206897,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -204398,6 +206983,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedDsarRequestsInput = {
@@ -204469,6 +207055,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProcessingActivityUpsertWithWhereUniqueWithoutDsarsInput = {
@@ -204591,6 +207178,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -204672,6 +207260,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -204751,6 +207340,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutQuestionnaireImportJobsInput = {
@@ -204822,6 +207412,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutQuestionnaireImportJobsInput = {
@@ -204965,6 +207556,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -205046,6 +207638,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -205131,6 +207724,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutQuestionnaireImportJobsInput = {
@@ -205202,6 +207796,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type QuestionnaireUpsertWithoutImportJobsInput = {
@@ -205335,6 +207930,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -205416,6 +208012,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -205495,6 +208092,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutImportedQuestionnairesInput = {
@@ -205566,6 +208164,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutImportedQuestionnairesInput = {
@@ -205885,6 +208484,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -205966,6 +208566,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -206051,6 +208652,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutImportedQuestionnairesInput = {
@@ -206122,6 +208724,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VendorUpsertWithoutQuestionnairesInput = {
@@ -206396,6 +208999,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -206477,6 +209081,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -206770,6 +209375,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -206851,6 +209457,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -207074,6 +209681,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -207155,6 +209763,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -207332,6 +209941,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReviewedAnswersInput = {
@@ -207403,6 +210013,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReviewedAnswersInput = {
@@ -207497,6 +210108,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -207578,6 +210190,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -207773,6 +210386,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReviewedAnswersInput = {
@@ -207844,6 +210458,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutRisksInput = {
@@ -207922,6 +210537,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -208003,6 +210619,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -208082,6 +210699,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedRisksInput = {
@@ -208153,6 +210771,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedRisksInput = {
@@ -208229,6 +210848,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutActionOwnedRisksInput = {
@@ -208300,6 +210920,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutActionOwnedRisksInput = {
@@ -208571,6 +211192,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -208652,6 +211274,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -208737,6 +211360,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedRisksInput = {
@@ -208808,6 +211432,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutActionOwnedRisksInput = {
@@ -208890,6 +211515,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutActionOwnedRisksInput = {
@@ -208961,6 +211587,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProcessingActivityUpsertWithoutRisksInput = {
@@ -209301,6 +211928,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -209382,6 +212010,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -209461,6 +212090,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRiskAssessmentsInput = {
@@ -209532,6 +212162,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRiskAssessmentsInput = {
@@ -209723,6 +212354,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -209804,6 +212436,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -209889,6 +212522,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRiskAssessmentsInput = {
@@ -209960,6 +212594,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RiskCreateWithoutTreatmentsInput = {
@@ -210129,6 +212764,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -210210,6 +212846,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -210289,6 +212926,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRiskTreatmentsInput = {
@@ -210360,6 +212998,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRiskTreatmentsInput = {
@@ -210551,6 +213190,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -210632,6 +213272,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -210717,6 +213358,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRiskTreatmentsInput = {
@@ -210788,6 +213430,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutRiskRegisterConfigInput = {
@@ -210866,6 +213509,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -210947,6 +213591,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -211044,6 +213689,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -211125,6 +213771,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -211297,6 +213944,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -211378,6 +214026,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -211457,6 +214106,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRiskMatrixChangesInput = {
@@ -211528,6 +214178,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRiskMatrixChangesInput = {
@@ -211719,6 +214370,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -211800,6 +214452,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -211885,6 +214538,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRiskMatrixChangesInput = {
@@ -211956,6 +214610,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutTasksInput = {
@@ -212034,6 +214689,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -212115,6 +214771,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -212194,6 +214851,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedTasksInput = {
@@ -212265,6 +214923,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedTasksInput = {
@@ -212448,6 +215107,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -212529,6 +215189,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -212614,6 +215275,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedTasksInput = {
@@ -212685,6 +215347,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ControlUpsertWithoutTasksInput = {
@@ -212897,6 +215560,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -212978,6 +215642,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -213057,6 +215722,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubmittedEvidenceInput = {
@@ -213128,6 +215794,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubmittedEvidenceInput = {
@@ -213204,6 +215871,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApprovedEvidenceInput = {
@@ -213275,6 +215943,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApprovedEvidenceInput = {
@@ -213420,6 +216089,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -213501,6 +216171,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -213586,6 +216257,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubmittedEvidenceInput = {
@@ -213657,6 +216329,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutApprovedEvidenceInput = {
@@ -213739,6 +216412,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedEvidenceInput = {
@@ -213810,6 +216484,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantContextCreateWithoutSupersededByInput = {
@@ -213975,6 +216650,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -214056,6 +216732,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -214237,6 +216914,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -214318,6 +216996,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -214399,6 +217078,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -214480,6 +217160,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -214577,6 +217258,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -214658,6 +217340,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -217720,6 +220403,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DeviceAuthCodeCreateWithoutTenantInput = {
+    id?: string
+    code: string
+    codeChallenge: string
+    redirectUri: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutDeviceAuthCodesInput
+  }
+
+  export type DeviceAuthCodeUncheckedCreateWithoutTenantInput = {
+    id?: string
+    code: string
+    userId: string
+    codeChallenge: string
+    redirectUri: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type DeviceAuthCodeCreateOrConnectWithoutTenantInput = {
+    where: DeviceAuthCodeWhereUniqueInput
+    create: XOR<DeviceAuthCodeCreateWithoutTenantInput, DeviceAuthCodeUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DeviceAuthCodeCreateManyTenantInputEnvelope = {
+    data: DeviceAuthCodeCreateManyTenantInput | DeviceAuthCodeCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantBillingConfigCreateWithoutTenantInput = {
     id?: string
     mode?: $Enums.TenantBillingMode
@@ -219440,6 +222155,37 @@ export namespace Prisma {
     data: XOR<DevicePostureSnapshotUpdateManyMutationInput, DevicePostureSnapshotUncheckedUpdateManyWithoutTenantInput>
   }
 
+  export type DeviceAuthCodeUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DeviceAuthCodeWhereUniqueInput
+    update: XOR<DeviceAuthCodeUpdateWithoutTenantInput, DeviceAuthCodeUncheckedUpdateWithoutTenantInput>
+    create: XOR<DeviceAuthCodeCreateWithoutTenantInput, DeviceAuthCodeUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DeviceAuthCodeUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DeviceAuthCodeWhereUniqueInput
+    data: XOR<DeviceAuthCodeUpdateWithoutTenantInput, DeviceAuthCodeUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DeviceAuthCodeUpdateManyWithWhereWithoutTenantInput = {
+    where: DeviceAuthCodeScalarWhereInput
+    data: XOR<DeviceAuthCodeUpdateManyMutationInput, DeviceAuthCodeUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type DeviceAuthCodeScalarWhereInput = {
+    AND?: DeviceAuthCodeScalarWhereInput | DeviceAuthCodeScalarWhereInput[]
+    OR?: DeviceAuthCodeScalarWhereInput[]
+    NOT?: DeviceAuthCodeScalarWhereInput | DeviceAuthCodeScalarWhereInput[]
+    id?: StringFilter<"DeviceAuthCode"> | string
+    code?: StringFilter<"DeviceAuthCode"> | string
+    userId?: StringFilter<"DeviceAuthCode"> | string
+    tenantId?: StringFilter<"DeviceAuthCode"> | string
+    codeChallenge?: StringFilter<"DeviceAuthCode"> | string
+    redirectUri?: StringFilter<"DeviceAuthCode"> | string
+    expiresAt?: DateTimeFilter<"DeviceAuthCode"> | Date | string
+    consumedAt?: DateTimeNullableFilter<"DeviceAuthCode"> | Date | string | null
+    createdAt?: DateTimeFilter<"DeviceAuthCode"> | Date | string
+  }
+
   export type TenantBillingConfigUpsertWithoutTenantInput = {
     update: XOR<TenantBillingConfigUpdateWithoutTenantInput, TenantBillingConfigUncheckedUpdateWithoutTenantInput>
     create: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
@@ -219615,6 +222361,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -219696,6 +222443,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -219793,6 +222541,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -219874,6 +222623,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -219955,6 +222705,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -220036,6 +222787,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -220205,6 +222957,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -220286,6 +223039,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -220427,6 +223181,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTrainingCompletionsInput = {
@@ -220498,6 +223253,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTrainingCompletionsInput = {
@@ -220581,6 +223337,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -220662,6 +223419,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -220793,6 +223551,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTrainingCompletionsInput = {
@@ -220864,6 +223623,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutTrainingCompletionsInput = {
@@ -220953,6 +223713,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -221034,6 +223795,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -221150,6 +223912,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -221231,6 +223994,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -221437,6 +224201,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -221518,6 +224283,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -221952,6 +224718,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutQuizAttemptsInput = {
@@ -222023,6 +224790,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutQuizAttemptsInput = {
@@ -222106,6 +224874,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -222187,6 +224956,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -222342,6 +225112,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutQuizAttemptsInput = {
@@ -222413,6 +225184,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutQuizAttemptsInput = {
@@ -222502,6 +225274,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -222583,6 +225356,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -222856,6 +225630,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -222937,6 +225712,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -223134,6 +225910,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -223215,6 +225992,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -223344,6 +226122,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -223425,6 +226204,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -223541,6 +226321,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPublishedTrustSnapshotsInput = {
@@ -223612,6 +226393,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPublishedTrustSnapshotsInput = {
@@ -223706,6 +226488,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -223787,6 +226570,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -223915,6 +226699,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPublishedTrustSnapshotsInput = {
@@ -223986,6 +226771,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutTrustCenterEventsInput = {
@@ -224064,6 +226850,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -224145,6 +226932,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -224279,6 +227067,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -224360,6 +227149,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -224484,6 +227274,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -224565,6 +227356,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -224747,6 +227539,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -224828,6 +227621,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -224968,6 +227762,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -225049,6 +227844,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -225163,6 +227959,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApprovedAccessRequestsInput = {
@@ -225234,6 +228031,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApprovedAccessRequestsInput = {
@@ -225328,6 +228126,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -225409,6 +228208,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -225535,6 +228335,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApprovedAccessRequestsInput = {
@@ -225606,6 +228407,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MembershipCreateWithoutUserInput = {
@@ -228466,6 +231268,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DeviceAuthCodeCreateWithoutUserInput = {
+    id?: string
+    code: string
+    codeChallenge: string
+    redirectUri: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutDeviceAuthCodesInput
+  }
+
+  export type DeviceAuthCodeUncheckedCreateWithoutUserInput = {
+    id?: string
+    code: string
+    tenantId: string
+    codeChallenge: string
+    redirectUri: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type DeviceAuthCodeCreateOrConnectWithoutUserInput = {
+    where: DeviceAuthCodeWhereUniqueInput
+    create: XOR<DeviceAuthCodeCreateWithoutUserInput, DeviceAuthCodeUncheckedCreateWithoutUserInput>
+  }
+
+  export type DeviceAuthCodeCreateManyUserInputEnvelope = {
+    data: DeviceAuthCodeCreateManyUserInput | DeviceAuthCodeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MembershipUpsertWithWhereUniqueWithoutUserInput = {
     where: MembershipWhereUniqueInput
     update: XOR<MembershipUpdateWithoutUserInput, MembershipUncheckedUpdateWithoutUserInput>
@@ -229394,6 +232228,22 @@ export namespace Prisma {
     data: XOR<DeviceUpdateManyMutationInput, DeviceUncheckedUpdateManyWithoutEnrolledByInput>
   }
 
+  export type DeviceAuthCodeUpsertWithWhereUniqueWithoutUserInput = {
+    where: DeviceAuthCodeWhereUniqueInput
+    update: XOR<DeviceAuthCodeUpdateWithoutUserInput, DeviceAuthCodeUncheckedUpdateWithoutUserInput>
+    create: XOR<DeviceAuthCodeCreateWithoutUserInput, DeviceAuthCodeUncheckedCreateWithoutUserInput>
+  }
+
+  export type DeviceAuthCodeUpdateWithWhereUniqueWithoutUserInput = {
+    where: DeviceAuthCodeWhereUniqueInput
+    data: XOR<DeviceAuthCodeUpdateWithoutUserInput, DeviceAuthCodeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DeviceAuthCodeUpdateManyWithWhereWithoutUserInput = {
+    where: DeviceAuthCodeScalarWhereInput
+    data: XOR<DeviceAuthCodeUpdateManyMutationInput, DeviceAuthCodeUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type UserCreateWithoutMembershipsInput = {
     id?: string
     email: string
@@ -229463,6 +232313,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -229534,6 +232385,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -229617,6 +232469,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -229698,6 +232551,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -229788,6 +232642,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -229859,6 +232714,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantUpsertWithoutMembershipsInput = {
@@ -229948,6 +232804,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -230029,6 +232886,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -230110,6 +232968,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -230191,6 +233050,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -230370,6 +233230,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -230451,6 +233312,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -230564,6 +233426,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -230645,6 +233508,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -230783,6 +233647,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -230864,6 +233729,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -230992,6 +233858,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -231073,6 +233940,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -231193,6 +234061,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutCreatedByInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutExternalIdentityMappingsInput = {
@@ -231264,6 +234133,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutCreatedByInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutExternalIdentityMappingsInput = {
@@ -231358,6 +234228,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -231439,6 +234310,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -231571,6 +234443,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutCreatedByNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutExternalIdentityMappingsInput = {
@@ -231642,6 +234515,7 @@ export namespace Prisma {
     questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutCreatedByNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VendorCreateWithoutKnownVendorInput = {
@@ -231884,6 +234758,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -231965,6 +234840,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -232456,6 +235332,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -232537,6 +235414,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -232867,6 +235745,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -232948,6 +235827,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -233027,6 +235907,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVendorAssessmentsInput = {
@@ -233098,6 +235979,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVendorAssessmentsInput = {
@@ -233320,6 +236202,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -233401,6 +236284,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -233486,6 +236370,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVendorAssessmentsInput = {
@@ -233557,6 +236442,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VendorResearchUpsertWithoutAssessmentsInput = {
@@ -233812,6 +236698,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -233893,6 +236780,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -234152,6 +237040,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -234233,6 +237122,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -234543,6 +237433,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -234624,6 +237515,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -234703,6 +237595,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVendorDocumentsInput = {
@@ -234774,6 +237667,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVendorDocumentsInput = {
@@ -234943,6 +237837,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -235024,6 +237919,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -235109,6 +238005,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVendorDocumentsInput = {
@@ -235180,6 +238077,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TenantCreateWithoutVulnerabilitiesInput = {
@@ -235258,6 +238156,7 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -235339,6 +238238,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -235418,6 +238318,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReportedVulnerabilitiesInput = {
@@ -235489,6 +238390,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReportedVulnerabilitiesInput = {
@@ -235565,6 +238467,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAssignedVulnerabilitiesInput = {
@@ -235636,6 +238539,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutUserInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutCreatedByInput
     devicesEnrolled?: DeviceUncheckedCreateNestedManyWithoutEnrolledByInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAssignedVulnerabilitiesInput = {
@@ -235730,6 +238634,7 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -235811,6 +238716,7 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -235896,6 +238802,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedVulnerabilitiesInput = {
@@ -235967,6 +238874,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutAssignedVulnerabilitiesInput = {
@@ -236049,6 +238957,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAssignedVulnerabilitiesInput = {
@@ -236120,6 +239029,7 @@ export namespace Prisma {
     externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutUserNestedInput
     deviceTokensCreated?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutCreatedByNestedInput
     devicesEnrolled?: DeviceUncheckedUpdateManyWithoutEnrolledByNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AIRiskAssessmentCreateManyAiSystemInput = {
@@ -240886,6 +243796,17 @@ export namespace Prisma {
     receivedAt?: Date | string
   }
 
+  export type DeviceAuthCodeCreateManyTenantInput = {
+    id?: string
+    code: string
+    userId: string
+    codeChallenge: string
+    redirectUri: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
   export type MembershipUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumMembershipRoleFieldUpdateOperationsInput | $Enums.MembershipRole
@@ -244305,6 +247226,39 @@ export namespace Prisma {
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DeviceAuthCodeUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    codeChallenge?: StringFieldUpdateOperationsInput | string
+    redirectUri?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDeviceAuthCodesNestedInput
+  }
+
+  export type DeviceAuthCodeUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    codeChallenge?: StringFieldUpdateOperationsInput | string
+    redirectUri?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceAuthCodeUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    codeChallenge?: StringFieldUpdateOperationsInput | string
+    redirectUri?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TrainingCompletionCreateManyTrainingProgramInput = {
     id?: string
     userId: string
@@ -245909,6 +248863,17 @@ export namespace Prisma {
     enrollmentTokenId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type DeviceAuthCodeCreateManyUserInput = {
+    id?: string
+    code: string
+    tenantId: string
+    codeChallenge: string
+    redirectUri: string
+    expiresAt: Date | string
+    consumedAt?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type MembershipUpdateWithoutUserInput = {
@@ -249275,6 +252240,39 @@ export namespace Prisma {
     enrollmentTokenId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceAuthCodeUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    codeChallenge?: StringFieldUpdateOperationsInput | string
+    redirectUri?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutDeviceAuthCodesNestedInput
+  }
+
+  export type DeviceAuthCodeUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    codeChallenge?: StringFieldUpdateOperationsInput | string
+    redirectUri?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DeviceAuthCodeUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    codeChallenge?: StringFieldUpdateOperationsInput | string
+    redirectUri?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DirectorySyncRunCreateManyConfigInput = {

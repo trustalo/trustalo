@@ -1255,6 +1255,34 @@ model DeviceNonce {
   @@index([seenAt])
 }
 
+// Short-lived, single-use authorization code for the device agent's browser
+// sign-in (PKCE / OAuth-device style). Minted by an authenticated web session
+// at POST /auth/device/authorize and exchanged exactly once by the agent (with
+// the PKCE verifier) at POST /auth/device/token for a device JWT. This is how a
+// shipped agent signs in against any auth provider: the browser owns the login
+// (password or SSO), then deep-links the code back to the waiting agent.
+model DeviceAuthCode {
+  id            String    @id @default(cuid())
+  // Random opaque code handed to the browser and deep-linked to the agent.
+  code          String    @unique
+  userId        String
+  tenantId      String
+  // base64url(SHA-256(code_verifier)). The agent proves possession of the
+  // verifier at exchange time, so an intercepted code is useless on its own.
+  codeChallenge String
+  // The trustalo:// (allow-listed scheme) target the browser deep-links to.
+  redirectUri   String
+  expiresAt     DateTime
+  consumedAt    DateTime?
+  createdAt     DateTime  @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
 // --- evidence.prisma ---
 enum EvidenceType {
   document
@@ -3166,6 +3194,7 @@ model Tenant {
   devices                       Device[]
   deviceEnrollmentTokens        DeviceEnrollmentToken[]
   devicePostureSnapshots        DevicePostureSnapshot[]
+  deviceAuthCodes               DeviceAuthCode[]
   // EE: managed LiteLLM routing + metered billing. See
   // prisma/schema/billing.ee.prisma.
   billingConfig                 TenantBillingConfig?
@@ -3620,6 +3649,7 @@ model User {
   externalIdentityMappings  ExternalIdentityMapping[]
   deviceTokensCreated       DeviceEnrollmentToken[]    @relation("DeviceTokenCreatedBy")
   devicesEnrolled           Device[]                   @relation("DeviceEnrolledBy")
+  deviceAuthCodes           DeviceAuthCode[]
 
   @@unique([authProvider, externalId])
   @@index([authProvider])

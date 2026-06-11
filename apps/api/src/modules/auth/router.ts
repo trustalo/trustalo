@@ -207,6 +207,53 @@ authRouter.get("/oauth/callback", authRateLimit, async (req, res, next) => {
 });
 
 // ──────────────────────────────────────────────────────────────────────────
+// Device-agent browser sign-in (PKCE device-authorization)
+// ──────────────────────────────────────────────────────────────────────────
+
+const deviceAuthorizeBody = z.object({
+  state: z.string().min(1).max(256),
+  codeChallenge: z.string().min(16).max(256),
+  redirectUri: z.string().min(1).max(512),
+});
+
+/**
+ * Authenticated consent step (called from the web /device/authorize page after
+ * the user has logged in by whatever mechanism). Mints a single-use code the
+ * browser deep-links back to the waiting agent.
+ */
+authRouter.post("/device/authorize", authenticate, async (req, res, next) => {
+  try {
+    const { state, codeChallenge, redirectUri } = deviceAuthorizeBody.parse(req.body);
+    const { userId, tenantId } = (req as any).auth;
+    const result = await authService.createDeviceAuthCode({
+      userId,
+      tenantId,
+      codeChallenge,
+      redirectUri,
+    });
+    res.status(201).json({ success: true, data: { ...result, state } });
+  } catch (err) {
+    next(err);
+  }
+});
+
+const deviceTokenBody = z.object({
+  code: z.string().min(1).max(512),
+  codeVerifier: z.string().min(16).max(256),
+});
+
+/** Public exchange: device code + PKCE verifier → device JWT. */
+authRouter.post("/device/token", authRateLimit, async (req, res, next) => {
+  try {
+    const { code, codeVerifier } = deviceTokenBody.parse(req.body);
+    const result = await authService.exchangeDeviceAuthCode({ code, codeVerifier });
+    res.json({ success: true, data: result });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ──────────────────────────────────────────────────────────────────────────
 // Authenticated routes
 // ──────────────────────────────────────────────────────────────────────────
 

@@ -126,6 +126,7 @@ model User {
   externalIdentityMappings ExternalIdentityMapping[]
   deviceTokensCreated      DeviceEnrollmentToken[] @relation("DeviceTokenCreatedBy")
   devicesEnrolled          Device[]                @relation("DeviceEnrolledBy")
+  deviceAuthCodes          DeviceAuthCode[]
 }
 
 model Membership {

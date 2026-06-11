@@ -572,6 +572,18 @@ exports.Prisma.DeviceNonceScalarFieldEnum = {
   seenAt: 'seenAt'
 };
 
+exports.Prisma.DeviceAuthCodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  codeChallenge: 'codeChallenge',
+  redirectUri: 'redirectUri',
+  expiresAt: 'expiresAt',
+  consumedAt: 'consumedAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.EvidenceScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2570,6 +2582,7 @@ exports.Prisma.ModelName = {
   Device: 'Device',
   DevicePostureSnapshot: 'DevicePostureSnapshot',
   DeviceNonce: 'DeviceNonce',
+  DeviceAuthCode: 'DeviceAuthCode',
   Evidence: 'Evidence',
   Framework: 'Framework',
   FrameworkInstance: 'FrameworkInstance',

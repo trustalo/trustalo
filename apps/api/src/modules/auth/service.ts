@@ -11,6 +11,7 @@
 // Provider plugins never write to the User table — that contract is what
 // keeps third-party plugins safe and the trust boundary clean.
 
+import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import { prisma } from "../../db/prisma.js";
 import {
   signToken,
@@ -289,6 +290,110 @@ export class AuthService {
   }
 
   // ────────────────────────────────────────────────────────────────────────
+  // Device-agent browser sign-in (PKCE device-authorization).
+  //
+  // A shipped agent signs in against ANY provider by letting the browser own
+  // the login (password or SSO) and then deep-linking a short-lived code back.
+  // The agent exchanges that code (with its PKCE verifier) for a device JWT,
+  // which it uses once to enroll. No agent-side login form, no shared secret.
+  // ────────────────────────────────────────────────────────────────────────
+
+  /**
+   * Mint a Trustalo JWT for an existing user in a tenant, with the exact same
+   * Person-derived claims as a fresh login. Used by the device-code exchange
+   * (and reusable by any "issue a session for this already-authenticated user"
+   * path).
+   */
+  async issueTokenForUser(userId: string, tenantId: string): Promise<AuthSuccess> {
+    const user = await prisma.user.findUniqueOrThrow({
+      where: { id: userId },
+      select: { id: true, email: true, name: true },
+    });
+    const person = await prisma.person.findFirstOrThrow({
+      where: { userId, tenantId, status: { in: ["active", "invited"] } },
+      include: { tenant: true },
+    });
+    const permissions =
+      person.permissions.length > 0 ? person.permissions : getPermissionsForRole(person.role);
+    const token = signToken(
+      { userId: user.id, tenantId: person.tenantId, role: person.role, permissions },
+      jwtConfig,
+    );
+    return {
+      token,
+      user: { id: user.id, email: user.email, name: user.name },
+      organization: { id: person.tenant.id, name: person.tenant.name, slug: person.tenant.slug },
+    };
+  }
+
+  /**
+   * Create a short-lived, single-use device-authorization code bound to the
+   * authenticated browser user + a PKCE challenge + the agent's deep-link
+   * redirect. Called from the web /device/authorize consent step.
+   */
+  async createDeviceAuthCode(input: {
+    userId: string;
+    tenantId: string;
+    codeChallenge: string;
+    redirectUri: string;
+  }): Promise<{ code: string; redirectUri: string; expiresAt: Date }> {
+    assertAllowedDeviceRedirect(input.redirectUri);
+    if (!input.codeChallenge || input.codeChallenge.length < 16) {
+      throw new AuthError(400, "INVALID_PKCE", "A PKCE code_challenge is required");
+    }
+    const code = randomBytes(32).toString("base64url");
+    const expiresAt = new Date(Date.now() + DEVICE_CODE_TTL_MS);
+    await prisma.deviceAuthCode.create({
+      data: {
+        code,
+        userId: input.userId,
+        tenantId: input.tenantId,
+        codeChallenge: input.codeChallenge,
+        redirectUri: input.redirectUri,
+        expiresAt,
+      },
+    });
+    return { code, redirectUri: input.redirectUri, expiresAt };
+  }
+
+  /**
+   * Exchange a device code + PKCE verifier for a device JWT. Single-use,
+   * TTL-bound, and PKCE-verified so an intercepted code is worthless without
+   * the verifier the agent kept locally.
+   */
+  async exchangeDeviceAuthCode(input: {
+    code: string;
+    codeVerifier: string;
+  }): Promise<AuthSuccess> {
+    if (!input.codeVerifier || input.codeVerifier.length < 16) {
+      throw new AuthError(400, "INVALID_PKCE", "A PKCE code_verifier is required");
+    }
+    const row = await prisma.deviceAuthCode.findUnique({ where: { code: input.code } });
+    if (!row) throw new AuthError(400, "INVALID_DEVICE_CODE", "Device code is invalid");
+    if (row.consumedAt)
+      throw new AuthError(400, "DEVICE_CODE_USED", "Device code has already been used");
+    if (row.expiresAt.getTime() < Date.now()) {
+      throw new AuthError(400, "DEVICE_CODE_EXPIRED", "Device code has expired");
+    }
+
+    const computed = createHash("sha256").update(input.codeVerifier).digest("base64url");
+    if (!constantTimeEqual(computed, row.codeChallenge)) {
+      throw new AuthError(400, "PKCE_MISMATCH", "PKCE verification failed");
+    }
+
+    // Single-use: atomically claim the code (guards a double-exchange race).
+    const claimed = await prisma.deviceAuthCode.updateMany({
+      where: { id: row.id, consumedAt: null },
+      data: { consumedAt: new Date() },
+    });
+    if (claimed.count !== 1) {
+      throw new AuthError(400, "DEVICE_CODE_USED", "Device code has already been used");
+    }
+
+    return this.issueTokenForUser(row.userId, row.tenantId);
+  }
+
+  // ────────────────────────────────────────────────────────────────────────
   // Internal: convert a verified ProviderProfile into a session.
   // ────────────────────────────────────────────────────────────────────────
 
@@ -475,4 +580,39 @@ function mapProviderError(err: unknown): AuthError {
   }
   const message = err instanceof Error ? err.message : "Authentication failed";
   return new AuthError(401, "AUTHENTICATION_FAILED", message);
+}
+
+// Device-authorization code TTL — short on purpose; the agent exchanges it
+// within seconds of the browser deep-link.
+const DEVICE_CODE_TTL_MS = 3 * 60 * 1000;
+
+/**
+ * A device redirect must be the custom `trustalo://` scheme (the shipped agent's
+ * deep link) or a loopback http URL (the dev/testing fallback). This blocks an
+ * open-redirect: a code can only ever be handed to the local agent.
+ */
+function assertAllowedDeviceRedirect(uri: string): void {
+  let u: URL;
+  try {
+    u = new URL(uri);
+  } catch {
+    throw new AuthError(400, "INVALID_REDIRECT", "redirect_uri is not a valid URL");
+  }
+  const isScheme = u.protocol === "trustalo:";
+  const isLoopback =
+    u.protocol === "http:" && (u.hostname === "127.0.0.1" || u.hostname === "localhost");
+  if (!isScheme && !isLoopback) {
+    throw new AuthError(
+      400,
+      "INVALID_REDIRECT",
+      "redirect_uri must be a trustalo:// deep link or a loopback URL",
+    );
+  }
+}
+
+function constantTimeEqual(a: string, b: string): boolean {
+  const aBuf = Buffer.from(a);
+  const bBuf = Buffer.from(b);
+  if (aBuf.length !== bBuf.length) return false;
+  return timingSafeEqual(aBuf, bBuf);
 }

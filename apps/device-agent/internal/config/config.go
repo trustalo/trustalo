@@ -9,6 +9,7 @@ package config
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -84,4 +85,29 @@ func Load(path string) (Config, error) {
 		cfg.CheckInIntervalSeconds = 3600
 	}
 	return cfg, nil
+}
+
+// Save persists the non-secret config (URLs, auth method, interval). It
+// deliberately DROPS the `dev` credentials — the daemon should never write an
+// email/password/token to disk; after a browser login it has a device
+// credential instead.
+func Save(path string, cfg Config) error {
+	if path == "" {
+		return nil
+	}
+	persisted := struct {
+		APIURL                 string `json:"apiUrl"`
+		WebURL                 string `json:"webUrl"`
+		AuthMethod             string `json:"authMethod"`
+		CheckInIntervalSeconds int    `json:"checkInIntervalSeconds"`
+	}{cfg.APIURL, cfg.WebURL, cfg.AuthMethod, cfg.CheckInIntervalSeconds}
+
+	data, err := json.MarshalIndent(persisted, "", "  ")
+	if err != nil {
+		return err
+	}
+	if err := os.MkdirAll(filepath.Dir(path), 0o700); err != nil {
+		return err
+	}
+	return os.WriteFile(path, data, 0o600)
 }

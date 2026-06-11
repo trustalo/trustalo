@@ -80,6 +80,36 @@ func (c *Client) Login(ctx context.Context, email, password string) (LoginResult
 	return doJSON[LoginResult](c, req)
 }
 
+// ProviderDescriptor mirrors GET /auth/config — the active sign-in mechanism so
+// the agent can tell the user how they'll authenticate.
+type ProviderDescriptor struct {
+	ProviderID  string `json:"providerId"`
+	DisplayName string `json:"displayName"`
+	Kind        string `json:"kind"` // "credential" | "redirect"
+}
+
+// AuthConfig discovers the server's active auth provider (no credentials).
+func (c *Client) AuthConfig(ctx context.Context) (ProviderDescriptor, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.baseURL+"/api/v1/auth/config", nil)
+	if err != nil {
+		return ProviderDescriptor{}, err
+	}
+	return doJSON[ProviderDescriptor](c, req)
+}
+
+// ExchangeDeviceCode swaps a device-authorization code + PKCE verifier for a
+// device JWT (the browser-login flow). Mirrors POST /auth/device/token.
+func (c *Client) ExchangeDeviceCode(ctx context.Context, code, codeVerifier string) (LoginResult, error) {
+	body, _ := json.Marshal(map[string]string{"code": code, "codeVerifier": codeVerifier})
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.baseURL+"/api/v1/auth/device/token", bytes.NewReader(body))
+	if err != nil {
+		return LoginResult{}, err
+	}
+	req.Header.Set("content-type", "application/json")
+	req.Header.Set("origin", c.webURL)
+	return doJSON[LoginResult](c, req)
+}
+
 type EnrollInput struct {
 	Platform     string `json:"platform"`
 	Hostname     string `json:"hostname,omitempty"`

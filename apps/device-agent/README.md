@@ -28,20 +28,46 @@ Then confirm it in the web UI: **Assets → Device posture** (the `/devices` pag
 
 ### Sign-in / enrollment
 
-The agent needs to authenticate once to enroll. Override the Make defaults on the CLI:
+The agent authenticates once to enroll. There are three ways:
+
+**1. Browser sign-in (the production flow).** Works against ANY auth provider — the browser owns the login (password OR SSO), then deep-links back to the agent.
 
 ```bash
-# Basic auth (email + password) — the default; uses the seeded owner.
-make once EMAIL=you@company.com PASSWORD=secret
+make login        # asks for the Trustalo URL, opens the browser, waits, enrolls
+```
 
-# Admin enrollment token (non-interactive / MDM-style). Mint one via
-#   POST /api/v1/devices/enrollment-tokens   (or the Devices page)
+It opens `…/device/authorize`; you sign in + consent there, and the browser deep-links a one-time, PKCE-bound code back via `trustalo://`. The agent exchanges it for a device JWT and enrolls — no password ever touches the agent.
+
+For the `trustalo://` deep link to route on macOS during local dev, register a handler once:
+
+```bash
+make scheme-macos     # registers trustalo:// → handle-url (osascript .app + lsregister)
+# …later: make unscheme-macos
+```
+
+If you don't register it (or are on a headless box), use the **manual fallback**: the browser's "sent" screen shows the `trustalo://…` URL — copy it and run:
+
+```bash
+make handle-url URL='trustalo://auth/callback?code=…&state=…'
+```
+
+(or set `TRUSTALO_NO_BROWSER=1` so `make login` just prints the URL to open).
+
+**2. Basic auth (dev shortcut).** Skips the browser; uses the seeded owner.
+
+```bash
+make once EMAIL=you@company.com PASSWORD=secret
+```
+
+**3. Admin enrollment token (MDM / mass-deploy).** Mint one via `POST /api/v1/devices/enrollment-tokens` (or the Devices page):
+
+```bash
 make once AUTH=token TOKEN=det_xxxxxxxx
 ```
 
 After enrollment the per-device HMAC secret is saved to `./credential.json` and reused; subsequent check-ins are signed, not re-authenticated. `make reset` deletes it to start over (the server re-uses the same Asset by hardware id).
 
-> SSO/OIDC enrollment is the planned follow-up to basic + token; the interactive browser handshake isn't wired yet.
+> Production builds register `trustalo://` via the packaged app's Info.plist (macOS), registry (Windows), or a `.desktop` `x-scheme-handler/trustalo` (Linux); `make scheme-macos` is the local-dev equivalent.
 
 ## Configuration
 

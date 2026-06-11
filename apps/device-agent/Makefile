@@ -41,7 +41,7 @@ export TRUSTALO_AGENT_PASSWORD          := $(PASSWORD)
 export TRUSTALO_ENROLLMENT_TOKEN        := $(TOKEN)
 export TRUSTALO_CHECKIN_INTERVAL_SECONDS := $(INTERVAL)
 
-.PHONY: help build once run loop tray config reset test vet fmt clean
+.PHONY: help build once run loop tray login handle-url scheme-macos unscheme-macos config reset test vet fmt clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -61,6 +61,19 @@ loop: build ## Run the heartbeat continuously (short interval; Ctrl-C to stop)
 tray: ## Build + run the tray/menu-bar helper (reads the status file)
 	go build -o $(TRAY) ./cmd/tray
 	$(TRAY) --status $(STATUS)
+
+login: build ## Sign in via the browser (PKCE) + enroll — the production sign-in
+	$(AGENTD) --config $(CONFIG) --creds $(CREDS) --status $(STATUS) login
+
+handle-url: build ## Forward a trustalo:// callback to a waiting `make login` (URL=…)
+	@test -n "$(URL)" || { echo "usage: make handle-url URL='trustalo://auth/callback?code=...&state=...'"; exit 1; }
+	$(AGENTD) handle-url "$(URL)"
+
+scheme-macos: build ## (macOS) register trustalo:// → handle-url so the deep link works locally
+	./scripts/register-scheme-macos.sh
+
+unscheme-macos: ## (macOS) remove the dev trustalo:// handler
+	./scripts/register-scheme-macos.sh --remove
 
 config: ## Scaffold a local agent.config.json from the example (gitignored)
 	@if [ -f $(CONFIG) ]; then echo "$(CONFIG) already exists"; \

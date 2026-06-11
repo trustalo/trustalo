@@ -6,7 +6,8 @@ The Trustalo device agent (`apps/device-agent`, Go) runs on employee endpoints a
 
 ## Enrollment & authentication
 
-- **Interactive**: a signed-in user enrolls their own machine (`POST /api/v1/devices/enroll`) using their JWT — no token needed.
+- **Browser sign-in (shipped agent)**: `agentd login` opens the browser to the web `/device/authorize` consent page. The browser owns the login — password **or** SSO, whatever the tenant's provider is — then deep-links a one-time, PKCE-bound code back via `trustalo://`. The agent exchanges it (`POST /auth/device/token`) for a device JWT and enrolls. No login form or shared secret ships in the agent. See the PKCE device-authorization endpoints in `apps/api/src/modules/auth` and the `DeviceAuthCode` model.
+- **Interactive (dev)**: a signed-in user enrolls their own machine (`POST /api/v1/devices/enroll`) using their JWT — no token needed.
 - **Mass-deploy / MDM**: an admin mints a short-lived, consumable `DeviceEnrollmentToken` (`POST /api/v1/devices/enrollment-tokens`) that the agent presents once.
 
 On enrollment the server resolves the enrolling user → their `Person` and sets `Device.personId` + the Computer `Asset.assignedPersonId`, then returns a **per-device HMAC secret** (stored reversibly encrypted via the AES-256-GCM crypto-envelope). Every check-in is HMAC-signed over a canonical string with a nonce + timestamp (replay defense via the `DeviceNonce` ledger). See `apps/api/src/lib/device-auth.ts`.

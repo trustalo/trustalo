@@ -1,18 +1,14 @@
 //go:build !windows
 
-// Package trayicon embeds the Trustalo menu-bar/tray icon. macOS and Linux take
-// a PNG; Windows takes an ICO (see icon_windows.go). All are transparent.
-//
-// `Template` is a black silhouette with alpha — a macOS "template image" the
-// menu bar tints to match light/dark (like Cursor), so it never shows as a
-// colored box. `Data` is the regular (colored) icon used on Windows/Linux,
-// where there's no template tinting.
+// Package trayicon embeds the Trustalo menu-bar/tray icon as a status light:
+// the green logo when the device is signed-in + compliant, red otherwise. All
+// transparent PNGs (macOS/Linux); Windows uses ICOs (icon_windows.go).
 package trayicon
 
 import _ "embed"
 
-//go:embed icon.png
-var Data []byte
+//go:embed icon_green.png
+var Green []byte
 
-//go:embed icon_template.png
-var Template []byte
+//go:embed icon_red.png
+var Red []byte

@@ -4,11 +4,8 @@ package trayicon
 
 import _ "embed"
 
-//go:embed icon.ico
-var Data []byte
+//go:embed icon_green.ico
+var Green []byte
 
-// Template is unused on Windows (no menu-bar template tinting) but defined so
-// callers can pass it unconditionally to SetTemplateIcon.
-//
-//go:embed icon_template.png
-var Template []byte
+//go:embed icon_red.ico
+var Red []byte

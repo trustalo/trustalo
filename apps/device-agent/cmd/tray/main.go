@@ -57,9 +57,8 @@ func main() {
 }
 
 func (t *trayApp) onReady() {
-	// Template icon on macOS (menu bar tints it for light/dark, no colored box);
-	// the regular colored icon is used on Windows/Linux.
-	systray.SetTemplateIcon(trayicon.Template, trayicon.Data)
+	// Colored status light: green when signed-in + compliant, red otherwise.
+	systray.SetIcon(trayicon.Red)
 	systray.SetTooltip("Trustalo Device Agent")
 
 	t.mStatus = systray.AddMenuItem("Status: …", "Overall device posture")
@@ -166,6 +165,14 @@ func (t *trayApp) apply(st ipc.Status) {
 	if !st.LastCheckIn.IsZero() {
 		t.mLast.SetTitle("Last check-in: " + st.LastCheckIn.Local().Format("Jan 2 15:04"))
 	}
+	// Green = active (signed in + last check-in succeeded); red if the agent
+	// can't reach the server. Posture detail (compliant / N issues) stays in the
+	// status line above.
+	if st.LastError == "" {
+		systray.SetIcon(trayicon.Green)
+	} else {
+		systray.SetIcon(trayicon.Red)
+	}
 	t.mSignIn.Hide()
 	t.mCheck.Enable()
 }
@@ -173,6 +180,7 @@ func (t *trayApp) apply(st ipc.Status) {
 func (t *trayApp) setSignedOut() {
 	t.mStatus.SetTitle("Status: not signed in")
 	systray.SetTooltip("Trustalo: not signed in")
+	systray.SetIcon(trayicon.Red)
 	t.mSignIn.Show()
 	t.mCheck.Disable()
 }

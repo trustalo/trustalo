@@ -1,76 +1,184 @@
-// Command tray is the unprivileged user-session menu-bar/tray helper. It polls
-// the daemon's status file and shows posture at a glance. It is built natively
-// per-OS (the systray library uses cgo on macOS/Windows); the daemon (agentd)
-// is the pure-Go, cross-compiled, privileged half.
+// Command tray is the Trustalo menu-bar / system-tray app. Unlike a bare status
+// viewer, it RUNS the agent in-process: it heartbeats posture continuously and
+// stays resident until the user picks "Quit" from the menu. It shows the
+// Trustalo logo in the menu bar and a live status + actions (check in, sign in,
+// open the web app).
+//
+// Built natively per-OS (the systray library uses cgo on macOS/Windows); the
+// daemon (agentd) remains the pure-Go, headless half for servers / MDM.
 package main
 
 import (
+	"context"
+	"flag"
 	"fmt"
-	"os/exec"
-	"runtime"
-	"time"
+	"log"
+	"os"
+	"path/filepath"
+	"sync"
 
 	"fyne.io/systray"
 
+	"github.com/trustalo/trustalo/apps/device-agent/internal/agent"
+	"github.com/trustalo/trustalo/apps/device-agent/internal/browser"
 	"github.com/trustalo/trustalo/apps/device-agent/internal/config"
 	"github.com/trustalo/trustalo/apps/device-agent/internal/ipc"
+	"github.com/trustalo/trustalo/apps/device-agent/internal/trayicon"
 )
 
-func main() {
-	systray.Run(onReady, func() {})
+type trayApp struct {
+	ag         *agent.Agent
+	cfg        config.Config
+	statusPath string
+
+	mStatus, mLast, mCheck, mSignIn, mOpen, mQuit *systray.MenuItem
+
+	mu      sync.Mutex
+	cancel  context.CancelFunc
+	running bool
 }
 
-func onReady() {
-	systray.SetTitle("Trustalo")
+func main() {
+	configPath := flag.String("config", defaultPath("agent.config.json"), "path to agent.config.json")
+	credPath := flag.String("creds", defaultPath("credential.json"), "path to the device credential store")
+	statusPath := flag.String("status", ipc.DefaultPath(), "path to the status file")
+	flag.Parse()
+
+	cfg, err := config.Load(*configPath)
+	if err != nil {
+		log.Fatalf("[tray] config: %v", err)
+	}
+	app := &trayApp{
+		ag:         agent.New(cfg, *statusPath, *credPath),
+		cfg:        cfg,
+		statusPath: *statusPath,
+	}
+	systray.Run(app.onReady, func() {})
+}
+
+func (t *trayApp) onReady() {
+	systray.SetIcon(trayicon.Data)
 	systray.SetTooltip("Trustalo Device Agent")
 
-	mStatus := systray.AddMenuItem("Status: …", "Overall device posture")
-	mStatus.Disable()
-	mLast := systray.AddMenuItem("Last check-in: never", "Time of the last successful report")
-	mLast.Disable()
+	t.mStatus = systray.AddMenuItem("Status: …", "Overall device posture")
+	t.mStatus.Disable()
+	t.mLast = systray.AddMenuItem("Last check-in: never", "Time of the last successful report")
+	t.mLast.Disable()
 	systray.AddSeparator()
-	mOpen := systray.AddMenuItem("Open Dashboard", "Open the Trustalo web app")
-	mQuit := systray.AddMenuItem("Quit", "Quit the tray helper")
+	t.mCheck = systray.AddMenuItem("Check in now", "Collect + report posture now")
+	t.mSignIn = systray.AddMenuItem("Sign in…", "Sign in via the browser")
+	t.mOpen = systray.AddMenuItem("Open Trustalo", "Open the Trustalo web app")
+	systray.AddSeparator()
+	t.mQuit = systray.AddMenuItem("Quit Trustalo Agent", "Stop reporting and quit")
 
-	statusPath := ipc.DefaultPath()
-	refresh(statusPath, mStatus, mLast)
+	if t.ag.IsEnrolled() {
+		t.startRun()
+	} else {
+		t.setSignedOut()
+	}
+
+	go t.handleClicks()
+}
+
+func (t *trayApp) handleClicks() {
+	for {
+		select {
+		case <-t.mCheck.ClickedCh:
+			go t.checkNow()
+		case <-t.mSignIn.ClickedCh:
+			go t.signIn()
+		case <-t.mOpen.ClickedCh:
+			_ = browser.Open(t.cfg.WebURL)
+		case <-t.mQuit.ClickedCh:
+			t.stopRun()
+			systray.Quit()
+			return
+		}
+	}
+}
+
+// startRun launches the heartbeat loop (idempotent). On exit (e.g. not signed
+// in) it flips the menu back to the signed-out state.
+func (t *trayApp) startRun() {
+	t.mu.Lock()
+	if t.running {
+		t.mu.Unlock()
+		return
+	}
+	ctx, cancel := context.WithCancel(context.Background())
+	t.cancel = cancel
+	t.running = true
+	t.mu.Unlock()
 
 	go func() {
-		ticker := time.NewTicker(15 * time.Second)
-		defer ticker.Stop()
-		for {
-			select {
-			case <-mOpen.ClickedCh:
-				openBrowser(config.DefaultWebURL)
-			case <-mQuit.ClickedCh:
-				systray.Quit()
-				return
-			case <-ticker.C:
-				refresh(statusPath, mStatus, mLast)
-			}
+		err := t.ag.Run(ctx, t.apply)
+		t.mu.Lock()
+		t.running = false
+		t.mu.Unlock()
+		if err != nil {
+			t.setSignedOut()
 		}
 	}()
 }
 
-func refresh(statusPath string, mStatus, mLast *systray.MenuItem) {
-	s, err := ipc.Read(statusPath)
-	if err != nil {
-		mStatus.SetTitle("Status: agent not running")
-		systray.SetTooltip("Trustalo: agent not running")
+func (t *trayApp) stopRun() {
+	t.mu.Lock()
+	if t.cancel != nil {
+		t.cancel()
+	}
+	t.mu.Unlock()
+}
+
+func (t *trayApp) signIn() {
+	t.mStatus.SetTitle("Status: signing in…")
+	if _, err := t.ag.Login(context.Background(), true); err != nil {
+		t.mStatus.SetTitle("Status: sign-in failed")
+		log.Printf("[tray] sign-in failed: %v", err)
 		return
 	}
-	overall := summarize(s)
-	mStatus.SetTitle("Status: " + overall)
-	systray.SetTooltip("Trustalo: " + overall)
-	if !s.LastCheckIn.IsZero() {
-		mLast.SetTitle("Last check-in: " + s.LastCheckIn.Local().Format("Jan 2 15:04"))
+	t.startRun()
+}
+
+func (t *trayApp) checkNow() {
+	if !t.ag.IsEnrolled() {
+		return
 	}
+	if err := t.ag.CheckInOnce(context.Background()); err != nil {
+		log.Printf("[tray] check-in failed: %v", err)
+	}
+	if st, err := ipc.Read(t.statusPath); err == nil {
+		t.apply(st)
+	}
+}
+
+// apply updates the menu from a status snapshot. Called from the loop's
+// callback and after a manual check-in.
+func (t *trayApp) apply(st ipc.Status) {
+	if !st.Enrolled {
+		t.setSignedOut()
+		return
+	}
+	overall := summarize(st)
+	t.mStatus.SetTitle("Status: " + overall)
+	systray.SetTooltip("Trustalo: " + overall)
+	if !st.LastCheckIn.IsZero() {
+		t.mLast.SetTitle("Last check-in: " + st.LastCheckIn.Local().Format("Jan 2 15:04"))
+	}
+	t.mSignIn.Hide()
+	t.mCheck.Enable()
+}
+
+func (t *trayApp) setSignedOut() {
+	t.mStatus.SetTitle("Status: not signed in")
+	systray.SetTooltip("Trustalo: not signed in")
+	t.mSignIn.Show()
+	t.mCheck.Disable()
 }
 
 func summarize(s ipc.Status) string {
 	switch {
 	case !s.Enrolled:
-		return "not enrolled"
+		return "not signed in"
 	case s.LastError != "":
 		return "error"
 	}
@@ -86,16 +194,9 @@ func summarize(s ipc.Status) string {
 	return fmt.Sprintf("%d issue(s)", fails)
 }
 
-func openBrowser(url string) {
-	var cmd string
-	var args []string
-	switch runtime.GOOS {
-	case "darwin":
-		cmd, args = "open", []string{url}
-	case "windows":
-		cmd, args = "rundll32", []string{"url.dll,FileProtocolHandler", url}
-	default:
-		cmd, args = "xdg-open", []string{url}
+func defaultPath(name string) string {
+	if dir, err := os.UserConfigDir(); err == nil {
+		return filepath.Join(dir, "trustalo-agent", name)
 	}
-	_ = exec.Command(cmd, args...).Start()
+	return name
 }

@@ -22,4 +22,4 @@ The **Devices** page (`/devices`, requires `assets:read`) lists every enrolled d
 
 ## Cross-platform builds
 
-The agent is Go for single-binary cross-compilation (`GOOS`/`GOARCH`); the daemon builds with `CGO_ENABLED=0`. Per-OS collectors read native posture (macOS / Windows / Linux) and an optional tray surfaces status. Release builds are produced by `.github/workflows/agent.yml`.
+The agent is Go for single-binary cross-compilation (`GOOS`/`GOARCH`); the headless daemon (`cmd/agentd`) builds with `CGO_ENABLED=0`. The resident **menu-bar app** (`cmd/tray`) runs the same agent runtime in-process and shows the Trustalo logo, live status, and Check-in / Sign-in / Quit actions — it stays resident until the user quits. Per-OS collectors read native posture (macOS / Windows / Linux). Release builds are produced by `.github/workflows/agent.yml`.

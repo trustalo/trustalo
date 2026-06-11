@@ -41,7 +41,7 @@ export TRUSTALO_AGENT_PASSWORD          := $(PASSWORD)
 export TRUSTALO_ENROLLMENT_TOKEN        := $(TOKEN)
 export TRUSTALO_CHECKIN_INTERVAL_SECONDS := $(INTERVAL)
 
-.PHONY: help build once run loop tray login handle-url scheme-macos unscheme-macos config reset test vet fmt clean
+.PHONY: help build once run loop tray app login handle-url scheme-macos unscheme-macos config reset test vet fmt clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -58,9 +58,11 @@ run: once ## Alias for `once`
 loop: build ## Run the heartbeat continuously (short interval; Ctrl-C to stop)
 	$(AGENTD) --config $(CONFIG) --creds $(CREDS) --status $(STATUS)
 
-tray: ## Build + run the tray/menu-bar helper (reads the status file)
+app: tray ## Alias for `tray` — the resident menu-bar app
+
+tray: ## Build + run the menu-bar app (runs the agent in-process; quit from the menu)
 	go build -o $(TRAY) ./cmd/tray
-	$(TRAY) --status $(STATUS)
+	$(TRAY) --config $(CONFIG) --creds $(CREDS) --status $(STATUS)
 
 login: build ## Sign in via the browser (PKCE) + enroll — the production sign-in
 	$(AGENTD) --config $(CONFIG) --creds $(CREDS) --status $(STATUS) login

@@ -9,13 +9,16 @@ Prereqs: Go 1.23+ and the local API running on `:15002` with a seeded DB (`bun d
 ```bash
 cd apps/device-agent
 
+make app       # the resident menu-bar app — Trustalo icon, runs the agent
+               #   in-process, stays until you pick "Quit" from the menu
 make once      # build + enroll this machine + send ONE check-in, then exit
-make loop      # run the heartbeat continuously (30s interval; Ctrl-C to stop)
+make loop      # run the heartbeat in the terminal (30s interval; Ctrl-C to stop)
 make reset     # forget the local enrollment (re-enrolls on the next run)
-make tray      # build + run the menu-bar/tray helper (reads the status file)
 make test      # go test ./...
 make clean     # remove build output + local credential/status files
 ```
+
+`make app` (alias of `make tray`) is the real product experience: a menu-bar / system-tray app showing the Trustalo logo, a live status (compliant / N issues), and **Check in now**, **Sign in…**, **Open Trustalo**, and **Quit** actions. It runs the heartbeat in-process and stays resident until you Quit. `make once` / `make loop` are the headless CLI equivalents; `agentd install` runs the daemon under launchd/systemd/SCM for servers and MDM.
 
 `make once` against a freshly seeded DB prints, e.g.:
 
@@ -99,12 +102,16 @@ Installed as a system service it runs under launchd / systemd / Windows SCM (via
 ## Layout
 
 ```
-cmd/agentd        daemon: enroll → heartbeat loop → signed check-ins
-cmd/tray          menu-bar/system-tray status helper
+cmd/agentd        headless daemon / CLI (login, handle-url, service verbs)
+cmd/tray          resident menu-bar app — runs the agent in-process + UI
+internal/agent    the runtime: enroll → heartbeat loop → signed check-ins (shared)
+internal/authflow browser sign-in (PKCE device-authorization + trustalo:// IPC)
+internal/browser  cross-platform "open URL in browser"
 internal/collect  per-OS posture collectors (darwin/windows/linux)
-internal/apiclient login + enroll + check-in HTTP client
+internal/apiclient login + enroll + check-in + device-token HTTP client
 internal/report   per-device HMAC signing (mirrors apps/api/src/lib/device-auth.ts)
 internal/keystore file-backed credential store
-internal/config   layered config resolution
-internal/ipc      status file shared with the tray
+internal/config   layered config resolution + sanitized Save
+internal/ipc      status file shared between the loop and the tray UI
+internal/trayicon embedded Trustalo logo (PNG for macOS/Linux, ICO for Windows)
 ```

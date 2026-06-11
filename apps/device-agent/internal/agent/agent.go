@@ -1,0 +1,220 @@
+// Package agent is the device-posture runtime: enroll once, then heartbeat
+// signed posture check-ins. Shared by the daemon (cmd/agentd) and the menu-bar
+// app (cmd/tray) so the loop, enrollment, and sign-in live in exactly one place.
+package agent
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"runtime"
+	"time"
+
+	"github.com/trustalo/trustalo/apps/device-agent/internal/apiclient"
+	"github.com/trustalo/trustalo/apps/device-agent/internal/authflow"
+	"github.com/trustalo/trustalo/apps/device-agent/internal/collect"
+	"github.com/trustalo/trustalo/apps/device-agent/internal/config"
+	"github.com/trustalo/trustalo/apps/device-agent/internal/ipc"
+	"github.com/trustalo/trustalo/apps/device-agent/internal/keystore"
+	"github.com/trustalo/trustalo/apps/device-agent/internal/report"
+)
+
+// Agent owns the API client, credential store, and status file.
+type Agent struct {
+	cfg        config.Config
+	client     *apiclient.Client
+	store      keystore.Store
+	statusPath string
+}
+
+func New(cfg config.Config, statusPath, credPath string) *Agent {
+	return &Agent{
+		cfg:        cfg,
+		client:     apiclient.New(cfg.APIURL, cfg.WebURL),
+		store:      keystore.NewFileStore(credPath),
+		statusPath: statusPath,
+	}
+}
+
+func (a *Agent) Config() config.Config { return a.cfg }
+
+// IsEnrolled reports whether a device credential is already stored.
+func (a *Agent) IsEnrolled() bool {
+	_, err := a.store.Load()
+	return err == nil
+}
+
+// OnStatus is fired whenever the live status changes (used by the tray to update
+// its menu). nil = no callback.
+type OnStatus func(ipc.Status)
+
+// Run blocks: ensure enrolled, check in immediately, then heartbeat on the
+// configured interval until ctx is cancelled. Returns the enrollment error if
+// the device isn't signed in yet (the caller can offer "Sign in").
+func (a *Agent) Run(ctx context.Context, onStatus OnStatus) error {
+	cred, err := a.ensureEnrolled(ctx)
+	if err != nil {
+		a.publish(ipc.Status{Enrolled: false, LastError: err.Error(), AgentVersion: config.Version}, onStatus)
+		return err
+	}
+	log.Printf("[agent] enrolled as device %s (keyId %d)", cred.DeviceID, cred.SecretKeyID)
+
+	a.checkIn(ctx, cred, onStatus)
+	ticker := time.NewTicker(time.Duration(a.cfg.CheckInIntervalSeconds) * time.Second)
+	defer ticker.Stop()
+	for {
+		select {
+		case <-ctx.Done():
+			return nil
+		case <-ticker.C:
+			a.checkIn(ctx, cred, onStatus)
+		}
+	}
+}
+
+// CheckInOnce ensures enrollment and performs a single collect + check-in.
+func (a *Agent) CheckInOnce(ctx context.Context) error {
+	cred, err := a.ensureEnrolled(ctx)
+	if err != nil {
+		return err
+	}
+	a.checkIn(ctx, cred, nil)
+	return nil
+}
+
+// Login runs the browser sign-in (PKCE) and enrolls with the resulting JWT.
+func (a *Agent) Login(ctx context.Context, openBrowser bool) (report.DeviceCredential, error) {
+	token, err := authflow.Login(ctx, a.client, a.cfg.WebURL, openBrowser)
+	if err != nil {
+		return report.DeviceCredential{}, err
+	}
+	return a.enrollAndStore(ctx, token, a.enrollInput())
+}
+
+func (a *Agent) checkIn(ctx context.Context, cred report.DeviceCredential, onStatus OnStatus) {
+	posture, err := collect.Collect()
+	if err != nil {
+		log.Printf("[agent] collect error: %v", err)
+		return
+	}
+	st := ipc.Status{
+		DeviceID:     cred.DeviceID,
+		Enrolled:     true,
+		LastCheckIn:  time.Now(),
+		Signals:      signalsMap(posture.Signals),
+		OSVersion:    posture.OSVersion,
+		AgentVersion: config.Version,
+	}
+	res, err := a.client.CheckIn(ctx, cred, posture, config.Version)
+	if err != nil {
+		log.Printf("[agent] check-in error: %v", err)
+		st.LastError = err.Error()
+	} else {
+		log.Printf("[agent] check-in ok: status=%s evidence=%d disk=%s fw=%s lock=%s av=%s",
+			res.Status, res.EvidenceCreated, posture.Signals.DiskEncryption, posture.Signals.Firewall,
+			posture.Signals.ScreenLock, posture.Signals.Antivirus)
+	}
+	a.publish(st, onStatus)
+}
+
+func (a *Agent) publish(st ipc.Status, onStatus OnStatus) {
+	if err := ipc.Write(a.statusPath, st); err != nil {
+		log.Printf("[agent] status write error: %v", err)
+	}
+	if onStatus != nil {
+		onStatus(st)
+	}
+}
+
+func (a *Agent) ensureEnrolled(ctx context.Context) (report.DeviceCredential, error) {
+	if cred, err := a.store.Load(); err == nil {
+		return cred, nil
+	} else if err != keystore.ErrNotFound {
+		return report.DeviceCredential{}, err
+	}
+
+	in := a.enrollInput()
+	switch a.cfg.AuthMethod {
+	case "token":
+		if a.cfg.Dev.EnrollmentToken == "" {
+			return report.DeviceCredential{}, fmt.Errorf("authMethod=token requires an enrollment token")
+		}
+		enrolled, err := a.client.EnrollWithToken(ctx, a.cfg.Dev.EnrollmentToken, in)
+		if err != nil {
+			return report.DeviceCredential{}, err
+		}
+		return a.saveEnrolled(enrolled)
+	case "basic":
+		if a.cfg.Dev.Email == "" || a.cfg.Dev.Password == "" {
+			return report.DeviceCredential{}, fmt.Errorf("authMethod=basic requires dev.email/password")
+		}
+		login, err := a.client.Login(ctx, a.cfg.Dev.Email, a.cfg.Dev.Password)
+		if err != nil {
+			return report.DeviceCredential{}, fmt.Errorf("login: %w", err)
+		}
+		return a.enrollAndStore(ctx, login.Token, in)
+	case "browser", "sso":
+		return report.DeviceCredential{}, fmt.Errorf(
+			"not signed in — use \"Sign in\" (tray) or `trustalo-agentd login`")
+	default:
+		return report.DeviceCredential{}, fmt.Errorf("unsupported authMethod %q (basic|token|browser)", a.cfg.AuthMethod)
+	}
+}
+
+func (a *Agent) enrollInput() apiclient.EnrollInput {
+	posture, _ := collect.Collect()
+	return apiclient.EnrollInput{
+		Platform:     goosToPlatform(),
+		Hostname:     posture.Hostname,
+		HardwareID:   collect.HardwareID(),
+		OSVersion:    posture.OSVersion,
+		AgentVersion: config.Version,
+	}
+}
+
+func (a *Agent) saveEnrolled(e apiclient.EnrollResult) (report.DeviceCredential, error) {
+	cred := report.DeviceCredential{DeviceID: e.DeviceID, Secret: e.DeviceSecret, SecretKeyID: e.SecretKeyID}
+	if err := a.store.Save(cred); err != nil {
+		return report.DeviceCredential{}, fmt.Errorf("save credential: %w", err)
+	}
+	return cred, nil
+}
+
+func (a *Agent) enrollAndStore(
+	ctx context.Context,
+	token string,
+	in apiclient.EnrollInput,
+) (report.DeviceCredential, error) {
+	e, err := a.client.EnrollWithJWT(ctx, token, in)
+	if err != nil {
+		return report.DeviceCredential{}, err
+	}
+	return a.saveEnrolled(e)
+}
+
+func signalsMap(s collect.Signals) map[string]string {
+	pass := func(b bool) string {
+		if b {
+			return "pass"
+		}
+		return "fail"
+	}
+	return map[string]string{
+		"diskEncryption": string(s.DiskEncryption),
+		"firewall":       string(s.Firewall),
+		"screenLock":     string(s.ScreenLock),
+		"antivirus":      string(s.Antivirus),
+		"agentHealthy":   pass(s.AgentHealthy),
+	}
+}
+
+func goosToPlatform() string {
+	switch runtime.GOOS {
+	case "darwin":
+		return "macos"
+	case "windows":
+		return "windows"
+	default:
+		return "linux"
+	}
+}

@@ -16,9 +16,9 @@ export async function startDeviceSweepScheduler(): Promise<void> {
   const run = () => {
     sweepStaleDevices()
       .then((r) => {
-        if (r.markedStale > 0 || r.noncesPruned > 0) {
+        if (r.markedStale > 0 || r.noncesPruned > 0 || r.snapshotsPruned > 0) {
           console.log(
-            `[devices] sweep: ${r.markedStale} marked stale, ${r.noncesPruned} nonce(s) pruned`,
+            `[devices] sweep: ${r.markedStale} marked stale, ${r.noncesPruned} nonce(s) pruned, ${r.snapshotsPruned} snapshot(s) pruned`,
           );
         }
       })

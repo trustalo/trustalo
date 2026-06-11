@@ -14,13 +14,27 @@ On enrollment the server resolves the enrolling user → their `Person` and sets
 
 ## Check-in & evidence
 
-Each check-in updates the device's inline posture and appends a `DevicePostureSnapshot` (append-only history). Advisory `Evidence` is emitted **only for signals that changed state** since the previous check-in, mapped to controls via the `endpoint-agent` manifest (SOC 2 CC6.x/7.x, ISO A.8.x). A stale-device sweep flips silent devices to `stale` and raises an agent-health finding.
+Each check-in updates the device's inline posture and appends a `DevicePostureSnapshot` (append-only history). Advisory `Evidence` is emitted **only for signals that changed state** since the previous check-in **and that the tenant evaluates** (see below), mapped to controls via the `endpoint-agent` manifest (SOC 2 CC6.x/7.x, ISO A.8.x). A stale-device sweep flips silent devices to `stale`, raises an agent-health finding, prunes expired replay nonces, and **prunes posture snapshots older than 1 day** (the device keeps its latest inline posture; only the drift trail is bounded).
 
 **Rejection handling.** The agent distinguishes _transient_ failures (network, 5xx, clock skew) — which it retries on the next heartbeat without re-authenticating — from _fatal_ ones. A fatal device-auth rejection (`DEVICE_REVOKED`, `DEVICE_KEY_MISMATCH`, `DEVICE_BAD_SIGNATURE` — i.e. the device was revoked, its secret rotated, or its identity changed) makes the agent **clear its stored credential, stop sending check-ins, and prompt the user to sign in again** (tray → red, "Sign in…"). So revoking a device server-side (or offboarding its person, which auto-revokes) immediately silences it.
 
+## Collected signals & inventory
+
+Every probe runs **as the logged-in user — no root/admin is required** on any OS, so the agent works from an unprivileged launchd/systemd user service or the foreground app. Anything a probe can't read is reported `unknown` (or omitted) rather than failing.
+
+- **First-class signals** (tri-state, mapped to controls, drive advisory evidence): disk encryption, host firewall, screen lock, antivirus/EDR, agent health.
+- **Extended posture** (carried in the check-in `raw` blob, shown on the device detail drawer): automatic OS updates, MDM/management enrollment, and — on macOS — Gatekeeper and System Integrity Protection, plus the screen-lock grace delay.
+- **Hardware & OS inventory** (`raw` blob): model, manufacturer, serial number, CPU, core count, memory, boot-disk total/free, architecture, OS build, kernel, and uptime.
+
+The `raw` blob is free-form (`Device.latestPosture` is JSON; the check-in schema accepts arbitrary keys), so new fields the agent learns to report appear in the device detail view automatically — no schema migration. Per-OS sources are all unprivileged: macOS `sysctl`/`ioreg`/`sw_vers`/`spctl`/`csrutil`/`profiles`/`sysadminctl`; Windows CIM, `dsregcmd`, and the AutoUpdate COM object (standard user); Linux `/sys`, `/proc`, `statfs`, and `systemctl is-enabled`. The Linux DMI serial number is intentionally **not** collected (it is root-only).
+
+### Evaluated vs. optional signals
+
+Which signals count as a **posture issue** is tenant-configurable (Settings → **Evaluated posture signals**, stored on `TenantSettings.devicePostureRequiredSignals`). A failing signal that the tenant evaluates marks the device **at-risk** (in the People readiness rollup) and raises the issue callout in the device drawer; for the four core signals it also drives advisory evidence. A failing signal **not** in the evaluated set is still collected and shown — tagged "optional" — but never raises an issue. The default evaluated set is the four core signals; admins can add the extended ones (`autoUpdate` / `mdmEnrolled` / `gatekeeper` / `sip`) or drop any they consider optional — e.g. an organization that doesn't run MDM leaves `mdmEnrolled` optional so it isn't flagged.
+
 ## Web UI
 
-The **Devices** page (`/devices`, requires `assets:read`) lists every enrolled device with its posture signals, status, last-seen time, and **assigned person**. Admins (`assets:write`) can revoke a device. A person's fleet and its posture also appear on the **Devices** tab of their People profile.
+The **Device posture** page (`/devices`, under Assets, requires `assets:read`) is a fleet **summary** — every enrolled device with its core posture signals, status, last-seen time, and **assigned person**. The same summary appears on the **Devices** tab of a person's People profile. Clicking any device opens the **detail drawer** — the canonical per-device view — with the full security + extended posture, hardware/OS inventory, recent check-in history, and a link to the assigned person. Admins (`assets:write`) can revoke from the drawer or the list.
 
 ## Cross-platform builds
 

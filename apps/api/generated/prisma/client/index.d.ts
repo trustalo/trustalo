@@ -94970,6 +94970,7 @@ export namespace Prisma {
     logoUrl: number
     defaults: number
     deviceCheckInIntervalSeconds: number
+    devicePostureRequiredSignals: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -95020,6 +95021,7 @@ export namespace Prisma {
     logoUrl?: true
     defaults?: true
     deviceCheckInIntervalSeconds?: true
+    devicePostureRequiredSignals?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -95121,6 +95123,7 @@ export namespace Prisma {
     logoUrl: string | null
     defaults: JsonValue | null
     deviceCheckInIntervalSeconds: number
+    devicePostureRequiredSignals: string[]
     createdAt: Date
     updatedAt: Date
     _count: TenantSettingsCountAggregateOutputType | null
@@ -95154,6 +95157,7 @@ export namespace Prisma {
     logoUrl?: boolean
     defaults?: boolean
     deviceCheckInIntervalSeconds?: boolean
+    devicePostureRequiredSignals?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -95169,6 +95173,7 @@ export namespace Prisma {
     logoUrl?: boolean
     defaults?: boolean
     deviceCheckInIntervalSeconds?: boolean
+    devicePostureRequiredSignals?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -95184,6 +95189,7 @@ export namespace Prisma {
     logoUrl?: boolean
     defaults?: boolean
     deviceCheckInIntervalSeconds?: boolean
+    devicePostureRequiredSignals?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -95199,11 +95205,12 @@ export namespace Prisma {
     logoUrl?: boolean
     defaults?: boolean
     deviceCheckInIntervalSeconds?: boolean
+    devicePostureRequiredSignals?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TenantSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "companySize" | "industry" | "country" | "timezone" | "logoUrl" | "defaults" | "deviceCheckInIntervalSeconds" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantSettings"]>
+  export type TenantSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "companySize" | "industry" | "country" | "timezone" | "logoUrl" | "defaults" | "deviceCheckInIntervalSeconds" | "devicePostureRequiredSignals" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantSettings"]>
   export type TenantSettingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
@@ -95229,6 +95236,7 @@ export namespace Prisma {
       logoUrl: string | null
       defaults: Prisma.JsonValue | null
       deviceCheckInIntervalSeconds: number
+      devicePostureRequiredSignals: string[]
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["tenantSettings"]>
@@ -95664,6 +95672,7 @@ export namespace Prisma {
     readonly logoUrl: FieldRef<"TenantSettings", 'String'>
     readonly defaults: FieldRef<"TenantSettings", 'Json'>
     readonly deviceCheckInIntervalSeconds: FieldRef<"TenantSettings", 'Int'>
+    readonly devicePostureRequiredSignals: FieldRef<"TenantSettings", 'String[]'>
     readonly createdAt: FieldRef<"TenantSettings", 'DateTime'>
     readonly updatedAt: FieldRef<"TenantSettings", 'DateTime'>
   }
@@ -128123,6 +128132,7 @@ export namespace Prisma {
     logoUrl: 'logoUrl',
     defaults: 'defaults',
     deviceCheckInIntervalSeconds: 'deviceCheckInIntervalSeconds',
+    devicePostureRequiredSignals: 'devicePostureRequiredSignals',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -137509,6 +137519,7 @@ export namespace Prisma {
     logoUrl?: StringNullableFilter<"TenantSettings"> | string | null
     defaults?: JsonNullableFilter<"TenantSettings">
     deviceCheckInIntervalSeconds?: IntFilter<"TenantSettings"> | number
+    devicePostureRequiredSignals?: StringNullableListFilter<"TenantSettings">
     createdAt?: DateTimeFilter<"TenantSettings"> | Date | string
     updatedAt?: DateTimeFilter<"TenantSettings"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
@@ -137524,6 +137535,7 @@ export namespace Prisma {
     logoUrl?: SortOrderInput | SortOrder
     defaults?: SortOrderInput | SortOrder
     deviceCheckInIntervalSeconds?: SortOrder
+    devicePostureRequiredSignals?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
@@ -137542,6 +137554,7 @@ export namespace Prisma {
     logoUrl?: StringNullableFilter<"TenantSettings"> | string | null
     defaults?: JsonNullableFilter<"TenantSettings">
     deviceCheckInIntervalSeconds?: IntFilter<"TenantSettings"> | number
+    devicePostureRequiredSignals?: StringNullableListFilter<"TenantSettings">
     createdAt?: DateTimeFilter<"TenantSettings"> | Date | string
     updatedAt?: DateTimeFilter<"TenantSettings"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
@@ -137557,6 +137570,7 @@ export namespace Prisma {
     logoUrl?: SortOrderInput | SortOrder
     defaults?: SortOrderInput | SortOrder
     deviceCheckInIntervalSeconds?: SortOrder
+    devicePostureRequiredSignals?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TenantSettingsCountOrderByAggregateInput
@@ -137579,6 +137593,7 @@ export namespace Prisma {
     logoUrl?: StringNullableWithAggregatesFilter<"TenantSettings"> | string | null
     defaults?: JsonNullableWithAggregatesFilter<"TenantSettings">
     deviceCheckInIntervalSeconds?: IntWithAggregatesFilter<"TenantSettings"> | number
+    devicePostureRequiredSignals?: StringNullableListFilter<"TenantSettings">
     createdAt?: DateTimeWithAggregatesFilter<"TenantSettings"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"TenantSettings"> | Date | string
   }
@@ -147981,6 +147996,7 @@ export namespace Prisma {
     logoUrl?: string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: number
+    devicePostureRequiredSignals?: TenantSettingsCreatedevicePostureRequiredSignalsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutSettingsInput
@@ -147996,6 +148012,7 @@ export namespace Prisma {
     logoUrl?: string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: number
+    devicePostureRequiredSignals?: TenantSettingsCreatedevicePostureRequiredSignalsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -148009,6 +148026,7 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    devicePostureRequiredSignals?: TenantSettingsUpdatedevicePostureRequiredSignalsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutSettingsNestedInput
@@ -148024,6 +148042,7 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    devicePostureRequiredSignals?: TenantSettingsUpdatedevicePostureRequiredSignalsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -148038,6 +148057,7 @@ export namespace Prisma {
     logoUrl?: string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: number
+    devicePostureRequiredSignals?: TenantSettingsCreatedevicePostureRequiredSignalsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -148051,6 +148071,7 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    devicePostureRequiredSignals?: TenantSettingsUpdatedevicePostureRequiredSignalsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -148065,6 +148086,7 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    devicePostureRequiredSignals?: TenantSettingsUpdatedevicePostureRequiredSignalsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -157429,6 +157451,7 @@ export namespace Prisma {
     logoUrl?: SortOrder
     defaults?: SortOrder
     deviceCheckInIntervalSeconds?: SortOrder
+    devicePostureRequiredSignals?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -167384,10 +167407,19 @@ export namespace Prisma {
     update?: XOR<XOR<CreditWalletUpdateToOneWithWhereWithoutTenantInput, CreditWalletUpdateWithoutTenantInput>, CreditWalletUncheckedUpdateWithoutTenantInput>
   }
 
+  export type TenantSettingsCreatedevicePostureRequiredSignalsInput = {
+    set: string[]
+  }
+
   export type TenantCreateNestedOneWithoutSettingsInput = {
     create?: XOR<TenantCreateWithoutSettingsInput, TenantUncheckedCreateWithoutSettingsInput>
     connectOrCreate?: TenantCreateOrConnectWithoutSettingsInput
     connect?: TenantWhereUniqueInput
+  }
+
+  export type TenantSettingsUpdatedevicePostureRequiredSignalsInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type TenantUpdateOneRequiredWithoutSettingsNestedInput = {
@@ -217428,6 +217460,7 @@ export namespace Prisma {
     logoUrl?: string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: number
+    devicePostureRequiredSignals?: TenantSettingsCreatedevicePostureRequiredSignalsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -217441,6 +217474,7 @@ export namespace Prisma {
     logoUrl?: string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: number
+    devicePostureRequiredSignals?: TenantSettingsCreatedevicePostureRequiredSignalsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -220611,6 +220645,7 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    devicePostureRequiredSignals?: TenantSettingsUpdatedevicePostureRequiredSignalsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -220624,6 +220659,7 @@ export namespace Prisma {
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
     deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
+    devicePostureRequiredSignals?: TenantSettingsUpdatedevicePostureRequiredSignalsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

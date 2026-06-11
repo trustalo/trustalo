@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { DeviceDetailDrawer } from "@/components/device/device-detail-drawer";
 import { Badge, type BadgeVariant } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -167,7 +168,7 @@ export default function PersonProfilePage() {
       </div>
 
       {tab === "Overview" && <OverviewTab person={person} />}
-      {tab === "Devices" && <DevicesTab person={person} />}
+      {tab === "Devices" && <DevicesTab person={person} onChanged={load} />}
       {tab === "Assets" && <AssetsTab person={person} />}
       {tab === "Background" && (
         <BackgroundTab person={person} canManage={canManage} onChange={load} />
@@ -264,7 +265,8 @@ function OverviewTab({ person }: { person: PersonDetail }) {
   );
 }
 
-function DevicesTab({ person }: { person: PersonDetail }) {
+function DevicesTab({ person, onChanged }: { person: PersonDetail; onChanged: () => void }) {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   if (person.devices.length === 0)
     return (
       <Card padding="lg">
@@ -274,7 +276,12 @@ function DevicesTab({ person }: { person: PersonDetail }) {
   return (
     <div className="space-y-3">
       {person.devices.map((d) => (
-        <Card key={d.id} padding="md">
+        <Card
+          key={d.id}
+          padding="md"
+          className="cursor-pointer transition-colors hover:border-neutral-300 dark:hover:border-neutral-700"
+          onClick={() => setSelectedId(d.id)}
+        >
           <div className="flex items-center justify-between">
             <div>
               <div className="font-medium">{d.hostname || d.id}</div>
@@ -292,6 +299,12 @@ function DevicesTab({ person }: { person: PersonDetail }) {
           </div>
         </Card>
       ))}
+
+      <DeviceDetailDrawer
+        deviceId={selectedId}
+        onClose={() => setSelectedId(null)}
+        onChanged={onChanged}
+      />
     </div>
   );
 }

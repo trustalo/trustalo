@@ -4,6 +4,7 @@ import type { Prisma } from "../../../generated/prisma/client/index.js";
 import { prisma, prismaWithTenant } from "../../db/prisma.js";
 import { authorize } from "../../middleware/authorize.js";
 import { authService } from "../auth/service.js";
+import { POSTURE_SIGNAL_KEYS } from "../devices/service.js";
 
 const patchOrgBody = z.object({
   name: z.string().min(1).optional(),
@@ -34,6 +35,17 @@ const patchSettingsBody = z.object({
   defaults: securityDefaultsSchema,
   // Device-agent posture cadence (seconds). Bounded 5 min … 24 h.
   deviceCheckInIntervalSeconds: z.number().int().min(300).max(86400).optional(),
+  // Which posture signals are EVALUATED (a fail raises an issue / marks the
+  // device at-risk). Validated against the known signal universe + deduped; an
+  // empty array means "evaluate none".
+  devicePostureRequiredSignals: z
+    .array(z.string())
+    .max(POSTURE_SIGNAL_KEYS.length)
+    .refine((arr) => arr.every((k) => POSTURE_SIGNAL_KEYS.includes(k)), {
+      message: "unknown posture signal",
+    })
+    .transform((arr) => [...new Set(arr)])
+    .optional(),
 });
 
 const inviteMemberBody = z.object({

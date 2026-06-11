@@ -10,6 +10,7 @@
  * and a person's fleet posture both flow from here.
  */
 import { prisma } from "../../db/prisma.js";
+import { failingRequiredSignals, getTenantRequiredSignals } from "../devices/service.js";
 import {
   getPerson,
   listMyPolicies,
@@ -33,18 +34,24 @@ export interface PersonRollup {
   readiness: Readiness;
 }
 
-const RISK_SIGNAL = (d: {
-  status: string;
-  diskEncryption: string;
-  firewall: string;
-  screenLock: string;
-  antivirus: string;
-  agentHealthy: boolean;
-}) =>
-  d.status === "stale" ||
-  d.status === "revoked" ||
-  !d.agentHealthy ||
-  [d.diskEncryption, d.firewall, d.screenLock, d.antivirus].includes("fail");
+// A device is at-risk if it isn't reporting (stale/revoked or unhealthy agent)
+// or any of the tenant's EVALUATED posture signals is failing. Optional signals
+// are ignored — keeping this in lock-step with the device drawer's "issues".
+function deviceAtRisk(
+  d: {
+    status: string;
+    diskEncryption: string;
+    firewall: string;
+    screenLock: string;
+    antivirus: string;
+    agentHealthy: boolean;
+    latestPosture: unknown;
+  },
+  requiredSignals: ReadonlyArray<string>,
+): boolean {
+  if (d.status === "stale" || d.status === "revoked" || !d.agentHealthy) return true;
+  return failingRequiredSignals(d, requiredSignals).length > 0;
+}
 
 interface PersonLite {
   id: string;
@@ -62,6 +69,7 @@ export async function computeRollups(
 ): Promise<Map<string, PersonRollup>> {
   const personIds = people.map((p) => p.id);
   const userIds = people.map((p) => p.userId).filter((u): u is string => Boolean(u));
+  const requiredSignals = await getTenantRequiredSignals(tenantId);
 
   const [devices, bgChecks, completions, publishedPolicies] = await Promise.all([
     personIds.length
@@ -75,6 +83,7 @@ export async function computeRollups(
             screenLock: true,
             antivirus: true,
             agentHealthy: true,
+            latestPosture: true,
           },
         })
       : Promise.resolve([]),
@@ -121,7 +130,7 @@ export async function computeRollups(
   for (const p of people) {
     const devs = devicesByPerson.get(p.id) ?? [];
     const deviceCount = devs.length;
-    const devicesAtRisk = devs.filter(RISK_SIGNAL).length;
+    const devicesAtRisk = devs.filter((d) => deviceAtRisk(d, requiredSignals)).length;
 
     const comps = (p.userId && completionsByUser.get(p.userId)) || [];
     const trainingAssigned = comps.length;

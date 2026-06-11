@@ -231,6 +231,22 @@ const DEVICE_INTERVAL_OPTIONS = [
   { value: "86400", label: "Once a day" },
 ];
 
+// Posture signals an admin can choose to evaluate. Keys mirror the server's
+// EVALUABLE_POSTURE_SIGNALS; unchecked = optional (collected + shown, never an
+// "issue"). The four core signals are the default-on set.
+const POSTURE_SIGNAL_OPTIONS = [
+  { key: "diskEncryption", label: "Disk encryption" },
+  { key: "firewall", label: "Host firewall" },
+  { key: "screenLock", label: "Screen lock" },
+  { key: "antivirus", label: "Antivirus / EDR" },
+  { key: "autoUpdate", label: "Automatic OS updates" },
+  { key: "mdmEnrolled", label: "MDM managed" },
+  { key: "gatekeeper", label: "Gatekeeper (macOS)" },
+  { key: "sip", label: "System Integrity Protection (macOS)" },
+];
+
+const DEFAULT_REQUIRED_SIGNALS = ["diskEncryption", "firewall", "screenLock", "antivirus"];
+
 function GeneralTab({
   org,
   settings,
@@ -255,6 +271,7 @@ function GeneralTab({
   });
   const [saving, setSaving] = useState(false);
   const [savingInterval, setSavingInterval] = useState(false);
+  const [savingSignals, setSavingSignals] = useState(false);
 
   useEffect(() => {
     if (org) setOrgName(org.name);
@@ -312,6 +329,23 @@ function GeneralTab({
       onSettingsUpdated(res.data);
     } finally {
       setSavingInterval(false);
+    }
+  }
+
+  const requiredSignals = settings?.devicePostureRequiredSignals ?? DEFAULT_REQUIRED_SIGNALS;
+
+  async function toggleSignal(key: string, on: boolean) {
+    const next = on
+      ? [...new Set([...requiredSignals, key])]
+      : requiredSignals.filter((k) => k !== key);
+    setSavingSignals(true);
+    try {
+      const res = await apiClient.updateOrganizationSettings({
+        devicePostureRequiredSignals: next,
+      });
+      onSettingsUpdated(res.data);
+    } finally {
+      setSavingSignals(false);
     }
   }
 
@@ -442,6 +476,50 @@ function GeneralTab({
           Applies to all devices on their next check-in. Shorter intervals report sooner but use
           more battery and network.
         </p>
+      </Card>
+
+      <Card>
+        <div>
+          <h2 className="text-base font-semibold text-neutral-900 dark:text-white">
+            Evaluated posture signals
+          </h2>
+          <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+            A failing signal you evaluate raises a posture issue and marks the device at-risk.
+            Unchecked signals are still collected and shown, but never raise an issue — e.g. leave
+            MDM off if it isn&apos;t required for your organization.
+          </p>
+        </div>
+        <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {POSTURE_SIGNAL_OPTIONS.map((sig) => {
+            const checked = requiredSignals.includes(sig.key);
+            return (
+              <label
+                key={sig.key}
+                className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm ${
+                  canWrite ? "cursor-pointer" : "cursor-default"
+                } ${
+                  checked
+                    ? "border-neutral-300 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800/50"
+                    : "border-neutral-200 dark:border-neutral-800"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-400 dark:border-neutral-600"
+                  checked={checked}
+                  disabled={!canWrite || savingSignals}
+                  onChange={(e) => toggleSignal(sig.key, e.target.checked)}
+                />
+                <span className="text-neutral-900 dark:text-neutral-100">{sig.label}</span>
+                {!checked && (
+                  <span className="ml-auto text-[10px] uppercase tracking-wide text-neutral-400">
+                    optional
+                  </span>
+                )}
+              </label>
+            );
+          })}
+        </div>
       </Card>
 
       <DirectorySyncCard canWrite={canWrite} />

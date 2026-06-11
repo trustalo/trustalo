@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { DeviceDetailDrawer } from "@/components/device/device-detail-drawer";
 import { Badge, type BadgeVariant } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -56,6 +57,7 @@ export default function DevicesPage() {
   const [statusFilter, setStatusFilter] = useState("");
   const [platformFilter, setPlatformFilter] = useState("");
   const [search, setSearch] = useState("");
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -95,7 +97,7 @@ export default function DevicesPage() {
         </h1>
         <p className="mt-1 text-sm text-neutral-500">
           Endpoint posture reported by the Trustalo device agent. Each device maps to a Computer
-          asset and its assigned person.
+          asset and its assigned person. Click a device to see its full detail.
         </p>
       </div>
 
@@ -152,7 +154,7 @@ export default function DevicesPage() {
             </TableHead>
             <TableBody>
               {devices.map((d) => (
-                <TableRow key={d.id}>
+                <TableRow key={d.id} className="cursor-pointer" onClick={() => setSelectedId(d.id)}>
                   <TableCell>
                     <div className="font-medium text-neutral-900 dark:text-neutral-100">
                       {d.hostname || d.asset?.name || d.id}
@@ -182,7 +184,14 @@ export default function DevicesPage() {
                   {canManage && (
                     <TableCell>
                       {d.status !== "revoked" && (
-                        <Button size="sm" variant="secondary" onClick={() => revoke(d.id)}>
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            void revoke(d.id);
+                          }}
+                        >
                           Revoke
                         </Button>
                       )}
@@ -194,6 +203,12 @@ export default function DevicesPage() {
           </Table>
         )}
       </Card>
+
+      <DeviceDetailDrawer
+        deviceId={selectedId}
+        onClose={() => setSelectedId(null)}
+        onChanged={load}
+      />
     </div>
   );
 }

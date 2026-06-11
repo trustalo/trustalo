@@ -29,6 +29,10 @@ type Severity = "critical" | "high" | "medium" | "low" | "info";
 // are pruned once older than the signature clock-skew window.
 const STALE_INTERVAL_FACTOR = 3;
 const NONCE_RETENTION_MS = 10 * 60 * 1000;
+// Append-only posture history (DevicePostureSnapshot) is kept for 1 day, then
+// pruned by the sweep. The device keeps its latest inline posture; only the
+// drift trail is bounded.
+const SNAPSHOT_RETENTION_MS = 24 * 60 * 60 * 1000;
 
 // signal manifestKey -> framework refs / default severity, sourced from the
 // endpoint-agent manifest so control mappings live in exactly one place.
@@ -58,6 +62,32 @@ const POSTURE_SIGNALS = [
 ] as const;
 
 const AGENT_HEALTH_KEY = "device.agent_health";
+
+// The posture signals a tenant can choose to EVALUATE — a `fail` on one of
+// these raises a posture issue / marks the device at-risk (and, for the four
+// `column` signals, emits advisory evidence). The first four are first-class
+// Device columns; the rest live in the check-in `raw` blob (Device.latestPosture).
+export const EVALUABLE_POSTURE_SIGNALS = [
+  { key: "diskEncryption", label: "Disk encryption", source: "column" },
+  { key: "firewall", label: "Host firewall", source: "column" },
+  { key: "screenLock", label: "Screen lock", source: "column" },
+  { key: "antivirus", label: "Antivirus / EDR", source: "column" },
+  { key: "autoUpdate", label: "Automatic updates", source: "raw" },
+  { key: "mdmEnrolled", label: "MDM managed", source: "raw" },
+  { key: "gatekeeper", label: "Gatekeeper", source: "raw" },
+  { key: "sip", label: "System Integrity Protection", source: "raw" },
+] as const;
+
+export const POSTURE_SIGNAL_KEYS: string[] = EVALUABLE_POSTURE_SIGNALS.map((s) => s.key);
+
+// Default evaluated set when a tenant hasn't customised it: the four core
+// signals (preserves the original behaviour). Extended signals are optional.
+export const DEFAULT_REQUIRED_SIGNALS: string[] = [
+  "diskEncryption",
+  "firewall",
+  "screenLock",
+  "antivirus",
+];
 
 // ── Enrollment tokens ───────────────────────────────────────────────
 
@@ -152,6 +182,51 @@ async function getTenantCheckInInterval(tenantId: string): Promise<number> {
     select: { deviceCheckInIntervalSeconds: true },
   });
   return settings?.deviceCheckInIntervalSeconds ?? DEFAULT_CHECKIN_INTERVAL_SECONDS;
+}
+
+/**
+ * The posture signals this tenant evaluates. A null settings row (tenant never
+ * customised) → the default core set; an explicitly empty array → evaluate
+ * none (the tenant opted everything to optional).
+ */
+export async function getTenantRequiredSignals(tenantId: string): Promise<string[]> {
+  const settings = await prisma.tenantSettings.findUnique({
+    where: { tenantId },
+    select: { devicePostureRequiredSignals: true },
+  });
+  return settings?.devicePostureRequiredSignals ?? DEFAULT_REQUIRED_SIGNALS;
+}
+
+/**
+ * Given a device's posture (inline columns + the raw `latestPosture` blob) and
+ * the tenant's evaluated-signal set, return the keys that are FAILING and
+ * required — i.e. the posture issues. Optional signals (not in the set) are
+ * skipped, so a `fail` there never raises an issue. Pure + shared by the people
+ * rollup so "at-risk" and the device-drawer "issues" agree.
+ */
+export function failingRequiredSignals(
+  device: {
+    diskEncryption: string;
+    firewall: string;
+    screenLock: string;
+    antivirus: string;
+    latestPosture?: unknown;
+  },
+  requiredSignals: Iterable<string>,
+): string[] {
+  const required = new Set(requiredSignals);
+  const raw =
+    device.latestPosture && typeof device.latestPosture === "object"
+      ? (device.latestPosture as Record<string, unknown>)
+      : {};
+  const failing: string[] = [];
+  for (const sig of EVALUABLE_POSTURE_SIGNALS) {
+    if (!required.has(sig.key)) continue;
+    const value =
+      sig.source === "column" ? (device as Record<string, unknown>)[sig.key] : raw[sig.key];
+    if (value === "fail") failing.push(sig.key);
+  }
+  return failing;
 }
 
 /**
@@ -395,14 +470,25 @@ export async function recordCheckIn(
     });
   }
 
+  // Only EVALUATED signals emit advisory evidence. Agent health is always
+  // evaluated; a core signal the tenant marked optional no longer produces
+  // findings (it's still recorded inline + in the audit log below).
+  const requiredFields = new Set(await getTenantRequiredSignals(tenantId));
+  const fieldByManifestKey = new Map<string, string>(POSTURE_SIGNALS.map((s) => [s.key, s.field]));
+  const evidenceTransitions = transitions.filter((t) => {
+    if (t.key === AGENT_HEALTH_KEY) return true;
+    const field = fieldByManifestKey.get(t.key);
+    return field ? requiredFields.has(field) : true;
+  });
+
   let evidenceCreated = 0;
-  if (transitions.length > 0) {
+  if (evidenceTransitions.length > 0) {
     const items = await buildEvidenceItems(
       tenantId,
       deviceId,
       hostname,
       input.collectedAt,
-      transitions,
+      evidenceTransitions,
     );
     if (items.length > 0) {
       const result = await createAutomatedEvidence(tenantId, items);
@@ -489,7 +575,11 @@ async function buildEvidenceItems(
  * of signal is itself a finding), and prune expired replay nonces. Safe to
  * run on an interval; returns counts for logging.
  */
-export async function sweepStaleDevices(): Promise<{ markedStale: number; noncesPruned: number }> {
+export async function sweepStaleDevices(): Promise<{
+  markedStale: number;
+  noncesPruned: number;
+  snapshotsPruned: number;
+}> {
   const now = new Date();
 
   const candidates = await prisma.device.findMany({
@@ -540,5 +630,14 @@ export async function sweepStaleDevices(): Promise<{ markedStale: number; nonces
     where: { seenAt: { lt: new Date(now.getTime() - NONCE_RETENTION_MS) } },
   });
 
-  return { markedStale: stale.length, noncesPruned: pruned.count };
+  // Retention: drop posture-history snapshots older than 1 day.
+  const snapshots = await prisma.devicePostureSnapshot.deleteMany({
+    where: { collectedAt: { lt: new Date(now.getTime() - SNAPSHOT_RETENTION_MS) } },
+  });
+
+  return {
+    markedStale: stale.length,
+    noncesPruned: pruned.count,
+    snapshotsPruned: snapshots.count,
+  };
 }

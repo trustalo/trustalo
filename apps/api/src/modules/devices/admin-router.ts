@@ -15,6 +15,7 @@ import { authorizeResource } from "../../middleware/authorize.js";
 import {
   enrollDevice,
   generateEnrollmentTokenRaw,
+  getTenantRequiredSignals,
   hashEnrollmentToken,
   rotateDeviceSecret,
 } from "./service.js";
@@ -216,7 +217,10 @@ devicesAdminRouter.get("/:id", async (req, res, next) => {
         .json({ success: false, error: { code: "NOT_FOUND", message: "Device not found" } });
       return;
     }
-    res.json({ success: true, data: device });
+    // The tenant's evaluated-signal set, so the client can flag only the
+    // signals that count as posture issues (optional ones are informational).
+    const requiredSignals = await getTenantRequiredSignals(tenantId);
+    res.json({ success: true, data: { ...device, requiredSignals } });
   } catch (err) {
     next(err);
   }

@@ -1,6 +1,6 @@
 # Trustalo device agent
 
-Cross-platform (macOS / Windows / Linux) endpoint-posture agent, written in Go. It enrolls a machine once, then heartbeats its security posture — disk encryption, host firewall, screen lock, antivirus/EDR, agent health — to the Trustalo API. Each enrolled machine becomes a Computer-category **Asset** assigned to the enrolling **Person**. See [`../../docs/device-agent.md`](../../docs/device-agent.md) and [`../../docs/people.md`](../../docs/people.md).
+Cross-platform (macOS / Windows / Linux) endpoint-posture agent, written in Go. It enrolls a machine once, then heartbeats its security posture — disk encryption, host firewall, screen lock, antivirus/EDR, agent health — plus hardware/OS inventory (model, serial, CPU, RAM, disk, OS build, uptime) and extended posture (automatic updates, MDM enrollment, and on macOS Gatekeeper/SIP). **Every probe is an unprivileged read — no root/admin required.** Each enrolled machine becomes a Computer-category **Asset** assigned to the enrolling **Person**. See [`../../docs/device-agent.md`](../../docs/device-agent.md) and [`../../docs/people.md`](../../docs/people.md).
 
 ## Run & test locally
 
@@ -109,7 +109,7 @@ cmd/tray          resident menu-bar app — runs the agent in-process + UI
 internal/agent    the runtime: enroll → heartbeat loop → signed check-ins (shared)
 internal/authflow browser sign-in (PKCE device-authorization + trustalo:// IPC)
 internal/browser  cross-platform "open URL in browser"
-internal/collect  per-OS posture collectors (darwin/windows/linux)
+internal/collect  per-OS posture + inventory collectors (darwin/windows/linux), all unprivileged; parse.go holds the OS-agnostic, unit-tested parsers
 internal/apiclient login + enroll + check-in + device-token HTTP client
 internal/report   per-device HMAC signing (mirrors apps/api/src/lib/device-auth.ts)
 internal/keystore file-backed credential store

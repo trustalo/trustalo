@@ -400,6 +400,8 @@ export interface TenantSettings {
   logoUrl: string | null;
   defaults: SecurityDefaults | null;
   deviceCheckInIntervalSeconds: number;
+  /** Posture signals this tenant evaluates (a fail raises an issue). */
+  devicePostureRequiredSignals: string[];
   createdAt: string;
   updatedAt: string;
 }
@@ -425,6 +427,7 @@ export interface UpdateOrganizationSettingsInput {
   logoUrl?: string | null;
   defaults?: SecurityDefaults | null;
   deviceCheckInIntervalSeconds?: number;
+  devicePostureRequiredSignals?: string[];
 }
 
 export interface InviteMemberInput {
@@ -698,6 +701,28 @@ export interface DeviceDetail extends DeviceListItem {
   latestPosture: Record<string, unknown> | null;
   hardwareId: string | null;
   checkInIntervalSeconds: number;
+  /** The tenant's evaluated posture signals — a fail on one of these is an issue. */
+  requiredSignals: string[];
+}
+
+/** One append-only posture reading (drift / audit trail) from a check-in. */
+export interface DevicePostureSnapshot {
+  id: string;
+  deviceId: string;
+  diskEncryption: PostureSignalState;
+  firewall: PostureSignalState;
+  screenLock: PostureSignalState;
+  antivirus: PostureSignalState;
+  agentHealthy: boolean;
+  osVersion: string | null;
+  agentVersion: string | null;
+  raw: Record<string, unknown> | null;
+  collectedAt: string;
+  receivedAt: string;
+}
+
+export interface DevicePostureHistoryResponse {
+  items: DevicePostureSnapshot[];
 }
 
 export type DirectorySyncProvider = "entra" | "google_workspace";
@@ -4128,6 +4153,14 @@ class ApiClient {
 
   getDevice(id: string) {
     return this.request<ApiResponse<DeviceDetail>>("GET", `/api/v1/devices/${id}`);
+  }
+
+  getDevicePostureHistory(id: string, limit?: number) {
+    const qs = limit ? `?limit=${limit}` : "";
+    return this.request<ApiResponse<DevicePostureHistoryResponse>>(
+      "GET",
+      `/api/v1/devices/${id}/posture-history${qs}`,
+    );
   }
 
   revokeDevice(id: string) {

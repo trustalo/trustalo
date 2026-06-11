@@ -1206,6 +1206,7 @@ exports.Prisma.TenantSettingsScalarFieldEnum = {
   logoUrl: 'logoUrl',
   defaults: 'defaults',
   deviceCheckInIntervalSeconds: 'deviceCheckInIntervalSeconds',
+  devicePostureRequiredSignals: 'devicePostureRequiredSignals',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

@@ -3215,6 +3215,13 @@ model TenantSettings {
   // configurable under Settings; the agent honors it on its next heartbeat.
   // Default 30 min; bounded 5 min … 24 h by the settings API.
   deviceCheckInIntervalSeconds Int      @default(1800)
+  // Which posture signals this tenant EVALUATES — a `fail` on one of these
+  // marks the device at-risk / raises a posture issue (and, for the four core
+  // signals, emits advisory evidence). Signals NOT listed are still collected
+  // and shown, but treated as optional/informational (no "scream"). Default =
+  // the four core signals; admins may add the extended ones (autoUpdate /
+  // mdmEnrolled / gatekeeper / sip) or drop any they consider optional.
+  devicePostureRequiredSignals String[] @default(["diskEncryption", "firewall", "screenLock", "antivirus"])
   createdAt                    DateTime @default(now())
   updatedAt                    DateTime @updatedAt
 

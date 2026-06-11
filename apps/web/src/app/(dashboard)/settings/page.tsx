@@ -222,6 +222,15 @@ function Toggle({
 
 // ─── General Settings ───────────────────────────────────────────────
 
+const DEVICE_INTERVAL_OPTIONS = [
+  { value: "1800", label: "Every 30 minutes" },
+  { value: "3600", label: "Every hour" },
+  { value: "7200", label: "Every 2 hours" },
+  { value: "21600", label: "Every 6 hours" },
+  { value: "43200", label: "Every 12 hours" },
+  { value: "86400", label: "Once a day" },
+];
+
 function GeneralTab({
   org,
   settings,
@@ -245,6 +254,7 @@ function GeneralTab({
     timezone: "",
   });
   const [saving, setSaving] = useState(false);
+  const [savingInterval, setSavingInterval] = useState(false);
 
   useEffect(() => {
     if (org) setOrgName(org.name);
@@ -290,6 +300,18 @@ function GeneralTab({
       // keep modal open on error
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function saveDeviceInterval(seconds: number) {
+    setSavingInterval(true);
+    try {
+      const res = await apiClient.updateOrganizationSettings({
+        deviceCheckInIntervalSeconds: seconds,
+      });
+      onSettingsUpdated(res.data);
+    } finally {
+      setSavingInterval(false);
     }
   }
 
@@ -382,6 +404,44 @@ function GeneralTab({
             </span>
           </SettingRow>
         </dl>
+      </Card>
+
+      <Card>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-base font-semibold text-neutral-900 dark:text-white">
+              Device agent
+            </h2>
+            <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+              How often enrolled devices report their security posture
+            </p>
+          </div>
+        </div>
+        <dl className="mt-5 divide-y divide-neutral-100 dark:divide-neutral-800">
+          <SettingRow label="Check-in interval">
+            {canWrite ? (
+              <div className="w-48">
+                <Select
+                  aria-label="Device check-in interval"
+                  value={String(settings?.deviceCheckInIntervalSeconds ?? 1800)}
+                  onChange={(e) => saveDeviceInterval(Number(e.target.value))}
+                  options={DEVICE_INTERVAL_OPTIONS}
+                  disabled={savingInterval}
+                />
+              </div>
+            ) : (
+              <span className="text-sm text-neutral-900 dark:text-white">
+                {DEVICE_INTERVAL_OPTIONS.find(
+                  (o) => o.value === String(settings?.deviceCheckInIntervalSeconds ?? 1800),
+                )?.label ?? `Every ${(settings?.deviceCheckInIntervalSeconds ?? 1800) / 60} min`}
+              </span>
+            )}
+          </SettingRow>
+        </dl>
+        <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
+          Applies to all devices on their next check-in. Shorter intervals report sooner but use
+          more battery and network.
+        </p>
       </Card>
 
       <DirectorySyncCard canWrite={canWrite} />

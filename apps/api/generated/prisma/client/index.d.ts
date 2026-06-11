@@ -94920,8 +94920,18 @@ export namespace Prisma {
 
   export type AggregateTenantSettings = {
     _count: TenantSettingsCountAggregateOutputType | null
+    _avg: TenantSettingsAvgAggregateOutputType | null
+    _sum: TenantSettingsSumAggregateOutputType | null
     _min: TenantSettingsMinAggregateOutputType | null
     _max: TenantSettingsMaxAggregateOutputType | null
+  }
+
+  export type TenantSettingsAvgAggregateOutputType = {
+    deviceCheckInIntervalSeconds: number | null
+  }
+
+  export type TenantSettingsSumAggregateOutputType = {
+    deviceCheckInIntervalSeconds: number | null
   }
 
   export type TenantSettingsMinAggregateOutputType = {
@@ -94932,6 +94942,7 @@ export namespace Prisma {
     country: string | null
     timezone: string | null
     logoUrl: string | null
+    deviceCheckInIntervalSeconds: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -94944,6 +94955,7 @@ export namespace Prisma {
     country: string | null
     timezone: string | null
     logoUrl: string | null
+    deviceCheckInIntervalSeconds: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -94957,11 +94969,20 @@ export namespace Prisma {
     timezone: number
     logoUrl: number
     defaults: number
+    deviceCheckInIntervalSeconds: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type TenantSettingsAvgAggregateInputType = {
+    deviceCheckInIntervalSeconds?: true
+  }
+
+  export type TenantSettingsSumAggregateInputType = {
+    deviceCheckInIntervalSeconds?: true
+  }
 
   export type TenantSettingsMinAggregateInputType = {
     id?: true
@@ -94971,6 +94992,7 @@ export namespace Prisma {
     country?: true
     timezone?: true
     logoUrl?: true
+    deviceCheckInIntervalSeconds?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -94983,6 +95005,7 @@ export namespace Prisma {
     country?: true
     timezone?: true
     logoUrl?: true
+    deviceCheckInIntervalSeconds?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -94996,6 +95019,7 @@ export namespace Prisma {
     timezone?: true
     logoUrl?: true
     defaults?: true
+    deviceCheckInIntervalSeconds?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -95039,6 +95063,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: TenantSettingsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TenantSettingsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TenantSettingsMinAggregateInputType
@@ -95069,6 +95105,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: TenantSettingsCountAggregateInputType | true
+    _avg?: TenantSettingsAvgAggregateInputType
+    _sum?: TenantSettingsSumAggregateInputType
     _min?: TenantSettingsMinAggregateInputType
     _max?: TenantSettingsMaxAggregateInputType
   }
@@ -95082,9 +95120,12 @@ export namespace Prisma {
     timezone: string | null
     logoUrl: string | null
     defaults: JsonValue | null
+    deviceCheckInIntervalSeconds: number
     createdAt: Date
     updatedAt: Date
     _count: TenantSettingsCountAggregateOutputType | null
+    _avg: TenantSettingsAvgAggregateOutputType | null
+    _sum: TenantSettingsSumAggregateOutputType | null
     _min: TenantSettingsMinAggregateOutputType | null
     _max: TenantSettingsMaxAggregateOutputType | null
   }
@@ -95112,6 +95153,7 @@ export namespace Prisma {
     timezone?: boolean
     logoUrl?: boolean
     defaults?: boolean
+    deviceCheckInIntervalSeconds?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -95126,6 +95168,7 @@ export namespace Prisma {
     timezone?: boolean
     logoUrl?: boolean
     defaults?: boolean
+    deviceCheckInIntervalSeconds?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -95140,6 +95183,7 @@ export namespace Prisma {
     timezone?: boolean
     logoUrl?: boolean
     defaults?: boolean
+    deviceCheckInIntervalSeconds?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
@@ -95154,11 +95198,12 @@ export namespace Prisma {
     timezone?: boolean
     logoUrl?: boolean
     defaults?: boolean
+    deviceCheckInIntervalSeconds?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TenantSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "companySize" | "industry" | "country" | "timezone" | "logoUrl" | "defaults" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantSettings"]>
+  export type TenantSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "companySize" | "industry" | "country" | "timezone" | "logoUrl" | "defaults" | "deviceCheckInIntervalSeconds" | "createdAt" | "updatedAt", ExtArgs["result"]["tenantSettings"]>
   export type TenantSettingsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }
@@ -95183,6 +95228,7 @@ export namespace Prisma {
       timezone: string | null
       logoUrl: string | null
       defaults: Prisma.JsonValue | null
+      deviceCheckInIntervalSeconds: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["tenantSettings"]>
@@ -95617,6 +95663,7 @@ export namespace Prisma {
     readonly timezone: FieldRef<"TenantSettings", 'String'>
     readonly logoUrl: FieldRef<"TenantSettings", 'String'>
     readonly defaults: FieldRef<"TenantSettings", 'Json'>
+    readonly deviceCheckInIntervalSeconds: FieldRef<"TenantSettings", 'Int'>
     readonly createdAt: FieldRef<"TenantSettings", 'DateTime'>
     readonly updatedAt: FieldRef<"TenantSettings", 'DateTime'>
   }
@@ -128075,6 +128122,7 @@ export namespace Prisma {
     timezone: 'timezone',
     logoUrl: 'logoUrl',
     defaults: 'defaults',
+    deviceCheckInIntervalSeconds: 'deviceCheckInIntervalSeconds',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -137460,6 +137508,7 @@ export namespace Prisma {
     timezone?: StringNullableFilter<"TenantSettings"> | string | null
     logoUrl?: StringNullableFilter<"TenantSettings"> | string | null
     defaults?: JsonNullableFilter<"TenantSettings">
+    deviceCheckInIntervalSeconds?: IntFilter<"TenantSettings"> | number
     createdAt?: DateTimeFilter<"TenantSettings"> | Date | string
     updatedAt?: DateTimeFilter<"TenantSettings"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
@@ -137474,6 +137523,7 @@ export namespace Prisma {
     timezone?: SortOrderInput | SortOrder
     logoUrl?: SortOrderInput | SortOrder
     defaults?: SortOrderInput | SortOrder
+    deviceCheckInIntervalSeconds?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     tenant?: TenantOrderByWithRelationInput
@@ -137491,6 +137541,7 @@ export namespace Prisma {
     timezone?: StringNullableFilter<"TenantSettings"> | string | null
     logoUrl?: StringNullableFilter<"TenantSettings"> | string | null
     defaults?: JsonNullableFilter<"TenantSettings">
+    deviceCheckInIntervalSeconds?: IntFilter<"TenantSettings"> | number
     createdAt?: DateTimeFilter<"TenantSettings"> | Date | string
     updatedAt?: DateTimeFilter<"TenantSettings"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
@@ -137505,11 +137556,14 @@ export namespace Prisma {
     timezone?: SortOrderInput | SortOrder
     logoUrl?: SortOrderInput | SortOrder
     defaults?: SortOrderInput | SortOrder
+    deviceCheckInIntervalSeconds?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TenantSettingsCountOrderByAggregateInput
+    _avg?: TenantSettingsAvgOrderByAggregateInput
     _max?: TenantSettingsMaxOrderByAggregateInput
     _min?: TenantSettingsMinOrderByAggregateInput
+    _sum?: TenantSettingsSumOrderByAggregateInput
   }
 
   export type TenantSettingsScalarWhereWithAggregatesInput = {
@@ -137524,6 +137578,7 @@ export namespace Prisma {
     timezone?: StringNullableWithAggregatesFilter<"TenantSettings"> | string | null
     logoUrl?: StringNullableWithAggregatesFilter<"TenantSettings"> | string | null
     defaults?: JsonNullableWithAggregatesFilter<"TenantSettings">
+    deviceCheckInIntervalSeconds?: IntWithAggregatesFilter<"TenantSettings"> | number
     createdAt?: DateTimeWithAggregatesFilter<"TenantSettings"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"TenantSettings"> | Date | string
   }
@@ -147925,6 +147980,7 @@ export namespace Prisma {
     timezone?: string | null
     logoUrl?: string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutSettingsInput
@@ -147939,6 +147995,7 @@ export namespace Prisma {
     timezone?: string | null
     logoUrl?: string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -147951,6 +148008,7 @@ export namespace Prisma {
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutSettingsNestedInput
@@ -147965,6 +148023,7 @@ export namespace Prisma {
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -147978,6 +148037,7 @@ export namespace Prisma {
     timezone?: string | null
     logoUrl?: string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -147990,6 +148050,7 @@ export namespace Prisma {
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -148003,6 +148064,7 @@ export namespace Prisma {
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -157366,8 +157428,13 @@ export namespace Prisma {
     timezone?: SortOrder
     logoUrl?: SortOrder
     defaults?: SortOrder
+    deviceCheckInIntervalSeconds?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type TenantSettingsAvgOrderByAggregateInput = {
+    deviceCheckInIntervalSeconds?: SortOrder
   }
 
   export type TenantSettingsMaxOrderByAggregateInput = {
@@ -157378,6 +157445,7 @@ export namespace Prisma {
     country?: SortOrder
     timezone?: SortOrder
     logoUrl?: SortOrder
+    deviceCheckInIntervalSeconds?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -157390,8 +157458,13 @@ export namespace Prisma {
     country?: SortOrder
     timezone?: SortOrder
     logoUrl?: SortOrder
+    deviceCheckInIntervalSeconds?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type TenantSettingsSumOrderByAggregateInput = {
+    deviceCheckInIntervalSeconds?: SortOrder
   }
 
   export type EnumTrainingTypeFilter<$PrismaModel = never> = {
@@ -217354,6 +217427,7 @@ export namespace Prisma {
     timezone?: string | null
     logoUrl?: string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -217366,6 +217440,7 @@ export namespace Prisma {
     timezone?: string | null
     logoUrl?: string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -220535,6 +220610,7 @@ export namespace Prisma {
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -220547,6 +220623,7 @@ export namespace Prisma {
     timezone?: NullableStringFieldUpdateOperationsInput | string | null
     logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     defaults?: NullableJsonNullValueInput | InputJsonValue
+    deviceCheckInIntervalSeconds?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

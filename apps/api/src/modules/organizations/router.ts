@@ -32,6 +32,8 @@ const patchSettingsBody = z.object({
   timezone: z.string().nullable().optional(),
   logoUrl: z.string().nullable().optional(),
   defaults: securityDefaultsSchema,
+  // Device-agent posture cadence (seconds). Bounded 5 min … 24 h.
+  deviceCheckInIntervalSeconds: z.number().int().min(300).max(86400).optional(),
 });
 
 const inviteMemberBody = z.object({

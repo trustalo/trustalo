@@ -138,6 +138,22 @@ export interface EnrollDeviceResult {
   reused: boolean;
 }
 
+// Default device-agent cadence when a tenant hasn't customised it: 30 minutes.
+const DEFAULT_CHECKIN_INTERVAL_SECONDS = 1800;
+
+/**
+ * The tenant-configured device check-in cadence (seconds). Set under Settings;
+ * read at enrollment (stamped on the Device) and on every check-in (returned as
+ * `nextCheckInSeconds` so a change propagates to every agent on its next beat).
+ */
+async function getTenantCheckInInterval(tenantId: string): Promise<number> {
+  const settings = await prisma.tenantSettings.findUnique({
+    where: { tenantId },
+    select: { deviceCheckInIntervalSeconds: true },
+  });
+  return settings?.deviceCheckInIntervalSeconds ?? DEFAULT_CHECKIN_INTERVAL_SECONDS;
+}
+
 /**
  * Create (or, for a known hardwareId, re-enroll) a device and return its
  * one-time raw secret. Re-enrollment reuses the existing Computer Asset and
@@ -156,6 +172,8 @@ export async function enrollDevice(input: EnrollDeviceInput): Promise<EnrollDevi
   const personId = input.enrolledByUserId
     ? await resolvePersonForUser(input.tenantId, input.enrolledByUserId)
     : null;
+  // Stamp the tenant-configured cadence onto the device at enrollment.
+  const checkInIntervalSeconds = await getTenantCheckInInterval(input.tenantId);
 
   if (input.hardwareId) {
     const existing = await prisma.device.findFirst({
@@ -176,6 +194,7 @@ export async function enrollDevice(input: EnrollDeviceInput): Promise<EnrollDevi
           enrolledById: input.enrolledByUserId ?? null,
           enrollmentTokenId: input.enrollmentTokenId ?? null,
           enrolledAt: new Date(),
+          checkInIntervalSeconds,
           ...(personId ? { personId } : {}),
         },
         select: { id: true, secretKeyId: true, checkInIntervalSeconds: true },
@@ -227,6 +246,7 @@ export async function enrollDevice(input: EnrollDeviceInput): Promise<EnrollDevi
         enrolledById: input.enrolledByUserId ?? null,
         personId: personId ?? null,
         enrollmentTokenId: input.enrollmentTokenId ?? null,
+        checkInIntervalSeconds,
       },
       select: { id: true, secretKeyId: true, checkInIntervalSeconds: true },
     });
@@ -309,6 +329,11 @@ export async function recordCheckIn(
     },
   });
 
+  // Live tenant cadence: returned to the agent and synced onto the device row
+  // (so a Settings change reaches every agent on its next beat, and stale
+  // detection tracks the same interval).
+  const interval = await getTenantCheckInInterval(tenantId);
+
   const now = new Date();
   await prisma.$transaction(async (tx) => {
     await tx.device.update({
@@ -324,6 +349,7 @@ export async function recordCheckIn(
         agentHealthy: input.signals.agentHealthy,
         osVersion: input.osVersion ?? undefined,
         agentVersion: input.agentVersion ?? undefined,
+        checkInIntervalSeconds: interval,
         latestPosture: (input.raw ?? input.signals) as unknown as Prisma.InputJsonValue,
       },
     });
@@ -405,7 +431,7 @@ export async function recordCheckIn(
 
   return {
     status: "active",
-    nextCheckInSeconds: prev?.checkInIntervalSeconds ?? 3600,
+    nextCheckInSeconds: interval,
     evidenceCreated,
   };
 }

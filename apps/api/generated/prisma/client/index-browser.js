@@ -1205,6 +1205,7 @@ exports.Prisma.TenantSettingsScalarFieldEnum = {
   timezone: 'timezone',
   logoUrl: 'logoUrl',
   defaults: 'defaults',
+  deviceCheckInIntervalSeconds: 'deviceCheckInIntervalSeconds',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

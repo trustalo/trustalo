@@ -3211,6 +3211,10 @@ model TenantSettings {
   timezone    String?
   logoUrl     String?
   defaults    Json?
+  // How often enrolled device agents report posture (seconds). Tenant-wide,
+  // configurable under Settings; the agent honors it on its next heartbeat.
+  // Default 30 min; bounded 5 min … 24 h by the settings API.
+  deviceCheckInIntervalSeconds Int @default(1800)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

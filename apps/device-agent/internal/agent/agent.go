@@ -65,18 +65,31 @@ func (a *Agent) Run(ctx context.Context, onStatus OnStatus) error {
 	}
 	log.Printf("[agent] enrolled as device %s (keyId %d)", cred.DeviceID, cred.SecretKeyID)
 
-	if a.revokedAfter(a.checkIn(ctx, cred, onStatus), onStatus) {
+	interval := a.cfg.CheckInIntervalSeconds
+	next, err := a.checkIn(ctx, cred, onStatus)
+	if a.revokedAfter(err, onStatus) {
 		return ErrRevoked
 	}
-	ticker := time.NewTicker(time.Duration(a.cfg.CheckInIntervalSeconds) * time.Second)
+	if next > 0 {
+		interval = next
+	}
+	ticker := time.NewTicker(time.Duration(interval) * time.Second)
 	defer ticker.Stop()
 	for {
 		select {
 		case <-ctx.Done():
 			return nil
 		case <-ticker.C:
-			if a.revokedAfter(a.checkIn(ctx, cred, onStatus), onStatus) {
+			next, err := a.checkIn(ctx, cred, onStatus)
+			if a.revokedAfter(err, onStatus) {
 				return ErrRevoked
+			}
+			// Honor the tenant-configured cadence: a Settings change reaches
+			// the agent on its next beat and re-paces the heartbeat live.
+			if next > 0 && next != interval {
+				log.Printf("[agent] check-in interval updated: %ds → %ds", interval, next)
+				interval = next
+				ticker.Reset(time.Duration(interval) * time.Second)
 			}
 		}
 	}
@@ -107,7 +120,8 @@ func (a *Agent) CheckInOnce(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	return a.checkIn(ctx, cred, nil)
+	_, err = a.checkIn(ctx, cred, nil)
+	return err
 }
 
 // Login runs the browser sign-in (PKCE) and enrolls with the resulting JWT.
@@ -120,13 +134,15 @@ func (a *Agent) Login(ctx context.Context, openBrowser bool) (report.DeviceCrede
 }
 
 // checkIn performs one collect + signed report and publishes the resulting
-// status. Returns the check-in error (nil on success) so Run can decide whether
-// it's fatal (revoked → stop) or transient (keep retrying).
-func (a *Agent) checkIn(ctx context.Context, cred report.DeviceCredential, onStatus OnStatus) error {
+// status. Returns the server's next-check-in cadence (seconds; 0 if unknown)
+// and the check-in error (nil on success) so Run can both honor the
+// tenant-configured interval and decide whether the error is fatal (revoked →
+// stop) or transient (keep retrying).
+func (a *Agent) checkIn(ctx context.Context, cred report.DeviceCredential, onStatus OnStatus) (int, error) {
 	posture, err := collect.Collect()
 	if err != nil {
 		log.Printf("[agent] collect error: %v", err)
-		return nil // a local collection hiccup isn't an auth problem; skip this tick
+		return 0, nil // a local collection hiccup isn't an auth problem; skip this tick
 	}
 	st := ipc.Status{
 		DeviceID:     cred.DeviceID,
@@ -137,16 +153,18 @@ func (a *Agent) checkIn(ctx context.Context, cred report.DeviceCredential, onSta
 		AgentVersion: config.Version,
 	}
 	res, err := a.client.CheckIn(ctx, cred, posture, config.Version)
+	next := 0
 	if err != nil {
 		log.Printf("[agent] check-in error: %v", err)
 		st.LastError = err.Error()
 	} else {
-		log.Printf("[agent] check-in ok: status=%s evidence=%d disk=%s fw=%s lock=%s av=%s",
-			res.Status, res.EvidenceCreated, posture.Signals.DiskEncryption, posture.Signals.Firewall,
+		next = res.NextCheckInSeconds
+		log.Printf("[agent] check-in ok: status=%s next=%ds evidence=%d disk=%s fw=%s lock=%s av=%s",
+			res.Status, next, res.EvidenceCreated, posture.Signals.DiskEncryption, posture.Signals.Firewall,
 			posture.Signals.ScreenLock, posture.Signals.Antivirus)
 	}
 	a.publish(st, onStatus)
-	return err
+	return next, err
 }
 
 func (a *Agent) publish(st ipc.Status, onStatus OnStatus) {

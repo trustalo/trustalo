@@ -2,7 +2,7 @@
   "apiUrl": "http://localhost:15002",
   "webUrl": "http://localhost:15000",
   "authMethod": "basic",
-  "checkInIntervalSeconds": 3600,
+  "checkInIntervalSeconds": 1800,
   "dev": {
     "email": "you@example.com",
     "password": "",

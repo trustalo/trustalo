@@ -399,6 +399,7 @@ export interface TenantSettings {
   timezone: string | null;
   logoUrl: string | null;
   defaults: SecurityDefaults | null;
+  deviceCheckInIntervalSeconds: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -423,6 +424,7 @@ export interface UpdateOrganizationSettingsInput {
   timezone?: string | null;
   logoUrl?: string | null;
   defaults?: SecurityDefaults | null;
+  deviceCheckInIntervalSeconds?: number;
 }
 
 export interface InviteMemberInput {

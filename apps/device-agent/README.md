@@ -83,7 +83,9 @@ Resolution order: **CLI flags > env vars > `agent.config.json` > build-time defa
 | `TRUSTALO_AUTH_METHOD` | `authMethod` | `basic` | `basic` \| `token` |
 | `TRUSTALO_AGENT_EMAIL` / `_PASSWORD` | `dev.email` / `dev.password` | — | basic-auth sign-in |
 | `TRUSTALO_ENROLLMENT_TOKEN` | `dev.enrollmentToken` | — | token enrollment |
-| `TRUSTALO_CHECKIN_INTERVAL_SECONDS` | `checkInIntervalSeconds` | `3600` | heartbeat cadence |
+| `TRUSTALO_CHECKIN_INTERVAL_SECONDS` | `checkInIntervalSeconds` | `1800` | _initial_ heartbeat cadence |
+
+> **Cadence is tenant-controlled.** After the first check-in the agent adopts the tenant's configured interval (Settings → **Device agent** → Check-in interval; default 30 min, bounded 5 min … 24 h), returned by the server as `nextCheckInSeconds`. The config/env value above only sets the _first_ beat.
 
 `make config` scaffolds a local `agent.config.json` from `agent.config.example.json`. Local runtime files (`agent.config.json`, `credential.json`, `status.json`) are **gitignored** — never commit device credentials. Per-customer release builds bake `apiUrl` / `authMethod` via `-ldflags -X` (see [`.goreleaser.yaml`](.goreleaser.yaml)).
 

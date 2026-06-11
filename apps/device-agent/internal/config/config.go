@@ -46,7 +46,7 @@ func Load(path string) (Config, error) {
 		APIURL:                 DefaultAPIURL,
 		WebURL:                 DefaultWebURL,
 		AuthMethod:             DefaultAuthMethod,
-		CheckInIntervalSeconds: 3600,
+		CheckInIntervalSeconds: 1800,
 	}
 
 	if path != "" {
@@ -82,7 +82,7 @@ func Load(path string) (Config, error) {
 	cfg.APIURL = strings.TrimRight(cfg.APIURL, "/")
 	cfg.WebURL = strings.TrimRight(cfg.WebURL, "/")
 	if cfg.CheckInIntervalSeconds <= 0 {
-		cfg.CheckInIntervalSeconds = 3600
+		cfg.CheckInIntervalSeconds = 1800
 	}
 	return cfg, nil
 }

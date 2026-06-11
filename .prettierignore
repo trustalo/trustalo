@@ -40,6 +40,11 @@ public/
 *.pem
 *.key
 
+# ---- Device agent local runtime state (gitignored; never reformat/commit) ----
+apps/device-agent/credential.json
+apps/device-agent/agent.config.json
+apps/device-agent/status.json
+
 # ---- Tool caches ----
 .cache/
 .eslintcache

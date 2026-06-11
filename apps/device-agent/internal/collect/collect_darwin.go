@@ -47,6 +47,13 @@ func run(name string, args ...string) (string, error) {
 	return strings.TrimSpace(string(out)), err
 }
 
+// runCombined captures stdout+stderr. Some macOS tools (notably sysadminctl)
+// print their result to stderr, which run()'s stdout-only capture would miss.
+func runCombined(name string, args ...string) (string, error) {
+	out, err := exec.Command(name, args...).CombinedOutput()
+	return strings.TrimSpace(string(out)), err
+}
+
 func macOSVersion() string {
 	v, err := run("/usr/bin/sw_vers", "-productVersion")
 	if err != nil {
@@ -87,15 +94,29 @@ func firewall() SignalState {
 }
 
 func screenLock() SignalState {
-	// askForPassword=1 means a password is required after sleep/screensaver.
-	out, err := run("/usr/bin/defaults", "read", "com.apple.screensaver", "askForPassword")
-	if err != nil {
-		return Unknown
+	// macOS 12+ removed the user-readable `com.apple.screensaver askForPassword`
+	// key (it "does not exist" on modern macOS, which is why this used to report
+	// `unknown`). The supported source is `sysadminctl -screenLock status`, which
+	// logs to STDERR — hence runCombined. It prints e.g. "screenLock delay is 300
+	// seconds" / "...is immediate" when a password is required after lock, or
+	// "screenLock is off" when it isn't.
+	if out, err := runCombined("/usr/sbin/sysadminctl", "-screenLock", "status"); err == nil && out != "" {
+		low := strings.ToLower(out)
+		switch {
+		case strings.Contains(low, "off"):
+			return Fail
+		case strings.Contains(low, "delay is"), strings.Contains(low, "immediate"):
+			return Pass
+		}
 	}
-	if strings.TrimSpace(out) == "1" {
-		return Pass
+	// Legacy fallback: pre-macOS-12, or an MDM that still sets the old key.
+	if out, err := run("/usr/bin/defaults", "read", "com.apple.screensaver", "askForPassword"); err == nil {
+		if strings.TrimSpace(out) == "1" {
+			return Pass
+		}
+		return Fail
 	}
-	return Fail
+	return Unknown
 }
 
 func antivirus() SignalState {

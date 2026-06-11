@@ -57,7 +57,9 @@ func main() {
 }
 
 func (t *trayApp) onReady() {
-	systray.SetIcon(trayicon.Data)
+	// Template icon on macOS (menu bar tints it for light/dark, no colored box);
+	// the regular colored icon is used on Windows/Linux.
+	systray.SetTemplateIcon(trayicon.Template, trayicon.Data)
 	systray.SetTooltip("Trustalo Device Agent")
 
 	t.mStatus = systray.AddMenuItem("Status: …", "Overall device posture")

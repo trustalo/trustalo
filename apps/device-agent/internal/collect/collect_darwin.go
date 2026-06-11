@@ -8,7 +8,6 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
-	"syscall"
 	"time"
 )
 
@@ -51,11 +50,6 @@ func HardwareID() string {
 	}
 	host, _ := os.Hostname()
 	return host
-}
-
-func run(name string, args ...string) (string, error) {
-	out, err := exec.Command(name, args...).Output()
-	return strings.TrimSpace(string(out)), err
 }
 
 // runCombined captures stdout+stderr. Some macOS tools (notably sysadminctl)
@@ -116,15 +110,6 @@ func darwinInventory(raw map[string]any) {
 			raw["uptimeSeconds"] = up
 		}
 	}
-}
-
-// diskUsage returns total + available bytes for the boot volume via statfs(2).
-func diskUsage() (uint64, uint64) {
-	var st syscall.Statfs_t
-	if err := syscall.Statfs("/", &st); err != nil {
-		return 0, 0
-	}
-	return uint64(st.Bsize) * st.Blocks, uint64(st.Bsize) * st.Bavail
 }
 
 func macOSVersion() string {

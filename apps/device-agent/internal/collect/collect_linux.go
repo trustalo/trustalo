@@ -4,10 +4,8 @@ package collect
 
 import (
 	"os"
-	"os/exec"
 	"runtime"
 	"strings"
-	"syscall"
 )
 
 // Collect reads Linux posture. Linux endpoints vary widely by distro/DE, so
@@ -47,11 +45,6 @@ func HardwareID() string {
 	return host
 }
 
-func run(name string, args ...string) (string, error) {
-	out, err := exec.Command(name, args...).Output()
-	return strings.TrimSpace(string(out)), err
-}
-
 func readFileTrim(p string) string {
 	b, err := os.ReadFile(p)
 	if err != nil {
@@ -85,15 +78,6 @@ func linuxInventory(raw map[string]any) {
 			raw["uptimeSeconds"] = up
 		}
 	}
-}
-
-// diskUsage returns total + available bytes for the root filesystem via statfs.
-func diskUsage() (uint64, uint64) {
-	var st syscall.Statfs_t
-	if err := syscall.Statfs("/", &st); err != nil {
-		return 0, 0
-	}
-	return uint64(st.Bsize) * st.Blocks, uint64(st.Bsize) * st.Bavail
 }
 
 func osVersion() string {

@@ -11,6 +11,11 @@ import {
   type DevicePostureSnapshot,
   type DeviceStatus,
 } from "@/lib/api-client";
+import {
+  CORE_SIGNALS as SIGNALS,
+  DEFAULT_REQUIRED_SIGNALS,
+  EXTENDED_SIGNALS as POSTURE_EXTRA,
+} from "@/lib/device-signals";
 import { usePermissions } from "@/lib/use-permissions";
 
 const STATUS_BADGE: Record<DeviceStatus, BadgeVariant> = {
@@ -26,28 +31,6 @@ const PLATFORM_LABEL: Record<string, string> = {
   windows: "Windows",
   linux: "Linux",
 };
-
-// The four first-class posture signals, in display order. `key` matches the
-// field on DeviceDetail so we can index it directly.
-const SIGNALS = [
-  { key: "diskEncryption", label: "Disk encryption" },
-  { key: "firewall", label: "Host firewall" },
-  { key: "screenLock", label: "Screen lock" },
-  { key: "antivirus", label: "Antivirus / EDR" },
-] as const;
-
-// Extended posture signals the agent reports inside latestPosture (pass/fail).
-// Rendered as badges below the first-class signals — no schema column needed.
-const POSTURE_EXTRA: { key: string; label: string }[] = [
-  { key: "autoUpdate", label: "Automatic updates" },
-  { key: "mdmEnrolled", label: "MDM managed" },
-  { key: "gatekeeper", label: "Gatekeeper" },
-  { key: "sip", label: "System Integrity Protection" },
-];
-
-// Fallback when an older payload omits requiredSignals; mirrors the server
-// default (TenantSettings.devicePostureRequiredSignals).
-const DEFAULT_REQUIRED_SIGNALS = ["diskEncryption", "firewall", "screenLock", "antivirus"];
 
 // Hardware facts the agent reports inside latestPosture.
 const HARDWARE_FIELDS: { key: string; label: string; fmt?: (v: unknown) => string }[] = [

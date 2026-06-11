@@ -172,29 +172,40 @@ export interface EnrollDeviceResult {
 const DEFAULT_CHECKIN_INTERVAL_SECONDS = 1800;
 
 /**
- * The tenant-configured device check-in cadence (seconds). Set under Settings;
- * read at enrollment (stamped on the Device) and on every check-in (returned as
- * `nextCheckInSeconds` so a change propagates to every agent on its next beat).
+ * The tenant's device-agent settings, read in a SINGLE query so a check-in
+ * (which needs both the cadence and the evaluated-signal set) doesn't hit
+ * `tenantSettings` twice. Defaults apply when the tenant has no settings row:
+ * the 30-min cadence and the core-signal evaluated set. An explicitly empty
+ * `requiredSignals` array means "evaluate none".
  */
-async function getTenantCheckInInterval(tenantId: string): Promise<number> {
+async function getTenantDeviceSettings(
+  tenantId: string,
+): Promise<{ checkInIntervalSeconds: number; requiredSignals: string[] }> {
   const settings = await prisma.tenantSettings.findUnique({
     where: { tenantId },
-    select: { deviceCheckInIntervalSeconds: true },
+    select: { deviceCheckInIntervalSeconds: true, devicePostureRequiredSignals: true },
   });
-  return settings?.deviceCheckInIntervalSeconds ?? DEFAULT_CHECKIN_INTERVAL_SECONDS;
+  return {
+    checkInIntervalSeconds:
+      settings?.deviceCheckInIntervalSeconds ?? DEFAULT_CHECKIN_INTERVAL_SECONDS,
+    requiredSignals: settings?.devicePostureRequiredSignals ?? [...DEFAULT_REQUIRED_SIGNALS],
+  };
 }
 
 /**
- * The posture signals this tenant evaluates. A null settings row (tenant never
- * customised) → the default core set; an explicitly empty array → evaluate
- * none (the tenant opted everything to optional).
+ * The tenant-configured device check-in cadence (seconds). Set under Settings;
+ * read at enrollment (stamped on the Device).
+ */
+async function getTenantCheckInInterval(tenantId: string): Promise<number> {
+  return (await getTenantDeviceSettings(tenantId)).checkInIntervalSeconds;
+}
+
+/**
+ * The posture signals this tenant evaluates (default = the core set; empty =
+ * evaluate none). Used by the People rollup + device-detail endpoint.
  */
 export async function getTenantRequiredSignals(tenantId: string): Promise<string[]> {
-  const settings = await prisma.tenantSettings.findUnique({
-    where: { tenantId },
-    select: { devicePostureRequiredSignals: true },
-  });
-  return settings?.devicePostureRequiredSignals ?? DEFAULT_REQUIRED_SIGNALS;
+  return (await getTenantDeviceSettings(tenantId)).requiredSignals;
 }
 
 /**
@@ -404,10 +415,11 @@ export async function recordCheckIn(
     },
   });
 
-  // Live tenant cadence: returned to the agent and synced onto the device row
-  // (so a Settings change reaches every agent on its next beat, and stale
-  // detection tracks the same interval).
-  const interval = await getTenantCheckInInterval(tenantId);
+  // Live tenant cadence + evaluated-signal set, read once. Cadence is returned
+  // to the agent and synced onto the device row (so a Settings change reaches
+  // every agent on its next beat); the evaluated set gates evidence below.
+  const deviceSettings = await getTenantDeviceSettings(tenantId);
+  const interval = deviceSettings.checkInIntervalSeconds;
 
   const now = new Date();
   await prisma.$transaction(async (tx) => {
@@ -473,7 +485,7 @@ export async function recordCheckIn(
   // Only EVALUATED signals emit advisory evidence. Agent health is always
   // evaluated; a core signal the tenant marked optional no longer produces
   // findings (it's still recorded inline + in the audit log below).
-  const requiredFields = new Set(await getTenantRequiredSignals(tenantId));
+  const requiredFields = new Set(deviceSettings.requiredSignals);
   const fieldByManifestKey = new Map<string, string>(POSTURE_SIGNALS.map((s) => [s.key, s.field]));
   const evidenceTransitions = transitions.filter((t) => {
     if (t.key === AGENT_HEALTH_KEY) return true;

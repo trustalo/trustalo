@@ -21,6 +21,7 @@ import {
   AI_PROVIDER_MODELS,
   AI_FEATURE_LABELS,
 } from "@/lib/api-client";
+import { ALL_POSTURE_SIGNALS, DEFAULT_REQUIRED_SIGNALS } from "@/lib/device-signals";
 import { usePermissions } from "@/lib/use-permissions";
 import { AIUsageTab } from "./_components/ai-usage-tab";
 import { DirectorySyncCard } from "./_components/directory-sync-card";
@@ -230,22 +231,6 @@ const DEVICE_INTERVAL_OPTIONS = [
   { value: "43200", label: "Every 12 hours" },
   { value: "86400", label: "Once a day" },
 ];
-
-// Posture signals an admin can choose to evaluate. Keys mirror the server's
-// EVALUABLE_POSTURE_SIGNALS; unchecked = optional (collected + shown, never an
-// "issue"). The four core signals are the default-on set.
-const POSTURE_SIGNAL_OPTIONS = [
-  { key: "diskEncryption", label: "Disk encryption" },
-  { key: "firewall", label: "Host firewall" },
-  { key: "screenLock", label: "Screen lock" },
-  { key: "antivirus", label: "Antivirus / EDR" },
-  { key: "autoUpdate", label: "Automatic OS updates" },
-  { key: "mdmEnrolled", label: "MDM managed" },
-  { key: "gatekeeper", label: "Gatekeeper (macOS)" },
-  { key: "sip", label: "System Integrity Protection (macOS)" },
-];
-
-const DEFAULT_REQUIRED_SIGNALS = ["diskEncryption", "firewall", "screenLock", "antivirus"];
 
 function GeneralTab({
   org,
@@ -490,7 +475,7 @@ function GeneralTab({
           </p>
         </div>
         <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {POSTURE_SIGNAL_OPTIONS.map((sig) => {
+          {ALL_POSTURE_SIGNALS.map((sig) => {
             const checked = requiredSignals.includes(sig.key);
             return (
               <label
@@ -510,7 +495,10 @@ function GeneralTab({
                   disabled={!canWrite || savingSignals}
                   onChange={(e) => toggleSignal(sig.key, e.target.checked)}
                 />
-                <span className="text-neutral-900 dark:text-neutral-100">{sig.label}</span>
+                <span className="text-neutral-900 dark:text-neutral-100">
+                  {sig.label}
+                  {sig.platforms ? ` (${sig.platforms})` : ""}
+                </span>
                 {!checked && (
                   <span className="ml-auto text-[10px] uppercase tracking-wide text-neutral-400">
                     optional

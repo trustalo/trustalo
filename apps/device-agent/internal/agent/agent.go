@@ -5,6 +5,7 @@ package agent
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"runtime"
@@ -48,6 +49,11 @@ func (a *Agent) IsEnrolled() bool {
 // its menu). nil = no callback.
 type OnStatus func(ipc.Status)
 
+// ErrRevoked is returned by Run when the server rejected the device as no
+// longer valid (revoked / identity changed). The loop stops and the credential
+// is cleared; the caller (tray/daemon) surfaces "sign in again".
+var ErrRevoked = errors.New("device credential revoked; re-enrollment required")
+
 // Run blocks: ensure enrolled, check in immediately, then heartbeat on the
 // configured interval until ctx is cancelled. Returns the enrollment error if
 // the device isn't signed in yet (the caller can offer "Sign in").
@@ -59,7 +65,9 @@ func (a *Agent) Run(ctx context.Context, onStatus OnStatus) error {
 	}
 	log.Printf("[agent] enrolled as device %s (keyId %d)", cred.DeviceID, cred.SecretKeyID)
 
-	a.checkIn(ctx, cred, onStatus)
+	if a.revokedAfter(a.checkIn(ctx, cred, onStatus), onStatus) {
+		return ErrRevoked
+	}
 	ticker := time.NewTicker(time.Duration(a.cfg.CheckInIntervalSeconds) * time.Second)
 	defer ticker.Stop()
 	for {
@@ -67,9 +75,30 @@ func (a *Agent) Run(ctx context.Context, onStatus OnStatus) error {
 		case <-ctx.Done():
 			return nil
 		case <-ticker.C:
-			a.checkIn(ctx, cred, onStatus)
+			if a.revokedAfter(a.checkIn(ctx, cred, onStatus), onStatus) {
+				return ErrRevoked
+			}
 		}
 	}
+}
+
+// revokedAfter inspects a check-in error. On a FATAL device-auth rejection
+// (revoked / identity changed / bad signature) it clears the local credential,
+// publishes a signed-out status, and returns true so Run stops the loop — the
+// agent sends no further requests until the user signs in again. Transient
+// errors (network, 5xx, clock skew) return false: keep heartbeating + retrying.
+func (a *Agent) revokedAfter(err error, onStatus OnStatus) bool {
+	if !apiclient.IsRevoked(err) {
+		return false
+	}
+	log.Printf("[agent] server rejected this device (%v) — clearing credential; sign in again", err)
+	_ = a.store.Clear()
+	a.publish(ipc.Status{
+		Enrolled:     false,
+		LastError:    "device access was revoked — sign in again",
+		AgentVersion: config.Version,
+	}, onStatus)
+	return true
 }
 
 // CheckInOnce ensures enrollment and performs a single collect + check-in.
@@ -78,8 +107,7 @@ func (a *Agent) CheckInOnce(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	a.checkIn(ctx, cred, nil)
-	return nil
+	return a.checkIn(ctx, cred, nil)
 }
 
 // Login runs the browser sign-in (PKCE) and enrolls with the resulting JWT.
@@ -91,11 +119,14 @@ func (a *Agent) Login(ctx context.Context, openBrowser bool) (report.DeviceCrede
 	return a.enrollAndStore(ctx, token, a.enrollInput())
 }
 
-func (a *Agent) checkIn(ctx context.Context, cred report.DeviceCredential, onStatus OnStatus) {
+// checkIn performs one collect + signed report and publishes the resulting
+// status. Returns the check-in error (nil on success) so Run can decide whether
+// it's fatal (revoked → stop) or transient (keep retrying).
+func (a *Agent) checkIn(ctx context.Context, cred report.DeviceCredential, onStatus OnStatus) error {
 	posture, err := collect.Collect()
 	if err != nil {
 		log.Printf("[agent] collect error: %v", err)
-		return
+		return nil // a local collection hiccup isn't an auth problem; skip this tick
 	}
 	st := ipc.Status{
 		DeviceID:     cred.DeviceID,
@@ -115,6 +146,7 @@ func (a *Agent) checkIn(ctx context.Context, cred report.DeviceCredential, onSta
 			posture.Signals.ScreenLock, posture.Signals.Antivirus)
 	}
 	a.publish(st, onStatus)
+	return err
 }
 
 func (a *Agent) publish(st ipc.Status, onStatus OnStatus) {

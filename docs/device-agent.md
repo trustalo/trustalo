@@ -16,6 +16,8 @@ On enrollment the server resolves the enrolling user → their `Person` and sets
 
 Each check-in updates the device's inline posture and appends a `DevicePostureSnapshot` (append-only history). Advisory `Evidence` is emitted **only for signals that changed state** since the previous check-in, mapped to controls via the `endpoint-agent` manifest (SOC 2 CC6.x/7.x, ISO A.8.x). A stale-device sweep flips silent devices to `stale` and raises an agent-health finding.
 
+**Rejection handling.** The agent distinguishes _transient_ failures (network, 5xx, clock skew) — which it retries on the next heartbeat without re-authenticating — from _fatal_ ones. A fatal device-auth rejection (`DEVICE_REVOKED`, `DEVICE_KEY_MISMATCH`, `DEVICE_BAD_SIGNATURE` — i.e. the device was revoked, its secret rotated, or its identity changed) makes the agent **clear its stored credential, stop sending check-ins, and prompt the user to sign in again** (tray → red, "Sign in…"). So revoking a device server-side (or offboarding its person, which auto-revokes) immediately silences it.
+
 ## Web UI
 
 The **Devices** page (`/devices`, requires `assets:read`) lists every enrolled device with its posture signals, status, last-seen time, and **assigned person**. Admins (`assets:write`) can revoke a device. A person's fleet and its posture also appear on the **Devices** tab of their People profile.

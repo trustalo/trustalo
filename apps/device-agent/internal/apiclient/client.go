@@ -7,6 +7,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -15,6 +16,36 @@ import (
 	"github.com/trustalo/trustalo/apps/device-agent/internal/collect"
 	"github.com/trustalo/trustalo/apps/device-agent/internal/report"
 )
+
+// APIError is a structured server error (non-2xx or success:false). It carries
+// the error code so callers can branch on it — notably to tell a fatal
+// device-auth rejection (revoked / identity changed) from a transient failure.
+type APIError struct {
+	Status  int
+	Code    string
+	Message string
+	Path    string
+}
+
+func (e *APIError) Error() string {
+	return fmt.Sprintf("%s -> %d %s: %s", e.Path, e.Status, e.Code, e.Message)
+}
+
+// IsRevoked reports whether err means the device's credential is no longer
+// valid — revoked/retired, its secret rotated or re-enrolled elsewhere
+// ("change of identity"), or a bad signature. The agent must STOP and
+// re-enroll on these rather than retry. Transient errors (network, 5xx, clock
+// skew, replay) return false.
+func IsRevoked(err error) bool {
+	var ae *APIError
+	if errors.As(err, &ae) {
+		switch ae.Code {
+		case "DEVICE_REVOKED", "DEVICE_KEY_MISMATCH", "DEVICE_BAD_SIGNATURE":
+			return true
+		}
+	}
+	return false
+}
 
 type Client struct {
 	baseURL string
@@ -52,7 +83,7 @@ func doJSON[T any](c *Client, req *http.Request) (T, error) {
 		if env.Error != nil {
 			code, msg = env.Error.Code, env.Error.Message
 		}
-		return zero, fmt.Errorf("%s -> %d %s: %s", req.URL.Path, resp.StatusCode, code, msg)
+		return zero, &APIError{Status: resp.StatusCode, Code: code, Message: msg, Path: req.URL.Path}
 	}
 	return env.Data, nil
 }

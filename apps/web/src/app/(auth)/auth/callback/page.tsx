@@ -7,6 +7,7 @@
 // Trustalo's own JWT. We store the token and bounce to the dashboard.
 
 import Link from "next/link";
+import { takeNext } from "@/lib/post-login";
 import { useEffect, useState } from "react";
 import { apiClient } from "@/lib/api-client";
 
@@ -52,7 +53,7 @@ export default function AuthCallbackPage() {
         const token = (result as any).data?.token ?? (result as any).token;
         if (!token) throw new Error("API response did not include a token");
         apiClient.setToken(token);
-        window.location.href = "/dashboard";
+        window.location.href = takeNext();
       })
       .catch((err) => {
         setError(err instanceof Error ? err.message : "Sign-in failed");

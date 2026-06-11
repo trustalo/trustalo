@@ -3642,6 +3642,16 @@ class ApiClient {
     );
   }
 
+  /**
+   * Device-agent browser sign-in: the authenticated consent step. Mints a
+   * single-use, PKCE-bound code the browser deep-links back to the agent.
+   */
+  deviceAuthorize(input: { state: string; codeChallenge: string; redirectUri: string }) {
+    return this.request<
+      ApiResponse<{ code: string; redirectUri: string; expiresAt: string; state: string }>
+    >("POST", "/api/v1/auth/device/authorize", input);
+  }
+
   getMe() {
     return this.request<{ user: unknown }>("GET", "/api/v1/auth/me");
   }

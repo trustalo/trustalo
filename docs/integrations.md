@@ -173,7 +173,7 @@ The `packages/integration-manifests` workspace exports declarative **check manif
 
 ## HTTP surface
 
-All connector routes are mounted at the **collector root** (no `/api` prefix). The web app and the API use `http://localhost:4001` directly.
+All connector routes are mounted at the **collector root** (no `/api` prefix). The web app and the API use `http://localhost:15003` directly.
 
 ### Public
 

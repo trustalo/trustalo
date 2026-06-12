@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { usePermissions } from "@/lib/use-permissions";
 import { Badge } from "@/components/ui/badge";
 import type { BadgeVariant } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -145,7 +146,24 @@ function ScoreBadge({ score, label }: { score: number | null; label: string }) {
 export default function VendorDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const { canWrite } = usePermissions();
+  const canVetPeople = canWrite("people");
   const vendorId = params.id as string;
+
+  async function vetContactAsPerson(contactId: string) {
+    if (
+      !confirm(
+        "Promote this contact to a vetted Person? They can then be background-checked and assigned policies/training.",
+      )
+    )
+      return;
+    try {
+      const res = await apiClient.promoteVendorContact(contactId);
+      router.push(`/people/${res.data.id}`);
+    } catch (err) {
+      alert((err as Error)?.message || "Failed to promote contact");
+    }
+  }
 
   const [vendor, setVendor] = useState<VendorDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -514,6 +532,27 @@ export default function VendorDetailPage() {
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-1">
+                      {canVetPeople && contact.email && (
+                        <button
+                          className="rounded p-1 text-neutral-400 hover:bg-emerald-50 hover:text-emerald-600 dark:hover:bg-emerald-950 dark:hover:text-emerald-400"
+                          title="Vet as person"
+                          onClick={() => vetContactAsPerson(contact.id)}
+                        >
+                          <svg
+                            className="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                            />
+                          </svg>
+                        </button>
+                      )}
                       <button
                         className="rounded p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 dark:hover:bg-neutral-800 dark:hover:text-neutral-300"
                         title="Edit"

@@ -1,0 +1,217 @@
+// Package apiclient talks to the Trustalo API: user sign-in (to bootstrap
+// enrollment), device enrollment (JWT or enrollment-token), and signed posture
+// check-ins.
+package apiclient
+
+import (
+	"bytes"
+	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"net/http"
+	"time"
+
+	"github.com/trustalo/trustalo/apps/device-agent/internal/collect"
+	"github.com/trustalo/trustalo/apps/device-agent/internal/report"
+)
+
+// APIError is a structured server error (non-2xx or success:false). It carries
+// the error code so callers can branch on it — notably to tell a fatal
+// device-auth rejection (revoked / identity changed) from a transient failure.
+type APIError struct {
+	Status  int
+	Code    string
+	Message string
+	Path    string
+}
+
+func (e *APIError) Error() string {
+	return fmt.Sprintf("%s -> %d %s: %s", e.Path, e.Status, e.Code, e.Message)
+}
+
+// IsRevoked reports whether err means the device's credential is no longer
+// valid — revoked/retired, its secret rotated or re-enrolled elsewhere
+// ("change of identity"), or a bad signature. The agent must STOP and
+// re-enroll on these rather than retry. Transient errors (network, 5xx, clock
+// skew, replay) return false.
+func IsRevoked(err error) bool {
+	var ae *APIError
+	if errors.As(err, &ae) {
+		switch ae.Code {
+		case "DEVICE_REVOKED", "DEVICE_KEY_MISMATCH", "DEVICE_BAD_SIGNATURE":
+			return true
+		}
+	}
+	return false
+}
+
+type Client struct {
+	baseURL string
+	webURL  string
+	http    *http.Client
+}
+
+func New(baseURL, webURL string) *Client {
+	return &Client{baseURL: baseURL, webURL: webURL, http: &http.Client{Timeout: 30 * time.Second}}
+}
+
+type apiEnvelope[T any] struct {
+	Success bool `json:"success"`
+	Data    T    `json:"data"`
+	Error   *struct {
+		Code    string `json:"code"`
+		Message string `json:"message"`
+	} `json:"error"`
+}
+
+func doJSON[T any](c *Client, req *http.Request) (T, error) {
+	var zero T
+	resp, err := c.http.Do(req)
+	if err != nil {
+		return zero, err
+	}
+	defer resp.Body.Close()
+	body, _ := io.ReadAll(resp.Body)
+	var env apiEnvelope[T]
+	if err := json.Unmarshal(body, &env); err != nil {
+		return zero, fmt.Errorf("%s: decode response (status %d): %w", req.URL.Path, resp.StatusCode, err)
+	}
+	if resp.StatusCode >= 400 || !env.Success {
+		code, msg := "", ""
+		if env.Error != nil {
+			code, msg = env.Error.Code, env.Error.Message
+		}
+		return zero, &APIError{Status: resp.StatusCode, Code: code, Message: msg, Path: req.URL.Path}
+	}
+	return env.Data, nil
+}
+
+// LoginResult carries the user JWT used once to bootstrap enrollment.
+type LoginResult struct {
+	Token string `json:"token"`
+	User  struct {
+		Email string `json:"email"`
+	} `json:"user"`
+	Organization struct {
+		ID string `json:"id"`
+	} `json:"organization"`
+}
+
+func (c *Client) Login(ctx context.Context, email, password string) (LoginResult, error) {
+	body, _ := json.Marshal(map[string]string{"email": email, "password": password})
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.baseURL+"/api/v1/auth/login", bytes.NewReader(body))
+	if err != nil {
+		return LoginResult{}, err
+	}
+	req.Header.Set("content-type", "application/json")
+	// The login route is CSRF-checked (no Bearer yet); present an allowed origin.
+	req.Header.Set("origin", c.webURL)
+	return doJSON[LoginResult](c, req)
+}
+
+// ProviderDescriptor mirrors GET /auth/config — the active sign-in mechanism so
+// the agent can tell the user how they'll authenticate.
+type ProviderDescriptor struct {
+	ProviderID  string `json:"providerId"`
+	DisplayName string `json:"displayName"`
+	Kind        string `json:"kind"` // "credential" | "redirect"
+}
+
+// AuthConfig discovers the server's active auth provider (no credentials).
+func (c *Client) AuthConfig(ctx context.Context) (ProviderDescriptor, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.baseURL+"/api/v1/auth/config", nil)
+	if err != nil {
+		return ProviderDescriptor{}, err
+	}
+	return doJSON[ProviderDescriptor](c, req)
+}
+
+// ExchangeDeviceCode swaps a device-authorization code + PKCE verifier for a
+// device JWT (the browser-login flow). Mirrors POST /auth/device/token.
+func (c *Client) ExchangeDeviceCode(ctx context.Context, code, codeVerifier string) (LoginResult, error) {
+	body, _ := json.Marshal(map[string]string{"code": code, "codeVerifier": codeVerifier})
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.baseURL+"/api/v1/auth/device/token", bytes.NewReader(body))
+	if err != nil {
+		return LoginResult{}, err
+	}
+	req.Header.Set("content-type", "application/json")
+	req.Header.Set("origin", c.webURL)
+	return doJSON[LoginResult](c, req)
+}
+
+type EnrollInput struct {
+	Platform     string `json:"platform"`
+	Hostname     string `json:"hostname,omitempty"`
+	HardwareID   string `json:"hardwareId,omitempty"`
+	OSVersion    string `json:"osVersion,omitempty"`
+	AgentVersion string `json:"agentVersion,omitempty"`
+}
+
+type EnrollResult struct {
+	DeviceID               string `json:"deviceId"`
+	DeviceSecret           string `json:"deviceSecret"`
+	SecretKeyID            int    `json:"secretKeyId"`
+	CheckInIntervalSeconds int    `json:"checkInIntervalSeconds"`
+}
+
+// EnrollWithJWT self-enrolls using a signed-in user's Bearer token.
+func (c *Client) EnrollWithJWT(ctx context.Context, token string, in EnrollInput) (EnrollResult, error) {
+	return c.enroll(ctx, "/api/v1/devices/enroll", token, in)
+}
+
+// EnrollWithToken enrolls non-interactively with an admin enrollment token.
+func (c *Client) EnrollWithToken(ctx context.Context, enrollToken string, in EnrollInput) (EnrollResult, error) {
+	return c.enroll(ctx, "/api/v1/devices/agent/enroll", enrollToken, in)
+}
+
+func (c *Client) enroll(ctx context.Context, path, bearer string, in EnrollInput) (EnrollResult, error) {
+	body, _ := json.Marshal(in)
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.baseURL+path, bytes.NewReader(body))
+	if err != nil {
+		return EnrollResult{}, err
+	}
+	req.Header.Set("content-type", "application/json")
+	req.Header.Set("authorization", "Bearer "+bearer)
+	return doJSON[EnrollResult](c, req)
+}
+
+type checkInBody struct {
+	CollectedAt  string          `json:"collectedAt"`
+	OSVersion    string          `json:"osVersion,omitempty"`
+	AgentVersion string          `json:"agentVersion,omitempty"`
+	Signals      collect.Signals `json:"signals"`
+	Raw          map[string]any  `json:"raw,omitempty"`
+}
+
+type CheckInResult struct {
+	Status             string `json:"status"`
+	NextCheckInSeconds int    `json:"nextCheckInSeconds"`
+	EvidenceCreated    int    `json:"evidenceCreated"`
+}
+
+// CheckIn signs and submits one posture reading via the per-device HMAC scheme.
+func (c *Client) CheckIn(ctx context.Context, cred report.DeviceCredential, p collect.Posture, agentVersion string) (CheckInResult, error) {
+	const path = "/api/v1/devices/agent/check-in"
+	body, _ := json.Marshal(checkInBody{
+		CollectedAt:  time.Now().UTC().Format(time.RFC3339),
+		OSVersion:    p.OSVersion,
+		AgentVersion: agentVersion,
+		Signals:      p.Signals,
+		Raw:          p.Raw,
+	})
+	nonce, err := report.Nonce()
+	if err != nil {
+		return CheckInResult{}, err
+	}
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.baseURL+path, bytes.NewReader(body))
+	if err != nil {
+		return CheckInResult{}, err
+	}
+	req.Header.Set("content-type", "application/json")
+	for k, v := range report.SignedHeaders(cred, http.MethodPost, path, body, time.Now(), nonce) {
+		req.Header.Set(k, v)
+	}
+	return doJSON[CheckInResult](c, req)
+}

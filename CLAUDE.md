@@ -57,6 +57,8 @@ The Cursor `.mdc` files are markdown with YAML frontmatter. Read them directly �
 - [`docs/auth-providers.md`](docs/auth-providers.md) — pluggable auth providers.
 - [`docs/integrations.md`](docs/integrations.md) — Collector integration framework.
 - [`docs/permissions-matrix.md`](docs/permissions-matrix.md) — RBAC roles and permissions.
+- [`docs/people.md`](docs/people.md) — People directory / HR; the `Person` model (replaced `Membership`), self-service, advisory evidence.
+- [`docs/device-agent.md`](docs/device-agent.md) — endpoint device-posture agent + Devices UI.
 - [`docs/compliance-frameworks.md`](docs/compliance-frameworks.md) — supported frameworks and mappings.
 
 ---

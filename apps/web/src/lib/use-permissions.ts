@@ -72,6 +72,8 @@ export function usePermissions(): PermissionsContext {
 export const NAV_PERMISSIONS: Record<string, string | null> = {
   Dashboard: null,
   Tasks: null,
+  "My Compliance": "self:read",
+  People: "people:read",
   Frameworks: "frameworks:read",
   Controls: "controls:read",
   Policies: "policies:read",

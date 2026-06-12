@@ -1,8 +1,8 @@
 import { Router, type Request, type Response, type NextFunction } from "express";
 import { z } from "zod";
 import { prisma } from "../../db/prisma.js";
-import { Prisma } from "../../../generated/prisma/client/index.js";
 import { requireServiceAuth } from "../../lib/service-auth.js";
+import { createAutomatedEvidence } from "../evidence/ingest-service.js";
 import { handleInternalDueForResearch } from "../vendors/router.js";
 import { controlBindingRouter } from "./control-binding.js";
 import { computeCps234ControlWeaknessDeadline } from "../../lib/business-days.js";
@@ -119,74 +119,10 @@ internalRouter.post("/evidence/bulk", async (req, res, next) => {
   try {
     const tenantId = (req as Request & { tenantId: string }).tenantId;
     const body = bulkEvidenceBody.parse(req.body);
-
-    // Group control ids per item so we can validate them in one query.
-    // Anything that doesn't belong to this tenant (or doesn't exist) is
-    // silently skipped — the collector may have a stale binding cache,
-    // and we don't want a single rogue control id to fail the whole batch.
-    const allControlIds = [...new Set(body.evidence.flatMap((e) => e.controlIds))];
-    const validControls = allControlIds.length
-      ? await prisma.control.findMany({
-          where: { id: { in: allControlIds }, tenantId },
-          select: { id: true },
-        })
-      : [];
-    const validControlIdSet = new Set(validControls.map((c) => c.id));
-
-    let created = 0;
-    let orphans = 0;
-    const skippedControlIds = new Set<string>();
-
-    const rows: Prisma.EvidenceCreateManyInput[] = [];
-    for (const item of body.evidence) {
-      const targets = item.controlIds.filter((id) => validControlIdSet.has(id));
-      for (const skipped of item.controlIds.filter((id) => !validControlIdSet.has(id))) {
-        skippedControlIds.add(skipped);
-      }
-      if (targets.length === 0) {
-        orphans++;
-        continue;
-      }
-      for (const controlId of targets) {
-        rows.push({
-          tenantId,
-          controlId,
-          title: item.title,
-          description: item.description ?? null,
-          type: "automated",
-          status: "pending_review",
-          externalUrl: item.externalUrl ?? null,
-          // `sourceType` was historically a UI hint; we keep it in
-          // sync with the manifest key so existing UI filters still
-          // bucket rows the same way.
-          sourceType: item.sourceType ?? item.manifestKey,
-          sourceId: `${item.manifestKey}::${item.sourceId}::${controlId}`,
-          collectedAt: item.collectedAt,
-          validFrom: item.collectedAt,
-          tags: ["automated", item.manifestKey],
-          metadata: {
-            manifestKey: item.manifestKey,
-            severity: item.severity ?? null,
-            rawData: item.rawData ?? null,
-            legacyControlMapping: item.controlMapping ?? null,
-          } as unknown as Prisma.InputJsonValue,
-        });
-      }
-      created += targets.length;
-    }
-
-    if (rows.length > 0) {
-      await prisma.evidence.createMany({ data: rows });
-    }
-
-    res.status(201).json({
-      success: true,
-      data: {
-        created,
-        orphans,
-        skippedControlIds: [...skippedControlIds],
-      },
-    });
+    // Delegates to the shared writer so the collector bulk path and the
+    // device-posture check-in path create evidence through one code path.
+    const result = await createAutomatedEvidence(tenantId, body.evidence);
+    res.status(201).json({ success: true, data: result });
   } catch (err) {
     next(err);
   }

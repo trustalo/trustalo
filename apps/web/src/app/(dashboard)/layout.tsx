@@ -46,6 +46,11 @@ const WORKSPACE_ITEMS: NavItem[] = [
       <Icon d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
     ),
   },
+  {
+    label: "My Compliance",
+    href: "/my-compliance",
+    icon: <Icon d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />,
+  },
   // "AI usage" used to live here. It's an admin/observability surface
   // rather than a daily-driver workflow, so it now lives as a tab
   // under Settings → AI Usage. The legacy /dashboard/ai-usage route
@@ -108,6 +113,13 @@ const RISK_TRUST_ITEMS: NavItem[] = [
     href: "/vendors",
     icon: (
       <Icon d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+    ),
+  },
+  {
+    label: "People",
+    href: "/people",
+    icon: (
+      <Icon d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1a4 4 0 100-8 4 4 0 000 8zm8 0a4 4 0 10-3-7" />
     ),
   },
   {

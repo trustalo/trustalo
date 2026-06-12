@@ -29,6 +29,9 @@ model Asset {
   type           AssetType
   classification AssetClassification @default(internal)
   ownerId        String?
+  // Person this asset is assigned to (Phase C, additive — `ownerId` stays the
+  // User-level owner). For Computer assets this is the device's assigned Person.
+  assignedPersonId String?
   deletedById    String?
   deletedAt      DateTime?
   location       String?
@@ -38,10 +41,13 @@ model Asset {
   updatedAt      DateTime            @updatedAt
 
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  owner        User?        @relation("AssetOwner", fields: [ownerId], references: [id])
+  owner          User?   @relation("AssetOwner", fields: [ownerId], references: [id])
+  assignedPerson Person? @relation("AssetAssignedPerson", fields: [assignedPersonId], references: [id], onDelete: SetNull)
   deletedBy    User?        @relation("AssetDeletedBy", fields: [deletedById], references: [id])
+  device       Device?
 
   @@index([tenantId])
   @@index([tenantId, deletedAt, createdAt])
   @@index([tenantId, status, deletedAt])
+  @@index([tenantId, assignedPersonId])
 }

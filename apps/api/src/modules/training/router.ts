@@ -2,6 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 import { prismaWithTenant } from "../../db/prisma.js";
 import { authorizeResource } from "../../middleware/authorize.js";
+import { emitPeopleEvidence } from "../people/evidence.js";
 
 export const trainingRouter: Router = Router();
 trainingRouter.use(authorizeResource("training:read", "training:write"));
@@ -394,8 +395,22 @@ trainingRouter.patch("/:id/completions/:completionId", async (req, res, next) =>
     const completion = await db.trainingCompletion.update({
       where: { id: completionId },
       data,
-      include: { user: { select: { id: true, name: true, email: true } } },
+      include: {
+        user: { select: { id: true, name: true, email: true } },
+        trainingProgram: { select: { title: true } },
+      },
     });
+
+    // Advisory evidence (ISO A.6.3 / SOC 2 CC1.4) when a training is completed.
+    // Deduped per completion id by the shared evidence writer, so re-marking is
+    // safe. Best-effort — never blocks the response.
+    if (body.status === "completed") {
+      void emitPeopleEvidence(tenantId, "training_completed", {
+        title: `Security training completed: ${completion.trainingProgram.title}`,
+        description: `${completion.user.name} completed "${completion.trainingProgram.title}".`,
+        sourceId: completionId,
+      }).catch((err) => console.error("[training] advisory evidence failed:", err));
+    }
 
     res.json({ success: true, data: completion });
   } catch (err) {

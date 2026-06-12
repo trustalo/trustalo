@@ -230,6 +230,7 @@ exports.Prisma.AssetScalarFieldEnum = {
   type: 'type',
   classification: 'classification',
   ownerId: 'ownerId',
+  assignedPersonId: 'assignedPersonId',
   deletedById: 'deletedById',
   deletedAt: 'deletedAt',
   location: 'location',
@@ -502,6 +503,87 @@ exports.Prisma.ControlWeaknessScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DeviceEnrollmentTokenScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  tokenHash: 'tokenHash',
+  label: 'label',
+  status: 'status',
+  maxUses: 'maxUses',
+  useCount: 'useCount',
+  expiresAt: 'expiresAt',
+  createdById: 'createdById',
+  consumedAt: 'consumedAt',
+  revokedAt: 'revokedAt',
+  revokedById: 'revokedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DeviceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  assetId: 'assetId',
+  secretEnc: 'secretEnc',
+  secretKeyId: 'secretKeyId',
+  platform: 'platform',
+  osVersion: 'osVersion',
+  agentVersion: 'agentVersion',
+  hostname: 'hostname',
+  hardwareId: 'hardwareId',
+  status: 'status',
+  enrolledById: 'enrolledById',
+  personId: 'personId',
+  enrolledAt: 'enrolledAt',
+  lastSeenAt: 'lastSeenAt',
+  checkInIntervalSeconds: 'checkInIntervalSeconds',
+  diskEncryption: 'diskEncryption',
+  firewall: 'firewall',
+  screenLock: 'screenLock',
+  antivirus: 'antivirus',
+  agentHealthy: 'agentHealthy',
+  lastPostureAt: 'lastPostureAt',
+  latestPosture: 'latestPosture',
+  enrollmentTokenId: 'enrollmentTokenId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DevicePostureSnapshotScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  deviceId: 'deviceId',
+  diskEncryption: 'diskEncryption',
+  firewall: 'firewall',
+  screenLock: 'screenLock',
+  antivirus: 'antivirus',
+  agentHealthy: 'agentHealthy',
+  osVersion: 'osVersion',
+  agentVersion: 'agentVersion',
+  raw: 'raw',
+  collectedAt: 'collectedAt',
+  receivedAt: 'receivedAt'
+};
+
+exports.Prisma.DeviceNonceScalarFieldEnum = {
+  id: 'id',
+  deviceId: 'deviceId',
+  nonce: 'nonce',
+  seenAt: 'seenAt'
+};
+
+exports.Prisma.DeviceAuthCodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  userId: 'userId',
+  tenantId: 'tenantId',
+  codeChallenge: 'codeChallenge',
+  redirectUri: 'redirectUri',
+  expiresAt: 'expiresAt',
+  consumedAt: 'consumedAt',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.EvidenceScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -616,6 +698,62 @@ exports.Prisma.IncidentTimelineScalarFieldEnum = {
   description: 'description',
   performedById: 'performedById',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.PersonScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  email: 'email',
+  fullName: 'fullName',
+  role: 'role',
+  permissions: 'permissions',
+  status: 'status',
+  kind: 'kind',
+  source: 'source',
+  jobTitle: 'jobTitle',
+  department: 'department',
+  employmentType: 'employmentType',
+  managerId: 'managerId',
+  location: 'location',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  vendorId: 'vendorId',
+  invitedAt: 'invitedAt',
+  joinedAt: 'joinedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BackgroundCheckScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  personId: 'personId',
+  type: 'type',
+  status: 'status',
+  provider: 'provider',
+  reference: 'reference',
+  adverseFindings: 'adverseFindings',
+  notes: 'notes',
+  requestedAt: 'requestedAt',
+  completedAt: 'completedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PersonChecklistItemScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  personId: 'personId',
+  kind: 'kind',
+  key: 'key',
+  label: 'label',
+  status: 'status',
+  dueAt: 'dueAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.PolicyScalarFieldEnum = {
@@ -1067,6 +1205,8 @@ exports.Prisma.TenantSettingsScalarFieldEnum = {
   timezone: 'timezone',
   logoUrl: 'logoUrl',
   defaults: 'defaults',
+  deviceCheckInIntervalSeconds: 'deviceCheckInIntervalSeconds',
+  devicePostureRequiredSignals: 'devicePostureRequiredSignals',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1724,6 +1864,33 @@ exports.ControlWeaknessRemediabilityDecision = exports.$Enums.ControlWeaknessRem
   not_remediable_in_time: 'not_remediable_in_time'
 };
 
+exports.DeviceEnrollmentTokenStatus = exports.$Enums.DeviceEnrollmentTokenStatus = {
+  active: 'active',
+  consumed: 'consumed',
+  revoked: 'revoked',
+  expired: 'expired'
+};
+
+exports.DevicePlatform = exports.$Enums.DevicePlatform = {
+  macos: 'macos',
+  windows: 'windows',
+  linux: 'linux'
+};
+
+exports.DeviceStatus = exports.$Enums.DeviceStatus = {
+  pending: 'pending',
+  active: 'active',
+  stale: 'stale',
+  revoked: 'revoked',
+  retired: 'retired'
+};
+
+exports.PostureSignalState = exports.$Enums.PostureSignalState = {
+  pass: 'pass',
+  fail: 'fail',
+  unknown: 'unknown'
+};
+
 exports.EvidenceType = exports.$Enums.EvidenceType = {
   document: 'document',
   screenshot: 'screenshot',
@@ -1790,6 +1957,68 @@ exports.IncidentStatus = exports.$Enums.IncidentStatus = {
   resolved: 'resolved',
   closed: 'closed',
   lessons_learned: 'lessons_learned'
+};
+
+exports.PersonRole = exports.$Enums.PersonRole = {
+  member: 'member',
+  owner: 'owner',
+  admin: 'admin',
+  compliance_manager: 'compliance_manager',
+  auditor: 'auditor',
+  viewer: 'viewer',
+  integration_admin: 'integration_admin',
+  dpo: 'dpo'
+};
+
+exports.PersonStatus = exports.$Enums.PersonStatus = {
+  invited: 'invited',
+  active: 'active',
+  suspended: 'suspended',
+  offboarded: 'offboarded'
+};
+
+exports.PersonKind = exports.$Enums.PersonKind = {
+  employee: 'employee',
+  contractor: 'contractor',
+  vendor_contact: 'vendor_contact',
+  service_account: 'service_account',
+  other: 'other'
+};
+
+exports.PersonSource = exports.$Enums.PersonSource = {
+  manual: 'manual',
+  invite: 'invite',
+  directory_sync: 'directory_sync',
+  self_register: 'self_register'
+};
+
+exports.BackgroundCheckType = exports.$Enums.BackgroundCheckType = {
+  identity: 'identity',
+  criminal: 'criminal',
+  employment: 'employment',
+  education: 'education',
+  credit: 'credit',
+  reference: 'reference',
+  other: 'other'
+};
+
+exports.BackgroundCheckStatus = exports.$Enums.BackgroundCheckStatus = {
+  not_started: 'not_started',
+  in_progress: 'in_progress',
+  cleared: 'cleared',
+  flagged: 'flagged',
+  expired: 'expired'
+};
+
+exports.ChecklistKind = exports.$Enums.ChecklistKind = {
+  onboarding: 'onboarding',
+  offboarding: 'offboarding'
+};
+
+exports.ChecklistItemStatus = exports.$Enums.ChecklistItemStatus = {
+  pending: 'pending',
+  done: 'done',
+  na: 'na'
 };
 
 exports.PolicyStatus = exports.$Enums.PolicyStatus = {
@@ -2351,6 +2580,11 @@ exports.Prisma.ModelName = {
   Control: 'Control',
   ControlEvidenceCollectionConfig: 'ControlEvidenceCollectionConfig',
   ControlWeakness: 'ControlWeakness',
+  DeviceEnrollmentToken: 'DeviceEnrollmentToken',
+  Device: 'Device',
+  DevicePostureSnapshot: 'DevicePostureSnapshot',
+  DeviceNonce: 'DeviceNonce',
+  DeviceAuthCode: 'DeviceAuthCode',
   Evidence: 'Evidence',
   Framework: 'Framework',
   FrameworkInstance: 'FrameworkInstance',
@@ -2359,6 +2593,9 @@ exports.Prisma.ModelName = {
   ControlRequirementAssignment: 'ControlRequirementAssignment',
   Incident: 'Incident',
   IncidentTimeline: 'IncidentTimeline',
+  Person: 'Person',
+  BackgroundCheck: 'BackgroundCheck',
+  PersonChecklistItem: 'PersonChecklistItem',
   Policy: 'Policy',
   PolicyVersion: 'PolicyVersion',
   PolicyAcknowledgment: 'PolicyAcknowledgment',

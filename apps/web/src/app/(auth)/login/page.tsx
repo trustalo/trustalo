@@ -5,6 +5,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { apiClient, type AuthProviderDescriptor } from "@/lib/api-client";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { AuthErrorBanner, AuthField, AuthSubmitButton } from "@/components/auth/auth-form-controls";
+import { readNextFromQuery, stashNext } from "@/lib/post-login";
 
 export default function LoginPage() {
   const [config, setConfig] = useState<AuthProviderDescriptor | null>(null);
@@ -86,7 +87,10 @@ function CredentialLoginForm({ config }: { config: AuthProviderDescriptor }) {
     try {
       const result = await apiClient.login(email, password);
       apiClient.setToken((result as any).data?.token ?? (result as any).token);
-      window.location.href = "/dashboard";
+      // Resolve `next` against our own origin and navigate only if it stays
+      // same-origin (blocks open redirect / javascript: URLs).
+      const dest = new URL(readNextFromQuery() ?? "/dashboard", window.location.origin);
+      window.location.href = dest.origin === window.location.origin ? dest.href : "/dashboard";
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
     } finally {
@@ -151,6 +155,8 @@ function RedirectLoginButton({ config }: { config: AuthProviderDescriptor }) {
     setLoading(true);
     try {
       const redirectUri = `${window.location.origin}/auth/callback`;
+      // Preserve the post-login target across the IdP round-trip.
+      stashNext(readNextFromQuery());
       const res = await apiClient.startOAuthFlow(redirectUri);
       window.location.href = res.data.authorizationUrl;
     } catch (err) {

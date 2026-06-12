@@ -1,0 +1,14 @@
+{
+  "name": "@trustalo/device-agent",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Trustalo cross-platform endpoint device-posture agent (Go).",
+  "scripts": {
+    "go:build": "go build -o dist/trustalo-agentd ./cmd/agentd",
+    "go:build:tray": "go build -o dist/trustalo-agent-tray ./cmd/tray",
+    "go:test": "go test ./...",
+    "go:vet": "go vet ./...",
+    "go:fmt": "gofmt -l .",
+    "go:dev": "go run ./cmd/agentd --once"
+  }
+}

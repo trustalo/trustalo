@@ -399,6 +399,9 @@ export interface TenantSettings {
   timezone: string | null;
   logoUrl: string | null;
   defaults: SecurityDefaults | null;
+  deviceCheckInIntervalSeconds: number;
+  /** Posture signals this tenant evaluates (a fail raises an issue). */
+  devicePostureRequiredSignals: string[];
   createdAt: string;
   updatedAt: string;
 }
@@ -423,11 +426,303 @@ export interface UpdateOrganizationSettingsInput {
   timezone?: string | null;
   logoUrl?: string | null;
   defaults?: SecurityDefaults | null;
+  deviceCheckInIntervalSeconds?: number;
+  devicePostureRequiredSignals?: string[];
 }
 
 export interface InviteMemberInput {
   email: string;
   role: string;
+}
+
+// ---------- People (HR / personnel directory) ----------
+
+export type PersonRole =
+  | "member"
+  | "owner"
+  | "admin"
+  | "compliance_manager"
+  | "auditor"
+  | "viewer"
+  | "integration_admin"
+  | "dpo";
+export type PersonStatus = "invited" | "active" | "suspended" | "offboarded";
+export type PersonKind = "employee" | "contractor" | "vendor_contact" | "service_account" | "other";
+export type PersonSource = "manual" | "invite" | "directory_sync" | "self_register";
+export type PersonReadiness = "ready" | "at_risk" | "invited" | "suspended" | "offboarded";
+
+export interface PersonRollup {
+  deviceCount: number;
+  devicesAtRisk: number;
+  trainingAssigned: number;
+  trainingCompleted: number;
+  trainingPct: number;
+  policiesTotal: number;
+  policiesAcknowledged: number;
+  policyPct: number;
+  backgroundCheckStatus: string | null;
+  readiness: PersonReadiness;
+}
+
+export interface PersonManagerRef {
+  id: string;
+  fullName: string;
+  email: string;
+}
+
+export interface PersonListItem {
+  id: string;
+  tenantId: string;
+  userId: string | null;
+  email: string;
+  fullName: string;
+  role: PersonRole;
+  permissions: string[];
+  status: PersonStatus;
+  kind: PersonKind;
+  source: PersonSource;
+  jobTitle: string | null;
+  department: string | null;
+  employmentType: string | null;
+  managerId: string | null;
+  location: string | null;
+  startDate: string | null;
+  endDate: string | null;
+  invitedAt: string | null;
+  joinedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  manager: PersonManagerRef | null;
+  user: { id: string; email: string; name: string; lastLoginAt: string | null } | null;
+  rollup: PersonRollup | null;
+}
+
+export interface PersonListResponse {
+  items: PersonListItem[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
+export interface PersonStats {
+  total: number;
+  byStatus: Record<string, number>;
+  byKind: Record<string, number>;
+  withLogin: number;
+}
+
+export type BackgroundCheckType =
+  | "identity"
+  | "criminal"
+  | "employment"
+  | "education"
+  | "credit"
+  | "reference"
+  | "other";
+export type BackgroundCheckStatus =
+  | "not_started"
+  | "in_progress"
+  | "cleared"
+  | "flagged"
+  | "expired";
+
+export interface BackgroundCheckItem {
+  id: string;
+  tenantId: string;
+  personId: string;
+  type: BackgroundCheckType;
+  status: BackgroundCheckStatus;
+  provider: string | null;
+  reference: string | null;
+  adverseFindings: boolean;
+  notes: string | null;
+  requestedAt: string | null;
+  completedAt: string | null;
+  expiresAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type ChecklistKind = "onboarding" | "offboarding";
+export type ChecklistItemStatus = "pending" | "done" | "na";
+
+export interface ChecklistItem {
+  id: string;
+  tenantId: string;
+  personId: string;
+  kind: ChecklistKind;
+  key: string;
+  label: string;
+  status: ChecklistItemStatus;
+  dueAt: string | null;
+  completedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MyPolicyItem {
+  id: string;
+  title: string;
+  category: string | null;
+  currentVersionId: string | null;
+  updatedAt: string;
+  acknowledgedAt: string | null;
+  acknowledgedCurrent: boolean;
+}
+
+export interface MyTrainingItem {
+  id: string;
+  status: "assigned" | "in_progress" | "completed" | "overdue";
+  score: number | null;
+  assignedAt: string;
+  completedAt: string | null;
+  trainingProgram: {
+    id: string;
+    title: string;
+    type: string;
+    dueDate: string | null;
+    isRequired: boolean;
+  };
+}
+
+export interface PersonDeviceSummary {
+  id: string;
+  hostname: string | null;
+  platform: string;
+  status: string;
+  lastSeenAt: string | null;
+  diskEncryption: string;
+  firewall: string;
+  screenLock: string;
+  antivirus: string;
+  agentHealthy: boolean;
+}
+
+export interface PersonAssignedAsset {
+  id: string;
+  name: string;
+  type: string;
+  classification: string;
+  status: string;
+}
+
+export interface PersonDetail extends PersonListItem {
+  devices: PersonDeviceSummary[];
+  assignedAssets: PersonAssignedAsset[];
+  backgroundChecks: BackgroundCheckItem[];
+  checklist: ChecklistItem[];
+  training: MyTrainingItem[];
+  policies: MyPolicyItem[];
+}
+
+export interface CreatePersonInput {
+  email: string;
+  fullName: string;
+  kind?: PersonKind;
+  role?: PersonRole;
+  jobTitle?: string | null;
+  department?: string | null;
+  employmentType?: string | null;
+  managerId?: string | null;
+  location?: string | null;
+  startDate?: string | null;
+}
+
+export interface UpdatePersonInput {
+  fullName?: string;
+  kind?: PersonKind;
+  jobTitle?: string | null;
+  department?: string | null;
+  employmentType?: string | null;
+  managerId?: string | null;
+  location?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+}
+
+export interface InvitePersonInput {
+  email: string;
+  role?: PersonRole;
+}
+
+export interface CreateBackgroundCheckInput {
+  type?: BackgroundCheckType;
+  status?: BackgroundCheckStatus;
+  provider?: string | null;
+  reference?: string | null;
+  adverseFindings?: boolean;
+  notes?: string | null;
+  requestedAt?: string | null;
+  completedAt?: string | null;
+  expiresAt?: string | null;
+}
+
+// ---------- Devices (endpoint posture, M5) ----------
+
+export type DevicePlatform = "macos" | "windows" | "linux";
+export type DeviceStatus = "pending" | "active" | "stale" | "revoked" | "retired";
+export type PostureSignalState = "pass" | "fail" | "unknown";
+
+export interface DevicePersonRef {
+  id: string;
+  fullName: string;
+  email: string;
+}
+
+export interface DeviceListItem {
+  id: string;
+  hostname: string | null;
+  platform: DevicePlatform;
+  osVersion: string | null;
+  agentVersion: string | null;
+  status: DeviceStatus;
+  lastSeenAt: string | null;
+  lastPostureAt: string | null;
+  enrolledAt: string;
+  diskEncryption: PostureSignalState;
+  firewall: PostureSignalState;
+  screenLock: PostureSignalState;
+  antivirus: PostureSignalState;
+  agentHealthy: boolean;
+  assetId: string;
+  asset: { id: string; name: string } | null;
+  personId: string | null;
+  person: DevicePersonRef | null;
+}
+
+export interface DeviceListResponse {
+  items: DeviceListItem[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
+export interface DeviceDetail extends DeviceListItem {
+  latestPosture: Record<string, unknown> | null;
+  hardwareId: string | null;
+  checkInIntervalSeconds: number;
+  /** The tenant's evaluated posture signals — a fail on one of these is an issue. */
+  requiredSignals: string[];
+}
+
+/** One append-only posture reading (drift / audit trail) from a check-in. */
+export interface DevicePostureSnapshot {
+  id: string;
+  deviceId: string;
+  diskEncryption: PostureSignalState;
+  firewall: PostureSignalState;
+  screenLock: PostureSignalState;
+  antivirus: PostureSignalState;
+  agentHealthy: boolean;
+  osVersion: string | null;
+  agentVersion: string | null;
+  raw: Record<string, unknown> | null;
+  collectedAt: string;
+  receivedAt: string;
+}
+
+export interface DevicePostureHistoryResponse {
+  items: DevicePostureSnapshot[];
 }
 
 export type DirectorySyncProvider = "entra" | "google_workspace";
@@ -3374,6 +3669,16 @@ class ApiClient {
     );
   }
 
+  /**
+   * Device-agent browser sign-in: the authenticated consent step. Mints a
+   * single-use, PKCE-bound code the browser deep-links back to the agent.
+   */
+  deviceAuthorize(input: { state: string; codeChallenge: string; redirectUri: string }) {
+    return this.request<
+      ApiResponse<{ code: string; redirectUri: string; expiresAt: string; state: string }>
+    >("POST", "/api/v1/auth/device/authorize", input);
+  }
+
   getMe() {
     return this.request<{ user: unknown }>("GET", "/api/v1/auth/me");
   }
@@ -3700,6 +4005,166 @@ class ApiClient {
       "DELETE",
       `/api/v1/organizations/members/${memberId}`,
     );
+  }
+
+  // ---------- People ----------
+
+  listPeople(params?: Record<string, string>) {
+    const qs = params ? `?${new URLSearchParams(params)}` : "";
+    return this.request<ApiResponse<PersonListResponse>>("GET", `/api/v1/people${qs}`);
+  }
+
+  getPeopleStats() {
+    return this.request<ApiResponse<PersonStats>>("GET", "/api/v1/people/stats");
+  }
+
+  getPerson(id: string) {
+    return this.request<ApiResponse<PersonDetail>>("GET", `/api/v1/people/${id}`);
+  }
+
+  createPerson(data: CreatePersonInput) {
+    return this.request<ApiResponse<PersonListItem>>("POST", "/api/v1/people", data);
+  }
+
+  invitePerson(data: InvitePersonInput) {
+    return this.request<ApiResponse<{ userId: string; personId: string; status: string }>>(
+      "POST",
+      "/api/v1/people/invite",
+      data,
+    );
+  }
+
+  updatePerson(id: string, data: UpdatePersonInput) {
+    return this.request<ApiResponse<PersonListItem>>("PATCH", `/api/v1/people/${id}`, data);
+  }
+
+  updatePersonRole(id: string, role: PersonRole) {
+    return this.request<ApiResponse<PersonListItem>>("PATCH", `/api/v1/people/${id}/role`, {
+      role,
+    });
+  }
+
+  setPersonStatus(id: string, status: PersonStatus) {
+    return this.request<ApiResponse<PersonListItem>>("POST", `/api/v1/people/${id}/status`, {
+      status,
+    });
+  }
+
+  deletePerson(id: string) {
+    return this.request<ApiResponse<{ id: string }>>("DELETE", `/api/v1/people/${id}`);
+  }
+
+  promoteVendorContact(contactId: string) {
+    return this.request<ApiResponse<PersonListItem>>(
+      "POST",
+      `/api/v1/people/from-vendor-contact/${contactId}`,
+    );
+  }
+
+  listBackgroundChecks(personId: string) {
+    return this.request<ApiResponse<{ items: BackgroundCheckItem[] }>>(
+      "GET",
+      `/api/v1/people/${personId}/background-checks`,
+    );
+  }
+
+  createBackgroundCheck(personId: string, data: CreateBackgroundCheckInput) {
+    return this.request<ApiResponse<BackgroundCheckItem>>(
+      "POST",
+      `/api/v1/people/${personId}/background-checks`,
+      data,
+    );
+  }
+
+  updateBackgroundCheck(
+    personId: string,
+    checkId: string,
+    data: Partial<CreateBackgroundCheckInput>,
+  ) {
+    return this.request<ApiResponse<BackgroundCheckItem>>(
+      "PATCH",
+      `/api/v1/people/${personId}/background-checks/${checkId}`,
+      data,
+    );
+  }
+
+  getPersonChecklist(personId: string) {
+    return this.request<ApiResponse<{ items: ChecklistItem[] }>>(
+      "GET",
+      `/api/v1/people/${personId}/checklist`,
+    );
+  }
+
+  seedPersonChecklist(personId: string, kind: ChecklistKind) {
+    return this.request<ApiResponse<{ items: ChecklistItem[] }>>(
+      "POST",
+      `/api/v1/people/${personId}/checklist/seed`,
+      { kind },
+    );
+  }
+
+  completeChecklistItem(personId: string, itemId: string, status: ChecklistItemStatus = "done") {
+    return this.request<ApiResponse<ChecklistItem>>(
+      "POST",
+      `/api/v1/people/${personId}/checklist/${itemId}/complete`,
+      { status },
+    );
+  }
+
+  // Self-portal (member self-service)
+  getMyPerson() {
+    return this.request<ApiResponse<PersonListItem>>("GET", "/api/v1/people/me");
+  }
+
+  listMyPolicies() {
+    return this.request<ApiResponse<{ items: MyPolicyItem[] }>>(
+      "GET",
+      "/api/v1/people/me/policies",
+    );
+  }
+
+  acknowledgeMyPolicy(policyId: string) {
+    return this.request<ApiResponse<{ acknowledged: boolean; alreadyAcknowledged: boolean }>>(
+      "POST",
+      `/api/v1/people/me/policies/${policyId}/acknowledge`,
+    );
+  }
+
+  listMyTraining() {
+    return this.request<ApiResponse<{ items: MyTrainingItem[] }>>(
+      "GET",
+      "/api/v1/people/me/training",
+    );
+  }
+
+  completeMyTraining(completionId: string) {
+    return this.request<ApiResponse<{ id: string; status: string; completedAt: string }>>(
+      "POST",
+      `/api/v1/people/me/training/${completionId}/complete`,
+    );
+  }
+
+  // ---------- Devices (endpoint posture, M5) ----------
+
+  listDevices(params?: Record<string, string>) {
+    const qs = params ? `?${new URLSearchParams(params)}` : "";
+    return this.request<ApiResponse<DeviceListResponse>>("GET", `/api/v1/devices${qs}`);
+  }
+
+  getDevice(id: string) {
+    return this.request<ApiResponse<DeviceDetail>>("GET", `/api/v1/devices/${id}`);
+  }
+
+  getDevicePostureHistory(id: string, limit?: number) {
+    const qs = limit ? `?limit=${limit}` : "";
+    return this.request<ApiResponse<DevicePostureHistoryResponse>>(
+      "GET",
+      `/api/v1/devices/${id}/posture-history${qs}`,
+    );
+  }
+
+  revokeDevice(id: string) {
+    return this.request<ApiResponse<{ revoked: boolean }>>("POST", `/api/v1/devices/${id}/revoke`);
   }
 
   listDirectorySyncConfigs() {

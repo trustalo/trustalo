@@ -69,6 +69,7 @@ model User {
   @@index([authProvider])
 
   memberships          Membership[]
+  people               Person[]
   ownedControls        Control[]        @relation("ControlOwner")
   ownedPolicies        Policy[]         @relation("PolicyOwner")
   createdPolicyVersions PolicyVersion[] @relation("PolicyVersionCreator")
@@ -123,6 +124,9 @@ model User {
   reviewedAnswers        Answer[]            @relation("AnswerReviewer")
   questionnaireImportJobs QuestionnaireImportJob[] @relation("QuestionnaireImportJobCreator")
   externalIdentityMappings ExternalIdentityMapping[]
+  deviceTokensCreated      DeviceEnrollmentToken[] @relation("DeviceTokenCreatedBy")
+  devicesEnrolled          Device[]                @relation("DeviceEnrolledBy")
+  deviceAuthCodes          DeviceAuthCode[]
 }
 
 model Membership {

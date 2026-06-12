@@ -104,6 +104,10 @@
         "typescript": "^5.8.0",
       },
     },
+    "apps/device-agent": {
+      "name": "@trustalo/device-agent",
+      "version": "0.0.1",
+    },
     "apps/web": {
       "name": "@trustalo/web",
       "version": "0.0.1",
@@ -893,6 +897,8 @@
     "@trustalo/billing.ee": ["@trustalo/billing.ee@workspace:packages/billing.ee"],
 
     "@trustalo/collector": ["@trustalo/collector@workspace:apps/collector"],
+
+    "@trustalo/device-agent": ["@trustalo/device-agent@workspace:apps/device-agent"],
 
     "@trustalo/integration-manifests": ["@trustalo/integration-manifests@workspace:packages/integration-manifests"],
 

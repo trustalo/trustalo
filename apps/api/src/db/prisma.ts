@@ -40,6 +40,19 @@ export function prismaWithTenant(tenantId: string) {
           "VendorResearch",
           "VendorDocument",
           "Asset",
+          "Device",
+          "DeviceEnrollmentToken",
+          "DevicePostureSnapshot",
+          // Short-lived device-agent browser-login codes. Per-tenant; the
+          // public token-exchange endpoint looks them up by their unique `code`
+          // on the base client (no tenant context yet), the authorize endpoint
+          // creates them with an explicit tenantId.
+          "DeviceAuthCode",
+          // People HR/compliance sub-resources. `Person` itself is an
+          // INTENTIONAL_EXCEPTION (login resolves it across tenants), but these
+          // child records are strictly per-tenant and safe to auto-scope.
+          "BackgroundCheck",
+          "PersonChecklistItem",
           "Incident",
           "IncidentTimeline",
           "Audit",

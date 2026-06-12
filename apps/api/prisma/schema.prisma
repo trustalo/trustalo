@@ -348,6 +348,9 @@ model Asset {
   type           AssetType
   classification AssetClassification @default(internal)
   ownerId        String?
+  // Person this asset is assigned to (Phase C, additive — `ownerId` stays the
+  // User-level owner). For Computer assets this is the device's assigned Person.
+  assignedPersonId String?
   deletedById    String?
   deletedAt      DateTime?
   location       String?
@@ -357,12 +360,15 @@ model Asset {
   updatedAt      DateTime            @updatedAt
 
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  owner        User?        @relation("AssetOwner", fields: [ownerId], references: [id])
+  owner          User?   @relation("AssetOwner", fields: [ownerId], references: [id])
+  assignedPerson Person? @relation("AssetAssignedPerson", fields: [assignedPersonId], references: [id], onDelete: SetNull)
   deletedBy    User?        @relation("AssetDeletedBy", fields: [deletedById], references: [id])
+  device       Device?
 
   @@index([tenantId])
   @@index([tenantId, deletedAt, createdAt])
   @@index([tenantId, status, deletedAt])
+  @@index([tenantId, assignedPersonId])
 }
 
 // --- audit.prisma ---
@@ -1076,6 +1082,207 @@ model ControlWeakness {
   @@index([discoveredAt])
 }
 
+// --- device.prisma ---
+// Endpoint device posture models. Powers the cross-platform device agent
+// (apps/device-agent): an agent installed on an employee computer enrolls
+// once, then heartbeats its security posture (disk encryption, firewall,
+// screen lock, antivirus, agent health). Each Device is 1:1 with a
+// "computer"-category Asset. Reported posture is INVENTORY telemetry and is
+// stored inline; the COMPLIANCE interpretation lands as advisory Evidence
+// (pending_review), never an auto-verdict. See docs/device-agent.md.
+
+enum DeviceEnrollmentTokenStatus {
+  active
+  consumed
+  revoked
+  expired
+}
+
+enum DevicePlatform {
+  macos
+  windows
+  linux
+}
+
+enum DeviceStatus {
+  pending // enrolled, no check-in yet
+  active // checked in within the heartbeat window
+  stale // missed the heartbeat window
+  revoked // credential revoked; check-ins are rejected
+  retired
+}
+
+// Tri-state per posture signal. `unknown` distinguishes "the agent could not
+// determine this" from a definitive pass/fail.
+enum PostureSignalState {
+  pass
+  fail
+  unknown
+}
+
+// Admin-minted, short-lived, consumable bearer credential used to authorize
+// non-interactive (MDM / mass-deploy) enrollment. Interactive installs use a
+// signed-in user JWT instead and never need one of these.
+model DeviceEnrollmentToken {
+  id        String                      @id @default(cuid())
+  tenantId  String
+  // SHA-256 of the raw token. The raw value is returned exactly once at
+  // creation and is never stored; enrollment looks it up by hash. This is a
+  // one-way HASH (not the crypto-envelope) on purpose: an enrollment token is
+  // only ever COMPARED, never used to recompute an HMAC — unlike
+  // Device.secretEnc below, which must be reversible.
+  tokenHash   String                      @unique
+  label       String?
+  status      DeviceEnrollmentTokenStatus @default(active)
+  maxUses     Int                         @default(1)
+  useCount    Int                         @default(0)
+  expiresAt   DateTime
+  createdById String?
+  consumedAt  DateTime?
+  revokedAt   DateTime?
+  revokedById String?
+  createdAt   DateTime                    @default(now())
+  updatedAt   DateTime                    @updatedAt
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdBy User?    @relation("DeviceTokenCreatedBy", fields: [createdById], references: [id])
+  devices   Device[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+}
+
+// Durable per-device identity, 1:1 with a "computer"-category Asset.
+model Device {
+  id       String @id @default(cuid())
+  tenantId String
+  assetId  String @unique
+  // Per-device HMAC secret, stored REVERSIBLY ENCRYPTED via the AES-256-GCM
+  // crypto-envelope (enc:v1:) — NOT a one-way hash — because the server must
+  // decrypt it to recompute and verify the HMAC of every check-in. Contrast
+  // with DeviceEnrollmentToken.tokenHash, which is only ever compared.
+  secretEnc   String
+  // Bumped on every secret rotation; the agent echoes its keyId so a request
+  // is verified against the right secret while a rotation propagates.
+  secretKeyId Int            @default(1)
+  platform    DevicePlatform
+  osVersion   String?
+  agentVersion String?
+  hostname     String?
+  // Stable hardware fingerprint (serial / machine GUID) the agent reports;
+  // used to detect re-enrollment of the same physical machine.
+  hardwareId   String?
+
+  status                 DeviceStatus @default(pending)
+  enrolledById           String?
+  // The Person this device is assigned to (Phase C). Resolved from the
+  // enrolling user at enrollment; powers the per-person fleet posture rollup.
+  personId               String?
+  enrolledAt             DateTime     @default(now())
+  lastSeenAt             DateTime?
+  // Expected heartbeat cadence; drives stale detection.
+  checkInIntervalSeconds Int          @default(3600)
+
+  // Inline latest posture (inventory telemetry — the device's own
+  // self-reported state). A compliance verdict is never stored here.
+  diskEncryption PostureSignalState @default(unknown)
+  firewall       PostureSignalState @default(unknown)
+  screenLock     PostureSignalState @default(unknown)
+  antivirus      PostureSignalState @default(unknown)
+  agentHealthy   Boolean            @default(true)
+  lastPostureAt  DateTime?
+  // Full raw posture blob from the most recent check-in (extra signals,
+  // versions, agent self-diagnostics) for the detail view.
+  latestPosture  Json?
+
+  enrollmentTokenId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant          Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  asset           Asset                   @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  enrolledBy      User?                   @relation("DeviceEnrolledBy", fields: [enrolledById], references: [id])
+  person          Person?                 @relation(fields: [personId], references: [id], onDelete: SetNull)
+  enrollmentToken DeviceEnrollmentToken?  @relation(fields: [enrollmentTokenId], references: [id])
+  snapshots       DevicePostureSnapshot[]
+  nonces          DeviceNonce[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, lastSeenAt])
+  @@index([tenantId, hardwareId])
+  @@index([tenantId, personId])
+}
+
+// Append-only posture history (one row per check-in) for drift / audit trail.
+model DevicePostureSnapshot {
+  id             String             @id @default(cuid())
+  tenantId       String
+  deviceId       String
+  diskEncryption PostureSignalState
+  firewall       PostureSignalState
+  screenLock     PostureSignalState
+  antivirus      PostureSignalState
+  agentHealthy   Boolean
+  osVersion      String?
+  agentVersion   String?
+  raw            Json?
+  collectedAt    DateTime // agent-reported collection time
+  receivedAt     DateTime           @default(now()) // server receipt time
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  device Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, deviceId, collectedAt])
+}
+
+// Per-device check-in nonce ledger for replay defense. Intentionally has NO
+// tenantId: it is written/read by the device-auth middleware BEFORE a tenant
+// context exists (the request is authenticated by the per-device secret, and
+// the tenant is derived from the Device row afterwards), so it is accessed
+// via the un-scoped base client. Rows are pruned by the stale-device sweep
+// once older than the signature clock-skew window.
+model DeviceNonce {
+  id       String   @id @default(cuid())
+  deviceId String
+  nonce    String
+  seenAt   DateTime @default(now())
+
+  device Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  @@unique([deviceId, nonce])
+  @@index([seenAt])
+}
+
+// Short-lived, single-use authorization code for the device agent's browser
+// sign-in (PKCE / OAuth-device style). Minted by an authenticated web session
+// at POST /auth/device/authorize and exchanged exactly once by the agent (with
+// the PKCE verifier) at POST /auth/device/token for a device JWT. This is how a
+// shipped agent signs in against any auth provider: the browser owns the login
+// (password or SSO), then deep-links the code back to the waiting agent.
+model DeviceAuthCode {
+  id String @id @default(cuid())
+  // Random opaque code handed to the browser and deep-linked to the agent.
+  code     String @unique
+  userId   String
+  tenantId String
+  // base64url(SHA-256(code_verifier)). The agent proves possession of the
+  // verifier at exchange time, so an intercepted code is useless on its own.
+  codeChallenge String
+  // The trustalo:// (allow-listed scheme) target the browser deep-links to.
+  redirectUri   String
+  expiresAt     DateTime
+  consumedAt    DateTime?
+  createdAt     DateTime  @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
 // --- evidence.prisma ---
 enum EvidenceType {
   document
@@ -1341,6 +1548,199 @@ model IncidentTimeline {
 
   @@index([tenantId])
   @@index([incidentId])
+}
+
+// --- people.prisma ---
+// People — the HR / personnel directory. A `Person` is the canonical
+// per-tenant record for anyone in scope for compliance (staff, contractors,
+// vendor contacts). It REPLACES the old `Membership` model: it carries the
+// org link, status, role-based access (role + permissions override — RBAC
+// semantics unchanged), AND HR attributes. A Person optionally links to a
+// `User` (login identity) — null for people who haven't been invited / never
+// log in. Devices and assets are assigned to a Person; training/policy
+// completions roll up via the linked User.
+//
+// The module, API (/api/v1/people), RBAC (people:*), nav and UI are all
+// "People"; a single row is a `Person`. See docs/people + the People plan.
+
+enum PersonStatus {
+  invited
+  active
+  suspended
+  offboarded
+}
+
+enum PersonKind {
+  employee
+  contractor
+  vendor_contact
+  service_account
+  other
+}
+
+enum PersonSource {
+  manual
+  invite
+  directory_sync
+  self_register
+}
+
+// Same string values as the console roles (so the rbac.ts role->permission map
+// is shared, keyed by string) plus `member`, the default. A fresh enum — NOT
+// the legacy `MembershipRole` — so the migration needs no transaction-unsafe
+// `ALTER TYPE ... ADD VALUE`, and the People role set can evolve as Membership
+// is retired.
+enum PersonRole {
+  member
+  owner
+  admin
+  compliance_manager
+  auditor
+  viewer
+  integration_admin
+  dpo
+}
+
+model Person {
+  id       String  @id @default(cuid())
+  tenantId String
+  // Login identity. Null for people who haven't been invited / never log in.
+  // Unique per tenant when set (Postgres treats NULLs as distinct, so many
+  // login-less people are allowed).
+  userId   String?
+
+  email    String
+  fullName String
+
+  // Role-based RBAC, identical semantics to the old Membership: effective
+  // permissions = `permissions` when non-empty, else getPermissionsForRole(role).
+  role        PersonRole     @default(member)
+  permissions String[]
+  status      PersonStatus   @default(invited)
+  kind        PersonKind     @default(employee)
+  source      PersonSource   @default(manual)
+
+  // HR attributes (populated over time; surfaced/edited in the People UI).
+  jobTitle       String?
+  department     String?
+  employmentType String?
+  managerId      String?
+  location       String?
+  startDate      DateTime?
+  endDate        DateTime?
+
+  // Vendor-as-person link (Phase D): a vendor contact promoted to a Person so
+  // they can be vetted / acknowledge policies / take training like staff.
+  vendorId String?
+
+  invitedAt DateTime?
+  joinedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  tenant  Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user    User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  manager Person?  @relation("PersonManager", fields: [managerId], references: [id])
+  reports Person[] @relation("PersonManager")
+  vendor  Vendor?  @relation(fields: [vendorId], references: [id], onDelete: SetNull)
+
+  // HR / compliance sub-resources + asset associations (Phases B & C).
+  backgroundChecks BackgroundCheck[]
+  checklistItems   PersonChecklistItem[]
+  devices          Device[]
+  assignedAssets   Asset[]               @relation("AssetAssignedPerson")
+
+  @@unique([tenantId, userId])
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([userId])
+  @@index([tenantId, vendorId])
+}
+
+// ── Phase B: background checks ──────────────────────────────────────────
+// Pre-employment / periodic vetting record. Many per Person (history); the
+// latest per type is the current state. A `cleared` check emits advisory
+// Evidence (ISO 27001:2022 A.6.1 screening).
+
+enum BackgroundCheckType {
+  identity
+  criminal
+  employment
+  education
+  credit
+  reference
+  other
+}
+
+enum BackgroundCheckStatus {
+  not_started
+  in_progress
+  cleared
+  flagged
+  expired
+}
+
+model BackgroundCheck {
+  id              String                @id @default(cuid())
+  tenantId        String
+  personId        String
+  type            BackgroundCheckType   @default(identity)
+  status          BackgroundCheckStatus @default(not_started)
+  provider        String?
+  reference       String?
+  adverseFindings Boolean               @default(false)
+  notes           String?
+  requestedAt     DateTime?
+  completedAt     DateTime?
+  expiresAt       DateTime?
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([personId])
+  @@index([tenantId, status])
+  @@index([tenantId, expiresAt])
+}
+
+// ── Phase B: onboarding / offboarding checklists ────────────────────────
+// Templated task items seeded on status transitions (invited→active seeds
+// onboarding; →offboarded seeds offboarding). Completing the offboarding set
+// emits advisory Evidence (A.6.5 termination/change of employment).
+
+enum ChecklistKind {
+  onboarding
+  offboarding
+}
+
+enum ChecklistItemStatus {
+  pending
+  done
+  na
+}
+
+model PersonChecklistItem {
+  id          String              @id @default(cuid())
+  tenantId    String
+  personId    String
+  kind        ChecklistKind
+  key         String
+  label       String
+  status      ChecklistItemStatus @default(pending)
+  dueAt       DateTime?
+  completedAt DateTime?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [id], onDelete: Cascade)
+
+  @@unique([personId, kind, key])
+  @@index([tenantId])
+  @@index([personId, kind])
 }
 
 // --- policy.prisma ---
@@ -2728,6 +3128,9 @@ model Tenant {
 
   settings                      TenantSettings?
   memberships                   Membership[]
+  people                        Person[]
+  backgroundChecks              BackgroundCheck[]
+  personChecklistItems          PersonChecklistItem[]
   frameworkInstances            FrameworkInstance[]
   controls                      Control[]
   policies                      Policy[]
@@ -2788,6 +3191,10 @@ model Tenant {
   directorySyncConfigs          DirectorySyncConfig[]
   directorySyncRuns             DirectorySyncRun[]
   externalIdentityMappings      ExternalIdentityMapping[]
+  devices                       Device[]
+  deviceEnrollmentTokens        DeviceEnrollmentToken[]
+  devicePostureSnapshots        DevicePostureSnapshot[]
+  deviceAuthCodes               DeviceAuthCode[]
   // EE: managed LiteLLM routing + metered billing. See
   // prisma/schema/billing.ee.prisma.
   billingConfig                 TenantBillingConfig?
@@ -2804,6 +3211,17 @@ model TenantSettings {
   timezone    String?
   logoUrl     String?
   defaults    Json?
+  // How often enrolled device agents report posture (seconds). Tenant-wide,
+  // configurable under Settings; the agent honors it on its next heartbeat.
+  // Default 30 min; bounded 5 min … 24 h by the settings API.
+  deviceCheckInIntervalSeconds Int @default(1800)
+  // Which posture signals this tenant EVALUATES — a `fail` on one of these
+  // marks the device at-risk / raises a posture issue (and, for the four core
+  // signals, emits advisory evidence). Signals NOT listed are still collected
+  // and shown, but treated as optional/informational (no "scream"). Default =
+  // the four core signals; admins may add the extended ones (autoUpdate /
+  // mdmEnrolled / gatekeeper / sip) or drop any they consider optional.
+  devicePostureRequiredSignals String[] @default(["diskEncryption", "firewall", "screenLock", "antivirus"])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -3188,6 +3606,7 @@ model User {
   @@index([authProvider])
 
   memberships          Membership[]
+  people               Person[]
   ownedControls        Control[]        @relation("ControlOwner")
   ownedPolicies        Policy[]         @relation("PolicyOwner")
   createdPolicyVersions PolicyVersion[] @relation("PolicyVersionCreator")
@@ -3242,6 +3661,9 @@ model User {
   reviewedAnswers        Answer[]            @relation("AnswerReviewer")
   questionnaireImportJobs QuestionnaireImportJob[] @relation("QuestionnaireImportJobCreator")
   externalIdentityMappings ExternalIdentityMapping[]
+  deviceTokensCreated      DeviceEnrollmentToken[] @relation("DeviceTokenCreatedBy")
+  devicesEnrolled          Device[]                @relation("DeviceEnrolledBy")
+  deviceAuthCodes          DeviceAuthCode[]
 }
 
 model Membership {
@@ -3434,6 +3856,9 @@ model Vendor {
   contacts     VendorContact[]
   researches   VendorResearch[]
   documents    VendorDocument[]
+  // Vendor contacts promoted to People (Phase D) so they can be vetted /
+  // acknowledge policies / take training like staff.
+  people       Person[]
   // M:M link to GDPR Processing Activities for which this vendor processes
   // personal data on the controller's behalf (Art. 28 sub-processor view).
   processingActivities ProcessingActivity[] @relation("VendorProcessingActivities")

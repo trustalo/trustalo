@@ -22,6 +22,14 @@ export {
   type BrowserCheckStep,
 } from "./types.js";
 
+// The endpoint device-agent manifest is a PUSH source (no collector connect
+// modal / pull job), so it is intentionally NOT part of the connectable
+// `MANIFESTS` catalog below — listing it would wrongly surface it as a
+// connectable integration. It is exported on its own for the API devices
+// module, which uses its capabilities' `controlMappings` to resolve device
+// check-in evidence to tenant Controls.
+export { endpointAgentManifest } from "./manifests/endpoint-agent.js";
+
 import type { Manifest } from "./types.js";
 import { awsManifest } from "./manifests/aws.js";
 import { githubManifest } from "./manifests/github.js";

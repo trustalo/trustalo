@@ -4,6 +4,7 @@ import type { Prisma } from "../../../generated/prisma/client/index.js";
 import { prisma, prismaWithTenant } from "../../db/prisma.js";
 import { authorize } from "../../middleware/authorize.js";
 import { authService } from "../auth/service.js";
+import { POSTURE_SIGNAL_KEYS } from "../devices/service.js";
 
 const patchOrgBody = z.object({
   name: z.string().min(1).optional(),
@@ -32,6 +33,19 @@ const patchSettingsBody = z.object({
   timezone: z.string().nullable().optional(),
   logoUrl: z.string().nullable().optional(),
   defaults: securityDefaultsSchema,
+  // Device-agent posture cadence (seconds). Bounded 5 min … 24 h.
+  deviceCheckInIntervalSeconds: z.number().int().min(300).max(86400).optional(),
+  // Which posture signals are EVALUATED (a fail raises an issue / marks the
+  // device at-risk). Validated against the known signal universe + deduped; an
+  // empty array means "evaluate none".
+  devicePostureRequiredSignals: z
+    .array(z.string())
+    .max(POSTURE_SIGNAL_KEYS.length)
+    .refine((arr) => arr.every((k) => POSTURE_SIGNAL_KEYS.includes(k)), {
+      message: "unknown posture signal",
+    })
+    .transform((arr) => [...new Set(arr)])
+    .optional(),
 });
 
 const inviteMemberBody = z.object({
@@ -96,21 +110,24 @@ organizationsRouter.patch("/", authorize("settings:write"), async (req, res, nex
   }
 });
 
+// Legacy members roster. People replaced Membership, so this now reads
+// `Person` (login-holding, active people) and remains keyed by userId for
+// backward compatibility. The richer surface is GET /api/v1/people.
 organizationsRouter.get("/members", authorize("users:read"), async (req, res, next) => {
   try {
     const tenantId = (req as any).auth.tenantId as string;
 
-    const memberships = await prisma.membership.findMany({
-      where: { tenantId, status: "active" },
+    const people = await prisma.person.findMany({
+      where: { tenantId, status: "active", userId: { not: null } },
       include: { user: { select: { id: true, name: true, email: true } } },
-      orderBy: { user: { name: "asc" } },
+      orderBy: { fullName: "asc" },
     });
 
-    const members = memberships.map((m: any) => ({
-      id: m.user.id,
-      name: m.user.name,
-      email: m.user.email,
-      role: m.role,
+    const members = people.map((p) => ({
+      id: p.userId,
+      name: p.user?.name ?? p.fullName,
+      email: p.email,
+      role: p.role,
     }));
 
     res.json({ success: true, data: members });
@@ -124,22 +141,19 @@ organizationsRouter.post("/members/invite", authorize("users:manage"), async (re
     const auth = (req as any).auth as { userId: string; tenantId: string };
     const body = inviteMemberBody.parse(req.body);
 
-    // Reject duplicate memberships up-front so the (per-provider) admin-create
+    // Reject duplicate people up-front so the (per-provider) admin-create
     // call below is never attempted for users who already have access.
+    // People replaced Membership, so this checks Person.
     const existingUser = await prisma.user.findUnique({
       where: { email: body.email.toLowerCase() },
       select: { id: true },
     });
     if (existingUser) {
-      const existingMembership = await prisma.membership.findUnique({
-        where: {
-          userId_tenantId: {
-            userId: existingUser.id,
-            tenantId: auth.tenantId,
-          },
-        },
+      const existingPerson = await prisma.person.findFirst({
+        where: { userId: existingUser.id, tenantId: auth.tenantId },
+        select: { id: true },
       });
-      if (existingMembership) {
+      if (existingPerson) {
         res.status(409).json({
           success: false,
           error: {
@@ -153,7 +167,7 @@ organizationsRouter.post("/members/invite", authorize("users:manage"), async (re
 
     // Delegate to the active auth provider so Cognito (or any plugin that
     // implements adminCreateUser) provisions the upstream identity. For the
-    // local provider this just creates the User row + Membership(invited).
+    // local provider this just creates the User row + Person(invited).
     const result = await authService.inviteUser(auth.tenantId, auth.userId, {
       email: body.email,
       role: body.role,
@@ -177,20 +191,20 @@ organizationsRouter.patch(
       const memberId = String(req.params["memberId"]);
       const body = updateMemberRoleBody.parse(req.body);
 
-      const membership = await prisma.membership.findFirst({
+      const person = await prisma.person.findFirst({
         where: { userId: memberId, tenantId },
         include: { user: { select: { id: true, name: true, email: true } } },
       });
 
-      if (!membership) {
+      if (!person) {
         res.status(404).json({
           success: false,
-          error: { code: "NOT_FOUND", message: "Membership not found" },
+          error: { code: "NOT_FOUND", message: "Person not found" },
         });
         return;
       }
 
-      if (membership.role === "owner") {
+      if (person.role === "owner") {
         res.status(403).json({
           success: false,
           error: { code: "FORBIDDEN", message: "Cannot change the owner's role" },
@@ -198,17 +212,19 @@ organizationsRouter.patch(
         return;
       }
 
-      await prisma.membership.update({
-        where: { id: membership.id },
-        data: { role: body.role as any },
+      // Clear any per-person permission override so the role's permission set
+      // takes effect on next login.
+      await prisma.person.update({
+        where: { id: person.id },
+        data: { role: body.role as any, permissions: [] },
       });
 
       res.json({
         success: true,
         data: {
-          id: membership.user.id,
-          name: membership.user.name,
-          email: membership.user.email,
+          id: person.userId,
+          name: person.user?.name ?? person.fullName,
+          email: person.email,
           role: body.role,
         },
       });
@@ -226,19 +242,19 @@ organizationsRouter.delete(
       const tenantId = (req as any).auth.tenantId as string;
       const memberId = String(req.params["memberId"]);
 
-      const membership = await prisma.membership.findFirst({
+      const person = await prisma.person.findFirst({
         where: { userId: memberId, tenantId },
       });
 
-      if (!membership) {
+      if (!person) {
         res.status(404).json({
           success: false,
-          error: { code: "NOT_FOUND", message: "Membership not found" },
+          error: { code: "NOT_FOUND", message: "Person not found" },
         });
         return;
       }
 
-      if (membership.role === "owner") {
+      if (person.role === "owner") {
         res.status(403).json({
           success: false,
           error: { code: "FORBIDDEN", message: "Cannot remove the organization owner" },
@@ -246,7 +262,7 @@ organizationsRouter.delete(
         return;
       }
 
-      await prisma.membership.delete({ where: { id: membership.id } });
+      await prisma.person.delete({ where: { id: person.id } });
 
       res.json({ success: true, data: { id: memberId } });
     } catch (err) {

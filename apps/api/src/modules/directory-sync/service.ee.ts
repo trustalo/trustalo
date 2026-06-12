@@ -326,42 +326,43 @@ export async function executeDirectorySyncRun(runId: string): Promise<void> {
         usersCreated += 1;
       }
 
-      const membership = await prisma.membership.findUnique({
-        where: {
-          userId_tenantId: {
-            userId: user.id,
-            tenantId: run.tenantId,
-          },
-        },
-      });
+      // People replaced Membership: upsert the Person directory record so the
+      // synced user can log in (auth resolves a user's Person, not Membership).
+      // Find by userId, else adopt a login-less Person with the same email.
+      let person =
+        (await prisma.person.findFirst({
+          where: { tenantId: run.tenantId, userId: user.id },
+        })) ??
+        (await prisma.person.findFirst({
+          where: { tenantId: run.tenantId, email },
+        }));
 
-      if (!membership) {
-        await prisma.membership.create({
+      if (!person) {
+        await prisma.person.create({
           data: {
             userId: user.id,
             tenantId: run.tenantId,
+            email,
+            fullName: displayName,
             role: resolvedRole,
             status: desiredStatus,
+            source: "directory_sync",
             invitedAt: desiredStatus === "invited" ? startTime : null,
             joinedAt: desiredStatus === "active" ? startTime : null,
             permissions: [],
           },
         });
         usersUpdated += 1;
-      } else if (membership.role !== "owner") {
-        const shouldUpdateRole = membership.role !== resolvedRole;
-        const shouldUpdateStatus = membership.status !== desiredStatus;
-        if (shouldUpdateRole || shouldUpdateStatus) {
-          await prisma.membership.update({
-            where: { id: membership.id },
-            data: {
-              role: resolvedRole,
-              status: desiredStatus,
-              joinedAt:
-                membership.joinedAt ??
-                (desiredStatus === "active" ? startTime : membership.joinedAt),
-            },
-          });
+      } else if (person.role !== "owner") {
+        const patch: Record<string, unknown> = {};
+        if (!person.userId) patch.userId = user.id;
+        if (person.role !== resolvedRole) patch.role = resolvedRole;
+        if (person.status !== desiredStatus) {
+          patch.status = desiredStatus;
+          if (desiredStatus === "active" && !person.joinedAt) patch.joinedAt = startTime;
+        }
+        if (Object.keys(patch).length > 0) {
+          await prisma.person.update({ where: { id: person.id }, data: patch });
           usersUpdated += 1;
         }
       }
@@ -407,17 +408,12 @@ export async function executeDirectorySyncRun(runId: string): Promise<void> {
     });
 
     for (const stale of staleMappings) {
-      const membership = await prisma.membership.findUnique({
-        where: {
-          userId_tenantId: {
-            userId: stale.userId,
-            tenantId: run.tenantId,
-          },
-        },
+      const person = await prisma.person.findFirst({
+        where: { tenantId: run.tenantId, userId: stale.userId },
       });
-      if (!membership || membership.role === "owner" || membership.status === "suspended") continue;
-      await prisma.membership.update({
-        where: { id: membership.id },
+      if (!person || person.role === "owner" || person.status === "suspended") continue;
+      await prisma.person.update({
+        where: { id: person.id },
         data: { status: "suspended" },
       });
       usersSuspended += 1;

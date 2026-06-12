@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import type { BadgeVariant } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -241,7 +242,29 @@ export default function AssetsPage() {
             Inventory and classify physical and virtual assets
           </p>
         </div>
-        <Button onClick={() => setCreateOpen(true)}>Add Asset</Button>
+        <div className="flex items-center gap-2">
+          {/* Managed endpoints are Computer-category assets; their posture lives here under Assets. */}
+          <Link
+            href="/devices"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-300 px-3 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
+          >
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9.75 17h4.5M5 3h14a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zM8 21h8"
+              />
+            </svg>
+            Device posture
+          </Link>
+          <Button onClick={() => setCreateOpen(true)}>Add Asset</Button>
+        </div>
       </div>
 
       {stats && (

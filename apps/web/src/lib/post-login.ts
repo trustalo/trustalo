@@ -9,7 +9,21 @@
 const KEY = "trustalo_post_login_next";
 
 export function isSafeNext(next: string | null | undefined): next is string {
-  return typeof next === "string" && next.startsWith("/") && !next.startsWith("//");
+  if (typeof next !== "string" || next.length === 0) return false;
+  // Same-origin RELATIVE path only: exactly one leading "/", never "//"
+  // (protocol-relative) and never a backslash — browsers fold "\" into "/", so
+  // "/\evil.com" would otherwise resolve to "//evil.com" (another origin).
+  if (!next.startsWith("/") || next.startsWith("//") || next.includes("\\")) return false;
+  // Defence in depth: resolved against our own origin it must STAY same-origin,
+  // so the value can never become an open redirect to another site.
+  if (typeof window !== "undefined") {
+    try {
+      if (new URL(next, window.location.origin).origin !== window.location.origin) return false;
+    } catch {
+      return false;
+    }
+  }
+  return true;
 }
 
 /** Read a validated `?next=` from the current URL. */

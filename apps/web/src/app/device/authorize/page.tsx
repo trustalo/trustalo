@@ -22,6 +22,24 @@ interface DeviceParams {
   redirectUri: string;
 }
 
+/**
+ * The redirect target must be the agent's `trustalo://` deep link or a loopback
+ * http URL — mirrors the server's `assertAllowedDeviceRedirect`. This blocks a
+ * crafted `redirect_uri` (e.g. `javascript:…` or a cross-origin `https:` URL)
+ * from ever reaching `window.location.href` / an `<a href>` (XSS + open
+ * redirect). The server enforces the same rule; this is the client-side half.
+ */
+function isAllowedDeviceRedirect(uri: string): boolean {
+  let u: URL;
+  try {
+    u = new URL(uri);
+  } catch {
+    return false;
+  }
+  if (u.protocol === "trustalo:") return true;
+  return u.protocol === "http:" && (u.hostname === "127.0.0.1" || u.hostname === "localhost");
+}
+
 export default function DeviceAuthorizePage() {
   const [phase, setPhase] = useState<Phase>("loading");
   const [params, setParams] = useState<DeviceParams | null>(null);
@@ -38,6 +56,11 @@ export default function DeviceAuthorizePage() {
 
     if (!state || !challenge || !redirectUri) {
       setError("This device sign-in link is missing required parameters.");
+      setPhase("error");
+      return;
+    }
+    if (!isAllowedDeviceRedirect(redirectUri)) {
+      setError("This device sign-in link has an invalid redirect URI.");
       setPhase("error");
       return;
     }
@@ -60,7 +83,14 @@ export default function DeviceAuthorizePage() {
   }, []);
 
   async function authorize() {
-    if (!params) return;
+    // Re-validate at the sink: params.redirectUri feeds window.location.href and
+    // the <a href> on the "sent" screen, so guard it again here (defence in
+    // depth — the agent deep link is the only allowed target).
+    if (!params || !isAllowedDeviceRedirect(params.redirectUri)) {
+      setError("This device sign-in link has an invalid redirect URI.");
+      setPhase("error");
+      return;
+    }
     setBusy(true);
     setError("");
     try {
@@ -137,12 +167,14 @@ export default function DeviceAuthorizePage() {
             Sent to the device agent. You can return to the app — it will finish signing in
             automatically. You may close this tab.
           </div>
-          <a
-            href={callbackUrl}
-            className="block w-full rounded-lg bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-blue-700"
-          >
-            Open the Trustalo Device Agent
-          </a>
+          {isAllowedDeviceRedirect(callbackUrl) && (
+            <a
+              href={callbackUrl}
+              className="block w-full rounded-lg bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-blue-700"
+            >
+              Open the Trustalo Device Agent
+            </a>
+          )}
           <details className="text-xs text-neutral-500">
             <summary className="cursor-pointer">Agent didn&apos;t open?</summary>
             <p className="mt-2">

@@ -23,8 +23,8 @@ The list below maps the standard-derived columns to the document that defines th
 | Column / Type | Source | Notes |
 | --- | --- | --- |
 | `Tenant`, `tenantId` | NIST SP 800-210 §2.3; ISO/IEC 27017:2015 §7.1 | "Tenant" is the canonical term for a multi-tenant SaaS customer boundary. |
-| `Membership.role` | NIST SP 800-162 (ABAC), ISO/IEC 27001 A.5.18 | Role-based access control |
-| `Membership.permissions` | NIST SP 800-162 | Resource-scoped overrides (ABAC attributes) |
+| `Person.role` | NIST SP 800-162 (ABAC), ISO/IEC 27001 A.5.18 | Role-based access control |
+| `Person.permissions` | NIST SP 800-162 | Resource-scoped overrides (ABAC attributes) |
 
 ### Risk management (ISO/IEC 27005, NIST SP 800-30)
 

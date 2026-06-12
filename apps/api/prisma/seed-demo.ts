@@ -134,14 +134,16 @@ async function seedDemoUsers(orgId: string) {
       });
     }
 
-    const existingMembership = await prisma.membership.findUnique({
-      where: { userId_tenantId: { userId: user.id, tenantId: orgId } },
+    const existingPerson = await prisma.person.findFirst({
+      where: { userId: user.id, tenantId: orgId },
     });
-    if (!existingMembership) {
-      await prisma.membership.create({
+    if (!existingPerson) {
+      await prisma.person.create({
         data: {
           userId: user.id,
           tenantId: orgId,
+          email: user.email,
+          fullName: user.name,
           role: persona.role,
           status: "active",
           joinedAt: daysAgo(120),

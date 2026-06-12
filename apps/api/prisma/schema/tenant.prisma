@@ -49,7 +49,6 @@ model Tenant {
   updatedAt               DateTime                @updatedAt
 
   settings                      TenantSettings?
-  memberships                   Membership[]
   people                        Person[]
   backgroundChecks              BackgroundCheck[]
   personChecklistItems          PersonChecklistItem[]

@@ -214,7 +214,7 @@ Trustalo can optionally sync directory users into tenant memberships from the **
 
 - Sync is **tenant-scoped** and **Enterprise-gated** (`sso` feature).
 - Supported frequencies are **24h** and **7d** only (plus manual `Sync now`).
-- Synced users are provisioned into `User` + `Membership` rows with configurable default role/status.
+- Synced users are provisioned into `User` + `Person` rows with configurable default role/status.
 
 ### Entra ID credentials
 
@@ -264,7 +264,7 @@ Directory-sync credentials are encrypted at rest using `apps/api/src/lib/crypto-
 ```
 
 - **One provider per process.** No multi-tenant per-org config, no per-user selection. Switching providers means restarting the API with new env vars (and migrating users; see [Switching providers](#switching-providers)).
-- **`User` rows are owned by the API**, never by the plugin. Plugins return a `ProviderProfile { externalId, email, name?, emailVerified? }`; the API finds-or-creates the corresponding `User` and `Membership`.
+- **`User` rows are owned by the API**, never by the plugin. Plugins return a `ProviderProfile { externalId, email, name?, emailVerified? }`; the API finds-or-creates the corresponding `User` and `Person`.
 - **Trustalo mints its own JWT** for downstream API calls regardless of provider. Middleware, RBAC, and tenant isolation are uniform.
 - **Boot fails fast** on misconfiguration. If `AUTH_PROVIDER=cognito` but `COGNITO_USER_POOL_ID` is missing, the API exits with a clear error before binding the HTTP listener.
 

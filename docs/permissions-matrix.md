@@ -175,4 +175,4 @@ The Settings page applies additional frontend guards:
 
 ## Custom Permissions
 
-The `Membership` model supports an optional `permissions` string array that overrides the default role-based permissions. When set, these take precedence over `ROLE_PERMISSIONS[role]`. This allows per-user permission customization when needed.
+The `Person` model supports an optional `permissions` string array that overrides the default role-based permissions. When set, these take precedence over `ROLE_PERMISSIONS[role]`. This allows per-user permission customization when needed.

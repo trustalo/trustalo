@@ -105,18 +105,26 @@ The combine script concatenates all `.prisma` files into a single `schema.prisma
 | createdAt    | DateTime  |             |
 | updatedAt    | DateTime  |             |
 
-**Membership**
+**Person** (replaced the old `Membership` model — see [`people.md`](people.md) for the full HR model)
 
-| Field       | Type      | Notes                                                      |
-| ----------- | --------- | ---------------------------------------------------------- |
-| id          | UUID      | Primary key                                                |
-| tenantId    | UUID      | FK -> Tenant                                               |
-| userId      | UUID      | FK -> User                                                 |
-| role        | Enum      | owner, admin, compliance_mgr, auditor, contributor, viewer |
-| permissions | JSON?     | Resource-scoped overrides                                  |
-| invitedAt   | DateTime  |                                                            |
-| acceptedAt  | DateTime? |                                                            |
-| createdAt   | DateTime  |                                                            |
+| Field | Type | Notes |
+| --- | --- | --- |
+| id | UUID | Primary key |
+| tenantId | UUID | FK -> Tenant |
+| userId | UUID? | FK -> User (null for people without a login) |
+| email | String | Unique per tenant |
+| fullName | String | Denormalised so login-less people work |
+| role | Enum | PersonRole: `member` (default), owner, admin, compliance_manager, auditor, viewer, integration_admin, dpo |
+| permissions | String[] | Resource-scoped overrides; take precedence over the role's defaults |
+| status | Enum | PersonStatus: invited, active, suspended, offboarded |
+| kind | Enum | employee, contractor, vendor_contact, service_account, other |
+| source | Enum | manual, invite, directory_sync, self_register |
+| managerId | UUID? | Self-FK (org hierarchy) |
+| vendorId | UUID? | FK -> Vendor (vendor-contact-as-Person) |
+| createdAt | DateTime |  |
+| updatedAt | DateTime |  |
+
+> HR attributes (jobTitle, department, employmentType, location, startDate/endDate) and sub-resources (background checks, onboarding/offboarding checklist, device/asset associations) are documented in [`people.md`](people.md).
 
 **DirectorySyncConfig**
 
@@ -127,7 +135,7 @@ The combine script concatenates all `.prisma` files into a single `schema.prisma
 | provider             | Enum      | entra, google_workspace                                    |
 | isEnabled            | Boolean   | Scheduler considers config when true                       |
 | syncFrequencyMinutes | Int       | Allowed values: 1440 (24h), 10080 (7d)                     |
-| defaultRole          | Enum      | MembershipRole fallback when no group mapping matches      |
+| defaultRole          | Enum      | PersonRole fallback when no group mapping matches          |
 | defaultStatus        | Enum      | invited, active                                            |
 | groupRoleMappings    | JSON?     | Optional provider group -> Trustalo role mappings          |
 | encryptedCredentials | Text      | AES-256-GCM envelope from `crypto-envelope.ts` (`enc:v1:`) |
@@ -151,8 +159,8 @@ The combine script concatenates all `.prisma` files into a single `schema.prisma
 | finishedAt      | DateTime? |                                                |
 | usersDiscovered | Int       | Total users fetched from provider in this run  |
 | usersCreated    | Int       | New `User` rows created                        |
-| usersUpdated    | Int       | Memberships updated/upserted                   |
-| usersSuspended  | Int       | Memberships suspended because user disappeared |
+| usersUpdated    | Int       | People updated/upserted                        |
+| usersSuspended  | Int       | People suspended because user disappeared      |
 | errorMessage    | String?   | Failure details for UI history                 |
 | createdAt       | DateTime  |                                                |
 | updatedAt       | DateTime  |                                                |

@@ -1,22 +1,3 @@
-enum MembershipRole {
-  owner
-  admin
-  compliance_manager
-  auditor
-  viewer
-  integration_admin
-  // Data Protection Officer (GDPR Art. 37). Privacy-program-scoped role with
-  // read access across the platform and write access to privacy resources
-  // (RoPA, DPIAs, data-breach register, DSARs).
-  dpo
-}
-
-enum MembershipStatus {
-  active
-  invited
-  suspended
-}
-
 enum DirectorySyncProvider {
   entra
   google_workspace
@@ -68,7 +49,6 @@ model User {
   @@unique([authProvider, externalId])
   @@index([authProvider])
 
-  memberships          Membership[]
   people               Person[]
   ownedControls        Control[]        @relation("ControlOwner")
   ownedPolicies        Policy[]         @relation("PolicyOwner")
@@ -129,33 +109,13 @@ model User {
   deviceAuthCodes          DeviceAuthCode[]
 }
 
-model Membership {
-  id          String           @id @default(cuid())
-  userId      String
-  tenantId    String
-  role        MembershipRole   @default(viewer)
-  permissions String[]
-  status      MembershipStatus @default(invited)
-  invitedAt   DateTime?
-  joinedAt    DateTime?
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, tenantId])
-  @@index([tenantId])
-  @@index([userId])
-}
-
 model DirectorySyncConfig {
   id                   String                     @id @default(cuid())
   tenantId             String
   provider             DirectorySyncProvider
   isEnabled            Boolean                    @default(true)
   syncFrequencyMinutes Int                        @default(1440)
-  defaultRole          MembershipRole             @default(viewer)
+  defaultRole          PersonRole                 @default(viewer)
   defaultStatus        DirectorySyncDefaultStatus @default(invited)
   groupRoleMappings    Json?
   encryptedCredentials String                     @db.Text

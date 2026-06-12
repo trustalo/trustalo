@@ -5,19 +5,22 @@
       "name": "web",
       "runtimeExecutable": "bun",
       "runtimeArgs": ["run", "dev:web"],
-      "port": 15000
+      "port": 15000,
+      "autoPort": false
     },
     {
       "name": "api",
       "runtimeExecutable": "bun",
       "runtimeArgs": ["run", "dev:api"],
-      "port": 15002
+      "port": 15002,
+      "autoPort": false
     },
     {
       "name": "collector",
       "runtimeExecutable": "bun",
       "runtimeArgs": ["run", "dev:collector"],
-      "port": 15003
+      "port": 15003,
+      "autoPort": false
     }
   ]
 }

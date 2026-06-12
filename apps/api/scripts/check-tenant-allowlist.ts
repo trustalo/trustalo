@@ -30,14 +30,10 @@ const SCHEMA_PATH = join(import.meta.dir, "../prisma/schema.prisma");
  * being added by mistake.
  */
 const INTENTIONAL_EXCEPTIONS: Record<string, string> = {
-  // Auth bootstrap looks up a user's memberships across orgs to choose
-  // which tenantId to pin to the session. Auto-injecting
-  // tenantId here would break login.
-  Membership: "auth bootstrap traverses memberships across orgs",
-  // People REPLACES Membership: login resolves a user's Person across tenants
-  // to choose which tenant to pin (a cross-tenant lookup via the base prisma
-  // client), so Person must not be auto-tenant-scoped. People-module queries
-  // filter tenantId explicitly.
+  // People login resolves a user's Person across tenants to choose which
+  // tenant to pin (a cross-tenant lookup via the base prisma client), so
+  // Person must not be auto-tenant-scoped. People-module queries filter
+  // tenantId explicitly.
   Person: "auth resolves a user's Person across tenants at login",
 };
 

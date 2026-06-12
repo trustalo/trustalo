@@ -1375,19 +1375,6 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.MembershipScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  tenantId: 'tenantId',
-  role: 'role',
-  permissions: 'permissions',
-  status: 'status',
-  invitedAt: 'invitedAt',
-  joinedAt: 'joinedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.DirectorySyncConfigScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -2439,22 +2426,6 @@ exports.AccessRequestStatus = exports.$Enums.AccessRequestStatus = {
   rejected: 'rejected'
 };
 
-exports.MembershipRole = exports.$Enums.MembershipRole = {
-  owner: 'owner',
-  admin: 'admin',
-  compliance_manager: 'compliance_manager',
-  auditor: 'auditor',
-  viewer: 'viewer',
-  integration_admin: 'integration_admin',
-  dpo: 'dpo'
-};
-
-exports.MembershipStatus = exports.$Enums.MembershipStatus = {
-  active: 'active',
-  invited: 'invited',
-  suspended: 'suspended'
-};
-
 exports.DirectorySyncProvider = exports.$Enums.DirectorySyncProvider = {
   entra: 'entra',
   google_workspace: 'google_workspace'
@@ -2634,7 +2605,6 @@ exports.Prisma.ModelName = {
   TrustResource: 'TrustResource',
   TrustCenterAccessRequest: 'TrustCenterAccessRequest',
   User: 'User',
-  Membership: 'Membership',
   DirectorySyncConfig: 'DirectorySyncConfig',
   DirectorySyncRun: 'DirectorySyncRun',
   ExternalIdentityMapping: 'ExternalIdentityMapping',

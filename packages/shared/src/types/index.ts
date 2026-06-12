@@ -65,15 +65,6 @@ export interface User {
   readonly createdAt: string;
 }
 
-export interface Membership {
-  readonly id: string;
-  readonly userId: string;
-  readonly tenantId: string;
-  readonly role: Role;
-  readonly permissions: readonly Permission[];
-  readonly status: string;
-}
-
 // ──────────────────────────────────────────────
 // Compliance domain types
 // ──────────────────────────────────────────────

@@ -16,13 +16,13 @@
   <img src="docs/images/dashboard.jpg" alt="Trustalo dashboard — framework readiness and compliance posture at a glance" width="900" />
 </p>
 
-Trustalo is a multi-tenant GRC platform that helps teams adopt and maintain **ISO 27001**, **ISO 27017**, **ISO 27018**, **ISO 22301**, **ISO 42001**, and **SOC 2** without buying a six-figure enterprise tool. It is built as a Bun monorepo with TypeScript end-to-end, ships its own evidence collector, and runs unmodified on a developer laptop or in a Bedrock-only AWS account.
+Trustalo is a multi-tenant GRC platform that helps teams adopt and maintain **ISO 27001**, **ISO 27017**, **ISO 27018**, **ISO 22301**, **ISO 42001**, and **SOC 2** without buying a six-figure enterprise tool. It is built as a Bun monorepo with TypeScript end-to-end, ships its own evidence collector and a cross-platform **endpoint device-posture agent** (Go), and runs unmodified on a developer laptop or in a Bedrock-only AWS account.
 
 | Aspect | Value |
 | --- | --- |
 | Status | Pre-1.0. APIs and schemas may change between minor versions. |
 | License | Dual-licensed. Core code under [Trustalo Sustainable Use License v1.0](LICENSE) — free to run in production for any organization, regardless of size, revenue, or funding. Files matching `*.ee.*` or under `**/ee/**` are governed by the [Trustalo Enterprise License v1.0](LICENSE_EE) — paid Enterprise License required for production regardless of org size. Redistribution is reserved to Trustalo. See [`docs/enterprise.md`](docs/enterprise.md). Contributors must accept the [`CONTRIBUTOR_LICENSE_AGREEMENT.md`](CONTRIBUTOR_LICENSE_AGREEMENT.md). |
-| Runtime | Bun 1.3+ · TypeScript 5.x (strict) · Next.js 16 · Express 5 · Prisma 7 + PostgreSQL 17 · MongoDB 8 |
+| Runtime | Bun 1.3+ · TypeScript 5.x (strict) · Next.js 16 · Express 5 · Prisma 7 + PostgreSQL 17 · MongoDB 8 · Go 1.23+ (endpoint device agent) |
 | Get started | [`docs/installation.md`](docs/installation.md) — prerequisites + quick start. Daily loop: [`docs/development.md`](docs/development.md). |
 | Architecture | [`docs/architecture.md`](docs/architecture.md) · [`docs/database-design.md`](docs/database-design.md) |
 
@@ -43,20 +43,23 @@ Trustalo is a multi-tenant GRC platform that helps teams adopt and maintain **IS
 ```
 trustalo/
 ├── apps/
-│   ├── web/           Next.js 16 SSR frontend (port 3000)
-│   ├── api/           Express 5 + Prisma + Mongoose (port 4000)
-│   └── collector/     Express 5 + Prisma (port 4001)
+│   ├── web/           Next.js 16 SSR frontend (port 15000)
+│   ├── api/           Express 5 + Prisma + Mongoose (port 15002)
+│   ├── collector/     Express 5 + Prisma (port 15003)
+│   └── device-agent/  Go endpoint device-posture agent (macOS/Windows/Linux)
 └── packages/
     ├── shared/                       Types, Zod schemas, constants, utils
     ├── auth/                         JWT, RBAC, cookie + bearer middleware
-    ├── auth-provider-{local,cognito,keycloak}/
+    ├── auth-provider-{local,cognito,keycloak,google,microsoft}/ + auth-provider-saml.ee (Enterprise)
     ├── storage/                      S3 storage provider (pluggable; _template scaffold for new backends)
     ├── queue/                        SQS queue provider (pluggable; _template scaffold for new backends)
     ├── ai/                           AI provider resolver, PII scrubber, prompt guard
+    ├── license/                      Enterprise license gating (assertEnterpriseLicense)
+    ├── billing.ee/                   Enterprise billing/subscription
     └── integration-manifests/        AWS, GitHub, GitLab, Google Workspace, Microsoft 365, Okta
 ```
 
-The **API** owns the compliance domain (frameworks, controls, policies, risks, evidence, audits, vendors, assets, incidents, vulnerabilities, BCP, AI governance, privacy, training, trust center). The **Collector** owns the integration domain (the catalog, connections, credentials in a transactional secret vault, jobs, sync logs) and submits evidence to the API via HMAC-signed internal calls. Ten connectors ship today (`aws`, `gcp`, `azure`, `okta`, `auth0`, `github`, `bitbucket`, `google-workspace`, `office365`, `wazuh`); a separate `@trustalo/integration-manifests` package ships declarative check manifests (including a `gitlab` manifest that does not yet have a runtime connector). The **Web** frontend talks to both services directly through the cookie-based session.
+The **API** owns the compliance domain (frameworks, controls, policies, risks, evidence, audits, vendors, assets, incidents, vulnerabilities, BCP, AI governance, privacy, training, trust center, **people**, **devices**). The **Collector** owns the integration domain (the catalog, connections, credentials in a transactional secret vault, jobs, sync logs) and submits evidence to the API via HMAC-signed internal calls. Ten connectors ship today (`aws`, `gcp`, `azure`, `okta`, `auth0`, `github`, `bitbucket`, `google-workspace`, `office365`, `wazuh`); a separate `@trustalo/integration-manifests` package ships declarative check manifests (including a `gitlab` manifest that does not yet have a runtime connector). The **Device agent** is a Go client that enrolls a machine, then heartbeats its security posture to the API (HMAC-signed, all probes unprivileged) — each device becomes a Computer `Asset` assigned to a `Person`. The **Web** frontend talks to both TypeScript services directly through the cookie-based session.
 
 Deeper dive: [`docs/architecture.md`](docs/architecture.md) and [`docs/integrations.md`](docs/integrations.md).
 
@@ -67,7 +70,7 @@ Deeper dive: [`docs/architecture.md`](docs/architecture.md) and [`docs/integrati
 ```bash
 git clone <your-fork-url> trustalo && cd trustalo
 bun run setup:local                                  # envs + Postgres/Mongo/LocalStack + deps + Prisma + seeds
-bun dev:all                                          # Web :3000, API :4000, Collector :4001
+bun dev:all                                          # Web :15000, API :15002, Collector :15003
 ```
 
 > `bun run setup:local` is idempotent — it copies env templates only when missing, starts Docker, generates Prisma clients, applies migrations, and seeds the API/Collector data. See [`docs/installation.md`](docs/installation.md) for the per-step manual path.
@@ -145,6 +148,8 @@ In-depth documentation lives in [`docs/`](docs/):
 | [`ai-features.md`](docs/ai-features.md) | AI provider resolution, audit, rate limiting, advisory contract. |
 | [`compliance-frameworks.md`](docs/compliance-frameworks.md) | Supported frameworks, control mappings, maturity model. |
 | [`integrations.md`](docs/integrations.md) | Collector integration framework and how to add a provider. |
+| [`people.md`](docs/people.md) | People directory / HR — the `Person` model (replaced `Membership`), self-service, advisory evidence. |
+| [`device-agent.md`](docs/device-agent.md) | Endpoint device-posture agent (Go): enrollment, signed check-ins, collected signals, the Devices UI. |
 | [`permissions-matrix.md`](docs/permissions-matrix.md) | RBAC roles and the permissions each one grants. |
 
 ---

@@ -72,12 +72,12 @@ Wiring lives in:
 
 ## 1. Architecture overview
 
-Trustalo is a Bun monorepo with three apps and one shared AI package:
+Trustalo is a Bun monorepo with four apps and one shared AI package. Three of the apps touch AI (the Go `apps/device-agent` has no AI surface):
 
 | Component | Path | Role in AI |
 | --- | --- | --- |
-| `apps/api` (Express, port 4000) | `apps/api/src/modules/**` | Owns most LLM features and routes them through `resolveOrgAI`. |
-| `apps/collector` (Express, port 4001) | `apps/collector/src/*` | Runs two LLM workloads off the API process: **evidence agent** loop and **vendor research**. |
+| `apps/api` (Express, port 15002) | `apps/api/src/modules/**` | Owns most LLM features and routes them through `resolveOrgAI`. |
+| `apps/collector` (Express, port 15003) | `apps/collector/src/*` | Runs two LLM workloads off the API process: **evidence agent** loop and **vendor research**. |
 | `apps/web` (Next.js 16) | `apps/web/src/**` | UI: chat drawer, advisory banners, AI Write modal, evidence agent panel, AI usage dashboard, AI settings. |
 | `packages/ai` (`@trustalo/ai`) | `packages/ai/src/*` | Provider abstraction, resolution precedence, error sanitizer, PII scrub, context extraction helper, quiz prompt helper. |
 

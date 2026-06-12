@@ -86,10 +86,10 @@ After the dev servers boot you should see:
 
 | Service | URL | Notes |
 | --- | --- | --- |
-| Web UI | [http://localhost:3000](http://localhost:3000) | Next.js 16, App Router. |
-| API | [http://localhost:4000](http://localhost:4000) | Express 5 + Prisma + Mongoose. |
-| Collector | [http://localhost:4001](http://localhost:4001) | Express 5 + Prisma. |
-| API health | [http://localhost:4000/health](http://localhost:4000/health) | Liveness probe. |
+| Web UI | [http://localhost:15000](http://localhost:15000) | Next.js 16, App Router. |
+| API | [http://localhost:15002](http://localhost:15002) | Express 5 + Prisma + Mongoose. |
+| Collector | [http://localhost:15003](http://localhost:15003) | Express 5 + Prisma. |
+| API health | [http://localhost:15002/health](http://localhost:15002/health) | Liveness probe. |
 | AI health | `GET /api/v1/ai-config/health` | Resolved AI provider per feature. |
 | LocalStack | [http://localhost:4566](http://localhost:4566) | S3 + SQS endpoints used by the dev stack. |
 

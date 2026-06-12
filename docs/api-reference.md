@@ -1,6 +1,6 @@
 # API Reference
 
-Trustalo exposes two HTTP services: the main **API** (port 4000) for compliance operations and the **Collector** (port 4001) for integration management.
+Trustalo exposes two HTTP services: the main **API** (port 15002) for compliance operations and the **Collector** (port 15003) for integration management. (A third app, the Go endpoint **device agent**, is an API _client_ — its device-facing endpoints are documented under [Devices](#devices) and [Auth](#auth), not a separate service.)
 
 ## Common Patterns
 
@@ -85,22 +85,24 @@ All requests are scoped to the authenticated user's organization. The `tenantId`
 
 ---
 
-## API Service (Port 4000)
+## API Service (Port 15002)
 
-Base URL: `http://localhost:4000`. Every business endpoint is mounted under `/api/v1`; auth lives at `/api/v1/auth/*`. The paths below all show the path that follows the base URL.
+Base URL: `http://localhost:15002`. Every business endpoint is mounted under `/api/v1`; auth lives at `/api/v1/auth/*`. The paths below all show the path that follows the base URL.
 
 ### Auth
 
-| Method | Endpoint                       | Auth | Description                 |
-| ------ | ------------------------------ | ---- | --------------------------- |
-| POST   | `/api/v1/auth/register`        | No   | Register new user + org     |
-| POST   | `/api/v1/auth/login`           | No   | Login, returns JWT          |
-| POST   | `/api/v1/auth/refresh`         | Yes  | Refresh access token        |
-| POST   | `/api/v1/auth/logout`          | Yes  | Invalidate refresh token    |
-| GET    | `/api/v1/auth/me`              | Yes  | Get current user profile    |
-| PATCH  | `/api/v1/auth/me`              | Yes  | Update current user profile |
-| POST   | `/api/v1/auth/change-password` | Yes  | Change password             |
-| GET    | `/api/v1/auth/config`          | No   | Active auth provider config |
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| POST | `/api/v1/auth/register` | No | Register new user + org |
+| POST | `/api/v1/auth/login` | No | Login, returns JWT |
+| POST | `/api/v1/auth/refresh` | Yes | Refresh access token |
+| POST | `/api/v1/auth/logout` | Yes | Invalidate refresh token |
+| GET | `/api/v1/auth/me` | Yes | Get current user profile |
+| PATCH | `/api/v1/auth/me` | Yes | Update current user profile |
+| POST | `/api/v1/auth/change-password` | Yes | Change password |
+| GET | `/api/v1/auth/config` | No | Active auth provider config |
+| POST | `/api/v1/auth/device/authorize` | Yes | Device-agent consent step — issues a one-time PKCE-bound code (called by the web `/device/authorize` page) |
+| POST | `/api/v1/auth/device/token` | No (PKCE) | Exchange the device code + PKCE verifier for a device JWT |
 
 For brevity, the remaining tables omit the `/api/v1` prefix — every endpoint in this document is mounted there.
 
@@ -291,6 +293,57 @@ Query filters: `riskTier`, `status`, `search`
 | DELETE | `/assets/:id` | Delete asset      |
 
 Query filters: `type`, `classification`, `status`, `ownerId`, `search`
+
+### Devices
+
+Endpoint device-posture agent. Each enrolled device is a Computer-category `Asset` assigned to a `Person`; the management routes are gated by `assets:*` and the fleet view lives under Assets. The agent's own routes authenticate with a per-device HMAC secret (or, for first enrollment, an enrollment token / user JWT). See [`device-agent.md`](device-agent.md).
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| POST | `/devices/enroll` | any authenticated user | Self-enroll the caller's own machine (resolves caller → Person, links the Computer asset) |
+| GET | `/devices` | `assets:read` | List enrolled devices with posture + assigned person |
+| GET | `/devices/:id` | `assets:read` | Device detail — full posture, hardware/OS inventory, assigned person |
+| GET | `/devices/:id/posture-history` | `assets:read` | Append-only posture snapshots (pruned after 1 day) |
+| POST | `/devices/:id/revoke` | `assets:write` | Revoke a device (silences the agent on its next check-in) |
+| POST | `/devices/:id/rotate-secret` | `assets:write` | Rotate the device's HMAC secret |
+| GET | `/devices/enrollment-tokens` | `assets:read` | List active enrollment tokens |
+| POST | `/devices/enrollment-tokens` | `assets:write` | Mint a short-lived, single-use enrollment token (MDM / mass-deploy) |
+| DELETE | `/devices/enrollment-tokens/:id` | `assets:write` | Revoke an enrollment token |
+| POST | `/devices/agent/enroll` | enrollment token · basic · device JWT | Agent enrollment — returns the per-device HMAC secret |
+| POST | `/devices/agent/check-in` | per-device HMAC | Signed posture heartbeat (nonce + timestamp replay defense); returns `nextCheckInSeconds` |
+
+### People
+
+The HR / personnel directory. The `Person` model replaced the historical `Membership`; management surfaces require `people:*`, and the self-service portal requires `self:*` (the default `member` role). See [`people.md`](people.md).
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| GET | `/people` | `people:read` | List people (filters: `status`, `kind`, `role`, `department`, `search`) |
+| GET | `/people/stats` | `people:read` | Directory rollup (status counts, background-check coverage, training/policy compliance, devices-at-risk) |
+| POST | `/people` | `people:write` | Create a person (a login-less person is allowed) |
+| POST | `/people/invite` | `people:write` | Invite a person (defaults to the `member` role) |
+| POST | `/people/from-vendor-contact/:contactId` | `people:write` | Promote a vendor contact into a Person |
+| GET | `/people/:id` | `people:read` | Person profile — HR fields, devices, training/policy rollups |
+| PATCH | `/people/:id` | `people:write` | Update HR fields (job title, department, manager, dates, …) |
+| PATCH | `/people/:id/role` | `people:write` | Change role (owner-protected) |
+| POST | `/people/:id/status` | `people:write` | Lifecycle transition (`invited` / `active` / `suspended` / `offboarded`) |
+| DELETE | `/people/:id` | `people:write` | Remove a person |
+| GET | `/people/:id/background-checks` | `people:read` | Background-check history |
+| POST | `/people/:id/background-checks` | `people:write` | Record a background check |
+| PATCH | `/people/:id/background-checks/:checkId` | `people:write` | Update a background check |
+| GET | `/people/:id/checklist` | `people:read` | Onboarding / offboarding checklist |
+| POST | `/people/:id/checklist/seed` | `people:write` | Seed the checklist from the tenant template |
+| POST | `/people/:id/checklist/:itemId/complete` | `people:write` | Mark a checklist item done |
+
+**Self-service portal** (`member` role — every read path scopes strictly to the calling person):
+
+| Method | Endpoint | Auth | Description |
+| --- | --- | --- | --- |
+| GET | `/people/me` | `self:read` | Own profile + devices |
+| GET | `/people/me/policies` | `self:read` | Own assigned policies + acknowledgement status |
+| POST | `/people/me/policies/:id/acknowledge` | `self:write` | Acknowledge an assigned policy |
+| GET | `/people/me/training` | `self:read` | Own assigned training + completion status |
+| POST | `/people/me/training/:id/complete` | `self:write` | Complete an assigned training |
 
 ### Incidents
 
@@ -487,9 +540,9 @@ Query filters: `type`, `status`, `frameworkInstanceId`
 
 ---
 
-## Collector Service (Port 4001)
+## Collector Service (Port 15003)
 
-Base URL: `http://localhost:4001`. The Collector mounts routes **at the root** — there is no `/api` prefix.
+Base URL: `http://localhost:15003`. The Collector mounts routes **at the root** — there is no `/api` prefix.
 
 Auth model on the Collector:
 

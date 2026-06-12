@@ -67,25 +67,32 @@ trustalo/
 │   │       ├── lib/                   Crypto envelope, service-auth, queue, audit
 │   │       ├── middleware/            Auth, tenant context, error handling, logging
 │   │       ├── modules/               API domain modules (router/service/validation)
-│   │       │   ├── auth/
+│   │       │   ├── auth/              Login, invite, PKCE device-authorization
 │   │       │   ├── frameworks/
 │   │       │   ├── controls/
+│   │       │   ├── control-weaknesses/
 │   │       │   ├── policies/
 │   │       │   ├── risks/
+│   │       │   ├── vulnerabilities/
 │   │       │   ├── evidence/
 │   │       │   ├── vendors/
 │   │       │   ├── assets/
+│   │       │   ├── devices/           Endpoint device posture (agent + admin routers, sweep)
 │   │       │   ├── incidents/
 │   │       │   ├── audits/
 │   │       │   ├── bcp/
+│   │       │   ├── ai-config/
 │   │       │   ├── ai-governance/
 │   │       │   ├── training/
 │   │       │   ├── trust-center/
 │   │       │   ├── organizations/
+│   │       │   ├── people/            HR/personnel directory (Person; replaced Membership)
+│   │       │   ├── directory-sync/    Entra/Google SCIM-style People populate (EE)
 │   │       │   ├── tasks/
 │   │       │   ├── questionnaires/
 │   │       │   ├── chat/
 │   │       │   ├── privacy/
+│   │       │   ├── license/           Enterprise license status
 │   │       │   ├── internal/          HMAC-gated service-to-service routes
 │   │       │   └── dashboards/
 │   │       └── mongodb/models/        Mongoose document models
@@ -100,19 +107,28 @@ trustalo/
 │   │       ├── middleware/
 │   │       ├── routes/                Providers, connections, jobs, sync-logs
 │   │       └── research/              Periodic vendor research scheduler
-│   └── web/
-│       └── src/
-│           ├── app/                   Next.js App Router pages
-│           ├── components/ui/         Shared UI components
-│           ├── lib/                   API + Collector HTTP clients
-│           └── proxy.ts               Per-request CSP nonce + security headers
+│   ├── web/
+│   │   └── src/
+│   │       ├── app/                   Next.js App Router pages
+│   │       ├── components/ui/         Shared UI components
+│   │       ├── components/device/     Device detail drawer (shared fleet + People view)
+│   │       ├── lib/                   API + Collector HTTP clients
+│   │       └── proxy.ts               Per-request CSP nonce + security headers
+│   └── device-agent/                 Go endpoint-posture agent (NOT a Bun workspace)
+│       ├── cmd/agentd                 Headless daemon / CLI (login, handle-url, service)
+│       ├── cmd/tray                   Resident menu-bar app (runs the agent in-process)
+│       ├── internal/                  agent · authflow · collect (per-OS) · apiclient · report
+│       └── Makefile                   Go build/test loop (make app | once | loop | test)
 ├── packages/
 │   ├── shared/src/                    Types, Zod schemas, constants, utilities
 │   ├── auth/src/                      JWT, RBAC, middleware (cookie + bearer)
-│   ├── auth-provider-{local,cognito,keycloak}/
+│   ├── auth-provider-{local,cognito,keycloak,google,microsoft}/
+│   ├── auth-provider-saml.ee/         SAML SSO (Enterprise)
 │   ├── storage/src/                   Storage interface + S3 provider
 │   ├── queue/src/                     Queue interface + SQS provider
 │   ├── ai/                            Provider resolution, PII scrubber, prompt guard
+│   ├── license/                       Enterprise license gating (assertEnterpriseLicense)
+│   ├── billing.ee/                    Enterprise billing/subscription
 │   └── integration-manifests/         Per-provider check manifests
 ├── docs/                              Long-form documentation (this folder)
 ├── examples/                          Worked examples (auth provider template, …)
@@ -120,6 +136,8 @@ trustalo/
 ├── package.json                       Workspace scripts
 └── tsconfig.base.json                 Shared TypeScript config
 ```
+
+> **`apps/device-agent` is a Go module, not part of the Bun/Turborepo workspace.** It builds and tests with its own [`Makefile`](../apps/device-agent/Makefile) (`make app` / `make once` / `make loop` / `make test`) and Go toolchain (1.23+), and releases via `.github/workflows/agent.yml` / GoReleaser. The repo-level `bun run build` / `typecheck` / `test` scripts do not touch it. See [`device-agent.md`](device-agent.md) for the full run/test loop.
 
 ---
 
@@ -190,5 +208,7 @@ Before opening a PR:
 - [`api-reference.md`](api-reference.md) — REST endpoints.
 - [`ai-features.md`](ai-features.md) — operator + tenant AI configuration and audit.
 - [`integrations.md`](integrations.md) — adding a Collector integration provider.
+- [`people.md`](people.md) — People directory / HR (the `Person` model that replaced `Membership`).
+- [`device-agent.md`](device-agent.md) — endpoint device-posture agent (Go) and its server protocol.
 - [`permissions-matrix.md`](permissions-matrix.md) — roles and the permissions each one grants.
 - [`compliance-frameworks.md`](compliance-frameworks.md) — supported frameworks and mappings.

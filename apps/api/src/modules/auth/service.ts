@@ -4,8 +4,8 @@
 // invite) ends in `completeLogin(profile)`, which:
 //   1. Finds-or-creates the User row keyed by (authProvider, externalId)
 //      with verified-email fallback to email-based linking.
-//   2. Ensures the user has an active Membership in some Organization,
-//      auto-creating the bootstrap org for the very first user.
+//   2. Ensures the user has an active Person in some Tenant, auto-creating
+//      the bootstrap tenant for the very first user.
 //   3. Mints Trustalo's JWT and returns the standard auth payload.
 //
 // Provider plugins never write to the User table — that contract is what

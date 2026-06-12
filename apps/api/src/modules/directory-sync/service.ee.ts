@@ -9,7 +9,7 @@ import { decryptStringMaybe, encryptStringMaybe } from "../../lib/crypto-envelop
 
 export const DIRECTORY_SYNC_FREQUENCIES = [1440, 10080] as const;
 
-const membershipRoleSchema = z.enum([
+const directoryRoleSchema = z.enum([
   "admin",
   "compliance_manager",
   "auditor",
@@ -21,7 +21,7 @@ const membershipRoleSchema = z.enum([
 const groupRoleMappingSchema = z.object({
   externalGroupId: z.string().trim().min(1),
   externalGroupName: z.string().trim().optional().nullable(),
-  role: membershipRoleSchema,
+  role: directoryRoleSchema,
 });
 
 const defaultStatusSchema = z.enum(["active", "invited"]);
@@ -42,7 +42,7 @@ export const directoryProviderSchema = z.enum(["entra", "google_workspace"]);
 export const upsertDirectorySyncConfigSchema = z.object({
   isEnabled: z.boolean().default(true),
   syncFrequencyMinutes: z.union([z.literal(1440), z.literal(10080)]).default(1440),
-  defaultRole: membershipRoleSchema.default("viewer"),
+  defaultRole: directoryRoleSchema.default("viewer"),
   defaultStatus: defaultStatusSchema.default("invited"),
   groupRoleMappings: z.array(groupRoleMappingSchema).max(50).default([]),
   credentials: z.union([entraCredentialsSchema, googleWorkspaceCredentialsSchema]),
@@ -295,9 +295,9 @@ export async function executeDirectorySyncRun(runId: string): Promise<void> {
       const resolvedRole = resolveRoleForUser(
         extUser.groupIds,
         groupRoleMappings,
-        run.config.defaultRole as z.infer<typeof membershipRoleSchema>,
+        run.config.defaultRole as z.infer<typeof directoryRoleSchema>,
       );
-      const desiredStatus = resolveMembershipStatus(extUser.isActive, run.config.defaultStatus);
+      const desiredStatus = resolvePersonStatus(extUser.isActive, run.config.defaultStatus);
       const email = extUser.email.toLowerCase();
       const displayName = extUser.displayName ?? email.split("@")[0] ?? "Directory User";
 
@@ -460,7 +460,7 @@ export async function executeDirectorySyncRun(runId: string): Promise<void> {
   }
 }
 
-function resolveMembershipStatus(isActive: boolean, defaultStatus: DefaultStatus) {
+function resolvePersonStatus(isActive: boolean, defaultStatus: DefaultStatus) {
   if (!isActive) return "suspended" as const;
   return defaultStatus;
 }
@@ -468,7 +468,7 @@ function resolveMembershipStatus(isActive: boolean, defaultStatus: DefaultStatus
 function resolveRoleForUser(
   userGroupIds: string[],
   mappings: GroupRoleMapping[],
-  fallbackRole: z.infer<typeof membershipRoleSchema>,
+  fallbackRole: z.infer<typeof directoryRoleSchema>,
 ) {
   if (mappings.length === 0 || userGroupIds.length === 0) return fallbackRole;
   const role = mappings.find((mapping) => userGroupIds.includes(mapping.externalGroupId))?.role;

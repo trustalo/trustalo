@@ -87,7 +87,10 @@ function CredentialLoginForm({ config }: { config: AuthProviderDescriptor }) {
     try {
       const result = await apiClient.login(email, password);
       apiClient.setToken((result as any).data?.token ?? (result as any).token);
-      window.location.href = readNextFromQuery() ?? "/dashboard";
+      // Resolve `next` against our own origin and navigate only if it stays
+      // same-origin (blocks open redirect / javascript: URLs).
+      const dest = new URL(readNextFromQuery() ?? "/dashboard", window.location.origin);
+      window.location.href = dest.origin === window.location.origin ? dest.href : "/dashboard";
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
     } finally {

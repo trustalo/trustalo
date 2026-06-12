@@ -99,10 +99,14 @@ export default function DeviceAuthorizePage() {
         codeChallenge: params.challenge,
         redirectUri: params.redirectUri,
       });
-      const sep = params.redirectUri.includes("?") ? "&" : "?";
-      const back = `${params.redirectUri}${sep}code=${encodeURIComponent(
+      // Build the deep link entirely from the SERVER response: the API
+      // re-validated redirect_uri (assertAllowedDeviceRedirect) and echoes it +
+      // state back, so the redirect target is server-controlled and no
+      // window.location value flows into window.location.href / the <a href>.
+      const sep = res.data.redirectUri.includes("?") ? "&" : "?";
+      const back = `${res.data.redirectUri}${sep}code=${encodeURIComponent(
         res.data.code,
-      )}&state=${encodeURIComponent(params.state)}`;
+      )}&state=${encodeURIComponent(res.data.state)}`;
       setCallbackUrl(back);
       setPhase("sent");
       // Deep-link to the agent. Browsers may require the click below for custom

@@ -53,7 +53,10 @@ export default function AuthCallbackPage() {
         const token = (result as any).data?.token ?? (result as any).token;
         if (!token) throw new Error("API response did not include a token");
         apiClient.setToken(token);
-        window.location.href = takeNext();
+        // Resolve the post-login target against our own origin and navigate
+        // only if it stays same-origin (blocks open redirect / javascript: URLs).
+        const dest = new URL(takeNext(), window.location.origin);
+        window.location.href = dest.origin === window.location.origin ? dest.href : "/dashboard";
       })
       .catch((err) => {
         setError(err instanceof Error ? err.message : "Sign-in failed");

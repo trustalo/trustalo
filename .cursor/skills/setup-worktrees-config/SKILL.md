@@ -3,6 +3,7 @@ name: setup-worktrees-config
 description: >-
   Create or update the trustalo .cursor/worktrees.json so every new Cursor worktree is rebuilt from the latest origin/main, runs bun install, and copies required .env files from the root worktree. Use when the user explicitly asks to set up, refresh, or extend the trustalo worktree configuration, the setup-worktree hook, or ensure new worktrees start from the latest main.
 
+
 disable-model-invocation: true
 ---
 

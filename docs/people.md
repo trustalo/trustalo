@@ -12,7 +12,7 @@ The migration was deliberately phased and **non-destructive**:
 
 1. `Person` added + **backfilled** one row per existing `Membership` (same `role`, `permissions`, `status`, linked `userId`, email/name from `User`).
 2. Auth (`login` / `invite` / `getMe`), the members API, directory-sync, and the owner-lookup worker were switched to read/write `Person`.
-3. `Membership` is retained read-only as the backfill source and dropped in a later migration **only after the new path is verified**.
+3. `Membership` was retained read-only as the backfill source, then **dropped** once the `Person` path was verified (migration `20260613120000_drop_membership`, which also repointed `DirectorySyncConfig.defaultRole` to the `PersonRole` enum).
 
 ## Auth & RBAC (unchanged contract)
 

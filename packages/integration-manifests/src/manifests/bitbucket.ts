@@ -21,7 +21,7 @@ export const bitbucketManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.3" },
-        { framework: "iso27001", requirement: "A.9.4.2" },
+        { framework: "iso27001", requirement: "A.8.5" },
         { framework: "hipaa", requirement: "164.308(a)(4)(ii)(B)" },
         { framework: "pci_dss_4", requirement: "7.2.1" },
         { framework: "pci_dss_4", requirement: "7.2.4" },
@@ -35,7 +35,7 @@ export const bitbucketManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.7" },
-        { framework: "iso27001", requirement: "A.9.4.1" },
+        { framework: "iso27001", requirement: "A.8.3" },
         { framework: "hipaa", requirement: "164.308(a)(4)(ii)(B)" },
         { framework: "pci_dss_4", requirement: "7.2.1" },
         { framework: "pci_dss_4", requirement: "7.2.2" },
@@ -48,7 +48,7 @@ export const bitbucketManifest: Manifest = {
       defaultSeverity: "high",
       controlMappings: [
         { framework: "soc2", requirement: "CC8.1" },
-        { framework: "iso27001", requirement: "A.14.2.2" },
+        { framework: "iso27001", requirement: "A.8.32" },
         { framework: "pci_dss_4", requirement: "6.2.1" },
         { framework: "pci_dss_4", requirement: "6.5.1" },
       ],
@@ -60,7 +60,7 @@ export const bitbucketManifest: Manifest = {
       defaultSeverity: "medium",
       controlMappings: [
         { framework: "soc2", requirement: "CC8.1" },
-        { framework: "iso27001", requirement: "A.14.2.2" },
+        { framework: "iso27001", requirement: "A.8.32" },
         { framework: "pci_dss_4", requirement: "6.2.1" },
         { framework: "pci_dss_4", requirement: "6.5.1" },
       ],

@@ -53,14 +53,22 @@ const identifiersByFramework = new Map<string, Set<string>>(
   ALL_FRAMEWORKS.map((f) => [f.frameworkType, new Set(f.requirements.map((r) => r.identifier))]),
 );
 
-/** Frameworks whose manifest refs we hard-assert (authored in this repo, exactly). */
-const STRICT_FRAMEWORKS = new Set(["hipaa", "pci_dss_4"]);
+/**
+ * Frameworks whose manifest refs we hard-assert resolve exactly. A miss here is
+ * a real evidence-orphaning bug, not an intentional forward-reference. `soc2`,
+ * `gdpr`, `cps234` etc. are not yet listed only because their manifest refs have
+ * not all been reconciled against the seeded catalog — the warn-only pass below
+ * surfaces those. `iso27001` was added after remapping every manifest from the
+ * 2013 Annex A numbering to ISO 27001:2022 (Annex B); `essential8` after fixing
+ * the `ML2-MFA` → `E8-MFA-ML2` identifier.
+ */
+const STRICT_FRAMEWORKS = new Set(["hipaa", "pci_dss_4", "iso27001", "essential8"]);
 
 describe("manifest FrameworkRefs resolve against the seeded catalog", () => {
   for (const manifest of MANIFESTS) {
     const refs = collectAllFrameworkRefs(manifest);
 
-    test(`${manifest.connector}: HIPAA / PCI DSS refs all resolve to real requirements`, () => {
+    test(`${manifest.connector}: strict-framework refs all resolve to real requirements`, () => {
       const unresolved: string[] = [];
       for (const ref of refs) {
         if (!STRICT_FRAMEWORKS.has(ref.framework)) continue;

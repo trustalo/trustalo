@@ -27,7 +27,7 @@ export const gcpManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.3" },
-        { framework: "iso27001", requirement: "A.9.2.3" },
+        { framework: "iso27001", requirement: "A.8.2" },
         { framework: "hipaa", requirement: "164.308(a)(4)(ii)(B)" },
         { framework: "hipaa", requirement: "164.308(a)(4)(ii)(C)" },
         { framework: "pci_dss_4", requirement: "7.2.1" },
@@ -40,7 +40,7 @@ export const gcpManifest: Manifest = {
       description: "All service accounts in the project.",
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "iso27001", requirement: "A.9.2.1" },
+        { framework: "iso27001", requirement: "A.5.16" },
         { framework: "hipaa", requirement: "164.308(a)(4)(ii)(B)" },
         { framework: "pci_dss_4", requirement: "7.2.5" },
       ],
@@ -53,7 +53,7 @@ export const gcpManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.6" },
-        { framework: "iso27001", requirement: "A.13.1.1" },
+        { framework: "iso27001", requirement: "A.8.20" },
         { framework: "pci_dss_4", requirement: "1.4.1" },
       ],
     },
@@ -65,7 +65,7 @@ export const gcpManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.6" },
-        { framework: "iso27001", requirement: "A.13.1.1" },
+        { framework: "iso27001", requirement: "A.8.20" },
         { framework: "pci_dss_4", requirement: "1.3.1" },
         { framework: "pci_dss_4", requirement: "1.4.1" },
       ],
@@ -78,7 +78,7 @@ export const gcpManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.7" },
-        { framework: "iso27001", requirement: "A.10.1.1" },
+        { framework: "iso27001", requirement: "A.8.24" },
         { framework: "pci_dss_4", requirement: "1.4.1" },
       ],
     },
@@ -89,7 +89,7 @@ export const gcpManifest: Manifest = {
       defaultSeverity: "high",
       controlMappings: [
         { framework: "soc2", requirement: "CC7.2" },
-        { framework: "iso27001", requirement: "A.12.4.1" },
+        { framework: "iso27001", requirement: "A.8.15" },
         { framework: "hipaa", requirement: "164.312(b)" },
         { framework: "hipaa", requirement: "164.308(a)(1)(ii)(D)" },
         { framework: "pci_dss_4", requirement: "10.2.1" },

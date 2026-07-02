@@ -23,7 +23,7 @@ export const auth0Manifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.3" },
-        { framework: "iso27001", requirement: "A.9.4.2" },
+        { framework: "iso27001", requirement: "A.8.5" },
         { framework: "hipaa", requirement: "164.312(d)" },
         { framework: "pci_dss_4", requirement: "8.4.1" },
         { framework: "pci_dss_4", requirement: "8.4.2" },
@@ -35,7 +35,7 @@ export const auth0Manifest: Manifest = {
       description: "Tenant user count and identifier metadata.",
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "iso27001", requirement: "A.9.2.1" },
+        { framework: "iso27001", requirement: "A.5.16" },
         { framework: "hipaa", requirement: "164.312(a)(2)(i)" },
         { framework: "pci_dss_4", requirement: "8.2.1" },
       ],
@@ -46,7 +46,7 @@ export const auth0Manifest: Manifest = {
       description: "Configured database / social / enterprise connections.",
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "iso27001", requirement: "A.9.4.1" },
+        { framework: "iso27001", requirement: "A.8.3" },
         { framework: "hipaa", requirement: "164.312(d)" },
       ],
     },
@@ -56,7 +56,7 @@ export const auth0Manifest: Manifest = {
       description: "Auth0 rules (legacy authorization extensions).",
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "iso27001", requirement: "A.9.4.1" },
+        { framework: "iso27001", requirement: "A.8.3" },
         { framework: "hipaa", requirement: "164.308(a)(4)(ii)(B)" },
       ],
     },
@@ -66,7 +66,7 @@ export const auth0Manifest: Manifest = {
       description: "Deployed Auth0 actions.",
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "iso27001", requirement: "A.9.4.1" },
+        { framework: "iso27001", requirement: "A.8.3" },
         { framework: "hipaa", requirement: "164.308(a)(4)(ii)(B)" },
       ],
     },
@@ -77,7 +77,7 @@ export const auth0Manifest: Manifest = {
       defaultSeverity: "medium",
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "iso27001", requirement: "A.14.1.2" },
+        { framework: "iso27001", requirement: "A.8.26" },
         { framework: "pci_dss_4", requirement: "6.2.4" },
       ],
     },
@@ -88,7 +88,7 @@ export const auth0Manifest: Manifest = {
       defaultSeverity: "medium",
       controlMappings: [
         { framework: "soc2", requirement: "CC7.2" },
-        { framework: "iso27001", requirement: "A.12.4.1" },
+        { framework: "iso27001", requirement: "A.8.15" },
         { framework: "hipaa", requirement: "164.312(b)" },
         { framework: "hipaa", requirement: "164.308(a)(5)(ii)(C)" },
         { framework: "pci_dss_4", requirement: "10.2.1" },

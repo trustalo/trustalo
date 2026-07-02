@@ -27,7 +27,7 @@ export const microsoft365Manifest: Manifest = {
       params: { api: "graph.policies.conditionalAccessPolicies" },
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "essential8", requirement: "ML2-MFA" },
+        { framework: "essential8", requirement: "E8-MFA-ML2" },
         { framework: "hipaa", requirement: "164.312(d)" },
         { framework: "pci_dss_4", requirement: "8.4.1" },
         { framework: "pci_dss_4", requirement: "8.4.2" },
@@ -69,7 +69,7 @@ export const microsoft365Manifest: Manifest = {
       description: "All users with enabled/disabled status.",
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "iso27001", requirement: "A.9.2.1" },
+        { framework: "iso27001", requirement: "A.5.16" },
         { framework: "hipaa", requirement: "164.312(a)(2)(i)" },
         { framework: "pci_dss_4", requirement: "8.2.1" },
       ],
@@ -82,7 +82,7 @@ export const microsoft365Manifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.3" },
-        { framework: "iso27001", requirement: "A.9.4.2" },
+        { framework: "iso27001", requirement: "A.8.5" },
         { framework: "hipaa", requirement: "164.312(d)" },
         { framework: "pci_dss_4", requirement: "8.4.1" },
         { framework: "pci_dss_4", requirement: "8.4.2" },
@@ -95,7 +95,7 @@ export const microsoft365Manifest: Manifest = {
       defaultSeverity: "high",
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "iso27001", requirement: "A.9.4.1" },
+        { framework: "iso27001", requirement: "A.8.3" },
         { framework: "hipaa", requirement: "164.312(d)" },
         { framework: "pci_dss_4", requirement: "1.3.1" },
       ],
@@ -106,7 +106,7 @@ export const microsoft365Manifest: Manifest = {
       description: "Security-enabled directory groups.",
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "iso27001", requirement: "A.9.2.3" },
+        { framework: "iso27001", requirement: "A.8.2" },
         { framework: "hipaa", requirement: "164.308(a)(4)(ii)(C)" },
         { framework: "pci_dss_4", requirement: "7.2.1" },
       ],
@@ -118,7 +118,7 @@ export const microsoft365Manifest: Manifest = {
       defaultSeverity: "high",
       controlMappings: [
         { framework: "soc2", requirement: "CC7.1" },
-        { framework: "iso27001", requirement: "A.18.2.2" },
+        { framework: "iso27001", requirement: "A.5.36" },
         { framework: "hipaa", requirement: "164.308(a)(8)" },
       ],
     },
@@ -129,7 +129,7 @@ export const microsoft365Manifest: Manifest = {
       defaultSeverity: "medium",
       controlMappings: [
         { framework: "soc2", requirement: "CC7.2" },
-        { framework: "iso27001", requirement: "A.12.4.1" },
+        { framework: "iso27001", requirement: "A.8.15" },
         { framework: "hipaa", requirement: "164.308(a)(5)(ii)(C)" },
         { framework: "hipaa", requirement: "164.312(b)" },
         { framework: "pci_dss_4", requirement: "10.2.1" },

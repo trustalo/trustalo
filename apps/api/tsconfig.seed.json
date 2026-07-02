@@ -1,0 +1,19 @@
+{
+  // Typecheck coverage for the Prisma seed scripts (prisma/*.ts), which the
+  // main tsconfig.json deliberately excludes (it only compiles src/**). Without
+  // this, seed.ts / seed-demo.ts / seed-policy-templates.ts never pass through
+  // `bun run typecheck` — which is how a call to the dropped `Membership` model
+  // once shipped. Wired into the api package's typecheck + lint scripts.
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["bun"],
+    // The seed scripts index into fixed-size literal arrays inside bounded
+    // loops throughout (provably in-bounds), which trips noUncheckedIndexedAccess
+    // with ~130 false positives. Relax just this one strictness flag for seeds;
+    // all other strict checks — including "property does not exist on the Prisma
+    // client", which catches dropped-model regressions — stay on.
+    "noUncheckedIndexedAccess": false
+  },
+  "include": ["prisma/*.ts"]
+}

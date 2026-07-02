@@ -134,16 +134,17 @@ For brevity, the remaining tables omit the `/api/v1` prefix — every endpoint i
 
 ### Frameworks
 
-| Method | Endpoint                                | Description                        |
-| ------ | --------------------------------------- | ---------------------------------- |
-| GET    | `/frameworks`                           | List available frameworks          |
-| GET    | `/frameworks/:id`                       | Get framework details              |
-| GET    | `/frameworks/:id/requirements`          | List framework requirements        |
-| POST   | `/framework-instances`                  | Activate a framework for the org   |
-| GET    | `/framework-instances`                  | List activated framework instances |
-| GET    | `/framework-instances/:id`              | Get instance with progress stats   |
-| PATCH  | `/framework-instances/:id`              | Update scope, target date, status  |
-| GET    | `/framework-instances/:id/gap-analysis` | Get gap analysis report            |
+| Method | Endpoint                                  | Description                                |
+| ------ | ----------------------------------------- | ------------------------------------------ |
+| GET    | `/frameworks`                             | List available frameworks                  |
+| GET    | `/frameworks/:id`                         | Get framework details                      |
+| GET    | `/frameworks/:id/requirements`            | List framework requirements                |
+| POST   | `/framework-instances`                    | Activate a framework for the org           |
+| GET    | `/framework-instances`                    | List activated framework instances         |
+| GET    | `/framework-instances/:id`                | Get instance with progress stats           |
+| PATCH  | `/framework-instances/:id`                | Update scope, target date, status          |
+| GET    | `/framework-instances/:id/gap-analysis`   | Get gap analysis report                    |
+| GET    | `/frameworks/instances/:id/audit-package` | Download the auditor handoff package (ZIP) |
 
 **POST /framework-instances** -- Example:
 
@@ -168,6 +169,20 @@ For brevity, the remaining tables omit the `/api/v1` prefix — every endpoint i
   }
 }
 ```
+
+**GET /frameworks/instances/:id/audit-package** — Auditor handoff package
+
+Streams a ZIP (`Content-Type: application/zip`) bundling everything an external auditor needs for the framework instance:
+
+| Path in ZIP | Contents |
+| --- | --- |
+| `manifest.json` | Package format version, generated-at, exporting user, organization name, framework name/version, control counts by status, evidence counts, files included/skipped |
+| `controls.csv` | One row per mapped requirement: identifier, title, category, control id/title/status, owner, linked evidence ids |
+| `soa.csv` | Statement of Applicability: applicability (derived from `not_applicable` control status), justification (control implementation details), implementation status |
+| `evidence/index.csv` | All evidence for the instance's controls: id, title, source (`manual` / `hr_advisory` / `integration`), source type, status, created-at, linked requirements, in-zip file name |
+| `evidence/files/…` | Stored files for **approved** evidence only. Files over 50 MB — or past the 500 MB package cap — are skipped with a note in `evidence/index.csv` |
+
+Requires the `frameworks:read`, `evidence:read` and `audits:read` permissions (owner, admin, compliance_manager, auditor, viewer, dpo). Each export writes an `AuditPackageExported` entry to the audit log.
 
 ### Controls
 

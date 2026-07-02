@@ -23,6 +23,8 @@ const FRAMEWORK_VARIANT: Partial<Record<FrameworkType, BadgeVariant>> = {
   nist_csf_2: "info",
   gdpr: "info",
   cps234: "warning",
+  hipaa: "success",
+  pci_dss_4: "info",
 };
 
 const FRAMEWORK_LABEL: Partial<Record<FrameworkType, string>> = {
@@ -36,6 +38,8 @@ const FRAMEWORK_LABEL: Partial<Record<FrameworkType, string>> = {
   nist_csf_2: "CSF",
   gdpr: "GDPR",
   cps234: "CPS 234",
+  hipaa: "HIPAA",
+  pci_dss_4: "PCI DSS",
 };
 
 const RELATIONSHIP_LABEL: Record<CrossFrameworkRelationship, string> = {

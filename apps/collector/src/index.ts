@@ -8,6 +8,7 @@ import { globalRateLimiter } from "./middleware/rate-limit.js";
 import { csrfProtection } from "./middleware/csrf.js";
 import { providersRouter } from "./routes/providers.js";
 import { connectionsRouter } from "./routes/connections.js";
+import { checksRouter } from "./routes/checks.js";
 import { jobsRouter } from "./routes/jobs.js";
 import { syncLogsRouter } from "./routes/sync-logs.js";
 import { startScheduler, stopScheduler } from "./scheduler/index.js";
@@ -74,6 +75,7 @@ app.use(authenticate(JWT_SECRET, { allowCookie: false }));
 app.use(extractTenantContext());
 
 app.use("/connections", connectionsRouter);
+app.use("/checks", checksRouter);
 app.use("/jobs", jobsRouter);
 app.use("/sync-logs", syncLogsRouter);
 

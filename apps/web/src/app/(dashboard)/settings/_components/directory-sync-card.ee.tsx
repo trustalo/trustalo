@@ -1,3 +1,12 @@
+// SPDX-License-Identifier: LicenseRef-Trustalo-Enterprise-1.0
+
+/**
+ * Directory Sync admin card (Settings → General). Enterprise-only
+ * (`sso` feature): the whole card body is replaced by the standard
+ * amber upgrade state when the deployment is unlicensed — proactively
+ * via `useEnterpriseGated()`, or reactively when the API answers 402.
+ */
+
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -10,6 +19,11 @@ import type {
   GoogleWorkspaceDirectorySyncCredentials,
   UpsertDirectorySyncConfigInput,
 } from "@/lib/api-client";
+import {
+  ENTERPRISE_REQUIRED_MESSAGE,
+  isEnterpriseLicenseError,
+  useEnterpriseGated,
+} from "@/lib/enterprise-license";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -88,13 +102,27 @@ function formatDate(value: string | null) {
   return date.toLocaleString();
 }
 
+/** "12 found · 3 created · 2 updated · 1 suspended" for a finished run. */
+function runCounts(run: DirectorySyncRun): string {
+  return [
+    `${run.usersDiscovered} found`,
+    `${run.usersCreated} created`,
+    `${run.usersUpdated} updated`,
+    `${run.usersSuspended} suspended`,
+  ].join(" · ");
+}
+
 export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
+  const gated = useEnterpriseGated();
+  const [licenseBlocked, setLicenseBlocked] = useState(false);
   const [configs, setConfigs] = useState<DirectorySyncConfig[]>([]);
   const [runs, setRuns] = useState<DirectorySyncRun[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [syncingProvider, setSyncingProvider] = useState<DirectorySyncProvider | null>(null);
+  const [togglingProvider, setTogglingProvider] = useState<DirectorySyncProvider | null>(null);
   const [testing, setTesting] = useState(false);
   const [modalProvider, setModalProvider] = useState<DirectorySyncProvider | null>(null);
   const [draft, setDraft] = useState<DraftState>(getDefaultDraft(null));
@@ -108,6 +136,15 @@ export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
     return map;
   }, [configs]);
 
+  // Latest finished run per provider, for the "last sync" count summary.
+  const lastRunMap = useMemo(() => {
+    const map = new Map<DirectorySyncProvider, DirectorySyncRun>();
+    for (const run of runs) {
+      if (!map.has(run.provider)) map.set(run.provider, run);
+    }
+    return map;
+  }, [runs]);
+
   const fetchData = async () => {
     setLoading(true);
     setError(null);
@@ -118,9 +155,9 @@ export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
       ]);
       setConfigs(configsRes.data);
       setRuns(runsRes.data);
-    } catch (err: any) {
-      if (typeof err?.message === "string" && err.message.includes("402")) {
-        setError("Directory Sync requires an Enterprise license.");
+    } catch (err) {
+      if (isEnterpriseLicenseError(err)) {
+        setLicenseBlocked(true);
       } else {
         setError("Failed to load directory sync settings.");
       }
@@ -179,6 +216,11 @@ export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
       closeModal();
       await fetchData();
     } catch (err: any) {
+      if (isEnterpriseLicenseError(err)) {
+        closeModal();
+        setLicenseBlocked(true);
+        return;
+      }
       setTestMessage(err?.message || "Failed to save configuration.");
     } finally {
       setSaving(false);
@@ -204,11 +246,35 @@ export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
 
   const handleSyncNow = async (provider: DirectorySyncProvider) => {
     setSyncingProvider(provider);
+    setActionError(null);
     try {
       await apiClient.triggerDirectorySync(provider);
       await fetchData();
+    } catch (err: any) {
+      if (isEnterpriseLicenseError(err)) {
+        setLicenseBlocked(true);
+      } else {
+        setActionError(err?.message || "Failed to trigger sync.");
+      }
     } finally {
       setSyncingProvider(null);
+    }
+  };
+
+  const handleToggleEnabled = async (provider: DirectorySyncProvider, isEnabled: boolean) => {
+    setTogglingProvider(provider);
+    setActionError(null);
+    try {
+      await apiClient.patchDirectorySyncConfig(provider, { isEnabled });
+      await fetchData();
+    } catch (err: any) {
+      if (isEnterpriseLicenseError(err)) {
+        setLicenseBlocked(true);
+      } else {
+        setActionError(err?.message || "Failed to update sync state.");
+      }
+    } finally {
+      setTogglingProvider(null);
     }
   };
 
@@ -217,6 +283,8 @@ export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
     await apiClient.deleteDirectorySyncConfig(provider);
     await fetchData();
   };
+
+  const unlicensed = gated || licenseBlocked;
 
   return (
     <Card>
@@ -232,7 +300,23 @@ export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
         <Badge variant="warning">Enterprise</Badge>
       </div>
 
-      {loading ? (
+      {unlicensed ? (
+        <div className="mt-5 rounded-xl border border-amber-300 bg-amber-50 p-4 dark:border-amber-700/60 dark:bg-amber-950/30">
+          <div className="text-sm font-semibold text-amber-900 dark:text-amber-100">
+            Directory Sync — Enterprise feature
+          </div>
+          <p className="mt-0.5 text-xs text-amber-800/90 dark:text-amber-200/90">
+            {ENTERPRISE_REQUIRED_MESSAGE} Once licensed, users from Microsoft Entra ID or Google
+            Workspace are provisioned into your organization automatically.
+          </p>
+          <a
+            href="mailto:sales@trustalo.com?subject=Trustalo%20Enterprise%20License"
+            className="mt-3 inline-block rounded-md border border-amber-400 bg-white px-2.5 py-1 text-xs font-medium text-amber-900 hover:bg-amber-100 dark:border-amber-600 dark:bg-amber-900/30 dark:text-amber-100 dark:hover:bg-amber-900/50"
+          >
+            Contact sales
+          </a>
+        </div>
+      ) : loading ? (
         <div className="mt-5 text-sm text-neutral-500 dark:text-neutral-400">Loading…</div>
       ) : error ? (
         <div className="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
@@ -240,10 +324,16 @@ export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
         </div>
       ) : (
         <>
+          {actionError && (
+            <div className="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
+              {actionError}
+            </div>
+          )}
           <div className="mt-5 space-y-3">
             {(Object.keys(PROVIDER_LABELS) as DirectorySyncProvider[]).map((provider) => {
               const config = configMap.get(provider) ?? null;
               const badge = statusBadge(config);
+              const lastRun = lastRunMap.get(provider) ?? null;
               return (
                 <div
                   key={provider}
@@ -260,6 +350,11 @@ export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
                       <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
                         Last sync: {formatDate(config?.lastSyncAt ?? null)}
                       </p>
+                      {lastRun && lastRun.status === "succeeded" && (
+                        <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+                          {runCounts(lastRun)}
+                        </p>
+                      )}
                       {config?.lastSyncError && (
                         <p className="mt-1 text-xs text-red-600 dark:text-red-400">
                           {config.lastSyncError}
@@ -277,6 +372,15 @@ export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
                             onClick={() => handleSyncNow(provider)}
                           >
                             Sync now
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            disabled={!canWrite || togglingProvider === provider}
+                            loading={togglingProvider === provider}
+                            onClick={() => handleToggleEnabled(provider, !config.isEnabled)}
+                          >
+                            {config.isEnabled ? "Disable" : "Enable"}
                           </Button>
                           <Button
                             size="sm"
@@ -313,6 +417,12 @@ export function DirectorySyncCard({ canWrite }: { canWrite: boolean }) {
                   >
                     <span className="text-neutral-700 dark:text-neutral-300">
                       {PROVIDER_LABELS[run.provider]} · {run.triggeredBy} · {run.status}
+                      {run.status === "succeeded" && (
+                        <span className="text-neutral-500 dark:text-neutral-400">
+                          {" "}
+                          · {runCounts(run)}
+                        </span>
+                      )}
                     </span>
                     <span className="text-neutral-500 dark:text-neutral-400">
                       {formatDate(run.finishedAt ?? run.createdAt)}

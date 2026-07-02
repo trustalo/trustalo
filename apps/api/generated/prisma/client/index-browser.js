@@ -700,6 +700,38 @@ exports.Prisma.IncidentTimelineScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.NotificationChannelScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  type: 'type',
+  name: 'name',
+  configEnc: 'configEnc',
+  enabled: 'enabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AlertRuleScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  ruleKey: 'ruleKey',
+  enabled: 'enabled',
+  config: 'config',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.NotificationDeliveryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  ruleKey: 'ruleKey',
+  dedupeKey: 'dedupeKey',
+  channelId: 'channelId',
+  status: 'status',
+  summary: 'summary',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.PersonScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
@@ -1913,7 +1945,9 @@ exports.FrameworkType = exports.$Enums.FrameworkType = {
   essential8: 'essential8',
   nist_csf_2: 'nist_csf_2',
   gdpr: 'gdpr',
-  cps234: 'cps234'
+  cps234: 'cps234',
+  hipaa: 'hipaa',
+  pci_dss_4: 'pci_dss_4'
 };
 
 exports.FrameworkInstanceStatus = exports.$Enums.FrameworkInstanceStatus = {
@@ -1944,6 +1978,27 @@ exports.IncidentStatus = exports.$Enums.IncidentStatus = {
   resolved: 'resolved',
   closed: 'closed',
   lessons_learned: 'lessons_learned'
+};
+
+exports.NotificationChannelType = exports.$Enums.NotificationChannelType = {
+  email: 'email',
+  slack_webhook: 'slack_webhook',
+  teams_webhook: 'teams_webhook'
+};
+
+exports.AlertRuleKey = exports.$Enums.AlertRuleKey = {
+  control_failing: 'control_failing',
+  integration_sync_failed: 'integration_sync_failed',
+  device_at_risk: 'device_at_risk',
+  person_offboarding_incomplete: 'person_offboarding_incomplete',
+  background_check_expiring: 'background_check_expiring',
+  training_overdue: 'training_overdue',
+  incident_breach_clock: 'incident_breach_clock'
+};
+
+exports.NotificationDeliveryStatus = exports.$Enums.NotificationDeliveryStatus = {
+  sent: 'sent',
+  failed: 'failed'
 };
 
 exports.PersonRole = exports.$Enums.PersonRole = {
@@ -2564,6 +2619,9 @@ exports.Prisma.ModelName = {
   ControlRequirementAssignment: 'ControlRequirementAssignment',
   Incident: 'Incident',
   IncidentTimeline: 'IncidentTimeline',
+  NotificationChannel: 'NotificationChannel',
+  AlertRule: 'AlertRule',
+  NotificationDelivery: 'NotificationDelivery',
   Person: 'Person',
   BackgroundCheck: 'BackgroundCheck',
   PersonChecklistItem: 'PersonChecklistItem',

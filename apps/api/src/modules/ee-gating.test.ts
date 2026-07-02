@@ -128,6 +128,16 @@ const EE_GATES: RouteGate[] = [
     assert: 'await assertEnterpriseLicense("ai")',
   },
 
+  // ── Integrations (AI check generation from prompt) ───────────
+  // Only generation is gated — test/save proxy pure execution and
+  // persistence to the collector (no LLM involved).
+  {
+    label: "integrations.fromPromptGenerate",
+    file: "integrations/router.ts",
+    anchor: 'integrationsRouter.post("/from-prompt",',
+    assert: 'await assertEnterpriseLicense("ai")',
+  },
+
   // ── Trust Center (router-level: all admin endpoints) ─────────
   // The Trust Center gate is applied as a router-level middleware
   // mounted *after* `authorizeResource`, so every admin endpoint

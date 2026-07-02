@@ -10,7 +10,7 @@ From v1.0 onward the AI surface is **tiered**, in lock-step with the EE strategy
 | --- | --- | --- | --- |
 | AI provider factory + resolver chain (`resolveAIProvider`, `createAIProvider`, `AINotConfiguredError`, `AIProviderError`) | Free (core) | `packages/ai/src/{factory,resolve,errors,types}.ts`, `packages/ai/src/providers/` | none — but the EE features it powers are gated |
 | PII scrubber (defence-in-depth) | Free (core) | `packages/ai/src/extraction/scrub.ts` | none |
-| CPS 234 asset-classification bootstrap | Free (core) | `packages/ai/src/extraction/asset-classification.ts` | none |
+| CPS 234 asset-classification bootstrap | Free (core) | `packages/ai/src/extraction/asset-classification.ts`; `apps/api/src/modules/assets/from-text.ts` (`POST /api/v1/assets/from-text`) | none |
 | Operator + per-org AI provider configuration UI/API | Free (core) | `apps/api/src/config/ai.ts`, `apps/api/src/modules/ai-config/router.ts` (admin endpoints) | core — but `POST /generate-quiz` on the same router is EE-gated |
 | Compliance-assistant chat (`chat_assistant`) | **EE** | `apps/api/src/modules/chat/{router,grounding,system-prompt}.ee.ts` | router-level `assertEnterpriseLicense('ai')` plus per-export gates |
 | Long-form context extraction (`context_extraction`) | **EE** | `packages/ai/src/extraction/from-text.ee.ts`; `apps/api/src/modules/organization-context/router.ts` (`POST /from-text` only) | inside `extractContextProposals`; handler-level gate |
@@ -156,7 +156,7 @@ Used when an org enables a provider without specifying a model (and the operator
 
 - **`scrubPii(text)`** — regex-based redaction of email, phone, IP, large numbers, URL credentials. Returns `{ text, redactions, total }`. Run on user-supplied text **before** it reaches any provider in chat and context-extraction.
 - **`extractContextProposals(provider, input)`** — system+user prompts ask for compliance org-facts proposals; caps proposals at 8 (ceiling 20), truncates input at 12k chars, limits existing-fact refs to 60. Calls `provider.chat({ temperature: 0.1, responseFormat: "json", maxTokens: 1500 })`. Strips markdown fences, validates with Zod `ExtractionResultSchema`, falls back to per-element `rescuePartial`. Strips invalid `supersedesContextId`.
-- **`extractAssetClassifications(provider, input)`** — CPS 234 Para 23 bootstrap. Reads pasted architecture / data-flow prose and returns `(name, sensitivity, criticality, kind?, confidence)` proposals using fixed tier vocabularies (`Restricted | Confidential | Internal | Public` × `Critical | High | Medium | Low`). Default cap 12 (ceiling 30). Mirrors `extractContextProposals` conventions: PII pre-pass via `scrubPii`, `provider.chat({ temperature: 0.1, responseFormat: "json", maxTokens: 1500 })`, Zod-validated with per-element `rescuePartial`. The helper is **not yet wired to an API route**; callers (today: anticipated `/api/v1/assets/from-text`) are responsible for `resolveOrgAI("context_extraction")` resolution, audit logging, and rate-limiting. See [§8](#8-known-gaps--alternatives).
+- **`extractAssetClassifications(provider, input)`** — CPS 234 Para 23 bootstrap. Reads pasted architecture / data-flow prose and returns `(name, sensitivity, criticality, kind?, confidence)` proposals using fixed tier vocabularies (`Restricted | Confidential | Internal | Public` × `Critical | High | Medium | Low`). Default cap 12 (ceiling 30). Mirrors `extractContextProposals` conventions: PII pre-pass via `scrubPii`, `provider.chat({ temperature: 0.1, responseFormat: "json", maxTokens: 1500 })`, Zod-validated with per-element `rescuePartial`. Wired to `POST /api/v1/assets/from-text` (`apps/api/src/modules/assets/from-text.ts` + `router.ts`), which handles `resolveOrgAI("context_extraction")` resolution, `AssetAIClassification` audit logging, and rate-limiting via the shared `context_extraction` token bucket.
 - **`generateQuizQuestions(provider, input)`** — quiz prompt builder; calls `provider.chat({ temperature: 0.7, maxTokens: 4096, responseFormat: "json" })`. Throws if `questions` is missing in the response.
 
 ### 2.6 What the package does **not** do
@@ -240,7 +240,7 @@ Caveat: the route's Zod `featureEnum` does **not** include `chat_assistant`, `co
 | --- | --- | --- | --- | --- | --- |
 | 1 | `chat_assistant` | Compliance Assistant chat drawer | `POST /api/v1/chat/conversations/:id/turn[/stream]` | `resolveOrgAI` | Sync chat; SSE transport (single-token frame today) |
 | 2 | `context_extraction` | Settings → AI context "Paste text"; chat side-effect | `POST /api/v1/organization-context/from-text`; chat turn second pass | `resolveOrgAI` | Sync |
-| 3 | `questionnaire_answering` | Questionnaire **import** mapping | `POST /api/v1/questionnaires` (file/CSV) | `resolveOrgAI` | Async (in-process `setImmediate`) |
+| 3 | `questionnaire_answering` | Questionnaire **import** mapping | `POST /api/v1/questionnaires` (file/CSV) | `resolveOrgAI` | Async (SQS `trustalo-questionnaire-import-jobs`; in-process fallback when the queue is unreachable) |
 | 4 | `questionnaire_answering` | Questionnaire **AI answer** (single + bulk) | `POST /api/v1/questionnaires/:id/answer-all` and `…/questions/:qid/answer` | `resolveOrgAI` | Sync (bulk: bounded concurrency 4) |
 | 5 | `policy_generation` | Rich-text editor "AI Write" | `POST /api/v1/policies/:id/ai/generate` | `resolveOrgAI` | Sync |
 | 6 | `policy_generation` | "Generate from context" placeholder fill | `POST /api/v1/policies/:id/ai/draft-from-context` | `resolveOrgAI` | Sync |
@@ -250,6 +250,7 @@ Caveat: the route's Zod `featureEnum` does **not** include `chat_assistant`, `co
 | 10 | `evidence_agent` | Control evidence agent run | `POST /api/v1/controls/:id/evidence-config/run` → collector `agent/llm-loop.ts` | `resolveOrgAI` (creds passed to collector) | Async (collector); HTTP 202 |
 | 11 | `quiz_generation` | Settings AI / Training quiz | `POST /api/v1/ai-config/generate-quiz` | `resolveOrgAI` | Sync |
 | 12 | (env `OPENAI_MODEL`) | Vendor research deep dive | `POST /api/v1/vendors/:id/research` → SQS → collector `research/vendor-researcher.ts` | OpenAI SDK directly | Async (SQS) |
+| 13 | `context_extraction` | Assets "Classify from text" (CPS 234 bootstrap; **free core**, no EE gate) | `POST /api/v1/assets/from-text` | `resolveOrgAI` | Sync |
 
 ---
 
@@ -396,7 +397,7 @@ CSV imports do **not** invoke this agent — they use heuristics in `csv.ts`.
 
 | Method | Path | Notes |
 | --- | --- | --- |
-| POST | `/api/v1/questionnaires` | Multipart or JSON. Creates a `QuestionnaireImportJob` (`pending`), uploads non-CSV blob to S3, runs `setImmediate(runImportJob)`, returns **202** + `jobId`. |
+| POST | `/api/v1/questionnaires` | Multipart or JSON. Creates a `QuestionnaireImportJob` (`pending`), uploads non-CSV blob to S3, publishes `{ jobId }` to the questionnaire-import queue (`enqueueImportJob`), returns **202** + `jobId`. |
 | GET | `/api/v1/questionnaires/jobs/:jobId` | Returns `status`, per-sheet `progress`, `errorCode`, `errorMessage`, `questionnaireId` once done. |
 
 #### Flow
@@ -438,7 +439,15 @@ The LLM output is parsed into a Zod-validated `WorkbookMap`. Markdown fences are
 
 #### Async transport
 
-Currently in-process via `setImmediate(runImportJob)`. There is **no questionnaire SQS topic**; `lib/queue.ts` only declares vendor-research and integration-check queues. Comments in the code call out future SQS/BullMQ as a possible swap.
+Durable, via SQS — mirroring the vendor-research pattern (`lib/queue.ts` + a `subscribe` worker). `apps/api/src/modules/questionnaires/import-worker.ts` owns the transport:
+
+- **Publish:** `enqueueImportJob` (called by `POST /questionnaires`) sends a `{ type: "questionnaire_import_job", jobId, tenantId }` envelope to `QUEUE_URLS.questionnaireImportJobs` (env `SQS_QUESTIONNAIRE_IMPORT_JOBS_URL`, default LocalStack `trustalo-questionnaire-import-jobs`). The message carries no payload beyond the job id — the `QuestionnaireImportJob` row stays the source of truth and drives the polling UI exactly as before.
+- **Consume:** `startQuestionnaireImportWorker` (wired in `index.ts` next to the research-results worker) subscribes and calls `runImportJob(jobId)`. `runImportJob` never throws, so a handled message is acked; a job enqueued before an API restart is simply redelivered and run after the restart.
+- **Stale-job guard:** a job that crashes mid-run can't be safely replayed (the `Questionnaire` row may be partially persisted), so it is failed with a public-safe note instead: the worker sweeps on start (`sweepStaleImportJobs`: `running` > 15 min → `failed`/`IMPORT_INTERRUPTED`; `pending` > 60 min → `failed`/`IMPORT_NEVER_STARTED`), and redelivery of a stale `running` job triggers the same compare-and-set fail. Redelivery of a _fresh_ `running` job (visibility timeout shorter than a slow import) is dropped as a no-op.
+- **Dev fallback:** if the queue is unreachable (local dev without LocalStack), `enqueueImportJob` catches the publish error — the same catch-and-log degradation as the vendor-research publisher — and schedules `runImportJob` in-process. Clearly logged; not durable across restarts (the start-up sweep eventually fails anything the fallback lost).
+- **EE gating is unchanged:** `assertEnterpriseLicense("ai")` remains on the upload route and inside `mapXlsxStructure`/`mapDocxStructure`; the transport itself is license-agnostic.
+
+Tests: `apps/api/src/modules/questionnaires/import-worker.test.ts` (fake queue/db/runner injection).
 
 ---
 
@@ -794,7 +803,7 @@ In SaaS mode, messages also pass through `scrubSecrets` before being returned to
 In-process per-feature token buckets (`consumeToken`):
 
 - `chat_assistant`: 30 turns / min / org.
-- `context_extraction`: 30 extractions / min / org.
+- `context_extraction`: 30 extractions / min / org. `POST /api/v1/assets/from-text` draws from the same per-tenant `context_extraction` bucket as `POST /api/v1/organization-context/from-text` (both burn LLM tokens on pasted prose).
 
 ### 7.6 Frontend integration patterns
 
@@ -821,9 +830,9 @@ In-process per-feature token buckets (`consumeToken`):
 
 7. **Token / cost tracking** — `ChatCompletionResult.usage` is populated but not aggregated. The AI Usage dashboard counts generations and outcomes, not tokens or cost. **Alternative:** persist `usage` per audit row to enable cost-per-feature reports.
 
-8. **Questionnaire async transport is in-process** — `setImmediate(runImportJob)` is fine for short documents but loses jobs on restart. **Alternative:** publish to SQS and consume from a worker, mirroring the vendor-research pattern.
+8. **Questionnaire interrupted imports fail rather than retry** — the import transport is now SQS-backed (see [§5.3 Async transport](#53-questionnaire-structure-agent-questionnaire_answering)), so queued jobs survive restarts; but a job that dies _mid-run_ is marked `failed` with a note (`IMPORT_INTERRUPTED`) because the partially-persisted `Questionnaire` cannot be safely replayed. **Alternative:** make `runImportJob` idempotent (delete/reuse the partial questionnaire keyed by `jobId`) and re-drive stale `running` jobs back to `pending` instead of failing them.
 
-9. **`extractAssetClassifications` is not yet routed** — the CPS 234 Para 23 helper exists in `@trustalo/ai` and is fully unit-tested, but no API endpoint exposes it today. **Next step:** wire `POST /api/v1/assets/from-text` (auth `assets:write`, rate-limited via the existing `context_extraction` bucket, audited via `AssetAIClassification`) and a paste-to-classify UI on the Asset register.
+9. ~~**`extractAssetClassifications` is not yet routed**~~ — **resolved.** `POST /api/v1/assets/from-text` (auth `assets:write` via the assets router middleware, rate-limited via the existing `context_extraction` bucket, audited via `AssetAIClassification`) now exposes the CPS 234 Para 23 helper, and the Asset register has a paste-to-classify dialog ("Classify from text"). The route is advisory-only: it returns staged proposals with a create-ready `suggestedAsset` mapping, and the UI applies selected proposals through the normal `POST /api/v1/assets` create call. Free core — no `assertEnterpriseLicense` gate (see the licensing tier table).
 
 ---
 

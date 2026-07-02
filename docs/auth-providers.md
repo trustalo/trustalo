@@ -210,9 +210,10 @@ AUTH_EXTERNAL_PROVIDER=@your-org/trustalo-auth-provider-okta
 
 ## Directory sync (Entra + Google Workspace)
 
-Trustalo can optionally sync directory users into tenant memberships from the **General Settings -> Directory Sync** card.
+Trustalo can optionally sync directory users into tenant memberships from the **General Settings -> Directory Sync** card (`apps/web/src/app/(dashboard)/settings/_components/directory-sync-card.ee.tsx` — an `.ee.tsx` surface). From that card an org admin can set up or reconfigure a provider, test credentials, quickly **enable/disable** sync (`PATCH /api/v1/directory-sync/configs/:provider` — no credential re-entry), trigger a manual **Sync now** (rate-limited to one per minute), and review recent runs with their per-run counts (users found / created / updated / suspended).
 
-- Sync is **tenant-scoped** and **Enterprise-gated** (`sso` feature).
+- Sync is **tenant-scoped** and **Enterprise-gated** (`sso` feature). On unlicensed deployments the card body is replaced by the standard amber upgrade state (detected proactively via the license-status endpoint and reactively on HTTP 402).
+- All admin endpoints require the `settings:read`/`settings:write` permissions and record audit-log entries.
 - Supported frequencies are **24h** and **7d** only (plus manual `Sync now`).
 - Synced users are provisioned into `User` + `Person` rows with configurable default role/status.
 

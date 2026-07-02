@@ -40,6 +40,8 @@ const TEMPLATE_FRAMEWORK_FILTER: { value: string; label: string }[] = [
   { value: "nist_csf_2", label: "NIST CSF 2.0" },
   { value: "gdpr", label: "GDPR" },
   { value: "cps234", label: "APRA CPS 234 (AU)" },
+  { value: "hipaa", label: "HIPAA (US)" },
+  { value: "pci_dss_4", label: "PCI DSS 4.0" },
 ];
 
 const STATUS_OPTIONS = [

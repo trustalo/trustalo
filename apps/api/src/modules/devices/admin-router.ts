@@ -11,6 +11,7 @@ import { Router, type Request } from "express";
 import { z } from "zod";
 import { prismaWithTenant } from "../../db/prisma.js";
 import { Prisma } from "../../../generated/prisma/client/index.js";
+import { audit } from "../../lib/audit.js";
 import { authorizeResource } from "../../middleware/authorize.js";
 import {
   enrollDevice,
@@ -107,6 +108,11 @@ devicesAdminRouter.post("/enrollment-tokens", async (req, res, next) => {
       },
       select: { id: true, label: true, maxUses: true, expiresAt: true },
     });
+    await audit(req, "create", "DeviceEnrollmentToken", token.id, {
+      label: token.label,
+      maxUses: token.maxUses,
+      expiresAt: token.expiresAt,
+    });
     // The raw token is returned exactly once and never stored or shown again.
     res.status(201).json({ success: true, data: { ...token, token: raw } });
   } catch (err) {
@@ -152,6 +158,7 @@ devicesAdminRouter.delete("/enrollment-tokens/:id", async (req, res, next) => {
       });
       return;
     }
+    await audit(req, "update", "DeviceEnrollmentToken", id, { transition: "revoked" });
     res.json({ success: true, data: { revoked: true } });
   } catch (err) {
     next(err);

@@ -9,10 +9,12 @@
  * `progress` JSON column as each sheet completes so the UI poll can
  * render live status.
  *
- * For now this runs in-process via `setImmediate(runImportJob, jobId)`
- * — fine for dev and small-scale prod (the work is I/O-bound on the
- * AI provider). The job table is the contract; swapping in a proper
- * BullMQ/SQS worker later is a one-file change.
+ * Transport lives in `import-worker.ts`: the upload route publishes
+ * `{ jobId }` to the questionnaire-import SQS queue and a subscriber in
+ * this process calls `runImportJob` (with an in-process fallback when
+ * no queue is reachable in dev). The job table is the contract — this
+ * runner is transport-agnostic and never throws; terminal failures are
+ * recorded on the job row.
  */
 
 import { AIProviderError } from "@trustalo/ai";

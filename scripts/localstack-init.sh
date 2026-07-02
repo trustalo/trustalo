@@ -9,4 +9,10 @@ awslocal sqs create-queue --queue-name trustalo-vendor-research-results --region
 # CheckResultMessage from -results and writes Evidence.
 awslocal sqs create-queue --queue-name trustalo-integration-check-requests --region us-east-1 2>/dev/null || true
 awslocal sqs create-queue --queue-name trustalo-integration-check-results --region us-east-1 2>/dev/null || true
+# Phase 6 (AI accelerators): durable questionnaire XLSX/DOCX imports. The
+# API publishes {jobId} on upload and consumes it itself (questionnaires/
+# import-worker.ts). Visibility timeout > worst-case structure-agent run
+# (30–180 s) so messages don't redeliver mid-import.
+awslocal sqs create-queue --queue-name trustalo-questionnaire-import-jobs \
+  --attributes VisibilityTimeout=300 --region us-east-1 2>/dev/null || true
 echo "LocalStack init complete: bucket and queues created"

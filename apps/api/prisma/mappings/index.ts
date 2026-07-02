@@ -20,6 +20,10 @@ import soc2ToIso from "./soc2_to_iso27001.json" with { type: "json" };
 import gdprToIso from "./gdpr_to_iso27001.json" with { type: "json" };
 import gdprToSoc2 from "./gdpr_to_soc2.json" with { type: "json" };
 import cps234ToIso from "./cps234_to_iso27001.json" with { type: "json" };
+import hipaaToIso from "./hipaa_to_iso27001.json" with { type: "json" };
+import hipaaToSoc2 from "./hipaa_to_soc2.json" with { type: "json" };
+import pciDss4ToIso from "./pci-dss-4_to_iso27001.json" with { type: "json" };
+import pciDss4ToSoc2 from "./pci-dss-4_to_soc2.json" with { type: "json" };
 
 export type MappingRelationship = "equivalent" | "partial" | "informs";
 
@@ -46,4 +50,8 @@ export const MAPPINGS: FrameworkMappingSet[] = [
   gdprToIso as FrameworkMappingSet,
   gdprToSoc2 as FrameworkMappingSet,
   cps234ToIso as FrameworkMappingSet,
+  hipaaToIso as FrameworkMappingSet,
+  hipaaToSoc2 as FrameworkMappingSet,
+  pciDss4ToIso as FrameworkMappingSet,
+  pciDss4ToSoc2 as FrameworkMappingSet,
 ];

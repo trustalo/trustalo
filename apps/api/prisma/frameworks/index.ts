@@ -23,7 +23,9 @@ export interface FrameworkDef {
     | "essential8"
     | "nist_csf_2"
     | "gdpr"
-    | "cps234";
+    | "cps234"
+    | "hipaa"
+    | "pci_dss_4";
   requirements: RequirementDef[];
 }
 
@@ -37,3 +39,5 @@ export { ESSENTIAL8_FRAMEWORK } from "./essential8.js";
 export { NIST_CSF_2_FRAMEWORK } from "./nist-csf-2.js";
 export { GDPR_FRAMEWORK } from "./gdpr.js";
 export { CPS234_FRAMEWORK } from "./cps234.js";
+export { HIPAA_FRAMEWORK } from "./hipaa.js";
+export { PCI_DSS_4_FRAMEWORK } from "./pci-dss-4.js";

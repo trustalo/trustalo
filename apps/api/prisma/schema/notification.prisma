@@ -1,0 +1,101 @@
+// Notifications & alerting. A periodic rule evaluator (see
+// apps/api/src/modules/notifications/evaluator.ts) scans existing state —
+// control weaknesses, integration sync health, device posture, People
+// offboarding/vetting, training, incident/breach notification clocks — and
+// fans out deduped alerts to the tenant's enabled channels. Deliberately NOT
+// implemented as hooks inside other modules: the evaluator is read-only over
+// their tables, so alerting stays decoupled from domain writes.
+// See docs/notifications.md.
+
+enum NotificationChannelType {
+  email
+  slack_webhook
+  teams_webhook
+}
+
+// One key per built-in alert rule. Evaluation semantics live in
+// modules/notifications/evaluator.ts; per-tenant thresholds live in
+// AlertRule.config.
+enum AlertRuleKey {
+  control_failing
+  integration_sync_failed
+  device_at_risk
+  person_offboarding_incomplete
+  background_check_expiring
+  training_overdue
+  incident_breach_clock
+}
+
+enum NotificationDeliveryStatus {
+  sent
+  failed
+}
+
+// A destination alerts are delivered to. `configEnc` is ALWAYS stored via the
+// AES-256-GCM crypto-envelope (enc:v1:) because webhook URLs embed bearer
+// secrets (Slack/Teams incoming-webhook URLs are credentials). For email the
+// envelope wraps a JSON blob ({"recipients": [...]}) so the config column has
+// a single uniform shape. The API never returns the decrypted value — only a
+// masked preview (write-only config contract, like AIProviderConfig keys).
+model NotificationChannel {
+  id        String                  @id @default(cuid())
+  tenantId  String
+  type      NotificationChannelType
+  name      String
+  configEnc String
+  enabled   Boolean                 @default(true)
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
+
+  tenant     Tenant                 @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  deliveries NotificationDelivery[]
+
+  @@index([tenantId])
+  @@index([tenantId, enabled])
+}
+
+// Per-tenant enable/threshold state for one built-in rule. Rows are seeded
+// lazily with sensible defaults on first read (no seed-script dependency) —
+// see ensureAlertRules() in modules/notifications/service.ts. `config` holds
+// the rule's thresholds (e.g. {"thresholdDays": 30}); shape is validated by
+// the per-rule Zod schema in the same file.
+model AlertRule {
+  id        String       @id @default(cuid())
+  tenantId  String
+  ruleKey   AlertRuleKey
+  enabled   Boolean      @default(true)
+  config    Json?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, ruleKey])
+  @@index([tenantId])
+}
+
+// One attempted delivery of one alert to one channel. Doubles as:
+//  1. the idempotency ledger — the evaluator skips any alert whose
+//     `dedupeKey` already has a delivery row, so a persisting condition
+//     alerts once, not every tick (dedupe keys embed a condition-generation
+//     component where the data supports it, so a recovered-then-re-broken
+//     condition can alert again);
+//  2. the recent-activity feed in Settings → Notifications.
+// `channelId` is SetNull on channel deletion so the ledger (and therefore
+// dedupe history) survives channel churn.
+model NotificationDelivery {
+  id        String                     @id @default(cuid())
+  tenantId  String
+  ruleKey   AlertRuleKey
+  dedupeKey String
+  channelId String?
+  status    NotificationDeliveryStatus
+  summary   String
+  createdAt DateTime                   @default(now())
+
+  tenant  Tenant               @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  channel NotificationChannel? @relation(fields: [channelId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, createdAt])
+  @@index([tenantId, dedupeKey])
+}

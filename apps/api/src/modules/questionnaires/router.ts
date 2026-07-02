@@ -43,7 +43,7 @@ import { authorizeResource } from "../../middleware/authorize.js";
 import { audit } from "../../lib/audit.js";
 import { serializeCsv, detectColumns } from "./csv.js";
 import { type WorkbookMap } from "./structure-agent.ee.js";
-import { runImportJob } from "./import-job.js";
+import { enqueueImportJob } from "./import-worker.js";
 import {
   answerAll,
   answerOne,
@@ -114,9 +114,11 @@ const createCsvBody = createMetaBody.extend({
  *      the worker can pull it back. We do this here — not in the
  *      worker — because the multer buffer dies with the request.
  *   3. Insert a `QuestionnaireImportJob` row in `pending`.
- *   4. Schedule the runner via `setImmediate` (in-process worker).
- *      The job table is the contract; swapping in BullMQ later
- *      doesn't change the API.
+ *   4. Publish `{ jobId }` to the questionnaire-import queue (see
+ *      `import-worker.ts`); the subscriber calls `runImportJob`. The
+ *      job table is the contract — the message is just a wake-up.
+ *      If the queue is unreachable (dev without LocalStack) the
+ *      publisher falls back to running in-process.
  *   5. Return `202 Accepted` with `{ jobId }`. The web client polls
  *      `GET /jobs/:jobId` for status + per-sheet progress.
  *
@@ -215,13 +217,11 @@ questionnairesRouter.post("/", upload.single("file"), async (req, res, next) => 
       uploadedFilename: req.file?.originalname,
     });
 
-    // Fire-and-forget the runner. Errors inside `runImportJob` are
-    // captured into the job row, so we don't await it here.
-    setImmediate(() => {
-      runImportJob(job.id).catch((err) => {
-        console.error(`[import-job] uncaught failure for ${job.id}:`, err);
-      });
-    });
+    // Hand the pending job to the durable queue. `enqueueImportJob`
+    // never throws — publish failures degrade to the in-process
+    // runner — and errors inside `runImportJob` are captured into the
+    // job row, so the 202 below is safe either way.
+    await enqueueImportJob({ id: job.id, tenantId });
 
     res.status(202).json({
       success: true,

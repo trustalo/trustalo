@@ -11,6 +11,8 @@ const frameworkTypeEnum = z.enum([
   "nist_csf_2",
   "gdpr",
   "cps234",
+  "hipaa",
+  "pci_dss_4",
 ]);
 
 export const listFrameworksQuery = z.object({

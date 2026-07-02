@@ -1,0 +1,242 @@
+{
+  "$comment": "PCI DSS v4.0.1 → SOC 2 TSC 2017 (rev. 2022) mappings. Written from requirement intent (original paraphrases). PCI controls are CDE-scoped and prescriptive; SOC 2 criteria are entity-level outcomes, so 'partial' dominates — PCI evidence usually satisfies the criterion for the payment environment and needs widening for the full SOC 2 system boundary.",
+  "source": "PCI DSS v4.0.1 requirement-intent cross-walk to AICPA TSC 2017 (rev. 2022)",
+  "sourceFramework": "pci_dss_4",
+  "targetFramework": "soc2",
+  "mappings": [
+    {
+      "source": "1.3.1",
+      "target": "CC6.6",
+      "relationship": "partial",
+      "rationale": "Restricting inbound CDE traffic defends the system boundary against external threats."
+    },
+    {
+      "source": "1.4.1",
+      "target": "CC6.6",
+      "relationship": "partial",
+      "rationale": "Controls between trusted and untrusted networks are boundary-protection measures."
+    },
+    {
+      "source": "2.2.1",
+      "target": "CC7.1",
+      "relationship": "partial",
+      "rationale": "Hardening standards give configuration-monitoring a baseline to detect deviations from."
+    },
+    {
+      "source": "3.2.1",
+      "target": "C1.2",
+      "relationship": "partial",
+      "rationale": "Purging account data at end of retention is disposal of confidential information."
+    },
+    {
+      "source": "3.4.1",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "PAN masking restricts logical visibility of protected data to authorized roles."
+    },
+    {
+      "source": "3.5.1",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "Rendering stored PAN unreadable protects data at rest within the logical-access architecture."
+    },
+    {
+      "source": "4.2.1",
+      "target": "CC6.7",
+      "relationship": "partial",
+      "rationale": "Strong cryptography for PAN in transit restricts information during transmission and movement."
+    },
+    {
+      "source": "5.2.1",
+      "target": "CC6.8",
+      "relationship": "equivalent",
+      "rationale": "Both require controls that prevent or detect malicious software."
+    },
+    {
+      "source": "5.3.2",
+      "target": "CC6.8",
+      "relationship": "partial",
+      "rationale": "Ongoing scans/behavioural analysis operate the malware-prevention control."
+    },
+    {
+      "source": "6.2.1",
+      "target": "CC8.1",
+      "relationship": "partial",
+      "rationale": "A secure SDLC governs how system changes are designed, tested and approved."
+    },
+    {
+      "source": "6.3.1",
+      "target": "CC7.1",
+      "relationship": "partial",
+      "rationale": "Identifying and risk-ranking new vulnerabilities feeds vulnerability monitoring."
+    },
+    {
+      "source": "6.3.3",
+      "target": "CC7.1",
+      "relationship": "partial",
+      "rationale": "Time-bound patching remediates the vulnerabilities monitoring detects."
+    },
+    {
+      "source": "6.5.1",
+      "target": "CC8.1",
+      "relationship": "equivalent",
+      "rationale": "Both require authorized, documented change management for production."
+    },
+    {
+      "source": "7.2.1",
+      "target": "CC6.3",
+      "relationship": "partial",
+      "rationale": "A need-to-know access model governs how access is authorized and modified."
+    },
+    {
+      "source": "7.2.2",
+      "target": "CC6.3",
+      "relationship": "partial",
+      "rationale": "Least-privilege assignment constrains access to roles' requirements."
+    },
+    {
+      "source": "7.2.4",
+      "target": "CC6.3",
+      "relationship": "partial",
+      "rationale": "Semi-annual access reviews validate that granted access remains appropriate."
+    },
+    {
+      "source": "8.2.1",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "Unique user IDs are foundational to logical access security."
+    },
+    {
+      "source": "8.2.2",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "Exception-only shared accounts preserve individual accountability in the access architecture."
+    },
+    {
+      "source": "8.2.5",
+      "target": "CC6.2",
+      "relationship": "partial",
+      "rationale": "Immediate revocation at termination deregisters credentials no longer authorized."
+    },
+    {
+      "source": "8.4.2",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "MFA for all CDE access strengthens authentication in the logical-access architecture."
+    },
+    {
+      "source": "8.4.3",
+      "target": "CC6.6",
+      "relationship": "partial",
+      "rationale": "MFA on remote access protects entry points from outside the system boundary."
+    },
+    {
+      "source": "9.2.1",
+      "target": "CC6.4",
+      "relationship": "partial",
+      "rationale": "Facility entry controls restrict physical access to protected information assets."
+    },
+    {
+      "source": "9.4.6",
+      "target": "CC6.5",
+      "relationship": "partial",
+      "rationale": "Destroying media containing cardholder data completes secure disposal."
+    },
+    {
+      "source": "10.2.1",
+      "target": "CC7.2",
+      "relationship": "partial",
+      "rationale": "Required audit-event capture produces the records incident monitoring relies on."
+    },
+    {
+      "source": "10.4.1",
+      "target": "CC7.2",
+      "relationship": "partial",
+      "rationale": "Daily automated review of security logs is how incidents are identified."
+    },
+    {
+      "source": "10.7.2",
+      "target": "CC7.2",
+      "relationship": "partial",
+      "rationale": "Detecting failures of security-control systems keeps the monitoring function trustworthy."
+    },
+    {
+      "source": "11.3.1",
+      "target": "CC7.1",
+      "relationship": "partial",
+      "rationale": "Quarterly internal scans detect vulnerabilities and configuration drift."
+    },
+    {
+      "source": "11.3.2",
+      "target": "CC7.1",
+      "relationship": "partial",
+      "rationale": "Quarterly ASV scans extend vulnerability detection to the external footprint."
+    },
+    {
+      "source": "11.4.2",
+      "target": "CC4.1",
+      "relationship": "partial",
+      "rationale": "Penetration testing is a separate evaluation of control effectiveness."
+    },
+    {
+      "source": "11.5.1",
+      "target": "CC7.2",
+      "relationship": "partial",
+      "rationale": "IDS/IPS provides the intrusion telemetry that security monitoring consumes."
+    },
+    {
+      "source": "11.5.2",
+      "target": "CC7.1",
+      "relationship": "partial",
+      "rationale": "File-integrity monitoring detects unauthorized configuration and content changes."
+    },
+    {
+      "source": "12.1.1",
+      "target": "CC5.3",
+      "relationship": "partial",
+      "rationale": "The published security policy deploys control expectations through policies and procedures."
+    },
+    {
+      "source": "12.3.1",
+      "target": "CC3.2",
+      "relationship": "partial",
+      "rationale": "Targeted risk analyses identify and analyse risk to set control frequency."
+    },
+    {
+      "source": "12.6.3",
+      "target": "CC2.2",
+      "relationship": "partial",
+      "rationale": "On-hire and annual security training communicates responsibilities internally."
+    },
+    {
+      "source": "12.7.1",
+      "target": "CC1.4",
+      "relationship": "partial",
+      "rationale": "Pre-hire screening supports the commitment to competent, trustworthy personnel."
+    },
+    {
+      "source": "12.8.1",
+      "target": "CC9.2",
+      "relationship": "partial",
+      "rationale": "The TPSP inventory is the foundation of vendor risk management."
+    },
+    {
+      "source": "12.8.4",
+      "target": "CC9.2",
+      "relationship": "partial",
+      "rationale": "Annual TPSP compliance monitoring manages ongoing vendor risk."
+    },
+    {
+      "source": "12.10.1",
+      "target": "CC7.4",
+      "relationship": "partial",
+      "rationale": "The incident response plan defines response and notification to affected parties."
+    },
+    {
+      "source": "12.10.2",
+      "target": "CC7.5",
+      "relationship": "partial",
+      "rationale": "Annual IR testing with lessons learned drives remediation and improvement."
+    }
+  ]
+}

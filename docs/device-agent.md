@@ -8,7 +8,7 @@ The Trustalo device agent (`apps/device-agent`, Go) runs on employee endpoints a
 
 - **Browser sign-in (shipped agent)**: `agentd login` opens the browser to the web `/device/authorize` consent page. The browser owns the login — password **or** SSO, whatever the tenant's provider is — then deep-links a one-time, PKCE-bound code back via `trustalo://`. The agent exchanges it (`POST /auth/device/token`) for a device JWT and enrolls. No login form or shared secret ships in the agent. See the PKCE device-authorization endpoints in `apps/api/src/modules/auth` and the `DeviceAuthCode` model.
 - **Interactive (dev)**: a signed-in user enrolls their own machine (`POST /api/v1/devices/enroll`) using their JWT — no token needed.
-- **Mass-deploy / MDM**: an admin mints a short-lived, consumable `DeviceEnrollmentToken` (`POST /api/v1/devices/enrollment-tokens`) that the agent presents once.
+- **Mass-deploy / MDM**: an admin mints a short-lived, consumable `DeviceEnrollmentToken` (`POST /api/v1/devices/enrollment-tokens`) that the agent presents once. Tokens are managed from the **Enrollment tokens** card on the Devices page (see [Web UI](#web-ui)); mint/revoke actions are audit-logged.
 
 On enrollment the server resolves the enrolling user → their `Person` and sets `Device.personId` + the Computer `Asset.assignedPersonId`, then returns a **per-device HMAC secret** (stored reversibly encrypted via the AES-256-GCM crypto-envelope). Every check-in is HMAC-signed over a canonical string with a nonce + timestamp (replay defense via the `DeviceNonce` ledger). See `apps/api/src/lib/device-auth.ts`.
 
@@ -35,6 +35,8 @@ Which signals count as a **posture issue** is tenant-configurable (Settings → 
 ## Web UI
 
 The **Device posture** page (`/devices`, under Assets, requires `assets:read`) is a fleet **summary** — every enrolled device with its core posture signals, status, last-seen time, and **assigned person**. The same summary appears on the **Devices** tab of a person's People profile. Clicking any device opens the **detail drawer** — the canonical per-device view — with the full security + extended posture, hardware/OS inventory, recent check-in history, and a link to the assigned person. Admins (`assets:write`) can revoke from the drawer or the list.
+
+Admins also see an **Enrollment tokens** card on the same page (`apps/web/src/components/device/enrollment-tokens-card.tsx`) for the bulk-deploy flow: mint a token with a label, maximum enrollment count (1–1000), and expiry (1 hour–30 days); copy the raw value from the **show-once** dialog (the server stores only the hash, so it can never be displayed again); and list or revoke existing tokens with their status (`active` / `consumed` / `revoked` / `expired`) and use counts.
 
 ## Cross-platform builds
 

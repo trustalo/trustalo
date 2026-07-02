@@ -372,6 +372,10 @@ The seeder loads two mapping files for HIPAA:
 - `hipaa_to_iso27001.json` — written from the CFR text against ISO 27001:2022 Annex A intent, informed by the NIST SP 800-66r2 crosswalk appendix.
 - `hipaa_to_soc2.json` — HIPAA + SOC 2 is the standard US health-tech dual-audit combination; CC-series for the Security Rule, A-series for contingency, P-series for the Privacy and Breach Notification Rules.
 
+### Automated Evidence Coverage
+
+The integration connectors emit automated evidence toward HIPAA's **Technical** and parts of the **Administrative** Safeguards through manifest `controlMappings` — e.g. encryption at rest → §164.312(a)(2)(iv), audit controls → §164.312(b), person/entity authentication and MFA → §164.312(d), unique user identification → §164.312(a)(2)(i), protection from malicious software → §164.308(a)(5)(ii)(B), and access authorization/modification → §164.308(a)(4)(ii)(B)/(C). The **Physical** Safeguards, **Breach Notification** Rule, **Organizational Requirements** and **Privacy** Rule have no automatable connector signal and remain manual-evidence controls.
+
 ---
 
 ## PCI DSS 4.0.1
@@ -414,6 +418,10 @@ The seeder loads two mapping files for PCI DSS:
 
 - `pci-dss-4_to_iso27001.json` — requirement-intent cross-walk to ISO 27001:2022 Annex A. PCI controls are CDE-scoped and prescriptive, so most relationships are `partial` (the evidence satisfies the Annex A intent inside the CDE but not necessarily org-wide).
 - `pci-dss-4_to_soc2.json` — cross-walk to the AICPA TSC 2017 (rev. 2022) criteria for entities running PCI and SOC 2 programs side by side.
+
+### Automated Evidence Coverage
+
+Connector manifests map automated evidence to PCI's technical requirement families via `controlMappings`: access control (Req 7–8 — MFA `8.4.x`, unique IDs `8.2.1`, least privilege `7.2.x`, lockout `8.3.4`, password strength `8.3.6`), account-data protection (Req 3–4 — encryption at rest `3.5.1`, key management `3.6.1`/`3.7.1`, transit encryption `4.2.1`), network controls (Req 1 — inbound/segmentation restriction `1.3.1`/`1.4.1`), malware defence (Req 5 — `5.2.1`/`5.3.x`), vulnerability management (Req 6/11 — dependency & host scans `6.3.x`/`11.3.1`, secure SDLC `6.2.1`/`6.5.1`, FIM `11.5.2`, no hard-coded secrets `8.6.2`), and logging/monitoring (Req 10 — `10.2.x`). Physical (Req 9), policy and process requirements (Req 12) remain manual-evidence controls.
 
 ---
 

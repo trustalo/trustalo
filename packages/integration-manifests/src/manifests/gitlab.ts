@@ -35,7 +35,9 @@ export const gitlabManifest: Manifest = {
       },
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
-        { framework: "essential8", requirement: "ML2-MFA" },
+        { framework: "essential8", requirement: "E8-MFA-ML2" },
+        { framework: "hipaa", requirement: "164.312(d)" },
+        { framework: "pci_dss_4", requirement: "8.4.1" },
       ],
     },
     {
@@ -51,6 +53,8 @@ export const gitlabManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC8.1" },
         { framework: "iso27001", requirement: "A.8.31" },
+        { framework: "pci_dss_4", requirement: "6.2.1" },
+        { framework: "pci_dss_4", requirement: "6.5.1" },
       ],
     },
     {
@@ -63,6 +67,8 @@ export const gitlabManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.28" },
+        { framework: "pci_dss_4", requirement: "6.2.1" },
+        { framework: "pci_dss_4", requirement: "6.3.1" },
       ],
     },
   ],

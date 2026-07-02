@@ -28,7 +28,7 @@ const KNOWN_FRAMEWORKS = new Set([
   "nist_csf_2",
   "gdpr",
   "cps234",
-  "pci_dss",
+  "pci_dss_4",
   "hipaa",
 ]);
 

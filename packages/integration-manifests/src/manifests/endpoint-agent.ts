@@ -41,6 +41,9 @@ export const endpointAgentManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.8.24" },
         { framework: "iso27001", requirement: "A.8.1" },
+        { framework: "hipaa", requirement: "164.312(a)(2)(iv)" },
+        { framework: "hipaa", requirement: "164.310(c)" },
+        { framework: "pci_dss_4", requirement: "3.5.1" },
       ],
     },
     {
@@ -52,6 +55,7 @@ export const endpointAgentManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.6" },
         { framework: "iso27001", requirement: "A.8.20" },
         { framework: "iso27001", requirement: "A.8.1" },
+        { framework: "pci_dss_4", requirement: "1.4.1" },
       ],
     },
     {
@@ -63,6 +67,8 @@ export const endpointAgentManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.8.1" },
         { framework: "iso27001", requirement: "A.7.7" },
+        { framework: "hipaa", requirement: "164.312(a)(2)(iii)" },
+        { framework: "hipaa", requirement: "164.310(c)" },
       ],
     },
     {
@@ -74,6 +80,9 @@ export const endpointAgentManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.8" },
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.7" },
+        { framework: "hipaa", requirement: "164.308(a)(5)(ii)(B)" },
+        { framework: "pci_dss_4", requirement: "5.2.1" },
+        { framework: "pci_dss_4", requirement: "5.3.1" },
       ],
     },
     {
@@ -85,6 +94,7 @@ export const endpointAgentManifest: Manifest = {
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "soc2", requirement: "CC7.2" },
         { framework: "iso27001", requirement: "A.8.16" },
+        { framework: "pci_dss_4", requirement: "10.7.2" },
       ],
     },
     {
@@ -96,6 +106,7 @@ export const endpointAgentManifest: Manifest = {
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.8" },
         { framework: "iso27001", requirement: "A.8.9" },
+        { framework: "pci_dss_4", requirement: "6.3.3" },
       ],
     },
   ],

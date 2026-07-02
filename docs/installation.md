@@ -2,6 +2,8 @@
 
 This document covers everything you need to install and run Trustalo locally on a developer machine: prerequisites, first-run setup, environment variables, the docker-compose infrastructure, and troubleshooting for the most common first-time errors.
 
+**Evaluating Trustalo?** [`quickstart.md`](quickstart.md) is the condensed 15-minute path — one command, a fully seeded demo org, and a guided tour of the product.
+
 For the day-to-day developer loop (workflow, available scripts, project structure, conventions), see [`development.md`](development.md).
 
 For the project overview, see the [project README](../README.md).
@@ -16,7 +18,7 @@ For the project overview, see the [project README](../README.md).
 | [Docker](https://www.docker.com/) | 24+ | One PostgreSQL container (with two logical databases), MongoDB, and LocalStack via docker-compose. |
 | Native toolchain headers | bundled | Some native deps (bcrypt, sharp) compile against Bun. |
 
-A working `git`, a POSIX shell, and the following host ports free on `localhost`: `3000` (Web), `4000` (API), `4001` (Collector), `4566` (LocalStack), `5433` (Postgres), `27018` (MongoDB).
+A working `git`, a POSIX shell, and the following host ports free on `localhost`: `15000` (Web), `15002` (API), `15003` (Collector), `4566` (LocalStack), `5433` (Postgres), `27018` (MongoDB). (The dev ports come from the `.env.example` templates that `setup:local` copies; the in-code fallbacks are `3000`/`4000`/`4001` if the env vars are unset.)
 
 ---
 
@@ -37,7 +39,9 @@ bun run setup:local
 bun dev:all
 ```
 
-The demo seed creates these local users:
+The base seed creates the frameworks catalog and the test org; the demo seed (`bun run db:seed:demo:api`) then turns that org into **Acme Demo Co** — a realistic evaluation tenant with three frameworks in flight (ISO 27001, SOC 2, HIPAA), 14 people across the HR lifecycle, enrolled devices (one at-risk), policies, risks, vendors, evidence, an open incident, and a running GDPR breach clock. Both seeds are idempotent — re-running only adds missing rows. The guided tour of all of it is in [`quickstart.md`](quickstart.md).
+
+The seeds create these local users:
 
 ```text
 test@test.com / test.test
@@ -103,9 +107,9 @@ The table below is the short list of "things you will probably touch."
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `API_PORT` | `4000` | API server port. |
-| `COLLECTOR_PORT` | `4001` | Collector server port. |
-| `WEB_PORT` | `3000` | Web frontend port. |
+| `API_PORT` | `15002` (`.env.example`; code fallback `4000`) | API server port. |
+| `COLLECTOR_PORT` | `15003` (`.env.example`; code fallback `4001`) | Collector server port. |
+| `WEB_PORT` | `15000` | Web frontend port (the web dev script pins `15000`). |
 | `NODE_ENV` | `development` | When `production`, several configs fail-closed on missing security values. |
 | `JWT_SECRET` | — | JWT signing secret. Required in production. Minimum entropy enforced at boot. |
 | `JWT_EXPIRES_IN` | `24h` | JWT token TTL. |
@@ -148,7 +152,7 @@ The compose file lives at [`docker-compose.yml`](../docker-compose.yml). The sec
 
 | Symptom | Likely cause |
 | --- | --- |
-| `EADDRINUSE` on 4000/4001/3000 | Another process owns the port. Set `API_PORT` / `COLLECTOR_PORT` / `PORT` to override. |
+| `EADDRINUSE` on 15000/15002/15003 | Another process owns the port. Set `API_PORT` / `COLLECTOR_PORT` / `WEB_PORT` to override. |
 | `Prisma migration failed` | The Postgres container did not finish booting. Wait a few seconds or re-run `docker compose up -d`. |
 | `password authentication failed for user "trustalo"` | Old volume from a pre-rebrand checkout. Run `docker compose down -v && docker compose up -d` to recreate volumes. |
 | `[security] CORS_ALLOWED_ORIGINS is required in production` | You set `NODE_ENV=production` without an explicit origin allowlist. Define `CORS_ALLOWED_ORIGINS`. |
@@ -160,6 +164,7 @@ The compose file lives at [`docker-compose.yml`](../docker-compose.yml). The sec
 
 ## See also
 
+- [`quickstart.md`](quickstart.md) — 15-minute evaluation path with the seeded demo org and guided tour.
 - [`development.md`](development.md) — daily-loop scripts, project structure, conventions.
 - [Project README](../README.md) — overview and links to every other doc.
 - [`architecture.md`](architecture.md) — service boundaries and data flow.

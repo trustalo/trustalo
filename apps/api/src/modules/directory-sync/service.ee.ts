@@ -48,6 +48,15 @@ export const upsertDirectorySyncConfigSchema = z.object({
   credentials: z.union([entraCredentialsSchema, googleWorkspaceCredentialsSchema]),
 });
 
+// Partial update for an existing config. Deliberately limited to the enable
+// flag: everything else (frequency, roles, credentials) goes through the full
+// upsert so credential validation can never be bypassed.
+export const patchDirectorySyncConfigSchema = z
+  .object({
+    isEnabled: z.boolean(),
+  })
+  .strict();
+
 type DirectoryProvider = z.infer<typeof directoryProviderSchema>;
 type DefaultStatus = z.infer<typeof defaultStatusSchema>;
 type GroupRoleMapping = z.infer<typeof groupRoleMappingSchema>;
@@ -136,6 +145,46 @@ export async function upsertDirectorySyncConfig(
       encryptedCredentials,
       lastSyncError: null,
     },
+  });
+
+  return {
+    id: config.id,
+    provider: config.provider,
+    isEnabled: config.isEnabled,
+    syncFrequencyMinutes: config.syncFrequencyMinutes,
+    defaultRole: config.defaultRole,
+    defaultStatus: config.defaultStatus,
+    groupRoleMappings: parseGroupRoleMappings(config.groupRoleMappings),
+    lastSyncAt: config.lastSyncAt,
+    lastSyncStatus: config.lastSyncStatus,
+    lastSyncError: config.lastSyncError,
+    createdAt: config.createdAt,
+    updatedAt: config.updatedAt,
+    hasCredentials: true,
+  };
+}
+
+/**
+ * Enable/disable an EXISTING config without re-submitting credentials —
+ * the admin UI's quick toggle. 404s when the provider was never set up.
+ */
+export async function patchDirectorySyncConfig(
+  tenantId: string,
+  provider: DirectoryProvider,
+  input: z.infer<typeof patchDirectorySyncConfigSchema>,
+) {
+  const parsed = patchDirectorySyncConfigSchema.parse(input);
+  const existing = await prisma.directorySyncConfig.findUnique({
+    where: { tenantId_provider: { tenantId, provider } },
+    select: { id: true },
+  });
+  if (!existing) {
+    throw createHttpError(404, "Directory sync config not found", "NOT_FOUND");
+  }
+
+  const config = await prisma.directorySyncConfig.update({
+    where: { id: existing.id },
+    data: { isEnabled: parsed.isEnabled },
   });
 
   return {

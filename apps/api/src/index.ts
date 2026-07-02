@@ -34,6 +34,10 @@ import { organizationContextRouter } from "./modules/organization-context/router
 import { chatRouter } from "./modules/chat/router.ee.js";
 import { integrationsRouter } from "./modules/integrations/router.js";
 import { questionnairesRouter } from "./modules/questionnaires/router.js";
+import {
+  startQuestionnaireImportWorker,
+  stopQuestionnaireImportWorker,
+} from "./modules/questionnaires/import-worker.js";
 import { licenseRouter } from "./modules/license/router.js";
 import { internalRouter } from "./modules/internal/router.js";
 import { deviceAgentRouter } from "./modules/devices/agent-router.js";
@@ -42,6 +46,11 @@ import {
   startDeviceSweepScheduler,
   stopDeviceSweepScheduler,
 } from "./modules/devices/scheduler.js";
+import { notificationsRouter } from "./modules/notifications/router.js";
+import {
+  startNotificationEvaluator,
+  stopNotificationEvaluator,
+} from "./modules/notifications/evaluator.js";
 import { directorySyncRouter } from "./modules/directory-sync/router.ee.js";
 import {
   startDirectorySyncScheduler,
@@ -136,6 +145,7 @@ app.use("/api/v1/chat", chatRouter);
 app.use("/api/v1/integrations", integrationsRouter);
 app.use("/api/v1/questionnaires", questionnairesRouter);
 app.use("/api/v1/license", licenseRouter);
+app.use("/api/v1/notifications", notificationsRouter);
 app.use("/api/v1/directory-sync", directorySyncRouter);
 app.use("/api/v1/billing", billingRouter);
 
@@ -161,19 +171,27 @@ async function start() {
   startResearchResultsWorker().catch((err) =>
     console.error("[api] research-results worker failed to start:", err),
   );
+  startQuestionnaireImportWorker().catch((err) =>
+    console.error("[api] questionnaire-import worker failed to start:", err),
+  );
   startDirectorySyncScheduler().catch((err) =>
     console.error("[api] directory-sync scheduler failed to start:", err),
   );
   startDeviceSweepScheduler().catch((err) =>
     console.error("[api] device sweep scheduler failed to start:", err),
   );
+  startNotificationEvaluator().catch((err) =>
+    console.error("[api] notification evaluator failed to start:", err),
+  );
 }
 
 async function shutdown() {
   console.log("[api] Shutting down…");
+  await stopNotificationEvaluator();
   await stopDirectorySyncScheduler();
   await stopDeviceSweepScheduler();
   await stopResearchResultsWorker();
+  await stopQuestionnaireImportWorker();
   await disconnectMongo();
   await prisma.$disconnect();
   process.exit(0);

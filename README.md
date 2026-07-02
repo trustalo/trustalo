@@ -16,25 +16,27 @@
   <img src="docs/images/dashboard.jpg" alt="Trustalo dashboard — framework readiness and compliance posture at a glance" width="900" />
 </p>
 
-Trustalo is a multi-tenant GRC platform that helps teams adopt and maintain **ISO 27001**, **ISO 27017**, **ISO 27018**, **ISO 22301**, **ISO 42001**, and **SOC 2** without buying a six-figure enterprise tool. It is built as a Bun monorepo with TypeScript end-to-end, ships its own evidence collector and a cross-platform **endpoint device-posture agent** (Go), and runs unmodified on a developer laptop or in a Bedrock-only AWS account.
+Trustalo is a **source-available, self-hosted compliance automation platform** for teams that want SOC 2, ISO 27001, HIPAA and more without a six-figure enterprise tool. All **12 supported frameworks ship included** — ISO 27001, ISO 27017, ISO 27018, ISO 22301, ISO 42001, SOC 2, NIST CSF 2.0, GDPR, Essential Eight, APRA CPS 234, HIPAA, and PCI DSS 4.0.1 — with no per-framework pricing: adopting another standard is a click, not a contract change. Because you run it on your own infrastructure, your evidence, policies, and personnel data never leave your environment. It is built as a Bun monorepo with TypeScript end-to-end, ships **ten pre-built evidence connectors** and a cross-platform **endpoint device-posture agent** (Go), and runs unmodified on a developer laptop or in a Bedrock-only AWS account.
 
 | Aspect | Value |
 | --- | --- |
 | Status | Pre-1.0. APIs and schemas may change between minor versions. |
 | License | Dual-licensed. Core code under [Trustalo Sustainable Use License v1.0](LICENSE) — free to run in production for any organization, regardless of size, revenue, or funding. Files matching `*.ee.*` or under `**/ee/**` are governed by the [Trustalo Enterprise License v1.0](LICENSE_EE) — paid Enterprise License required for production regardless of org size. Redistribution is reserved to Trustalo. See [`docs/enterprise.md`](docs/enterprise.md). Contributors must accept the [`CONTRIBUTOR_LICENSE_AGREEMENT.md`](CONTRIBUTOR_LICENSE_AGREEMENT.md). |
 | Runtime | Bun 1.3+ · TypeScript 5.x (strict) · Next.js 16 · Express 5 · Prisma 7 + PostgreSQL 17 · MongoDB 8 · Go 1.23+ (endpoint device agent) |
-| Get started | [`docs/installation.md`](docs/installation.md) — prerequisites + quick start. Daily loop: [`docs/development.md`](docs/development.md). |
+| Get started | [`docs/quickstart.md`](docs/quickstart.md) — 15-minute evaluation with a fully seeded demo org. Full setup: [`docs/installation.md`](docs/installation.md). Daily loop: [`docs/development.md`](docs/development.md). |
 | Architecture | [`docs/architecture.md`](docs/architecture.md) · [`docs/database-design.md`](docs/database-design.md) |
 
 ---
 
 ## Why Trustalo
 
-- **Multi-framework by design.** A single piece of evidence satisfies multiple frameworks via cross-framework control mappings. Adding a new framework is a data change, not a code change.
+- **Every framework included — no per-framework pricing.** All 12 supported frameworks ship in the box and can be adopted with a click, so adding HIPAA or PCI DSS next year is a data change, not a renewal negotiation. A single piece of evidence satisfies multiple frameworks via cross-framework control mappings. See [`docs/compliance-frameworks.md`](docs/compliance-frameworks.md).
+- **Your data stays on your infrastructure.** Self-hosted end-to-end (PostgreSQL + MongoDB + LocalStack via `docker compose up`, or your own AWS account) — evidence, personnel records, and audit artifacts never leave your environment, which also answers the data-residency question before an auditor asks it.
+- **Evidence collection out of the box.** Ten pre-built connectors (AWS, GCP, Azure, Okta, Auth0, GitHub, Bitbucket, Google Workspace, Microsoft 365, Wazuh) plus a native cross-platform device-posture agent — connect read-only credentials and evidence starts flowing, instead of spending your first month writing collection scripts.
+- **A real compliance surface, not just a control tracker.** People/HR lifecycle with onboarding/offboarding checklists and background checks, device fleet posture, risk register, vendor management, privacy (DSARs, breach clocks, DPIAs), business continuity, audits, and a public Trust Center — in one tenant-isolated platform.
 - **AI accelerators that are advisory, audited, and operator-controlled.** Policy drafting, risk scoring, vendor tiering, NL check generation, questionnaire answering, Trust Center summaries, page-aware chat — every call goes through a single resolver, is rate-limited, audit-logged, and never auto-applies. See [`docs/ai-features.md`](docs/ai-features.md).
 - **Pluggable everywhere it matters.** Authentication, storage, queue, and AI provider are all interfaces with multiple implementations. Bring your own with a small plugin instead of forking.
 - **Source-available, free to run in production — at any size.** Local dev, testing, evaluation, learning, and production use are free for every organization, regardless of revenue or funding. You only pay if you enable Enterprise (`.ee`) features. **Redistribution is reserved to Trustalo** — you can run, modify, and self-host, but you cannot fork, mirror, or repackage the project for others. The full plain-English summary is in the [License](#license) section below; the [`LICENSE`](LICENSE) file is authoritative.
-- **Self-hostable end-to-end.** PostgreSQL + MongoDB + LocalStack via `docker compose up` — no managed-service lock-in.
 
 ---
 
@@ -72,6 +74,8 @@ git clone <your-fork-url> trustalo && cd trustalo
 bun run setup:local                                  # envs + Postgres/Mongo/LocalStack + deps + Prisma + seeds
 bun dev:all                                          # Web :15000, API :15002, Collector :15003
 ```
+
+Then sign in at [http://localhost:15000](http://localhost:15000) with `test@test.com` / `test.test`. The seeds create a fully populated demo org (**Acme Demo Co**) — three frameworks in flight, people across the HR lifecycle, an at-risk device, a running GDPR breach clock — so the product is worth exploring in the first fifteen minutes. **[`docs/quickstart.md`](docs/quickstart.md) is the guided evaluation path.**
 
 > `bun run setup:local` is idempotent — it copies env templates only when missing, starts Docker, generates Prisma clients, applies migrations, and seeds the API/Collector data. See [`docs/installation.md`](docs/installation.md) for the per-step manual path.
 >
@@ -139,6 +143,7 @@ In-depth documentation lives in [`docs/`](docs/):
 
 | Doc | What it covers |
 | --- | --- |
+| [`quickstart.md`](docs/quickstart.md) | 15-minute evaluation: one-command setup, seeded demo org, guided product tour. |
 | [`installation.md`](docs/installation.md) | Prerequisites, quick start, env vars, docker, troubleshooting. |
 | [`development.md`](docs/development.md) | Daily loop, scripts, project structure, conventions, contributing. |
 | [`architecture.md`](docs/architecture.md) | High-level system design, service boundaries, data flow. |
@@ -150,6 +155,7 @@ In-depth documentation lives in [`docs/`](docs/):
 | [`integrations.md`](docs/integrations.md) | Collector integration framework and how to add a provider. |
 | [`people.md`](docs/people.md) | People directory / HR — the `Person` model (replaced `Membership`), self-service, advisory evidence. |
 | [`device-agent.md`](docs/device-agent.md) | Endpoint device-posture agent (Go): enrollment, signed check-ins, collected signals, the Devices UI. |
+| [`notifications.md`](docs/notifications.md) | Notifications & alerting: periodic rule evaluator, alert rules, email/Slack/Teams channels. |
 | [`permissions-matrix.md`](docs/permissions-matrix.md) | RBAC roles and the permissions each one grants. |
 
 ---

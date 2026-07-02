@@ -171,6 +171,42 @@ The `packages/integration-manifests` workspace exports declarative **check manif
 
 ---
 
+## Custom checks ("from prompt") — live
+
+Custom **HTTP checks** are fully wired end-to-end: describe a read-only verification in natural language, preview the generated spec, test it once, save it — and it runs on the collector's schedule and submits evidence exactly like a built-in connector.
+
+### Pipeline
+
+1. **Generate** — `POST /api/v1/integrations/from-prompt` (API-owned, **Enterprise**: gated by `assertEnterpriseLicense("ai")`, rate-limited per tenant, audited). The LLM output is validated against the strict `HttpCheckSpecSchema` from `@trustalo/integration-manifests`; anything off-contract is rejected with `INVALID_SPEC`. Generation is advisory — nothing is persisted.
+2. **Test** — `POST /api/v1/integrations/from-prompt/test` → collector `POST /checks/test`. Executes the spec once through the shared HTTP executor ([`apps/collector/src/integrations/custom/http-check-executor.ts`](../apps/collector/src/integrations/custom/http-check-executor.ts)). No LLM, no EE gate.
+3. **Save** — `POST /api/v1/integrations/from-prompt/save` → collector `POST /checks/from-prompt/save`. The spec is schema-validated **again** at save time (the wizard lets admins edit the JSON), the cron schedule is validated, and the check is persisted as an `IntegrationCheck` row (`runner = "http"`, `manifestKey = "custom.<id>"`) under the tenant's synthetic **`custom` connection**. Suggested framework refs are resolved via the API and bound as enabled `IntegrationCheckControl` rows — the human's explicit save is the approval step required by the advisory-AI contract.
+4. **Run on schedule** — the synthetic custom connection is an ordinary `IntegrationConnection` (`status = connected`), so the standard scheduler dispatches `CollectionJob`s for it. The runner detects the `custom` slug and, instead of a connector, executes every enabled check via the same executor used by "Test before save" ([`apps/collector/src/runner/custom-checks.ts`](../apps/collector/src/runner/custom-checks.ts)). The connection's `syncFrequencyMinutes` is tightened automatically to the most frequent check's cron cadence (best-effort translation; floor 5 minutes).
+5. **Results + evidence** — each run writes an `IntegrationCheckResult` row and per-check health bookkeeping (a runtime error opens an `EvidenceCoverageGap`; the next clean run closes it). Pass/fail outcomes become `EvidenceResult` items submitted through the **same** HMAC-signed `/internal/evidence/bulk` batch path as built-in connectors, routed to controls via `IntegrationCheckControl` bindings. "Run now" in the UI enqueues a manual `CollectionJob` (`POST /connections/:id/checks/:checkId/run`).
+
+### Secret handling
+
+Credentials are **never stored in the check spec**:
+
+- Literal `Authorization` / `Cookie` / `Proxy-Authorization` header values are stripped by the executor before any request is sent (LLM- or user-supplied specs cannot smuggle credentials).
+- A header value may reference a vault entry with a `{{secret:KEY}}` placeholder. Named secrets are passed in the save body, stored in the tenant's **SecretVault** row referenced by the custom connection's `secretId` (AES-256-GCM at rest — the standard `IntegrationConnection.secretId` pattern), and substituted only at execution time. Placeholder-backed headers may be `Authorization` (trusted-operator path). An unresolvable placeholder fails the check closed — the raw placeholder is never sent.
+
+Safety rails on every execution: HTTPS-only, private/loopback IP block (re-checked after redirects), 1 MB body cap, ≤30 s timeout.
+
+### Browser checks — roadmap
+
+The browser (Playwright) runner is **not implemented yet**, and the product is honest about it instead of erroring:
+
+- Generation is constrained to HTTP: if the model classifies a request as browser-only, the API answers `422 BROWSER_RUNNER_NOT_AVAILABLE` with a "coming soon" message suggesting an HTTPS re-phrasing.
+- `POST /checks/test` with `runner: "browser"` returns **200** with `{ status: "not_supported", code: "BROWSER_RUNNER_NOT_AVAILABLE", message: … }` — a well-formed answer, not an outage signal.
+- `POST /checks/from-prompt/save` with a browser spec returns `422 BROWSER_RUNNER_NOT_AVAILABLE` (you cannot save something that cannot run).
+- The wizard shows browser checks as a disabled "coming soon" option, and any legacy browser check row is recorded as `skipped` by the runner rather than failing the job.
+
+### Storage model
+
+The `custom` catalog row (`Integration.id = "custom"`) is seeded with `isActive: false` so it never appears in the public connect catalog; it exists purely to anchor the per-tenant "Custom checks" connection and its `IntegrationCheck` rows. It is also lazily upserted on first save, so seeding is not a hard requirement.
+
+---
+
 ## HTTP surface
 
 All connector routes are mounted at the **collector root** (no `/api` prefix). The web app and the API use `http://localhost:15003` directly.
@@ -199,6 +235,16 @@ Every route below requires a valid JWT and runs through `extractTenantContext`. 
 | `PUT` | `/connections/:id` | `integrations:manage` | Update name, config, sync frequency, active flag, or rotate credentials in place. |
 | `DELETE` | `/connections/:id` | `integrations:manage` | Best-effort `disconnect()`, then delete the connection + vault row in one transaction. |
 | `POST` | `/connections/:id/test` | `integrations:manage` | `connect()` + `testConnection()`. Updates `status` + `lastErrorMessage` and writes a `SyncLog`. |
+| `GET` | `/connections/:id/checks` | `integrations:read` | List the connection's `IntegrationCheck` rows with enabled control bindings + last 3 results. |
+| `POST` | `/connections/:id/checks/:checkId/run` | `integrations:manage` | Manual trigger — enqueues a `CollectionJob` for the owning connection (`{ queued: true }`; browser checks answer `not_supported`). |
+| `GET` | `/connections/:id/results` | `integrations:read` | Recent `IntegrationCheckResult` rows (`?limit=`, ≤100). |
+
+**Custom checks** — [`apps/collector/src/routes/checks.ts`](../apps/collector/src/routes/checks.ts)
+
+| Method | Path | Permission | Description |
+| --- | --- | --- | --- |
+| `POST` | `/checks/test` | `integrations:manage` | Validate + execute a spec once. Browser specs → 200 `{ status: "not_supported", … }`. |
+| `POST` | `/checks/from-prompt/save` | `integrations:manage` | Persist a schema-validated custom HTTP check (see "Custom checks" section above). Browser specs → 422 `BROWSER_RUNNER_NOT_AVAILABLE`. |
 
 **Jobs** — [`apps/collector/src/routes/jobs.ts`](../apps/collector/src/routes/jobs.ts)
 
@@ -220,7 +266,7 @@ Every route below requires a valid JWT and runs through `extractTenantContext`. 
 
 Mounted at `/internal` and `/research`, gated by a shared HMAC + `X-Organization-Id` header — not JWT. Used by the API for evidence-agent orchestration and by the research scheduler. See `apps/collector/src/routes/internal.ts` and `apps/collector/src/routes/research.ts`.
 
-The API exposes its own façade at `/api/v1/integrations/*` (forwards browsing/CRUD to the collector under the user's session). Note that the façade currently returns **503 `INTEGRATIONS_PENDING`** for `:id/checks`, `:id/results`, and the `from-prompt` routes — the custom-integration pipeline is in flight.
+The API exposes its own façade at `/api/v1/integrations/*` (forwards browsing/CRUD/checks/results to the collector under the user's session, enriching check bindings with Control titles). The one non-proxy route is `POST /api/v1/integrations/from-prompt` — AI check generation runs in the API because it is EE-gated and resolves models through `resolveOrgAI`.
 
 ---
 

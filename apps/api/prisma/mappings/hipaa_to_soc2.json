@@ -1,0 +1,212 @@
+{
+  "$comment": "HIPAA (45 CFR Part 164) → SOC 2 TSC 2017 (rev. 2022) mappings. Written from the CFR text against the AICPA criteria intent. HIPAA + SOC 2 is the most common dual-audit combination for US health-tech, so this cross-walk targets evidence reuse: CC-series for the Security Rule, A-series for contingency, P-series for the Privacy Rule and breach notification.",
+  "source": "45 CFR Part 164 cross-walk to AICPA TSC 2017 (rev. 2022)",
+  "sourceFramework": "hipaa",
+  "targetFramework": "soc2",
+  "mappings": [
+    {
+      "source": "164.308(a)(1)(ii)(A)",
+      "target": "CC3.2",
+      "relationship": "partial",
+      "rationale": "The Security Rule risk analysis is a scoped instance of identifying and analysing risks to objectives."
+    },
+    {
+      "source": "164.308(a)(1)(ii)(B)",
+      "target": "CC5.1",
+      "relationship": "partial",
+      "rationale": "Risk management selects and develops control activities that mitigate identified risks."
+    },
+    {
+      "source": "164.308(a)(1)(ii)(C)",
+      "target": "CC1.5",
+      "relationship": "partial",
+      "rationale": "A sanction policy enforces accountability for control responsibilities."
+    },
+    {
+      "source": "164.308(a)(1)(ii)(D)",
+      "target": "CC7.2",
+      "relationship": "partial",
+      "rationale": "Regular activity review is how anomalies and potential incidents are identified."
+    },
+    {
+      "source": "164.308(a)(2)",
+      "target": "CC1.3",
+      "relationship": "partial",
+      "rationale": "Designating a Security Official establishes structure, reporting lines and authority for security."
+    },
+    {
+      "source": "164.308(a)(3)(ii)(B)",
+      "target": "CC1.4",
+      "relationship": "partial",
+      "rationale": "Workforce clearance supports attracting and retaining competent, trustworthy personnel."
+    },
+    {
+      "source": "164.308(a)(3)(ii)(C)",
+      "target": "CC6.2",
+      "relationship": "partial",
+      "rationale": "Termination procedures deregister credentials when access is no longer authorized."
+    },
+    {
+      "source": "164.308(a)(4)(ii)(B)",
+      "target": "CC6.3",
+      "relationship": "partial",
+      "rationale": "Granting ePHI access under policy matches authorizing and modifying access to IT resources."
+    },
+    {
+      "source": "164.308(a)(4)(ii)(C)",
+      "target": "CC6.3",
+      "relationship": "partial",
+      "rationale": "Establishing, documenting and reviewing access rights is the same access-lifecycle criterion."
+    },
+    {
+      "source": "164.308(a)(5)(ii)(A)",
+      "target": "CC2.2",
+      "relationship": "partial",
+      "rationale": "Security reminders are internal communication of control responsibilities."
+    },
+    {
+      "source": "164.308(a)(5)(ii)(B)",
+      "target": "CC6.8",
+      "relationship": "partial",
+      "rationale": "Malware protection procedures map to prevention/detection of unauthorized software."
+    },
+    {
+      "source": "164.308(a)(6)(i)",
+      "target": "CC7.3",
+      "relationship": "partial",
+      "rationale": "Incident procedures include evaluating events to determine whether they are incidents and their impact."
+    },
+    {
+      "source": "164.308(a)(6)(ii)",
+      "target": "CC7.4",
+      "relationship": "partial",
+      "rationale": "Response, mitigation and documentation of incidents parallels incident response and notification."
+    },
+    {
+      "source": "164.308(a)(6)(ii)",
+      "target": "CC7.5",
+      "relationship": "partial",
+      "rationale": "Documenting outcomes and mitigation feeds root-cause identification and remediation."
+    },
+    {
+      "source": "164.308(a)(7)(ii)(A)",
+      "target": "A1.2",
+      "relationship": "partial",
+      "rationale": "Retrievable exact copies of ePHI are the backup infrastructure the availability criterion requires."
+    },
+    {
+      "source": "164.308(a)(7)(ii)(B)",
+      "target": "A1.3",
+      "relationship": "partial",
+      "rationale": "A disaster recovery plan with restoration procedures is what recovery-plan testing exercises."
+    },
+    {
+      "source": "164.308(a)(7)(ii)(D)",
+      "target": "A1.3",
+      "relationship": "partial",
+      "rationale": "Periodic contingency testing matches recovery-plan tests and result communication."
+    },
+    {
+      "source": "164.308(a)(8)",
+      "target": "CC4.1",
+      "relationship": "partial",
+      "rationale": "Periodic evaluations of Security Rule compliance are ongoing/separate control evaluations."
+    },
+    {
+      "source": "164.308(b)(1)",
+      "target": "CC9.2",
+      "relationship": "partial",
+      "rationale": "BAA assurances from vendors handling ePHI are vendor risk management."
+    },
+    {
+      "source": "164.310(a)(2)(iii)",
+      "target": "CC6.4",
+      "relationship": "partial",
+      "rationale": "Facility access control and validation restricts physical access to protected assets."
+    },
+    {
+      "source": "164.310(d)(2)(i)",
+      "target": "CC6.5",
+      "relationship": "partial",
+      "rationale": "Final disposition of ePHI media matches discontinuing protection only after data is destroyed."
+    },
+    {
+      "source": "164.312(a)(2)(i)",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "Unique user identification underpins logical access security architecture."
+    },
+    {
+      "source": "164.312(a)(2)(iv)",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "Encryption of stored ePHI is a logical-access protection over data at rest."
+    },
+    {
+      "source": "164.312(b)",
+      "target": "CC7.2",
+      "relationship": "partial",
+      "rationale": "Audit controls generate the monitoring records used to detect security events."
+    },
+    {
+      "source": "164.312(d)",
+      "target": "CC6.1",
+      "relationship": "partial",
+      "rationale": "Person/entity authentication is part of the logical access security criterion."
+    },
+    {
+      "source": "164.312(e)(2)(ii)",
+      "target": "CC6.7",
+      "relationship": "partial",
+      "rationale": "Encrypting ePHI in transit restricts unauthorized access during transmission and movement."
+    },
+    {
+      "source": "164.404",
+      "target": "P6.6",
+      "relationship": "partial",
+      "rationale": "Notifying affected individuals of a breach of unsecured PHI matches breach notification to data subjects; HIPAA fixes the 60-day clock."
+    },
+    {
+      "source": "164.408",
+      "target": "P6.6",
+      "relationship": "partial",
+      "rationale": "HHS notification is regulator breach notification under the same criterion."
+    },
+    {
+      "source": "164.410",
+      "target": "P6.4",
+      "relationship": "informs",
+      "rationale": "BA breach-reporting duties are typically verified through third-party privacy-commitment assessments."
+    },
+    {
+      "source": "164.502(b)",
+      "target": "P4.1",
+      "relationship": "partial",
+      "rationale": "Minimum necessary limits PHI use to identified purposes."
+    },
+    {
+      "source": "164.520",
+      "target": "P1.1",
+      "relationship": "partial",
+      "rationale": "The notice of privacy practices is the privacy notice provided to individuals."
+    },
+    {
+      "source": "164.524",
+      "target": "P5.1",
+      "relationship": "partial",
+      "rationale": "The right of access is handled through the data-subject access process."
+    },
+    {
+      "source": "164.526",
+      "target": "P5.2",
+      "relationship": "partial",
+      "rationale": "Amendment requests and disagreement handling map to correction-request handling."
+    },
+    {
+      "source": "164.528",
+      "target": "P6.2",
+      "relationship": "partial",
+      "rationale": "An accounting of disclosures requires complete and accurate third-party disclosure records."
+    }
+  ]
+}

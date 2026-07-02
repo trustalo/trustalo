@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { DeviceDetailDrawer } from "@/components/device/device-detail-drawer";
+import { EnrollmentTokensCard } from "@/components/device/enrollment-tokens-card";
 import { Badge, type BadgeVariant } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -203,6 +204,8 @@ export default function DevicesPage() {
           </Table>
         )}
       </Card>
+
+      {canManage && <EnrollmentTokensCard />}
 
       <DeviceDetailDrawer
         deviceId={selectedId}

@@ -28,6 +28,7 @@ import {
   type AssetStatus,
   type AssetType,
   type AssetStats,
+  type AssetsFromTextResult,
   type OrgMember,
 } from "@/lib/api-client";
 
@@ -149,6 +150,7 @@ export default function AssetsPage() {
   const [viewMode, setViewMode] = useState("active");
 
   const [createOpen, setCreateOpen] = useState(false);
+  const [classifyOpen, setClassifyOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<AssetItem | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<AssetItem | null>(null);
   const [deleting, setDeleting] = useState(false);
@@ -263,6 +265,22 @@ export default function AssetsPage() {
             </svg>
             Device posture
           </Link>
+          <Button variant="secondary" onClick={() => setClassifyOpen(true)}>
+            <svg
+              className="mr-1.5 h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"
+              />
+            </svg>
+            Classify from text
+          </Button>
           <Button onClick={() => setCreateOpen(true)}>Add Asset</Button>
         </div>
       </div>
@@ -595,6 +613,15 @@ export default function AssetsPage() {
         onClose={() => setCreateOpen(false)}
         onSaved={() => {
           setCreateOpen(false);
+          fetchAssets();
+          fetchStats();
+        }}
+      />
+
+      <ClassifyFromTextModal
+        open={classifyOpen}
+        onClose={() => setClassifyOpen(false)}
+        onCreated={() => {
           fetchAssets();
           fetchStats();
         }}
@@ -977,6 +1004,217 @@ function AssetFormModal({
           </Button>
         </div>
       </form>
+    </Modal>
+  );
+}
+
+function ClassifyFromTextModal({
+  open,
+  onClose,
+  onCreated,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onCreated: () => void;
+}) {
+  const [text, setText] = useState("");
+  const [extracting, setExtracting] = useState(false);
+  const [result, setResult] = useState<AssetsFromTextResult | null>(null);
+  const [selected, setSelected] = useState<Set<number>>(new Set());
+  const [creating, setCreating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    setText("");
+    setResult(null);
+    setSelected(new Set());
+    setError(null);
+  }, [open]);
+
+  const redactionTotal = useMemo(() => {
+    if (!result) return 0;
+    return Object.values(result.redactions).reduce((sum, n) => sum + n, 0);
+  }, [result]);
+
+  async function handleExtract() {
+    const trimmed = text.trim();
+    if (trimmed.length < 20) {
+      setError("Paste at least a couple of sentences describing your systems.");
+      return;
+    }
+    setExtracting(true);
+    setError(null);
+    try {
+      const res = await apiClient.classifyAssetsFromText({ text: trimmed });
+      setResult(res.data);
+      setSelected(new Set(res.data.proposals.map((_, i) => i)));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Extraction failed");
+    } finally {
+      setExtracting(false);
+    }
+  }
+
+  function toggleSelected(index: number) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+  }
+
+  async function handleCreate() {
+    if (!result || selected.size === 0) return;
+    setCreating(true);
+    setError(null);
+    try {
+      // Apply step is the normal authenticated asset-create call — the
+      // AI endpoint only ever stages proposals.
+      for (const index of Array.from(selected).sort((a, b) => a - b)) {
+        const proposal = result.proposals[index];
+        if (!proposal) continue;
+        await apiClient.createAsset(proposal.suggestedAsset);
+      }
+      onCreated();
+      onClose();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to create assets");
+    } finally {
+      setCreating(false);
+    }
+  }
+
+  return (
+    <Modal open={open} onClose={onClose} title="Classify Assets from Text" size="lg">
+      <div className="space-y-5">
+        {error && (
+          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300">
+            {error}
+          </div>
+        )}
+
+        {!result ? (
+          <>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Paste architecture notes, a data-flow description, or a system runbook. AI will
+              propose information assets with sensitivity and criticality tiers. Suggestions are
+              advisory — nothing is created until you choose.
+            </p>
+            <Textarea
+              id="classify-text"
+              label="Source text"
+              rows={8}
+              placeholder="e.g. Customer records live in a Postgres cluster on AWS. The mobile banking app talks to it through our API gateway..."
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              Emails, phone numbers and IP addresses are redacted before the text reaches the AI
+              provider.
+            </p>
+            <div className="flex justify-end gap-3 border-t border-neutral-200 pt-4 dark:border-neutral-800">
+              <Button variant="secondary" type="button" onClick={onClose}>
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                loading={extracting}
+                disabled={text.trim().length < 20}
+                onClick={handleExtract}
+              >
+                Extract Assets
+              </Button>
+            </div>
+          </>
+        ) : result.proposals.length === 0 ? (
+          <>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              No information assets were found in that text. Try pasting a more detailed description
+              of your systems and data stores.
+            </p>
+            <div className="flex justify-end gap-3 border-t border-neutral-200 pt-4 dark:border-neutral-800">
+              <Button variant="secondary" type="button" onClick={onClose}>
+                Close
+              </Button>
+              <Button type="button" onClick={() => setResult(null)}>
+                Try Different Text
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              {result.proposals.length} proposed asset{result.proposals.length !== 1 ? "s" : ""}{" "}
+              found. Select the ones to add to the register.
+              {redactionTotal > 0 &&
+                ` ${redactionTotal} item${redactionTotal !== 1 ? "s were" : " was"} redacted before the text reached the AI provider.`}
+            </p>
+            <ul className="max-h-80 space-y-2 overflow-y-auto pr-1">
+              {result.proposals.map((item, index) => (
+                <li key={index}>
+                  <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-neutral-200 px-4 py-3 transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-800">
+                    <input
+                      type="checkbox"
+                      className="mt-1 h-4 w-4 rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
+                      checked={selected.has(index)}
+                      onChange={() => toggleSelected(index)}
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-medium text-neutral-900 dark:text-white">
+                          {item.proposal.name}
+                        </span>
+                        <Badge variant={CLASS_BADGE[item.suggestedAsset.classification].variant}>
+                          {CLASS_BADGE[item.suggestedAsset.classification].label}
+                        </Badge>
+                        <Badge
+                          variant={
+                            CRITICALITY_BADGE[item.suggestedAsset.metadata.criticality].variant
+                          }
+                        >
+                          {CRITICALITY_BADGE[item.suggestedAsset.metadata.criticality].label}
+                        </Badge>
+                        <span className="text-xs text-neutral-500">
+                          {formatType(item.suggestedAsset.type)} ·{" "}
+                          {Math.round(item.proposal.confidence * 100)}% confidence
+                        </span>
+                      </div>
+                      {item.proposal.description && (
+                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                          {item.proposal.description}
+                        </p>
+                      )}
+                      {item.proposal.rationale && (
+                        <p className="mt-1 text-xs italic text-neutral-500 dark:text-neutral-400">
+                          {item.proposal.rationale}
+                        </p>
+                      )}
+                    </div>
+                  </label>
+                </li>
+              ))}
+            </ul>
+            <div className="flex justify-end gap-3 border-t border-neutral-200 pt-4 dark:border-neutral-800">
+              <Button variant="ghost" type="button" onClick={() => setResult(null)}>
+                Back
+              </Button>
+              <Button variant="secondary" type="button" onClick={onClose}>
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                loading={creating}
+                disabled={selected.size === 0}
+                onClick={handleCreate}
+              >
+                Create {selected.size} Asset{selected.size !== 1 ? "s" : ""}
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
     </Modal>
   );
 }

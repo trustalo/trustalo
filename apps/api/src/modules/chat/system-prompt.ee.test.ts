@@ -46,8 +46,44 @@ describe("buildFrameworkPersonas", () => {
     const bundle = makeBundle({
       frameworks: [makeFramework({ frameworkType: "iso27001" })],
     });
-    // ISO 27001 has no dedicated persona today — only CPS 234 / GDPR do.
+    // ISO 27001 has no dedicated persona today — only CPS 234 / GDPR /
+    // HIPAA / PCI DSS do.
     expect(buildFrameworkPersonas(bundle)).toBe("");
+  });
+
+  test("emits HIPAA persona when hipaa is adopted", () => {
+    const bundle = makeBundle({
+      frameworks: [
+        makeFramework({
+          id: "fw-hipaa",
+          frameworkType: "hipaa",
+          name: "HIPAA",
+        }),
+      ],
+    });
+    const personas = buildFrameworkPersonas(bundle);
+    expect(personas).toContain("HIPAA");
+    expect(personas).toContain("60 calendar days");
+    expect(personas).toContain("164.404");
+    expect(personas).toContain("business associate");
+    expect(personas).toContain("Addressable");
+  });
+
+  test("emits PCI DSS persona when pci_dss_4 is adopted", () => {
+    const bundle = makeBundle({
+      frameworks: [
+        makeFramework({
+          id: "fw-pci",
+          frameworkType: "pci_dss_4",
+          name: "PCI DSS",
+        }),
+      ],
+    });
+    const personas = buildFrameworkPersonas(bundle);
+    expect(personas).toContain("PCI DSS v4.0.1");
+    expect(personas).toContain("three months");
+    expect(personas).toContain("11.3.2");
+    expect(personas).toContain("customized approach");
   });
 
   test("emits CPS 234 persona when cps234 is adopted", () => {

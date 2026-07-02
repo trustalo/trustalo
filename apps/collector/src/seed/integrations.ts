@@ -467,7 +467,31 @@ async function seed() {
     console.log(`  ✓ ${integration.id} (${integration.category})`);
   }
 
-  console.log(`\n[seed] done — ${integrations.length} integrations seeded`);
+  // Synthetic catalog row that owns custom ("from prompt") HTTP checks.
+  // `isActive: false` on purpose: the row must exist for
+  // IntegrationConnection/IntegrationCheck FKs, but it is not
+  // connectable and must not surface in the public /providers catalog
+  // (which filters on `isActive`). The collector also lazily upserts
+  // this row on first save (`ensureCustomConnection`), so seeding it is
+  // a dev-ergonomics nicety, not a hard requirement.
+  await prisma.integration.upsert({
+    where: { id: "custom" },
+    update: { isActive: false },
+    create: {
+      id: "custom",
+      name: "Custom checks",
+      description:
+        "Synthetic integration that owns AI-authored and hand-written HTTP checks. Not connectable from the catalog.",
+      authType: "api_key",
+      category: "custom",
+      capabilities: ["http_check"],
+      configSchema: { fields: [] },
+      isActive: false,
+    },
+  });
+  console.log("  ✓ custom (custom, hidden)");
+
+  console.log(`\n[seed] done — ${integrations.length + 1} integrations seeded`);
 }
 
 seed()

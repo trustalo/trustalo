@@ -24,9 +24,10 @@ import {
 import { ALL_POSTURE_SIGNALS, DEFAULT_REQUIRED_SIGNALS } from "@/lib/device-signals";
 import { usePermissions } from "@/lib/use-permissions";
 import { AIUsageTab } from "./_components/ai-usage-tab";
-import { DirectorySyncCard } from "./_components/directory-sync-card";
+import { DirectorySyncCard } from "./_components/directory-sync-card.ee";
+import { NotificationsTab } from "./_components/notifications-tab";
 
-type SettingsTab = "general" | "members" | "security" | "ai" | "ai-usage";
+type SettingsTab = "general" | "members" | "security" | "notifications" | "ai" | "ai-usage";
 
 const TABS: { id: SettingsTab; label: string; icon: string }[] = [
   {
@@ -43,6 +44,11 @@ const TABS: { id: SettingsTab; label: string; icon: string }[] = [
     id: "security",
     label: "Security",
     icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+  },
+  {
+    id: "notifications",
+    label: "Notifications",
+    icon: "M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0",
   },
   {
     id: "ai",
@@ -1388,6 +1394,7 @@ export default function SettingsPage() {
               canWrite={canWriteSettings}
             />
           )}
+          {activeTab === "notifications" && <NotificationsTab canWrite={canWriteSettings} />}
           {activeTab === "ai" && <AISettingsTab canWrite={canWriteSettings} />}
           {activeTab === "ai-usage" && <AIUsageTab />}
         </div>

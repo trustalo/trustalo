@@ -53,7 +53,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "Top-level commitment and objectives for ISO 27001 / SOC 2 / NIST CSF 2.0 / APRA CPS 234 security programs.",
     category: "Governance",
-    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "cps234"],
+    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "cps234", "hipaa", "pci_dss_4"],
     tags: ["isms", "security-program"],
     sortOrder: 10,
     contentHtml: doc(
@@ -75,7 +75,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     title: "Acceptable Use Policy",
     shortDescription: "Rules for acceptable use of systems, data, and communications.",
     category: "HR & Conduct",
-    frameworkTypes: ["iso27001", "soc2"],
+    frameworkTypes: ["iso27001", "soc2", "hipaa", "pci_dss_4"],
     tags: ["aup", "employees"],
     sortOrder: 20,
     contentHtml: doc(
@@ -95,7 +95,16 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     title: "Access Control Policy",
     shortDescription: "Identity, authentication, authorization, and access reviews.",
     category: "Identity & Access",
-    frameworkTypes: ["iso27001", "iso27017", "soc2", "nist_csf_2", "essential8", "cps234"],
+    frameworkTypes: [
+      "iso27001",
+      "iso27017",
+      "soc2",
+      "nist_csf_2",
+      "essential8",
+      "cps234",
+      "hipaa",
+      "pci_dss_4",
+    ],
     tags: ["iam", "least-privilege"],
     sortOrder: 30,
     contentHtml: doc(
@@ -122,7 +131,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "Password rules, MFA, and credential management. Required for Essential 8 ML1+ and NIST CSF PR.AA.",
     category: "Identity & Access",
-    frameworkTypes: ["iso27001", "soc2", "essential8", "nist_csf_2"],
+    frameworkTypes: ["iso27001", "soc2", "essential8", "nist_csf_2", "hipaa", "pci_dss_4"],
     tags: ["mfa", "credentials"],
     sortOrder: 40,
     contentHtml: doc(
@@ -142,7 +151,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     title: "Data Classification & Handling",
     shortDescription: "Classification scheme, labeling, and handling rules.",
     category: "Data Protection",
-    frameworkTypes: ["iso27001", "iso27018", "soc2", "gdpr", "nist_csf_2"],
+    frameworkTypes: ["iso27001", "iso27018", "soc2", "gdpr", "nist_csf_2", "hipaa", "pci_dss_4"],
     tags: ["classification", "data"],
     sortOrder: 50,
     contentHtml: doc(
@@ -163,7 +172,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "Detection, reporting, containment, and lessons learned. Aligns with NIST CSF RS, GDPR Art. 33-34, APRA CPS 234 para 30.",
     category: "Incident Response",
-    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "gdpr", "cps234"],
+    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "gdpr", "cps234", "hipaa", "pci_dss_4"],
     tags: ["ir", "breach"],
     sortOrder: 60,
     contentHtml: doc(
@@ -185,7 +194,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     title: "Business Continuity Policy",
     shortDescription: "BC objectives, roles, and alignment with ISO 22301 / BIA.",
     category: "Business Continuity",
-    frameworkTypes: ["iso22301", "iso27001"],
+    frameworkTypes: ["iso22301", "iso27001", "hipaa"],
     tags: ["bcp", "resilience"],
     sortOrder: 70,
     contentHtml: doc(
@@ -208,7 +217,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "Due diligence, contracts, and ongoing monitoring of suppliers. Covers NIST CSF GV.SC, GDPR Art. 28 sub-processors, and APRA CPS 234 paras 17-19, 29 (related-party / third-party assurance).",
     category: "Vendor Management",
-    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "gdpr", "cps234"],
+    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "gdpr", "cps234", "hipaa", "pci_dss_4"],
     tags: ["tprm", "supply-chain"],
     sortOrder: 80,
     contentHtml: doc(
@@ -251,7 +260,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "Controlled changes to systems and environments (SOC 2 CC8 / ISO A.8 / NIST CSF PR.PS / APRA CPS 234 para 28).",
     category: "Change Management",
-    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "cps234"],
+    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "cps234", "pci_dss_4"],
     tags: ["sdlc", "changes"],
     sortOrder: 100,
     contentHtml: doc(
@@ -272,7 +281,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "What to log, retention, review, and alerting. Aligns with NIST CSF DE.CM and APRA CPS 234 para 28.",
     category: "Operations",
-    frameworkTypes: ["iso27001", "iso27017", "soc2", "nist_csf_2", "cps234"],
+    frameworkTypes: ["iso27001", "iso27017", "soc2", "nist_csf_2", "cps234", "hipaa", "pci_dss_4"],
     tags: ["siem", "audit-logs"],
     sortOrder: 110,
     contentHtml: doc(
@@ -295,7 +304,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "Backup scope, encryption, testing, and restoration. Covers Essential 8 'Regular Backups' and NIST CSF RC.RP.",
     category: "Operations",
-    frameworkTypes: ["iso27001", "essential8", "nist_csf_2", "iso22301"],
+    frameworkTypes: ["iso27001", "essential8", "nist_csf_2", "iso22301", "hipaa"],
     tags: ["backup", "rto-rpo"],
     sortOrder: 120,
     contentHtml: doc(
@@ -383,7 +392,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     title: "Physical Security Policy",
     shortDescription: "Physical access, media, and environmental controls.",
     category: "Physical Security",
-    frameworkTypes: ["iso27001", "soc2"],
+    frameworkTypes: ["iso27001", "soc2", "hipaa", "pci_dss_4"],
     tags: ["datacenter", "badges"],
     sortOrder: 160,
     contentHtml: doc(
@@ -404,7 +413,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "Inventory, ownership, and lifecycle of information assets. Pairs with the CPS 234 Information Asset Classification policy.",
     category: "Asset Management",
-    frameworkTypes: ["iso27001", "soc2", "cps234"],
+    frameworkTypes: ["iso27001", "soc2", "cps234", "hipaa", "pci_dss_4"],
     tags: ["inventory", "cmdb"],
     sortOrder: 170,
     contentHtml: doc(
@@ -425,7 +434,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "Risk assessment cadence, treatment, and acceptance authority. Foundational for NIST CSF GV.RM, ISO 27001 Cl. 6, and APRA CPS 234 paras 25-27.",
     category: "Risk Management",
-    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "cps234"],
+    frameworkTypes: ["iso27001", "soc2", "nist_csf_2", "cps234", "hipaa", "pci_dss_4"],
     tags: ["risk-register", "treatment"],
     sortOrder: 180,
     contentHtml: doc(
@@ -446,7 +455,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "Security in design, code review, testing, and dependency management. Supports CPS 234 paras 27-28 (lifecycle controls in BAU).",
     category: "Operations",
-    frameworkTypes: ["iso27001", "soc2", "cps234"],
+    frameworkTypes: ["iso27001", "soc2", "cps234", "pci_dss_4"],
     tags: ["sdlc", "appsec"],
     sortOrder: 190,
     contentHtml: doc(
@@ -467,7 +476,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "Retention schedules and secure disposal. Required by GDPR Art. 5(1)(e) 'storage limitation'.",
     category: "Data Protection",
-    frameworkTypes: ["soc2", "iso27001", "iso27018", "gdpr"],
+    frameworkTypes: ["soc2", "iso27001", "iso27018", "gdpr", "hipaa", "pci_dss_4"],
     tags: ["retention", "disposal"],
     sortOrder: 200,
     contentHtml: doc(
@@ -750,7 +759,7 @@ export const POLICY_TEMPLATE_DEFS: TemplateDef[] = [
     shortDescription:
       "NIST CSF PR.AT — onboarding training, role-based training, phishing simulations, and effectiveness measurement.",
     category: "HR & Conduct",
-    frameworkTypes: ["nist_csf_2", "iso27001", "soc2", "gdpr"],
+    frameworkTypes: ["nist_csf_2", "iso27001", "soc2", "gdpr", "hipaa", "pci_dss_4"],
     tags: ["csf", "training", "awareness"],
     sortOrder: 290,
     contentHtml: doc(

@@ -37,6 +37,8 @@ const FRAMEWORK_META: Record<string, { color: string; icon: string }> = {
   nist_csf_2: { color: "#1e40af", icon: "CSF" },
   gdpr: { color: "#0891b2", icon: "EU" },
   cps234: { color: "#b45309", icon: "APRA" },
+  hipaa: { color: "#0d9488", icon: "US" },
+  pci_dss_4: { color: "#7c3aed", icon: "PCI" },
 };
 
 const STATUS_CONFIG: Record<
@@ -182,6 +184,50 @@ function SummaryStats({ instances }: { instances: FrameworkInstanceWithStats[] }
 }
 
 // ---------------------------------------------------------------------------
+// Export Audit Package Button
+// ---------------------------------------------------------------------------
+
+function ExportPackageButton({
+  instance,
+  onExport,
+  exporting,
+}: {
+  instance: FrameworkInstanceWithStats;
+  onExport: (instance: FrameworkInstanceWithStats) => void;
+  exporting: string | null;
+}) {
+  const busy = exporting === instance.id;
+  return (
+    <button
+      type="button"
+      onClick={() => onExport(instance)}
+      disabled={busy}
+      title="Export audit package (ZIP with controls, SoA and approved evidence)"
+      className="inline-flex items-center gap-1.5 rounded-lg border border-neutral-200 bg-white px-2.5 py-1.5 text-xs font-medium text-neutral-600 transition-colors hover:border-blue-300 hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-60 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:hover:border-blue-700 dark:hover:text-blue-400"
+    >
+      {busy ? (
+        <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
+      ) : (
+        <svg
+          className="h-3.5 w-3.5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={1.5}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+          />
+        </svg>
+      )}
+      {busy ? "Exporting…" : "Export audit package"}
+    </button>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Framework Card (Grid View)
 // ---------------------------------------------------------------------------
 
@@ -189,10 +235,14 @@ function FrameworkCard({
   instance,
   onToggle,
   toggling,
+  onExport,
+  exporting,
 }: {
   instance: FrameworkInstanceWithStats;
   onToggle: (id: string, enabled: boolean) => void;
   toggling: string | null;
+  onExport: (instance: FrameworkInstanceWithStats) => void;
+  exporting: string | null;
 }) {
   const meta = FRAMEWORK_META[instance.framework.frameworkType] ?? {
     color: "#6b7280",
@@ -265,13 +315,16 @@ function FrameworkCard({
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between border-t border-neutral-100 pt-3 dark:border-neutral-800">
-          <Badge variant={statusCfg.variant}>{statusCfg.label}</Badge>
-          {instance.targetDate && (
-            <span className="text-xs text-neutral-500 dark:text-neutral-400">
-              Target: {new Date(instance.targetDate).toLocaleDateString()}
-            </span>
-          )}
+        <div className="mt-4 flex items-center justify-between gap-2 border-t border-neutral-100 pt-3 dark:border-neutral-800">
+          <div className="flex items-center gap-2">
+            <Badge variant={statusCfg.variant}>{statusCfg.label}</Badge>
+            {instance.targetDate && (
+              <span className="text-xs text-neutral-500 dark:text-neutral-400">
+                Target: {new Date(instance.targetDate).toLocaleDateString()}
+              </span>
+            )}
+          </div>
+          <ExportPackageButton instance={instance} onExport={onExport} exporting={exporting} />
         </div>
       </div>
     </Card>
@@ -415,6 +468,8 @@ export default function FrameworksPage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [toggling, setToggling] = useState<string | null>(null);
   const [adopting, setAdopting] = useState<string | null>(null);
+  const [exporting, setExporting] = useState<string | null>(null);
+  const [exportError, setExportError] = useState<string | null>(null);
   const [filter, setFilter] = useState<"all" | "enabled" | "disabled">("all");
 
   const fetchInstances = useCallback(async () => {
@@ -466,6 +521,21 @@ export default function FrameworksPage() {
       // error handled silently
     } finally {
       setAdopting(null);
+    }
+  };
+
+  const handleExportPackage = async (instance: FrameworkInstanceWithStats) => {
+    setExporting(instance.id);
+    setExportError(null);
+    try {
+      await apiClient.downloadAuditPackage(
+        instance.id,
+        `audit-package-${instance.framework.frameworkType}`,
+      );
+    } catch (err) {
+      setExportError(err instanceof Error ? err.message : "Failed to export audit package");
+    } finally {
+      setExporting(null);
     }
   };
 
@@ -537,6 +607,19 @@ export default function FrameworksPage() {
           Add Framework
         </button>
       </div>
+
+      {/* Export error banner */}
+      {exportError && (
+        <div className="flex items-center justify-between rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-400">
+          <span>{exportError}</span>
+          <button
+            onClick={() => setExportError(null)}
+            className="ml-4 text-xs font-medium underline"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
 
       {/* Summary Stats */}
       {instances.length > 0 && <SummaryStats instances={instances} />}
@@ -664,6 +747,8 @@ export default function FrameworksPage() {
               instance={inst}
               onToggle={handleToggle}
               toggling={toggling}
+              onExport={handleExportPackage}
+              exporting={exporting}
             />
           ))}
         </div>
@@ -682,6 +767,7 @@ export default function FrameworksPage() {
                 <TableHeader>Requirements</TableHeader>
                 <TableHeader>Target Date</TableHeader>
                 <TableHeader>Enabled</TableHeader>
+                <TableHeader>Export</TableHeader>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -763,6 +849,13 @@ export default function FrameworksPage() {
                         checked={inst.isEnabled}
                         onChange={(val) => handleToggle(inst.id, val)}
                         disabled={toggling === inst.id}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <ExportPackageButton
+                        instance={inst}
+                        onExport={handleExportPackage}
+                        exporting={exporting}
                       />
                     </TableCell>
                   </TableRow>

@@ -31,6 +31,21 @@ export function stopScheduler(): void {
   }
 }
 
+/**
+ * Pure due-check shared by the dispatch loop (and unit tests). A
+ * connection that has never synced is due immediately; otherwise it is
+ * due once `lastSyncAt + syncFrequencyMinutes` has elapsed. Custom
+ * ("from prompt") check connections flow through this same rule — they
+ * are ordinary `IntegrationConnection` rows.
+ */
+export function isConnectionDue(
+  conn: { lastSyncAt: Date | null; syncFrequencyMinutes: number },
+  now: Date,
+): boolean {
+  if (!conn.lastSyncAt) return true;
+  return conn.lastSyncAt.getTime() + conn.syncFrequencyMinutes * 60_000 <= now.getTime();
+}
+
 async function checkAndDispatch(): Promise<void> {
   running = true;
   try {
@@ -55,11 +70,7 @@ async function checkAndDispatch(): Promise<void> {
     for (const conn of dueConnections) {
       if (conn.jobs.length > 0) continue;
 
-      const nextDue = conn.lastSyncAt
-        ? new Date(conn.lastSyncAt.getTime() + conn.syncFrequencyMinutes * 60_000)
-        : new Date(0);
-
-      if (nextDue > now) continue;
+      if (!isConnectionDue(conn, now)) continue;
 
       await prisma.collectionJob.create({
         data: {

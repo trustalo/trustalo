@@ -199,6 +199,21 @@ export type Incident = $Result.DefaultSelection<Prisma.$IncidentPayload>
  */
 export type IncidentTimeline = $Result.DefaultSelection<Prisma.$IncidentTimelinePayload>
 /**
+ * Model NotificationChannel
+ * 
+ */
+export type NotificationChannel = $Result.DefaultSelection<Prisma.$NotificationChannelPayload>
+/**
+ * Model AlertRule
+ * 
+ */
+export type AlertRule = $Result.DefaultSelection<Prisma.$AlertRulePayload>
+/**
+ * Model NotificationDelivery
+ * 
+ */
+export type NotificationDelivery = $Result.DefaultSelection<Prisma.$NotificationDeliveryPayload>
+/**
  * Model Person
  * 
  */
@@ -936,7 +951,9 @@ export const FrameworkType: {
   essential8: 'essential8',
   nist_csf_2: 'nist_csf_2',
   gdpr: 'gdpr',
-  cps234: 'cps234'
+  cps234: 'cps234',
+  hipaa: 'hipaa',
+  pci_dss_4: 'pci_dss_4'
 };
 
 export type FrameworkType = (typeof FrameworkType)[keyof typeof FrameworkType]
@@ -982,6 +999,36 @@ export const IncidentStatus: {
 };
 
 export type IncidentStatus = (typeof IncidentStatus)[keyof typeof IncidentStatus]
+
+
+export const NotificationChannelType: {
+  email: 'email',
+  slack_webhook: 'slack_webhook',
+  teams_webhook: 'teams_webhook'
+};
+
+export type NotificationChannelType = (typeof NotificationChannelType)[keyof typeof NotificationChannelType]
+
+
+export const AlertRuleKey: {
+  control_failing: 'control_failing',
+  integration_sync_failed: 'integration_sync_failed',
+  device_at_risk: 'device_at_risk',
+  person_offboarding_incomplete: 'person_offboarding_incomplete',
+  background_check_expiring: 'background_check_expiring',
+  training_overdue: 'training_overdue',
+  incident_breach_clock: 'incident_breach_clock'
+};
+
+export type AlertRuleKey = (typeof AlertRuleKey)[keyof typeof AlertRuleKey]
+
+
+export const NotificationDeliveryStatus: {
+  sent: 'sent',
+  failed: 'failed'
+};
+
+export type NotificationDeliveryStatus = (typeof NotificationDeliveryStatus)[keyof typeof NotificationDeliveryStatus]
 
 
 export const PersonStatus: {
@@ -1971,6 +2018,18 @@ export type IncidentStatus = $Enums.IncidentStatus
 
 export const IncidentStatus: typeof $Enums.IncidentStatus
 
+export type NotificationChannelType = $Enums.NotificationChannelType
+
+export const NotificationChannelType: typeof $Enums.NotificationChannelType
+
+export type AlertRuleKey = $Enums.AlertRuleKey
+
+export const AlertRuleKey: typeof $Enums.AlertRuleKey
+
+export type NotificationDeliveryStatus = $Enums.NotificationDeliveryStatus
+
+export const NotificationDeliveryStatus: typeof $Enums.NotificationDeliveryStatus
+
 export type PersonStatus = $Enums.PersonStatus
 
 export const PersonStatus: typeof $Enums.PersonStatus
@@ -2757,6 +2816,36 @@ export class PrismaClient<
     * ```
     */
   get incidentTimeline(): Prisma.IncidentTimelineDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notificationChannel`: Exposes CRUD operations for the **NotificationChannel** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NotificationChannels
+    * const notificationChannels = await prisma.notificationChannel.findMany()
+    * ```
+    */
+  get notificationChannel(): Prisma.NotificationChannelDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.alertRule`: Exposes CRUD operations for the **AlertRule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AlertRules
+    * const alertRules = await prisma.alertRule.findMany()
+    * ```
+    */
+  get alertRule(): Prisma.AlertRuleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notificationDelivery`: Exposes CRUD operations for the **NotificationDelivery** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NotificationDeliveries
+    * const notificationDeliveries = await prisma.notificationDelivery.findMany()
+    * ```
+    */
+  get notificationDelivery(): Prisma.NotificationDeliveryDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.person`: Exposes CRUD operations for the **Person** model.
@@ -3738,6 +3827,9 @@ export namespace Prisma {
     ControlRequirementAssignment: 'ControlRequirementAssignment',
     Incident: 'Incident',
     IncidentTimeline: 'IncidentTimeline',
+    NotificationChannel: 'NotificationChannel',
+    AlertRule: 'AlertRule',
+    NotificationDelivery: 'NotificationDelivery',
     Person: 'Person',
     BackgroundCheck: 'BackgroundCheck',
     PersonChecklistItem: 'PersonChecklistItem',
@@ -3804,7 +3896,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "tenantBillingConfig" | "tenantLiteLLMKey" | "creditWallet" | "creditTransaction" | "liteLLMSpendEvent" | "tenantAIUsageMonth" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "deviceEnrollmentToken" | "device" | "devicePostureSnapshot" | "deviceNonce" | "deviceAuthCode" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "person" | "backgroundCheck" | "personChecklistItem" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
+      modelProps: "aIProviderConfig" | "aIFeatureConfig" | "aISystem" | "aIRiskAssessment" | "aIIncident" | "aIImpactAssessment" | "asset" | "audit" | "auditFinding" | "auditDocument" | "businessContinuityPlan" | "businessImpactAnalysis" | "bCPExercise" | "tenantBillingConfig" | "tenantLiteLLMKey" | "creditWallet" | "creditTransaction" | "liteLLMSpendEvent" | "tenantAIUsageMonth" | "conversation" | "message" | "control" | "controlEvidenceCollectionConfig" | "controlWeakness" | "deviceEnrollmentToken" | "device" | "devicePostureSnapshot" | "deviceNonce" | "deviceAuthCode" | "evidence" | "framework" | "frameworkInstance" | "requirement" | "frameworkRequirementMapping" | "controlRequirementAssignment" | "incident" | "incidentTimeline" | "notificationChannel" | "alertRule" | "notificationDelivery" | "person" | "backgroundCheck" | "personChecklistItem" | "policy" | "policyVersion" | "policyAcknowledgment" | "policyComment" | "policyControl" | "policyTemplate" | "processingActivity" | "dPIA" | "dataBreach" | "dSARRequest" | "questionnaireImportJob" | "questionnaire" | "question" | "answer" | "risk" | "riskAssessment" | "riskTreatment" | "riskRegisterConfig" | "riskMatrixChange" | "task" | "taskEvidence" | "tenantContext" | "tenantContextProposal" | "tenant" | "tenantSettings" | "trainingProgram" | "trainingCompletion" | "trainingQuiz" | "quizQuestion" | "quizOption" | "quizAttempt" | "quizAnswer" | "trustCenterConfig" | "trustCenterSnapshot" | "trustCenterEvent" | "trustResource" | "trustCenterAccessRequest" | "user" | "directorySyncConfig" | "directorySyncRun" | "externalIdentityMapping" | "knownVendor" | "vendor" | "vendorAssessment" | "vendorResearch" | "vendorContact" | "vendorDocument" | "vulnerability"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -6543,6 +6635,228 @@ export namespace Prisma {
           count: {
             args: Prisma.IncidentTimelineCountArgs<ExtArgs>
             result: $Utils.Optional<IncidentTimelineCountAggregateOutputType> | number
+          }
+        }
+      }
+      NotificationChannel: {
+        payload: Prisma.$NotificationChannelPayload<ExtArgs>
+        fields: Prisma.NotificationChannelFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotificationChannelFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotificationChannelFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload>
+          }
+          findFirst: {
+            args: Prisma.NotificationChannelFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotificationChannelFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload>
+          }
+          findMany: {
+            args: Prisma.NotificationChannelFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload>[]
+          }
+          create: {
+            args: Prisma.NotificationChannelCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload>
+          }
+          createMany: {
+            args: Prisma.NotificationChannelCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NotificationChannelCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload>[]
+          }
+          delete: {
+            args: Prisma.NotificationChannelDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload>
+          }
+          update: {
+            args: Prisma.NotificationChannelUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload>
+          }
+          deleteMany: {
+            args: Prisma.NotificationChannelDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotificationChannelUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NotificationChannelUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload>[]
+          }
+          upsert: {
+            args: Prisma.NotificationChannelUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationChannelPayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationChannelAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotificationChannel>
+          }
+          groupBy: {
+            args: Prisma.NotificationChannelGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationChannelGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotificationChannelCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationChannelCountAggregateOutputType> | number
+          }
+        }
+      }
+      AlertRule: {
+        payload: Prisma.$AlertRulePayload<ExtArgs>
+        fields: Prisma.AlertRuleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AlertRuleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AlertRuleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload>
+          }
+          findFirst: {
+            args: Prisma.AlertRuleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AlertRuleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload>
+          }
+          findMany: {
+            args: Prisma.AlertRuleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload>[]
+          }
+          create: {
+            args: Prisma.AlertRuleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload>
+          }
+          createMany: {
+            args: Prisma.AlertRuleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AlertRuleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload>[]
+          }
+          delete: {
+            args: Prisma.AlertRuleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload>
+          }
+          update: {
+            args: Prisma.AlertRuleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload>
+          }
+          deleteMany: {
+            args: Prisma.AlertRuleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AlertRuleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AlertRuleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload>[]
+          }
+          upsert: {
+            args: Prisma.AlertRuleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AlertRulePayload>
+          }
+          aggregate: {
+            args: Prisma.AlertRuleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAlertRule>
+          }
+          groupBy: {
+            args: Prisma.AlertRuleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AlertRuleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AlertRuleCountArgs<ExtArgs>
+            result: $Utils.Optional<AlertRuleCountAggregateOutputType> | number
+          }
+        }
+      }
+      NotificationDelivery: {
+        payload: Prisma.$NotificationDeliveryPayload<ExtArgs>
+        fields: Prisma.NotificationDeliveryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotificationDeliveryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotificationDeliveryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload>
+          }
+          findFirst: {
+            args: Prisma.NotificationDeliveryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotificationDeliveryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload>
+          }
+          findMany: {
+            args: Prisma.NotificationDeliveryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload>[]
+          }
+          create: {
+            args: Prisma.NotificationDeliveryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload>
+          }
+          createMany: {
+            args: Prisma.NotificationDeliveryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NotificationDeliveryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload>[]
+          }
+          delete: {
+            args: Prisma.NotificationDeliveryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload>
+          }
+          update: {
+            args: Prisma.NotificationDeliveryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload>
+          }
+          deleteMany: {
+            args: Prisma.NotificationDeliveryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotificationDeliveryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NotificationDeliveryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload>[]
+          }
+          upsert: {
+            args: Prisma.NotificationDeliveryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationDeliveryPayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationDeliveryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotificationDelivery>
+          }
+          groupBy: {
+            args: Prisma.NotificationDeliveryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationDeliveryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotificationDeliveryCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationDeliveryCountAggregateOutputType> | number
           }
         }
       }
@@ -10465,6 +10779,9 @@ export namespace Prisma {
     controlRequirementAssignment?: ControlRequirementAssignmentOmit
     incident?: IncidentOmit
     incidentTimeline?: IncidentTimelineOmit
+    notificationChannel?: NotificationChannelOmit
+    alertRule?: AlertRuleOmit
+    notificationDelivery?: NotificationDeliveryOmit
     person?: PersonOmit
     backgroundCheck?: BackgroundCheckOmit
     personChecklistItem?: PersonChecklistItemOmit
@@ -11090,6 +11407,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type NotificationChannelCountOutputType
+   */
+
+  export type NotificationChannelCountOutputType = {
+    deliveries: number
+  }
+
+  export type NotificationChannelCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deliveries?: boolean | NotificationChannelCountOutputTypeCountDeliveriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * NotificationChannelCountOutputType without action
+   */
+  export type NotificationChannelCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannelCountOutputType
+     */
+    select?: NotificationChannelCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * NotificationChannelCountOutputType without action
+   */
+  export type NotificationChannelCountOutputTypeCountDeliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationDeliveryWhereInput
+  }
+
+
+  /**
    * Count Type PersonCountOutputType
    */
 
@@ -11653,6 +12001,9 @@ export namespace Prisma {
     deviceEnrollmentTokens: number
     devicePostureSnapshots: number
     deviceAuthCodes: number
+    notificationChannels: number
+    alertRules: number
+    notificationDeliveries: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11721,6 +12072,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: boolean | TenantCountOutputTypeCountDeviceEnrollmentTokensArgs
     devicePostureSnapshots?: boolean | TenantCountOutputTypeCountDevicePostureSnapshotsArgs
     deviceAuthCodes?: boolean | TenantCountOutputTypeCountDeviceAuthCodesArgs
+    notificationChannels?: boolean | TenantCountOutputTypeCountNotificationChannelsArgs
+    alertRules?: boolean | TenantCountOutputTypeCountAlertRulesArgs
+    notificationDeliveries?: boolean | TenantCountOutputTypeCountNotificationDeliveriesArgs
   }
 
   // Custom InputTypes
@@ -12187,6 +12541,27 @@ export namespace Prisma {
    */
   export type TenantCountOutputTypeCountDeviceAuthCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DeviceAuthCodeWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountNotificationChannelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationChannelWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountAlertRulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AlertRuleWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountNotificationDeliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationDeliveryWhereInput
   }
 
 
@@ -58316,6 +58691,3352 @@ export namespace Prisma {
 
 
   /**
+   * Model NotificationChannel
+   */
+
+  export type AggregateNotificationChannel = {
+    _count: NotificationChannelCountAggregateOutputType | null
+    _min: NotificationChannelMinAggregateOutputType | null
+    _max: NotificationChannelMaxAggregateOutputType | null
+  }
+
+  export type NotificationChannelMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    type: $Enums.NotificationChannelType | null
+    name: string | null
+    configEnc: string | null
+    enabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationChannelMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    type: $Enums.NotificationChannelType | null
+    name: string | null
+    configEnc: string | null
+    enabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NotificationChannelCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    type: number
+    name: number
+    configEnc: number
+    enabled: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NotificationChannelMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    type?: true
+    name?: true
+    configEnc?: true
+    enabled?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationChannelMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    type?: true
+    name?: true
+    configEnc?: true
+    enabled?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NotificationChannelCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    type?: true
+    name?: true
+    configEnc?: true
+    enabled?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NotificationChannelAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NotificationChannel to aggregate.
+     */
+    where?: NotificationChannelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationChannels to fetch.
+     */
+    orderBy?: NotificationChannelOrderByWithRelationInput | NotificationChannelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotificationChannelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationChannels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationChannels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NotificationChannels
+    **/
+    _count?: true | NotificationChannelCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationChannelMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationChannelMaxAggregateInputType
+  }
+
+  export type GetNotificationChannelAggregateType<T extends NotificationChannelAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotificationChannel]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotificationChannel[P]>
+      : GetScalarType<T[P], AggregateNotificationChannel[P]>
+  }
+
+
+
+
+  export type NotificationChannelGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationChannelWhereInput
+    orderBy?: NotificationChannelOrderByWithAggregationInput | NotificationChannelOrderByWithAggregationInput[]
+    by: NotificationChannelScalarFieldEnum[] | NotificationChannelScalarFieldEnum
+    having?: NotificationChannelScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationChannelCountAggregateInputType | true
+    _min?: NotificationChannelMinAggregateInputType
+    _max?: NotificationChannelMaxAggregateInputType
+  }
+
+  export type NotificationChannelGroupByOutputType = {
+    id: string
+    tenantId: string
+    type: $Enums.NotificationChannelType
+    name: string
+    configEnc: string
+    enabled: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: NotificationChannelCountAggregateOutputType | null
+    _min: NotificationChannelMinAggregateOutputType | null
+    _max: NotificationChannelMaxAggregateOutputType | null
+  }
+
+  type GetNotificationChannelGroupByPayload<T extends NotificationChannelGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationChannelGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationChannelGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationChannelGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationChannelGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotificationChannelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    type?: boolean
+    name?: boolean
+    configEnc?: boolean
+    enabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    deliveries?: boolean | NotificationChannel$deliveriesArgs<ExtArgs>
+    _count?: boolean | NotificationChannelCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notificationChannel"]>
+
+  export type NotificationChannelSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    type?: boolean
+    name?: boolean
+    configEnc?: boolean
+    enabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notificationChannel"]>
+
+  export type NotificationChannelSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    type?: boolean
+    name?: boolean
+    configEnc?: boolean
+    enabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notificationChannel"]>
+
+  export type NotificationChannelSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    type?: boolean
+    name?: boolean
+    configEnc?: boolean
+    enabled?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type NotificationChannelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "type" | "name" | "configEnc" | "enabled" | "createdAt" | "updatedAt", ExtArgs["result"]["notificationChannel"]>
+  export type NotificationChannelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    deliveries?: boolean | NotificationChannel$deliveriesArgs<ExtArgs>
+    _count?: boolean | NotificationChannelCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type NotificationChannelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type NotificationChannelIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $NotificationChannelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NotificationChannel"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      deliveries: Prisma.$NotificationDeliveryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      type: $Enums.NotificationChannelType
+      name: string
+      configEnc: string
+      enabled: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["notificationChannel"]>
+    composites: {}
+  }
+
+  type NotificationChannelGetPayload<S extends boolean | null | undefined | NotificationChannelDefaultArgs> = $Result.GetResult<Prisma.$NotificationChannelPayload, S>
+
+  type NotificationChannelCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NotificationChannelFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NotificationChannelCountAggregateInputType | true
+    }
+
+  export interface NotificationChannelDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NotificationChannel'], meta: { name: 'NotificationChannel' } }
+    /**
+     * Find zero or one NotificationChannel that matches the filter.
+     * @param {NotificationChannelFindUniqueArgs} args - Arguments to find a NotificationChannel
+     * @example
+     * // Get one NotificationChannel
+     * const notificationChannel = await prisma.notificationChannel.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotificationChannelFindUniqueArgs>(args: SelectSubset<T, NotificationChannelFindUniqueArgs<ExtArgs>>): Prisma__NotificationChannelClient<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NotificationChannel that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NotificationChannelFindUniqueOrThrowArgs} args - Arguments to find a NotificationChannel
+     * @example
+     * // Get one NotificationChannel
+     * const notificationChannel = await prisma.notificationChannel.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotificationChannelFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationChannelFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationChannelClient<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NotificationChannel that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationChannelFindFirstArgs} args - Arguments to find a NotificationChannel
+     * @example
+     * // Get one NotificationChannel
+     * const notificationChannel = await prisma.notificationChannel.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotificationChannelFindFirstArgs>(args?: SelectSubset<T, NotificationChannelFindFirstArgs<ExtArgs>>): Prisma__NotificationChannelClient<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NotificationChannel that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationChannelFindFirstOrThrowArgs} args - Arguments to find a NotificationChannel
+     * @example
+     * // Get one NotificationChannel
+     * const notificationChannel = await prisma.notificationChannel.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotificationChannelFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationChannelFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationChannelClient<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NotificationChannels that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationChannelFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NotificationChannels
+     * const notificationChannels = await prisma.notificationChannel.findMany()
+     * 
+     * // Get first 10 NotificationChannels
+     * const notificationChannels = await prisma.notificationChannel.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationChannelWithIdOnly = await prisma.notificationChannel.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotificationChannelFindManyArgs>(args?: SelectSubset<T, NotificationChannelFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NotificationChannel.
+     * @param {NotificationChannelCreateArgs} args - Arguments to create a NotificationChannel.
+     * @example
+     * // Create one NotificationChannel
+     * const NotificationChannel = await prisma.notificationChannel.create({
+     *   data: {
+     *     // ... data to create a NotificationChannel
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotificationChannelCreateArgs>(args: SelectSubset<T, NotificationChannelCreateArgs<ExtArgs>>): Prisma__NotificationChannelClient<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NotificationChannels.
+     * @param {NotificationChannelCreateManyArgs} args - Arguments to create many NotificationChannels.
+     * @example
+     * // Create many NotificationChannels
+     * const notificationChannel = await prisma.notificationChannel.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotificationChannelCreateManyArgs>(args?: SelectSubset<T, NotificationChannelCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NotificationChannels and returns the data saved in the database.
+     * @param {NotificationChannelCreateManyAndReturnArgs} args - Arguments to create many NotificationChannels.
+     * @example
+     * // Create many NotificationChannels
+     * const notificationChannel = await prisma.notificationChannel.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NotificationChannels and only return the `id`
+     * const notificationChannelWithIdOnly = await prisma.notificationChannel.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NotificationChannelCreateManyAndReturnArgs>(args?: SelectSubset<T, NotificationChannelCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a NotificationChannel.
+     * @param {NotificationChannelDeleteArgs} args - Arguments to delete one NotificationChannel.
+     * @example
+     * // Delete one NotificationChannel
+     * const NotificationChannel = await prisma.notificationChannel.delete({
+     *   where: {
+     *     // ... filter to delete one NotificationChannel
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotificationChannelDeleteArgs>(args: SelectSubset<T, NotificationChannelDeleteArgs<ExtArgs>>): Prisma__NotificationChannelClient<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NotificationChannel.
+     * @param {NotificationChannelUpdateArgs} args - Arguments to update one NotificationChannel.
+     * @example
+     * // Update one NotificationChannel
+     * const notificationChannel = await prisma.notificationChannel.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotificationChannelUpdateArgs>(args: SelectSubset<T, NotificationChannelUpdateArgs<ExtArgs>>): Prisma__NotificationChannelClient<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NotificationChannels.
+     * @param {NotificationChannelDeleteManyArgs} args - Arguments to filter NotificationChannels to delete.
+     * @example
+     * // Delete a few NotificationChannels
+     * const { count } = await prisma.notificationChannel.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotificationChannelDeleteManyArgs>(args?: SelectSubset<T, NotificationChannelDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NotificationChannels.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationChannelUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NotificationChannels
+     * const notificationChannel = await prisma.notificationChannel.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotificationChannelUpdateManyArgs>(args: SelectSubset<T, NotificationChannelUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NotificationChannels and returns the data updated in the database.
+     * @param {NotificationChannelUpdateManyAndReturnArgs} args - Arguments to update many NotificationChannels.
+     * @example
+     * // Update many NotificationChannels
+     * const notificationChannel = await prisma.notificationChannel.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more NotificationChannels and only return the `id`
+     * const notificationChannelWithIdOnly = await prisma.notificationChannel.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NotificationChannelUpdateManyAndReturnArgs>(args: SelectSubset<T, NotificationChannelUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one NotificationChannel.
+     * @param {NotificationChannelUpsertArgs} args - Arguments to update or create a NotificationChannel.
+     * @example
+     * // Update or create a NotificationChannel
+     * const notificationChannel = await prisma.notificationChannel.upsert({
+     *   create: {
+     *     // ... data to create a NotificationChannel
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NotificationChannel we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotificationChannelUpsertArgs>(args: SelectSubset<T, NotificationChannelUpsertArgs<ExtArgs>>): Prisma__NotificationChannelClient<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NotificationChannels.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationChannelCountArgs} args - Arguments to filter NotificationChannels to count.
+     * @example
+     * // Count the number of NotificationChannels
+     * const count = await prisma.notificationChannel.count({
+     *   where: {
+     *     // ... the filter for the NotificationChannels we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotificationChannelCountArgs>(
+      args?: Subset<T, NotificationChannelCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationChannelCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NotificationChannel.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationChannelAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationChannelAggregateArgs>(args: Subset<T, NotificationChannelAggregateArgs>): Prisma.PrismaPromise<GetNotificationChannelAggregateType<T>>
+
+    /**
+     * Group by NotificationChannel.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationChannelGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotificationChannelGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotificationChannelGroupByArgs['orderBy'] }
+        : { orderBy?: NotificationChannelGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotificationChannelGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationChannelGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NotificationChannel model
+   */
+  readonly fields: NotificationChannelFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NotificationChannel.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotificationChannelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    deliveries<T extends NotificationChannel$deliveriesArgs<ExtArgs> = {}>(args?: Subset<T, NotificationChannel$deliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NotificationChannel model
+   */
+  interface NotificationChannelFieldRefs {
+    readonly id: FieldRef<"NotificationChannel", 'String'>
+    readonly tenantId: FieldRef<"NotificationChannel", 'String'>
+    readonly type: FieldRef<"NotificationChannel", 'NotificationChannelType'>
+    readonly name: FieldRef<"NotificationChannel", 'String'>
+    readonly configEnc: FieldRef<"NotificationChannel", 'String'>
+    readonly enabled: FieldRef<"NotificationChannel", 'Boolean'>
+    readonly createdAt: FieldRef<"NotificationChannel", 'DateTime'>
+    readonly updatedAt: FieldRef<"NotificationChannel", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NotificationChannel findUnique
+   */
+  export type NotificationChannelFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationChannel to fetch.
+     */
+    where: NotificationChannelWhereUniqueInput
+  }
+
+  /**
+   * NotificationChannel findUniqueOrThrow
+   */
+  export type NotificationChannelFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationChannel to fetch.
+     */
+    where: NotificationChannelWhereUniqueInput
+  }
+
+  /**
+   * NotificationChannel findFirst
+   */
+  export type NotificationChannelFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationChannel to fetch.
+     */
+    where?: NotificationChannelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationChannels to fetch.
+     */
+    orderBy?: NotificationChannelOrderByWithRelationInput | NotificationChannelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NotificationChannels.
+     */
+    cursor?: NotificationChannelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationChannels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationChannels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotificationChannels.
+     */
+    distinct?: NotificationChannelScalarFieldEnum | NotificationChannelScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationChannel findFirstOrThrow
+   */
+  export type NotificationChannelFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationChannel to fetch.
+     */
+    where?: NotificationChannelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationChannels to fetch.
+     */
+    orderBy?: NotificationChannelOrderByWithRelationInput | NotificationChannelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NotificationChannels.
+     */
+    cursor?: NotificationChannelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationChannels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationChannels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotificationChannels.
+     */
+    distinct?: NotificationChannelScalarFieldEnum | NotificationChannelScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationChannel findMany
+   */
+  export type NotificationChannelFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationChannels to fetch.
+     */
+    where?: NotificationChannelWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationChannels to fetch.
+     */
+    orderBy?: NotificationChannelOrderByWithRelationInput | NotificationChannelOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NotificationChannels.
+     */
+    cursor?: NotificationChannelWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationChannels from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationChannels.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotificationChannels.
+     */
+    distinct?: NotificationChannelScalarFieldEnum | NotificationChannelScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationChannel create
+   */
+  export type NotificationChannelCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NotificationChannel.
+     */
+    data: XOR<NotificationChannelCreateInput, NotificationChannelUncheckedCreateInput>
+  }
+
+  /**
+   * NotificationChannel createMany
+   */
+  export type NotificationChannelCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NotificationChannels.
+     */
+    data: NotificationChannelCreateManyInput | NotificationChannelCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NotificationChannel createManyAndReturn
+   */
+  export type NotificationChannelCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * The data used to create many NotificationChannels.
+     */
+    data: NotificationChannelCreateManyInput | NotificationChannelCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NotificationChannel update
+   */
+  export type NotificationChannelUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NotificationChannel.
+     */
+    data: XOR<NotificationChannelUpdateInput, NotificationChannelUncheckedUpdateInput>
+    /**
+     * Choose, which NotificationChannel to update.
+     */
+    where: NotificationChannelWhereUniqueInput
+  }
+
+  /**
+   * NotificationChannel updateMany
+   */
+  export type NotificationChannelUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NotificationChannels.
+     */
+    data: XOR<NotificationChannelUpdateManyMutationInput, NotificationChannelUncheckedUpdateManyInput>
+    /**
+     * Filter which NotificationChannels to update
+     */
+    where?: NotificationChannelWhereInput
+    /**
+     * Limit how many NotificationChannels to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NotificationChannel updateManyAndReturn
+   */
+  export type NotificationChannelUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * The data used to update NotificationChannels.
+     */
+    data: XOR<NotificationChannelUpdateManyMutationInput, NotificationChannelUncheckedUpdateManyInput>
+    /**
+     * Filter which NotificationChannels to update
+     */
+    where?: NotificationChannelWhereInput
+    /**
+     * Limit how many NotificationChannels to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NotificationChannel upsert
+   */
+  export type NotificationChannelUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NotificationChannel to update in case it exists.
+     */
+    where: NotificationChannelWhereUniqueInput
+    /**
+     * In case the NotificationChannel found by the `where` argument doesn't exist, create a new NotificationChannel with this data.
+     */
+    create: XOR<NotificationChannelCreateInput, NotificationChannelUncheckedCreateInput>
+    /**
+     * In case the NotificationChannel was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotificationChannelUpdateInput, NotificationChannelUncheckedUpdateInput>
+  }
+
+  /**
+   * NotificationChannel delete
+   */
+  export type NotificationChannelDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    /**
+     * Filter which NotificationChannel to delete.
+     */
+    where: NotificationChannelWhereUniqueInput
+  }
+
+  /**
+   * NotificationChannel deleteMany
+   */
+  export type NotificationChannelDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NotificationChannels to delete
+     */
+    where?: NotificationChannelWhereInput
+    /**
+     * Limit how many NotificationChannels to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NotificationChannel.deliveries
+   */
+  export type NotificationChannel$deliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    where?: NotificationDeliveryWhereInput
+    orderBy?: NotificationDeliveryOrderByWithRelationInput | NotificationDeliveryOrderByWithRelationInput[]
+    cursor?: NotificationDeliveryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationDeliveryScalarFieldEnum | NotificationDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationChannel without action
+   */
+  export type NotificationChannelDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AlertRule
+   */
+
+  export type AggregateAlertRule = {
+    _count: AlertRuleCountAggregateOutputType | null
+    _min: AlertRuleMinAggregateOutputType | null
+    _max: AlertRuleMaxAggregateOutputType | null
+  }
+
+  export type AlertRuleMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    ruleKey: $Enums.AlertRuleKey | null
+    enabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AlertRuleMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    ruleKey: $Enums.AlertRuleKey | null
+    enabled: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AlertRuleCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    ruleKey: number
+    enabled: number
+    config: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AlertRuleMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    ruleKey?: true
+    enabled?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AlertRuleMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    ruleKey?: true
+    enabled?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AlertRuleCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    ruleKey?: true
+    enabled?: true
+    config?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AlertRuleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AlertRule to aggregate.
+     */
+    where?: AlertRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AlertRules to fetch.
+     */
+    orderBy?: AlertRuleOrderByWithRelationInput | AlertRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AlertRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AlertRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AlertRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AlertRules
+    **/
+    _count?: true | AlertRuleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AlertRuleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AlertRuleMaxAggregateInputType
+  }
+
+  export type GetAlertRuleAggregateType<T extends AlertRuleAggregateArgs> = {
+        [P in keyof T & keyof AggregateAlertRule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAlertRule[P]>
+      : GetScalarType<T[P], AggregateAlertRule[P]>
+  }
+
+
+
+
+  export type AlertRuleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AlertRuleWhereInput
+    orderBy?: AlertRuleOrderByWithAggregationInput | AlertRuleOrderByWithAggregationInput[]
+    by: AlertRuleScalarFieldEnum[] | AlertRuleScalarFieldEnum
+    having?: AlertRuleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AlertRuleCountAggregateInputType | true
+    _min?: AlertRuleMinAggregateInputType
+    _max?: AlertRuleMaxAggregateInputType
+  }
+
+  export type AlertRuleGroupByOutputType = {
+    id: string
+    tenantId: string
+    ruleKey: $Enums.AlertRuleKey
+    enabled: boolean
+    config: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: AlertRuleCountAggregateOutputType | null
+    _min: AlertRuleMinAggregateOutputType | null
+    _max: AlertRuleMaxAggregateOutputType | null
+  }
+
+  type GetAlertRuleGroupByPayload<T extends AlertRuleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AlertRuleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AlertRuleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AlertRuleGroupByOutputType[P]>
+            : GetScalarType<T[P], AlertRuleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AlertRuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    ruleKey?: boolean
+    enabled?: boolean
+    config?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["alertRule"]>
+
+  export type AlertRuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    ruleKey?: boolean
+    enabled?: boolean
+    config?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["alertRule"]>
+
+  export type AlertRuleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    ruleKey?: boolean
+    enabled?: boolean
+    config?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["alertRule"]>
+
+  export type AlertRuleSelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    ruleKey?: boolean
+    enabled?: boolean
+    config?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AlertRuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "ruleKey" | "enabled" | "config" | "createdAt" | "updatedAt", ExtArgs["result"]["alertRule"]>
+  export type AlertRuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type AlertRuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+  export type AlertRuleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $AlertRulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AlertRule"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      ruleKey: $Enums.AlertRuleKey
+      enabled: boolean
+      config: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["alertRule"]>
+    composites: {}
+  }
+
+  type AlertRuleGetPayload<S extends boolean | null | undefined | AlertRuleDefaultArgs> = $Result.GetResult<Prisma.$AlertRulePayload, S>
+
+  type AlertRuleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AlertRuleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AlertRuleCountAggregateInputType | true
+    }
+
+  export interface AlertRuleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AlertRule'], meta: { name: 'AlertRule' } }
+    /**
+     * Find zero or one AlertRule that matches the filter.
+     * @param {AlertRuleFindUniqueArgs} args - Arguments to find a AlertRule
+     * @example
+     * // Get one AlertRule
+     * const alertRule = await prisma.alertRule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AlertRuleFindUniqueArgs>(args: SelectSubset<T, AlertRuleFindUniqueArgs<ExtArgs>>): Prisma__AlertRuleClient<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AlertRule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AlertRuleFindUniqueOrThrowArgs} args - Arguments to find a AlertRule
+     * @example
+     * // Get one AlertRule
+     * const alertRule = await prisma.alertRule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AlertRuleFindUniqueOrThrowArgs>(args: SelectSubset<T, AlertRuleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AlertRuleClient<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AlertRule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AlertRuleFindFirstArgs} args - Arguments to find a AlertRule
+     * @example
+     * // Get one AlertRule
+     * const alertRule = await prisma.alertRule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AlertRuleFindFirstArgs>(args?: SelectSubset<T, AlertRuleFindFirstArgs<ExtArgs>>): Prisma__AlertRuleClient<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AlertRule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AlertRuleFindFirstOrThrowArgs} args - Arguments to find a AlertRule
+     * @example
+     * // Get one AlertRule
+     * const alertRule = await prisma.alertRule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AlertRuleFindFirstOrThrowArgs>(args?: SelectSubset<T, AlertRuleFindFirstOrThrowArgs<ExtArgs>>): Prisma__AlertRuleClient<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AlertRules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AlertRuleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AlertRules
+     * const alertRules = await prisma.alertRule.findMany()
+     * 
+     * // Get first 10 AlertRules
+     * const alertRules = await prisma.alertRule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const alertRuleWithIdOnly = await prisma.alertRule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AlertRuleFindManyArgs>(args?: SelectSubset<T, AlertRuleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AlertRule.
+     * @param {AlertRuleCreateArgs} args - Arguments to create a AlertRule.
+     * @example
+     * // Create one AlertRule
+     * const AlertRule = await prisma.alertRule.create({
+     *   data: {
+     *     // ... data to create a AlertRule
+     *   }
+     * })
+     * 
+     */
+    create<T extends AlertRuleCreateArgs>(args: SelectSubset<T, AlertRuleCreateArgs<ExtArgs>>): Prisma__AlertRuleClient<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AlertRules.
+     * @param {AlertRuleCreateManyArgs} args - Arguments to create many AlertRules.
+     * @example
+     * // Create many AlertRules
+     * const alertRule = await prisma.alertRule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AlertRuleCreateManyArgs>(args?: SelectSubset<T, AlertRuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AlertRules and returns the data saved in the database.
+     * @param {AlertRuleCreateManyAndReturnArgs} args - Arguments to create many AlertRules.
+     * @example
+     * // Create many AlertRules
+     * const alertRule = await prisma.alertRule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AlertRules and only return the `id`
+     * const alertRuleWithIdOnly = await prisma.alertRule.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AlertRuleCreateManyAndReturnArgs>(args?: SelectSubset<T, AlertRuleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AlertRule.
+     * @param {AlertRuleDeleteArgs} args - Arguments to delete one AlertRule.
+     * @example
+     * // Delete one AlertRule
+     * const AlertRule = await prisma.alertRule.delete({
+     *   where: {
+     *     // ... filter to delete one AlertRule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AlertRuleDeleteArgs>(args: SelectSubset<T, AlertRuleDeleteArgs<ExtArgs>>): Prisma__AlertRuleClient<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AlertRule.
+     * @param {AlertRuleUpdateArgs} args - Arguments to update one AlertRule.
+     * @example
+     * // Update one AlertRule
+     * const alertRule = await prisma.alertRule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AlertRuleUpdateArgs>(args: SelectSubset<T, AlertRuleUpdateArgs<ExtArgs>>): Prisma__AlertRuleClient<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AlertRules.
+     * @param {AlertRuleDeleteManyArgs} args - Arguments to filter AlertRules to delete.
+     * @example
+     * // Delete a few AlertRules
+     * const { count } = await prisma.alertRule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AlertRuleDeleteManyArgs>(args?: SelectSubset<T, AlertRuleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AlertRules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AlertRuleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AlertRules
+     * const alertRule = await prisma.alertRule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AlertRuleUpdateManyArgs>(args: SelectSubset<T, AlertRuleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AlertRules and returns the data updated in the database.
+     * @param {AlertRuleUpdateManyAndReturnArgs} args - Arguments to update many AlertRules.
+     * @example
+     * // Update many AlertRules
+     * const alertRule = await prisma.alertRule.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AlertRules and only return the `id`
+     * const alertRuleWithIdOnly = await prisma.alertRule.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AlertRuleUpdateManyAndReturnArgs>(args: SelectSubset<T, AlertRuleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AlertRule.
+     * @param {AlertRuleUpsertArgs} args - Arguments to update or create a AlertRule.
+     * @example
+     * // Update or create a AlertRule
+     * const alertRule = await prisma.alertRule.upsert({
+     *   create: {
+     *     // ... data to create a AlertRule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AlertRule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AlertRuleUpsertArgs>(args: SelectSubset<T, AlertRuleUpsertArgs<ExtArgs>>): Prisma__AlertRuleClient<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AlertRules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AlertRuleCountArgs} args - Arguments to filter AlertRules to count.
+     * @example
+     * // Count the number of AlertRules
+     * const count = await prisma.alertRule.count({
+     *   where: {
+     *     // ... the filter for the AlertRules we want to count
+     *   }
+     * })
+    **/
+    count<T extends AlertRuleCountArgs>(
+      args?: Subset<T, AlertRuleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AlertRuleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AlertRule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AlertRuleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AlertRuleAggregateArgs>(args: Subset<T, AlertRuleAggregateArgs>): Prisma.PrismaPromise<GetAlertRuleAggregateType<T>>
+
+    /**
+     * Group by AlertRule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AlertRuleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AlertRuleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AlertRuleGroupByArgs['orderBy'] }
+        : { orderBy?: AlertRuleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AlertRuleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAlertRuleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AlertRule model
+   */
+  readonly fields: AlertRuleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AlertRule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AlertRuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AlertRule model
+   */
+  interface AlertRuleFieldRefs {
+    readonly id: FieldRef<"AlertRule", 'String'>
+    readonly tenantId: FieldRef<"AlertRule", 'String'>
+    readonly ruleKey: FieldRef<"AlertRule", 'AlertRuleKey'>
+    readonly enabled: FieldRef<"AlertRule", 'Boolean'>
+    readonly config: FieldRef<"AlertRule", 'Json'>
+    readonly createdAt: FieldRef<"AlertRule", 'DateTime'>
+    readonly updatedAt: FieldRef<"AlertRule", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AlertRule findUnique
+   */
+  export type AlertRuleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which AlertRule to fetch.
+     */
+    where: AlertRuleWhereUniqueInput
+  }
+
+  /**
+   * AlertRule findUniqueOrThrow
+   */
+  export type AlertRuleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which AlertRule to fetch.
+     */
+    where: AlertRuleWhereUniqueInput
+  }
+
+  /**
+   * AlertRule findFirst
+   */
+  export type AlertRuleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which AlertRule to fetch.
+     */
+    where?: AlertRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AlertRules to fetch.
+     */
+    orderBy?: AlertRuleOrderByWithRelationInput | AlertRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AlertRules.
+     */
+    cursor?: AlertRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AlertRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AlertRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AlertRules.
+     */
+    distinct?: AlertRuleScalarFieldEnum | AlertRuleScalarFieldEnum[]
+  }
+
+  /**
+   * AlertRule findFirstOrThrow
+   */
+  export type AlertRuleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which AlertRule to fetch.
+     */
+    where?: AlertRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AlertRules to fetch.
+     */
+    orderBy?: AlertRuleOrderByWithRelationInput | AlertRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AlertRules.
+     */
+    cursor?: AlertRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AlertRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AlertRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AlertRules.
+     */
+    distinct?: AlertRuleScalarFieldEnum | AlertRuleScalarFieldEnum[]
+  }
+
+  /**
+   * AlertRule findMany
+   */
+  export type AlertRuleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which AlertRules to fetch.
+     */
+    where?: AlertRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AlertRules to fetch.
+     */
+    orderBy?: AlertRuleOrderByWithRelationInput | AlertRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AlertRules.
+     */
+    cursor?: AlertRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AlertRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AlertRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AlertRules.
+     */
+    distinct?: AlertRuleScalarFieldEnum | AlertRuleScalarFieldEnum[]
+  }
+
+  /**
+   * AlertRule create
+   */
+  export type AlertRuleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AlertRule.
+     */
+    data: XOR<AlertRuleCreateInput, AlertRuleUncheckedCreateInput>
+  }
+
+  /**
+   * AlertRule createMany
+   */
+  export type AlertRuleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AlertRules.
+     */
+    data: AlertRuleCreateManyInput | AlertRuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AlertRule createManyAndReturn
+   */
+  export type AlertRuleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * The data used to create many AlertRules.
+     */
+    data: AlertRuleCreateManyInput | AlertRuleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AlertRule update
+   */
+  export type AlertRuleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AlertRule.
+     */
+    data: XOR<AlertRuleUpdateInput, AlertRuleUncheckedUpdateInput>
+    /**
+     * Choose, which AlertRule to update.
+     */
+    where: AlertRuleWhereUniqueInput
+  }
+
+  /**
+   * AlertRule updateMany
+   */
+  export type AlertRuleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AlertRules.
+     */
+    data: XOR<AlertRuleUpdateManyMutationInput, AlertRuleUncheckedUpdateManyInput>
+    /**
+     * Filter which AlertRules to update
+     */
+    where?: AlertRuleWhereInput
+    /**
+     * Limit how many AlertRules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AlertRule updateManyAndReturn
+   */
+  export type AlertRuleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * The data used to update AlertRules.
+     */
+    data: XOR<AlertRuleUpdateManyMutationInput, AlertRuleUncheckedUpdateManyInput>
+    /**
+     * Filter which AlertRules to update
+     */
+    where?: AlertRuleWhereInput
+    /**
+     * Limit how many AlertRules to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AlertRule upsert
+   */
+  export type AlertRuleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AlertRule to update in case it exists.
+     */
+    where: AlertRuleWhereUniqueInput
+    /**
+     * In case the AlertRule found by the `where` argument doesn't exist, create a new AlertRule with this data.
+     */
+    create: XOR<AlertRuleCreateInput, AlertRuleUncheckedCreateInput>
+    /**
+     * In case the AlertRule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AlertRuleUpdateInput, AlertRuleUncheckedUpdateInput>
+  }
+
+  /**
+   * AlertRule delete
+   */
+  export type AlertRuleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+    /**
+     * Filter which AlertRule to delete.
+     */
+    where: AlertRuleWhereUniqueInput
+  }
+
+  /**
+   * AlertRule deleteMany
+   */
+  export type AlertRuleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AlertRules to delete
+     */
+    where?: AlertRuleWhereInput
+    /**
+     * Limit how many AlertRules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AlertRule without action
+   */
+  export type AlertRuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NotificationDelivery
+   */
+
+  export type AggregateNotificationDelivery = {
+    _count: NotificationDeliveryCountAggregateOutputType | null
+    _min: NotificationDeliveryMinAggregateOutputType | null
+    _max: NotificationDeliveryMaxAggregateOutputType | null
+  }
+
+  export type NotificationDeliveryMinAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    ruleKey: $Enums.AlertRuleKey | null
+    dedupeKey: string | null
+    channelId: string | null
+    status: $Enums.NotificationDeliveryStatus | null
+    summary: string | null
+    createdAt: Date | null
+  }
+
+  export type NotificationDeliveryMaxAggregateOutputType = {
+    id: string | null
+    tenantId: string | null
+    ruleKey: $Enums.AlertRuleKey | null
+    dedupeKey: string | null
+    channelId: string | null
+    status: $Enums.NotificationDeliveryStatus | null
+    summary: string | null
+    createdAt: Date | null
+  }
+
+  export type NotificationDeliveryCountAggregateOutputType = {
+    id: number
+    tenantId: number
+    ruleKey: number
+    dedupeKey: number
+    channelId: number
+    status: number
+    summary: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type NotificationDeliveryMinAggregateInputType = {
+    id?: true
+    tenantId?: true
+    ruleKey?: true
+    dedupeKey?: true
+    channelId?: true
+    status?: true
+    summary?: true
+    createdAt?: true
+  }
+
+  export type NotificationDeliveryMaxAggregateInputType = {
+    id?: true
+    tenantId?: true
+    ruleKey?: true
+    dedupeKey?: true
+    channelId?: true
+    status?: true
+    summary?: true
+    createdAt?: true
+  }
+
+  export type NotificationDeliveryCountAggregateInputType = {
+    id?: true
+    tenantId?: true
+    ruleKey?: true
+    dedupeKey?: true
+    channelId?: true
+    status?: true
+    summary?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type NotificationDeliveryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NotificationDelivery to aggregate.
+     */
+    where?: NotificationDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationDeliveries to fetch.
+     */
+    orderBy?: NotificationDeliveryOrderByWithRelationInput | NotificationDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotificationDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationDeliveries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NotificationDeliveries
+    **/
+    _count?: true | NotificationDeliveryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationDeliveryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationDeliveryMaxAggregateInputType
+  }
+
+  export type GetNotificationDeliveryAggregateType<T extends NotificationDeliveryAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotificationDelivery]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotificationDelivery[P]>
+      : GetScalarType<T[P], AggregateNotificationDelivery[P]>
+  }
+
+
+
+
+  export type NotificationDeliveryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationDeliveryWhereInput
+    orderBy?: NotificationDeliveryOrderByWithAggregationInput | NotificationDeliveryOrderByWithAggregationInput[]
+    by: NotificationDeliveryScalarFieldEnum[] | NotificationDeliveryScalarFieldEnum
+    having?: NotificationDeliveryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationDeliveryCountAggregateInputType | true
+    _min?: NotificationDeliveryMinAggregateInputType
+    _max?: NotificationDeliveryMaxAggregateInputType
+  }
+
+  export type NotificationDeliveryGroupByOutputType = {
+    id: string
+    tenantId: string
+    ruleKey: $Enums.AlertRuleKey
+    dedupeKey: string
+    channelId: string | null
+    status: $Enums.NotificationDeliveryStatus
+    summary: string
+    createdAt: Date
+    _count: NotificationDeliveryCountAggregateOutputType | null
+    _min: NotificationDeliveryMinAggregateOutputType | null
+    _max: NotificationDeliveryMaxAggregateOutputType | null
+  }
+
+  type GetNotificationDeliveryGroupByPayload<T extends NotificationDeliveryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationDeliveryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationDeliveryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationDeliveryGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationDeliveryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotificationDeliverySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    ruleKey?: boolean
+    dedupeKey?: boolean
+    channelId?: boolean
+    status?: boolean
+    summary?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    channel?: boolean | NotificationDelivery$channelArgs<ExtArgs>
+  }, ExtArgs["result"]["notificationDelivery"]>
+
+  export type NotificationDeliverySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    ruleKey?: boolean
+    dedupeKey?: boolean
+    channelId?: boolean
+    status?: boolean
+    summary?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    channel?: boolean | NotificationDelivery$channelArgs<ExtArgs>
+  }, ExtArgs["result"]["notificationDelivery"]>
+
+  export type NotificationDeliverySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tenantId?: boolean
+    ruleKey?: boolean
+    dedupeKey?: boolean
+    channelId?: boolean
+    status?: boolean
+    summary?: boolean
+    createdAt?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    channel?: boolean | NotificationDelivery$channelArgs<ExtArgs>
+  }, ExtArgs["result"]["notificationDelivery"]>
+
+  export type NotificationDeliverySelectScalar = {
+    id?: boolean
+    tenantId?: boolean
+    ruleKey?: boolean
+    dedupeKey?: boolean
+    channelId?: boolean
+    status?: boolean
+    summary?: boolean
+    createdAt?: boolean
+  }
+
+  export type NotificationDeliveryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "ruleKey" | "dedupeKey" | "channelId" | "status" | "summary" | "createdAt", ExtArgs["result"]["notificationDelivery"]>
+  export type NotificationDeliveryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    channel?: boolean | NotificationDelivery$channelArgs<ExtArgs>
+  }
+  export type NotificationDeliveryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    channel?: boolean | NotificationDelivery$channelArgs<ExtArgs>
+  }
+  export type NotificationDeliveryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    channel?: boolean | NotificationDelivery$channelArgs<ExtArgs>
+  }
+
+  export type $NotificationDeliveryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NotificationDelivery"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      channel: Prisma.$NotificationChannelPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tenantId: string
+      ruleKey: $Enums.AlertRuleKey
+      dedupeKey: string
+      channelId: string | null
+      status: $Enums.NotificationDeliveryStatus
+      summary: string
+      createdAt: Date
+    }, ExtArgs["result"]["notificationDelivery"]>
+    composites: {}
+  }
+
+  type NotificationDeliveryGetPayload<S extends boolean | null | undefined | NotificationDeliveryDefaultArgs> = $Result.GetResult<Prisma.$NotificationDeliveryPayload, S>
+
+  type NotificationDeliveryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NotificationDeliveryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NotificationDeliveryCountAggregateInputType | true
+    }
+
+  export interface NotificationDeliveryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NotificationDelivery'], meta: { name: 'NotificationDelivery' } }
+    /**
+     * Find zero or one NotificationDelivery that matches the filter.
+     * @param {NotificationDeliveryFindUniqueArgs} args - Arguments to find a NotificationDelivery
+     * @example
+     * // Get one NotificationDelivery
+     * const notificationDelivery = await prisma.notificationDelivery.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotificationDeliveryFindUniqueArgs>(args: SelectSubset<T, NotificationDeliveryFindUniqueArgs<ExtArgs>>): Prisma__NotificationDeliveryClient<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one NotificationDelivery that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NotificationDeliveryFindUniqueOrThrowArgs} args - Arguments to find a NotificationDelivery
+     * @example
+     * // Get one NotificationDelivery
+     * const notificationDelivery = await prisma.notificationDelivery.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotificationDeliveryFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationDeliveryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationDeliveryClient<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NotificationDelivery that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationDeliveryFindFirstArgs} args - Arguments to find a NotificationDelivery
+     * @example
+     * // Get one NotificationDelivery
+     * const notificationDelivery = await prisma.notificationDelivery.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotificationDeliveryFindFirstArgs>(args?: SelectSubset<T, NotificationDeliveryFindFirstArgs<ExtArgs>>): Prisma__NotificationDeliveryClient<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first NotificationDelivery that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationDeliveryFindFirstOrThrowArgs} args - Arguments to find a NotificationDelivery
+     * @example
+     * // Get one NotificationDelivery
+     * const notificationDelivery = await prisma.notificationDelivery.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotificationDeliveryFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationDeliveryFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationDeliveryClient<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more NotificationDeliveries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationDeliveryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NotificationDeliveries
+     * const notificationDeliveries = await prisma.notificationDelivery.findMany()
+     * 
+     * // Get first 10 NotificationDeliveries
+     * const notificationDeliveries = await prisma.notificationDelivery.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationDeliveryWithIdOnly = await prisma.notificationDelivery.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotificationDeliveryFindManyArgs>(args?: SelectSubset<T, NotificationDeliveryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a NotificationDelivery.
+     * @param {NotificationDeliveryCreateArgs} args - Arguments to create a NotificationDelivery.
+     * @example
+     * // Create one NotificationDelivery
+     * const NotificationDelivery = await prisma.notificationDelivery.create({
+     *   data: {
+     *     // ... data to create a NotificationDelivery
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotificationDeliveryCreateArgs>(args: SelectSubset<T, NotificationDeliveryCreateArgs<ExtArgs>>): Prisma__NotificationDeliveryClient<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many NotificationDeliveries.
+     * @param {NotificationDeliveryCreateManyArgs} args - Arguments to create many NotificationDeliveries.
+     * @example
+     * // Create many NotificationDeliveries
+     * const notificationDelivery = await prisma.notificationDelivery.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotificationDeliveryCreateManyArgs>(args?: SelectSubset<T, NotificationDeliveryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NotificationDeliveries and returns the data saved in the database.
+     * @param {NotificationDeliveryCreateManyAndReturnArgs} args - Arguments to create many NotificationDeliveries.
+     * @example
+     * // Create many NotificationDeliveries
+     * const notificationDelivery = await prisma.notificationDelivery.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NotificationDeliveries and only return the `id`
+     * const notificationDeliveryWithIdOnly = await prisma.notificationDelivery.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NotificationDeliveryCreateManyAndReturnArgs>(args?: SelectSubset<T, NotificationDeliveryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a NotificationDelivery.
+     * @param {NotificationDeliveryDeleteArgs} args - Arguments to delete one NotificationDelivery.
+     * @example
+     * // Delete one NotificationDelivery
+     * const NotificationDelivery = await prisma.notificationDelivery.delete({
+     *   where: {
+     *     // ... filter to delete one NotificationDelivery
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotificationDeliveryDeleteArgs>(args: SelectSubset<T, NotificationDeliveryDeleteArgs<ExtArgs>>): Prisma__NotificationDeliveryClient<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one NotificationDelivery.
+     * @param {NotificationDeliveryUpdateArgs} args - Arguments to update one NotificationDelivery.
+     * @example
+     * // Update one NotificationDelivery
+     * const notificationDelivery = await prisma.notificationDelivery.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotificationDeliveryUpdateArgs>(args: SelectSubset<T, NotificationDeliveryUpdateArgs<ExtArgs>>): Prisma__NotificationDeliveryClient<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more NotificationDeliveries.
+     * @param {NotificationDeliveryDeleteManyArgs} args - Arguments to filter NotificationDeliveries to delete.
+     * @example
+     * // Delete a few NotificationDeliveries
+     * const { count } = await prisma.notificationDelivery.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotificationDeliveryDeleteManyArgs>(args?: SelectSubset<T, NotificationDeliveryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NotificationDeliveries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationDeliveryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NotificationDeliveries
+     * const notificationDelivery = await prisma.notificationDelivery.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotificationDeliveryUpdateManyArgs>(args: SelectSubset<T, NotificationDeliveryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NotificationDeliveries and returns the data updated in the database.
+     * @param {NotificationDeliveryUpdateManyAndReturnArgs} args - Arguments to update many NotificationDeliveries.
+     * @example
+     * // Update many NotificationDeliveries
+     * const notificationDelivery = await prisma.notificationDelivery.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more NotificationDeliveries and only return the `id`
+     * const notificationDeliveryWithIdOnly = await prisma.notificationDelivery.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NotificationDeliveryUpdateManyAndReturnArgs>(args: SelectSubset<T, NotificationDeliveryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one NotificationDelivery.
+     * @param {NotificationDeliveryUpsertArgs} args - Arguments to update or create a NotificationDelivery.
+     * @example
+     * // Update or create a NotificationDelivery
+     * const notificationDelivery = await prisma.notificationDelivery.upsert({
+     *   create: {
+     *     // ... data to create a NotificationDelivery
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NotificationDelivery we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotificationDeliveryUpsertArgs>(args: SelectSubset<T, NotificationDeliveryUpsertArgs<ExtArgs>>): Prisma__NotificationDeliveryClient<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of NotificationDeliveries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationDeliveryCountArgs} args - Arguments to filter NotificationDeliveries to count.
+     * @example
+     * // Count the number of NotificationDeliveries
+     * const count = await prisma.notificationDelivery.count({
+     *   where: {
+     *     // ... the filter for the NotificationDeliveries we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotificationDeliveryCountArgs>(
+      args?: Subset<T, NotificationDeliveryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationDeliveryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NotificationDelivery.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationDeliveryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationDeliveryAggregateArgs>(args: Subset<T, NotificationDeliveryAggregateArgs>): Prisma.PrismaPromise<GetNotificationDeliveryAggregateType<T>>
+
+    /**
+     * Group by NotificationDelivery.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationDeliveryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotificationDeliveryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotificationDeliveryGroupByArgs['orderBy'] }
+        : { orderBy?: NotificationDeliveryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotificationDeliveryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationDeliveryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NotificationDelivery model
+   */
+  readonly fields: NotificationDeliveryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NotificationDelivery.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotificationDeliveryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    channel<T extends NotificationDelivery$channelArgs<ExtArgs> = {}>(args?: Subset<T, NotificationDelivery$channelArgs<ExtArgs>>): Prisma__NotificationChannelClient<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NotificationDelivery model
+   */
+  interface NotificationDeliveryFieldRefs {
+    readonly id: FieldRef<"NotificationDelivery", 'String'>
+    readonly tenantId: FieldRef<"NotificationDelivery", 'String'>
+    readonly ruleKey: FieldRef<"NotificationDelivery", 'AlertRuleKey'>
+    readonly dedupeKey: FieldRef<"NotificationDelivery", 'String'>
+    readonly channelId: FieldRef<"NotificationDelivery", 'String'>
+    readonly status: FieldRef<"NotificationDelivery", 'NotificationDeliveryStatus'>
+    readonly summary: FieldRef<"NotificationDelivery", 'String'>
+    readonly createdAt: FieldRef<"NotificationDelivery", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NotificationDelivery findUnique
+   */
+  export type NotificationDeliveryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationDelivery to fetch.
+     */
+    where: NotificationDeliveryWhereUniqueInput
+  }
+
+  /**
+   * NotificationDelivery findUniqueOrThrow
+   */
+  export type NotificationDeliveryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationDelivery to fetch.
+     */
+    where: NotificationDeliveryWhereUniqueInput
+  }
+
+  /**
+   * NotificationDelivery findFirst
+   */
+  export type NotificationDeliveryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationDelivery to fetch.
+     */
+    where?: NotificationDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationDeliveries to fetch.
+     */
+    orderBy?: NotificationDeliveryOrderByWithRelationInput | NotificationDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NotificationDeliveries.
+     */
+    cursor?: NotificationDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationDeliveries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotificationDeliveries.
+     */
+    distinct?: NotificationDeliveryScalarFieldEnum | NotificationDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationDelivery findFirstOrThrow
+   */
+  export type NotificationDeliveryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationDelivery to fetch.
+     */
+    where?: NotificationDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationDeliveries to fetch.
+     */
+    orderBy?: NotificationDeliveryOrderByWithRelationInput | NotificationDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NotificationDeliveries.
+     */
+    cursor?: NotificationDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationDeliveries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotificationDeliveries.
+     */
+    distinct?: NotificationDeliveryScalarFieldEnum | NotificationDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationDelivery findMany
+   */
+  export type NotificationDeliveryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which NotificationDeliveries to fetch.
+     */
+    where?: NotificationDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NotificationDeliveries to fetch.
+     */
+    orderBy?: NotificationDeliveryOrderByWithRelationInput | NotificationDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NotificationDeliveries.
+     */
+    cursor?: NotificationDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NotificationDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NotificationDeliveries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NotificationDeliveries.
+     */
+    distinct?: NotificationDeliveryScalarFieldEnum | NotificationDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * NotificationDelivery create
+   */
+  export type NotificationDeliveryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NotificationDelivery.
+     */
+    data: XOR<NotificationDeliveryCreateInput, NotificationDeliveryUncheckedCreateInput>
+  }
+
+  /**
+   * NotificationDelivery createMany
+   */
+  export type NotificationDeliveryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NotificationDeliveries.
+     */
+    data: NotificationDeliveryCreateManyInput | NotificationDeliveryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NotificationDelivery createManyAndReturn
+   */
+  export type NotificationDeliveryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * The data used to create many NotificationDeliveries.
+     */
+    data: NotificationDeliveryCreateManyInput | NotificationDeliveryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NotificationDelivery update
+   */
+  export type NotificationDeliveryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NotificationDelivery.
+     */
+    data: XOR<NotificationDeliveryUpdateInput, NotificationDeliveryUncheckedUpdateInput>
+    /**
+     * Choose, which NotificationDelivery to update.
+     */
+    where: NotificationDeliveryWhereUniqueInput
+  }
+
+  /**
+   * NotificationDelivery updateMany
+   */
+  export type NotificationDeliveryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NotificationDeliveries.
+     */
+    data: XOR<NotificationDeliveryUpdateManyMutationInput, NotificationDeliveryUncheckedUpdateManyInput>
+    /**
+     * Filter which NotificationDeliveries to update
+     */
+    where?: NotificationDeliveryWhereInput
+    /**
+     * Limit how many NotificationDeliveries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * NotificationDelivery updateManyAndReturn
+   */
+  export type NotificationDeliveryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * The data used to update NotificationDeliveries.
+     */
+    data: XOR<NotificationDeliveryUpdateManyMutationInput, NotificationDeliveryUncheckedUpdateManyInput>
+    /**
+     * Filter which NotificationDeliveries to update
+     */
+    where?: NotificationDeliveryWhereInput
+    /**
+     * Limit how many NotificationDeliveries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NotificationDelivery upsert
+   */
+  export type NotificationDeliveryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NotificationDelivery to update in case it exists.
+     */
+    where: NotificationDeliveryWhereUniqueInput
+    /**
+     * In case the NotificationDelivery found by the `where` argument doesn't exist, create a new NotificationDelivery with this data.
+     */
+    create: XOR<NotificationDeliveryCreateInput, NotificationDeliveryUncheckedCreateInput>
+    /**
+     * In case the NotificationDelivery was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotificationDeliveryUpdateInput, NotificationDeliveryUncheckedUpdateInput>
+  }
+
+  /**
+   * NotificationDelivery delete
+   */
+  export type NotificationDeliveryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter which NotificationDelivery to delete.
+     */
+    where: NotificationDeliveryWhereUniqueInput
+  }
+
+  /**
+   * NotificationDelivery deleteMany
+   */
+  export type NotificationDeliveryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NotificationDeliveries to delete
+     */
+    where?: NotificationDeliveryWhereInput
+    /**
+     * Limit how many NotificationDeliveries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * NotificationDelivery.channel
+   */
+  export type NotificationDelivery$channelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    where?: NotificationChannelWhereInput
+  }
+
+  /**
+   * NotificationDelivery without action
+   */
+  export type NotificationDeliveryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Person
    */
 
@@ -91959,6 +95680,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: boolean | Tenant$deviceEnrollmentTokensArgs<ExtArgs>
     devicePostureSnapshots?: boolean | Tenant$devicePostureSnapshotsArgs<ExtArgs>
     deviceAuthCodes?: boolean | Tenant$deviceAuthCodesArgs<ExtArgs>
+    notificationChannels?: boolean | Tenant$notificationChannelsArgs<ExtArgs>
+    alertRules?: boolean | Tenant$alertRulesArgs<ExtArgs>
+    notificationDeliveries?: boolean | Tenant$notificationDeliveriesArgs<ExtArgs>
     billingConfig?: boolean | Tenant$billingConfigArgs<ExtArgs>
     litellmKey?: boolean | Tenant$litellmKeyArgs<ExtArgs>
     creditWallet?: boolean | Tenant$creditWalletArgs<ExtArgs>
@@ -92068,6 +95792,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: boolean | Tenant$deviceEnrollmentTokensArgs<ExtArgs>
     devicePostureSnapshots?: boolean | Tenant$devicePostureSnapshotsArgs<ExtArgs>
     deviceAuthCodes?: boolean | Tenant$deviceAuthCodesArgs<ExtArgs>
+    notificationChannels?: boolean | Tenant$notificationChannelsArgs<ExtArgs>
+    alertRules?: boolean | Tenant$alertRulesArgs<ExtArgs>
+    notificationDeliveries?: boolean | Tenant$notificationDeliveriesArgs<ExtArgs>
     billingConfig?: boolean | Tenant$billingConfigArgs<ExtArgs>
     litellmKey?: boolean | Tenant$litellmKeyArgs<ExtArgs>
     creditWallet?: boolean | Tenant$creditWalletArgs<ExtArgs>
@@ -92147,6 +95874,9 @@ export namespace Prisma {
       deviceEnrollmentTokens: Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>[]
       devicePostureSnapshots: Prisma.$DevicePostureSnapshotPayload<ExtArgs>[]
       deviceAuthCodes: Prisma.$DeviceAuthCodePayload<ExtArgs>[]
+      notificationChannels: Prisma.$NotificationChannelPayload<ExtArgs>[]
+      alertRules: Prisma.$AlertRulePayload<ExtArgs>[]
+      notificationDeliveries: Prisma.$NotificationDeliveryPayload<ExtArgs>[]
       billingConfig: Prisma.$TenantBillingConfigPayload<ExtArgs> | null
       litellmKey: Prisma.$TenantLiteLLMKeyPayload<ExtArgs> | null
       creditWallet: Prisma.$CreditWalletPayload<ExtArgs> | null
@@ -92622,6 +96352,9 @@ export namespace Prisma {
     deviceEnrollmentTokens<T extends Tenant$deviceEnrollmentTokensArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$deviceEnrollmentTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceEnrollmentTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     devicePostureSnapshots<T extends Tenant$devicePostureSnapshotsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$devicePostureSnapshotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DevicePostureSnapshotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     deviceAuthCodes<T extends Tenant$deviceAuthCodesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$deviceAuthCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DeviceAuthCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notificationChannels<T extends Tenant$notificationChannelsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$notificationChannelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    alertRules<T extends Tenant$alertRulesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$alertRulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlertRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notificationDeliveries<T extends Tenant$notificationDeliveriesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$notificationDeliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationDeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     billingConfig<T extends Tenant$billingConfigArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$billingConfigArgs<ExtArgs>>): Prisma__TenantBillingConfigClient<$Result.GetResult<Prisma.$TenantBillingConfigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     litellmKey<T extends Tenant$litellmKeyArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$litellmKeyArgs<ExtArgs>>): Prisma__TenantLiteLLMKeyClient<$Result.GetResult<Prisma.$TenantLiteLLMKeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     creditWallet<T extends Tenant$creditWalletArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$creditWalletArgs<ExtArgs>>): Prisma__CreditWalletClient<$Result.GetResult<Prisma.$CreditWalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -94669,6 +98402,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DeviceAuthCodeScalarFieldEnum | DeviceAuthCodeScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.notificationChannels
+   */
+  export type Tenant$notificationChannelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationChannel
+     */
+    select?: NotificationChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationChannel
+     */
+    omit?: NotificationChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationChannelInclude<ExtArgs> | null
+    where?: NotificationChannelWhereInput
+    orderBy?: NotificationChannelOrderByWithRelationInput | NotificationChannelOrderByWithRelationInput[]
+    cursor?: NotificationChannelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationChannelScalarFieldEnum | NotificationChannelScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.alertRules
+   */
+  export type Tenant$alertRulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AlertRule
+     */
+    select?: AlertRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AlertRule
+     */
+    omit?: AlertRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AlertRuleInclude<ExtArgs> | null
+    where?: AlertRuleWhereInput
+    orderBy?: AlertRuleOrderByWithRelationInput | AlertRuleOrderByWithRelationInput[]
+    cursor?: AlertRuleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AlertRuleScalarFieldEnum | AlertRuleScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.notificationDeliveries
+   */
+  export type Tenant$notificationDeliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NotificationDelivery
+     */
+    select?: NotificationDeliverySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NotificationDelivery
+     */
+    omit?: NotificationDeliveryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationDeliveryInclude<ExtArgs> | null
+    where?: NotificationDeliveryWhereInput
+    orderBy?: NotificationDeliveryOrderByWithRelationInput | NotificationDeliveryOrderByWithRelationInput[]
+    cursor?: NotificationDeliveryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationDeliveryScalarFieldEnum | NotificationDeliveryScalarFieldEnum[]
   }
 
   /**
@@ -126218,6 +130023,47 @@ export namespace Prisma {
   export type IncidentTimelineScalarFieldEnum = (typeof IncidentTimelineScalarFieldEnum)[keyof typeof IncidentTimelineScalarFieldEnum]
 
 
+  export const NotificationChannelScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    type: 'type',
+    name: 'name',
+    configEnc: 'configEnc',
+    enabled: 'enabled',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NotificationChannelScalarFieldEnum = (typeof NotificationChannelScalarFieldEnum)[keyof typeof NotificationChannelScalarFieldEnum]
+
+
+  export const AlertRuleScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    ruleKey: 'ruleKey',
+    enabled: 'enabled',
+    config: 'config',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AlertRuleScalarFieldEnum = (typeof AlertRuleScalarFieldEnum)[keyof typeof AlertRuleScalarFieldEnum]
+
+
+  export const NotificationDeliveryScalarFieldEnum: {
+    id: 'id',
+    tenantId: 'tenantId',
+    ruleKey: 'ruleKey',
+    dedupeKey: 'dedupeKey',
+    channelId: 'channelId',
+    status: 'status',
+    summary: 'summary',
+    createdAt: 'createdAt'
+  };
+
+  export type NotificationDeliveryScalarFieldEnum = (typeof NotificationDeliveryScalarFieldEnum)[keyof typeof NotificationDeliveryScalarFieldEnum]
+
+
   export const PersonScalarFieldEnum: {
     id: 'id',
     tenantId: 'tenantId',
@@ -128012,6 +131858,48 @@ export namespace Prisma {
    * Reference to a field of type 'IncidentStatus[]'
    */
   export type ListEnumIncidentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'IncidentStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'NotificationChannelType'
+   */
+  export type EnumNotificationChannelTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationChannelType'>
+    
+
+
+  /**
+   * Reference to a field of type 'NotificationChannelType[]'
+   */
+  export type ListEnumNotificationChannelTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationChannelType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AlertRuleKey'
+   */
+  export type EnumAlertRuleKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AlertRuleKey'>
+    
+
+
+  /**
+   * Reference to a field of type 'AlertRuleKey[]'
+   */
+  export type ListEnumAlertRuleKeyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AlertRuleKey[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'NotificationDeliveryStatus'
+   */
+  export type EnumNotificationDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationDeliveryStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'NotificationDeliveryStatus[]'
+   */
+  export type ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationDeliveryStatus[]'>
     
 
 
@@ -132779,6 +136667,218 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"IncidentTimeline"> | Date | string
   }
 
+  export type NotificationChannelWhereInput = {
+    AND?: NotificationChannelWhereInput | NotificationChannelWhereInput[]
+    OR?: NotificationChannelWhereInput[]
+    NOT?: NotificationChannelWhereInput | NotificationChannelWhereInput[]
+    id?: StringFilter<"NotificationChannel"> | string
+    tenantId?: StringFilter<"NotificationChannel"> | string
+    type?: EnumNotificationChannelTypeFilter<"NotificationChannel"> | $Enums.NotificationChannelType
+    name?: StringFilter<"NotificationChannel"> | string
+    configEnc?: StringFilter<"NotificationChannel"> | string
+    enabled?: BoolFilter<"NotificationChannel"> | boolean
+    createdAt?: DateTimeFilter<"NotificationChannel"> | Date | string
+    updatedAt?: DateTimeFilter<"NotificationChannel"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    deliveries?: NotificationDeliveryListRelationFilter
+  }
+
+  export type NotificationChannelOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    type?: SortOrder
+    name?: SortOrder
+    configEnc?: SortOrder
+    enabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    deliveries?: NotificationDeliveryOrderByRelationAggregateInput
+  }
+
+  export type NotificationChannelWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NotificationChannelWhereInput | NotificationChannelWhereInput[]
+    OR?: NotificationChannelWhereInput[]
+    NOT?: NotificationChannelWhereInput | NotificationChannelWhereInput[]
+    tenantId?: StringFilter<"NotificationChannel"> | string
+    type?: EnumNotificationChannelTypeFilter<"NotificationChannel"> | $Enums.NotificationChannelType
+    name?: StringFilter<"NotificationChannel"> | string
+    configEnc?: StringFilter<"NotificationChannel"> | string
+    enabled?: BoolFilter<"NotificationChannel"> | boolean
+    createdAt?: DateTimeFilter<"NotificationChannel"> | Date | string
+    updatedAt?: DateTimeFilter<"NotificationChannel"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    deliveries?: NotificationDeliveryListRelationFilter
+  }, "id">
+
+  export type NotificationChannelOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    type?: SortOrder
+    name?: SortOrder
+    configEnc?: SortOrder
+    enabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: NotificationChannelCountOrderByAggregateInput
+    _max?: NotificationChannelMaxOrderByAggregateInput
+    _min?: NotificationChannelMinOrderByAggregateInput
+  }
+
+  export type NotificationChannelScalarWhereWithAggregatesInput = {
+    AND?: NotificationChannelScalarWhereWithAggregatesInput | NotificationChannelScalarWhereWithAggregatesInput[]
+    OR?: NotificationChannelScalarWhereWithAggregatesInput[]
+    NOT?: NotificationChannelScalarWhereWithAggregatesInput | NotificationChannelScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"NotificationChannel"> | string
+    tenantId?: StringWithAggregatesFilter<"NotificationChannel"> | string
+    type?: EnumNotificationChannelTypeWithAggregatesFilter<"NotificationChannel"> | $Enums.NotificationChannelType
+    name?: StringWithAggregatesFilter<"NotificationChannel"> | string
+    configEnc?: StringWithAggregatesFilter<"NotificationChannel"> | string
+    enabled?: BoolWithAggregatesFilter<"NotificationChannel"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"NotificationChannel"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"NotificationChannel"> | Date | string
+  }
+
+  export type AlertRuleWhereInput = {
+    AND?: AlertRuleWhereInput | AlertRuleWhereInput[]
+    OR?: AlertRuleWhereInput[]
+    NOT?: AlertRuleWhereInput | AlertRuleWhereInput[]
+    id?: StringFilter<"AlertRule"> | string
+    tenantId?: StringFilter<"AlertRule"> | string
+    ruleKey?: EnumAlertRuleKeyFilter<"AlertRule"> | $Enums.AlertRuleKey
+    enabled?: BoolFilter<"AlertRule"> | boolean
+    config?: JsonNullableFilter<"AlertRule">
+    createdAt?: DateTimeFilter<"AlertRule"> | Date | string
+    updatedAt?: DateTimeFilter<"AlertRule"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }
+
+  export type AlertRuleOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ruleKey?: SortOrder
+    enabled?: SortOrder
+    config?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+  }
+
+  export type AlertRuleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tenantId_ruleKey?: AlertRuleTenantIdRuleKeyCompoundUniqueInput
+    AND?: AlertRuleWhereInput | AlertRuleWhereInput[]
+    OR?: AlertRuleWhereInput[]
+    NOT?: AlertRuleWhereInput | AlertRuleWhereInput[]
+    tenantId?: StringFilter<"AlertRule"> | string
+    ruleKey?: EnumAlertRuleKeyFilter<"AlertRule"> | $Enums.AlertRuleKey
+    enabled?: BoolFilter<"AlertRule"> | boolean
+    config?: JsonNullableFilter<"AlertRule">
+    createdAt?: DateTimeFilter<"AlertRule"> | Date | string
+    updatedAt?: DateTimeFilter<"AlertRule"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+  }, "id" | "tenantId_ruleKey">
+
+  export type AlertRuleOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ruleKey?: SortOrder
+    enabled?: SortOrder
+    config?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AlertRuleCountOrderByAggregateInput
+    _max?: AlertRuleMaxOrderByAggregateInput
+    _min?: AlertRuleMinOrderByAggregateInput
+  }
+
+  export type AlertRuleScalarWhereWithAggregatesInput = {
+    AND?: AlertRuleScalarWhereWithAggregatesInput | AlertRuleScalarWhereWithAggregatesInput[]
+    OR?: AlertRuleScalarWhereWithAggregatesInput[]
+    NOT?: AlertRuleScalarWhereWithAggregatesInput | AlertRuleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AlertRule"> | string
+    tenantId?: StringWithAggregatesFilter<"AlertRule"> | string
+    ruleKey?: EnumAlertRuleKeyWithAggregatesFilter<"AlertRule"> | $Enums.AlertRuleKey
+    enabled?: BoolWithAggregatesFilter<"AlertRule"> | boolean
+    config?: JsonNullableWithAggregatesFilter<"AlertRule">
+    createdAt?: DateTimeWithAggregatesFilter<"AlertRule"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AlertRule"> | Date | string
+  }
+
+  export type NotificationDeliveryWhereInput = {
+    AND?: NotificationDeliveryWhereInput | NotificationDeliveryWhereInput[]
+    OR?: NotificationDeliveryWhereInput[]
+    NOT?: NotificationDeliveryWhereInput | NotificationDeliveryWhereInput[]
+    id?: StringFilter<"NotificationDelivery"> | string
+    tenantId?: StringFilter<"NotificationDelivery"> | string
+    ruleKey?: EnumAlertRuleKeyFilter<"NotificationDelivery"> | $Enums.AlertRuleKey
+    dedupeKey?: StringFilter<"NotificationDelivery"> | string
+    channelId?: StringNullableFilter<"NotificationDelivery"> | string | null
+    status?: EnumNotificationDeliveryStatusFilter<"NotificationDelivery"> | $Enums.NotificationDeliveryStatus
+    summary?: StringFilter<"NotificationDelivery"> | string
+    createdAt?: DateTimeFilter<"NotificationDelivery"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    channel?: XOR<NotificationChannelNullableScalarRelationFilter, NotificationChannelWhereInput> | null
+  }
+
+  export type NotificationDeliveryOrderByWithRelationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ruleKey?: SortOrder
+    dedupeKey?: SortOrder
+    channelId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    summary?: SortOrder
+    createdAt?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    channel?: NotificationChannelOrderByWithRelationInput
+  }
+
+  export type NotificationDeliveryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NotificationDeliveryWhereInput | NotificationDeliveryWhereInput[]
+    OR?: NotificationDeliveryWhereInput[]
+    NOT?: NotificationDeliveryWhereInput | NotificationDeliveryWhereInput[]
+    tenantId?: StringFilter<"NotificationDelivery"> | string
+    ruleKey?: EnumAlertRuleKeyFilter<"NotificationDelivery"> | $Enums.AlertRuleKey
+    dedupeKey?: StringFilter<"NotificationDelivery"> | string
+    channelId?: StringNullableFilter<"NotificationDelivery"> | string | null
+    status?: EnumNotificationDeliveryStatusFilter<"NotificationDelivery"> | $Enums.NotificationDeliveryStatus
+    summary?: StringFilter<"NotificationDelivery"> | string
+    createdAt?: DateTimeFilter<"NotificationDelivery"> | Date | string
+    tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
+    channel?: XOR<NotificationChannelNullableScalarRelationFilter, NotificationChannelWhereInput> | null
+  }, "id">
+
+  export type NotificationDeliveryOrderByWithAggregationInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ruleKey?: SortOrder
+    dedupeKey?: SortOrder
+    channelId?: SortOrderInput | SortOrder
+    status?: SortOrder
+    summary?: SortOrder
+    createdAt?: SortOrder
+    _count?: NotificationDeliveryCountOrderByAggregateInput
+    _max?: NotificationDeliveryMaxOrderByAggregateInput
+    _min?: NotificationDeliveryMinOrderByAggregateInput
+  }
+
+  export type NotificationDeliveryScalarWhereWithAggregatesInput = {
+    AND?: NotificationDeliveryScalarWhereWithAggregatesInput | NotificationDeliveryScalarWhereWithAggregatesInput[]
+    OR?: NotificationDeliveryScalarWhereWithAggregatesInput[]
+    NOT?: NotificationDeliveryScalarWhereWithAggregatesInput | NotificationDeliveryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"NotificationDelivery"> | string
+    tenantId?: StringWithAggregatesFilter<"NotificationDelivery"> | string
+    ruleKey?: EnumAlertRuleKeyWithAggregatesFilter<"NotificationDelivery"> | $Enums.AlertRuleKey
+    dedupeKey?: StringWithAggregatesFilter<"NotificationDelivery"> | string
+    channelId?: StringNullableWithAggregatesFilter<"NotificationDelivery"> | string | null
+    status?: EnumNotificationDeliveryStatusWithAggregatesFilter<"NotificationDelivery"> | $Enums.NotificationDeliveryStatus
+    summary?: StringWithAggregatesFilter<"NotificationDelivery"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"NotificationDelivery"> | Date | string
+  }
+
   export type PersonWhereInput = {
     AND?: PersonWhereInput | PersonWhereInput[]
     OR?: PersonWhereInput[]
@@ -135932,6 +140032,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenListRelationFilter
     devicePostureSnapshots?: DevicePostureSnapshotListRelationFilter
     deviceAuthCodes?: DeviceAuthCodeListRelationFilter
+    notificationChannels?: NotificationChannelListRelationFilter
+    alertRules?: AlertRuleListRelationFilter
+    notificationDeliveries?: NotificationDeliveryListRelationFilter
     billingConfig?: XOR<TenantBillingConfigNullableScalarRelationFilter, TenantBillingConfigWhereInput> | null
     litellmKey?: XOR<TenantLiteLLMKeyNullableScalarRelationFilter, TenantLiteLLMKeyWhereInput> | null
     creditWallet?: XOR<CreditWalletNullableScalarRelationFilter, CreditWalletWhereInput> | null
@@ -136014,6 +140117,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenOrderByRelationAggregateInput
     devicePostureSnapshots?: DevicePostureSnapshotOrderByRelationAggregateInput
     deviceAuthCodes?: DeviceAuthCodeOrderByRelationAggregateInput
+    notificationChannels?: NotificationChannelOrderByRelationAggregateInput
+    alertRules?: AlertRuleOrderByRelationAggregateInput
+    notificationDeliveries?: NotificationDeliveryOrderByRelationAggregateInput
     billingConfig?: TenantBillingConfigOrderByWithRelationInput
     litellmKey?: TenantLiteLLMKeyOrderByWithRelationInput
     creditWallet?: CreditWalletOrderByWithRelationInput
@@ -136099,6 +140205,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenListRelationFilter
     devicePostureSnapshots?: DevicePostureSnapshotListRelationFilter
     deviceAuthCodes?: DeviceAuthCodeListRelationFilter
+    notificationChannels?: NotificationChannelListRelationFilter
+    alertRules?: AlertRuleListRelationFilter
+    notificationDeliveries?: NotificationDeliveryListRelationFilter
     billingConfig?: XOR<TenantBillingConfigNullableScalarRelationFilter, TenantBillingConfigWhereInput> | null
     litellmKey?: XOR<TenantLiteLLMKeyNullableScalarRelationFilter, TenantLiteLLMKeyWhereInput> | null
     creditWallet?: XOR<CreditWalletNullableScalarRelationFilter, CreditWalletWhereInput> | null
@@ -142729,6 +146838,230 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NotificationChannelCreateInput = {
+    id?: string
+    type: $Enums.NotificationChannelType
+    name: string
+    configEnc: string
+    enabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutNotificationChannelsInput
+    deliveries?: NotificationDeliveryCreateNestedManyWithoutChannelInput
+  }
+
+  export type NotificationChannelUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    type: $Enums.NotificationChannelType
+    name: string
+    configEnc: string
+    enabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutChannelInput
+  }
+
+  export type NotificationChannelUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationChannelTypeFieldUpdateOperationsInput | $Enums.NotificationChannelType
+    name?: StringFieldUpdateOperationsInput | string
+    configEnc?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutNotificationChannelsNestedInput
+    deliveries?: NotificationDeliveryUpdateManyWithoutChannelNestedInput
+  }
+
+  export type NotificationChannelUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationChannelTypeFieldUpdateOperationsInput | $Enums.NotificationChannelType
+    name?: StringFieldUpdateOperationsInput | string
+    configEnc?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveries?: NotificationDeliveryUncheckedUpdateManyWithoutChannelNestedInput
+  }
+
+  export type NotificationChannelCreateManyInput = {
+    id?: string
+    tenantId: string
+    type: $Enums.NotificationChannelType
+    name: string
+    configEnc: string
+    enabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationChannelUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationChannelTypeFieldUpdateOperationsInput | $Enums.NotificationChannelType
+    name?: StringFieldUpdateOperationsInput | string
+    configEnc?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationChannelUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationChannelTypeFieldUpdateOperationsInput | $Enums.NotificationChannelType
+    name?: StringFieldUpdateOperationsInput | string
+    configEnc?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AlertRuleCreateInput = {
+    id?: string
+    ruleKey: $Enums.AlertRuleKey
+    enabled?: boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutAlertRulesInput
+  }
+
+  export type AlertRuleUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    ruleKey: $Enums.AlertRuleKey
+    enabled?: boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AlertRuleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutAlertRulesNestedInput
+  }
+
+  export type AlertRuleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AlertRuleCreateManyInput = {
+    id?: string
+    tenantId: string
+    ruleKey: $Enums.AlertRuleKey
+    enabled?: boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AlertRuleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AlertRuleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationDeliveryCreateInput = {
+    id?: string
+    ruleKey: $Enums.AlertRuleKey
+    dedupeKey: string
+    status: $Enums.NotificationDeliveryStatus
+    summary: string
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutNotificationDeliveriesInput
+    channel?: NotificationChannelCreateNestedOneWithoutDeliveriesInput
+  }
+
+  export type NotificationDeliveryUncheckedCreateInput = {
+    id?: string
+    tenantId: string
+    ruleKey: $Enums.AlertRuleKey
+    dedupeKey: string
+    channelId?: string | null
+    status: $Enums.NotificationDeliveryStatus
+    summary: string
+    createdAt?: Date | string
+  }
+
+  export type NotificationDeliveryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    dedupeKey?: StringFieldUpdateOperationsInput | string
+    status?: EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
+    summary?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutNotificationDeliveriesNestedInput
+    channel?: NotificationChannelUpdateOneWithoutDeliveriesNestedInput
+  }
+
+  export type NotificationDeliveryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    dedupeKey?: StringFieldUpdateOperationsInput | string
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
+    summary?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationDeliveryCreateManyInput = {
+    id?: string
+    tenantId: string
+    ruleKey: $Enums.AlertRuleKey
+    dedupeKey: string
+    channelId?: string | null
+    status: $Enums.NotificationDeliveryStatus
+    summary: string
+    createdAt?: Date | string
+  }
+
+  export type NotificationDeliveryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    dedupeKey?: StringFieldUpdateOperationsInput | string
+    status?: EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
+    summary?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationDeliveryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    dedupeKey?: StringFieldUpdateOperationsInput | string
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
+    summary?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PersonCreateInput = {
     id?: string
     email: string
@@ -146238,6 +150571,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -146320,6 +150656,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -146402,6 +150741,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -146484,6 +150826,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -152734,6 +157079,171 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type EnumNotificationChannelTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationChannelType | EnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationChannelType[] | ListEnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationChannelType[] | ListEnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationChannelTypeFilter<$PrismaModel> | $Enums.NotificationChannelType
+  }
+
+  export type NotificationDeliveryListRelationFilter = {
+    every?: NotificationDeliveryWhereInput
+    some?: NotificationDeliveryWhereInput
+    none?: NotificationDeliveryWhereInput
+  }
+
+  export type NotificationDeliveryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotificationChannelCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    type?: SortOrder
+    name?: SortOrder
+    configEnc?: SortOrder
+    enabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationChannelMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    type?: SortOrder
+    name?: SortOrder
+    configEnc?: SortOrder
+    enabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NotificationChannelMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    type?: SortOrder
+    name?: SortOrder
+    configEnc?: SortOrder
+    enabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumNotificationChannelTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationChannelType | EnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationChannelType[] | ListEnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationChannelType[] | ListEnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationChannelTypeWithAggregatesFilter<$PrismaModel> | $Enums.NotificationChannelType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumNotificationChannelTypeFilter<$PrismaModel>
+    _max?: NestedEnumNotificationChannelTypeFilter<$PrismaModel>
+  }
+
+  export type EnumAlertRuleKeyFilter<$PrismaModel = never> = {
+    equals?: $Enums.AlertRuleKey | EnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    in?: $Enums.AlertRuleKey[] | ListEnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AlertRuleKey[] | ListEnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    not?: NestedEnumAlertRuleKeyFilter<$PrismaModel> | $Enums.AlertRuleKey
+  }
+
+  export type AlertRuleTenantIdRuleKeyCompoundUniqueInput = {
+    tenantId: string
+    ruleKey: $Enums.AlertRuleKey
+  }
+
+  export type AlertRuleCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ruleKey?: SortOrder
+    enabled?: SortOrder
+    config?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AlertRuleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ruleKey?: SortOrder
+    enabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AlertRuleMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ruleKey?: SortOrder
+    enabled?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumAlertRuleKeyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AlertRuleKey | EnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    in?: $Enums.AlertRuleKey[] | ListEnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AlertRuleKey[] | ListEnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    not?: NestedEnumAlertRuleKeyWithAggregatesFilter<$PrismaModel> | $Enums.AlertRuleKey
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAlertRuleKeyFilter<$PrismaModel>
+    _max?: NestedEnumAlertRuleKeyFilter<$PrismaModel>
+  }
+
+  export type EnumNotificationDeliveryStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationDeliveryStatus | EnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationDeliveryStatus[] | ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationDeliveryStatus[] | ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationDeliveryStatusFilter<$PrismaModel> | $Enums.NotificationDeliveryStatus
+  }
+
+  export type NotificationChannelNullableScalarRelationFilter = {
+    is?: NotificationChannelWhereInput | null
+    isNot?: NotificationChannelWhereInput | null
+  }
+
+  export type NotificationDeliveryCountOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ruleKey?: SortOrder
+    dedupeKey?: SortOrder
+    channelId?: SortOrder
+    status?: SortOrder
+    summary?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationDeliveryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ruleKey?: SortOrder
+    dedupeKey?: SortOrder
+    channelId?: SortOrder
+    status?: SortOrder
+    summary?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationDeliveryMinOrderByAggregateInput = {
+    id?: SortOrder
+    tenantId?: SortOrder
+    ruleKey?: SortOrder
+    dedupeKey?: SortOrder
+    channelId?: SortOrder
+    status?: SortOrder
+    summary?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumNotificationDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationDeliveryStatus | EnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationDeliveryStatus[] | ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationDeliveryStatus[] | ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationDeliveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.NotificationDeliveryStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumNotificationDeliveryStatusFilter<$PrismaModel>
+    _max?: NestedEnumNotificationDeliveryStatusFilter<$PrismaModel>
+  }
+
   export type EnumPersonRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.PersonRole | EnumPersonRoleFieldRefInput<$PrismaModel>
     in?: $Enums.PersonRole[] | ListEnumPersonRoleFieldRefInput<$PrismaModel>
@@ -155687,6 +160197,18 @@ export namespace Prisma {
     none?: DeviceAuthCodeWhereInput
   }
 
+  export type NotificationChannelListRelationFilter = {
+    every?: NotificationChannelWhereInput
+    some?: NotificationChannelWhereInput
+    none?: NotificationChannelWhereInput
+  }
+
+  export type AlertRuleListRelationFilter = {
+    every?: AlertRuleWhereInput
+    some?: AlertRuleWhereInput
+    none?: AlertRuleWhereInput
+  }
+
   export type TenantBillingConfigNullableScalarRelationFilter = {
     is?: TenantBillingConfigWhereInput | null
     isNot?: TenantBillingConfigWhereInput | null
@@ -155807,6 +160329,14 @@ export namespace Prisma {
   }
 
   export type DeviceAuthCodeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotificationChannelOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AlertRuleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -160214,6 +164744,118 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutIncidentTimelineActionsInput, UserUpdateWithoutIncidentTimelineActionsInput>, UserUncheckedUpdateWithoutIncidentTimelineActionsInput>
   }
 
+  export type TenantCreateNestedOneWithoutNotificationChannelsInput = {
+    create?: XOR<TenantCreateWithoutNotificationChannelsInput, TenantUncheckedCreateWithoutNotificationChannelsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutNotificationChannelsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type NotificationDeliveryCreateNestedManyWithoutChannelInput = {
+    create?: XOR<NotificationDeliveryCreateWithoutChannelInput, NotificationDeliveryUncheckedCreateWithoutChannelInput> | NotificationDeliveryCreateWithoutChannelInput[] | NotificationDeliveryUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: NotificationDeliveryCreateOrConnectWithoutChannelInput | NotificationDeliveryCreateOrConnectWithoutChannelInput[]
+    createMany?: NotificationDeliveryCreateManyChannelInputEnvelope
+    connect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+  }
+
+  export type NotificationDeliveryUncheckedCreateNestedManyWithoutChannelInput = {
+    create?: XOR<NotificationDeliveryCreateWithoutChannelInput, NotificationDeliveryUncheckedCreateWithoutChannelInput> | NotificationDeliveryCreateWithoutChannelInput[] | NotificationDeliveryUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: NotificationDeliveryCreateOrConnectWithoutChannelInput | NotificationDeliveryCreateOrConnectWithoutChannelInput[]
+    createMany?: NotificationDeliveryCreateManyChannelInputEnvelope
+    connect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+  }
+
+  export type EnumNotificationChannelTypeFieldUpdateOperationsInput = {
+    set?: $Enums.NotificationChannelType
+  }
+
+  export type TenantUpdateOneRequiredWithoutNotificationChannelsNestedInput = {
+    create?: XOR<TenantCreateWithoutNotificationChannelsInput, TenantUncheckedCreateWithoutNotificationChannelsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutNotificationChannelsInput
+    upsert?: TenantUpsertWithoutNotificationChannelsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutNotificationChannelsInput, TenantUpdateWithoutNotificationChannelsInput>, TenantUncheckedUpdateWithoutNotificationChannelsInput>
+  }
+
+  export type NotificationDeliveryUpdateManyWithoutChannelNestedInput = {
+    create?: XOR<NotificationDeliveryCreateWithoutChannelInput, NotificationDeliveryUncheckedCreateWithoutChannelInput> | NotificationDeliveryCreateWithoutChannelInput[] | NotificationDeliveryUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: NotificationDeliveryCreateOrConnectWithoutChannelInput | NotificationDeliveryCreateOrConnectWithoutChannelInput[]
+    upsert?: NotificationDeliveryUpsertWithWhereUniqueWithoutChannelInput | NotificationDeliveryUpsertWithWhereUniqueWithoutChannelInput[]
+    createMany?: NotificationDeliveryCreateManyChannelInputEnvelope
+    set?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    disconnect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    delete?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    connect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    update?: NotificationDeliveryUpdateWithWhereUniqueWithoutChannelInput | NotificationDeliveryUpdateWithWhereUniqueWithoutChannelInput[]
+    updateMany?: NotificationDeliveryUpdateManyWithWhereWithoutChannelInput | NotificationDeliveryUpdateManyWithWhereWithoutChannelInput[]
+    deleteMany?: NotificationDeliveryScalarWhereInput | NotificationDeliveryScalarWhereInput[]
+  }
+
+  export type NotificationDeliveryUncheckedUpdateManyWithoutChannelNestedInput = {
+    create?: XOR<NotificationDeliveryCreateWithoutChannelInput, NotificationDeliveryUncheckedCreateWithoutChannelInput> | NotificationDeliveryCreateWithoutChannelInput[] | NotificationDeliveryUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: NotificationDeliveryCreateOrConnectWithoutChannelInput | NotificationDeliveryCreateOrConnectWithoutChannelInput[]
+    upsert?: NotificationDeliveryUpsertWithWhereUniqueWithoutChannelInput | NotificationDeliveryUpsertWithWhereUniqueWithoutChannelInput[]
+    createMany?: NotificationDeliveryCreateManyChannelInputEnvelope
+    set?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    disconnect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    delete?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    connect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    update?: NotificationDeliveryUpdateWithWhereUniqueWithoutChannelInput | NotificationDeliveryUpdateWithWhereUniqueWithoutChannelInput[]
+    updateMany?: NotificationDeliveryUpdateManyWithWhereWithoutChannelInput | NotificationDeliveryUpdateManyWithWhereWithoutChannelInput[]
+    deleteMany?: NotificationDeliveryScalarWhereInput | NotificationDeliveryScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutAlertRulesInput = {
+    create?: XOR<TenantCreateWithoutAlertRulesInput, TenantUncheckedCreateWithoutAlertRulesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAlertRulesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type EnumAlertRuleKeyFieldUpdateOperationsInput = {
+    set?: $Enums.AlertRuleKey
+  }
+
+  export type TenantUpdateOneRequiredWithoutAlertRulesNestedInput = {
+    create?: XOR<TenantCreateWithoutAlertRulesInput, TenantUncheckedCreateWithoutAlertRulesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutAlertRulesInput
+    upsert?: TenantUpsertWithoutAlertRulesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutAlertRulesInput, TenantUpdateWithoutAlertRulesInput>, TenantUncheckedUpdateWithoutAlertRulesInput>
+  }
+
+  export type TenantCreateNestedOneWithoutNotificationDeliveriesInput = {
+    create?: XOR<TenantCreateWithoutNotificationDeliveriesInput, TenantUncheckedCreateWithoutNotificationDeliveriesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutNotificationDeliveriesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type NotificationChannelCreateNestedOneWithoutDeliveriesInput = {
+    create?: XOR<NotificationChannelCreateWithoutDeliveriesInput, NotificationChannelUncheckedCreateWithoutDeliveriesInput>
+    connectOrCreate?: NotificationChannelCreateOrConnectWithoutDeliveriesInput
+    connect?: NotificationChannelWhereUniqueInput
+  }
+
+  export type EnumNotificationDeliveryStatusFieldUpdateOperationsInput = {
+    set?: $Enums.NotificationDeliveryStatus
+  }
+
+  export type TenantUpdateOneRequiredWithoutNotificationDeliveriesNestedInput = {
+    create?: XOR<TenantCreateWithoutNotificationDeliveriesInput, TenantUncheckedCreateWithoutNotificationDeliveriesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutNotificationDeliveriesInput
+    upsert?: TenantUpsertWithoutNotificationDeliveriesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutNotificationDeliveriesInput, TenantUpdateWithoutNotificationDeliveriesInput>, TenantUncheckedUpdateWithoutNotificationDeliveriesInput>
+  }
+
+  export type NotificationChannelUpdateOneWithoutDeliveriesNestedInput = {
+    create?: XOR<NotificationChannelCreateWithoutDeliveriesInput, NotificationChannelUncheckedCreateWithoutDeliveriesInput>
+    connectOrCreate?: NotificationChannelCreateOrConnectWithoutDeliveriesInput
+    upsert?: NotificationChannelUpsertWithoutDeliveriesInput
+    disconnect?: NotificationChannelWhereInput | boolean
+    delete?: NotificationChannelWhereInput | boolean
+    connect?: NotificationChannelWhereUniqueInput
+    update?: XOR<XOR<NotificationChannelUpdateToOneWithWhereWithoutDeliveriesInput, NotificationChannelUpdateWithoutDeliveriesInput>, NotificationChannelUncheckedUpdateWithoutDeliveriesInput>
+  }
+
   export type PersonCreatepermissionsInput = {
     set: string[]
   }
@@ -163260,6 +167902,27 @@ export namespace Prisma {
     connect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
   }
 
+  export type NotificationChannelCreateNestedManyWithoutTenantInput = {
+    create?: XOR<NotificationChannelCreateWithoutTenantInput, NotificationChannelUncheckedCreateWithoutTenantInput> | NotificationChannelCreateWithoutTenantInput[] | NotificationChannelUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationChannelCreateOrConnectWithoutTenantInput | NotificationChannelCreateOrConnectWithoutTenantInput[]
+    createMany?: NotificationChannelCreateManyTenantInputEnvelope
+    connect?: NotificationChannelWhereUniqueInput | NotificationChannelWhereUniqueInput[]
+  }
+
+  export type AlertRuleCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AlertRuleCreateWithoutTenantInput, AlertRuleUncheckedCreateWithoutTenantInput> | AlertRuleCreateWithoutTenantInput[] | AlertRuleUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AlertRuleCreateOrConnectWithoutTenantInput | AlertRuleCreateOrConnectWithoutTenantInput[]
+    createMany?: AlertRuleCreateManyTenantInputEnvelope
+    connect?: AlertRuleWhereUniqueInput | AlertRuleWhereUniqueInput[]
+  }
+
+  export type NotificationDeliveryCreateNestedManyWithoutTenantInput = {
+    create?: XOR<NotificationDeliveryCreateWithoutTenantInput, NotificationDeliveryUncheckedCreateWithoutTenantInput> | NotificationDeliveryCreateWithoutTenantInput[] | NotificationDeliveryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationDeliveryCreateOrConnectWithoutTenantInput | NotificationDeliveryCreateOrConnectWithoutTenantInput[]
+    createMany?: NotificationDeliveryCreateManyTenantInputEnvelope
+    connect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+  }
+
   export type TenantBillingConfigCreateNestedOneWithoutTenantInput = {
     create?: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantBillingConfigCreateOrConnectWithoutTenantInput
@@ -163749,6 +168412,27 @@ export namespace Prisma {
     connectOrCreate?: DeviceAuthCodeCreateOrConnectWithoutTenantInput | DeviceAuthCodeCreateOrConnectWithoutTenantInput[]
     createMany?: DeviceAuthCodeCreateManyTenantInputEnvelope
     connect?: DeviceAuthCodeWhereUniqueInput | DeviceAuthCodeWhereUniqueInput[]
+  }
+
+  export type NotificationChannelUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<NotificationChannelCreateWithoutTenantInput, NotificationChannelUncheckedCreateWithoutTenantInput> | NotificationChannelCreateWithoutTenantInput[] | NotificationChannelUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationChannelCreateOrConnectWithoutTenantInput | NotificationChannelCreateOrConnectWithoutTenantInput[]
+    createMany?: NotificationChannelCreateManyTenantInputEnvelope
+    connect?: NotificationChannelWhereUniqueInput | NotificationChannelWhereUniqueInput[]
+  }
+
+  export type AlertRuleUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<AlertRuleCreateWithoutTenantInput, AlertRuleUncheckedCreateWithoutTenantInput> | AlertRuleCreateWithoutTenantInput[] | AlertRuleUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AlertRuleCreateOrConnectWithoutTenantInput | AlertRuleCreateOrConnectWithoutTenantInput[]
+    createMany?: AlertRuleCreateManyTenantInputEnvelope
+    connect?: AlertRuleWhereUniqueInput | AlertRuleWhereUniqueInput[]
+  }
+
+  export type NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<NotificationDeliveryCreateWithoutTenantInput, NotificationDeliveryUncheckedCreateWithoutTenantInput> | NotificationDeliveryCreateWithoutTenantInput[] | NotificationDeliveryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationDeliveryCreateOrConnectWithoutTenantInput | NotificationDeliveryCreateOrConnectWithoutTenantInput[]
+    createMany?: NotificationDeliveryCreateManyTenantInputEnvelope
+    connect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
   }
 
   export type TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput = {
@@ -164721,6 +169405,48 @@ export namespace Prisma {
     deleteMany?: DeviceAuthCodeScalarWhereInput | DeviceAuthCodeScalarWhereInput[]
   }
 
+  export type NotificationChannelUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<NotificationChannelCreateWithoutTenantInput, NotificationChannelUncheckedCreateWithoutTenantInput> | NotificationChannelCreateWithoutTenantInput[] | NotificationChannelUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationChannelCreateOrConnectWithoutTenantInput | NotificationChannelCreateOrConnectWithoutTenantInput[]
+    upsert?: NotificationChannelUpsertWithWhereUniqueWithoutTenantInput | NotificationChannelUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: NotificationChannelCreateManyTenantInputEnvelope
+    set?: NotificationChannelWhereUniqueInput | NotificationChannelWhereUniqueInput[]
+    disconnect?: NotificationChannelWhereUniqueInput | NotificationChannelWhereUniqueInput[]
+    delete?: NotificationChannelWhereUniqueInput | NotificationChannelWhereUniqueInput[]
+    connect?: NotificationChannelWhereUniqueInput | NotificationChannelWhereUniqueInput[]
+    update?: NotificationChannelUpdateWithWhereUniqueWithoutTenantInput | NotificationChannelUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: NotificationChannelUpdateManyWithWhereWithoutTenantInput | NotificationChannelUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: NotificationChannelScalarWhereInput | NotificationChannelScalarWhereInput[]
+  }
+
+  export type AlertRuleUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AlertRuleCreateWithoutTenantInput, AlertRuleUncheckedCreateWithoutTenantInput> | AlertRuleCreateWithoutTenantInput[] | AlertRuleUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AlertRuleCreateOrConnectWithoutTenantInput | AlertRuleCreateOrConnectWithoutTenantInput[]
+    upsert?: AlertRuleUpsertWithWhereUniqueWithoutTenantInput | AlertRuleUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AlertRuleCreateManyTenantInputEnvelope
+    set?: AlertRuleWhereUniqueInput | AlertRuleWhereUniqueInput[]
+    disconnect?: AlertRuleWhereUniqueInput | AlertRuleWhereUniqueInput[]
+    delete?: AlertRuleWhereUniqueInput | AlertRuleWhereUniqueInput[]
+    connect?: AlertRuleWhereUniqueInput | AlertRuleWhereUniqueInput[]
+    update?: AlertRuleUpdateWithWhereUniqueWithoutTenantInput | AlertRuleUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AlertRuleUpdateManyWithWhereWithoutTenantInput | AlertRuleUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AlertRuleScalarWhereInput | AlertRuleScalarWhereInput[]
+  }
+
+  export type NotificationDeliveryUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<NotificationDeliveryCreateWithoutTenantInput, NotificationDeliveryUncheckedCreateWithoutTenantInput> | NotificationDeliveryCreateWithoutTenantInput[] | NotificationDeliveryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationDeliveryCreateOrConnectWithoutTenantInput | NotificationDeliveryCreateOrConnectWithoutTenantInput[]
+    upsert?: NotificationDeliveryUpsertWithWhereUniqueWithoutTenantInput | NotificationDeliveryUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: NotificationDeliveryCreateManyTenantInputEnvelope
+    set?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    disconnect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    delete?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    connect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    update?: NotificationDeliveryUpdateWithWhereUniqueWithoutTenantInput | NotificationDeliveryUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: NotificationDeliveryUpdateManyWithWhereWithoutTenantInput | NotificationDeliveryUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: NotificationDeliveryScalarWhereInput | NotificationDeliveryScalarWhereInput[]
+  }
+
   export type TenantBillingConfigUpdateOneWithoutTenantNestedInput = {
     create?: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
     connectOrCreate?: TenantBillingConfigCreateOrConnectWithoutTenantInput
@@ -165689,6 +170415,48 @@ export namespace Prisma {
     update?: DeviceAuthCodeUpdateWithWhereUniqueWithoutTenantInput | DeviceAuthCodeUpdateWithWhereUniqueWithoutTenantInput[]
     updateMany?: DeviceAuthCodeUpdateManyWithWhereWithoutTenantInput | DeviceAuthCodeUpdateManyWithWhereWithoutTenantInput[]
     deleteMany?: DeviceAuthCodeScalarWhereInput | DeviceAuthCodeScalarWhereInput[]
+  }
+
+  export type NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<NotificationChannelCreateWithoutTenantInput, NotificationChannelUncheckedCreateWithoutTenantInput> | NotificationChannelCreateWithoutTenantInput[] | NotificationChannelUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationChannelCreateOrConnectWithoutTenantInput | NotificationChannelCreateOrConnectWithoutTenantInput[]
+    upsert?: NotificationChannelUpsertWithWhereUniqueWithoutTenantInput | NotificationChannelUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: NotificationChannelCreateManyTenantInputEnvelope
+    set?: NotificationChannelWhereUniqueInput | NotificationChannelWhereUniqueInput[]
+    disconnect?: NotificationChannelWhereUniqueInput | NotificationChannelWhereUniqueInput[]
+    delete?: NotificationChannelWhereUniqueInput | NotificationChannelWhereUniqueInput[]
+    connect?: NotificationChannelWhereUniqueInput | NotificationChannelWhereUniqueInput[]
+    update?: NotificationChannelUpdateWithWhereUniqueWithoutTenantInput | NotificationChannelUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: NotificationChannelUpdateManyWithWhereWithoutTenantInput | NotificationChannelUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: NotificationChannelScalarWhereInput | NotificationChannelScalarWhereInput[]
+  }
+
+  export type AlertRuleUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<AlertRuleCreateWithoutTenantInput, AlertRuleUncheckedCreateWithoutTenantInput> | AlertRuleCreateWithoutTenantInput[] | AlertRuleUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: AlertRuleCreateOrConnectWithoutTenantInput | AlertRuleCreateOrConnectWithoutTenantInput[]
+    upsert?: AlertRuleUpsertWithWhereUniqueWithoutTenantInput | AlertRuleUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: AlertRuleCreateManyTenantInputEnvelope
+    set?: AlertRuleWhereUniqueInput | AlertRuleWhereUniqueInput[]
+    disconnect?: AlertRuleWhereUniqueInput | AlertRuleWhereUniqueInput[]
+    delete?: AlertRuleWhereUniqueInput | AlertRuleWhereUniqueInput[]
+    connect?: AlertRuleWhereUniqueInput | AlertRuleWhereUniqueInput[]
+    update?: AlertRuleUpdateWithWhereUniqueWithoutTenantInput | AlertRuleUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: AlertRuleUpdateManyWithWhereWithoutTenantInput | AlertRuleUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: AlertRuleScalarWhereInput | AlertRuleScalarWhereInput[]
+  }
+
+  export type NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<NotificationDeliveryCreateWithoutTenantInput, NotificationDeliveryUncheckedCreateWithoutTenantInput> | NotificationDeliveryCreateWithoutTenantInput[] | NotificationDeliveryUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: NotificationDeliveryCreateOrConnectWithoutTenantInput | NotificationDeliveryCreateOrConnectWithoutTenantInput[]
+    upsert?: NotificationDeliveryUpsertWithWhereUniqueWithoutTenantInput | NotificationDeliveryUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: NotificationDeliveryCreateManyTenantInputEnvelope
+    set?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    disconnect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    delete?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    connect?: NotificationDeliveryWhereUniqueInput | NotificationDeliveryWhereUniqueInput[]
+    update?: NotificationDeliveryUpdateWithWhereUniqueWithoutTenantInput | NotificationDeliveryUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: NotificationDeliveryUpdateManyWithWhereWithoutTenantInput | NotificationDeliveryUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: NotificationDeliveryScalarWhereInput | NotificationDeliveryScalarWhereInput[]
   }
 
   export type TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput = {
@@ -171126,6 +175894,57 @@ export namespace Prisma {
     _max?: NestedEnumIncidentStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumNotificationChannelTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationChannelType | EnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationChannelType[] | ListEnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationChannelType[] | ListEnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationChannelTypeFilter<$PrismaModel> | $Enums.NotificationChannelType
+  }
+
+  export type NestedEnumNotificationChannelTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationChannelType | EnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationChannelType[] | ListEnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationChannelType[] | ListEnumNotificationChannelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationChannelTypeWithAggregatesFilter<$PrismaModel> | $Enums.NotificationChannelType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumNotificationChannelTypeFilter<$PrismaModel>
+    _max?: NestedEnumNotificationChannelTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAlertRuleKeyFilter<$PrismaModel = never> = {
+    equals?: $Enums.AlertRuleKey | EnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    in?: $Enums.AlertRuleKey[] | ListEnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AlertRuleKey[] | ListEnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    not?: NestedEnumAlertRuleKeyFilter<$PrismaModel> | $Enums.AlertRuleKey
+  }
+
+  export type NestedEnumAlertRuleKeyWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AlertRuleKey | EnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    in?: $Enums.AlertRuleKey[] | ListEnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AlertRuleKey[] | ListEnumAlertRuleKeyFieldRefInput<$PrismaModel>
+    not?: NestedEnumAlertRuleKeyWithAggregatesFilter<$PrismaModel> | $Enums.AlertRuleKey
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAlertRuleKeyFilter<$PrismaModel>
+    _max?: NestedEnumAlertRuleKeyFilter<$PrismaModel>
+  }
+
+  export type NestedEnumNotificationDeliveryStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationDeliveryStatus | EnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationDeliveryStatus[] | ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationDeliveryStatus[] | ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationDeliveryStatusFilter<$PrismaModel> | $Enums.NotificationDeliveryStatus
+  }
+
+  export type NestedEnumNotificationDeliveryStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.NotificationDeliveryStatus | EnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.NotificationDeliveryStatus[] | ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.NotificationDeliveryStatus[] | ListEnumNotificationDeliveryStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumNotificationDeliveryStatusWithAggregatesFilter<$PrismaModel> | $Enums.NotificationDeliveryStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumNotificationDeliveryStatusFilter<$PrismaModel>
+    _max?: NestedEnumNotificationDeliveryStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumPersonRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.PersonRole | EnumPersonRoleFieldRefInput<$PrismaModel>
     in?: $Enums.PersonRole[] | ListEnumPersonRoleFieldRefInput<$PrismaModel>
@@ -172522,6 +177341,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -172603,6 +177425,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -172700,6 +177525,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -172781,6 +177609,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -172862,6 +177693,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -172943,6 +177777,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -173040,6 +177877,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -173121,6 +177961,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -173202,6 +178045,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -173283,6 +178129,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -173675,6 +178524,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -173756,6 +178608,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -174148,6 +179003,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -174229,6 +179087,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -174665,6 +179526,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -174746,6 +179610,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -175133,6 +180000,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -175214,6 +180084,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -175644,6 +180517,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -175725,6 +180601,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -176196,6 +181075,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -176277,6 +181159,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -176713,6 +181598,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -176794,6 +181682,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -177181,6 +182072,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -177262,6 +182156,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -177781,6 +182678,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -177862,6 +182762,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -178389,6 +183292,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -178470,6 +183376,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -178672,6 +183581,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -178753,6 +183665,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -178982,6 +183897,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -179063,6 +183981,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -179403,6 +184324,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -179484,6 +184408,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -179814,6 +184741,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -179895,6 +184825,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -180188,6 +185121,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -180269,6 +185205,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -180503,6 +185442,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -180584,6 +185526,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -180946,6 +185891,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -181027,6 +185975,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -181350,6 +186301,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -181431,6 +186385,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -181712,6 +186669,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -181793,6 +186753,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -182070,6 +187033,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -182151,6 +187117,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -182432,6 +187401,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -182513,6 +187485,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -182791,6 +187766,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
@@ -182872,6 +187850,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
@@ -182969,6 +187950,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
@@ -183050,6 +188034,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
@@ -183131,6 +188118,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
   }
@@ -183212,6 +188202,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
   }
@@ -183309,6 +188302,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
   }
@@ -183390,6 +188386,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
   }
@@ -183471,6 +188470,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
   }
@@ -183552,6 +188554,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
   }
@@ -183681,6 +188686,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
   }
@@ -183762,6 +188770,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
   }
@@ -183933,6 +188944,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -184014,6 +189028,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -184147,6 +189164,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -184228,6 +189248,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -184342,6 +189365,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -184423,6 +189449,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -184545,6 +189574,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -184626,6 +189658,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -184738,6 +189773,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -184819,6 +189857,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -185366,6 +190407,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -185447,6 +190491,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -186026,6 +191073,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -186107,6 +191157,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -186545,6 +191598,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -186626,6 +191682,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -187066,6 +192125,9 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -187147,6 +192209,9 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -187461,6 +192526,9 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -187542,6 +192610,9 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -187824,6 +192895,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -187905,6 +192979,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -188354,6 +193431,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -188435,6 +193515,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -188891,6 +193974,9 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -188972,6 +194058,9 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -189134,6 +194223,9 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -189215,6 +194307,9 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -189650,6 +194745,9 @@ export namespace Prisma {
     devices?: DeviceCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -189731,6 +194829,9 @@ export namespace Prisma {
     devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -189981,6 +195082,9 @@ export namespace Prisma {
     devices?: DeviceUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -190062,6 +195166,9 @@ export namespace Prisma {
     devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -190143,6 +195250,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -190224,6 +195334,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -190662,6 +195775,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -190743,6 +195859,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -191322,6 +196441,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -191403,6 +196525,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -191605,6 +196730,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -191686,6 +196814,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -192212,6 +197343,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -192293,6 +197427,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -192503,6 +197640,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -192584,6 +197724,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -192796,6 +197939,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -192877,6 +198023,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -193296,6 +198445,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -193377,6 +198529,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -193834,6 +198989,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -193915,6 +199073,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -194206,6 +199367,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -194287,6 +199451,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -194445,6 +199612,1182 @@ export namespace Prisma {
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type TenantCreateWithoutNotificationChannelsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutNotificationChannelsInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutNotificationChannelsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutNotificationChannelsInput, TenantUncheckedCreateWithoutNotificationChannelsInput>
+  }
+
+  export type NotificationDeliveryCreateWithoutChannelInput = {
+    id?: string
+    ruleKey: $Enums.AlertRuleKey
+    dedupeKey: string
+    status: $Enums.NotificationDeliveryStatus
+    summary: string
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutNotificationDeliveriesInput
+  }
+
+  export type NotificationDeliveryUncheckedCreateWithoutChannelInput = {
+    id?: string
+    tenantId: string
+    ruleKey: $Enums.AlertRuleKey
+    dedupeKey: string
+    status: $Enums.NotificationDeliveryStatus
+    summary: string
+    createdAt?: Date | string
+  }
+
+  export type NotificationDeliveryCreateOrConnectWithoutChannelInput = {
+    where: NotificationDeliveryWhereUniqueInput
+    create: XOR<NotificationDeliveryCreateWithoutChannelInput, NotificationDeliveryUncheckedCreateWithoutChannelInput>
+  }
+
+  export type NotificationDeliveryCreateManyChannelInputEnvelope = {
+    data: NotificationDeliveryCreateManyChannelInput | NotificationDeliveryCreateManyChannelInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutNotificationChannelsInput = {
+    update: XOR<TenantUpdateWithoutNotificationChannelsInput, TenantUncheckedUpdateWithoutNotificationChannelsInput>
+    create: XOR<TenantCreateWithoutNotificationChannelsInput, TenantUncheckedCreateWithoutNotificationChannelsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutNotificationChannelsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutNotificationChannelsInput, TenantUncheckedUpdateWithoutNotificationChannelsInput>
+  }
+
+  export type TenantUpdateWithoutNotificationChannelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutNotificationChannelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type NotificationDeliveryUpsertWithWhereUniqueWithoutChannelInput = {
+    where: NotificationDeliveryWhereUniqueInput
+    update: XOR<NotificationDeliveryUpdateWithoutChannelInput, NotificationDeliveryUncheckedUpdateWithoutChannelInput>
+    create: XOR<NotificationDeliveryCreateWithoutChannelInput, NotificationDeliveryUncheckedCreateWithoutChannelInput>
+  }
+
+  export type NotificationDeliveryUpdateWithWhereUniqueWithoutChannelInput = {
+    where: NotificationDeliveryWhereUniqueInput
+    data: XOR<NotificationDeliveryUpdateWithoutChannelInput, NotificationDeliveryUncheckedUpdateWithoutChannelInput>
+  }
+
+  export type NotificationDeliveryUpdateManyWithWhereWithoutChannelInput = {
+    where: NotificationDeliveryScalarWhereInput
+    data: XOR<NotificationDeliveryUpdateManyMutationInput, NotificationDeliveryUncheckedUpdateManyWithoutChannelInput>
+  }
+
+  export type NotificationDeliveryScalarWhereInput = {
+    AND?: NotificationDeliveryScalarWhereInput | NotificationDeliveryScalarWhereInput[]
+    OR?: NotificationDeliveryScalarWhereInput[]
+    NOT?: NotificationDeliveryScalarWhereInput | NotificationDeliveryScalarWhereInput[]
+    id?: StringFilter<"NotificationDelivery"> | string
+    tenantId?: StringFilter<"NotificationDelivery"> | string
+    ruleKey?: EnumAlertRuleKeyFilter<"NotificationDelivery"> | $Enums.AlertRuleKey
+    dedupeKey?: StringFilter<"NotificationDelivery"> | string
+    channelId?: StringNullableFilter<"NotificationDelivery"> | string | null
+    status?: EnumNotificationDeliveryStatusFilter<"NotificationDelivery"> | $Enums.NotificationDeliveryStatus
+    summary?: StringFilter<"NotificationDelivery"> | string
+    createdAt?: DateTimeFilter<"NotificationDelivery"> | Date | string
+  }
+
+  export type TenantCreateWithoutAlertRulesInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutAlertRulesInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutAlertRulesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutAlertRulesInput, TenantUncheckedCreateWithoutAlertRulesInput>
+  }
+
+  export type TenantUpsertWithoutAlertRulesInput = {
+    update: XOR<TenantUpdateWithoutAlertRulesInput, TenantUncheckedUpdateWithoutAlertRulesInput>
+    create: XOR<TenantCreateWithoutAlertRulesInput, TenantUncheckedCreateWithoutAlertRulesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutAlertRulesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutAlertRulesInput, TenantUncheckedUpdateWithoutAlertRulesInput>
+  }
+
+  export type TenantUpdateWithoutAlertRulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutAlertRulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantCreateWithoutNotificationDeliveriesInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsCreateNestedOneWithoutTenantInput
+    people?: PersonCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceCreateNestedManyWithoutTenantInput
+    controls?: ControlCreateNestedManyWithoutTenantInput
+    policies?: PolicyCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentCreateNestedManyWithoutTenantInput
+    risks?: RiskCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeCreateNestedManyWithoutTenantInput
+    vendors?: VendorCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentCreateNestedManyWithoutTenantInput
+    assets?: AssetCreateNestedManyWithoutTenantInput
+    incidents?: IncidentCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineCreateNestedManyWithoutTenantInput
+    audits?: AuditCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentCreateNestedManyWithoutTenantInput
+    tasks?: TaskCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityCreateNestedManyWithoutTenantInput
+    dpias?: DPIACreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireCreateNestedManyWithoutTenantInput
+    questions?: QuestionCreateNestedManyWithoutTenantInput
+    answers?: AnswerCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingCreateNestedManyWithoutTenantInput
+    devices?: DeviceCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutNotificationDeliveriesInput = {
+    id?: string
+    name: string
+    slug: string
+    plan?: $Enums.TenantPlan
+    status?: $Enums.TenantStatus
+    integrationAutoBindMode?: $Enums.IntegrationAutoBindMode
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    settings?: TenantSettingsUncheckedCreateNestedOneWithoutTenantInput
+    people?: PersonUncheckedCreateNestedManyWithoutTenantInput
+    backgroundChecks?: BackgroundCheckUncheckedCreateNestedManyWithoutTenantInput
+    personChecklistItems?: PersonChecklistItemUncheckedCreateNestedManyWithoutTenantInput
+    frameworkInstances?: FrameworkInstanceUncheckedCreateNestedManyWithoutTenantInput
+    controls?: ControlUncheckedCreateNestedManyWithoutTenantInput
+    policies?: PolicyUncheckedCreateNestedManyWithoutTenantInput
+    policyAcks?: PolicyAcknowledgmentUncheckedCreateNestedManyWithoutTenantInput
+    risks?: RiskUncheckedCreateNestedManyWithoutTenantInput
+    riskAssessments?: RiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    riskTreatments?: RiskTreatmentUncheckedCreateNestedManyWithoutTenantInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedCreateNestedOneWithoutTenantInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedCreateNestedManyWithoutTenantInput
+    vendors?: VendorUncheckedCreateNestedManyWithoutTenantInput
+    vendorAssessments?: VendorAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    vendorResearches?: VendorResearchUncheckedCreateNestedManyWithoutTenantInput
+    vendorDocuments?: VendorDocumentUncheckedCreateNestedManyWithoutTenantInput
+    assets?: AssetUncheckedCreateNestedManyWithoutTenantInput
+    incidents?: IncidentUncheckedCreateNestedManyWithoutTenantInput
+    incidentTimelines?: IncidentTimelineUncheckedCreateNestedManyWithoutTenantInput
+    audits?: AuditUncheckedCreateNestedManyWithoutTenantInput
+    auditDocuments?: AuditDocumentUncheckedCreateNestedManyWithoutTenantInput
+    auditFindings?: AuditFindingUncheckedCreateNestedManyWithoutTenantInput
+    bcps?: BusinessContinuityPlanUncheckedCreateNestedManyWithoutTenantInput
+    bias?: BusinessImpactAnalysisUncheckedCreateNestedManyWithoutTenantInput
+    bcpExercises?: BCPExerciseUncheckedCreateNestedManyWithoutTenantInput
+    aiSystems?: AISystemUncheckedCreateNestedManyWithoutTenantInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedCreateNestedManyWithoutTenantInput
+    aiIncidents?: AIIncidentUncheckedCreateNestedManyWithoutTenantInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutTenantInput
+    taskEvidence?: TaskEvidenceUncheckedCreateNestedManyWithoutTenantInput
+    trainingPrograms?: TrainingProgramUncheckedCreateNestedManyWithoutTenantInput
+    trainingCompletions?: TrainingCompletionUncheckedCreateNestedManyWithoutTenantInput
+    trainingQuizzes?: TrainingQuizUncheckedCreateNestedManyWithoutTenantInput
+    quizAttempts?: QuizAttemptUncheckedCreateNestedManyWithoutTenantInput
+    aiProviderConfigs?: AIProviderConfigUncheckedCreateNestedManyWithoutTenantInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterConfig?: TrustCenterConfigUncheckedCreateNestedOneWithoutTenantInput
+    trustResources?: TrustResourceUncheckedCreateNestedManyWithoutTenantInput
+    accessRequests?: TrustCenterAccessRequestUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    trustCenterEvents?: TrustCenterEventUncheckedCreateNestedManyWithoutTenantInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedCreateNestedManyWithoutTenantInput
+    evidence?: EvidenceUncheckedCreateNestedManyWithoutTenantInput
+    policyControls?: PolicyControlUncheckedCreateNestedManyWithoutTenantInput
+    policyComments?: PolicyCommentUncheckedCreateNestedManyWithoutTenantInput
+    vulnerabilities?: VulnerabilityUncheckedCreateNestedManyWithoutTenantInput
+    processingActivities?: ProcessingActivityUncheckedCreateNestedManyWithoutTenantInput
+    dpias?: DPIAUncheckedCreateNestedManyWithoutTenantInput
+    dataBreaches?: DataBreachUncheckedCreateNestedManyWithoutTenantInput
+    dsarRequests?: DSARRequestUncheckedCreateNestedManyWithoutTenantInput
+    contextEntries?: TenantContextUncheckedCreateNestedManyWithoutTenantInput
+    contextProposals?: TenantContextProposalUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    conversationMessages?: MessageUncheckedCreateNestedManyWithoutTenantInput
+    questionnaires?: QuestionnaireUncheckedCreateNestedManyWithoutTenantInput
+    questions?: QuestionUncheckedCreateNestedManyWithoutTenantInput
+    answers?: AnswerUncheckedCreateNestedManyWithoutTenantInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedCreateNestedManyWithoutTenantInput
+    controlWeaknesses?: ControlWeaknessUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedCreateNestedManyWithoutTenantInput
+    directorySyncRuns?: DirectorySyncRunUncheckedCreateNestedManyWithoutTenantInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedCreateNestedManyWithoutTenantInput
+    devices?: DeviceUncheckedCreateNestedManyWithoutTenantInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
+    litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
+    creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutNotificationDeliveriesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutNotificationDeliveriesInput, TenantUncheckedCreateWithoutNotificationDeliveriesInput>
+  }
+
+  export type NotificationChannelCreateWithoutDeliveriesInput = {
+    id?: string
+    type: $Enums.NotificationChannelType
+    name: string
+    configEnc: string
+    enabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutNotificationChannelsInput
+  }
+
+  export type NotificationChannelUncheckedCreateWithoutDeliveriesInput = {
+    id?: string
+    tenantId: string
+    type: $Enums.NotificationChannelType
+    name: string
+    configEnc: string
+    enabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationChannelCreateOrConnectWithoutDeliveriesInput = {
+    where: NotificationChannelWhereUniqueInput
+    create: XOR<NotificationChannelCreateWithoutDeliveriesInput, NotificationChannelUncheckedCreateWithoutDeliveriesInput>
+  }
+
+  export type TenantUpsertWithoutNotificationDeliveriesInput = {
+    update: XOR<TenantUpdateWithoutNotificationDeliveriesInput, TenantUncheckedUpdateWithoutNotificationDeliveriesInput>
+    create: XOR<TenantCreateWithoutNotificationDeliveriesInput, TenantUncheckedCreateWithoutNotificationDeliveriesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutNotificationDeliveriesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutNotificationDeliveriesInput, TenantUncheckedUpdateWithoutNotificationDeliveriesInput>
+  }
+
+  export type TenantUpdateWithoutNotificationDeliveriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUpdateOneWithoutTenantNestedInput
+    people?: PersonUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUpdateManyWithoutTenantNestedInput
+    controls?: ControlUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUpdateManyWithoutTenantNestedInput
+    risks?: RiskUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUpdateManyWithoutTenantNestedInput
+    assets?: AssetUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUpdateManyWithoutTenantNestedInput
+    audits?: AuditUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutNotificationDeliveriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    plan?: EnumTenantPlanFieldUpdateOperationsInput | $Enums.TenantPlan
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    integrationAutoBindMode?: EnumIntegrationAutoBindModeFieldUpdateOperationsInput | $Enums.IntegrationAutoBindMode
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    settings?: TenantSettingsUncheckedUpdateOneWithoutTenantNestedInput
+    people?: PersonUncheckedUpdateManyWithoutTenantNestedInput
+    backgroundChecks?: BackgroundCheckUncheckedUpdateManyWithoutTenantNestedInput
+    personChecklistItems?: PersonChecklistItemUncheckedUpdateManyWithoutTenantNestedInput
+    frameworkInstances?: FrameworkInstanceUncheckedUpdateManyWithoutTenantNestedInput
+    controls?: ControlUncheckedUpdateManyWithoutTenantNestedInput
+    policies?: PolicyUncheckedUpdateManyWithoutTenantNestedInput
+    policyAcks?: PolicyAcknowledgmentUncheckedUpdateManyWithoutTenantNestedInput
+    risks?: RiskUncheckedUpdateManyWithoutTenantNestedInput
+    riskAssessments?: RiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskTreatments?: RiskTreatmentUncheckedUpdateManyWithoutTenantNestedInput
+    riskRegisterConfig?: RiskRegisterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    riskMatrixChanges?: RiskMatrixChangeUncheckedUpdateManyWithoutTenantNestedInput
+    vendors?: VendorUncheckedUpdateManyWithoutTenantNestedInput
+    vendorAssessments?: VendorAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    vendorResearches?: VendorResearchUncheckedUpdateManyWithoutTenantNestedInput
+    vendorDocuments?: VendorDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    assets?: AssetUncheckedUpdateManyWithoutTenantNestedInput
+    incidents?: IncidentUncheckedUpdateManyWithoutTenantNestedInput
+    incidentTimelines?: IncidentTimelineUncheckedUpdateManyWithoutTenantNestedInput
+    audits?: AuditUncheckedUpdateManyWithoutTenantNestedInput
+    auditDocuments?: AuditDocumentUncheckedUpdateManyWithoutTenantNestedInput
+    auditFindings?: AuditFindingUncheckedUpdateManyWithoutTenantNestedInput
+    bcps?: BusinessContinuityPlanUncheckedUpdateManyWithoutTenantNestedInput
+    bias?: BusinessImpactAnalysisUncheckedUpdateManyWithoutTenantNestedInput
+    bcpExercises?: BCPExerciseUncheckedUpdateManyWithoutTenantNestedInput
+    aiSystems?: AISystemUncheckedUpdateManyWithoutTenantNestedInput
+    aiRiskAssessments?: AIRiskAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiImpactAssessments?: AIImpactAssessmentUncheckedUpdateManyWithoutTenantNestedInput
+    aiIncidents?: AIIncidentUncheckedUpdateManyWithoutTenantNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutTenantNestedInput
+    taskEvidence?: TaskEvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    trainingPrograms?: TrainingProgramUncheckedUpdateManyWithoutTenantNestedInput
+    trainingCompletions?: TrainingCompletionUncheckedUpdateManyWithoutTenantNestedInput
+    trainingQuizzes?: TrainingQuizUncheckedUpdateManyWithoutTenantNestedInput
+    quizAttempts?: QuizAttemptUncheckedUpdateManyWithoutTenantNestedInput
+    aiProviderConfigs?: AIProviderConfigUncheckedUpdateManyWithoutTenantNestedInput
+    aiFeatureConfigs?: AIFeatureConfigUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterConfig?: TrustCenterConfigUncheckedUpdateOneWithoutTenantNestedInput
+    trustResources?: TrustResourceUncheckedUpdateManyWithoutTenantNestedInput
+    accessRequests?: TrustCenterAccessRequestUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterSnapshots?: TrustCenterSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    trustCenterEvents?: TrustCenterEventUncheckedUpdateManyWithoutTenantNestedInput
+    controlRequirementAssignments?: ControlRequirementAssignmentUncheckedUpdateManyWithoutTenantNestedInput
+    evidence?: EvidenceUncheckedUpdateManyWithoutTenantNestedInput
+    policyControls?: PolicyControlUncheckedUpdateManyWithoutTenantNestedInput
+    policyComments?: PolicyCommentUncheckedUpdateManyWithoutTenantNestedInput
+    vulnerabilities?: VulnerabilityUncheckedUpdateManyWithoutTenantNestedInput
+    processingActivities?: ProcessingActivityUncheckedUpdateManyWithoutTenantNestedInput
+    dpias?: DPIAUncheckedUpdateManyWithoutTenantNestedInput
+    dataBreaches?: DataBreachUncheckedUpdateManyWithoutTenantNestedInput
+    dsarRequests?: DSARRequestUncheckedUpdateManyWithoutTenantNestedInput
+    contextEntries?: TenantContextUncheckedUpdateManyWithoutTenantNestedInput
+    contextProposals?: TenantContextProposalUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    conversationMessages?: MessageUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaires?: QuestionnaireUncheckedUpdateManyWithoutTenantNestedInput
+    questions?: QuestionUncheckedUpdateManyWithoutTenantNestedInput
+    answers?: AnswerUncheckedUpdateManyWithoutTenantNestedInput
+    questionnaireImportJobs?: QuestionnaireImportJobUncheckedUpdateManyWithoutTenantNestedInput
+    controlWeaknesses?: ControlWeaknessUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncConfigs?: DirectorySyncConfigUncheckedUpdateManyWithoutTenantNestedInput
+    directorySyncRuns?: DirectorySyncRunUncheckedUpdateManyWithoutTenantNestedInput
+    externalIdentityMappings?: ExternalIdentityMappingUncheckedUpdateManyWithoutTenantNestedInput
+    devices?: DeviceUncheckedUpdateManyWithoutTenantNestedInput
+    deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
+    devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
+    deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
+    litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
+    creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
+  }
+
+  export type NotificationChannelUpsertWithoutDeliveriesInput = {
+    update: XOR<NotificationChannelUpdateWithoutDeliveriesInput, NotificationChannelUncheckedUpdateWithoutDeliveriesInput>
+    create: XOR<NotificationChannelCreateWithoutDeliveriesInput, NotificationChannelUncheckedCreateWithoutDeliveriesInput>
+    where?: NotificationChannelWhereInput
+  }
+
+  export type NotificationChannelUpdateToOneWithWhereWithoutDeliveriesInput = {
+    where?: NotificationChannelWhereInput
+    data: XOR<NotificationChannelUpdateWithoutDeliveriesInput, NotificationChannelUncheckedUpdateWithoutDeliveriesInput>
+  }
+
+  export type NotificationChannelUpdateWithoutDeliveriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationChannelTypeFieldUpdateOperationsInput | $Enums.NotificationChannelType
+    name?: StringFieldUpdateOperationsInput | string
+    configEnc?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutNotificationChannelsNestedInput
+  }
+
+  export type NotificationChannelUncheckedUpdateWithoutDeliveriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationChannelTypeFieldUpdateOperationsInput | $Enums.NotificationChannelType
+    name?: StringFieldUpdateOperationsInput | string
+    configEnc?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TenantCreateWithoutPeopleInput = {
     id?: string
     name: string
@@ -194521,6 +200864,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -194602,6 +200948,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -195240,6 +201589,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -195321,6 +201673,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -195865,6 +202220,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -195946,6 +202304,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -196106,6 +202467,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -196187,6 +202551,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -196337,6 +202704,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -196418,6 +202788,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -196578,6 +202951,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -196659,6 +203035,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -196809,6 +203188,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -196890,6 +203272,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -197268,6 +203653,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -197349,6 +203737,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -198709,6 +205100,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -198790,6 +205184,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -199124,6 +205521,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -199205,6 +205605,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -199505,6 +205908,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -199586,6 +205992,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -200154,6 +206563,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -200235,6 +206647,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -200620,6 +207035,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -200701,6 +207119,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -200898,6 +207319,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -200979,6 +207403,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -201060,6 +207487,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -201141,6 +207571,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -201721,6 +208154,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -201802,6 +208238,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -202273,6 +208712,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -202354,6 +208796,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -202808,6 +209253,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -202889,6 +209337,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -203345,6 +209796,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -203426,6 +209880,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -203880,6 +210337,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -203961,6 +210421,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -204417,6 +210880,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -204498,6 +210964,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -204805,6 +211274,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -204886,6 +211358,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -205164,6 +211639,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -205245,6 +211723,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -205538,6 +212019,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -205619,6 +212103,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -205908,6 +212395,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -205989,6 +212479,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -206458,6 +212951,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -206539,6 +213035,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -206969,6 +213468,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -207050,6 +213552,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -207343,6 +213848,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -207424,6 +213932,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -207647,6 +214158,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -207728,6 +214242,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -208070,6 +214587,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -208151,6 +214671,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -208495,6 +215018,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -208576,6 +215102,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -209144,6 +215673,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -209225,6 +215757,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -209874,6 +216409,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -209955,6 +216493,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -210296,6 +216837,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -210377,6 +216921,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -210702,6 +217249,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -210783,6 +217333,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -211124,6 +217677,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -211205,6 +217761,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -211439,6 +217998,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -211520,6 +218082,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -211617,6 +218182,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -211698,6 +218266,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -211870,6 +218441,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -211951,6 +218525,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -212292,6 +218869,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -212373,6 +218953,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -212607,6 +219190,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -212688,6 +219274,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -213021,6 +219610,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -213102,6 +219694,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -213470,6 +220065,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -213551,6 +220149,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -213993,6 +220594,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -214074,6 +220678,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -214548,6 +221155,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -214629,6 +221239,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -214810,6 +221423,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -214891,6 +221507,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -214972,6 +221591,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -215053,6 +221675,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -215150,6 +221775,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -215231,6 +221859,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -218295,6 +224926,96 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type NotificationChannelCreateWithoutTenantInput = {
+    id?: string
+    type: $Enums.NotificationChannelType
+    name: string
+    configEnc: string
+    enabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deliveries?: NotificationDeliveryCreateNestedManyWithoutChannelInput
+  }
+
+  export type NotificationChannelUncheckedCreateWithoutTenantInput = {
+    id?: string
+    type: $Enums.NotificationChannelType
+    name: string
+    configEnc: string
+    enabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutChannelInput
+  }
+
+  export type NotificationChannelCreateOrConnectWithoutTenantInput = {
+    where: NotificationChannelWhereUniqueInput
+    create: XOR<NotificationChannelCreateWithoutTenantInput, NotificationChannelUncheckedCreateWithoutTenantInput>
+  }
+
+  export type NotificationChannelCreateManyTenantInputEnvelope = {
+    data: NotificationChannelCreateManyTenantInput | NotificationChannelCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AlertRuleCreateWithoutTenantInput = {
+    id?: string
+    ruleKey: $Enums.AlertRuleKey
+    enabled?: boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AlertRuleUncheckedCreateWithoutTenantInput = {
+    id?: string
+    ruleKey: $Enums.AlertRuleKey
+    enabled?: boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AlertRuleCreateOrConnectWithoutTenantInput = {
+    where: AlertRuleWhereUniqueInput
+    create: XOR<AlertRuleCreateWithoutTenantInput, AlertRuleUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AlertRuleCreateManyTenantInputEnvelope = {
+    data: AlertRuleCreateManyTenantInput | AlertRuleCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NotificationDeliveryCreateWithoutTenantInput = {
+    id?: string
+    ruleKey: $Enums.AlertRuleKey
+    dedupeKey: string
+    status: $Enums.NotificationDeliveryStatus
+    summary: string
+    createdAt?: Date | string
+    channel?: NotificationChannelCreateNestedOneWithoutDeliveriesInput
+  }
+
+  export type NotificationDeliveryUncheckedCreateWithoutTenantInput = {
+    id?: string
+    ruleKey: $Enums.AlertRuleKey
+    dedupeKey: string
+    channelId?: string | null
+    status: $Enums.NotificationDeliveryStatus
+    summary: string
+    createdAt?: Date | string
+  }
+
+  export type NotificationDeliveryCreateOrConnectWithoutTenantInput = {
+    where: NotificationDeliveryWhereUniqueInput
+    create: XOR<NotificationDeliveryCreateWithoutTenantInput, NotificationDeliveryUncheckedCreateWithoutTenantInput>
+  }
+
+  export type NotificationDeliveryCreateManyTenantInputEnvelope = {
+    data: NotificationDeliveryCreateManyTenantInput | NotificationDeliveryCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantBillingConfigCreateWithoutTenantInput = {
     id?: string
     mode?: $Enums.TenantBillingMode
@@ -220018,6 +226739,81 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"DeviceAuthCode"> | Date | string
   }
 
+  export type NotificationChannelUpsertWithWhereUniqueWithoutTenantInput = {
+    where: NotificationChannelWhereUniqueInput
+    update: XOR<NotificationChannelUpdateWithoutTenantInput, NotificationChannelUncheckedUpdateWithoutTenantInput>
+    create: XOR<NotificationChannelCreateWithoutTenantInput, NotificationChannelUncheckedCreateWithoutTenantInput>
+  }
+
+  export type NotificationChannelUpdateWithWhereUniqueWithoutTenantInput = {
+    where: NotificationChannelWhereUniqueInput
+    data: XOR<NotificationChannelUpdateWithoutTenantInput, NotificationChannelUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type NotificationChannelUpdateManyWithWhereWithoutTenantInput = {
+    where: NotificationChannelScalarWhereInput
+    data: XOR<NotificationChannelUpdateManyMutationInput, NotificationChannelUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type NotificationChannelScalarWhereInput = {
+    AND?: NotificationChannelScalarWhereInput | NotificationChannelScalarWhereInput[]
+    OR?: NotificationChannelScalarWhereInput[]
+    NOT?: NotificationChannelScalarWhereInput | NotificationChannelScalarWhereInput[]
+    id?: StringFilter<"NotificationChannel"> | string
+    tenantId?: StringFilter<"NotificationChannel"> | string
+    type?: EnumNotificationChannelTypeFilter<"NotificationChannel"> | $Enums.NotificationChannelType
+    name?: StringFilter<"NotificationChannel"> | string
+    configEnc?: StringFilter<"NotificationChannel"> | string
+    enabled?: BoolFilter<"NotificationChannel"> | boolean
+    createdAt?: DateTimeFilter<"NotificationChannel"> | Date | string
+    updatedAt?: DateTimeFilter<"NotificationChannel"> | Date | string
+  }
+
+  export type AlertRuleUpsertWithWhereUniqueWithoutTenantInput = {
+    where: AlertRuleWhereUniqueInput
+    update: XOR<AlertRuleUpdateWithoutTenantInput, AlertRuleUncheckedUpdateWithoutTenantInput>
+    create: XOR<AlertRuleCreateWithoutTenantInput, AlertRuleUncheckedCreateWithoutTenantInput>
+  }
+
+  export type AlertRuleUpdateWithWhereUniqueWithoutTenantInput = {
+    where: AlertRuleWhereUniqueInput
+    data: XOR<AlertRuleUpdateWithoutTenantInput, AlertRuleUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type AlertRuleUpdateManyWithWhereWithoutTenantInput = {
+    where: AlertRuleScalarWhereInput
+    data: XOR<AlertRuleUpdateManyMutationInput, AlertRuleUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type AlertRuleScalarWhereInput = {
+    AND?: AlertRuleScalarWhereInput | AlertRuleScalarWhereInput[]
+    OR?: AlertRuleScalarWhereInput[]
+    NOT?: AlertRuleScalarWhereInput | AlertRuleScalarWhereInput[]
+    id?: StringFilter<"AlertRule"> | string
+    tenantId?: StringFilter<"AlertRule"> | string
+    ruleKey?: EnumAlertRuleKeyFilter<"AlertRule"> | $Enums.AlertRuleKey
+    enabled?: BoolFilter<"AlertRule"> | boolean
+    config?: JsonNullableFilter<"AlertRule">
+    createdAt?: DateTimeFilter<"AlertRule"> | Date | string
+    updatedAt?: DateTimeFilter<"AlertRule"> | Date | string
+  }
+
+  export type NotificationDeliveryUpsertWithWhereUniqueWithoutTenantInput = {
+    where: NotificationDeliveryWhereUniqueInput
+    update: XOR<NotificationDeliveryUpdateWithoutTenantInput, NotificationDeliveryUncheckedUpdateWithoutTenantInput>
+    create: XOR<NotificationDeliveryCreateWithoutTenantInput, NotificationDeliveryUncheckedCreateWithoutTenantInput>
+  }
+
+  export type NotificationDeliveryUpdateWithWhereUniqueWithoutTenantInput = {
+    where: NotificationDeliveryWhereUniqueInput
+    data: XOR<NotificationDeliveryUpdateWithoutTenantInput, NotificationDeliveryUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type NotificationDeliveryUpdateManyWithWhereWithoutTenantInput = {
+    where: NotificationDeliveryScalarWhereInput
+    data: XOR<NotificationDeliveryUpdateManyMutationInput, NotificationDeliveryUncheckedUpdateManyWithoutTenantInput>
+  }
+
   export type TenantBillingConfigUpsertWithoutTenantInput = {
     update: XOR<TenantBillingConfigUpdateWithoutTenantInput, TenantBillingConfigUncheckedUpdateWithoutTenantInput>
     create: XOR<TenantBillingConfigCreateWithoutTenantInput, TenantBillingConfigUncheckedCreateWithoutTenantInput>
@@ -220193,6 +226989,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -220274,6 +227073,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -220371,6 +227173,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -220452,6 +227257,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -220533,6 +227341,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -220614,6 +227425,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -220783,6 +227597,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -220864,6 +227681,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -221159,6 +227979,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -221240,6 +228063,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -221531,6 +228357,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -221612,6 +228441,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -221728,6 +228560,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -221809,6 +228644,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -222015,6 +228853,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -222096,6 +228937,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -222684,6 +229528,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -222765,6 +229612,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -223080,6 +229930,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -223161,6 +230014,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -223434,6 +230290,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -223515,6 +230374,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -223712,6 +230574,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -223793,6 +230658,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -223922,6 +230790,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -224003,6 +230874,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -224284,6 +231158,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -224365,6 +231242,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -224642,6 +231522,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -224723,6 +231606,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -224857,6 +231743,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -224938,6 +231827,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -225062,6 +231954,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -225143,6 +232038,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -225325,6 +232223,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -225406,6 +232307,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -225546,6 +232450,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -225627,6 +232534,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -225906,6 +232816,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -225987,6 +232900,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -230046,6 +236962,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -230127,6 +237046,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -230306,6 +237228,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -230387,6 +237312,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -230500,6 +237428,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -230581,6 +237512,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -230719,6 +237653,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -230800,6 +237737,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -230928,6 +237868,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -231009,6 +237952,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -231294,6 +238240,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -231375,6 +238324,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -231820,6 +238772,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -231901,6 +238856,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -232392,6 +239350,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -232473,6 +239434,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -232803,6 +239767,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -232884,6 +239851,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -233256,6 +240226,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -233337,6 +240310,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -233748,6 +240724,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -233829,6 +240808,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -234088,6 +241070,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -234169,6 +241154,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -234479,6 +241467,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -234560,6 +241551,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -234879,6 +241873,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -234960,6 +241957,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -235194,6 +242194,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletCreateNestedOneWithoutTenantInput
@@ -235275,6 +242278,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedCreateNestedManyWithoutTenantInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedCreateNestedManyWithoutTenantInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedCreateNestedManyWithoutTenantInput
+    notificationChannels?: NotificationChannelUncheckedCreateNestedManyWithoutTenantInput
+    alertRules?: AlertRuleUncheckedCreateNestedManyWithoutTenantInput
+    notificationDeliveries?: NotificationDeliveryUncheckedCreateNestedManyWithoutTenantInput
     billingConfig?: TenantBillingConfigUncheckedCreateNestedOneWithoutTenantInput
     litellmKey?: TenantLiteLLMKeyUncheckedCreateNestedOneWithoutTenantInput
     creditWallet?: CreditWalletUncheckedCreateNestedOneWithoutTenantInput
@@ -235666,6 +242672,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUpdateOneWithoutTenantNestedInput
@@ -235747,6 +242756,9 @@ export namespace Prisma {
     deviceEnrollmentTokens?: DeviceEnrollmentTokenUncheckedUpdateManyWithoutTenantNestedInput
     devicePostureSnapshots?: DevicePostureSnapshotUncheckedUpdateManyWithoutTenantNestedInput
     deviceAuthCodes?: DeviceAuthCodeUncheckedUpdateManyWithoutTenantNestedInput
+    notificationChannels?: NotificationChannelUncheckedUpdateManyWithoutTenantNestedInput
+    alertRules?: AlertRuleUncheckedUpdateManyWithoutTenantNestedInput
+    notificationDeliveries?: NotificationDeliveryUncheckedUpdateManyWithoutTenantNestedInput
     billingConfig?: TenantBillingConfigUncheckedUpdateOneWithoutTenantNestedInput
     litellmKey?: TenantLiteLLMKeyUncheckedUpdateOneWithoutTenantNestedInput
     creditWallet?: CreditWalletUncheckedUpdateOneWithoutTenantNestedInput
@@ -237647,6 +244659,46 @@ export namespace Prisma {
     action?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     performedById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationDeliveryCreateManyChannelInput = {
+    id?: string
+    tenantId: string
+    ruleKey: $Enums.AlertRuleKey
+    dedupeKey: string
+    status: $Enums.NotificationDeliveryStatus
+    summary: string
+    createdAt?: Date | string
+  }
+
+  export type NotificationDeliveryUpdateWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    dedupeKey?: StringFieldUpdateOperationsInput | string
+    status?: EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
+    summary?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutNotificationDeliveriesNestedInput
+  }
+
+  export type NotificationDeliveryUncheckedUpdateWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    dedupeKey?: StringFieldUpdateOperationsInput | string
+    status?: EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
+    summary?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationDeliveryUncheckedUpdateManyWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    dedupeKey?: StringFieldUpdateOperationsInput | string
+    status?: EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
+    summary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -240818,6 +247870,35 @@ export namespace Prisma {
     redirectUri: string
     expiresAt: Date | string
     consumedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationChannelCreateManyTenantInput = {
+    id?: string
+    type: $Enums.NotificationChannelType
+    name: string
+    configEnc: string
+    enabled?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AlertRuleCreateManyTenantInput = {
+    id?: string
+    ruleKey: $Enums.AlertRuleKey
+    enabled?: boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NotificationDeliveryCreateManyTenantInput = {
+    id?: string
+    ruleKey: $Enums.AlertRuleKey
+    dedupeKey: string
+    channelId?: string | null
+    status: $Enums.NotificationDeliveryStatus
+    summary: string
     createdAt?: Date | string
   }
 
@@ -244234,6 +251315,95 @@ export namespace Prisma {
     redirectUri?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     consumedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationChannelUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationChannelTypeFieldUpdateOperationsInput | $Enums.NotificationChannelType
+    name?: StringFieldUpdateOperationsInput | string
+    configEnc?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveries?: NotificationDeliveryUpdateManyWithoutChannelNestedInput
+  }
+
+  export type NotificationChannelUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationChannelTypeFieldUpdateOperationsInput | $Enums.NotificationChannelType
+    name?: StringFieldUpdateOperationsInput | string
+    configEnc?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliveries?: NotificationDeliveryUncheckedUpdateManyWithoutChannelNestedInput
+  }
+
+  export type NotificationChannelUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumNotificationChannelTypeFieldUpdateOperationsInput | $Enums.NotificationChannelType
+    name?: StringFieldUpdateOperationsInput | string
+    configEnc?: StringFieldUpdateOperationsInput | string
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AlertRuleUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AlertRuleUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AlertRuleUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    config?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationDeliveryUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    dedupeKey?: StringFieldUpdateOperationsInput | string
+    status?: EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
+    summary?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    channel?: NotificationChannelUpdateOneWithoutDeliveriesNestedInput
+  }
+
+  export type NotificationDeliveryUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    dedupeKey?: StringFieldUpdateOperationsInput | string
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
+    summary?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationDeliveryUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ruleKey?: EnumAlertRuleKeyFieldUpdateOperationsInput | $Enums.AlertRuleKey
+    dedupeKey?: StringFieldUpdateOperationsInput | string
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumNotificationDeliveryStatusFieldUpdateOperationsInput | $Enums.NotificationDeliveryStatus
+    summary?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

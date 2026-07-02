@@ -57,6 +57,18 @@ export const FRAMEWORK_TYPES = {
     description:
       "APRA Prudential Standard CPS 234 Information Security — obligations on APRA-regulated entities (banks, insurers, super funds) for information security capability and notification (Australia)",
   },
+  hipaa: {
+    key: "hipaa",
+    name: "HIPAA",
+    description:
+      "US Health Insurance Portability and Accountability Act (45 CFR Part 164) — Security, Breach Notification and Privacy Rule safeguards for protected health information (US)",
+  },
+  pci_dss_4: {
+    key: "pci_dss_4",
+    name: "PCI DSS 4.0",
+    description:
+      "Payment Card Industry Data Security Standard v4.0.1 — security requirements for entities that store, process or transmit cardholder data",
+  },
 } as const;
 
 export type FrameworkTypeKey = keyof typeof FRAMEWORK_TYPES;

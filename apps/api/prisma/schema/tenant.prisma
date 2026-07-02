@@ -116,6 +116,9 @@ model Tenant {
   deviceEnrollmentTokens        DeviceEnrollmentToken[]
   devicePostureSnapshots        DevicePostureSnapshot[]
   deviceAuthCodes               DeviceAuthCode[]
+  notificationChannels          NotificationChannel[]
+  alertRules                    AlertRule[]
+  notificationDeliveries        NotificationDelivery[]
   // EE: managed LiteLLM routing + metered billing. See
   // prisma/schema/billing.ee.prisma.
   billingConfig                 TenantBillingConfig?

@@ -1,0 +1,392 @@
+{
+  "$comment": "PCI DSS v4.0.1 → ISO/IEC 27001:2022 Annex A control mappings. Written against the intent of each requirement (original paraphrases — PCI SSC text is copyrighted). PCI DSS requirements are prescriptive and CDE-scoped while Annex A controls are outcome-level and org-wide, so most relationships are 'partial': the PCI control satisfies the Annex A intent inside the CDE but not necessarily enterprise-wide.",
+  "source": "PCI DSS v4.0.1 requirement-intent cross-walk to ISO/IEC 27001:2022 Annex A",
+  "sourceFramework": "pci_dss_4",
+  "targetFramework": "iso27001",
+  "mappings": [
+    {
+      "source": "1.2.1",
+      "target": "A.8.20",
+      "relationship": "partial",
+      "rationale": "NSC ruleset configuration standards implement network security management."
+    },
+    {
+      "source": "1.2.3",
+      "target": "A.5.9",
+      "relationship": "informs",
+      "rationale": "Current network diagrams document the asset landscape the inventory control expects."
+    },
+    {
+      "source": "1.2.7",
+      "target": "A.8.20",
+      "relationship": "partial",
+      "rationale": "Semi-annual ruleset reviews keep network controls aligned with need."
+    },
+    {
+      "source": "1.3.1",
+      "target": "A.8.22",
+      "relationship": "partial",
+      "rationale": "Restricting traffic into the CDE is network segregation."
+    },
+    {
+      "source": "1.4.1",
+      "target": "A.8.20",
+      "relationship": "partial",
+      "rationale": "Mediating trusted/untrusted boundaries is core network security control."
+    },
+    {
+      "source": "1.5.1",
+      "target": "A.8.1",
+      "relationship": "partial",
+      "rationale": "Host-level controls on dual-connected devices protect user endpoints."
+    },
+    {
+      "source": "2.2.1",
+      "target": "A.8.9",
+      "relationship": "equivalent",
+      "rationale": "Both require established, maintained configuration/hardening standards."
+    },
+    {
+      "source": "2.2.2",
+      "target": "A.8.9",
+      "relationship": "partial",
+      "rationale": "Eliminating vendor defaults is a specific configuration-management outcome."
+    },
+    {
+      "source": "2.2.4",
+      "target": "A.8.9",
+      "relationship": "partial",
+      "rationale": "Disabling unnecessary services is minimal-footprint configuration management."
+    },
+    {
+      "source": "2.2.7",
+      "target": "A.8.24",
+      "relationship": "partial",
+      "rationale": "Encrypting non-console administrative sessions applies cryptography to management traffic."
+    },
+    {
+      "source": "3.2.1",
+      "target": "A.8.10",
+      "relationship": "partial",
+      "rationale": "Deleting account data at end of retention is information deletion."
+    },
+    {
+      "source": "3.2.1",
+      "target": "A.5.33",
+      "relationship": "informs",
+      "rationale": "Retention schedules for account data support records-management requirements."
+    },
+    {
+      "source": "3.4.1",
+      "target": "A.8.11",
+      "relationship": "equivalent",
+      "rationale": "PAN display masking is data masking applied to account data."
+    },
+    {
+      "source": "3.5.1",
+      "target": "A.8.24",
+      "relationship": "partial",
+      "rationale": "Rendering stored PAN unreadable via hashing/encryption/tokenization applies cryptographic protection."
+    },
+    {
+      "source": "3.6.1",
+      "target": "A.8.24",
+      "relationship": "partial",
+      "rationale": "Protecting data-encrypting keys is the key-management half of the cryptography control."
+    },
+    {
+      "source": "3.7.1",
+      "target": "A.8.24",
+      "relationship": "partial",
+      "rationale": "Key lifecycle (generation, distribution, rotation, retirement) is cryptographic key management."
+    },
+    {
+      "source": "4.2.1",
+      "target": "A.8.24",
+      "relationship": "partial",
+      "rationale": "Strong transport cryptography for PAN is cryptography-in-transit."
+    },
+    {
+      "source": "4.2.1",
+      "target": "A.5.14",
+      "relationship": "partial",
+      "rationale": "Protecting PAN over public networks secures information transfer."
+    },
+    {
+      "source": "5.2.1",
+      "target": "A.8.7",
+      "relationship": "equivalent",
+      "rationale": "Both require anti-malware protection across in-scope systems."
+    },
+    {
+      "source": "5.3.2",
+      "target": "A.8.7",
+      "relationship": "partial",
+      "rationale": "Periodic/real-time scanning is the operational half of malware protection."
+    },
+    {
+      "source": "5.4.1",
+      "target": "A.6.3",
+      "relationship": "informs",
+      "rationale": "Anti-phishing mechanisms complement awareness training against social engineering."
+    },
+    {
+      "source": "6.2.1",
+      "target": "A.8.25",
+      "relationship": "equivalent",
+      "rationale": "Both require a secure development lifecycle for software."
+    },
+    {
+      "source": "6.2.4",
+      "target": "A.8.28",
+      "relationship": "partial",
+      "rationale": "Preventing injection and similar attack classes is secure-coding practice."
+    },
+    {
+      "source": "6.3.1",
+      "target": "A.8.8",
+      "relationship": "equivalent",
+      "rationale": "Both require identifying and risk-ranking technical vulnerabilities from industry sources."
+    },
+    {
+      "source": "6.3.2",
+      "target": "A.5.9",
+      "relationship": "partial",
+      "rationale": "Software/component inventories (SBOM) extend the asset inventory to code dependencies."
+    },
+    {
+      "source": "6.3.3",
+      "target": "A.8.8",
+      "relationship": "partial",
+      "rationale": "Time-bound patching operationalises vulnerability management."
+    },
+    {
+      "source": "6.4.2",
+      "target": "A.8.26",
+      "relationship": "partial",
+      "rationale": "A WAF in blocking mode is an application-security requirement for public-facing apps."
+    },
+    {
+      "source": "6.5.1",
+      "target": "A.8.32",
+      "relationship": "equivalent",
+      "rationale": "Both require formal change management for production systems."
+    },
+    {
+      "source": "7.2.1",
+      "target": "A.5.15",
+      "relationship": "partial",
+      "rationale": "A need-to-know access model with default deny is access-control policy."
+    },
+    {
+      "source": "7.2.2",
+      "target": "A.8.2",
+      "relationship": "partial",
+      "rationale": "Least-privilege assignment including privileged users overlaps privileged-access management."
+    },
+    {
+      "source": "7.2.4",
+      "target": "A.5.18",
+      "relationship": "partial",
+      "rationale": "Semi-annual account/privilege reviews are the review half of access-rights management."
+    },
+    {
+      "source": "8.2.1",
+      "target": "A.5.16",
+      "relationship": "partial",
+      "rationale": "Unique IDs per user are identity-management fundamentals."
+    },
+    {
+      "source": "8.2.5",
+      "target": "A.5.18",
+      "relationship": "partial",
+      "rationale": "Immediate revocation for terminated users is access-rights removal."
+    },
+    {
+      "source": "8.3.4",
+      "target": "A.8.5",
+      "relationship": "partial",
+      "rationale": "Lockout after failed attempts is a secure-authentication mechanism."
+    },
+    {
+      "source": "8.3.6",
+      "target": "A.5.17",
+      "relationship": "partial",
+      "rationale": "Minimum password strength is authentication-information management."
+    },
+    {
+      "source": "8.4.2",
+      "target": "A.8.5",
+      "relationship": "partial",
+      "rationale": "MFA into the CDE is a strong-authentication requirement; PCI mandates it universally for CDE access."
+    },
+    {
+      "source": "8.6.2",
+      "target": "A.8.28",
+      "relationship": "partial",
+      "rationale": "Banning hard-coded credentials in code/scripts is a secure-coding rule."
+    },
+    {
+      "source": "9.2.1",
+      "target": "A.7.1",
+      "relationship": "partial",
+      "rationale": "Facility entry controls around CDE systems establish physical security perimeters."
+    },
+    {
+      "source": "9.3.2",
+      "target": "A.7.2",
+      "relationship": "partial",
+      "rationale": "Visitor authorization, escort and badging are physical-entry controls."
+    },
+    {
+      "source": "9.4.1",
+      "target": "A.7.10",
+      "relationship": "partial",
+      "rationale": "Securing media holding cardholder data (incl. offsite backups) is storage-media control."
+    },
+    {
+      "source": "9.4.6",
+      "target": "A.7.14",
+      "relationship": "partial",
+      "rationale": "Destroying media when no longer needed matches secure disposal/re-use of equipment."
+    },
+    {
+      "source": "10.2.1",
+      "target": "A.8.15",
+      "relationship": "equivalent",
+      "rationale": "Both require audit logs of user, admin and system-level events."
+    },
+    {
+      "source": "10.3.2",
+      "target": "A.8.15",
+      "relationship": "partial",
+      "rationale": "Tamper-protection and central backup of logs is part of the logging control."
+    },
+    {
+      "source": "10.4.1",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "Daily automated log review is monitoring for anomalous activity."
+    },
+    {
+      "source": "10.5.1",
+      "target": "A.5.33",
+      "relationship": "informs",
+      "rationale": "The 12-month log-retention floor supports records protection; the exact period is PCI-specific."
+    },
+    {
+      "source": "10.6.1",
+      "target": "A.8.17",
+      "relationship": "equivalent",
+      "rationale": "Both require synchronized clocks from protected time sources."
+    },
+    {
+      "source": "10.7.2",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "Detecting failures of security-control systems is a monitoring outcome."
+    },
+    {
+      "source": "11.3.1",
+      "target": "A.8.8",
+      "relationship": "partial",
+      "rationale": "Quarterly internal vulnerability scanning operationalises technical vulnerability management."
+    },
+    {
+      "source": "11.3.2",
+      "target": "A.8.8",
+      "relationship": "partial",
+      "rationale": "Quarterly external ASV scanning extends vulnerability management to the perimeter."
+    },
+    {
+      "source": "11.4.2",
+      "target": "A.8.8",
+      "relationship": "informs",
+      "rationale": "Penetration testing validates vulnerability management beyond scanning; ISO has no explicit pentest control."
+    },
+    {
+      "source": "11.4.5",
+      "target": "A.8.22",
+      "relationship": "partial",
+      "rationale": "Segmentation testing verifies the effectiveness of network segregation."
+    },
+    {
+      "source": "11.5.1",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "IDS/IPS at CDE boundaries is technical monitoring for intrusions."
+    },
+    {
+      "source": "11.5.2",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "File-integrity change detection monitors for unauthorized modification."
+    },
+    {
+      "source": "12.1.1",
+      "target": "A.5.1",
+      "relationship": "equivalent",
+      "rationale": "Both require an approved, published and communicated information security policy."
+    },
+    {
+      "source": "12.1.2",
+      "target": "A.5.1",
+      "relationship": "partial",
+      "rationale": "The annual policy review matches planned-interval policy review."
+    },
+    {
+      "source": "12.5.2",
+      "target": "A.5.9",
+      "relationship": "informs",
+      "rationale": "Annual scope confirmation depends on a complete inventory of information and assets."
+    },
+    {
+      "source": "12.6.1",
+      "target": "A.6.3",
+      "relationship": "equivalent",
+      "rationale": "Both require a formal security awareness programme."
+    },
+    {
+      "source": "12.6.3",
+      "target": "A.6.3",
+      "relationship": "partial",
+      "rationale": "On-hire and annual training with acknowledgement delivers the awareness programme."
+    },
+    {
+      "source": "12.7.1",
+      "target": "A.6.1",
+      "relationship": "equivalent",
+      "rationale": "Both require pre-hire screening proportionate to role and law."
+    },
+    {
+      "source": "12.8.1",
+      "target": "A.5.19",
+      "relationship": "partial",
+      "rationale": "The TPSP register manages security in supplier relationships."
+    },
+    {
+      "source": "12.8.2",
+      "target": "A.5.20",
+      "relationship": "partial",
+      "rationale": "Written responsibility acknowledgements put security into supplier agreements."
+    },
+    {
+      "source": "12.8.4",
+      "target": "A.5.22",
+      "relationship": "partial",
+      "rationale": "Annual monitoring of TPSP compliance status is supplier-service review."
+    },
+    {
+      "source": "12.10.1",
+      "target": "A.5.24",
+      "relationship": "equivalent",
+      "rationale": "Both require a maintained incident-response plan with roles and communication paths."
+    },
+    {
+      "source": "12.10.2",
+      "target": "A.5.24",
+      "relationship": "partial",
+      "rationale": "Annual IR plan testing and lessons-learned updates keep incident preparation current."
+    }
+  ]
+}

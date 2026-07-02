@@ -1,0 +1,278 @@
+{
+  "$comment": "HIPAA (45 CFR Part 164) → ISO/IEC 27001:2022 Annex A control mappings. Derived from the primary CFR text cross-walked against Annex A control intent, informed by the publicly available NIST SP 800-66r2 crosswalk appendix (HIPAA Security Rule ↔ NIST CSF ↔ ISO). HIPAA safeguards are organisational obligations that are usually broader than a single Annex A control, so 'partial' dominates; 'equivalent' is reserved for genuine 1:1 intent.",
+  "source": "45 CFR Part 164 cross-walk informed by NIST SP 800-66r2 mapping appendix",
+  "sourceFramework": "hipaa",
+  "targetFramework": "iso27001",
+  "mappings": [
+    {
+      "source": "164.308(a)(1)(ii)(C)",
+      "target": "A.6.4",
+      "relationship": "equivalent",
+      "rationale": "Both require a disciplinary/sanction process for workforce security violations."
+    },
+    {
+      "source": "164.308(a)(1)(ii)(D)",
+      "target": "A.8.15",
+      "relationship": "partial",
+      "rationale": "System-activity review presumes the audit logs that A.8.15 requires."
+    },
+    {
+      "source": "164.308(a)(1)(ii)(D)",
+      "target": "A.8.16",
+      "relationship": "partial",
+      "rationale": "Regular review of activity records is the monitoring activity A.8.16 formalises."
+    },
+    {
+      "source": "164.308(a)(2)",
+      "target": "A.5.2",
+      "relationship": "partial",
+      "rationale": "Naming a Security Official is a specific instance of defining security roles and responsibilities."
+    },
+    {
+      "source": "164.308(a)(3)(ii)(B)",
+      "target": "A.6.1",
+      "relationship": "partial",
+      "rationale": "Workforce clearance before ePHI access aligns with pre-employment screening."
+    },
+    {
+      "source": "164.308(a)(3)(ii)(C)",
+      "target": "A.6.5",
+      "relationship": "partial",
+      "rationale": "Termination procedures cover post-employment security responsibilities."
+    },
+    {
+      "source": "164.308(a)(3)(ii)(C)",
+      "target": "A.5.18",
+      "relationship": "partial",
+      "rationale": "Removing leaver access is the revocation half of access-rights management."
+    },
+    {
+      "source": "164.308(a)(4)(ii)(B)",
+      "target": "A.5.15",
+      "relationship": "partial",
+      "rationale": "Granting ePHI access under documented policy is core access control."
+    },
+    {
+      "source": "164.308(a)(4)(ii)(C)",
+      "target": "A.5.18",
+      "relationship": "partial",
+      "rationale": "Establishing, reviewing and modifying user access rights is the same lifecycle A.5.18 governs."
+    },
+    {
+      "source": "164.308(a)(5)(ii)(A)",
+      "target": "A.6.3",
+      "relationship": "partial",
+      "rationale": "Periodic security reminders are one delivery channel of an awareness programme."
+    },
+    {
+      "source": "164.308(a)(5)(ii)(B)",
+      "target": "A.8.7",
+      "relationship": "partial",
+      "rationale": "Guarding against and detecting malicious software maps to anti-malware protection."
+    },
+    {
+      "source": "164.308(a)(5)(ii)(D)",
+      "target": "A.5.17",
+      "relationship": "partial",
+      "rationale": "Password creation, change and safeguarding procedures are authentication-information management."
+    },
+    {
+      "source": "164.308(a)(6)(i)",
+      "target": "A.5.24",
+      "relationship": "equivalent",
+      "rationale": "Both require planned, documented incident-management procedures."
+    },
+    {
+      "source": "164.308(a)(6)(ii)",
+      "target": "A.5.26",
+      "relationship": "partial",
+      "rationale": "Responding to and mitigating incidents matches incident response; HIPAA adds ePHI-specific documentation duties."
+    },
+    {
+      "source": "164.308(a)(6)(ii)",
+      "target": "A.6.8",
+      "relationship": "informs",
+      "rationale": "Identifying suspected incidents relies on a workforce event-reporting channel."
+    },
+    {
+      "source": "164.308(a)(7)(ii)(A)",
+      "target": "A.8.13",
+      "relationship": "equivalent",
+      "rationale": "Retrievable exact copies of ePHI are the information backups A.8.13 requires."
+    },
+    {
+      "source": "164.308(a)(7)(ii)(B)",
+      "target": "A.5.30",
+      "relationship": "partial",
+      "rationale": "Restoring lost ePHI is the ICT-readiness outcome of business-continuity planning."
+    },
+    {
+      "source": "164.308(a)(7)(ii)(C)",
+      "target": "A.5.29",
+      "relationship": "partial",
+      "rationale": "Emergency-mode operation preserves security of information during disruption."
+    },
+    {
+      "source": "164.308(a)(7)(ii)(D)",
+      "target": "A.5.30",
+      "relationship": "partial",
+      "rationale": "Contingency-plan testing evidences ICT continuity readiness."
+    },
+    {
+      "source": "164.308(a)(8)",
+      "target": "A.5.35",
+      "relationship": "partial",
+      "rationale": "Periodic technical/nontechnical evaluation parallels independent review of information security."
+    },
+    {
+      "source": "164.308(a)(8)",
+      "target": "A.5.36",
+      "relationship": "partial",
+      "rationale": "Evaluation against the Security Rule is compliance checking against policies and standards."
+    },
+    {
+      "source": "164.308(b)(1)",
+      "target": "A.5.19",
+      "relationship": "partial",
+      "rationale": "Obtaining assurances from business associates is supplier-relationship security."
+    },
+    {
+      "source": "164.308(b)(1)",
+      "target": "A.5.20",
+      "relationship": "partial",
+      "rationale": "BAAs put the required security terms into supplier agreements."
+    },
+    {
+      "source": "164.310(a)(2)(ii)",
+      "target": "A.7.1",
+      "relationship": "partial",
+      "rationale": "A facility security plan defines the physical security perimeter and its safeguards."
+    },
+    {
+      "source": "164.310(a)(2)(iii)",
+      "target": "A.7.2",
+      "relationship": "partial",
+      "rationale": "Role-based facility access with visitor control is physical-entry control."
+    },
+    {
+      "source": "164.310(b)",
+      "target": "A.8.1",
+      "relationship": "partial",
+      "rationale": "Workstation-use rules govern user endpoint devices handling ePHI."
+    },
+    {
+      "source": "164.310(c)",
+      "target": "A.7.7",
+      "relationship": "partial",
+      "rationale": "Physical workstation safeguards overlap clear-desk/clear-screen and positioning controls."
+    },
+    {
+      "source": "164.310(d)(2)(i)",
+      "target": "A.7.14",
+      "relationship": "equivalent",
+      "rationale": "Both require secure disposal of equipment and media holding sensitive data."
+    },
+    {
+      "source": "164.310(d)(2)(ii)",
+      "target": "A.7.10",
+      "relationship": "partial",
+      "rationale": "Sanitising media before re-use is part of storage-media lifecycle management."
+    },
+    {
+      "source": "164.310(d)(2)(iii)",
+      "target": "A.7.10",
+      "relationship": "partial",
+      "rationale": "Tracking media movements and custodians is storage-media handling control."
+    },
+    {
+      "source": "164.312(a)(2)(i)",
+      "target": "A.5.16",
+      "relationship": "partial",
+      "rationale": "Unique user identifiers are the foundation of identity management."
+    },
+    {
+      "source": "164.312(a)(2)(iii)",
+      "target": "A.7.7",
+      "relationship": "informs",
+      "rationale": "Automatic logoff supports the clear-screen objective for unattended sessions."
+    },
+    {
+      "source": "164.312(a)(2)(iv)",
+      "target": "A.8.24",
+      "relationship": "partial",
+      "rationale": "Encrypting stored ePHI is an application of the cryptography control."
+    },
+    {
+      "source": "164.312(b)",
+      "target": "A.8.15",
+      "relationship": "equivalent",
+      "rationale": "Recording and examining activity in ePHI systems is the logging control's exact intent."
+    },
+    {
+      "source": "164.312(d)",
+      "target": "A.8.5",
+      "relationship": "partial",
+      "rationale": "Verifying the identity of persons/entities seeking ePHI is secure authentication."
+    },
+    {
+      "source": "164.312(e)(2)(i)",
+      "target": "A.5.14",
+      "relationship": "partial",
+      "rationale": "Protecting ePHI during electronic transfer is information-transfer security."
+    },
+    {
+      "source": "164.312(e)(2)(ii)",
+      "target": "A.8.24",
+      "relationship": "partial",
+      "rationale": "Encrypting ePHI in transit applies the cryptography control to transmission."
+    },
+    {
+      "source": "164.314(a)(1)",
+      "target": "A.5.20",
+      "relationship": "partial",
+      "rationale": "Mandatory BAA security clauses are supplier-agreement security requirements."
+    },
+    {
+      "source": "164.316(b)(1)",
+      "target": "A.5.37",
+      "relationship": "partial",
+      "rationale": "Written security policies and operational records align with documented operating procedures."
+    },
+    {
+      "source": "164.316(b)(2)",
+      "target": "A.5.33",
+      "relationship": "partial",
+      "rationale": "Six-year retention and availability of compliance documentation is records protection."
+    },
+    {
+      "source": "164.404",
+      "target": "A.5.26",
+      "relationship": "informs",
+      "rationale": "Individual breach notification is executed through the incident-response process, but the 60-day duty is HIPAA-specific."
+    },
+    {
+      "source": "164.502(b)",
+      "target": "A.5.34",
+      "relationship": "partial",
+      "rationale": "Minimum-necessary use of PHI supports the privacy/PII-protection control."
+    },
+    {
+      "source": "164.520",
+      "target": "A.5.34",
+      "relationship": "partial",
+      "rationale": "The notice of privacy practices is a transparency measure for PII processing."
+    },
+    {
+      "source": "164.524",
+      "target": "A.5.34",
+      "relationship": "partial",
+      "rationale": "Individual access rights are operationalised within PII privacy controls."
+    },
+    {
+      "source": "164.530",
+      "target": "A.5.34",
+      "relationship": "partial",
+      "rationale": "Privacy-programme administration (official, training, safeguards) underpins PII protection."
+    }
+  ]
+}

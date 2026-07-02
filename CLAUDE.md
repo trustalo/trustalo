@@ -59,6 +59,7 @@ The Cursor `.mdc` files are markdown with YAML frontmatter. Read them directly �
 - [`docs/permissions-matrix.md`](docs/permissions-matrix.md) — RBAC roles and permissions.
 - [`docs/people.md`](docs/people.md) — People directory / HR; the `Person` model (replaced `Membership`), self-service, advisory evidence.
 - [`docs/device-agent.md`](docs/device-agent.md) — endpoint device-posture agent + Devices UI.
+- [`docs/notifications.md`](docs/notifications.md) — notifications & alerting: the periodic rule evaluator, alert rules, email/Slack/Teams channels, env vars.
 - [`docs/compliance-frameworks.md`](docs/compliance-frameworks.md) — supported frameworks and mappings.
 
 ---

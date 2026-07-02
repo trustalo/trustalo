@@ -14,6 +14,8 @@ import {
   NIST_CSF_2_FRAMEWORK,
   GDPR_FRAMEWORK,
   CPS234_FRAMEWORK,
+  HIPAA_FRAMEWORK,
+  PCI_DSS_4_FRAMEWORK,
   type FrameworkDef,
 } from "./frameworks/index.js";
 import { MAPPINGS } from "./mappings/index.js";
@@ -33,6 +35,8 @@ const FRAMEWORKS: FrameworkDef[] = [
   NIST_CSF_2_FRAMEWORK,
   GDPR_FRAMEWORK,
   CPS234_FRAMEWORK,
+  HIPAA_FRAMEWORK,
+  PCI_DSS_4_FRAMEWORK,
 ];
 
 /** Local test account; override with SEED_TEST_USER_EMAIL / SEED_TEST_USER_PASSWORD. */
@@ -74,12 +78,19 @@ async function seedTestUser() {
       },
     });
 
-    await tx.membership.create({
+    // People replaced Membership as the org link (see docs/people.md) —
+    // login resolves the tenant via the Person row, so the test user
+    // needs one to sign in at all.
+    await tx.person.create({
       data: {
         userId: user.id,
         tenantId: tenant.id,
+        email: user.email,
+        fullName: user.name,
         role: "owner",
         status: "active",
+        kind: "employee",
+        source: "manual",
         joinedAt: new Date(),
       },
     });

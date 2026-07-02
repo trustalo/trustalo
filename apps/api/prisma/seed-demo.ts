@@ -16,13 +16,20 @@
 //
 // All demo users authenticate via the local provider with
 // password `Password.123` unless overridden.
+//
+// Everything created here is OBVIOUSLY fake: the org is renamed to
+// "Acme Demo Co", every person lives at @demo.trustalo.io, and rows
+// with a JSON metadata column carry a `demoSeed: true` marker.
 
 import "dotenv/config";
+import { randomBytes } from "node:crypto";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../generated/prisma/client/index.js";
+import { encryptString } from "../src/lib/crypto-envelope";
 
 const DEMO_PASSWORD = process.env.SEED_DEMO_PASSWORD ?? "Password.123";
 const ORG_SLUG = process.env.SEED_DEMO_ORG_SLUG ?? "seed-test-org";
+const DEMO_ORG_NAME = "Acme Demo Co";
 
 const connectionString = process.env.API_DATABASE_URL!;
 const adapter = new PrismaPg({ connectionString });
@@ -65,22 +72,46 @@ type DemoPersona = {
     | "viewer"
     | "integration_admin"
     | "dpo";
+  jobTitle: string;
+  department: string;
 };
 
 const PERSONAS: DemoPersona[] = [
-  { email: "alex.chen@demo.trustalo.io", name: "Alex Chen (CISO)", role: "admin" },
+  {
+    email: "alex.chen@demo.trustalo.io",
+    name: "Alex Chen (CISO)",
+    role: "admin",
+    jobTitle: "Chief Information Security Officer",
+    department: "Security",
+  },
   {
     email: "morgan.lee@demo.trustalo.io",
     name: "Morgan Lee (Compliance Lead)",
     role: "compliance_manager",
+    jobTitle: "Compliance Lead",
+    department: "Compliance",
   },
   {
     email: "priya.patel@demo.trustalo.io",
     name: "Priya Patel (Eng Lead)",
     role: "compliance_manager",
+    jobTitle: "Engineering Lead",
+    department: "Engineering",
   },
-  { email: "sam.rivera@demo.trustalo.io", name: "Sam Rivera (DPO)", role: "dpo" },
-  { email: "jordan.kim@demo.trustalo.io", name: "Jordan Kim (External Auditor)", role: "auditor" },
+  {
+    email: "sam.rivera@demo.trustalo.io",
+    name: "Sam Rivera (DPO)",
+    role: "dpo",
+    jobTitle: "Data Protection Officer",
+    department: "Legal",
+  },
+  {
+    email: "jordan.kim@demo.trustalo.io",
+    name: "Jordan Kim (External Auditor)",
+    role: "auditor",
+    jobTitle: "External Auditor",
+    department: "External",
+  },
 ];
 
 type SeedContext = {
@@ -105,6 +136,33 @@ async function loadOrg() {
   if (!baseUser) {
     throw new Error("Base test user not found. Run `bun run db:seed` first.");
   }
+
+  // Rename the tenancy so the demo data is unmistakably fake.
+  if (org.name !== DEMO_ORG_NAME) {
+    await prisma.tenant.update({ where: { id: org.id }, data: { name: DEMO_ORG_NAME } });
+    org.name = DEMO_ORG_NAME;
+  }
+
+  // The base seed links the test user to the org; older databases seeded
+  // before the People module may miss the Person row, so backfill it —
+  // login resolves the tenant through Person.
+  const basePerson = await prisma.person.findFirst({
+    where: { tenantId: org.id, userId: baseUser.id },
+  });
+  if (!basePerson) {
+    await prisma.person.create({
+      data: {
+        userId: baseUser.id,
+        tenantId: org.id,
+        email: baseUser.email,
+        fullName: baseUser.name,
+        role: "owner",
+        status: "active",
+        joinedAt: daysAgo(365),
+      },
+    });
+  }
+
   return { org, baseUser };
 }
 
@@ -146,6 +204,9 @@ async function seedDemoUsers(orgId: string) {
           fullName: user.name,
           role: persona.role,
           status: "active",
+          jobTitle: persona.jobTitle,
+          department: persona.department,
+          startDate: daysAgo(400),
           joinedAt: daysAgo(120),
         },
       });
@@ -156,6 +217,254 @@ async function seedDemoUsers(orgId: string) {
 
   console.log(`  ✓ ${created.length} demo personas ready (password: ${DEMO_PASSWORD})`);
   return created;
+}
+
+// ────────────────────────────────────────────────────────────────────
+// Step 1b — People directory. Login-less Person rows across the HR
+// lifecycle (active / invited / offboarded) plus background checks and
+// on/offboarding checklists so the People workspace looks lived-in.
+// ────────────────────────────────────────────────────────────────────
+async function seedPeopleDirectory(ctx: SeedContext) {
+  const DIRECTORY: Array<{
+    email: string;
+    fullName: string;
+    jobTitle: string;
+    department: string;
+    kind: "employee" | "contractor";
+    status: "invited" | "active" | "offboarded";
+    startDaysAgo: number;
+    endDaysAgo?: number;
+    location: string;
+  }> = [
+    {
+      email: "taylor.nguyen@demo.trustalo.io",
+      fullName: "Taylor Nguyen",
+      jobTitle: "Senior Backend Engineer",
+      department: "Engineering",
+      kind: "employee",
+      status: "active",
+      startDaysAgo: 500,
+      location: "Sydney, AU",
+    },
+    {
+      email: "riley.thompson@demo.trustalo.io",
+      fullName: "Riley Thompson",
+      jobTitle: "Customer Success Manager",
+      department: "Customer Success",
+      kind: "employee",
+      status: "active",
+      startDaysAgo: 300,
+      location: "Melbourne, AU",
+    },
+    {
+      email: "casey.fischer@demo.trustalo.io",
+      fullName: "Casey Fischer",
+      jobTitle: "Finance Manager",
+      department: "Finance",
+      kind: "employee",
+      status: "active",
+      startDaysAgo: 700,
+      location: "Sydney, AU",
+    },
+    {
+      email: "jamie.oconnor@demo.trustalo.io",
+      fullName: "Jamie O'Connor",
+      jobTitle: "IT Administrator",
+      department: "IT",
+      kind: "employee",
+      status: "active",
+      startDaysAgo: 250,
+      location: "Sydney, AU",
+    },
+    {
+      email: "dana.whitfield@demo.trustalo.io",
+      fullName: "Dana Whitfield",
+      jobTitle: "Sales Director",
+      department: "Sales",
+      kind: "employee",
+      status: "active",
+      startDaysAgo: 420,
+      location: "Singapore, SG",
+    },
+    {
+      email: "harper.singh@demo.trustalo.io",
+      fullName: "Harper Singh",
+      jobTitle: "Security Contractor (Pen Testing)",
+      department: "Security",
+      kind: "contractor",
+      status: "active",
+      startDaysAgo: 45,
+      location: "Remote",
+    },
+    {
+      email: "noah.almeida@demo.trustalo.io",
+      fullName: "Noah Almeida",
+      jobTitle: "Junior Software Engineer",
+      department: "Engineering",
+      kind: "employee",
+      status: "invited",
+      startDaysAgo: -7, // starts next week
+      location: "Sydney, AU",
+    },
+    {
+      email: "quinn.baxter@demo.trustalo.io",
+      fullName: "Quinn Baxter",
+      jobTitle: "Support Engineer",
+      department: "Customer Success",
+      kind: "employee",
+      status: "offboarded",
+      startDaysAgo: 600,
+      endDaysAgo: 3,
+      location: "Melbourne, AU",
+    },
+  ];
+
+  for (const d of DIRECTORY) {
+    const existing = await prisma.person.findFirst({
+      where: { tenantId: ctx.orgId, email: d.email },
+    });
+    if (existing) continue;
+    await prisma.person.create({
+      data: {
+        tenantId: ctx.orgId,
+        email: d.email,
+        fullName: d.fullName,
+        role: "member",
+        status: d.status,
+        kind: d.kind,
+        source: "manual",
+        jobTitle: d.jobTitle,
+        department: d.department,
+        location: d.location,
+        employmentType: d.kind === "contractor" ? "contract" : "full_time",
+        startDate: d.startDaysAgo >= 0 ? daysAgo(d.startDaysAgo) : daysFromNow(-d.startDaysAgo),
+        endDate: d.endDaysAgo !== undefined ? daysAgo(d.endDaysAgo) : null,
+        invitedAt: d.status === "invited" ? daysAgo(2) : null,
+        joinedAt: d.status === "invited" ? null : daysAgo(Math.max(d.startDaysAgo, 0)),
+      },
+    });
+  }
+
+  // Background checks — one cleared long-term, one cleared but expiring
+  // soon (renewal pressure on the dashboard), one still in progress.
+  const CHECKS: Array<{
+    personEmail: string;
+    type: "identity" | "criminal" | "reference";
+    status: "cleared" | "in_progress";
+    provider: string;
+    completedDaysAgo?: number;
+    expiresDaysFromNow?: number;
+  }> = [
+    {
+      personEmail: "taylor.nguyen@demo.trustalo.io",
+      type: "criminal",
+      status: "cleared",
+      provider: "Checkmate Screening",
+      completedDaysAgo: 350,
+      expiresDaysFromNow: 14, // expiring soon
+    },
+    {
+      personEmail: "riley.thompson@demo.trustalo.io",
+      type: "identity",
+      status: "cleared",
+      provider: "Checkmate Screening",
+      completedDaysAgo: 280,
+      expiresDaysFromNow: 320,
+    },
+    {
+      personEmail: "noah.almeida@demo.trustalo.io",
+      type: "reference",
+      status: "in_progress",
+      provider: "Checkmate Screening",
+    },
+  ];
+
+  for (const c of CHECKS) {
+    const person = await prisma.person.findFirst({
+      where: { tenantId: ctx.orgId, email: c.personEmail },
+    });
+    if (!person) continue;
+    const exists = await prisma.backgroundCheck.findFirst({
+      where: { personId: person.id, type: c.type },
+    });
+    if (exists) continue;
+    await prisma.backgroundCheck.create({
+      data: {
+        tenantId: ctx.orgId,
+        personId: person.id,
+        type: c.type,
+        status: c.status,
+        provider: c.provider,
+        reference: `DEMO-${c.type.toUpperCase()}-${person.id.slice(-6)}`,
+        requestedAt: daysAgo(c.completedDaysAgo !== undefined ? c.completedDaysAgo + 7 : 3),
+        completedAt: c.completedDaysAgo !== undefined ? daysAgo(c.completedDaysAgo) : null,
+        expiresAt: c.expiresDaysFromNow !== undefined ? daysFromNow(c.expiresDaysFromNow) : null,
+      },
+    });
+  }
+
+  // Onboarding checklist for the incoming hire; offboarding checklist —
+  // deliberately half-finished — for the person leaving this week.
+  const CHECKLISTS: Array<{
+    personEmail: string;
+    kind: "onboarding" | "offboarding";
+    items: Array<{ key: string; label: string; status: "pending" | "done"; dueInDays: number }>;
+  }> = [
+    {
+      personEmail: "noah.almeida@demo.trustalo.io",
+      kind: "onboarding",
+      items: [
+        { key: "contract_signed", label: "Sign employment contract", status: "done", dueInDays: 0 },
+        { key: "okta_account", label: "Provision Okta account", status: "pending", dueInDays: 6 },
+        { key: "mdm_enroll", label: "Enroll laptop in MDM", status: "pending", dueInDays: 7 },
+        {
+          key: "security_training",
+          label: "Complete Security Awareness 101",
+          status: "pending",
+          dueInDays: 14,
+        },
+      ],
+    },
+    {
+      personEmail: "quinn.baxter@demo.trustalo.io",
+      kind: "offboarding",
+      items: [
+        { key: "sso_disabled", label: "Disable SSO access", status: "done", dueInDays: 0 },
+        { key: "vpn_revoked", label: "Revoke VPN certificate", status: "done", dueInDays: 0 },
+        { key: "laptop_return", label: "Reclaim MacBook Pro", status: "pending", dueInDays: 4 },
+        { key: "payroll_removed", label: "Remove from payroll", status: "pending", dueInDays: 7 },
+        { key: "exit_interview", label: "Conduct exit interview", status: "pending", dueInDays: 5 },
+      ],
+    },
+  ];
+
+  for (const list of CHECKLISTS) {
+    const person = await prisma.person.findFirst({
+      where: { tenantId: ctx.orgId, email: list.personEmail },
+    });
+    if (!person) continue;
+    for (const item of list.items) {
+      await prisma.personChecklistItem.upsert({
+        where: { personId_kind_key: { personId: person.id, kind: list.kind, key: item.key } },
+        update: {},
+        create: {
+          tenantId: ctx.orgId,
+          personId: person.id,
+          kind: list.kind,
+          key: item.key,
+          label: item.label,
+          status: item.status,
+          dueAt: daysFromNow(item.dueInDays),
+          completedAt: item.status === "done" ? daysAgo(1) : null,
+        },
+      });
+    }
+  }
+
+  console.log(
+    `  ✓ ${DIRECTORY.length} directory people, ${CHECKS.length} background checks, ` +
+      `${CHECKLISTS.reduce((n, l) => n + l.items.length, 0)} checklist items`,
+  );
 }
 
 // ────────────────────────────────────────────────────────────────────
@@ -185,7 +494,7 @@ async function seedOrgProfile(orgId: string) {
       category: "company",
       question: "What does the company do?",
       answer:
-        "Acme Cloud is a B2B SaaS platform that helps mid-market companies manage their compliance and risk programs. Founded in 2021, headquartered in Sydney, Australia.",
+        "Acme Demo Co is a B2B SaaS platform that helps mid-market companies manage their compliance and risk programs. Founded in 2021, headquartered in Sydney, Australia.",
     },
     {
       category: "company",
@@ -909,19 +1218,27 @@ async function seedPolicies(ctx: SeedContext) {
   const ciso = ctx.users.find((u) => u.role === "admin")!;
   const compliance = ctx.users.find((u) => u.role === "compliance_manager")!;
 
-  const POLICIES = [
+  const POLICIES: Array<{
+    title: string;
+    description: string;
+    category: string;
+    status: "published" | "draft" | "pending_approval";
+    content: string;
+  }> = [
     {
       title: "Information Security Policy",
       description:
         "Top-level policy defining the organisation's security objectives and accountabilities.",
       category: "Security",
+      status: "published",
       content:
-        "# Information Security Policy\n\n## Purpose\n\nDefine how Acme Cloud protects customer and corporate information assets.\n\n## Scope\n\nApplies to all employees, contractors and third parties handling Acme information.\n\n## Principles\n\n1. Confidentiality, integrity and availability are protected at all times.\n2. Risk-based decisions, reviewed quarterly by the Risk Council.\n3. Defence-in-depth across people, process and technology.\n",
+        "# Information Security Policy\n\n## Purpose\n\nDefine how Acme Demo Co protects customer and corporate information assets.\n\n## Scope\n\nApplies to all employees, contractors and third parties handling Acme information.\n\n## Principles\n\n1. Confidentiality, integrity and availability are protected at all times.\n2. Risk-based decisions, reviewed quarterly by the Risk Council.\n3. Defence-in-depth across people, process and technology.\n",
     },
     {
       title: "Access Control Policy",
       description: "Standards for granting, reviewing and revoking access to systems and data.",
       category: "Security",
+      status: "published",
       content:
         "# Access Control Policy\n\n## Identity\n\nAll access is provisioned through Okta with SSO + MFA. Hardware security keys are issued to engineers with production access.\n\n## Joiner / Mover / Leaver\n\nProvisioning workflows trigger on HRIS events with a 24-hour SLA. Access reviews are performed quarterly.\n",
     },
@@ -929,6 +1246,7 @@ async function seedPolicies(ctx: SeedContext) {
       title: "Data Retention & Disposal Policy",
       description: "How long Acme retains different categories of data and how it is disposed of.",
       category: "Privacy",
+      status: "published",
       content:
         "# Data Retention & Disposal Policy\n\n## Customer data\n\nRetained for the term of the contract plus 30 days for export, then permanently deleted.\n\n## Logs\n\nApplication logs retained for 90 days; security audit logs for 1 year.\n",
     },
@@ -936,6 +1254,7 @@ async function seedPolicies(ctx: SeedContext) {
       title: "Incident Response Plan",
       description: "How Acme detects, responds to, and recovers from security incidents.",
       category: "Security",
+      status: "published",
       content:
         "# Incident Response Plan\n\n## Severity matrix\n\n| Severity | Trigger | Response time |\n|---|---|---|\n| Critical | Confirmed customer-impacting breach | 15 min |\n| High | Unconfirmed breach signals | 1 hour |\n| Medium | Internal-only impact | Same business day |\n\n## Roles\n\nIncident Commander, Comms Lead, Scribe, Tech Lead.\n",
     },
@@ -943,8 +1262,27 @@ async function seedPolicies(ctx: SeedContext) {
       title: "Acceptable Use Policy",
       description: "Rules for the use of Acme-issued devices, accounts and networks.",
       category: "HR",
+      status: "published",
       content:
         "# Acceptable Use Policy\n\n## Devices\n\nOnly MDM-enrolled devices may access production systems. Personal devices may access email and Slack only.\n\n## Software\n\nThird-party SaaS tools must be approved via the procurement workflow before use with company data.\n",
+    },
+    {
+      title: "AI Acceptable Use Policy",
+      description:
+        "Guardrails for staff use of AI tools with company and customer data. Still being drafted.",
+      category: "Security",
+      status: "draft",
+      content:
+        "# AI Acceptable Use Policy (DRAFT)\n\n## Scope\n\nApplies to all generative-AI tools used with company or customer data.\n\n## Draft rules\n\n1. Customer data may only be sent to approved AI sub-processors with zero-data-retention enabled.\n2. AI-generated output must be reviewed by a human before customer-facing use.\n3. TODO: approved tool list, procurement checklist, logging requirements.\n",
+    },
+    {
+      title: "Vendor Management Policy",
+      description:
+        "Risk-tiered vendor onboarding, assessment cadence and offboarding requirements.",
+      category: "Compliance",
+      status: "pending_approval",
+      content:
+        "# Vendor Management Policy\n\n## Tiering\n\nVendors are tiered critical / high / medium / low based on data access and operational dependency.\n\n## Cadence\n\nCritical and high vendors are re-assessed monthly-to-quarterly; medium and low annually.\n\n## Offboarding\n\nAccess revoked and data return/destruction confirmed within 30 days of contract end.\n",
     },
   ];
 
@@ -956,6 +1294,7 @@ async function seedPolicies(ctx: SeedContext) {
     });
     if (policy) continue;
 
+    const isPublished = p.status === "published";
     policy = await prisma.policy.create({
       data: {
         tenantId: ctx.orgId,
@@ -963,9 +1302,9 @@ async function seedPolicies(ctx: SeedContext) {
         description: p.description,
         category: p.category,
         ownerId: ciso.id,
-        status: "published",
-        renewalDate: daysFromNow(180),
-        publicSummary: p.description,
+        status: p.status,
+        renewalDate: isPublished ? daysFromNow(180) : null,
+        publicSummary: isPublished ? p.description : null,
       },
     });
 
@@ -974,10 +1313,10 @@ async function seedPolicies(ctx: SeedContext) {
         policyId: policy.id,
         versionNumber: 1,
         content: p.content,
-        changeNotes: "Initial published version.",
+        changeNotes: isPublished ? "Initial published version." : "Working draft.",
         createdById: ciso.id,
-        approvedById: ciso.id,
-        approvedAt: daysAgo(60 + i * 5),
+        approvedById: isPublished ? ciso.id : null,
+        approvedAt: isPublished ? daysAgo(60 + i * 5) : null,
       },
     });
 
@@ -986,16 +1325,23 @@ async function seedPolicies(ctx: SeedContext) {
       data: { currentVersionId: version.id },
     });
 
-    for (const u of ctx.users) {
-      await prisma.policyAcknowledgment.create({
-        data: {
-          policyId: policy.id,
-          policyVersionId: version.id,
-          userId: u.id,
-          tenantId: ctx.orgId,
-          acknowledgedAt: daysAgo(30 + i),
-        },
-      });
+    // Acknowledgments only make sense for published policies — and we
+    // deliberately leave some outstanding so the ack-progress bars show
+    // real percentages instead of a wall of 100%.
+    if (isPublished) {
+      for (let j = 0; j < ctx.users.length; j++) {
+        if ((i + j) % 4 === 3) continue; // ~25% still outstanding
+        const u = ctx.users[j];
+        await prisma.policyAcknowledgment.create({
+          data: {
+            policyId: policy.id,
+            policyVersionId: version.id,
+            userId: u.id,
+            tenantId: ctx.orgId,
+            acknowledgedAt: daysAgo(30 + i + j),
+          },
+        });
+      }
     }
 
     if (i === 0) {
@@ -1014,7 +1360,80 @@ async function seedPolicies(ctx: SeedContext) {
     created++;
   }
 
-  console.log(`  ✓ ${created} policies (with versions + acknowledgments)`);
+  console.log(`  ✓ ${created} policies (published/draft mix, versions + partial acks)`);
+}
+
+// ────────────────────────────────────────────────────────────────────
+// Step 6b — Framework focus. The base seed adopts every framework at
+// `not_started`; here we mark ISO 27001, SOC 2 and HIPAA as the active
+// programs and walk ~70% of their controls into a realistic spread
+// (~40% implemented / ~30% partial / ~30% untouched). Deterministic:
+// re-runs land on the same controls with the same statuses.
+// ────────────────────────────────────────────────────────────────────
+const FOCUS_FRAMEWORKS: Array<{
+  type: "iso27001" | "soc2" | "hipaa";
+  targetInDays: number;
+}> = [
+  { type: "iso27001", targetInDays: 60 },
+  { type: "soc2", targetInDays: 120 },
+  { type: "hipaa", targetInDays: 180 },
+];
+
+async function seedFrameworkProgress(ctx: SeedContext) {
+  const owners = ctx.users.filter((u) => u.role === "admin" || u.role === "compliance_manager");
+
+  for (const focus of FOCUS_FRAMEWORKS) {
+    const framework = await prisma.framework.findFirst({
+      where: { frameworkType: focus.type },
+    });
+    if (!framework) {
+      console.log(`  ⏭ Framework "${focus.type}" not found — run base db:seed first`);
+      continue;
+    }
+
+    const instance = await prisma.frameworkInstance.findUnique({
+      where: { tenantId_frameworkId: { tenantId: ctx.orgId, frameworkId: framework.id } },
+    });
+    if (!instance) {
+      console.log(`  ⏭ "${focus.type}" not adopted for this org — run base db:seed first`);
+      continue;
+    }
+
+    await prisma.frameworkInstance.update({
+      where: { id: instance.id },
+      data: { status: "in_progress", targetDate: daysFromNow(focus.targetInDays) },
+    });
+
+    const assignments = await prisma.controlRequirementAssignment.findMany({
+      where: { tenantId: ctx.orgId, frameworkInstanceId: instance.id },
+      select: { controlId: true },
+      orderBy: { controlId: "asc" },
+    });
+
+    let met = 0;
+    let partial = 0;
+    for (let i = 0; i < assignments.length; i++) {
+      const slot = i % 10;
+      if (slot >= 7) continue; // ~30% stay not_implemented
+      const status = slot < 4 ? "implemented" : "partially_implemented";
+      if (status === "implemented") met++;
+      else partial++;
+      await prisma.control.update({
+        where: { id: assignments[i].controlId },
+        data: {
+          status,
+          ownerId: pick(owners, i).id,
+          lastReviewedAt: status === "implemented" ? daysAgo(10 + (i % 30)) : null,
+          reviewDate: daysFromNow(120 + (i % 60)),
+        },
+      });
+    }
+
+    console.log(
+      `  ✓ ${framework.name}: ${met} implemented / ${partial} in progress ` +
+        `of ${assignments.length} controls`,
+    );
+  }
 }
 
 // ────────────────────────────────────────────────────────────────────
@@ -1416,6 +1835,7 @@ async function seedAudits(ctx: SeedContext) {
     description: string;
     type: "internal" | "external" | "certification";
     status: "in_progress" | "completed" | "planned";
+    frameworkType?: "iso27001" | "soc2" | "hipaa";
     scheduledStartDaysAgo: number;
     scheduledEndDaysFromNow: number;
     actualStartDaysAgo?: number;
@@ -1434,6 +1854,7 @@ async function seedAudits(ctx: SeedContext) {
       description: "External certification audit covering ISMS scope across cloud platform & corp.",
       type: "certification",
       status: "in_progress",
+      frameworkType: "iso27001",
       scheduledStartDaysAgo: 14,
       scheduledEndDaysFromNow: 21,
       actualStartDaysAgo: 14,
@@ -1465,6 +1886,7 @@ async function seedAudits(ctx: SeedContext) {
       description: "Internal walkthrough ahead of formal SOC 2 fieldwork next quarter.",
       type: "internal",
       status: "completed",
+      frameworkType: "soc2",
       scheduledStartDaysAgo: 90,
       scheduledEndDaysFromNow: -60,
       actualStartDaysAgo: 90,
@@ -1484,9 +1906,48 @@ async function seedAudits(ctx: SeedContext) {
         },
       ],
     },
+    {
+      title: "HIPAA Security Rule Internal Audit",
+      description:
+        "Scheduled internal audit of administrative, physical and technical safeguards ahead of the HIPAA program go-live. Two scoping findings carried in from the gap review.",
+      type: "internal",
+      status: "planned",
+      frameworkType: "hipaa",
+      scheduledStartDaysAgo: -14, // starts in two weeks
+      scheduledEndDaysFromNow: 21,
+      findings: [
+        {
+          title: "ePHI data-flow inventory incomplete for support tooling",
+          severity: "major",
+          status: "open",
+          dueDaysFromNow: 30,
+        },
+        {
+          title: "Business Associate Agreement missing for one downstream vendor",
+          severity: "minor",
+          status: "in_progress",
+          dueDaysFromNow: 21,
+        },
+      ],
+    },
   ];
 
   for (const a of AUDITS) {
+    // Link the audit to the matching adopted framework instance when
+    // one exists (base seed adopts every framework for the demo org).
+    let frameworkInstanceId: string | null = null;
+    if (a.frameworkType) {
+      const fw = await prisma.framework.findFirst({
+        where: { frameworkType: a.frameworkType },
+      });
+      if (fw) {
+        const instance = await prisma.frameworkInstance.findUnique({
+          where: { tenantId_frameworkId: { tenantId: ctx.orgId, frameworkId: fw.id } },
+        });
+        frameworkInstanceId = instance?.id ?? null;
+      }
+    }
+
     let audit = await prisma.audit.findFirst({
       where: { tenantId: ctx.orgId, title: a.title },
     });
@@ -1498,6 +1959,7 @@ async function seedAudits(ctx: SeedContext) {
           description: a.description,
           type: a.type,
           status: a.status,
+          frameworkInstanceId,
           scheduledStartDate: daysAgo(a.scheduledStartDaysAgo),
           scheduledEndDate: daysFromNow(a.scheduledEndDaysFromNow),
           actualStartDate:
@@ -1546,13 +2008,13 @@ async function seedBcp(ctx: SeedContext) {
   const eng = ctx.users.find((u) => u.email.startsWith("priya."))!;
 
   let bcp = await prisma.businessContinuityPlan.findFirst({
-    where: { tenantId: ctx.orgId, title: "Acme Cloud — Enterprise BCP" },
+    where: { tenantId: ctx.orgId, title: "Acme Demo Co — Enterprise BCP" },
   });
   if (!bcp) {
     bcp = await prisma.businessContinuityPlan.create({
       data: {
         tenantId: ctx.orgId,
-        title: "Acme Cloud — Enterprise BCP",
+        title: "Acme Demo Co — Enterprise BCP",
         description:
           "Top-level BCP covering platform availability, customer support, and corporate functions.",
         version: "2.1",
@@ -2025,7 +2487,9 @@ async function seedPrivacy(ctx: SeedContext) {
     where: { tenantId: ctx.orgId, title: "Misdirected payroll PDF" },
   });
   if (!breachExists) {
-    const discoveredAt = daysAgo(4);
+    // Discovered ~20 hours ago → the 72-hour GDPR Art. 33 notification
+    // clock is RUNNING when the demo tenant is opened (~52h remaining).
+    const discoveredAt = hoursAgo(20);
     await prisma.dataBreach.create({
       data: {
         tenantId: ctx.orgId,
@@ -2035,19 +2499,19 @@ async function seedPrivacy(ctx: SeedContext) {
           "A payroll summary PDF for one employee was emailed to an incorrect (but former) employee address.",
         category: "confidentiality",
         severity: "medium",
-        status: "contained",
-        occurredAt: daysAgo(5),
+        status: "investigating",
+        occurredAt: hoursAgo(26),
         discoveredAt,
         notificationDeadlineAt: new Date(discoveredAt.getTime() + 72 * HOUR_MS),
         affectedRecordsEstimate: 1,
         affectedSubjectCategories: ["employee"],
         dataCategoriesInvolved: ["identity", "financial", "employment"],
         rootCause: "Auto-complete chose stale email address.",
-        containment: "Recipient confirmed deletion; mailbox audit performed.",
-        remediation: "Disabled auto-complete for outbound payroll mailbox.",
-        supervisoryAuthorityNotificationRequired: false,
+        containment: "Recipient asked to confirm deletion; mailbox audit under way.",
+        remediation: "Pending — disable auto-complete for the outbound payroll mailbox.",
+        supervisoryAuthorityNotificationRequired: true,
         dataSubjectsNotificationRequired: true,
-        dataSubjectsNotifiedAt: daysAgo(3),
+        dataSubjectsNotifiedAt: null,
         reportedById: compliance.id,
         assigneeId: dpo.id,
       },
@@ -2388,10 +2852,10 @@ async function seedTrustCenter(ctx: SeedContext) {
       tenantId: ctx.orgId,
       isEnabled: true,
       brandColor: "#0f172a",
-      description: "Acme Cloud's commitment to security, privacy and compliance — at a glance.",
+      description: "Acme Demo Co's commitment to security, privacy and compliance — at a glance.",
       faqs: [
         {
-          question: "Where is Acme Cloud data hosted?",
+          question: "Where is Acme Demo Co data hosted?",
           answer:
             "Production runs on AWS in ap-southeast-2 (Sydney) with DR in ap-southeast-4 (Melbourne).",
         },
@@ -2671,6 +3135,341 @@ async function seedQuestionnaire(ctx: SeedContext) {
 }
 
 // ────────────────────────────────────────────────────────────────────
+// Step 18 — Device fleet. Each device is 1:1 with a hardware Asset and
+// assigned to a Person, mirroring what the Go device agent creates on
+// enrollment. One laptop reports disk encryption OFF so the Devices
+// page has a live at-risk posture story; one is stale (missed
+// heartbeats). Secrets are real crypto-envelope blobs so the rows are
+// shape-identical to agent-enrolled devices.
+// ────────────────────────────────────────────────────────────────────
+async function seedDevices(ctx: SeedContext) {
+  const DEVICES: Array<{
+    hostname: string;
+    assetName: string;
+    personEmail: string;
+    platform: "macos" | "windows" | "linux";
+    osVersion: string;
+    agentVersion: string;
+    status: "active" | "stale";
+    enrolledDaysAgo: number;
+    lastSeenHoursAgo: number;
+    posture: {
+      diskEncryption: "pass" | "fail" | "unknown";
+      firewall: "pass" | "fail" | "unknown";
+      screenLock: "pass" | "fail" | "unknown";
+      antivirus: "pass" | "fail" | "unknown";
+    };
+  }> = [
+    {
+      hostname: "acme-mbp-alex",
+      assetName: 'MacBook Pro 16" — Alex Chen',
+      personEmail: "alex.chen@demo.trustalo.io",
+      platform: "macos",
+      osVersion: "macOS 15.5",
+      agentVersion: "0.4.2",
+      status: "active",
+      enrolledDaysAgo: 60,
+      lastSeenHoursAgo: 1,
+      posture: { diskEncryption: "pass", firewall: "pass", screenLock: "pass", antivirus: "pass" },
+    },
+    {
+      // The at-risk laptop: FileVault was switched off between check-ins.
+      hostname: "acme-mba-taylor",
+      assetName: 'MacBook Air 13" — Taylor Nguyen',
+      personEmail: "taylor.nguyen@demo.trustalo.io",
+      platform: "macos",
+      osVersion: "macOS 14.7",
+      agentVersion: "0.4.2",
+      status: "active",
+      enrolledDaysAgo: 45,
+      lastSeenHoursAgo: 2,
+      posture: {
+        diskEncryption: "fail",
+        firewall: "pass",
+        screenLock: "pass",
+        antivirus: "unknown",
+      },
+    },
+    {
+      hostname: "acme-tp-jamie",
+      assetName: "ThinkPad X1 Carbon — Jamie O'Connor",
+      personEmail: "jamie.oconnor@demo.trustalo.io",
+      platform: "windows",
+      osVersion: "Windows 11 24H2",
+      agentVersion: "0.4.1",
+      status: "active",
+      enrolledDaysAgo: 30,
+      lastSeenHoursAgo: 3,
+      posture: { diskEncryption: "pass", firewall: "pass", screenLock: "pass", antivirus: "pass" },
+    },
+    {
+      // Stale: last heartbeat 9 days ago — powers the stale-device story.
+      hostname: "acme-xps-riley",
+      assetName: "Dell XPS 13 (Ubuntu) — Riley Thompson",
+      personEmail: "riley.thompson@demo.trustalo.io",
+      platform: "linux",
+      osVersion: "Ubuntu 24.04 LTS",
+      agentVersion: "0.3.9",
+      status: "stale",
+      enrolledDaysAgo: 90,
+      lastSeenHoursAgo: 9 * 24,
+      posture: {
+        diskEncryption: "pass",
+        firewall: "pass",
+        screenLock: "unknown",
+        antivirus: "unknown",
+      },
+    },
+  ];
+
+  let created = 0;
+  for (let i = 0; i < DEVICES.length; i++) {
+    const d = DEVICES[i];
+    const person = await prisma.person.findFirst({
+      where: { tenantId: ctx.orgId, email: d.personEmail },
+    });
+
+    let asset = await prisma.asset.findFirst({
+      where: { tenantId: ctx.orgId, name: d.assetName },
+    });
+    if (!asset) {
+      asset = await prisma.asset.create({
+        data: {
+          tenantId: ctx.orgId,
+          name: d.assetName,
+          type: "hardware",
+          classification: "internal",
+          description: `Employee endpoint enrolled via the Trustalo device agent (${d.platform}).`,
+          assignedPersonId: person?.id ?? null,
+          status: "active",
+          location: "Fleet",
+          metadata: { demoSeed: true },
+        },
+      });
+    }
+
+    let device = await prisma.device.findUnique({ where: { assetId: asset.id } });
+    if (!device) {
+      const lastSeen = hoursAgo(d.lastSeenHoursAgo);
+      device = await prisma.device.create({
+        data: {
+          tenantId: ctx.orgId,
+          assetId: asset.id,
+          // Real envelope blob so the row is indistinguishable in shape
+          // from an agent-enrolled device. Never used for check-ins.
+          secretEnc: encryptString(randomBytes(32).toString("base64url")),
+          platform: d.platform,
+          osVersion: d.osVersion,
+          agentVersion: d.agentVersion,
+          hostname: d.hostname,
+          hardwareId: `DEMO-HW-${String(i + 1).padStart(4, "0")}`,
+          status: d.status,
+          personId: person?.id ?? null,
+          enrolledAt: daysAgo(d.enrolledDaysAgo),
+          lastSeenAt: lastSeen,
+          checkInIntervalSeconds: 1800,
+          diskEncryption: d.posture.diskEncryption,
+          firewall: d.posture.firewall,
+          screenLock: d.posture.screenLock,
+          antivirus: d.posture.antivirus,
+          agentHealthy: true,
+          lastPostureAt: lastSeen,
+          latestPosture: {
+            demoSeed: true,
+            source: "seed-demo",
+            collectedAt: lastSeen.toISOString(),
+          },
+        },
+      });
+      created++;
+    }
+
+    const hasSnapshots = await prisma.devicePostureSnapshot.findFirst({
+      where: { deviceId: device.id },
+    });
+    if (!hasSnapshots) {
+      // Two-point history. The earlier snapshot always PASSES disk
+      // encryption, so the at-risk laptop shows visible posture drift.
+      await prisma.devicePostureSnapshot.create({
+        data: {
+          tenantId: ctx.orgId,
+          deviceId: device.id,
+          diskEncryption: "pass",
+          firewall: d.posture.firewall,
+          screenLock: d.posture.screenLock,
+          antivirus: d.posture.antivirus,
+          agentHealthy: true,
+          osVersion: d.osVersion,
+          agentVersion: d.agentVersion,
+          raw: { demoSeed: true },
+          collectedAt: hoursAgo(d.lastSeenHoursAgo + 24),
+        },
+      });
+      await prisma.devicePostureSnapshot.create({
+        data: {
+          tenantId: ctx.orgId,
+          deviceId: device.id,
+          diskEncryption: d.posture.diskEncryption,
+          firewall: d.posture.firewall,
+          screenLock: d.posture.screenLock,
+          antivirus: d.posture.antivirus,
+          agentHealthy: true,
+          osVersion: d.osVersion,
+          agentVersion: d.agentVersion,
+          raw: { demoSeed: true },
+          collectedAt: hoursAgo(d.lastSeenHoursAgo),
+        },
+      });
+    }
+  }
+
+  console.log(
+    `  ✓ ${created} devices enrolled (1 at-risk: disk encryption off; 1 stale) + posture history`,
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────
+// Step 19 — Evidence library. Named artefacts (metadata only — no file
+// blobs) attached to ISO 27001 controls so the evidence workspace
+// shows plausible, recognisable titles in a mixed review state.
+// ────────────────────────────────────────────────────────────────────
+async function seedEvidenceLibrary(ctx: SeedContext) {
+  const compliance = ctx.users.find((u) => u.role === "compliance_manager")!;
+  const ciso = ctx.users.find((u) => u.role === "admin")!;
+
+  const iso = await prisma.framework.findFirst({ where: { frameworkType: "iso27001" } });
+  const instance = iso
+    ? await prisma.frameworkInstance.findUnique({
+        where: { tenantId_frameworkId: { tenantId: ctx.orgId, frameworkId: iso.id } },
+      })
+    : null;
+  const assignments = instance
+    ? await prisma.controlRequirementAssignment.findMany({
+        where: { tenantId: ctx.orgId, frameworkInstanceId: instance.id },
+        select: { controlId: true },
+        orderBy: { controlId: "asc" },
+        take: 20,
+      })
+    : [];
+  if (assignments.length === 0) {
+    console.log("  ⏭ No ISO 27001 controls found — run base db:seed first");
+    return;
+  }
+
+  const ITEMS: Array<{
+    title: string;
+    description: string;
+    type: "document" | "screenshot" | "automated" | "link";
+    status: "approved" | "pending_review";
+    fileName: string;
+    mimeType: string;
+  }> = [
+    {
+      title: "Okta access review export — Q2 2026",
+      description: "Quarterly user-access review export covering all production systems.",
+      type: "automated",
+      status: "approved",
+      fileName: "okta-access-review-2026-q2.csv",
+      mimeType: "text/csv",
+    },
+    {
+      title: "AWS KMS key rotation configuration",
+      description: "Console screenshot showing annual rotation enabled on all customer-data CMKs.",
+      type: "screenshot",
+      status: "approved",
+      fileName: "aws-kms-rotation.png",
+      mimeType: "image/png",
+    },
+    {
+      title: "Backup restoration test log — May 2026",
+      description: "Monthly PostgreSQL point-in-time restore drill with timings and checksums.",
+      type: "document",
+      status: "pending_review",
+      fileName: "backup-restore-test-2026-05.pdf",
+      mimeType: "application/pdf",
+    },
+    {
+      title: "Security awareness completion report — FY26",
+      description: "Completion report for the annual Security Awareness 101 program.",
+      type: "document",
+      status: "approved",
+      fileName: "security-awareness-fy26.pdf",
+      mimeType: "application/pdf",
+    },
+    {
+      title: "Annual penetration test — executive summary 2026",
+      description: "Third-party pen test summary; criticals remediated, retest passed.",
+      type: "document",
+      status: "approved",
+      fileName: "pentest-exec-summary-2026.pdf",
+      mimeType: "application/pdf",
+    },
+    {
+      title: "S3 Block Public Access account settings export",
+      description: "Account-level S3 public-access lockout settings across all AWS accounts.",
+      type: "automated",
+      status: "pending_review",
+      fileName: "s3-bpa-settings.json",
+      mimeType: "application/json",
+    },
+    {
+      title: "GitHub branch protection settings — production repos",
+      description: "Screenshot of required reviews + status checks on all production repos.",
+      type: "screenshot",
+      status: "approved",
+      fileName: "github-branch-protection.png",
+      mimeType: "image/png",
+    },
+    {
+      title: "Incident response tabletop minutes — region failover",
+      description: "Minutes and action items from the Sydney-region failover tabletop.",
+      type: "document",
+      status: "pending_review",
+      fileName: "ir-tabletop-region-failover.pdf",
+      mimeType: "application/pdf",
+    },
+  ];
+
+  let created = 0;
+  for (let i = 0; i < ITEMS.length; i++) {
+    const item = ITEMS[i];
+    const exists = await prisma.evidence.findFirst({
+      where: { tenantId: ctx.orgId, title: item.title },
+    });
+    if (exists) continue;
+
+    const controlId = assignments[(i * 2) % assignments.length].controlId;
+    const approved = item.status === "approved";
+    await prisma.evidence.create({
+      data: {
+        tenantId: ctx.orgId,
+        controlId,
+        title: item.title,
+        description: item.description,
+        type: item.type,
+        status: item.status,
+        fileName: item.fileName,
+        fileSize: 120_000 + i * 4321,
+        mimeType: item.mimeType,
+        collectedAt: daysAgo(5 + i * 3),
+        validFrom: daysAgo(5 + i * 3),
+        expiresAt: daysFromNow(180 + i * 10),
+        renewalFrequency: i % 2 === 0 ? "quarterly" : "annually",
+        nextRenewalDate: daysFromNow(90 + i * 10),
+        submittedById: pick([compliance.id, ciso.id], i),
+        reviewedById: approved ? compliance.id : null,
+        reviewedAt: approved ? daysAgo(2 + i) : null,
+        tags: ["demo", "evidence-library"],
+        metadata: { demoSeed: true },
+      },
+    });
+    created++;
+  }
+
+  console.log(`  ✓ ${created} named evidence artefacts (approved/pending mix)`);
+}
+
+// ────────────────────────────────────────────────────────────────────
 // Orchestrator
 // ────────────────────────────────────────────────────────────────────
 async function main() {
@@ -2697,6 +3496,9 @@ async function main() {
     users: allUsers,
   };
 
+  console.log("\n→ People directory (HR lifecycle)");
+  await seedPeopleDirectory(ctx);
+
   console.log("\n→ Organization profile + AI context");
   await seedOrgProfile(org.id);
 
@@ -2706,14 +3508,23 @@ async function main() {
   console.log("\n→ Assets");
   await seedAssets(ctx);
 
+  console.log("\n→ Devices (endpoint posture)");
+  await seedDevices(ctx);
+
   console.log("\n→ Risks");
   await seedRisks(ctx);
 
   console.log("\n→ Policies");
   await seedPolicies(ctx);
 
+  console.log("\n→ Framework progress (ISO 27001 / SOC 2 / HIPAA)");
+  await seedFrameworkProgress(ctx);
+
   console.log("\n→ Controls (assign owners + evidence)");
   await seedControlOwnersAndEvidence(ctx);
+
+  console.log("\n→ Evidence library");
+  await seedEvidenceLibrary(ctx);
 
   console.log("\n→ Incidents");
   await seedIncidents(ctx);
@@ -2746,6 +3557,7 @@ async function main() {
   await seedQuestionnaire(ctx);
 
   console.log("\n✅ Demo seed complete.\n");
+  console.log(`   Org: "${DEMO_ORG_NAME}" (slug: ${ORG_SLUG}) — all data is fake demo data.`);
   console.log("   Login:");
   console.log("     • test@test.com           / test.test         (owner)");
   for (const p of PERSONAS) {

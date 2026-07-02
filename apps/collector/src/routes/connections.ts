@@ -13,6 +13,7 @@ import {
   type BindManifestPreview,
 } from "../integrations/binder/index.js";
 import { fetchTenantAutoBindMode } from "../lib/api-client.js";
+import { BROWSER_NOT_SUPPORTED } from "../integrations/custom/index.js";
 
 // Prisma 7 narrows Json columns to `InputJsonValue`. Zod-validated request
 // bodies and external runner output are typed as `Record<string, unknown>`,
@@ -377,6 +378,184 @@ connectionsRouter.delete("/:id", authorize("integrations:manage"), async (req, r
     });
 
     res.json({ success: true, data: { id: connection.id, deleted: true } });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ── Checks & results ────────────────────────────────────────────────
+//
+// Read surfaces for the API's `/api/v1/integrations/:id/checks` and
+// `/:id/results` façade plus the per-check manual trigger. `:id` is the
+// IntegrationConnection id (the web client's "integration" rows are
+// connections). `controlId` is an opaque API-side reference, so the
+// `control.title` returned here is a placeholder the API gateway
+// replaces with the real Control title before it reaches the browser.
+
+connectionsRouter.get("/:id/checks", authorize("integrations:read"), async (req, res, next) => {
+  try {
+    const auth = (req as AuthenticatedRequest).auth;
+
+    const connection = await prisma.integrationConnection.findFirst({
+      where: { id: String(req.params["id"]), tenantId: auth.tenantId },
+      select: { id: true },
+    });
+    if (!connection) {
+      res.status(404).json({
+        success: false,
+        error: { code: "NOT_FOUND", message: "Connection not found" },
+      });
+      return;
+    }
+
+    const checks = await prisma.integrationCheck.findMany({
+      where: { connectionId: connection.id, tenantId: auth.tenantId },
+      orderBy: { createdAt: "asc" },
+      select: {
+        id: true,
+        manifestKey: true,
+        title: true,
+        description: true,
+        severity: true,
+        schedule: true,
+        runner: true,
+        isEnabled: true,
+        lastStatus: true,
+        lastRunAt: true,
+        healthState: true,
+        controls: {
+          where: { isEnabled: true },
+          select: { controlId: true },
+        },
+        results: {
+          orderBy: { createdAt: "desc" },
+          take: 3,
+          select: {
+            id: true,
+            status: true,
+            createdAt: true,
+            durationMs: true,
+            errorMessage: true,
+          },
+        },
+      },
+    });
+
+    const data = checks.map((check) => ({
+      ...check,
+      controls: check.controls.map((c) => ({
+        control: { id: c.controlId, title: c.controlId },
+      })),
+    }));
+
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+});
+
+connectionsRouter.post(
+  "/:id/checks/:checkId/run",
+  authorize("integrations:manage"),
+  async (req, res, next) => {
+    try {
+      const auth = (req as AuthenticatedRequest).auth;
+
+      const check = await prisma.integrationCheck.findFirst({
+        where: {
+          id: String(req.params["checkId"]),
+          connectionId: String(req.params["id"]),
+          tenantId: auth.tenantId,
+        },
+        select: { id: true, runner: true, isEnabled: true, connectionId: true },
+      });
+      if (!check) {
+        res.status(404).json({
+          success: false,
+          error: { code: "NOT_FOUND", message: "Check not found" },
+        });
+        return;
+      }
+
+      if (check.runner === "browser") {
+        // Honest roadmap answer — not a 5xx (see integrations/custom).
+        res.json({ success: true, data: { queued: false, ...BROWSER_NOT_SUPPORTED } });
+        return;
+      }
+
+      // The runner is connection-granular: a manual trigger enqueues a
+      // CollectionJob for the owning connection (same contract as
+      // POST /jobs/trigger), which re-evaluates every enabled check.
+      const existing = await prisma.collectionJob.findFirst({
+        where: {
+          connectionId: check.connectionId,
+          status: { in: ["pending", "queued", "running"] },
+        },
+        select: { id: true },
+      });
+      if (existing) {
+        res.json({
+          success: true,
+          data: { queued: false, reason: "already_running", jobId: existing.id },
+        });
+        return;
+      }
+
+      const job = await prisma.collectionJob.create({
+        data: {
+          tenantId: auth.tenantId,
+          connectionId: check.connectionId,
+          type: "manual",
+          status: "pending",
+          priority: 5,
+          scheduledAt: new Date(),
+        },
+        select: { id: true },
+      });
+
+      res.json({ success: true, data: { queued: true, jobId: job.id } });
+    } catch (err) {
+      next(err);
+    }
+  },
+);
+
+connectionsRouter.get("/:id/results", authorize("integrations:read"), async (req, res, next) => {
+  try {
+    const auth = (req as AuthenticatedRequest).auth;
+    const limit = Math.min(parseInt(String(req.query["limit"] ?? ""), 10) || 50, 100);
+
+    const connection = await prisma.integrationConnection.findFirst({
+      where: { id: String(req.params["id"]), tenantId: auth.tenantId },
+      select: { id: true },
+    });
+    if (!connection) {
+      res.status(404).json({
+        success: false,
+        error: { code: "NOT_FOUND", message: "Connection not found" },
+      });
+      return;
+    }
+
+    const results = await prisma.integrationCheckResult.findMany({
+      where: { connectionId: connection.id, tenantId: auth.tenantId },
+      orderBy: { createdAt: "desc" },
+      take: limit,
+      select: {
+        id: true,
+        status: true,
+        payload: true,
+        errorMessage: true,
+        durationMs: true,
+        createdAt: true,
+        evidenceId: true,
+        integrationCheck: {
+          select: { id: true, title: true, manifestKey: true, severity: true },
+        },
+      },
+    });
+
+    res.json({ success: true, data: results });
   } catch (err) {
     next(err);
   }

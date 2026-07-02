@@ -4,6 +4,7 @@ import { describe, expect, it } from "bun:test";
 import {
   DIRECTORY_SYNC_FREQUENCIES,
   getConfigSignature,
+  patchDirectorySyncConfigSchema,
   upsertDirectorySyncConfigSchema,
 } from "./service.ee.js";
 
@@ -40,6 +41,20 @@ describe("directory sync config schema", () => {
         },
       }),
     ).toThrow();
+  });
+
+  it("patch schema only accepts the enable flag", () => {
+    expect(patchDirectorySyncConfigSchema.parse({ isEnabled: false })).toEqual({
+      isEnabled: false,
+    });
+    // Credentials (or any other field) must go through the full upsert.
+    expect(() =>
+      patchDirectorySyncConfigSchema.parse({
+        isEnabled: true,
+        credentials: { tenantId: "t", clientId: "c", clientSecret: "s" },
+      }),
+    ).toThrow();
+    expect(() => patchDirectorySyncConfigSchema.parse({})).toThrow();
   });
 
   it("rejects owner as default role", () => {

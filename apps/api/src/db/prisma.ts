@@ -134,6 +134,26 @@ export function prismaWithTenant(tenantId: string) {
           // disclosures would be a confidentiality bug and a regulator-
           // reportable incident in its own right.
           "ControlWeakness",
+          // Notifications & alerting. Channels carry encrypted webhook
+          // URLs / recipient lists; deliveries double as the alert dedupe
+          // ledger. Leaking either across tenants would expose another
+          // org's alert destinations and compliance posture.
+          "NotificationChannel",
+          "AlertRule",
+          "NotificationDelivery",
+          // Metered AI billing (EE). The billing.ee module itself queries
+          // these on the base client with explicit tenantId filters (the
+          // LiteLLM webhook resolves the tenant by key hash across tenants,
+          // deliberately on the base client), but the AI-usage dashboard
+          // reads LiteLLMSpendEvent through prismaWithTenant and relies on
+          // auto-injection — without these entries those queries aggregate
+          // every tenant's spend.
+          "TenantBillingConfig",
+          "TenantLiteLLMKey",
+          "CreditWallet",
+          "CreditTransaction",
+          "LiteLLMSpendEvent",
+          "TenantAIUsageMonth",
         ];
 
         if (!model || !tenantScoped.includes(model)) {

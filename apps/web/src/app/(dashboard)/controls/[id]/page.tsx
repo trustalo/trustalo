@@ -60,6 +60,8 @@ const FW_BADGE: Record<FrameworkType, { label: string; variant: BadgeVariant }> 
   nist_csf_2: { label: "CSF", variant: "info" },
   gdpr: { label: "GDPR", variant: "info" },
   cps234: { label: "CPS 234", variant: "warning" },
+  hipaa: { label: "HIPAA", variant: "success" },
+  pci_dss_4: { label: "PCI DSS", variant: "info" },
 };
 
 function isPredefined(ctrl: Control) {

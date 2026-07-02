@@ -2,6 +2,10 @@ import { Router } from "express";
 import { z } from "zod";
 import { prismaWithTenant } from "../../db/prisma.js";
 import { authorizeResource } from "../../middleware/authorize.js";
+import { audit } from "../../lib/audit.js";
+import { consumeToken } from "../../lib/rate-limit.js";
+import { resolveOrgAI } from "../../config/ai.js";
+import { assetsFromTextBody, classifyAssetsFromText } from "./from-text.js";
 
 export const assetsRouter: Router = Router();
 assetsRouter.use(authorizeResource("assets:read", "assets:write"));
@@ -263,6 +267,72 @@ assetsRouter.post("/", async (req, res, next) => {
       },
     });
     res.status(201).json({ success: true, data: asset });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ──────────────────────────────────────────────
+// AI: classify assets from pasted prose (CPS 234 Para 23 bootstrap)
+// ──────────────────────────────────────────────
+
+// Shares the org-context extractor's token bucket — both endpoints burn
+// LLM tokens on pasted prose, so a single per-tenant budget covers them.
+const EXTRACTION_LIMIT = { capacity: 6, refillMs: 60_000 } as const;
+
+/**
+ * POST /assets/from-text
+ *
+ * Returns STAGED classification proposals extracted from pasted
+ * architecture / data-flow prose. Advisory only — never creates Asset
+ * rows. The UI lets the user pick proposals and applies them through
+ * the normal `POST /assets` create call.
+ *
+ * Free core utility (no `assertEnterpriseLicense` gate) — see the
+ * licensing tier table in docs/ai-features.md. `AINotConfiguredError`
+ * maps to 503 in the shared error handler, like every other AI route.
+ */
+assetsRouter.post("/from-text", async (req, res, next) => {
+  try {
+    const tenantId = (req as any).auth.tenantId as string;
+
+    if (!consumeToken(tenantId, "context_extraction", EXTRACTION_LIMIT)) {
+      return res.status(429).json({
+        success: false,
+        error: "Too many extraction requests. Try again in a minute.",
+      });
+    }
+
+    const body = assetsFromTextBody.parse(req.body);
+
+    // The bootstrap rides the `context_extraction` feature key — same
+    // paste-prose workload, so deployments route/model it identically.
+    const ai = await resolveOrgAI(tenantId, "context_extraction");
+
+    const result = await classifyAssetsFromText(ai.client, {
+      text: body.text,
+      maxProposals: body.maxProposals,
+    });
+
+    await audit(req, "create", "AssetAIClassification", undefined, {
+      kind: "paste",
+      count: result.proposals.length,
+      dropped: result.dropped,
+      redactions: result.redactions,
+      modelUsed: ai.model,
+      providerSource: ai.source,
+    });
+
+    res.json({
+      success: true,
+      data: {
+        proposals: result.proposals,
+        dropped: result.dropped,
+        redactions: result.redactions,
+        modelUsed: ai.model,
+        providerSource: ai.source,
+      },
+    });
   } catch (err) {
     next(err);
   }

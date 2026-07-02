@@ -37,6 +37,8 @@ const FRAMEWORK_META: Record<string, { color: string; icon: string }> = {
   nist_csf_2: { color: "#1e40af", icon: "CSF" },
   gdpr: { color: "#0891b2", icon: "EU" },
   cps234: { color: "#b45309", icon: "APRA" },
+  hipaa: { color: "#0d9488", icon: "US" },
+  pci_dss_4: { color: "#7c3aed", icon: "PCI" },
 };
 
 const STATUS_BADGE: Record<

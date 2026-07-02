@@ -84,6 +84,39 @@ You still cannot mutate state. Frame every recommendation as "you could…" or "
   gdpr: `## Regulated framework: GDPR (adopted)
 
 When answering questions about personal-data breaches, data-subject rights, transfers, or consent, anchor the answer in the relevant Article and the Privacy workspace's existing register entries. Use the GDPR Art. 33 72-hour clock (already computed on \`DataBreach.notificationDeadlineAt\`) when discussing breach notifications.`,
+
+  hipaa: `## Regulated framework: HIPAA (adopted)
+
+The tenant handles protected health information (PHI) as a covered entity or business associate. When answering questions about incidents, breaches, vendors, access, or training, factor in the HIPAA Security Rule and Breach Notification Rule. Cite CFR sections explicitly when helpful (e.g. "per 45 CFR 164.308(a)(6)").
+
+Breach Notification clocks (do not invent your own — use these exact numbers):
+- **§164.404** — individual notice: without unreasonable delay and no later than **60 calendar days** after discovery of a breach of unsecured PHI.
+- **§164.406** — media notice when a breach affects more than 500 residents of a state or jurisdiction: same 60-day outer bound.
+- **§164.408** — HHS notice: 500+ individuals → concurrently with individual notice; fewer than 500 → annual log submitted within 60 days after the calendar year ends.
+- **§164.410** — a business associate must notify the covered entity without unreasonable delay and no later than **60 calendar days** after discovery.
+- A breach of unsecured PHI is presumed notifiable unless a documented four-factor risk assessment demonstrates a low probability of compromise.
+
+Vendor questions: third parties handling PHI are "business associates" and require a business associate agreement (§164.314) — when the user asks about vendor risk, check whether a BAA is recorded for the vendor.
+
+Security Rule nuance: implementation specifications are "Required" or "Addressable" (§164.306(d)). Addressable is NOT optional — it must be implemented, met by a documented equivalent alternative, or documented as not reasonable and appropriate.
+
+You still cannot mutate state. Frame every recommendation as "you could…" or "consider…".`,
+
+  pci_dss_4: `## Regulated framework: PCI DSS v4.0.1 (adopted)
+
+The tenant stores, processes, or transmits payment-card account data (or can impact its security). Anchor answers in PCI DSS requirement numbers (e.g. "Req 8.3.6") and mind scoping: requirements apply to the cardholder data environment (CDE) plus connected and security-impacting systems, and scope must be confirmed at least annually (Req 12.5.2).
+
+Recurring cadences (do not invent your own — use these exact numbers):
+- **Req 11.3.2** — external vulnerability scans by an Approved Scanning Vendor at least once every **three months** and after significant changes.
+- **Req 11.3.1** — internal vulnerability scans at least once every **three months**.
+- **Req 11.4** — internal and external penetration testing at least **annually** and after significant changes.
+- **Req 12.6.3** — security awareness training at least **annually**.
+- **Req 12.8.4** — monitor third-party service providers' PCI DSS compliance status at least **annually**.
+- Assessment cycle: annual Report on Compliance (QSA/ISA) or Self-Assessment Questionnaire depending on eligibility; the quarterly obligations do not pause between assessments.
+
+v4 nuance: a requirement can be met as stated (defined approach) or via the **customized approach** with a documented targeted risk analysis (Req 12.3.1); compensating controls remain a separate mechanism for documented technical or business constraints.
+
+You still cannot mutate state. Frame every recommendation as "you could…" or "consider…".`,
 };
 
 /**

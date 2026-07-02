@@ -29,6 +29,13 @@ export const QUEUE_URLS = {
   integrationCheckResults:
     process.env["SQS_INTEGRATION_CHECK_RESULTS_URL"] ??
     "http://localhost:4566/000000000000/trustalo-integration-check-results",
+  // Phase 6 (AI accelerators): durable questionnaire XLSX/DOCX imports.
+  // Published + consumed by the API itself (modules/questionnaires/
+  // import-worker.ts) — the queue only carries `jobId`; the
+  // QuestionnaireImportJob row remains the source of truth.
+  questionnaireImportJobs:
+    process.env["SQS_QUESTIONNAIRE_IMPORT_JOBS_URL"] ??
+    "http://localhost:4566/000000000000/trustalo-questionnaire-import-jobs",
 } as const;
 
 // ── Message type definitions for vendor research ──

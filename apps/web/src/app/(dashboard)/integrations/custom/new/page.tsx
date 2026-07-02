@@ -10,9 +10,16 @@
  *                  destructive intents before persistence.
  *   2. Spec      — preview the AI-generated runner spec; admin can edit
  *                  the JSON in-place before testing or saving.
- *   3. Test+Save — run the spec live (HTTP runner only, browser runs
- *                  asynchronously after save) and persist as a custom
+ *   3. Test+Save — run the spec live and persist as a custom
  *                  IntegrationCheck under the org's "custom" connector.
+ *                  Saved checks run on the collector's sync schedule and
+ *                  submit evidence like any built-in connector.
+ *
+ * Only HTTP checks are generatable today. Browser (Playwright) checks
+ * are roadmap: the check-type selector shows them as a disabled "coming
+ * soon" option, generation is constrained server-side, and any browser
+ * spec that reaches the backend gets a structured `not_supported`
+ * answer instead of an error.
  *
  * The wizard stays inside the existing /integrations workspace so admins
  * can mix manifest-driven and AI-authored checks side-by-side.
@@ -107,6 +114,12 @@ export default function NewCustomCheckPage() {
 
   async function handleSave() {
     if (!draft) return;
+    if (draft.runner === "browser") {
+      setSaveError(
+        "Browser checks aren't available yet — re-phrase the prompt as an HTTPS verification.",
+      );
+      return;
+    }
     if (!parsedSpec.ok) {
       setSaveError(`Spec is not valid JSON: ${parsedSpec.message}`);
       return;
@@ -123,6 +136,7 @@ export default function NewCustomCheckPage() {
         severity: editableSeverity,
         schedule: editableSchedule.trim(),
         modelUsed: draft.modelUsed,
+        frameworkRefs: draft.suggestedFrameworkRefs,
       });
       setSaved({ id: res.data.id, title: res.data.title });
     } catch (err) {
@@ -151,6 +165,39 @@ export default function NewCustomCheckPage() {
 
       {step === "prompt" && (
         <section className="rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="mb-5">
+            <div className="mb-2 text-xs font-medium uppercase tracking-wide text-neutral-500">
+              Check type
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg border-2 border-blue-600 bg-blue-50/50 p-3 dark:bg-blue-950/20">
+                <div className="text-sm font-medium text-neutral-900 dark:text-white">
+                  HTTP check
+                </div>
+                <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+                  Verifies a status code, response header, body substring, or TLS certificate expiry
+                  against an HTTPS URL. Runs on a schedule and produces evidence.
+                </p>
+              </div>
+              <div
+                aria-disabled="true"
+                className="cursor-not-allowed rounded-lg border border-dashed border-neutral-300 bg-neutral-50 p-3 opacity-70 dark:border-neutral-700 dark:bg-neutral-950"
+              >
+                <div className="flex items-center gap-2 text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                  Browser check
+                  <span className="rounded-full bg-neutral-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">
+                    Coming soon
+                  </span>
+                </div>
+                <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-500">
+                  Logging into a web app and inspecting the page isn&apos;t available yet. If your
+                  request needs a browser, you&apos;ll get a clear message — try re-phrasing it as
+                  an HTTPS verification instead.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <label
             htmlFor="prompt"
             className="block text-sm font-medium text-neutral-900 dark:text-white"
@@ -313,8 +360,9 @@ export default function NewCustomCheckPage() {
         <section className="space-y-6 rounded-2xl border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
           {draft.runner === "browser" ? (
             <div className="rounded-lg bg-amber-50 p-4 text-sm text-amber-800 dark:bg-amber-950/40 dark:text-amber-200">
-              Browser checks run inside the collector container. After save, use the standard "Run
-              now" action on the integration detail page to see the first execution.
+              Browser checks are <span className="font-medium">coming soon</span> and can&apos;t be
+              tested or saved yet. Go back and re-phrase the prompt as an HTTPS verification (status
+              code, header, body substring, or TLS expiry).
             </div>
           ) : (
             <div>
@@ -335,7 +383,9 @@ export default function NewCustomCheckPage() {
                 <div className="mt-3 rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-sm dark:border-neutral-800 dark:bg-neutral-950">
                   <div className="flex items-center gap-3">
                     <StatusBadge status={testResult.status} />
-                    <span className="text-neutral-500">{testResult.durationMs}ms</span>
+                    {testResult.durationMs !== undefined && (
+                      <span className="text-neutral-500">{testResult.durationMs}ms</span>
+                    )}
                     {testResult.responseStatus && (
                       <span className="text-neutral-500">HTTP {testResult.responseStatus}</span>
                     )}
@@ -345,9 +395,14 @@ export default function NewCustomCheckPage() {
                       </span>
                     )}
                   </div>
-                  {testResult.failures.length > 0 && (
+                  {testResult.status === "not_supported" && testResult.message && (
+                    <div className="mt-3 rounded bg-amber-50 px-3 py-2 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200">
+                      {testResult.message}
+                    </div>
+                  )}
+                  {(testResult.failures ?? []).length > 0 && (
                     <ul className="mt-3 list-disc space-y-1 pl-5 text-red-700 dark:text-red-300">
-                      {testResult.failures.map((f, i) => (
+                      {(testResult.failures ?? []).map((f, i) => (
                         <li key={i}>{f}</li>
                       ))}
                     </ul>
@@ -392,7 +447,12 @@ export default function NewCustomCheckPage() {
               <button
                 type="button"
                 onClick={handleSave}
-                disabled={saving || !parsedSpec.ok}
+                disabled={saving || !parsedSpec.ok || draft.runner === "browser"}
+                title={
+                  draft.runner === "browser"
+                    ? "Browser checks are coming soon — they can't be saved yet."
+                    : undefined
+                }
                 className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white shadow disabled:cursor-not-allowed disabled:opacity-50 hover:bg-green-700"
               >
                 {saving ? "Saving…" : "Save check"}
@@ -464,12 +524,14 @@ function StatusBadge({ status }: { status: HttpCheckTestResult["status"] }) {
     pass: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-200",
     fail: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200",
     error: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200",
+    not_supported: "bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300",
   };
+  const label = status === "not_supported" ? "COMING SOON" : status.toUpperCase();
   return (
     <span
       className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${palette[status]}`}
     >
-      {status.toUpperCase()}
+      {label}
     </span>
   );
 }

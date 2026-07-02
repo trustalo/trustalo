@@ -46,7 +46,9 @@ export type FrameworkType =
   | "essential8"
   | "nist_csf_2"
   | "gdpr"
-  | "cps234";
+  | "cps234"
+  | "hipaa"
+  | "pci_dss_4";
 
 export interface FrameworkRef {
   id: string;
@@ -725,6 +727,33 @@ export interface DevicePostureHistoryResponse {
   items: DevicePostureSnapshot[];
 }
 
+// ---------- Device enrollment tokens (bulk-deploy / MDM) ----------
+
+export type DeviceEnrollmentTokenStatus = "active" | "consumed" | "revoked" | "expired";
+
+export interface DeviceEnrollmentToken {
+  id: string;
+  label: string | null;
+  status: DeviceEnrollmentTokenStatus;
+  maxUses: number;
+  useCount: number;
+  expiresAt: string;
+  createdAt: string;
+}
+
+/**
+ * Mint response. `token` is the raw enrollment token — the server stores
+ * only its hash, so this value is returned exactly once and can never be
+ * retrieved again.
+ */
+export interface MintedDeviceEnrollmentToken {
+  id: string;
+  label: string | null;
+  maxUses: number;
+  expiresAt: string;
+  token: string;
+}
+
 export type DirectorySyncProvider = "entra" | "google_workspace";
 export type DirectorySyncFrequencyMinutes = 1440 | 10080;
 export type DirectorySyncDefaultStatus = "active" | "invited";
@@ -787,6 +816,56 @@ export interface UpsertDirectorySyncConfigInput {
   defaultStatus: DirectorySyncDefaultStatus;
   groupRoleMappings: DirectorySyncGroupRoleMapping[];
   credentials: EntraDirectorySyncCredentials | GoogleWorkspaceDirectorySyncCredentials;
+}
+
+// ---------- Notification Types ----------
+
+export type NotificationChannelType = "email" | "slack_webhook" | "teams_webhook";
+
+export type AlertRuleKey =
+  | "control_failing"
+  | "integration_sync_failed"
+  | "device_at_risk"
+  | "person_offboarding_incomplete"
+  | "background_check_expiring"
+  | "training_overdue"
+  | "incident_breach_clock";
+
+export interface NotificationChannel {
+  id: string;
+  type: NotificationChannelType;
+  name: string;
+  enabled: boolean;
+  /** Masked config preview — the stored URL/recipients are write-only. */
+  configPreview: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type NotificationChannelConfigInput = { recipients: string[] } | { url: string };
+
+export interface CreateNotificationChannelInput {
+  type: NotificationChannelType;
+  name: string;
+  config: NotificationChannelConfigInput;
+  enabled?: boolean;
+}
+
+export interface AlertRule {
+  id: string;
+  ruleKey: AlertRuleKey;
+  label: string;
+  enabled: boolean;
+  config: Record<string, number | string>;
+}
+
+export interface NotificationDelivery {
+  id: string;
+  ruleKey: AlertRuleKey;
+  status: "sent" | "failed";
+  summary: string;
+  createdAt: string;
+  channel: { id: string; name: string; type: NotificationChannelType } | null;
 }
 
 // ---------- Policy Types ----------
@@ -882,7 +961,9 @@ export type PolicyFrameworkCode =
   | "essential8"
   | "nist_csf_2"
   | "gdpr"
-  | "cps234";
+  | "cps234"
+  | "hipaa"
+  | "pci_dss_4";
 
 export interface PolicyTemplateListItem {
   id: string;
@@ -1692,6 +1773,54 @@ export interface CreateAssetInput {
 
 export interface UpdateAssetInput extends Partial<CreateAssetInput> {
   status?: AssetStatus;
+}
+
+// ---------- Assets: AI classify-from-text (CPS 234 bootstrap) ----------
+
+/** CPS 234 tier vocabularies used by the extractor's review cards. */
+export type AssetProposalSensitivity = "Restricted" | "Confidential" | "Internal" | "Public";
+export type AssetProposalCriticality = "Critical" | "High" | "Medium" | "Low";
+export type AssetProposalKind =
+  | "data_store"
+  | "application"
+  | "infrastructure"
+  | "endpoint"
+  | "third_party_service"
+  | "other";
+
+export interface AssetFromTextProposal {
+  /** Raw extractor output — display tiers for the review card. */
+  proposal: {
+    name: string;
+    description?: string;
+    sensitivity: AssetProposalSensitivity;
+    criticality: AssetProposalCriticality;
+    kind?: AssetProposalKind;
+    confidence: number;
+    rationale?: string;
+  };
+  /** Same proposal pre-mapped onto the Asset register enums, create-ready. */
+  suggestedAsset: {
+    name: string;
+    type: AssetType;
+    description?: string;
+    classification: AssetClassification;
+    metadata: { criticality: AssetCriticality };
+  };
+}
+
+export interface AssetsFromTextResult {
+  proposals: AssetFromTextProposal[];
+  dropped: number;
+  redactions: {
+    email: number;
+    phone: number;
+    ip: number;
+    number: number;
+    urlCredential: number;
+  };
+  modelUsed: string;
+  providerSource: string;
 }
 
 // ---------- Vulnerability Types ----------
@@ -3755,6 +3884,39 @@ class ApiClient {
     );
   }
 
+  /**
+   * Download the auditor handoff package for a framework instance — a ZIP
+   * with manifest.json, controls.csv, soa.csv, evidence/index.csv and the
+   * stored files for approved evidence. Streams straight to a browser
+   * download, mirroring `downloadQuestionnaire`.
+   */
+  async downloadAuditPackage(instanceId: string, suggestedName: string): Promise<void> {
+    const headers: Record<string, string> = {};
+    if (this.token) headers["Authorization"] = `Bearer ${this.token}`;
+    const url = `${API_URL}/api/v1/frameworks/instances/${instanceId}/audit-package`;
+    const res = await fetch(url, { headers, credentials: "include" });
+    if (!res.ok) {
+      let detail = "";
+      try {
+        const body = (await res.json()) as { error?: { message?: string } | string };
+        const message = typeof body?.error === "string" ? body.error : body?.error?.message;
+        if (message) detail = `: ${message}`;
+      } catch {
+        /* not JSON */
+      }
+      throw new Error(`Export failed (${res.status})${detail}`);
+    }
+    const blob = await res.blob();
+    const dlUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = dlUrl;
+    a.download = `${suggestedName.replace(/[^a-z0-9-_]+/gi, "_")}.zip`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(dlUrl);
+  }
+
   getRequirementMappings(requirementId: string) {
     return this.request<ApiResponse<RequirementMappingItem[]>>(
       "GET",
@@ -4167,6 +4329,28 @@ class ApiClient {
     return this.request<ApiResponse<{ revoked: boolean }>>("POST", `/api/v1/devices/${id}/revoke`);
   }
 
+  listDeviceEnrollmentTokens() {
+    return this.request<ApiResponse<{ items: DeviceEnrollmentToken[] }>>(
+      "GET",
+      "/api/v1/devices/enrollment-tokens",
+    );
+  }
+
+  createDeviceEnrollmentToken(data: { label?: string; maxUses?: number; expiresInHours?: number }) {
+    return this.request<ApiResponse<MintedDeviceEnrollmentToken>>(
+      "POST",
+      "/api/v1/devices/enrollment-tokens",
+      data,
+    );
+  }
+
+  revokeDeviceEnrollmentToken(id: string) {
+    return this.request<ApiResponse<{ revoked: boolean }>>(
+      "DELETE",
+      `/api/v1/devices/enrollment-tokens/${id}`,
+    );
+  }
+
   listDirectorySyncConfigs() {
     return this.request<ApiResponse<DirectorySyncConfig[]>>(
       "GET",
@@ -4177,6 +4361,15 @@ class ApiClient {
   upsertDirectorySyncConfig(provider: DirectorySyncProvider, data: UpsertDirectorySyncConfigInput) {
     return this.request<ApiResponse<DirectorySyncConfig>>(
       "PUT",
+      `/api/v1/directory-sync/configs/${provider}`,
+      data,
+    );
+  }
+
+  /** Enable/disable an existing config without re-submitting credentials. */
+  patchDirectorySyncConfig(provider: DirectorySyncProvider, data: { isEnabled: boolean }) {
+    return this.request<ApiResponse<DirectorySyncConfig>>(
+      "PATCH",
       `/api/v1/directory-sync/configs/${provider}`,
       data,
     );
@@ -4214,6 +4407,67 @@ class ApiClient {
     return this.request<ApiResponse<{ provider: DirectorySyncProvider }>>(
       "DELETE",
       `/api/v1/directory-sync/configs/${provider}`,
+    );
+  }
+
+  // ---------- Notifications ----------
+  listNotificationChannels() {
+    return this.request<ApiResponse<NotificationChannel[]>>(
+      "GET",
+      "/api/v1/notifications/channels",
+    );
+  }
+
+  createNotificationChannel(data: CreateNotificationChannelInput) {
+    return this.request<ApiResponse<NotificationChannel>>(
+      "POST",
+      "/api/v1/notifications/channels",
+      data,
+    );
+  }
+
+  updateNotificationChannel(
+    id: string,
+    data: { name?: string; enabled?: boolean; config?: NotificationChannelConfigInput },
+  ) {
+    return this.request<ApiResponse<NotificationChannel>>(
+      "PATCH",
+      `/api/v1/notifications/channels/${id}`,
+      data,
+    );
+  }
+
+  deleteNotificationChannel(id: string) {
+    return this.request<ApiResponse<null>>("DELETE", `/api/v1/notifications/channels/${id}`);
+  }
+
+  testNotificationChannel(id: string) {
+    return this.request<ApiResponse<{ status: string }>>(
+      "POST",
+      `/api/v1/notifications/channels/${id}/test`,
+    );
+  }
+
+  listAlertRules() {
+    return this.request<ApiResponse<AlertRule[]>>("GET", "/api/v1/notifications/rules");
+  }
+
+  updateAlertRule(
+    ruleKey: AlertRuleKey,
+    data: { enabled?: boolean; config?: Record<string, number | string> },
+  ) {
+    return this.request<ApiResponse<AlertRule>>(
+      "PATCH",
+      `/api/v1/notifications/rules/${ruleKey}`,
+      data,
+    );
+  }
+
+  listNotificationDeliveries(params?: { limit?: number }) {
+    const qs = params?.limit ? `?limit=${params.limit}` : "";
+    return this.request<ApiResponse<NotificationDelivery[]>>(
+      "GET",
+      `/api/v1/notifications/deliveries${qs}`,
     );
   }
 
@@ -4932,6 +5186,20 @@ class ApiClient {
 
   restoreAsset(id: string) {
     return this.request<ApiResponse<AssetItem>>("POST", `/api/v1/assets/${id}/restore`);
+  }
+
+  /**
+   * Submit pasted architecture / data-flow prose and get back STAGED
+   * asset-classification proposals (CPS 234 Para 23 bootstrap). Server-side
+   * we PII-scrub before invoking the LLM. Advisory only — nothing is
+   * created until the user applies proposals via {@link createAsset}.
+   */
+  classifyAssetsFromText(data: { text: string; maxProposals?: number }) {
+    return this.request<ApiResponse<AssetsFromTextResult>>(
+      "POST",
+      "/api/v1/assets/from-text",
+      data,
+    );
   }
 
   // ---------- Incidents ----------
@@ -6453,14 +6721,22 @@ export interface GeneratedCheckDraft {
 }
 
 export interface HttpCheckTestResult {
-  status: "pass" | "fail" | "error";
-  durationMs: number;
+  /**
+   * `not_supported` is the structured answer for browser specs — the
+   * browser runner is roadmap, so the collector reports "not yet
+   * available" (HTTP 200) instead of an error status.
+   */
+  status: "pass" | "fail" | "error" | "not_supported";
+  durationMs?: number;
   responseStatus?: number;
   responseHeaders?: Record<string, string>;
   bodySnippet?: string;
   tlsValidUntil?: string;
-  failures: string[];
+  failures?: string[];
   error?: string;
+  /** Present on `not_supported` responses. */
+  code?: string;
+  message?: string;
 }
 
 export interface SaveCheckFromPromptInput {
@@ -6473,6 +6749,12 @@ export interface SaveCheckFromPromptInput {
   schedule: string;
   modelUsed: string;
   controlIds?: string[];
+  /**
+   * Advisory framework refs suggested at generation time. The collector
+   * resolves them against the tenant's adopted frameworks and binds the
+   * check to the matching controls on save.
+   */
+  frameworkRefs?: { framework: string; requirement: string; note?: string }[];
 }
 
 // ---------- Phase 5: AI risk + vendor scoring ----------

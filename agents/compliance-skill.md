@@ -1,6 +1,6 @@
 # Trustalo - Compliance Domain Knowledge
 
-Reference for AI agents working on Trustalo compliance features. Covers all ten supported frameworks (six ISO/AICPA + ACSC Essential Eight + NIST CSF 2.0 + GDPR + APRA CPS 234), cross-framework mapping, evidence strategies, and module responsibilities.
+Reference for AI agents working on Trustalo compliance features. Covers all twelve supported frameworks (six ISO/AICPA + ACSC Essential Eight + NIST CSF 2.0 + GDPR + APRA CPS 234 + HIPAA + PCI DSS v4.0.1), cross-framework mapping, evidence strategies, and module responsibilities.
 
 ---
 
@@ -290,6 +290,55 @@ APRA Prudential Standard CPS 234 (effective 1 July 2019). Applies to APRA-regula
 - Existing ISMS / IR / Vendor / Risk / Change / Logging / Asset / SDLC / Access policy templates tagged with `cps234`
 - Cross-framework mapping: `cps234_to_iso27001.json` (derived from APRA CPG 234 + AustCyber + published industry cross-walks)
 - Notification clocks (72-hour and 10-business-day) leveraged from the Incident Response and Privacy breach-clock infrastructure
+
+---
+
+### 11. HIPAA — US Health Insurance Portability and Accountability Act
+
+45 CFR Parts 160/164 as amended by the 2013 Omnibus Rule. Applies to covered entities (providers, plans, clearinghouses) and their business associates handling protected health information (PHI/ePHI). Binary compliance (no maturity tiers).
+
+**Structure:**
+
+- 59 requirements: Administrative Safeguards (§164.308), Physical Safeguards (§164.310), Technical Safeguards (§164.312), Organizational Requirements (§164.314), Policies & Documentation (§164.316), Breach Notification (§§164.400–414), and an operational Privacy Rule subset (minimum necessary, NPP, individual rights)
+- Identifier scheme: CFR section, e.g. `164.308(a)(1)(ii)(A)`
+- Security Rule specifications are marked Required or Addressable (Addressable ≠ optional — implement, substitute with a documented equivalent, or document why not reasonable and appropriate)
+
+**Distinctive obligations (no clean ISO equivalent):**
+
+- §164.404/406/408/410 — 60-calendar-day breach-notification clocks (individual, media for 500+, HHS, business-associate-to-covered-entity)
+- Four-factor breach risk assessment (presumption of notifiability)
+- Business associate agreements (§164.314) for every third party touching PHI
+
+**What Trustalo manages:**
+
+- 59 requirements seeded from the primary regulation
+- Existing ISMS / access / IR / vendor / risk / logging / retention / training policy templates tagged with `hipaa`
+- Cross-framework mappings: `hipaa_to_iso27001.json`, `hipaa_to_soc2.json`
+
+---
+
+### 12. PCI DSS v4.0.1 — Payment Card Industry Data Security Standard
+
+PCI Security Standards Council standard for any entity that stores, processes, or transmits payment-card account data, or can impact its security. Scope is the cardholder data environment (CDE) plus connected/security-impacting systems.
+
+**Structure:**
+
+- 80 requirements curated from the 12 principal requirements, categorised by the six PCI SSC goals (secure networks, protect account data, vulnerability management, access control, monitoring/testing, security policy)
+- Identifier scheme: the standard's own numbering, e.g. `8.3.6`
+- Requirements may be met via the defined approach or the v4 customized approach (with a targeted risk analysis per 12.3.1)
+
+**Distinctive obligations (cadence-driven):**
+
+- 11.3.1/11.3.2 — internal + external (ASV) vulnerability scans every three months
+- 11.4 — annual internal/external penetration testing
+- 12.5.2 — annual scope confirmation; 12.8.4 — annual TPSP compliance monitoring
+- Annual ROC (QSA/ISA) or SAQ assessment cycle
+
+**What Trustalo manages:**
+
+- 80 requirements seeded as original paraphrases (PCI SSC text is copyrighted — never quote the standard verbatim)
+- Existing network / access / SDLC / logging / vendor / training policy templates tagged with `pci_dss_4`
+- Cross-framework mappings: `pci-dss-4_to_iso27001.json`, `pci-dss-4_to_soc2.json`
 
 ---
 

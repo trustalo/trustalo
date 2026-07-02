@@ -12,6 +12,8 @@ import {
   enqueueDirectorySyncRun,
   listDirectorySyncConfigs,
   listDirectorySyncRuns,
+  patchDirectorySyncConfig,
+  patchDirectorySyncConfigSchema,
   testDirectorySyncConfig,
   upsertDirectorySyncConfig,
   upsertDirectorySyncConfigSchema,
@@ -59,6 +61,24 @@ directorySyncRouter.put("/configs/:provider", async (req, res, next) => {
       defaultRole: data.defaultRole,
       defaultStatus: data.defaultStatus,
       groupRoleMappingCount: data.groupRoleMappings.length,
+    });
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Quick enable/disable for an existing config — the admin UI toggle.
+// Unlike PUT, it does not require credentials to be re-submitted.
+directorySyncRouter.patch("/configs/:provider", async (req, res, next) => {
+  try {
+    const tenantId = (req as any).auth.tenantId as string;
+    const provider = directoryProviderSchema.parse(req.params.provider);
+    const body = patchDirectorySyncConfigSchema.parse(req.body);
+    const data = await patchDirectorySyncConfig(tenantId, provider, body);
+    await audit(req, "update", "DirectorySyncConfig", data.id, {
+      provider: data.provider,
+      isEnabled: data.isEnabled,
     });
     res.json({ success: true, data });
   } catch (err) {

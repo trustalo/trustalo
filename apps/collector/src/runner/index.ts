@@ -5,6 +5,8 @@ import { submitEvidence } from "../lib/api-client.js";
 import type { EvidenceResult } from "../integrations/core/types.js";
 import { classifyError } from "./classify-error.js";
 import { markChecksFailing, markChecksHealthy } from "./check-health.js";
+import { CUSTOM_INTEGRATION_ID } from "../integrations/custom/index.js";
+import { runCustomChecksForConnection, type CustomChecksRunSummary } from "./custom-checks.js";
 
 const POLL_INTERVAL_MS = 10_000;
 const MAX_CONCURRENT_JOBS = 3;
@@ -101,31 +103,55 @@ async function executeJob(job: {
   const startTime = Date.now();
 
   try {
-    const provider = providerRegistry.get(integrationSlug);
-    if (!provider) {
-      throw new Error(`No connector registered for integration '${integrationSlug}'`);
+    let evidence: EvidenceResult[];
+    // Per-check bookkeeping for the custom path happens inside
+    // `runCustomChecksForConnection` (each check pass/fail/errors
+    // independently); provider connections keep the connection-wide
+    // `markChecksHealthy` sweep below.
+    let customSummary: CustomChecksRunSummary | null = null;
+
+    if (integrationSlug === CUSTOM_INTEGRATION_ID) {
+      // Custom ("from prompt") HTTP checks: no connector, no
+      // credential handshake — the work items are IntegrationCheck
+      // rows executed by the shared HTTP executor.
+      customSummary = await runCustomChecksForConnection({
+        tenantId,
+        connection: {
+          id: connection.id,
+          secretId: connection.secretId,
+          syncFrequencyMinutes: connection.syncFrequencyMinutes,
+        },
+      });
+      evidence = customSummary.evidence;
+    } else {
+      const provider = providerRegistry.get(integrationSlug);
+      if (!provider) {
+        throw new Error(`No connector registered for integration '${integrationSlug}'`);
+      }
+
+      if (!connection.secretId) {
+        throw new Error(
+          `Connection ${connection.id} has no SecretVault entry — credentials missing`,
+        );
+      }
+
+      const credentials = await SecretVaultService.read(connection.secretId);
+      const providerConnection = await provider.connect(credentials);
+
+      const testResult = await provider.testConnection(providerConnection);
+      if (!testResult.success) {
+        throw new Error(`Connection test failed: ${testResult.message}`);
+      }
+
+      evidence = await provider.collectEvidence(providerConnection, {
+        tenantId,
+        connectionId: connection.id,
+        incremental: !!connection.lastSyncAt,
+        since: connection.lastSyncAt ?? undefined,
+      });
+
+      await provider.disconnect(providerConnection);
     }
-
-    if (!connection.secretId) {
-      throw new Error(`Connection ${connection.id} has no SecretVault entry — credentials missing`);
-    }
-
-    const credentials = await SecretVaultService.read(connection.secretId);
-    const providerConnection = await provider.connect(credentials);
-
-    const testResult = await provider.testConnection(providerConnection);
-    if (!testResult.success) {
-      throw new Error(`Connection test failed: ${testResult.message}`);
-    }
-
-    const evidence = await provider.collectEvidence(providerConnection, {
-      tenantId,
-      connectionId: connection.id,
-      incremental: !!connection.lastSyncAt,
-      since: connection.lastSyncAt ?? undefined,
-    });
-
-    await provider.disconnect(providerConnection);
 
     let submittedCount = 0;
     let submitErrors = 0;
@@ -223,6 +249,12 @@ async function executeJob(job: {
             submitErrors,
             orphanCount,
             manifestKeys: [...new Set(evidence.map((e) => e.manifestKey))],
+            ...(customSummary
+              ? {
+                  customChecksRun: customSummary.checksRun,
+                  customChecksErrored: customSummary.checksErrored,
+                }
+              : {}),
           },
         },
       }),
@@ -239,15 +271,19 @@ async function executeJob(job: {
     // Refresh check-level health metrics and close any open coverage
     // gaps. Done outside the transaction above to keep the success
     // path's critical section short — even if this fails we don't want
-    // to roll back the job completion.
-    try {
-      await markChecksHealthy({
-        tenantId,
-        connectionId: connection.id,
-        syncFrequencyMinutes: connection.syncFrequencyMinutes,
-      });
-    } catch (healthErr) {
-      console.error(`[runner] failed to update check health for job=${jobId}:`, healthErr);
+    // to roll back the job completion. Skipped for the custom path:
+    // its per-check health was already written (a connection-wide
+    // "healthy" sweep would wrongly clear checks that just errored).
+    if (!customSummary) {
+      try {
+        await markChecksHealthy({
+          tenantId,
+          connectionId: connection.id,
+          syncFrequencyMinutes: connection.syncFrequencyMinutes,
+        });
+      } catch (healthErr) {
+        console.error(`[runner] failed to update check health for job=${jobId}:`, healthErr);
+      }
     }
 
     console.log(

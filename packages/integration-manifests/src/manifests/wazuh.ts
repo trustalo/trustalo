@@ -31,6 +31,7 @@ export const wazuhManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.16" },
+        { framework: "pci_dss_4", requirement: "10.7.2" },
       ],
     },
     {
@@ -42,6 +43,7 @@ export const wazuhManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.5.9" },
         { framework: "iso27001", requirement: "A.8.16" },
+        { framework: "pci_dss_4", requirement: "10.7.2" },
       ],
     },
     {
@@ -62,6 +64,8 @@ export const wazuhManifest: Manifest = {
         { framework: "soc2", requirement: "CC7.2" },
         { framework: "iso27001", requirement: "A.8.15" },
         { framework: "iso27001", requirement: "A.8.16" },
+        { framework: "hipaa", requirement: "164.312(b)" },
+        { framework: "pci_dss_4", requirement: "10.7.2" },
       ],
     },
     {
@@ -73,6 +77,9 @@ export const wazuhManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.3" },
         { framework: "iso27001", requirement: "A.5.15" },
         { framework: "iso27001", requirement: "A.5.18" },
+        { framework: "hipaa", requirement: "164.308(a)(4)(ii)(B)" },
+        { framework: "pci_dss_4", requirement: "7.2.1" },
+        { framework: "pci_dss_4", requirement: "7.2.2" },
       ],
     },
     {
@@ -83,6 +90,8 @@ export const wazuhManifest: Manifest = {
         { framework: "soc2", requirement: "CC7.2" },
         { framework: "soc2", requirement: "CC7.3" },
         { framework: "iso27001", requirement: "A.8.16" },
+        { framework: "hipaa", requirement: "164.312(b)" },
+        { framework: "pci_dss_4", requirement: "11.5.1" },
       ],
     },
     {
@@ -103,6 +112,7 @@ export const wazuhManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.9" },
+        { framework: "pci_dss_4", requirement: "11.5.1" },
       ],
     },
     {
@@ -113,6 +123,7 @@ export const wazuhManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.9" },
+        { framework: "pci_dss_4", requirement: "11.5.1" },
       ],
     },
     {
@@ -124,6 +135,7 @@ export const wazuhManifest: Manifest = {
         { framework: "soc2", requirement: "CC7.4" },
         { framework: "iso27001", requirement: "A.5.24" },
         { framework: "iso27001", requirement: "A.5.26" },
+        { framework: "pci_dss_4", requirement: "11.5.1" },
       ],
     },
     {
@@ -134,6 +146,8 @@ export const wazuhManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.8" },
+        { framework: "pci_dss_4", requirement: "6.3.1" },
+        { framework: "pci_dss_4", requirement: "11.3.1" },
       ],
     },
     {
@@ -146,6 +160,8 @@ export const wazuhManifest: Manifest = {
         { framework: "soc2", requirement: "CC7.2" },
         { framework: "iso27001", requirement: "A.8.32" },
         { framework: "iso27001", requirement: "A.8.15" },
+        { framework: "hipaa", requirement: "164.312(c)(1)" },
+        { framework: "pci_dss_4", requirement: "11.5.2" },
       ],
     },
     {
@@ -157,6 +173,7 @@ export const wazuhManifest: Manifest = {
         { framework: "soc2", requirement: "CC7.2" },
         { framework: "iso27001", requirement: "A.8.9" },
         { framework: "iso27001", requirement: "A.8.8" },
+        { framework: "pci_dss_4", requirement: "2.2.1" },
       ],
     },
     {
@@ -167,6 +184,9 @@ export const wazuhManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.7" },
+        { framework: "hipaa", requirement: "164.308(a)(5)(ii)(B)" },
+        { framework: "pci_dss_4", requirement: "5.2.1" },
+        { framework: "pci_dss_4", requirement: "5.3.2" },
       ],
     },
     {
@@ -178,6 +198,7 @@ export const wazuhManifest: Manifest = {
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.9" },
         { framework: "iso27001", requirement: "A.5.9" },
+        { framework: "pci_dss_4", requirement: "6.3.2" },
       ],
     },
   ],

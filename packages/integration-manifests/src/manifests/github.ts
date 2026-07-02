@@ -42,6 +42,8 @@ export const githubManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.5.17" },
         { framework: "essential8", requirement: "ML2-MFA" },
+        { framework: "hipaa", requirement: "164.312(d)" },
+        { framework: "pci_dss_4", requirement: "8.4.1" },
       ],
     },
     {
@@ -54,6 +56,8 @@ export const githubManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC8.1" },
         { framework: "iso27001", requirement: "A.8.31" },
+        { framework: "pci_dss_4", requirement: "6.2.1" },
+        { framework: "pci_dss_4", requirement: "6.5.1" },
       ],
     },
     {
@@ -72,6 +76,7 @@ export const githubManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.8.28" },
+        { framework: "pci_dss_4", requirement: "8.6.2" },
       ],
     },
   ],
@@ -85,6 +90,8 @@ export const githubManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.3" },
         { framework: "iso27001", requirement: "A.9.4.2" },
+        { framework: "hipaa", requirement: "164.312(d)" },
+        { framework: "pci_dss_4", requirement: "8.4.1" },
       ],
     },
     {
@@ -96,6 +103,9 @@ export const githubManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.7" },
         { framework: "iso27001", requirement: "A.9.4.1" },
+        { framework: "hipaa", requirement: "164.308(a)(4)(ii)(B)" },
+        { framework: "pci_dss_4", requirement: "7.2.1" },
+        { framework: "pci_dss_4", requirement: "7.2.2" },
       ],
     },
     {
@@ -106,6 +116,8 @@ export const githubManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC8.1" },
         { framework: "iso27001", requirement: "A.14.2.2" },
+        { framework: "pci_dss_4", requirement: "6.2.1" },
+        { framework: "pci_dss_4", requirement: "6.5.1" },
       ],
     },
     {
@@ -116,6 +128,8 @@ export const githubManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.1" },
         { framework: "iso27001", requirement: "A.12.6.1" },
+        { framework: "pci_dss_4", requirement: "6.3.1" },
+        { framework: "pci_dss_4", requirement: "6.3.3" },
       ],
     },
     {
@@ -126,6 +140,7 @@ export const githubManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.9.4.3" },
+        { framework: "pci_dss_4", requirement: "8.6.2" },
       ],
     },
   ],

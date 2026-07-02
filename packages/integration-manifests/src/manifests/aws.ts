@@ -49,6 +49,8 @@ export const awsManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.5.17" },
         { framework: "essential8", requirement: "ML2-MFA" },
+        { framework: "hipaa", requirement: "164.312(d)" },
+        { framework: "pci_dss_4", requirement: "8.4.1" },
       ],
     },
     {
@@ -62,6 +64,8 @@ export const awsManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.5.17" },
+        { framework: "hipaa", requirement: "164.308(a)(5)(ii)(D)" },
+        { framework: "pci_dss_4", requirement: "8.3.6" },
       ],
     },
     {
@@ -74,6 +78,9 @@ export const awsManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.2" },
         { framework: "iso27001", requirement: "A.8.15" },
+        { framework: "hipaa", requirement: "164.312(b)" },
+        { framework: "hipaa", requirement: "164.308(a)(1)(ii)(D)" },
+        { framework: "pci_dss_4", requirement: "10.2.1" },
       ],
     },
     {
@@ -86,6 +93,7 @@ export const awsManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.7" },
         { framework: "iso27001", requirement: "A.5.10" },
+        { framework: "pci_dss_4", requirement: "1.4.1" },
       ],
     },
   ],
@@ -99,6 +107,8 @@ export const awsManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.3" },
         { framework: "iso27001", requirement: "A.9.4.2" },
+        { framework: "hipaa", requirement: "164.312(d)" },
+        { framework: "pci_dss_4", requirement: "8.4.1" },
       ],
     },
     {
@@ -108,6 +118,8 @@ export const awsManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.9.4.3" },
+        { framework: "hipaa", requirement: "164.308(a)(5)(ii)(D)" },
+        { framework: "pci_dss_4", requirement: "8.3.6" },
       ],
     },
     {
@@ -117,6 +129,10 @@ export const awsManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.9.2.3" },
+        { framework: "hipaa", requirement: "164.308(a)(4)(ii)(B)" },
+        { framework: "hipaa", requirement: "164.308(a)(4)(ii)(C)" },
+        { framework: "pci_dss_4", requirement: "7.2.1" },
+        { framework: "pci_dss_4", requirement: "7.2.2" },
       ],
     },
     {
@@ -127,6 +143,9 @@ export const awsManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.2" },
         { framework: "iso27001", requirement: "A.12.4.1" },
+        { framework: "hipaa", requirement: "164.312(b)" },
+        { framework: "hipaa", requirement: "164.308(a)(1)(ii)(D)" },
+        { framework: "pci_dss_4", requirement: "10.2.1" },
       ],
     },
     {
@@ -138,6 +157,9 @@ export const awsManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.7" },
         { framework: "iso27001", requirement: "A.10.1.1" },
+        { framework: "hipaa", requirement: "164.312(a)(2)(iv)" },
+        { framework: "pci_dss_4", requirement: "3.5.1" },
+        { framework: "pci_dss_4", requirement: "1.4.1" },
       ],
     },
     {
@@ -149,6 +171,8 @@ export const awsManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.6" },
         { framework: "iso27001", requirement: "A.13.1.1" },
+        { framework: "pci_dss_4", requirement: "1.3.1" },
+        { framework: "pci_dss_4", requirement: "1.4.1" },
       ],
     },
     {
@@ -159,6 +183,9 @@ export const awsManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.2" },
         { framework: "iso27001", requirement: "A.12.4.1" },
+        { framework: "hipaa", requirement: "164.312(b)" },
+        { framework: "hipaa", requirement: "164.308(a)(1)(ii)(D)" },
+        { framework: "pci_dss_4", requirement: "10.2.1" },
       ],
     },
   ],

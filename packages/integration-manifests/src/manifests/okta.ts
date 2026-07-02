@@ -38,6 +38,9 @@ export const oktaManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.5.17" },
         { framework: "essential8", requirement: "ML2-MFA" },
+        { framework: "hipaa", requirement: "164.312(d)" },
+        { framework: "pci_dss_4", requirement: "8.4.1" },
+        { framework: "pci_dss_4", requirement: "8.4.2" },
       ],
     },
     {
@@ -51,7 +54,12 @@ export const oktaManifest: Manifest = {
         method: "GET",
         urlTemplate: "https://{{domain}}/api/v1/policies?type=PASSWORD",
       },
-      controlMappings: [{ framework: "iso27001", requirement: "A.5.17" }],
+      controlMappings: [
+        { framework: "iso27001", requirement: "A.5.17" },
+        { framework: "hipaa", requirement: "164.308(a)(5)(ii)(D)" },
+        { framework: "pci_dss_4", requirement: "8.3.6" },
+        { framework: "pci_dss_4", requirement: "8.3.4" },
+      ],
     },
     {
       key: "okta.admins.count_within_threshold",
@@ -66,6 +74,10 @@ export const oktaManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.3" },
         { framework: "iso27001", requirement: "A.5.18" },
+        { framework: "hipaa", requirement: "164.308(a)(4)(ii)(B)" },
+        { framework: "hipaa", requirement: "164.308(a)(4)(ii)(C)" },
+        { framework: "pci_dss_4", requirement: "7.2.2" },
+        { framework: "pci_dss_4", requirement: "7.2.5" },
       ],
     },
   ],
@@ -79,6 +91,9 @@ export const oktaManifest: Manifest = {
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "soc2", requirement: "CC6.3" },
         { framework: "iso27001", requirement: "A.9.4.2" },
+        { framework: "hipaa", requirement: "164.312(d)" },
+        { framework: "pci_dss_4", requirement: "8.4.1" },
+        { framework: "pci_dss_4", requirement: "8.4.2" },
       ],
     },
     {
@@ -88,6 +103,8 @@ export const oktaManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.9.2.1" },
+        { framework: "hipaa", requirement: "164.312(a)(2)(i)" },
+        { framework: "pci_dss_4", requirement: "8.2.1" },
       ],
     },
     {
@@ -97,6 +114,8 @@ export const oktaManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.9.2.3" },
+        { framework: "hipaa", requirement: "164.308(a)(4)(ii)(C)" },
+        { framework: "pci_dss_4", requirement: "7.2.1" },
       ],
     },
     {
@@ -107,6 +126,8 @@ export const oktaManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.9.4.1" },
+        { framework: "hipaa", requirement: "164.312(d)" },
+        { framework: "pci_dss_4", requirement: "8.4.1" },
       ],
     },
     {
@@ -116,6 +137,8 @@ export const oktaManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC6.1" },
         { framework: "iso27001", requirement: "A.9.4.3" },
+        { framework: "hipaa", requirement: "164.308(a)(5)(ii)(D)" },
+        { framework: "pci_dss_4", requirement: "8.3.6" },
       ],
     },
     {
@@ -125,6 +148,10 @@ export const oktaManifest: Manifest = {
       controlMappings: [
         { framework: "soc2", requirement: "CC7.2" },
         { framework: "iso27001", requirement: "A.12.4.1" },
+        { framework: "hipaa", requirement: "164.312(b)" },
+        { framework: "hipaa", requirement: "164.308(a)(1)(ii)(D)" },
+        { framework: "pci_dss_4", requirement: "10.2.1" },
+        { framework: "pci_dss_4", requirement: "10.4.1" },
       ],
     },
   ],

@@ -3,6 +3,8 @@
   "webUrl": "http://localhost:15000",
   "authMethod": "basic",
   "checkInIntervalSeconds": 1800,
+  "requireAv": false,
+  "expectedAvProducts": [],
   "dev": {
     "email": "you@example.com",
     "password": "",

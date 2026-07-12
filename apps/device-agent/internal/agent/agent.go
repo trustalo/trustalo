@@ -14,6 +14,7 @@ import (
 	"github.com/trustalo/trustalo/apps/device-agent/internal/apiclient"
 	"github.com/trustalo/trustalo/apps/device-agent/internal/authflow"
 	"github.com/trustalo/trustalo/apps/device-agent/internal/collect"
+	"github.com/trustalo/trustalo/apps/device-agent/internal/collect/av"
 	"github.com/trustalo/trustalo/apps/device-agent/internal/config"
 	"github.com/trustalo/trustalo/apps/device-agent/internal/ipc"
 	"github.com/trustalo/trustalo/apps/device-agent/internal/keystore"
@@ -144,6 +145,7 @@ func (a *Agent) checkIn(ctx context.Context, cred report.DeviceCredential, onSta
 		log.Printf("[agent] collect error: %v", err)
 		return 0, nil // a local collection hiccup isn't an auth problem; skip this tick
 	}
+	av.EnforcePolicy(posture.Raw, a.cfg.RequireAv, a.cfg.ExpectedAvProducts)
 	st := ipc.Status{
 		DeviceID:     cred.DeviceID,
 		Enrolled:     true,

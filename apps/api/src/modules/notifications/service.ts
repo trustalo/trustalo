@@ -129,6 +129,7 @@ export const RULE_KEYS = [
   "control_failing",
   "integration_sync_failed",
   "device_at_risk",
+  "device_malware_detected",
   "person_offboarding_incomplete",
   "background_check_expiring",
   "training_overdue",
@@ -140,6 +141,7 @@ export const RULE_LABELS: Record<RuleKey, string> = {
   control_failing: "Control weakness open",
   integration_sync_failed: "Integration sync failed",
   device_at_risk: "Device at risk",
+  device_malware_detected: "Malware detected on device",
   person_offboarding_incomplete: "Offboarding incomplete",
   background_check_expiring: "Background check expiring",
   training_overdue: "Training overdue",
@@ -157,6 +159,7 @@ export const RULE_CONFIG_SCHEMAS: Record<RuleKey, z.ZodType<Record<string, unkno
   control_failing: z.object({ minSeverity: severityEnum.default("medium") }).strict(),
   integration_sync_failed: z.object({}).strict(),
   device_at_risk: z.object({}).strict(),
+  device_malware_detected: z.object({}).strict(),
   // Days a person may sit `offboarded` with open offboarding items.
   person_offboarding_incomplete: z
     .object({ olderThanDays: z.number().int().min(0).max(365).default(7) })

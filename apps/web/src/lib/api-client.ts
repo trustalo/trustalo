@@ -671,6 +671,36 @@ export interface DevicePersonRef {
   email: string;
 }
 
+export type AvScanResult = "clean" | "infected" | "error" | "missing" | "unknown";
+
+/** One recent threat surfaced by the endpoint's antivirus product. */
+export interface AvRecentDetection {
+  detectedAt: string;
+  signature: string;
+  file: string;
+  source: string;
+}
+
+/**
+ * Product-agnostic antivirus / endpoint-protection health, reported by the
+ * device agent inside `latestPosture.avDetail`. ClamAV today, ESET / Microsoft
+ * Defender / etc. tomorrow — the shape is identical regardless of product.
+ */
+export interface AvDetail {
+  product: string;
+  installed: boolean;
+  daemonActive: PostureSignalState;
+  daemonResponsive: PostureSignalState;
+  realTimeProtection: PostureSignalState;
+  definitionsUpdatedAt?: string;
+  definitionsAgeHours?: number;
+  lastScanAt?: string;
+  lastScanResult: AvScanResult;
+  infectedCount: number;
+  scannedCount?: number;
+  recentDetections: AvRecentDetection[];
+}
+
 export interface DeviceListItem {
   id: string;
   hostname: string | null;
@@ -690,6 +720,11 @@ export interface DeviceListItem {
   asset: { id: string; name: string } | null;
   personId: string | null;
   person: DevicePersonRef | null;
+  // Derived antivirus summary, folded in from `latestPosture` server-side.
+  // Optional so the UI degrades gracefully before the API ships them.
+  avProduct?: string | null;
+  avHealth?: PostureSignalState | null;
+  avInfectedCount?: number;
 }
 
 export interface DeviceListResponse {

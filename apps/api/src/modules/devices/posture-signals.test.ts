@@ -3,6 +3,7 @@ import {
   DEFAULT_REQUIRED_SIGNALS,
   EVALUABLE_POSTURE_SIGNALS,
   POSTURE_SIGNAL_KEYS,
+  deviceAvSummary,
   failingRequiredSignals,
 } from "./service.js";
 
@@ -25,6 +26,7 @@ describe("evaluable posture-signal catalog", () => {
       "mdmEnrolled",
       "gatekeeper",
       "sip",
+      "avHealth",
     ]);
   });
 
@@ -77,5 +79,38 @@ describe("failingRequiredSignals", () => {
   test("empty evaluated set → no issues even with multiple failures", () => {
     const d = { ...base, firewall: "fail", latestPosture: { mdmEnrolled: "fail" } };
     expect(failingRequiredSignals(d, [])).toEqual([]);
+  });
+});
+
+describe("deviceAvSummary", () => {
+  test("projects product, health, and infection count from latestPosture", () => {
+    expect(
+      deviceAvSummary({
+        avHealth: "pass",
+        avDetail: { product: "clamav", infectedCount: 2 },
+      }),
+    ).toEqual({ avProduct: "clamav", avHealth: "pass", avInfectedCount: 2 });
+  });
+
+  test("missing or malformed posture degrades to nulls", () => {
+    expect(deviceAvSummary(null)).toEqual({ avProduct: null, avHealth: null, avInfectedCount: 0 });
+    expect(deviceAvSummary("posture")).toEqual({
+      avProduct: null,
+      avHealth: null,
+      avInfectedCount: 0,
+    });
+    expect(deviceAvSummary({ avHealth: "sideways", avDetail: { product: 7 } })).toEqual({
+      avProduct: null,
+      avHealth: null,
+      avInfectedCount: 0,
+    });
+  });
+
+  test("negative or non-numeric infection counts are ignored", () => {
+    expect(deviceAvSummary({ avDetail: { product: "clamav", infectedCount: -3 } })).toEqual({
+      avProduct: "clamav",
+      avHealth: null,
+      avInfectedCount: 0,
+    });
   });
 });

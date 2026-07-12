@@ -36,7 +36,7 @@ func Collect() (Posture, error) {
 			DiskEncryption: fileVault(),
 			Firewall:       firewall(),
 			ScreenLock:     lockState,
-			Antivirus:      antivirus(),
+			Antivirus:      baselineAV(collectAV(raw)),
 			AgentHealthy:   true,
 		},
 	}, nil
@@ -176,21 +176,6 @@ func screenLockStatus() (SignalState, int) {
 		return Fail, -1
 	}
 	return Unknown, -1
-}
-
-func antivirus() SignalState {
-	// XProtect (built-in malware protection) ships on every modern macOS; treat
-	// its presence as the baseline AV control. Gatekeeper + SIP are reported
-	// separately as extended posture. Third-party EDR is a future signal.
-	for _, p := range []string{
-		"/Library/Apple/System/Library/CoreServices/XProtect.bundle",
-		"/System/Library/CoreServices/XProtect.bundle",
-	} {
-		if _, err := os.Stat(p); err == nil {
-			return Pass
-		}
-	}
-	return Unknown
 }
 
 // autoUpdateMac reads whether automatic OS update checks are enabled. The

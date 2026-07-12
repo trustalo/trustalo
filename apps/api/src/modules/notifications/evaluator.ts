@@ -19,6 +19,7 @@
  *    `failed` (and is audit-logged best-effort) but never crashes the tick.
  */
 
+import { createHash } from "node:crypto";
 import { prisma, prismaWithTenant } from "../../db/prisma.js";
 import { listConnectionsForOrg } from "../../lib/collector-client.js";
 import { AuditLog } from "../../mongodb/models/index.js";
@@ -132,6 +133,73 @@ export function evaluateDeviceAtRisk(
       summary: `Device "${label}" is at risk — ${reasons}`,
       linkPath: "/devices",
     });
+  }
+  return alerts;
+}
+
+/**
+ * device_malware_detected — the agent's endpoint-protection providers report
+ * detections inside `latestPosture.avDetail` (product-agnostic: ClamAV's
+ * VirusEvent hook + scheduled scans today, other products later). One alert
+ * per distinct detection — the dedupe key hashes product|signature|file|
+ * detectedAt, so a persisting detection alerts once while a new hit on the
+ * same device alerts again. A scan-level fallback covers the edge where a
+ * scan reports infections but the per-detection list is empty (its dedupe key
+ * embeds the scan timestamp as the generation component).
+ */
+export function evaluateDeviceMalware(
+  devices: Array<{
+    id: string;
+    hostname: string | null;
+    platform: string;
+    latestPosture?: unknown;
+  }>,
+): CandidateAlert[] {
+  const alerts: CandidateAlert[] = [];
+  for (const device of devices) {
+    const raw =
+      device.latestPosture && typeof device.latestPosture === "object"
+        ? (device.latestPosture as Record<string, unknown>)
+        : {};
+    const detail =
+      raw.avDetail && typeof raw.avDetail === "object"
+        ? (raw.avDetail as Record<string, unknown>)
+        : null;
+    if (!detail) continue;
+
+    const label = device.hostname ?? `${device.platform} device`;
+    const product = typeof detail.product === "string" ? detail.product : "unknown";
+    const detections = Array.isArray(detail.recentDetections) ? detail.recentDetections : [];
+
+    let reported = 0;
+    for (const entry of detections) {
+      if (!entry || typeof entry !== "object") continue;
+      const d = entry as Record<string, unknown>;
+      const signature = typeof d.signature === "string" ? d.signature : "";
+      if (signature === "") continue;
+      const file = typeof d.file === "string" ? d.file : "";
+      const detectedAt = typeof d.detectedAt === "string" ? d.detectedAt : "";
+      const fingerprint = createHash("sha256")
+        .update(`${product}|${signature}|${file}|${detectedAt}`)
+        .digest("hex")
+        .slice(0, 32);
+      alerts.push({
+        dedupeKey: `device_malware_detected:${device.id}:${fingerprint}`,
+        summary: `Malware detected on "${label}": ${signature}${file ? ` in ${file}` : ""} (${product})`,
+        linkPath: "/devices",
+      });
+      reported += 1;
+    }
+
+    const infectedCount = typeof detail.infectedCount === "number" ? detail.infectedCount : 0;
+    if (reported === 0 && detail.lastScanResult === "infected" && infectedCount > 0) {
+      const scanAt = typeof detail.lastScanAt === "string" ? detail.lastScanAt : "unknown";
+      alerts.push({
+        dedupeKey: `device_malware_detected:${device.id}:scan:${scanAt}`,
+        summary: `Malware detected on "${label}": scan found ${infectedCount} infected file(s) (${product})`,
+        linkPath: "/devices",
+      });
+    }
   }
   return alerts;
 }
@@ -369,6 +437,13 @@ async function collectCandidates(
         ...DEFAULT_REQUIRED_SIGNALS,
       ];
       return evaluateDeviceAtRisk(devices, requiredSignals);
+    }
+    case "device_malware_detected": {
+      const devices = await db.device.findMany({
+        where: { status: { in: ["active", "stale"] } },
+        select: { id: true, hostname: true, platform: true, latestPosture: true },
+      });
+      return evaluateDeviceMalware(devices);
     }
     case "person_offboarding_incomplete": {
       // Person is deliberately NOT auto-tenant-scoped (login resolves it

@@ -36,6 +36,26 @@ func putState(m map[string]any, k string, s SignalState) {
 	}
 }
 
+// vendorIsVM reports whether a DMI system vendor string names a hypervisor /
+// cloud platform. Inside a VM the guest cannot observe host- or volume-layer
+// disk encryption, so the disk-encryption probe treats "no LUKS" as Unknown
+// rather than Fail on these platforms.
+func vendorIsVM(vendor string) bool {
+	v := strings.ToLower(strings.TrimSpace(vendor))
+	if v == "" {
+		return false
+	}
+	for _, marker := range []string{
+		"amazon", "google", "microsoft", "qemu", "kvm", "vmware",
+		"xen", "virtualbox", "innotek", "parallels", "openstack", "digitalocean",
+	} {
+		if strings.Contains(v, marker) {
+			return true
+		}
+	}
+	return false
+}
+
 // parseKernBoottimeSec extracts the boot epoch seconds from the output of
 // `sysctl -n kern.boottime`, e.g. "{ sec = 1700000000, usec = 0 } Wed Nov ...".
 // The first "sec =" is the boot time (a later one belongs to "usec =").

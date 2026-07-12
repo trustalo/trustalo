@@ -7,11 +7,13 @@ import { Button } from "@/components/ui/button";
 import { InfoDrawer } from "@/components/ui/info-drawer";
 import {
   apiClient,
+  type AvDetail,
   type DeviceDetail,
   type DevicePostureSnapshot,
   type DeviceStatus,
 } from "@/lib/api-client";
 import {
+  avProductLabel,
   CORE_SIGNALS as SIGNALS,
   DEFAULT_REQUIRED_SIGNALS,
   EXTENDED_SIGNALS as POSTURE_EXTRA,
@@ -58,6 +60,10 @@ const OS_FIELDS: { key: string; label: string; fmt?: (v: unknown) => string }[] 
 const KNOWN_RAW_KEYS = new Set<string>([
   "collector",
   "screenLockDelaySeconds",
+  // Endpoint-protection fields are rendered by the dedicated section below.
+  // `avHealth` is already covered via POSTURE_EXTRA; exclude the rest explicitly.
+  "avDetail",
+  "avProducts",
   ...HARDWARE_FIELDS.map((f) => f.key),
   ...OS_FIELDS.map((f) => f.key),
   ...POSTURE_EXTRA.map((f) => f.key),
@@ -134,6 +140,46 @@ function humanizeKey(k: string): string {
       ACRONYMS.has(w.toLowerCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1),
     )
     .join(" ");
+}
+
+const AV_STALE_DEFS_HOURS = 48;
+const AV_BAD_SCANS = new Set(["infected", "error", "missing"]);
+
+// Collapses the agent's two daemon signals into one health verdict plus a short
+// human note, so the drawer shows a single meaningful "Daemon" row.
+function combineDaemon(
+  active: string,
+  responsive: string,
+): { state: "pass" | "fail" | "unknown"; note: string } {
+  if (active === "fail") return { state: "fail", note: "not running" };
+  if (responsive === "fail") return { state: "fail", note: "not responding" };
+  if (active === "pass" || responsive === "pass") return { state: "pass", note: "" };
+  return { state: "unknown", note: "" };
+}
+
+// Effective definition age in hours — prefers the agent-reported value, falling
+// back to a value derived from the timestamp when only that is present.
+function avDefinitionsAgeHours(av: AvDetail): number | undefined {
+  if (typeof av.definitionsAgeHours === "number") return av.definitionsAgeHours;
+  if (av.definitionsUpdatedAt) {
+    const t = new Date(av.definitionsUpdatedAt).getTime();
+    if (!Number.isNaN(t)) return (Date.now() - t) / 3_600_000;
+  }
+  return undefined;
+}
+
+function fmtAgeHours(hours: number): string {
+  if (!Number.isFinite(hours) || hours < 0) return "";
+  if (hours < 1) return "< 1h ago";
+  if (hours < 48) return `${Math.round(hours)}h ago`;
+  return `${Math.round(hours / 24)}d ago`;
+}
+
+// Shortens a long file path while keeping the start and end readable.
+function truncateMiddle(s: string, max = 44): string {
+  if (s.length <= max) return s;
+  const keep = Math.floor((max - 1) / 2);
+  return `${s.slice(0, keep)}…${s.slice(s.length - keep)}`;
 }
 
 function Row({ label, children }: { label: string; children: ReactNode }) {
@@ -255,6 +301,22 @@ export function DeviceDetailDrawer({
   const osRows = OS_FIELDS.filter((f) => present(lp[f.key]));
   const rawEntries = Object.entries(lp).filter(([k, v]) => !KNOWN_RAW_KEYS.has(k) && present(v));
 
+  // Endpoint-protection (antivirus) detail — a product-agnostic health blob the
+  // agent nests under `avDetail`. Rendered as its own card when present.
+  const avDetail =
+    lp.avDetail && typeof lp.avDetail === "object" && !Array.isArray(lp.avDetail)
+      ? (lp.avDetail as AvDetail)
+      : null;
+  const avDaemon = combineDaemon(avDetail?.daemonActive ?? "", avDetail?.daemonResponsive ?? "");
+  const avDefsAge = avDetail ? avDefinitionsAgeHours(avDetail) : undefined;
+  const avDefsStale = avDefsAge !== undefined && avDefsAge >= AV_STALE_DEFS_HOURS;
+  const avScanBad = avDetail ? AV_BAD_SCANS.has(avDetail.lastScanResult) : false;
+  // Defensive: the blob crosses the wire, so never assume the array shape.
+  const avDetections = Array.isArray(avDetail?.recentDetections) ? avDetail.recentDetections : [];
+  const avHasThreats = avDetail
+    ? avDetections.length > 0 || (avDetail.infectedCount ?? 0) > 0
+    : false;
+
   return (
     <InfoDrawer open={deviceId !== null} onClose={onClose} title={title} widthClassName="max-w-xl">
       {loading ? (
@@ -329,6 +391,108 @@ export function DeviceDetailDrawer({
               </Row>
             ))}
           </Section>
+
+          {avDetail && (
+            <Section title="Endpoint protection">
+              <Row label="Product">
+                <span className="inline-flex items-center gap-2">
+                  <Badge variant={avDetail.installed ? "info" : "neutral"}>
+                    {avProductLabel(avDetail.product)}
+                  </Badge>
+                  {!avDetail.installed && (
+                    <span className="text-xs font-normal text-neutral-500">not installed</span>
+                  )}
+                </span>
+              </Row>
+              <Row label="Daemon">
+                <span className="inline-flex items-center gap-2">
+                  {signalBadge(avDaemon.state)}
+                  {avDaemon.note && (
+                    <span className="text-xs font-normal text-neutral-500">{avDaemon.note}</span>
+                  )}
+                </span>
+              </Row>
+              <Row label="Real-time protection">{signalBadge(avDetail.realTimeProtection)}</Row>
+              <Row label="Definitions">
+                {present(avDetail.definitionsUpdatedAt) || avDefsAge !== undefined ? (
+                  <span className="inline-flex items-center gap-2">
+                    <span className={avDefsStale ? "text-red-600 dark:text-red-400" : undefined}>
+                      {fmtDate(avDetail.definitionsUpdatedAt)}
+                    </span>
+                    {avDefsAge !== undefined && (
+                      <span
+                        className={`text-xs font-normal ${
+                          avDefsStale ? "text-red-600 dark:text-red-400" : "text-neutral-500"
+                        }`}
+                      >
+                        {fmtAgeHours(avDefsAge)}
+                      </span>
+                    )}
+                  </span>
+                ) : (
+                  "—"
+                )}
+              </Row>
+              <Row label="Last scan">
+                {present(avDetail.lastScanAt) || avDetail.lastScanResult !== "unknown" ? (
+                  <span className="inline-flex items-center gap-2">
+                    <span className={avScanBad ? "text-red-600 dark:text-red-400" : undefined}>
+                      {fmtDate(avDetail.lastScanAt)}
+                    </span>
+                    <Badge
+                      variant={
+                        avScanBad
+                          ? "danger"
+                          : avDetail.lastScanResult === "clean"
+                            ? "success"
+                            : "neutral"
+                      }
+                    >
+                      {avDetail.lastScanResult}
+                    </Badge>
+                  </span>
+                ) : (
+                  "—"
+                )}
+              </Row>
+
+              {avHasThreats && (
+                <div className="mt-3 rounded-lg border border-red-300 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
+                  <div className="text-sm font-semibold text-red-700 dark:text-red-300">
+                    {avDetail.infectedCount > 0
+                      ? `${avDetail.infectedCount} threat${
+                          avDetail.infectedCount === 1 ? "" : "s"
+                        } detected`
+                      : "Threats detected"}
+                  </div>
+                  {avDetections.length > 0 && (
+                    <ul className="mt-2 space-y-2">
+                      {avDetections.map((det, i) => (
+                        <li
+                          key={`${det.signature}:${det.detectedAt}:${i}`}
+                          className="border-t border-red-200/70 pt-2 first:border-t-0 first:pt-0 dark:border-red-900/60"
+                        >
+                          <div className="text-xs font-medium text-red-700 dark:text-red-300">
+                            {det.signature || "Unknown signature"}
+                          </div>
+                          <div
+                            className="break-all font-mono text-xs text-red-600 dark:text-red-400"
+                            title={det.file}
+                          >
+                            {truncateMiddle(det.file)}
+                          </div>
+                          <div className="text-xs text-red-500 dark:text-red-400/80">
+                            {fmtDate(det.detectedAt)}
+                            {det.source ? ` · ${det.source}` : ""}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
+            </Section>
+          )}
 
           {hardwareRows.length > 0 && (
             <Section title="Hardware">

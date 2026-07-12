@@ -76,6 +76,10 @@ export const EVALUABLE_POSTURE_SIGNALS = [
   { key: "mdmEnrolled", label: "MDM managed", source: "raw" },
   { key: "gatekeeper", label: "Gatekeeper", source: "raw" },
   { key: "sip", label: "System Integrity Protection", source: "raw" },
+  // Deep endpoint-protection health from the agent's AV providers (ClamAV,
+  // XProtect, Defender, …): daemon responsive, definitions fresh, scheduled
+  // scan recent. Product detail rides alongside in `avDetail`.
+  { key: "avHealth", label: "Endpoint protection health", source: "raw" },
 ] as const;
 
 export const POSTURE_SIGNAL_KEYS: string[] = EVALUABLE_POSTURE_SIGNALS.map((s) => s.key);
@@ -238,6 +242,36 @@ export function failingRequiredSignals(
     if (value === "fail") failing.push(sig.key);
   }
   return failing;
+}
+
+/**
+ * Derived endpoint-protection summary for device LIST payloads: the primary
+ * AV product, its tri-state health, and the current infection count — small
+ * enough for a fleet table without shipping the whole `latestPosture` blob.
+ */
+export interface DeviceAvSummary {
+  avProduct: string | null;
+  avHealth: SignalState | null;
+  avInfectedCount: number;
+}
+
+export function deviceAvSummary(latestPosture: unknown): DeviceAvSummary {
+  const summary: DeviceAvSummary = { avProduct: null, avHealth: null, avInfectedCount: 0 };
+  if (!latestPosture || typeof latestPosture !== "object") return summary;
+  const raw = latestPosture as Record<string, unknown>;
+  const health = raw.avHealth;
+  if (health === "pass" || health === "fail" || health === "unknown") {
+    summary.avHealth = health;
+  }
+  const detail = raw.avDetail;
+  if (detail && typeof detail === "object") {
+    const d = detail as Record<string, unknown>;
+    if (typeof d.product === "string" && d.product !== "") summary.avProduct = d.product;
+    if (typeof d.infectedCount === "number" && d.infectedCount > 0) {
+      summary.avInfectedCount = Math.trunc(d.infectedCount);
+    }
+  }
+  return summary;
 }
 
 /**

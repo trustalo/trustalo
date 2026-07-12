@@ -1014,6 +1014,7 @@ export const AlertRuleKey: {
   control_failing: 'control_failing',
   integration_sync_failed: 'integration_sync_failed',
   device_at_risk: 'device_at_risk',
+  device_malware_detected: 'device_malware_detected',
   person_offboarding_incomplete: 'person_offboarding_incomplete',
   background_check_expiring: 'background_check_expiring',
   training_overdue: 'training_overdue',

@@ -28,7 +28,7 @@ func Collect() (Posture, error) {
 			DiskEncryption: luks(),
 			Firewall:       firewall(),
 			ScreenLock:     screenLock(),
-			Antivirus:      antivirus(),
+			Antivirus:      baselineAV(collectAV(raw)),
 			AgentHealthy:   true,
 		},
 	}, nil
@@ -112,6 +112,12 @@ func luks() SignalState {
 			return Pass
 		}
 	}
+	// Inside a VM the guest cannot see host/volume-layer encryption (e.g. EBS
+	// encryption on EC2), so "no LUKS" is genuinely undeterminable, not a fail.
+	if vendorIsVM(readFileTrim("/sys/class/dmi/id/sys_vendor")) ||
+		strings.HasPrefix(readFileTrim("/sys/hypervisor/uuid"), "ec2") {
+		return Unknown
+	}
 	return Fail
 }
 
@@ -138,15 +144,6 @@ func screenLock() SignalState {
 			return Pass
 		}
 		return Fail
-	}
-	return Unknown
-}
-
-func antivirus() SignalState {
-	// Best-effort: ClamAV daemon active. Many Linux hosts run no AV, so absence
-	// is Unknown, not a hard fail.
-	if out, err := run("systemctl", "is-active", "clamav-daemon"); err == nil && strings.TrimSpace(out) == "active" {
-		return Pass
 	}
 	return Unknown
 }

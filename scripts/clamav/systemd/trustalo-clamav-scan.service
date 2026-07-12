@@ -1,0 +1,19 @@
+# Trustalo scheduled ClamAV scan (oneshot; started by trustalo-clamav-scan.timer).
+#
+# Installed by ubuntu-setup.sh / amazonlinux-setup.sh. After= lists the daemon
+# unit names for both Debian/Ubuntu (clamav-daemon) and Amazon Linux/RHEL
+# (clamd@scan); unknown units are ignored for ordering, so one file fits both.
+[Unit]
+Description=Trustalo ClamAV scheduled scan
+Documentation=https://github.com/trustalo/trustalo/tree/main/scripts/clamav
+After=clamav-daemon.service clamd@scan.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/trustalo-clamav-scan.sh
+# Keep the scan out of the way of foreground work.
+Nice=10
+IOSchedulingClass=idle
+# The wrapper needs root to read every target and to chown the contract files
+# back to the clamd user; it drops no privileges of its own.
+User=root

@@ -20,6 +20,7 @@ export const EXTENDED_SIGNALS = [
   { key: "mdmEnrolled", label: "MDM managed", platforms: "" },
   { key: "gatekeeper", label: "Gatekeeper", platforms: "macOS" },
   { key: "sip", label: "System Integrity Protection", platforms: "macOS" },
+  { key: "avHealth", label: "Endpoint protection health", platforms: "" },
 ] as const;
 
 export const ALL_POSTURE_SIGNALS = [...CORE_SIGNALS, ...EXTENDED_SIGNALS];
@@ -27,3 +28,17 @@ export const ALL_POSTURE_SIGNALS = [...CORE_SIGNALS, ...EXTENDED_SIGNALS];
 // Default evaluated set when a tenant hasn't customised it: the four core
 // signals (matches the server default).
 export const DEFAULT_REQUIRED_SIGNALS: string[] = CORE_SIGNALS.map((s) => s.key);
+
+// Human-readable names for known antivirus / EDR products the agent reports in
+// `latestPosture.avDetail.product`. Product-agnostic: any unmapped id falls
+// through to its raw string so a new product (ESET, Defender, …) still renders.
+export const AV_PRODUCT_LABELS: Record<string, string> = {
+  clamav: "ClamAV",
+  xprotect: "XProtect",
+  defender: "Microsoft Defender",
+  eset: "ESET",
+};
+
+export function avProductLabel(id: string): string {
+  return AV_PRODUCT_LABELS[id.trim().toLowerCase()] ?? id;
+}

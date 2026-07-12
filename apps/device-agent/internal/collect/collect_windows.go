@@ -8,6 +8,8 @@ import (
 	"os/exec"
 	"runtime"
 	"strings"
+
+	"github.com/trustalo/trustalo/apps/device-agent/internal/collect/av"
 )
 
 // Collect reads Windows posture via PowerShell / CIM. Some signals (BitLocker)
@@ -30,7 +32,7 @@ func Collect() (Posture, error) {
 			DiskEncryption: bitlocker(),
 			Firewall:       firewall(),
 			ScreenLock:     screenLock(),
-			Antivirus:      defender(),
+			Antivirus:      defenderSignal(collectAV(raw)),
 			AgentHealthy:   true,
 		},
 	}, nil
@@ -167,19 +169,16 @@ func screenLock() SignalState {
 	}
 }
 
-func defender() SignalState {
-	out, err := ps(`try { (Get-MpComputerStatus).AntivirusEnabled } catch { 'ERR' }`)
-	if err != nil {
-		return Unknown
+// defenderSignal maps the provider snapshot to the legacy core-antivirus
+// semantic on Windows: Defender's enabled state, including a determinate Fail
+// when the platform AV is switched off.
+func defenderSignal(statuses []av.Status) SignalState {
+	for _, s := range statuses {
+		if s.Product == "defender" {
+			return SignalState(s.DaemonActive)
+		}
 	}
-	switch strings.TrimSpace(out) {
-	case "True":
-		return Pass
-	case "False":
-		return Fail
-	default:
-		return Unknown
-	}
+	return Unknown
 }
 
 // autoUpdateWin reads the Windows Update notification level via the AutoUpdate

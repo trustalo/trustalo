@@ -33,11 +33,18 @@ type DevCreds struct {
 }
 
 type Config struct {
-	APIURL                 string   `json:"apiUrl"`
-	WebURL                 string   `json:"webUrl"`
-	AuthMethod             string   `json:"authMethod"` // basic | sso | token
-	CheckInIntervalSeconds int      `json:"checkInIntervalSeconds"`
-	Dev                    DevCreds `json:"dev"`
+	APIURL                 string `json:"apiUrl"`
+	WebURL                 string `json:"webUrl"`
+	AuthMethod             string `json:"authMethod"` // basic | sso | token
+	CheckInIntervalSeconds int    `json:"checkInIntervalSeconds"`
+	// RequireAv marks this fleet as expecting managed endpoint protection:
+	// when set, a check-in without a healthy AV product reports avHealth=fail
+	// instead of leaving it undetermined.
+	RequireAv bool `json:"requireAv"`
+	// ExpectedAvProducts optionally narrows which products satisfy RequireAv
+	// (e.g. ["clamav"]); empty means any detected product counts.
+	ExpectedAvProducts []string `json:"expectedAvProducts"`
+	Dev                DevCreds `json:"dev"`
 }
 
 // Load reads the optional config file at path, then overlays env vars.
@@ -72,6 +79,17 @@ func Load(path string) (Config, error) {
 	overlay("TRUSTALO_AGENT_EMAIL", &cfg.Dev.Email)
 	overlay("TRUSTALO_AGENT_PASSWORD", &cfg.Dev.Password)
 	overlay("TRUSTALO_ENROLLMENT_TOKEN", &cfg.Dev.EnrollmentToken)
+	if v := strings.TrimSpace(os.Getenv("TRUSTALO_REQUIRE_AV")); v != "" {
+		cfg.RequireAv = v == "1" || strings.EqualFold(v, "true")
+	}
+	if v := strings.TrimSpace(os.Getenv("TRUSTALO_EXPECTED_AV_PRODUCTS")); v != "" {
+		cfg.ExpectedAvProducts = nil
+		for _, p := range strings.Split(v, ",") {
+			if p = strings.TrimSpace(p); p != "" {
+				cfg.ExpectedAvProducts = append(cfg.ExpectedAvProducts, p)
+			}
+		}
+	}
 	// Optional: shorten the heartbeat for local loop testing.
 	if v := strings.TrimSpace(os.Getenv("TRUSTALO_CHECKIN_INTERVAL_SECONDS")); v != "" {
 		if n, err := strconv.Atoi(v); err == nil && n > 0 {
@@ -96,11 +114,13 @@ func Save(path string, cfg Config) error {
 		return nil
 	}
 	persisted := struct {
-		APIURL                 string `json:"apiUrl"`
-		WebURL                 string `json:"webUrl"`
-		AuthMethod             string `json:"authMethod"`
-		CheckInIntervalSeconds int    `json:"checkInIntervalSeconds"`
-	}{cfg.APIURL, cfg.WebURL, cfg.AuthMethod, cfg.CheckInIntervalSeconds}
+		APIURL                 string   `json:"apiUrl"`
+		WebURL                 string   `json:"webUrl"`
+		AuthMethod             string   `json:"authMethod"`
+		CheckInIntervalSeconds int      `json:"checkInIntervalSeconds"`
+		RequireAv              bool     `json:"requireAv"`
+		ExpectedAvProducts     []string `json:"expectedAvProducts"`
+	}{cfg.APIURL, cfg.WebURL, cfg.AuthMethod, cfg.CheckInIntervalSeconds, cfg.RequireAv, cfg.ExpectedAvProducts}
 
 	data, err := json.MarshalIndent(persisted, "", "  ")
 	if err != nil {

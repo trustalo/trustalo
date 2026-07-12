@@ -4,6 +4,7 @@ import {
   evaluateBreachClock,
   evaluateControlFailing,
   evaluateDeviceAtRisk,
+  evaluateDeviceMalware,
   evaluateIntegrationSyncFailed,
   evaluateOffboardingIncomplete,
   evaluateTrainingOverdue,
@@ -117,6 +118,83 @@ describe("device_at_risk", () => {
     );
     expect(alerts).toHaveLength(1);
     expect(alerts[0]!.dedupeKey).toBe("device_at_risk:d1:mdmEnrolled");
+  });
+});
+
+describe("device_malware_detected", () => {
+  const device = (avDetail: Record<string, unknown> | null) => ({
+    id: "d1",
+    hostname: "web-01",
+    platform: "linux",
+    latestPosture: avDetail === null ? {} : { avDetail },
+  });
+  const detection = {
+    detectedAt: "2026-07-02T09:15:00Z",
+    signature: "Eicar-Signature",
+    file: "/tmp/eicar.txt",
+    source: "realtime",
+  };
+
+  test("one alert per detection with a stable content-hash dedupe key", () => {
+    const alerts = evaluateDeviceMalware([
+      device({ product: "clamav", recentDetections: [detection] }),
+    ]);
+    expect(alerts).toHaveLength(1);
+    expect(alerts[0]!.summary).toBe(
+      'Malware detected on "web-01": Eicar-Signature in /tmp/eicar.txt (clamav)',
+    );
+    expect(alerts[0]!.dedupeKey).toMatch(/^device_malware_detected:d1:[0-9a-f]{32}$/);
+    // Same detection → same key (idempotent across ticks); a different file
+    // is a new dedupe generation.
+    const again = evaluateDeviceMalware([
+      device({ product: "clamav", recentDetections: [detection] }),
+    ]);
+    expect(again[0]!.dedupeKey).toBe(alerts[0]!.dedupeKey);
+    const moved = evaluateDeviceMalware([
+      device({ product: "clamav", recentDetections: [{ ...detection, file: "/tmp/other" }] }),
+    ]);
+    expect(moved[0]!.dedupeKey).not.toBe(alerts[0]!.dedupeKey);
+  });
+
+  test("scan-level fallback fires only when no per-detection entries exist", () => {
+    const alerts = evaluateDeviceMalware([
+      device({
+        product: "clamav",
+        lastScanResult: "infected",
+        infectedCount: 3,
+        lastScanAt: "2026-07-02T01:24:11Z",
+        recentDetections: [],
+      }),
+    ]);
+    expect(alerts).toHaveLength(1);
+    expect(alerts[0]!.dedupeKey).toBe("device_malware_detected:d1:scan:2026-07-02T01:24:11Z");
+    expect(alerts[0]!.summary).toContain("scan found 3 infected file(s)");
+
+    const withDetections = evaluateDeviceMalware([
+      device({
+        product: "clamav",
+        lastScanResult: "infected",
+        infectedCount: 1,
+        recentDetections: [detection],
+      }),
+    ]);
+    expect(withDetections).toHaveLength(1);
+    expect(withDetections[0]!.dedupeKey).toMatch(/^device_malware_detected:d1:[0-9a-f]{32}$/);
+  });
+
+  test("clean devices, malformed entries, and missing avDetail are silent", () => {
+    expect(evaluateDeviceMalware([device(null)])).toHaveLength(0);
+    expect(
+      evaluateDeviceMalware([device({ product: "clamav", lastScanResult: "clean" })]),
+    ).toHaveLength(0);
+    expect(
+      evaluateDeviceMalware([
+        device({ product: "clamav", recentDetections: ["garbage", { file: "/x" }, null] }),
+      ]),
+    ).toHaveLength(0);
+    expect(evaluateDeviceMalware([{ id: "d2", hostname: null, platform: "linux" }])).toHaveLength(
+      0,
+    );
   });
 });
 

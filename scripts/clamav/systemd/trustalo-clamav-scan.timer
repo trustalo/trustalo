@@ -1,0 +1,16 @@
+# Timer for the Trustalo ClamAV scheduled scan.
+#
+# Daily with up to an hour of jitter so a fleet does not scan in lockstep;
+# Persistent=true runs a missed scan once the machine is back up.
+[Unit]
+Description=Run the Trustalo ClamAV scan daily
+Documentation=https://github.com/trustalo/trustalo/tree/main/scripts/clamav
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=1h
+Persistent=true
+Unit=trustalo-clamav-scan.service
+
+[Install]
+WantedBy=timers.target

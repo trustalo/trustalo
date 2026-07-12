@@ -1575,6 +1575,7 @@ enum AlertRuleKey {
   control_failing
   integration_sync_failed
   device_at_risk
+  device_malware_detected
   person_offboarding_incomplete
   background_check_expiring
   training_overdue

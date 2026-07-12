@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Trustalo ClamAV scheduled scan (macOS LaunchDaemon).
+
+  Installed to /Library/LaunchDaemons by macos-setup.sh so it runs as root at
+  the scheduled time (02:30 local) and can read every target plus write the
+  contract files. Load with:  sudo launchctl load -w <this file>
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.trustalo.clamav-scan</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/trustalo-clamav-scan.sh</string>
+  </array>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>2</integer>
+    <key>Minute</key>
+    <integer>30</integer>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>LowPriorityIO</key>
+  <true/>
+
+  <key>Nice</key>
+  <integer>10</integer>
+
+  <key>StandardOutPath</key>
+  <string>/var/log/trustalo-clamav-scan.log</string>
+  <key>StandardErrorPath</key>
+  <string>/var/log/trustalo-clamav-scan.log</string>
+</dict>
+</plist>

@@ -18,6 +18,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { apiClient, type DeviceListItem, type DeviceStatus } from "@/lib/api-client";
+import { avProductLabel } from "@/lib/device-signals";
 import { usePermissions } from "@/lib/use-permissions";
 
 const STATUS_BADGE: Record<DeviceStatus, BadgeVariant> = {
@@ -178,7 +179,19 @@ export default function DevicesPage() {
                   <TableCell>{signal(d.diskEncryption)}</TableCell>
                   <TableCell>{signal(d.firewall)}</TableCell>
                   <TableCell>{signal(d.screenLock)}</TableCell>
-                  <TableCell>{signal(d.antivirus)}</TableCell>
+                  <TableCell>
+                    <div className="flex flex-col items-start gap-1">
+                      <span className="inline-flex items-center gap-1.5">
+                        {signal(d.antivirus)}
+                        {(d.avInfectedCount ?? 0) > 0 && <Badge variant="danger">Infected</Badge>}
+                      </span>
+                      {d.avProduct && (
+                        <span className="text-xs text-neutral-500">
+                          {avProductLabel(d.avProduct)}
+                        </span>
+                      )}
+                    </div>
+                  </TableCell>
                   <TableCell className="text-xs text-neutral-500">
                     {d.lastSeenAt ? new Date(d.lastSeenAt).toLocaleString() : "Never"}
                   </TableCell>

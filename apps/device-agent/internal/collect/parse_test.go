@@ -105,3 +105,16 @@ func TestParseCPUModel(t *testing.T) {
 		t.Errorf("want empty, got %q", got)
 	}
 }
+
+func TestVendorIsVM(t *testing.T) {
+	for _, vendor := range []string{"Amazon EC2", "QEMU", "Microsoft Corporation", "VMware, Inc.", "Google", "innotek GmbH"} {
+		if !vendorIsVM(vendor) {
+			t.Errorf("vendorIsVM(%q) = false, want true", vendor)
+		}
+	}
+	for _, vendor := range []string{"", "Dell Inc.", "LENOVO", "ASUSTeK COMPUTER INC."} {
+		if vendorIsVM(vendor) {
+			t.Errorf("vendorIsVM(%q) = true, want false", vendor)
+		}
+	}
+}

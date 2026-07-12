@@ -14,6 +14,7 @@ import { Prisma } from "../../../generated/prisma/client/index.js";
 import { audit } from "../../lib/audit.js";
 import { authorizeResource } from "../../middleware/authorize.js";
 import {
+  deviceAvSummary,
   enrollDevice,
   generateEnrollmentTokenRaw,
   getTenantRequiredSignals,
@@ -188,16 +189,22 @@ devicesAdminRouter.get("/", async (req, res, next) => {
         { osVersion: { contains: q.search, mode: "insensitive" } },
       ];
     }
-    const [items, total] = await Promise.all([
+    const [rows, total] = await Promise.all([
       db.device.findMany({
         where,
         orderBy: [{ lastSeenAt: { sort: "desc", nulls: "last" } }],
         skip: (q.page - 1) * q.limit,
         take: q.limit,
-        select: deviceSelect,
+        select: { ...deviceSelect, latestPosture: true },
       }),
       db.device.count({ where }),
     ]);
+    // Project a small AV summary instead of shipping each device's whole
+    // posture blob in the fleet list.
+    const items = rows.map(({ latestPosture, ...rest }) => ({
+      ...rest,
+      ...deviceAvSummary(latestPosture),
+    }));
     res.json({ success: true, data: { items, total, page: q.page, limit: q.limit } });
   } catch (err) {
     next(err);
